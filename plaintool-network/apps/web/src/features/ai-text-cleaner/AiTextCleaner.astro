@@ -108,7 +108,7 @@ const { copy, textDirection = "auto" } = Astro.props;
     is:inline
     type="application/json"
     data-client-copy
-    set:html={JSON.stringify(copy)}
+    set:html={JSON.stringify(copy).replace(/</gu, "\\u003c")}
   />
 </section>
 
