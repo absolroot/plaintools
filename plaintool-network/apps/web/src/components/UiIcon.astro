@@ -10,6 +10,7 @@ type IconName =
   | "help-circle"
   | "languages"
   | "moon"
+  | "search"
   | "shield"
   | "sun"
   | "x";
@@ -120,6 +121,14 @@ const { name, size = 16, class: className = "" } = Astro.props;
   {
     name === "moon" && (
       <path d="M20.4 15.2A8.5 8.5 0 0 1 8.8 3.6 8.5 8.5 0 1 0 20.4 15.2Z" />
+    )
+  }
+  {
+    name === "search" && (
+      <>
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-4-4" />
+      </>
     )
   }
   {

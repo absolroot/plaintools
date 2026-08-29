@@ -54,6 +54,14 @@ const tooltipScriptUrl = new URL(
   "../apps/web/src/scripts/tooltip.ts",
   import.meta.url,
 );
+const directoryPageUrl = new URL(
+  "../apps/web/src/pages/[locale]/index.astro",
+  import.meta.url,
+);
+const directorySearchUrl = new URL(
+  "../apps/web/src/components/ToolDirectorySearch.astro",
+  import.meta.url,
+);
 const [
   css,
   page,
@@ -68,6 +76,8 @@ const [
   toolDom,
   timeConverter,
   tooltipScript,
+  directoryPage,
+  directorySearch,
 ] = await Promise.all([
   Promise.all(cssUrls.map((url) => readFile(url, "utf8"))).then((parts) =>
     parts.join("\n"),
@@ -84,12 +94,14 @@ const [
   readFile(toolDomUrl, "utf8"),
   readFile(timeConverterUrl, "utf8"),
   readFile(tooltipScriptUrl, "utf8"),
+  readFile(directoryPageUrl, "utf8"),
+  readFile(directorySearchUrl, "utf8"),
 ]);
 const failures = [];
 
-function getDeclarations(selector) {
+function getDeclarations(selector, source = css) {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = css.match(new RegExp(`${escaped}\\s*\\{([^}]*)\\}`));
+  const match = source.match(new RegExp(`${escaped}\\s*\\{([^}]*)\\}`));
   if (!match) {
     failures.push(`Missing CSS rule: ${selector}`);
     return {};
@@ -110,8 +122,8 @@ function getDeclarations(selector) {
   );
 }
 
-function expectDeclaration(selector, property, expected) {
-  const actual = getDeclarations(selector)[property];
+function expectDeclaration(selector, property, expected, source = css) {
+  const actual = getDeclarations(selector, source)[property];
   if (actual !== expected) {
     failures.push(
       `${selector} must use ${property}: ${expected}; received ${actual ?? "missing"}`,
@@ -204,6 +216,21 @@ for (const [property, expected] of Object.entries({
 
 expectDeclaration(".pane-heading", "align-items", "center");
 expectDeclaration(".pane-actions", "align-items", "center");
+
+expectDeclaration(".directory-search", "width", "100%", directorySearch);
+expectDeclaration(
+  ".directory-search-control",
+  "height",
+  "36px",
+  directorySearch,
+);
+expectDeclaration(
+  ".directory-search-control",
+  "border-radius",
+  "var(--radius-control)",
+  directorySearch,
+);
+expectDeclaration(".directory-search-clear", "height", "36px", directorySearch);
 
 expectSource(
   page.includes('class="breadcrumb-meta"'),
@@ -359,6 +386,80 @@ expectSource(
 expectSource(
   !timeConverter.includes("setStatus(copy.working"),
   "Synchronous time conversion must not emit a transient working state.",
+);
+const directoryHeaderIndex = directoryPage.indexOf(
+  '<header class="directory-header">',
+);
+const directorySearchIndex = directoryPage.indexOf("<ToolDirectorySearch");
+const directoryCategoriesIndex = directoryPage.indexOf(
+  '<div\n      class="directory-categories"',
+);
+expectSource(
+  directoryHeaderIndex >= 0 &&
+    directoryHeaderIndex < directorySearchIndex &&
+    directorySearchIndex < directoryCategoriesIndex,
+  "The directory search component must remain between the directory header and categories.",
+);
+for (const hook of [
+  "data-directory-search-category",
+  "data-directory-search-category-count",
+  "data-directory-search-card",
+  "data-directory-search-corpus",
+]) {
+  expectSource(
+    directoryPage.includes(hook),
+    `The directory page must preserve the ${hook} filtering hook.`,
+  );
+}
+expectSource(
+  directoryPage.includes("buildToolDirectorySearchCorpus"),
+  "Directory cards must receive corpus text from the pure search helper.",
+);
+expectSource(
+  (directorySearch.match(/role="search"/g) ?? []).length === 1,
+  "The directory search component must expose one search landmark.",
+);
+expectSource(
+  (directorySearch.match(/aria-live="polite"/g) ?? []).length === 1,
+  "The directory search component must expose one polite result status.",
+);
+expectSource(
+  (directorySearch.match(/data-directory-search-empty/g) ?? []).length === 2,
+  "The directory search component must keep one rendered and one scripted empty-state hook.",
+);
+expectSource(
+  directorySearch.includes('name="search"') &&
+    directorySearch.includes('name="x"'),
+  "The directory search component must use the shared search and clear icons.",
+);
+expectSource(
+  directorySearch.includes("matchesToolDirectorySearch") &&
+    directorySearch.includes("normalizeToolDirectorySearch"),
+  "Directory filtering must use the pure normalization and matching helpers.",
+);
+expectSource(
+  directorySearch.includes('addEventListener("compositionstart"') &&
+    directorySearch.includes('addEventListener("compositionend"'),
+  "Directory filtering must defer updates while an IME composition is active.",
+);
+expectSource(
+  directorySearch.includes('event.key !== "Escape"') &&
+    directorySearch.includes("input.focus()") &&
+    directorySearch.includes('addEventListener("pointerdown"'),
+  "Directory search Clear and Escape behavior must restore input focus.",
+);
+expectSource(
+  /@media \(max-width: 680px\)[\s\S]*?\.directory-search-control\s*\{[\s\S]*?height: 44px;/u.test(
+    directorySearch,
+  ) &&
+    /@media \(max-width: 680px\)[\s\S]*?\.directory-search-clear\s*\{[\s\S]*?height: 44px;/u.test(
+      directorySearch,
+    ),
+  "Directory search and Clear controls must use the 44px mobile family.",
+);
+expectSource(
+  icon.includes('name === "search"'),
+  "Keep the search symbol in the shared SVG icon family.",
 );
 
 if (failures.length) {

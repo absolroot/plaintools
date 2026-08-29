@@ -1,6 +1,67 @@
 from .config import BASE_URL, QA_DIR
 
 
+def _search_state(page) -> dict:
+    return page.evaluate(
+        """
+        () => {
+          const root = document.querySelector('[data-directory-search]');
+          const input = root.querySelector('[data-directory-search-input]');
+          const clear = root.querySelector('[data-directory-search-clear]');
+          const empty = root.querySelector('[data-directory-search-empty]');
+          const status = root.querySelector('[data-directory-search-status]');
+          const cards = [...document.querySelectorAll('[data-directory-search-card]')];
+          const categories = [...document.querySelectorAll('[data-directory-search-category]')];
+          return {
+            query: input.value,
+            inputFocused: document.activeElement === input,
+            clearHidden: clear.hidden,
+            emptyHidden: empty.hidden,
+            status: status.textContent.trim(),
+            visibleCards: cards.filter((card) => !card.hidden).map((card) => ({
+              href: card.getAttribute('href'),
+              title: card.querySelector('h3').textContent.trim()
+            })),
+            visibleCategories: categories.filter((category) => !category.hidden).length,
+            categoryCounts: categories.map((category) =>
+              category.querySelector('[data-directory-search-category-count]').textContent.trim()
+            )
+          };
+        }
+        """
+    )
+
+
+def _search_geometry(page) -> dict:
+    return page.evaluate(
+        """
+        () => {
+          const box = (selector) => {
+            const bounds = document.querySelector(selector).getBoundingClientRect();
+            return {
+              left: bounds.left,
+              right: bounds.right,
+              top: bounds.top,
+              bottom: bounds.bottom,
+              width: bounds.width,
+              height: bounds.height
+            };
+          };
+          const control = document.querySelector('.directory-search-control');
+          return {
+            header: box('.directory-header'),
+            search: box('.directory-search'),
+            control: box('.directory-search-control'),
+            categories: box('.directory-categories'),
+            radius: getComputedStyle(control).borderRadius,
+            scrollWidth: document.documentElement.scrollWidth,
+            clientWidth: document.documentElement.clientWidth
+          };
+        }
+        """
+    )
+
+
 def run_directory_desktop(desktop, report: dict) -> None:
     desktop.goto(f"{BASE_URL}/ko/", wait_until="networkidle")
     report["tool_directory_cards"] = desktop.locator(".tool-directory-card").count()
@@ -20,6 +81,131 @@ def run_directory_desktop(desktop, report: dict) -> None:
         report["ui_detail_failures"].append(f"Directory eyebrow should be absent: {report['directory_eyebrow_count']}")
     if report["footer_note_ko"] != "가입이나 서버 업로드 없이 브라우저에서 바로 사용할 수 있습니다.":
         report["ui_detail_failures"].append(f"Korean footer note is stale: {report['footer_note_ko']}")
+
+    report["directory_search_desktop_geometry"] = _search_geometry(desktop)
+    geometry = report["directory_search_desktop_geometry"]
+    if (
+        abs(geometry["header"]["left"] - geometry["search"]["left"]) > 1
+        or abs(geometry["header"]["right"] - geometry["search"]["right"]) > 1
+        or abs(geometry["categories"]["left"] - geometry["search"]["left"]) > 1
+        or abs(geometry["categories"]["right"] - geometry["search"]["right"]) > 1
+        or geometry["header"]["bottom"] > geometry["search"]["top"]
+        or geometry["search"]["bottom"] > geometry["categories"]["top"]
+        or abs(geometry["control"]["height"] - 36) > 0.5
+        or geometry["radius"] != "0px"
+        or geometry["scrollWidth"] != geometry["clientWidth"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Desktop directory search axis, order, or control geometry failed: {geometry}"
+        )
+
+    search_input = desktop.locator("[data-directory-search-input]")
+    search_clear = desktop.locator("[data-directory-search-clear]")
+    search_cases = {
+        "name": ("JSON", 1, "/ko/json-formatter/"),
+        "summary": ("문단", 1, "/ko/word-counter/"),
+        "keyword": ("diff", 1, None),
+        "multi_token": ("Base64 파일", 2, None),
+    }
+    report["directory_search_cases"] = {}
+    for name, (query, expected_count, expected_href) in search_cases.items():
+        search_input.fill(query)
+        state = _search_state(desktop)
+        report["directory_search_cases"][name] = state
+        actual_hrefs = [card["href"] for card in state["visibleCards"]]
+        if len(state["visibleCards"]) != expected_count or (
+            expected_href is not None and actual_hrefs != [expected_href]
+        ):
+            report["ui_detail_failures"].append(
+                f"Directory {name} search failed for {query!r}: {state}"
+            )
+    keyword_titles = [
+        card["title"]
+        for card in report["directory_search_cases"]["keyword"]["visibleCards"]
+    ]
+    if keyword_titles != ["텍스트 비교"]:
+        report["ui_detail_failures"].append(
+            f"Directory keyword-only result was incorrect: {keyword_titles}"
+        )
+
+    search_input.fill("일치하지않는검색어")
+    report["directory_search_no_results"] = _search_state(desktop)
+    no_results = report["directory_search_no_results"]
+    if (
+        no_results["visibleCards"]
+        or no_results["visibleCategories"] != 0
+        or no_results["emptyHidden"]
+        or no_results["clearHidden"]
+        or no_results["categoryCounts"] != ["00", "00", "00", "00"]
+        or "0" not in no_results["status"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Directory zero-results state failed: {no_results}"
+        )
+
+    search_clear.click()
+    report["directory_search_clear"] = _search_state(desktop)
+    cleared = report["directory_search_clear"]
+    if (
+        cleared["query"] != ""
+        or len(cleared["visibleCards"]) != 7
+        or cleared["visibleCategories"] != 4
+        or cleared["categoryCounts"] != ["02", "03", "01", "01"]
+        or not cleared["inputFocused"]
+        or not cleared["clearHidden"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Directory Clear did not restore the catalog and focus: {cleared}"
+        )
+
+    search_input.fill("JSON")
+    search_input.press("Tab")
+    clear_focused = desktop.evaluate(
+        "document.activeElement === document.querySelector('[data-directory-search-clear]')"
+    )
+    search_clear.press("Enter")
+    report["directory_search_keyboard_clear"] = {
+        "clearFocused": clear_focused,
+        "state": _search_state(desktop),
+    }
+    keyboard_cleared = report["directory_search_keyboard_clear"]["state"]
+    if (
+        not clear_focused
+        or keyboard_cleared["query"] != ""
+        or len(keyboard_cleared["visibleCards"]) != 7
+        or not keyboard_cleared["inputFocused"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Directory keyboard Clear did not restore the catalog and focus: {report['directory_search_keyboard_clear']}"
+        )
+
+    search_input.fill("JSON")
+    search_input.press("Escape")
+    report["directory_search_escape"] = _search_state(desktop)
+    escaped = report["directory_search_escape"]
+    if (
+        escaped["query"] != ""
+        or len(escaped["visibleCards"]) != 7
+        or not escaped["inputFocused"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Directory Escape did not restore the catalog and focus: {escaped}"
+        )
+
+    desktop.goto(f"{BASE_URL}/es/", wait_until="networkidle")
+    spanish_search = desktop.locator("[data-directory-search-input]")
+    spanish_search.fill("lineas")
+    report["directory_search_accentless"] = _search_state(desktop)
+    accentless = report["directory_search_accentless"]
+    if (
+        len(accentless["visibleCards"]) != 1
+        or accentless["visibleCards"][0]["href"] != "/es/word-counter/"
+    ):
+        report["ui_detail_failures"].append(
+            f"Directory accent-insensitive search failed: {accentless}"
+        )
+
+    desktop.goto(f"{BASE_URL}/ko/", wait_until="networkidle")
     theme_toggle = desktop.locator("[data-theme-toggle]")
     before_theme = theme_toggle.get_attribute("data-current-theme")
     theme_toggle.click()
@@ -42,5 +228,33 @@ def run_directory_mobile(mobile, report: dict) -> None:
     if any(columns != 1 for columns in report["directory_mobile_columns"]) or report["directory_mobile_scroll_width"] > 390:
         report["ui_detail_failures"].append(
             f"Mobile directory layout failed: columns={report['directory_mobile_columns']}, scroll={report['directory_mobile_scroll_width']}"
+        )
+    report["directory_search_mobile_geometry"] = _search_geometry(mobile)
+    geometry = report["directory_search_mobile_geometry"]
+    mobile.locator("[data-directory-search-input]").fill("JSON")
+    clear_height = mobile.locator(
+        "[data-directory-search-clear]"
+    ).bounding_box()["height"]
+    report["directory_search_mobile_clear_height"] = clear_height
+    if (
+        abs(geometry["header"]["left"] - geometry["search"]["left"]) > 1
+        or abs(geometry["header"]["right"] - geometry["search"]["right"]) > 1
+        or abs(geometry["categories"]["left"] - geometry["search"]["left"]) > 1
+        or abs(geometry["categories"]["right"] - geometry["search"]["right"]) > 1
+        or geometry["header"]["bottom"] > geometry["search"]["top"]
+        or geometry["search"]["bottom"] > geometry["categories"]["top"]
+        or abs(geometry["control"]["height"] - 44) > 0.5
+        or abs(clear_height - 44) > 0.5
+        or geometry["radius"] != "0px"
+        or geometry["scrollWidth"] != geometry["clientWidth"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Mobile directory search axis, order, or control geometry failed: {geometry}, clear={clear_height}"
+        )
+    mobile.locator("[data-directory-search-input]").press("Escape")
+    mobile_restored = _search_state(mobile)
+    if len(mobile_restored["visibleCards"]) != 7 or mobile_restored["query"] != "":
+        report["ui_detail_failures"].append(
+            f"Mobile directory search did not restore after Escape: {mobile_restored}"
         )
     mobile.screenshot(path=str(QA_DIR / "plaintool-directory-mobile-ko.png"), full_page=False)

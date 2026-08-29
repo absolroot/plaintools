@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import ToolDirectorySearch from "../../components/ToolDirectorySearch.astro";
 import {
   networkCopy,
   toolCatalog,
@@ -9,6 +10,7 @@ import {
 } from "../../lib/tool-catalog";
 import { absoluteUrl, locales, localizedPath } from "../../lib/site";
 import { itemListSchema } from "../../lib/seo";
+import { buildToolDirectorySearchCorpus } from "../../lib/tool-directory-search";
 
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale }, props: { locale } }));
@@ -21,6 +23,7 @@ const statusLabels: Record<ToolStatus, string> = {
   reserve: n.reserve,
 };
 const categories: ToolCategory[] = ["encoding", "text", "data", "time"];
+const directoryCategoriesId = "tool-directory-categories";
 const publicItems = toolCatalog
   .filter((tool) => tool.status === "available" && tool.slug)
   .map((tool) => ({
@@ -41,18 +44,27 @@ const publicItems = toolCatalog
     <header class="directory-header">
       <h1>{n.directoryTitle}</h1><p>{n.directoryIntro}</p>
     </header>
-    <div class="directory-categories" aria-label={n.catalogAria}>
+    <ToolDirectorySearch
+      locale={locale}
+      targetId={directoryCategoriesId}
+      totalCount={toolCatalog.length}
+    />
+    <div
+      class="directory-categories"
+      id={directoryCategoriesId}
+      aria-label={n.catalogAria}
+    >
       {
         categories.map((category) => {
           const tools = toolCatalog.filter(
             (tool) => tool.category === category,
           );
           return (
-            <section class="directory-category">
+            <section class="directory-category" data-directory-search-category>
               <div class="directory-category-heading">
                 <>
                   <h2>{n.categories[category]}</h2>
-                  <span aria-hidden="true">
+                  <span aria-hidden="true" data-directory-search-category-count>
                     {String(tools.length).padStart(2, "0")}
                   </span>
                 </>
@@ -64,6 +76,11 @@ const publicItems = toolCatalog
                     <a
                       class:list={["tool-directory-card", `is-${tool.status}`]}
                       href={href}
+                      data-directory-search-card
+                      data-directory-search-corpus={buildToolDirectorySearchCorpus(
+                        tool,
+                        locale,
+                      )}
                     >
                       <div class="tool-directory-card-top">
                         <span class="tool-mark" aria-hidden="true">
@@ -83,6 +100,11 @@ const publicItems = toolCatalog
                   ) : (
                     <article
                       class:list={["tool-directory-card", `is-${tool.status}`]}
+                      data-directory-search-card
+                      data-directory-search-corpus={buildToolDirectorySearchCorpus(
+                        tool,
+                        locale,
+                      )}
                     >
                       <div class="tool-directory-card-top">
                         <span class="tool-mark" aria-hidden="true">
