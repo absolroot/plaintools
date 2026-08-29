@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { getCopy } from "../lib/i18n";
+import { localeMetadata } from "../lib/locale-data";
 import { networkCopy } from "../lib/tool-catalog";
 import {
   absoluteUrl,
@@ -13,6 +14,7 @@ import {
 } from "../lib/site";
 import type { StructuredData } from "../lib/seo";
 import UiIcon from "../components/UiIcon.astro";
+import LanguageFlag from "../components/LanguageFlag.astro";
 
 interface Props {
   locale: Locale;
@@ -42,23 +44,19 @@ const canonical = absoluteUrl(path);
 const siteUrl = absoluteUrl("/");
 const pageTitle = title || t.metaTitle;
 const pageDescription = description || t.metaDescription;
+const { direction, ogLocale } = localeMetadata[locale];
 const robots = !siteConfig.productionReady
   ? "noindex,nofollow"
   : noindex
     ? "noindex,follow"
     : "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
-const ogLocales: Record<Locale, string> = {
-  en: "en_US",
-  ko: "ko_KR",
-  es: "es_ES",
-};
 const graph: StructuredData[] = canonicalize
   ? [
       {
         "@type": "WebSite",
         "@id": `${siteUrl}#website`,
         url: siteUrl,
-        name: "PlainTool",
+        name: "AbsolTools",
         inLanguage: locales,
       },
       {
@@ -84,7 +82,7 @@ const integrationActive = Boolean(
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} dir={direction}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -125,18 +123,18 @@ const integrationActive = Boolean(
       )
     }
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="PlainTool" />
+    <meta property="og:site_name" content="AbsolTools" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     {canonicalize && <meta property="og:url" content={canonical} />}
-    <meta property="og:locale" content={ogLocales[locale]} />
+    <meta property="og:locale" content={ogLocale} />
     {
       locales
         .filter((targetLocale) => targetLocale !== locale)
         .map((targetLocale) => (
           <meta
             property="og:locale:alternate"
-            content={ogLocales[targetLocale]}
+            content={localeMetadata[targetLocale].ogLocale}
           />
         ))
     }
@@ -162,8 +160,7 @@ const integrationActive = Boolean(
     <header class="site-header">
       <div class="header-inner">
         <a class="wordmark" href={localizedPath(locale)}>
-          <span class="wordmark-mark" aria-hidden="true">P</span>
-          <span>PlainTool</span>
+          <span>AbsolTools</span>
         </a>
         <div class="header-actions">
           <button
@@ -205,11 +202,21 @@ const integrationActive = Boolean(
                     <a
                       href={localizedPath(targetLocale, page)}
                       lang={targetLocale}
+                      dir="ltr"
                       hreflang={targetLocale}
                       aria-current={active ? "page" : undefined}
                       data-locale-link
                     >
-                      <span>{target.languageName}</span>
+                      <LanguageFlag
+                        country={localeMetadata[targetLocale].flagCountry}
+                      />
+                      <span
+                        class="language-menu-name"
+                        lang={targetLocale}
+                        dir={localeMetadata[targetLocale].direction}
+                      >
+                        {target.languageName}
+                      </span>
                       {active && <UiIcon name="check" size={14} />}
                     </a>
                   );
@@ -228,7 +235,7 @@ const integrationActive = Boolean(
     <footer class="site-footer">
       <div class="footer-inner">
         <div>
-          <a class="footer-brand" href={localizedPath(locale)}>PlainTool</a>
+          <a class="footer-brand" href={localizedPath(locale)}>AbsolTools</a>
           <p>{n.footerNote}</p>
         </div>
         <nav class="footer-links" aria-label={t.legalNavLabel}>
@@ -247,6 +254,7 @@ const integrationActive = Boolean(
               <a
                 href={localizedPath(targetLocale, page)}
                 lang={targetLocale}
+                dir={localeMetadata[targetLocale].direction}
                 hreflang={targetLocale}
                 data-locale-link
               >

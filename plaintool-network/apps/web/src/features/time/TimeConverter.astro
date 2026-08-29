@@ -96,6 +96,7 @@ const offsetOptions = [
         ><span>{t.timestampLabel}</span><input
           name="timestamp"
           data-timestamp
+          dir="ltr"
           inputmode="decimal"
           autocomplete="off"
           value={examples.timestampInput}
@@ -122,6 +123,7 @@ const offsetOptions = [
             id="local-date-time"
             name="local-date-time"
             data-date
+            dir="ltr"
             type="text"
             inputmode="numeric"
             autocomplete="off"
@@ -137,6 +139,7 @@ const offsetOptions = [
               name="local-date-time-picker"
               data-native-date
               type="datetime-local"
+              dir="ltr"
               step="0.001"
               value={examples.dateInput}
               aria-label={t.pickDate}
@@ -160,6 +163,7 @@ const offsetOptions = [
         ><span>{t.zoneLabel}</span><input
           name="iana-zone"
           data-zone
+          dir="ltr"
           list="iana-zones"
           autocomplete="off"
           placeholder={t.zonePlaceholder}
@@ -176,6 +180,7 @@ const offsetOptions = [
         ><span>{t.offsetLabel}</span><select
           name="utc-offset"
           data-zone-offset
+          dir="ltr"
           aria-describedby="time-status"
           >{
             offsetOptions.map(({ value, label }) => (
@@ -222,6 +227,7 @@ const offsetOptions = [
                   id={`time-result-${key}`}
                   readonly
                   data-result={key}
+                  dir="ltr"
                   placeholder={examples.timeResult}
                 />
                 <button

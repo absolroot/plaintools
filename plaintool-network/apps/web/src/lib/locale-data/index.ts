@@ -1,0 +1,62 @@
+import ar from "./ar";
+import cs from "./cs";
+import da from "./da";
+import de from "./de";
+import en from "./en";
+import es from "./es";
+import fr from "./fr";
+import it from "./it";
+import ja from "./ja";
+import ko from "./ko";
+import nl from "./nl";
+import no from "./no";
+import pl from "./pl";
+import ptBR from "./pt-BR";
+import sv from "./sv";
+import tr from "./tr";
+import zhTW from "./zh-TW";
+
+export const localeBundles = {
+  en,
+  ko,
+  es,
+  de,
+  ja,
+  fr,
+  "pt-BR": ptBR,
+  it,
+  nl,
+  sv,
+  cs,
+  pl,
+  da,
+  no,
+  ar,
+  "zh-TW": zhTW,
+  tr,
+} as const;
+
+export type LocaleBundleId = keyof typeof localeBundles;
+
+export const localeMetadata = {
+  en: { direction: "ltr", ogLocale: "en_US", flagCountry: "us" },
+  ko: { direction: "ltr", ogLocale: "ko_KR", flagCountry: "kr" },
+  es: { direction: "ltr", ogLocale: "es_ES", flagCountry: "es" },
+  de: { direction: "ltr", ogLocale: "de_DE", flagCountry: "de" },
+  ja: { direction: "ltr", ogLocale: "ja_JP", flagCountry: "jp" },
+  fr: { direction: "ltr", ogLocale: "fr_FR", flagCountry: "fr" },
+  "pt-BR": { direction: "ltr", ogLocale: "pt_BR", flagCountry: "br" },
+  it: { direction: "ltr", ogLocale: "it_IT", flagCountry: "it" },
+  nl: { direction: "ltr", ogLocale: "nl_NL", flagCountry: "nl" },
+  sv: { direction: "ltr", ogLocale: "sv_SE", flagCountry: "se" },
+  cs: { direction: "ltr", ogLocale: "cs_CZ", flagCountry: "cz" },
+  pl: { direction: "ltr", ogLocale: "pl_PL", flagCountry: "pl" },
+  da: { direction: "ltr", ogLocale: "da_DK", flagCountry: "dk" },
+  no: { direction: "ltr", ogLocale: "no_NO", flagCountry: "no" },
+  ar: { direction: "rtl", ogLocale: "ar_SA", flagCountry: "sa" },
+  "zh-TW": { direction: "ltr", ogLocale: "zh_TW", flagCountry: "tw" },
+  tr: { direction: "ltr", ogLocale: "tr_TR", flagCountry: "tr" },
+} as const satisfies Record<
+  LocaleBundleId,
+  { direction: "ltr" | "rtl"; ogLocale: string; flagCountry: string }
+>;

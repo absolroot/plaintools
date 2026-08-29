@@ -3,7 +3,25 @@
   "featureId": "text-compare",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
-  "publicLocales": ["en", "ko", "es"],
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
@@ -17,22 +35,146 @@
     "apps/web/src/features/text-compare/TextCompare.astro",
     "apps/web/src/pages/[locale]/text-compare/index.astro"
   ],
-  "copyFingerprint": "sha256:b845602b76c15a248f6b431cad927ec8bc071ccf28dc3c65b98ded6b204b1c2e",
+  "copyDirectories": [
+    "apps/web/src/lib/locale-data"
+  ],
+  "copyFingerprint": "sha256:70bb8413e25962ba21b4c9532e08955cb772648da4aebb66cc4c4cf3da7e30a5",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["en-w3schools-text-diff", "en-mdn-del"]
+      "referenceIds": [
+        "en-w3schools-text-diff",
+        "en-mdn-del"
+      ]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["ko-textcompare-org", "ko-mdn-del"]
+      "referenceIds": [
+        "ko-textcompare-org",
+        "ko-mdn-del"
+      ]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["es-comparetext-org", "es-wikipedia-diff"]
+      "referenceIds": [
+        "es-comparetext-org",
+        "es-wikipedia-diff"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-go-tools-text-diff",
+        "de-wikipedia-diff"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-temototool-text-diff",
+        "ja-wikipedia-diff"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-minuscule-majuscule-text-compare",
+        "fr-wikipedia-file-comparison"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-comparetext",
+        "pt-br-mdn-del"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-diff-tools-text",
+        "it-wikipedia-diff"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-comparetext",
+        "nl-wikipedia-diff"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-text-compare-native-tool",
+        "sv-text-compare-concept"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-text-compare-native-tool",
+        "cs-text-compare-concept"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-text-compare-native-tool",
+        "pl-text-compare-concept"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-text-compare-native-tool",
+        "da-text-compare-concept"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-text-compare-native-tool",
+        "no-text-compare-concept"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-textcompare",
+        "ar-go-tools-diff-guide"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-dev-workshop-text-compare",
+        "zh-tw-wikipedia-diff"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-comparetext",
+        "tr-wikipedia-diff"
+      ]
     }
   }
 }

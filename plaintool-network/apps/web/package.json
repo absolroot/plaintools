@@ -12,11 +12,12 @@
   "dependencies": {
     "@plaintool/codec-core": "*",
     "@plaintool/json-core": "*",
-    "@plaintool/text-diff-core": "*",
     "@plaintool/text-case-core": "*",
+    "@plaintool/text-diff-core": "*",
     "@plaintool/text-metrics-core": "*",
     "@plaintool/time-core": "*",
-    "astro": "^7.2.9"
+    "astro": "^7.2.9",
+    "flag-icons": "7.5.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4"

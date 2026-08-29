@@ -3,7 +3,25 @@
   "featureId": "base64-codec",
   "enforcement": "existing-baseline",
   "sourceLocale": "en",
-  "publicLocales": ["en", "ko", "es"],
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
@@ -22,22 +40,146 @@
     "apps/web/src/pages/[locale]/base64-encode/index.astro",
     "apps/web/src/pages/[locale]/[page].astro"
   ],
-  "copyFingerprint": "sha256:fe14f68b3ec692a8a884f25b3ee7a18273f737df5240377780282bef3de470ad",
+  "copyDirectories": [
+    "apps/web/src/lib/locale-data"
+  ],
+  "copyFingerprint": "sha256:7c54f6c8721b6ddcbdf6fde687ea0f69d1105e97b1808fa638ec5518d3dd09c4",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["en-wikipedia-base64", "en-base64-sh"]
+      "referenceIds": [
+        "en-base64-sh",
+        "en-wikipedia-base64"
+      ]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["ko-wikipedia-base64", "ko-base64-sh"]
+      "referenceIds": [
+        "ko-base64-sh",
+        "ko-wikipedia-base64"
+      ]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["es-wikipedia-base64", "es-base64-sh"]
+      "referenceIds": [
+        "es-base64-sh",
+        "es-wikipedia-base64"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-base64-sh",
+        "de-wikipedia-base64"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-jptools-base64",
+        "ja-wikipedia-base64"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-base64-sh",
+        "fr-wikipedia-base64"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-base64-sh",
+        "pt-base64-wikipedia"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-base64-sh",
+        "it-wikipedia-base64"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-base64-sh",
+        "nl-wikipedia-base64"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-base64-codec-native-tool",
+        "sv-base64-codec-concept"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-base64-codec-native-tool",
+        "cs-base64-codec-concept"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-base64-codec-native-tool",
+        "pl-base64-codec-concept"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-base64-codec-native-tool",
+        "da-base64-codec-concept"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-base64-codec-native-tool",
+        "no-base64-codec-concept"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-base64-sh-decoder",
+        "ar-kerotools-base64-guide"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-ai-chain-base64",
+        "zh-tw-mdn-base64"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-base64-sh",
+        "tr-wikipedia-base64"
+      ]
     }
   }
 }

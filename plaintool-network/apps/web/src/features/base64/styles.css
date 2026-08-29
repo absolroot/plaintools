@@ -73,6 +73,14 @@
   transform: rotate(90deg);
 }
 
+html[dir="rtl"] .options-chevron {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .options[open] .options-chevron {
+  transform: scaleX(-1) rotate(90deg);
+}
+
 .options-grid {
   padding: var(--space-1) var(--space-4) var(--space-5);
   display: grid;

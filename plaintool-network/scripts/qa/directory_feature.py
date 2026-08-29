@@ -85,7 +85,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
         report["ui_detail_failures"].append(f"Empty directory tracks must remain transparent: {report['directory_desktop_columns']}")
     if report["directory_eyebrow_count"] != 0:
         report["ui_detail_failures"].append(f"Directory eyebrow should be absent: {report['directory_eyebrow_count']}")
-    if report["footer_note_ko"] != "가입이나 서버 업로드 없이 브라우저에서 바로 사용할 수 있습니다.":
+    if report["footer_note_ko"] != "가입이나 서버 업로드 없이 온라인에서 바로 사용할 수 있습니다.":
         report["ui_detail_failures"].append(f"Korean footer note is stale: {report['footer_note_ko']}")
 
     report["directory_search_desktop_geometry"] = _search_geometry(desktop)

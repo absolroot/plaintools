@@ -1,0 +1,12 @@
+---
+import { networkCopy } from "../lib/tool-catalog";
+import type { Locale } from "../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<p class="tool-promise">{networkCopy[locale].toolPromise}</p>

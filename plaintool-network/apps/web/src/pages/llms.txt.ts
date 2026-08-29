@@ -9,9 +9,9 @@ import {
 
 export const GET: APIRoute = () => {
   const lines = [
-    "# PlainTool",
+    "# AbsolTools",
     "",
-    "> PlainTool provides focused browser utilities. Tool inputs and outputs are processed locally in the user's browser and are not uploaded to PlainTool.",
+    "> AbsolTools provides focused online utilities. Tool inputs and outputs are processed locally in the user's browser and are not uploaded to AbsolTools.",
     "",
     "## Public tool directory",
     ...locales.map(

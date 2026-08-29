@@ -1,6 +1,7 @@
 ---
 import AdSlot from "../../components/AdSlot.astro";
 import FaqSection from "../../components/FaqSection.astro";
+import ToolPromise from "../../components/ToolPromise.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { networkCopy } from "../../lib/tool-catalog";
 import { localizedPath, siteConfig, type Locale } from "../../lib/site";
@@ -79,6 +80,7 @@ const faqJsonLd = JSON.stringify({
       >
         {subheading}
       </p>
+      <ToolPromise locale={locale} />
     </div>
   </section>
   <div class:list={["tool-shell", { "has-rail": integrationsEnabled }]}>

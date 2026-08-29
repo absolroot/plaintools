@@ -97,6 +97,61 @@ def run_route_matrix(
                     report["ui_detail_failures"].append(f"{surface} {path} has {entry['h1_count']} h1 elements.")
                 if entry["scroll_width"] > width:
                     report["ui_detail_failures"].append(f"{surface} {path} overflows at {entry['scroll_width']}px.")
+                if tool:
+                    promise = page.locator(".tool-promise")
+                    promise_count = promise.count()
+                    entry["tool_promise_count"] = promise_count
+                    if promise_count != 1:
+                        report["ui_detail_failures"].append(
+                            f"{surface} {path} has {promise_count} tool promise messages."
+                        )
+                    else:
+                        entry["tool_promise"] = promise.inner_text().strip()
+                        entry["tool_promise_geometry"] = promise.evaluate("""
+                          element => {
+                            const bounds = element.getBoundingClientRect();
+                            const intro = element.closest('.tool-intro').getBoundingClientRect();
+                            const shell = document.querySelector('.tool-shell').getBoundingClientRect();
+                            const style = getComputedStyle(element);
+                            return {
+                              left: bounds.left,
+                              right: bounds.right,
+                              intro_left: intro.left,
+                              shell_left: shell.left,
+                              font_size: style.fontSize,
+                              line_height: style.lineHeight,
+                              border_widths: [
+                                style.borderTopWidth,
+                                style.borderRightWidth,
+                                style.borderBottomWidth,
+                                style.borderLeftWidth
+                              ],
+                              border_radius: style.borderRadius,
+                              background_color: style.backgroundColor
+                            };
+                          }
+                        """)
+                        promise_geometry = entry["tool_promise_geometry"]
+                        if not entry["tool_promise"]:
+                            report["ui_detail_failures"].append(
+                                f"{surface} {path} has an empty tool promise."
+                            )
+                        if (
+                            abs(promise_geometry["left"] - promise_geometry["intro_left"]) > 1
+                            or abs(promise_geometry["left"] - promise_geometry["shell_left"]) > 1
+                        ):
+                            report["ui_detail_failures"].append(
+                                f"{surface} {path} tool promise left the shared axis: {promise_geometry}."
+                            )
+                        if (
+                            promise_geometry["font_size"] != "12px"
+                            or promise_geometry["border_widths"] != ["1px"] * 4
+                            or promise_geometry["border_radius"] != "0px"
+                            or promise_geometry["background_color"] == "rgba(0, 0, 0, 0)"
+                        ):
+                            report["ui_detail_failures"].append(
+                                f"{surface} {path} tool promise lost its boxed secondary hierarchy: {promise_geometry}."
+                            )
                 if coverage and coverage.focus_style == "editor":
                     entry["focus_matrix"] = {}
                     original_theme = page.evaluate("document.documentElement.dataset.theme || null")

@@ -151,7 +151,7 @@ def run_base64_desktop(desktop, report: dict) -> None:
     desktop.get_by_role("button", name="인코딩", exact=True).click()
     report["encode_mode_url"] = desktop.url
     report["base64_encode_example"] = desktop.locator("#codec-input").get_attribute("placeholder")
-    if "Hello, PlainTool!" not in report["base64_encode_example"]:
+    if "Hello, AbsolTools!" not in report["base64_encode_example"]:
         report["ui_detail_failures"].append(f"Base64 encode input lacks a usable example: {report['base64_encode_example']}")
     report["encode_seo_state"] = desktop.evaluate("""
       () => {

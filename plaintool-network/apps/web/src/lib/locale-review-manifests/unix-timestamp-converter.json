@@ -3,7 +3,25 @@
   "featureId": "unix-timestamp-converter",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
-  "publicLocales": ["en", "ko", "es"],
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
@@ -18,22 +36,146 @@
     "apps/web/src/features/time/TimeConverter.astro",
     "apps/web/src/pages/[locale]/unix-timestamp-converter/index.astro"
   ],
-  "copyFingerprint": "sha256:832387cd0cd88a185dabb21349e16d9a76279cdb14bc437a4c2ff73c51a47e50",
+  "copyDirectories": [
+    "apps/web/src/lib/locale-data"
+  ],
+  "copyFingerprint": "sha256:8c0473f14b5dcb9eb139077ab43f1f8d3a3747664bacbda9ded225270b7aa47b",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["en-timestamp-tools", "en-wikipedia-unix-time"]
+      "referenceIds": [
+        "en-timestamp-tools",
+        "en-wikipedia-unix-time"
+      ]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["ko-webi-timestamp", "ko-jhnsoft-timestamp"]
+      "referenceIds": [
+        "ko-webi-timestamp",
+        "ko-jhnsoft-timestamp"
+      ]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["es-toolssoup-timestamp", "es-wikipedia-tiempo-unix"]
+      "referenceIds": [
+        "es-toolssoup-timestamp",
+        "es-wikipedia-tiempo-unix"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-mdle-timestamp",
+        "de-wikipedia-unixzeit"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-epochconverter",
+        "ja-wikipedia-unix-time"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-time-is-unix-converter",
+        "fr-wikipedia-heure-unix"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-arraykit-unix-timestamp",
+        "pt-marca-temporal-wikipedia"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-giorno-timestamp",
+        "it-wikipedia-tempo-unix"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-epochconverter",
+        "nl-wikipedia-unix-time"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-unix-timestamp-converter-native-tool",
+        "sv-unix-timestamp-converter-concept"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-unix-timestamp-converter-native-tool",
+        "cs-unix-timestamp-converter-concept"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-unix-timestamp-converter-native-tool",
+        "pl-unix-timestamp-converter-concept"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-unix-timestamp-converter-native-tool",
+        "da-unix-timestamp-converter-concept"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-unix-timestamp-converter-native-tool",
+        "no-unix-timestamp-converter-concept"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-epochconverter",
+        "ar-wikipedia-unix-time"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-fangbian-timestamp",
+        "zh-tw-wikipedia-unix-time"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-codekithub-timestamp",
+        "tr-epochconverter"
+      ]
     }
   }
 }

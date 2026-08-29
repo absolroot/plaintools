@@ -1,4 +1,4 @@
-# PlainTool Network
+# AbsolTools Network
 
 A single Astro application for focused browser utilities. Locale roots are directories; every implemented tool has a dedicated route and workspace.
 
@@ -28,9 +28,12 @@ npm run ui:qa
 ESLint, and Prettier checks. Use `npm run format` only when intentionally
 applying formatter changes. `npm run verify` combines the source tests, static
 checks, and preview build; browser QA remains explicit because it starts a real
-local site and captures desktop and mobile surfaces.
+local site and captures desktop and mobile surfaces. The default `npm run ui:qa`
+uses the representative `en`, `ko`, `de`, `ar`, and `zh-TW` layout-risk matrix;
+run `npm run ui:qa:full` when a release needs every published locale traversed.
+The build and locale/SEO gates continue to verify all locale routes on every run.
 
-The generated site includes English (`/en/`), Korean (`/ko/`), and Spanish (`/es/`). The root redirects to `/en/`; legacy `/{locale}/tools/` routes redirect to the locale directory.
+The generated site includes 17 complete locale route families: `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`. The root chooses the closest supported `navigator.languages` value and falls back to `/en/`; explicit locale routes are never replaced. Legacy `/{locale}/tools/` routes redirect to the locale directory.
 
 ## What is implemented
 
@@ -51,6 +54,7 @@ The generated site includes English (`/en/`), Korean (`/ko/`), and Spanish (`/es
 ```text
 apps/web/src/features/ Feature-owned Astro UI, client runtime, worker, copy facade, contract, and styles
 apps/web/src/components/ Shared presentation components
+apps/web/src/lib/locale-data/ Complete independently reviewed per-locale bundles
 apps/web/src/lib/ Shared content, deployment, locale, and SEO registries
 packages/codec-core/     Framework-independent conversion and detection logic
 packages/json-core/      Strict JSON inspection and lossless text transforms

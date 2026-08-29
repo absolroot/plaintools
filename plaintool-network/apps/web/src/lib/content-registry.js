@@ -5,7 +5,25 @@ import {
   toolRegistry,
 } from "./tool-registry.js";
 
-export const locales = /** @type {const} */ (["en", "ko", "es"]);
+export const locales = /** @type {const} */ ([
+  "en",
+  "ko",
+  "es",
+  "de",
+  "ja",
+  "fr",
+  "pt-BR",
+  "it",
+  "nl",
+  "sv",
+  "cs",
+  "pl",
+  "da",
+  "no",
+  "ar",
+  "zh-TW",
+  "tr",
+]);
 export const legalPages = /** @type {const} */ ([
   "about",
   "privacy",

@@ -3,7 +3,25 @@
   "featureId": "json-formatter",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
-  "publicLocales": ["en", "ko", "es"],
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
@@ -18,22 +36,146 @@
     "apps/web/src/features/json/JsonFormatter.astro",
     "apps/web/src/pages/[locale]/json-formatter/index.astro"
   ],
-  "copyFingerprint": "sha256:2d7ac200d0dc355d9dfef9c0389a09c2f17eb4a33e469c6eb7b9d015cd118666",
+  "copyDirectories": [
+    "apps/web/src/lib/locale-data"
+  ],
+  "copyFingerprint": "sha256:b6d10baf58496ab3454457d6adf6d6705b7d337dbecb9a49822228b82713a339",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["en-json-formatter-org", "en-mdn-json"]
+      "referenceIds": [
+        "en-json-formatter-org",
+        "en-mdn-json"
+      ]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["ko-toolatom-json", "ko-mdn-json"]
+      "referenceIds": [
+        "ko-toolatom-json",
+        "ko-mdn-json"
+      ]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["es-jsonpretty", "es-mdn-json"]
+      "referenceIds": [
+        "es-jsonpretty",
+        "es-mdn-json"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-netztools24-json",
+        "de-wikipedia-json"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-temototool-json",
+        "ja-mdn-json"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-convertr-json",
+        "fr-wikipedia-json"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-formatar-json",
+        "pt-wikipedia-json"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-jsonreader",
+        "it-wikipedia-json"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-json-formatter-org",
+        "nl-wikipedia-json"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-json-formatter-native-tool",
+        "sv-json-formatter-concept"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-json-formatter-native-tool",
+        "cs-json-formatter-concept"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-json-formatter-native-tool",
+        "pl-json-formatter-concept"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-json-formatter-native-tool",
+        "da-json-formatter-concept"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-json-formatter-native-tool",
+        "no-json-formatter-concept"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-muhawil-json",
+        "ar-wikipedia-json"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-verb-json",
+        "zh-tw-mdn-json"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-ogus-json-formatter",
+        "tr-wikipedia-json"
+      ]
     }
   }
 }

@@ -93,6 +93,7 @@ const clientCopy = {
       <textarea
         id="codec-input"
         data-input
+        dir={initialMode === "decode" ? "ltr" : "auto"}
         spellcheck="false"
         autocapitalize="off"
         autocomplete="off"
@@ -115,6 +116,7 @@ const clientCopy = {
       <textarea
         id="codec-output"
         data-output
+        dir={initialMode === "encode" ? "ltr" : "auto"}
         readonly
         spellcheck="false"
         placeholder={t.outputPlaceholder}></textarea>

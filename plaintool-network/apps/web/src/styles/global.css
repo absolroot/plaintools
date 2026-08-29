@@ -280,12 +280,12 @@ h3,
 p {
   overflow-wrap: break-word;
 }
-html[lang="ko"] h1,
-html[lang="ko"] h2,
-html[lang="ko"] h3 {
+html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) h1,
+html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) h2,
+html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) h3 {
   word-break: keep-all;
 }
-html[lang="ko"] {
+html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   --tracking-display: normal;
 }
 
@@ -295,7 +295,7 @@ html[lang="ko"] {
 }
 .skip-link {
   position: fixed;
-  left: 16px;
+  inset-inline-start: 16px;
   top: -80px;
   z-index: 1000;
   height: 36px;
@@ -333,24 +333,11 @@ html[lang="ko"] {
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
   color: var(--ink-strong);
   font-size: 14px;
   font-weight: 650;
   text-decoration: none;
   white-space: nowrap;
-}
-.wordmark-mark {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  color: var(--ink-strong);
-  background: var(--cloudflare-orange);
-  border-radius: var(--radius-sm);
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 700;
 }
 .header-actions {
   display: flex;
@@ -437,15 +424,23 @@ html[lang="ko"] {
 .language-menu[open] .language-menu-chevron {
   transform: rotate(90deg);
 }
+html[dir="rtl"] .language-menu-chevron {
+  transform: scaleX(-1);
+}
+html[dir="rtl"] .language-menu[open] .language-menu-chevron {
+  transform: scaleX(-1) rotate(90deg);
+}
 .language-menu-panel {
   position: absolute;
   top: calc(100% + var(--space-2));
-  right: 0;
+  inset-inline-end: 0;
   z-index: 60;
-  width: 200px;
-  max-height: min(320px, calc(100vh - 80px));
+  width: min(400px, calc(100vw - var(--space-8)));
+  max-height: min(420px, calc(100vh - 80px));
   overflow-y: auto;
   padding: var(--space-1);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-radius: var(--radius-control);
   background: var(--base);
   box-shadow:
@@ -457,11 +452,30 @@ html[lang="ko"] {
   padding: 0 var(--space-3);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: var(--space-3);
   border-radius: var(--radius-sm);
   color: var(--ink);
   text-decoration: none;
+}
+.locale-flag {
+  width: 24px;
+  height: 18px;
+  flex: 0 0 24px;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px color-mix(in oklch, var(--ink), transparent 76%);
+}
+.locale-flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.language-menu-name {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+  text-align: left;
 }
 .language-menu-panel a:hover {
   background: var(--tint);
@@ -471,6 +485,7 @@ html[lang="ko"] {
   font-weight: 600;
 }
 .language-menu-panel a .ui-icon {
+  margin-inline-start: auto;
   color: var(--brand);
 }
 
@@ -499,7 +514,7 @@ html[lang="ko"] {
   text-decoration: underline;
 }
 .breadcrumb-meta {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -533,6 +548,15 @@ html[lang="ko"] {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
+  line-height: 1.5;
+}
+.tool-promise {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  background: var(--recessed);
+  color: var(--muted);
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -621,7 +645,8 @@ html[lang="ko"] {
 }
 .pane-heading {
   min-height: 44px;
-  padding: 0 var(--space-2) 0 var(--space-3);
+  padding-block: 0;
+  padding-inline: var(--space-3) var(--space-2);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -686,7 +711,8 @@ html[lang="ko"] {
 }
 .converter-commandbar {
   min-height: 60px;
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4) var(--space-3);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -770,12 +796,12 @@ html[lang="ko"] {
   display: block;
 }
 .tooltip .tooltip-target > :where(button, a, [role="button"]) {
-  padding-right: 38px;
+  padding-inline-end: 38px;
 }
 .tooltip-trigger {
   position: absolute;
   top: 0;
-  right: 0;
+  inset-inline-end: 0;
   z-index: 1;
   width: 30px;
   height: 36px;
@@ -795,7 +821,7 @@ html[lang="ko"] {
 .tooltip-content {
   position: absolute;
   top: calc(100% + var(--space-2));
-  left: 0;
+  inset-inline-start: 0;
   z-index: 20;
   width: min(300px, calc(100vw - 48px));
   padding: 10px 12px;
@@ -938,7 +964,7 @@ html[lang="ko"] {
 }
 .content-section ol {
   margin: 0;
-  padding-left: 20px;
+  padding-inline-start: 20px;
 }
 .faq-list {
   display: grid;
@@ -966,6 +992,12 @@ html[lang="ko"] {
 }
 .faq-list details[open] .faq-chevron {
   transform: rotate(90deg);
+}
+html[dir="rtl"] .faq-chevron {
+  transform: scaleX(-1);
+}
+html[dir="rtl"] .faq-list details[open] .faq-chevron {
+  transform: scaleX(-1) rotate(90deg);
 }
 .faq-list p {
   padding: 0 0 var(--space-4);
@@ -1039,7 +1071,7 @@ html[lang="ko"] {
   gap: var(--space-3);
   color: var(--ink);
   background: var(--base);
-  box-shadow: 0 0 0 1px var(--line);
+  box-shadow: 0 0 0 1px var(--hairline);
   text-decoration: none;
 }
 a.tool-directory-card:hover {
@@ -1244,10 +1276,7 @@ a.tool-directory-card:focus-visible {
   .wordmark {
     min-width: 0;
     flex: 1 1 auto;
-    margin-right: auto;
-  }
-  .wordmark-mark {
-    flex: 0 0 auto;
+    margin-inline-end: auto;
   }
   .wordmark > span:last-child {
     min-width: 0;
@@ -1290,12 +1319,17 @@ a.tool-directory-card:focus-visible {
   .language-menu-panel {
     width: min(220px, calc(100vw - var(--space-8)));
     max-height: min(360px, calc(100vh - 72px));
+    grid-template-columns: 1fr;
   }
   .breadcrumbs {
     min-height: 36px;
   }
   .tool-intro-copy {
-    padding: var(--space-4) 0 var(--space-5);
+    padding: var(--space-3) 0 var(--space-2);
+    gap: var(--space-1);
+  }
+  .tool-promise {
+    padding: var(--space-1) var(--space-2);
   }
   .tool-intro h1 {
     font-size: 20px;
@@ -1328,7 +1362,7 @@ a.tool-directory-card:focus-visible {
   }
   .pane-heading {
     min-height: 48px;
-    padding-left: var(--space-3);
+    padding-inline-start: var(--space-3);
   }
   .text-button {
     height: 44px;
@@ -1363,8 +1397,8 @@ a.tool-directory-card:focus-visible {
     transform: translateX(-50%);
   }
   .tooltip--mobile-end .tooltip-content {
-    right: 0;
-    left: auto;
+    inset-inline-end: 0;
+    inset-inline-start: auto;
     transform: none;
   }
   .privacy-note {

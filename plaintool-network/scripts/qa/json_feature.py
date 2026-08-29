@@ -4,7 +4,7 @@ from .config import BASE_URL, QA_DIR
 def run_json_desktop(desktop, report: dict) -> None:
     desktop.goto(f"{BASE_URL}/ko/json-formatter/", wait_until="networkidle")
     report["json_example"] = desktop.locator("[data-json-tool] [data-input]").get_attribute("placeholder")
-    if '"name":"PlainTool"' not in report["json_example"]:
+    if '"name":"AbsolTools"' not in report["json_example"]:
         report["ui_detail_failures"].append(f"JSON input lacks a valid example object: {report['json_example']}")
     report["json_click_focus"] = {}
     for surface, selector in (("input", "#json-input"), ("output", "#json-output")):

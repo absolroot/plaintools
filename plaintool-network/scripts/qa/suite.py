@@ -1,10 +1,11 @@
 import json
 import sys
+from dataclasses import replace
 
 from playwright.sync_api import sync_playwright
 
 from .common import attach_external_request_collector, attach_page_error_collectors
-from .config import BASE_URL, QA_DIR
+from .config import BASE_URL, QA_DIR, select_browser_locales
 from .directory_feature import run_directory_desktop, run_directory_mobile
 from .feature_coverage import FEATURE_COVERAGE
 from .legal_feature import run_legal_desktop
@@ -13,13 +14,15 @@ from .registry import load_route_inventory
 from .responsive_feature import run_route_matrix
 
 
-def main() -> None:
+def main(*, full: bool = False) -> None:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     QA_DIR.mkdir(parents=True, exist_ok=True)
 
     inventory = load_route_inventory()
     validate_feature_coverage(inventory, FEATURE_COVERAGE)
+    browser_locales = select_browser_locales(inventory.locales, full=full)
+    browser_inventory = replace(inventory, locales=browser_locales)
     preflight_locale = "ko" if "ko" in inventory.locales else inventory.locales[0]
     verify_server(BASE_URL, f"/{preflight_locale}/{inventory.tools[0].slug}/")
 
@@ -28,6 +31,9 @@ def main() -> None:
         "page_errors": [],
         "external_conversion_requests": [],
         "ui_detail_failures": [],
+        "browser_qa_scope": "full" if full else "representative",
+        "browser_qa_locales": list(browser_locales),
+        "published_locale_count": len(inventory.locales),
     }
 
     with sync_playwright() as playwright:
@@ -40,7 +46,9 @@ def main() -> None:
             attach_external_request_collector(desktop, report, "desktop")
 
             for feature_id in inventory.feature_ids:
-                FEATURE_COVERAGE[feature_id].desktop(desktop, report, inventory)
+                FEATURE_COVERAGE[feature_id].desktop(
+                    desktop, report, browser_inventory
+                )
             run_directory_desktop(desktop, report)
 
             mobile = browser.new_page(
@@ -52,9 +60,15 @@ def main() -> None:
             attach_external_request_collector(mobile, report, "mobile")
 
             for feature_id in inventory.feature_ids:
-                FEATURE_COVERAGE[feature_id].mobile(mobile, report, inventory)
+                FEATURE_COVERAGE[feature_id].mobile(mobile, report, browser_inventory)
             run_legal_desktop(desktop, report)
-            run_route_matrix(desktop, mobile, report, inventory, FEATURE_COVERAGE)
+            run_route_matrix(
+                desktop,
+                mobile,
+                report,
+                browser_inventory,
+                FEATURE_COVERAGE,
+            )
             run_directory_mobile(mobile, report)
         finally:
             browser.close()

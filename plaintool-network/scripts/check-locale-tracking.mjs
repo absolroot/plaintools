@@ -23,7 +23,11 @@ function expect(selector, property, value) {
 }
 
 expect(":root", "--tracking-display", "-0.01em");
-expect('html[lang="ko"]', "--tracking-display", "normal");
+expect(
+  'html:where([lang="ko"], [lang="ja"], [lang="zh-TW"])',
+  "--tracking-display",
+  "normal",
+);
 expect(".directory-header h1", "letter-spacing", "var(--tracking-display)");
 expect(".legal-page h1", "letter-spacing", "var(--tracking-display)");
 

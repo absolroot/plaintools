@@ -57,6 +57,7 @@ function initConverter(root: HTMLElement): void {
   const downloadButton = query<HTMLButtonElement>("[data-download]");
   const openFileButton = query<HTMLButtonElement>("[data-open-file]");
   const fileInput = query<HTMLInputElement>("[data-file-input]");
+  const outputView = query<HTMLSelectElement>('[data-option="outputView"]');
   const preview = query<HTMLElement>("[data-preview]");
   const previewImage = query<HTMLImageElement>("[data-preview-image]");
   let mode: CodecMode =
@@ -99,10 +100,17 @@ function initConverter(root: HTMLElement): void {
     );
   }
 
+  function syncTextDirections(): void {
+    input.dir = mode === "decode" ? "ltr" : "auto";
+    output.dir =
+      mode === "encode" || outputView.value === "hex" ? "ltr" : "auto";
+  }
+
   function updateMode(nextMode: CodecMode, updateUrl = true): void {
     window.clearTimeout(autoTimer);
     cancelActiveWork();
     mode = nextMode;
+    syncTextDirections();
     const definition = modeDefinitions[mode];
     root.dataset.mode = mode;
     root
@@ -404,6 +412,7 @@ function initConverter(root: HTMLElement): void {
     .querySelectorAll<HTMLInputElement | HTMLSelectElement>("[data-option]")
     .forEach((control) =>
       control.addEventListener("change", () => {
+        if (control === outputView) syncTextDirections();
         if (input.value || pendingFile) void run();
       }),
     );

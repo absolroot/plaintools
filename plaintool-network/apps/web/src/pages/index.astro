@@ -1,18 +1,19 @@
----
-const target = "/en/";
----
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,follow" />
-    <meta http-equiv="refresh" content={`0;url=${target}`} />
-    <title>PlainTool</title>
-    <link rel="canonical" href={target} />
+    <title>AbsolTools</title>
+    <link rel="canonical" href="/en/" />
   </head>
   <body>
-    <p><a href={target}>Continue to all tools</a></p>
+    <p><a href="/en/">Continue to all tools</a></p>
+    <script>
+      import { detectPreferredLocale } from "../lib/locale-detection";
+
+      const locale = detectPreferredLocale(navigator.languages);
+      window.location.replace(`/${locale}/`);
+    </script>
   </body>
 </html>

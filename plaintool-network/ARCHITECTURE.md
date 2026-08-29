@@ -1,4 +1,4 @@
-# PlainTool architecture and regression contracts
+# AbsolTools architecture and regression contracts
 
 This document explains where code belongs after the feature-oriented refactor
 and records the behavior contracts that must survive future cleanup. Read it
@@ -7,7 +7,7 @@ configuration.
 
 ## System boundary
 
-PlainTool is a static Astro application. Tool input, filenames, output, raw
+AbsolTools is a static Astro application. Tool input, filenames, output, raw
 errors, and payload-derived values stay in browser memory and must not enter a
 URL, log, analytics event, advertisement request, or other third-party request.
 There is no server conversion, upload endpoint, database, account system,
@@ -34,7 +34,8 @@ apps/web/src/
     tool-registry.js     Tool route, publication, and schema inventory
     content-registry.js  Locale, legal-route, and tool facade for build/runtime
     deployment-config.js Preview/production and integration truth
-    *-i18n.ts            Complete independently reviewed locale objects
+    locale-data/         Complete independently reviewed per-locale bundles
+    *-i18n.ts            Thin typed views over those locale bundles
   pages/                 Thin route composition only
 packages/
   *-core/                Framework-independent parsing and conversion rules
@@ -111,13 +112,21 @@ or Node. Sitemap, `llms.txt`, directory rendering, route QA, and production
 validation must consume these registries instead of maintaining parallel
 arrays.
 
-Public locale objects are complete and symmetric. No source-locale spreads,
-runtime fallback, or hardcoded locale ternaries may conceal a missing field.
-Tests compare field paths, non-empty strings, and interpolation placeholders.
+Each public locale owns one complete bundle for site, tool, example, directory,
+and network copy. Thin typed facades may select fields from that bundle, but no
+source-locale spread, runtime fallback, or hardcoded locale ternary may conceal
+a missing field. Tests compare all bundle field paths, non-empty strings, and
+interpolation placeholders.
+
+The bare root uses the browser's ordered language preferences to choose a
+supported locale without IP lookup, storage, or a third-party request. It runs
+only at `/`; an explicit locale route remains authoritative. Unsupported
+regional variants fall back to English instead of being mislabeled as another
+regional language.
 
 Any visible meaning change requires all of the following before publication:
 
-1. review English, Korean, and Spanish as independent product surfaces;
+1. review every public locale as an independent product surface;
 2. record native-language terminology and technical evidence;
 3. review metadata, controls, states, errors, guide, FAQ, schema, directory, and
    legal/shared claims;
@@ -138,8 +147,8 @@ and valid deployment configuration exist. Environment variables alone must not
 turn on GA4, AdSense, or a CMP. Production fails closed when required operator,
 host, legal, origin, locale, or integration facts are absent.
 
-The default build uses the preview target. Do not change the production origin
-to `plaintool.net` until ownership and host control are verified.
+The default build uses the preview target. Do not set the production origin to
+`https://absoltools.com` until ownership and host control are verified.
 
 ## Rendered UI contract
 
@@ -158,7 +167,7 @@ Desktop controls use the 36 px family; visible mobile controls are at least
 Circles are reserved for semantic indicators such as the status dot.
 
 The self-hosted `PlainTool Mono` face is limited to code/result fields. It is
-split by `unicode-range`, loads from the PlainTool origin, and retains system
+split by `unicode-range`, loads from the AbsolTools origin, and retains system
 monospace fallbacks. Browser QA verifies that the face actually loads and that
 the initial Korean code-font payload stays within 1.2 MiB. Do not apply it to
 navigation or prose, add another webfont, remove subsetting, or introduce a
@@ -173,7 +182,13 @@ npm test
 npm run check
 npm run build
 npm run ui:qa
+npm run ui:qa:full
 ```
+
+`ui:qa` exercises every tool at desktop and mobile sizes across a representative
+locale matrix (`en`, `ko`, `de`, `ar`, and `zh-TW`). `ui:qa:full` expands the same
+browser checks to every published locale; static locale, route, and metadata gates
+remain exhaustive in both workflows.
 
 `npm run check` is non-mutating and includes SEO registry, locale fingerprint,
 UI detail, TypeScript/Astro, ESLint, and Prettier checks. `npm run build` creates

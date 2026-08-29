@@ -1,11 +1,6 @@
-import type { Locale } from "../../lib/site";
+import { locales, type Locale } from "../../lib/site";
 import { previewCopy, type PreviewToolCopy } from "../../lib/tool-i18n";
 
-export const caseConverterCopy: Record<
-  Locale,
-  PreviewToolCopy["caseConverter"]
-> = {
-  en: previewCopy.en.caseConverter,
-  ko: previewCopy.ko.caseConverter,
-  es: previewCopy.es.caseConverter,
-};
+export const caseConverterCopy = Object.fromEntries(
+  locales.map((locale) => [locale, previewCopy[locale].caseConverter]),
+) as Record<Locale, PreviewToolCopy["caseConverter"]>;

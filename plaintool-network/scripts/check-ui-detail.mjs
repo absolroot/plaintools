@@ -179,11 +179,11 @@ expectDeclaration(
 );
 expectDeclaration(
   '.tooltip .tooltip-target > :where(button, a, [role="button"])',
-  "padding-right",
+  "padding-inline-end",
   "38px",
 );
 expectDeclaration(".tooltip-trigger", "position", "absolute");
-expectDeclaration(".tooltip-trigger", "right", "0");
+expectDeclaration(".tooltip-trigger", "inset-inline-end", "0");
 expectDeclaration(".tooltip-trigger", "width", "30px");
 expectDeclaration(".privacy-note", "margin", "0");
 expectDeclaration(".privacy-note", "border-top", "1px solid var(--line)");

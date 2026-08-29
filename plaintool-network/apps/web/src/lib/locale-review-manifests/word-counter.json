@@ -3,7 +3,25 @@
   "featureId": "word-counter",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
-  "publicLocales": ["en", "ko", "es"],
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
@@ -18,22 +36,146 @@
     "apps/web/src/features/word/WordCounter.astro",
     "apps/web/src/pages/[locale]/word-counter/index.astro"
   ],
-  "copyFingerprint": "sha256:7ea764c988c5843bddb2c7128e0c04c8456096f5e5ed75e6c248e6160fb92a10",
+  "copyDirectories": [
+    "apps/web/src/lib/locale-data"
+  ],
+  "copyFingerprint": "sha256:91d5009f872e0a41f95cf8a9c9abac68a806bebc5765f4bc730f6820eb50e6a5",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["en-fastwordcount", "en-mdn-segmenter"]
+      "referenceIds": [
+        "en-fastwordcount",
+        "en-mdn-segmenter"
+      ]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["ko-wordcount", "ko-mdn-segmenter"]
+      "referenceIds": [
+        "ko-wordcount",
+        "ko-mdn-segmenter"
+      ]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["es-contarletras", "es-mdn-segmenter"]
+      "referenceIds": [
+        "es-contarletras",
+        "es-mdn-segmenter"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-charcount",
+        "de-wikipedia-wc"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-wordcount",
+        "ja-mdn-intl-segmenter"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-funnytools-word-counter",
+        "fr-wikipedia-wc"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-hub-utilidades-contador",
+        "pt-wikipedia-wc"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-contaparole",
+        "it-wikipedia-wc"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-toolevia-word",
+        "nl-google-docs-word-count"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-word-counter-native-tool",
+        "sv-word-counter-concept"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-word-counter-native-tool",
+        "cs-word-counter-concept"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-word-counter-native-tool",
+        "pl-word-counter-concept"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-word-counter-native-tool",
+        "da-word-counter-concept"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-word-counter-native-tool",
+        "no-word-counter-concept"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-toolnaro-word-counter",
+        "ar-ksaa-computational-language"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-autoagent-word-counter",
+        "zh-tw-mdn-intl-segmenter"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-wordcount",
+        "tr-microsoft-word-count"
+      ]
     }
   }
 }

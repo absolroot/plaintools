@@ -61,10 +61,10 @@ function init(root: HTMLElement): void {
   const locale = root.dataset.locale || "en";
   const originalHeading =
     root.querySelector<HTMLLabelElement>(`label[for="${original.id}"]`)
-      ?.textContent ?? "Original";
+      ?.textContent ?? copy.originalLine;
   const changedHeading =
     root.querySelector<HTMLLabelElement>(`label[for="${changed.id}"]`)
-      ?.textContent ?? "Changed";
+      ?.textContent ?? copy.changedLine;
 
   let hasCommittedResult = false;
   let changeRows: HTMLElement[] = [];

@@ -30,6 +30,25 @@ async function fingerprint(files) {
   return `sha256:${hash.digest("hex")}`;
 }
 
+async function filesInDirectory(relativeDirectory) {
+  const absoluteDirectory = resolve(projectRoot, relativeDirectory);
+  const files = [];
+  for (const entry of await readdir(absoluteDirectory, {
+    withFileTypes: true,
+  })) {
+    const relativePath = `${relativeDirectory}/${entry.name}`.replaceAll(
+      "\\",
+      "/",
+    );
+    if (entry.isDirectory()) {
+      files.push(...(await filesInDirectory(relativePath)));
+    } else if (entry.isFile()) {
+      files.push(relativePath);
+    }
+  }
+  return files.sort();
+}
+
 async function exportedLocales(file) {
   const source = await import(pathToFileURL(resolve(projectRoot, file)).href);
   if (!Array.isArray(source.locales)) {
@@ -98,6 +117,13 @@ for (const [featureId, manifestFile] of featureManifests) {
     errors.push(`${featureId} has no fingerprinted copy surfaces.`);
     continue;
   }
+  if (
+    manifest.copyDirectories !== undefined &&
+    !Array.isArray(manifest.copyDirectories)
+  ) {
+    errors.push(`${featureId} copyDirectories must be an array when present.`);
+    continue;
+  }
 
   let sourceLocales = [];
   try {
@@ -143,9 +169,19 @@ for (const [featureId, manifestFile] of featureManifests) {
 
   let currentFingerprint;
   try {
-    for (const file of manifest.copyFiles)
+    const directoryFiles = (
+      await Promise.all(
+        (manifest.copyDirectories ?? []).map((directory) =>
+          filesInDirectory(directory),
+        ),
+      )
+    ).flat();
+    const fingerprintFiles = [
+      ...new Set([...manifest.copyFiles, ...directoryFiles]),
+    ].sort();
+    for (const file of fingerprintFiles)
       await access(resolve(projectRoot, file));
-    currentFingerprint = await fingerprint(manifest.copyFiles);
+    currentFingerprint = await fingerprint(fingerprintFiles);
   } catch (error) {
     errors.push(`${featureId} copy surface cannot be read: ${error.message}`);
     continue;

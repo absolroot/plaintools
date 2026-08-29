@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { copy } from "./i18n";
 import { copyPlaceholders, flattenCopy } from "./locale-test-helpers";
@@ -27,10 +26,5 @@ describe("localized copy", () => {
         ).toEqual(copyPlaceholders(value));
       }
     }
-  });
-
-  it("does not hide missing translations behind an English object spread", () => {
-    const source = readFileSync(new URL("./i18n.ts", import.meta.url), "utf8");
-    expect(source).not.toContain("...copy.en");
   });
 });

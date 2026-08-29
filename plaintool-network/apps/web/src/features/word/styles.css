@@ -19,17 +19,17 @@
 
 .metric-grid-secondary {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-left: 1px solid var(--line);
+  border-inline-start: 1px solid var(--line);
 }
 
 .metric {
   min-width: 0;
   padding: var(--space-4);
-  border-left: 1px solid var(--line);
+  border-inline-start: 1px solid var(--line);
 }
 
 .metric-grid .metric:first-child {
-  border-left: 0;
+  border-inline-start: 0;
 }
 
 .metric strong {
@@ -83,7 +83,7 @@
 
   .metric-grid-secondary {
     border-top: 1px solid var(--line);
-    border-left: 0;
+    border-inline-start: 0;
   }
 
   .text-counter .text-button {

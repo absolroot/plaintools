@@ -1,10 +1,10 @@
-# PlainTools
+# AbsolTools
 
-PlainTools is the source workspace for a network of fast, single-purpose static utility sites published under the `PlainTool` product identity. Each public route should lead with one obvious job. Related functions may be linked or placed behind Options, but they must not compete with the main task on the first screen.
+AbsolTools is the source workspace for a network of fast, single-purpose static utility sites published under the `AbsolTools` product identity. Each tool focuses on one common online task and refines the experience to make it faster, cleaner, and easier to use. Each public route should lead with one obvious job. Related functions may be linked or placed behind Options, but they must not compete with the main task on the first screen.
 
 ## Product rules
 
-1. One public tool route, one primary search intent, one dominant workspace. Related tools may share the PlainTool root without sharing the first screen.
+1. One public tool route, one primary search intent, one dominant workspace. Related tools may share the AbsolTools root without sharing the first screen.
 2. Fully static by default: no database, login, application server, upload endpoint, or server-side conversion.
 3. Sensitive input stays in browser memory. Do not add network or persistence paths without an explicit product decision and matching disclosure.
 4. Desktop layouts should use available width; mobile layouts may stack without turning into a dashboard of cards.
@@ -17,7 +17,7 @@ PlainTools is the source workspace for a network of fast, single-purpose static 
 ```text
 plain-tools/
 ├─ README.md                   Portfolio direction and current status
-└─ plaintool-network/          PlainTool network app and reusable cores
+└─ plaintool-network/          AbsolTools network app and reusable cores
    ├─ apps/web/                Single static Astro network app
    ├─ packages/codec-core/     Browser-compatible Base64 engine
    ├─ packages/json-core/      Strict lossless JSON operations
@@ -45,7 +45,7 @@ The repository intentionally excludes generated or machine-local material:
 - private product research, evidence, and internal review records;
 - external inspection checkouts under `references/`.
 
-Reference snapshots remain local because they are third-party source, not PlainTools code. Their origin and inspected revisions are documented during research, but their files must not be committed or shipped.
+Reference snapshots remain local because they are third-party source, not AbsolTools code. Their origin and inspected revisions are documented during research, but their files must not be committed or shipped.
 
 ## Current project
 
@@ -56,7 +56,7 @@ The implemented network prototype is [plaintool-network](./plaintool-network/REA
 - full preview routes for word/character counting, strict JSON formatting, and Unix timestamp conversion;
 - browser-only Web Worker processing for text and files;
 - standard/Base64URL handling, visible repair notices, legacy character sets, binary detection, safe-by-signature raster preview, and downloads;
-- English `/en/`, Korean `/ko/`, and Spanish `/es/` routes;
+- 17 complete locale route families: `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`;
 - localized About, Privacy, Cookies, Terms, and Contact pages;
 - static SEO files and fail-closed production configuration.
 
@@ -82,10 +82,10 @@ npm run dev
 
 ## Release boundary
 
-The prototype is ready for local evaluation, not an indexed ad-supported launch. `plaintool.net` is selected and intended for purchase, but it is not yet recorded as purchased or controlled. Before public release, verify ownership and the final host; enter the real operator/contact/host/retention/law values; obtain legal review; run the complete browser and large-file matrix; and rebuild with `npm run build:production`.
+The prototype is ready for local evaluation, not an indexed ad-supported launch. `absoltools.com` is selected and intended for purchase, but it is not yet recorded as purchased or controlled. Before public release, verify ownership and the final host; enter the real operator/contact/host/retention/law values; obtain legal review; run the complete browser and large-file matrix; and rebuild with `npm run build:production`.
 
 Do not enable GA4 or AdSense by setting environment variables alone. First implement and verify the chosen CMP, permanent privacy choices, Consent Mode, provider/transfer disclosures, GA event allowlist, domain-level `ads.txt`, and live ad placement behavior. Current production validation intentionally fails while required facts are missing.
 
-The selected network identity is `PlainTool` at `plaintool.net`, using localized function paths such as `/en/base64-decode/`. No domain purchase, DNS control, or production connection is represented by the default source configuration.
+The selected network identity is `AbsolTools` at the planned domain `absoltools.com`, using localized function paths such as `/en/base64-decode/`. No domain purchase, DNS control, or production connection is represented by the default source configuration.
 
 The market screen narrows future implementation. Word/character counting, JSON formatting/validation, and Unix timestamp conversion now exist as non-indexed previews. Text diff and case conversion remain reserves. URL encode/decode, hash, UUID, and password generation do not currently justify separate public routes on the available traffic evidence.

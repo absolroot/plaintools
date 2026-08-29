@@ -1,0 +1,48 @@
+---
+import br from "flag-icons/flags/4x3/br.svg?raw";
+import cz from "flag-icons/flags/4x3/cz.svg?raw";
+import de from "flag-icons/flags/4x3/de.svg?raw";
+import dk from "flag-icons/flags/4x3/dk.svg?raw";
+import es from "flag-icons/flags/4x3/es.svg?raw";
+import fr from "flag-icons/flags/4x3/fr.svg?raw";
+import it from "flag-icons/flags/4x3/it.svg?raw";
+import jp from "flag-icons/flags/4x3/jp.svg?raw";
+import kr from "flag-icons/flags/4x3/kr.svg?raw";
+import nl from "flag-icons/flags/4x3/nl.svg?raw";
+import no from "flag-icons/flags/4x3/no.svg?raw";
+import pl from "flag-icons/flags/4x3/pl.svg?raw";
+import sa from "flag-icons/flags/4x3/sa.svg?raw";
+import se from "flag-icons/flags/4x3/se.svg?raw";
+import tr from "flag-icons/flags/4x3/tr.svg?raw";
+import tw from "flag-icons/flags/4x3/tw.svg?raw";
+import us from "flag-icons/flags/4x3/us.svg?raw";
+
+interface Props {
+  country: string;
+}
+
+const flags: Record<string, string> = {
+  br,
+  cz,
+  de,
+  dk,
+  es,
+  fr,
+  it,
+  jp,
+  kr,
+  nl,
+  no,
+  pl,
+  sa,
+  se,
+  tr,
+  tw,
+  us,
+};
+
+const { country } = Astro.props;
+const flag = flags[country];
+---
+
+<span class="locale-flag" aria-hidden="true" set:html={flag} />

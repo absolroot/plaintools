@@ -1,6 +1,7 @@
 ---
 import FaqSection from "./FaqSection.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
+import ToolPromise from "./ToolPromise.astro";
 import { networkCopy, type ToolCategory } from "../lib/tool-catalog";
 import { previewCopy } from "../lib/tool-i18n";
 import { localizedPath, type Locale, type ToolPage } from "../lib/site";
@@ -50,7 +51,7 @@ const structuredData = [
 <SiteLayout
   locale={locale}
   page={page}
-  title={`${title} | PlainTool`}
+  title={`${title} | AbsolTools`}
   description={description}
   noindex
   structuredData={structuredData}
@@ -65,6 +66,7 @@ const structuredData = [
       >
     </nav><div class="tool-intro-copy">
       <h1>{title}</h1><p class="hero-subheading">{description}</p>
+      <ToolPromise locale={locale} />
     </div>
   </section>
   <div class="tool-shell"><slot /></div>

@@ -1,8 +1,6 @@
-import type { Locale } from "../../lib/site";
+import { locales, type Locale } from "../../lib/site";
 import { previewCopy, type PreviewToolCopy } from "../../lib/tool-i18n";
 
-export const wordCopy: Record<Locale, PreviewToolCopy["word"]> = {
-  en: previewCopy.en.word,
-  ko: previewCopy.ko.word,
-  es: previewCopy.es.word,
-};
+export const wordCopy = Object.fromEntries(
+  locales.map((locale) => [locale, previewCopy[locale].word]),
+) as Record<Locale, PreviewToolCopy["word"]>;
