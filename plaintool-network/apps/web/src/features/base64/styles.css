@@ -139,7 +139,7 @@ html[dir="rtl"] .options[open] .options-chevron {
 
 @media (max-width: 680px) {
   .drop-hint {
-    padding: var(--space-2) var(--space-3) var(--space-3);
+    display: none;
   }
 
   .options-grid {

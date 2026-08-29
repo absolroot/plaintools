@@ -1,5 +1,8 @@
+from urllib.parse import urlsplit
+
 from .common import inspect_view
 from .config import BASE_URL, QA_DIR
+from .new_tools_contract import NEW_TOOL_ROUTES, TECHNICAL_DIRECTION_SELECTORS
 from .registry import RouteInventory
 
 
@@ -81,7 +84,7 @@ def run_route_matrix(
         for locale in inventory.locales:
             for route in routes:
                 path = f"/{locale}/{route}"
-                page.goto(f"{BASE_URL}{path}", wait_until="networkidle")
+                response = page.goto(f"{BASE_URL}{path}", wait_until="networkidle")
                 page.wait_for_selector("main h1", timeout=3000)
                 tool = inventory.tool_for_route(route)
                 coverage = feature_coverage[tool.feature_id] if tool else None
@@ -93,6 +96,65 @@ def run_route_matrix(
                     "title": page.title()
                 }
                 report["route_matrix"][surface][key] = entry
+                slug = route.removesuffix("/")
+                if slug in NEW_TOOL_ROUTES:
+                    metadata = page.evaluate("""
+                      () => ({
+                        html_dir: document.documentElement.dir,
+                        robots: document.querySelector('meta[name="robots"]')?.content,
+                        canonical: document.querySelector('link[rel="canonical"]')?.href,
+                        alternates: Object.fromEntries(
+                          [...document.querySelectorAll('link[rel="alternate"][hreflang]')]
+                            .map((link) => [link.hreflang, link.href])
+                        )
+                      })
+                    """)
+                    entry["new_tool_metadata"] = metadata
+                    entry["response_status"] = response.status if response else None
+                    expected_path = f"/{locale}/{slug}/"
+                    if response is None or not response.ok:
+                        report["ui_detail_failures"].append(
+                            f"{surface} {expected_path} did not return a successful route response."
+                        )
+                    if "noindex" not in (metadata["robots"] or ""):
+                        report["ui_detail_failures"].append(
+                            f"{surface} {expected_path} lost its preview noindex directive: {metadata['robots']}."
+                        )
+                    if not metadata["canonical"] or urlsplit(metadata["canonical"]).path != expected_path:
+                        report["ui_detail_failures"].append(
+                            f"{surface} {expected_path} has the wrong canonical: {metadata['canonical']}."
+                        )
+                    expected_html_dir = "rtl" if locale == "ar" else "ltr"
+                    if metadata["html_dir"] != expected_html_dir:
+                        report["ui_detail_failures"].append(
+                            f"{surface} {expected_path} has html dir={metadata['html_dir']}, expected {expected_html_dir}."
+                        )
+                    for target_locale in inventory.locales:
+                        alternate = metadata["alternates"].get(target_locale)
+                        expected_alternate = f"/{target_locale}/{slug}/"
+                        if not alternate or urlsplit(alternate).path != expected_alternate:
+                            report["ui_detail_failures"].append(
+                                f"{surface} {expected_path} has the wrong {target_locale} hreflang: {alternate}."
+                            )
+                    x_default = metadata["alternates"].get("x-default")
+                    if not x_default or urlsplit(x_default).path != f"/en/{slug}/":
+                        report["ui_detail_failures"].append(
+                            f"{surface} {expected_path} has the wrong x-default hreflang: {x_default}."
+                        )
+                    for selector in TECHNICAL_DIRECTION_SELECTORS.get(slug, ()):
+                        locator = page.locator(selector)
+                        if locator.count() == 0:
+                            report["ui_detail_failures"].append(
+                                f"{surface} {expected_path} is missing technical field {selector}."
+                            )
+                            continue
+                        directions = locator.evaluate_all(
+                            "elements => elements.map((element) => getComputedStyle(element).direction)"
+                        )
+                        if any(direction != "ltr" for direction in directions):
+                            report["ui_detail_failures"].append(
+                                f"{surface} {expected_path} technical field {selector} is not LTR: {directions}."
+                            )
                 if entry["h1_count"] != 1:
                     report["ui_detail_failures"].append(f"{surface} {path} has {entry['h1_count']} h1 elements.")
                 if entry["scroll_width"] > width:
@@ -185,8 +247,18 @@ def run_route_matrix(
                               }
                             """)
                         entry["focus_matrix"][theme] = focus_states
+                        input_focus_style = {
+                            key: value
+                            for key, value in focus_states["input"].items()
+                            if key not in ("width", "height")
+                        }
+                        output_focus_style = {
+                            key: value
+                            for key, value in focus_states["output"].items()
+                            if key not in ("width", "height")
+                        }
                         if (
-                            focus_states["input"] != focus_states["output"]
+                            input_focus_style != output_focus_style
                             or focus_states["input"]["textarea_shadow"] == "none"
                             or focus_states["input"]["pane_shadow"] != "none"
                             or not focus_states["input"]["focus_visible"]

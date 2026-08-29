@@ -1,0 +1,12 @@
+---
+import NewToolPreview from "../../../features/new-tools/NewToolPreview.astro";
+import { locales, type Locale } from "../../../lib/site";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<NewToolPreview locale={locale} page="url-encode" />

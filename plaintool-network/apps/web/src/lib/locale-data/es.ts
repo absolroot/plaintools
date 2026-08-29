@@ -1,4 +1,5 @@
 import type { LocaleBundle } from "./bundle";
+import { catalog as newToolCatalog, tools } from "./new-tools/es";
 
 const bundle: LocaleBundle = {
   site: {
@@ -692,7 +693,9 @@ const bundle: LocaleBundle = {
         "texto",
       ],
     },
+    ...newToolCatalog,
   },
+  tools,
   network: {
     allTools: "Todas las herramientas",
     directoryMetaTitle: "Herramientas en línea para texto y datos | AbsolTools",

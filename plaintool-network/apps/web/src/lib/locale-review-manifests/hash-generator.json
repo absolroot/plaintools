@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "featureId": "hash-generator",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/features/hash-generator/contract.ts",
+    "apps/web/src/features/hash-generator/HashGenerator.astro",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/pages/[locale]/hash-generator/index.astro"
+  ],
+  "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyFingerprint": "sha256:c457fb36cad6b888218375f541081d933c442150bf653431ab77cc6c93a9f0d0",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["en-hash-generator-native-copy", "en-webcrypto-digest"]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["ko-hash-generator-native-copy", "ko-webcrypto-digest"]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["es-hash-generator-native-copy", "es-webcrypto-digest"]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["de-hash-generator-native-copy", "de-webcrypto-digest"]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["ja-hash-generator-native-copy", "ja-webcrypto-digest"]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["fr-hash-generator-native-copy", "fr-webcrypto-digest"]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-hash-generator-native-copy",
+        "pt-br-webcrypto-digest"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["it-hash-generator-native-copy", "it-webcrypto-digest"]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["nl-hash-generator-native-copy", "nl-webcrypto-digest"]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["sv-hash-generator-native-copy", "sv-webcrypto-digest"]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["cs-hash-generator-native-copy", "cs-webcrypto-digest"]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["pl-hash-generator-native-copy", "pl-webcrypto-digest"]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["da-hash-generator-native-copy", "da-webcrypto-digest"]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["no-hash-generator-native-copy", "no-webcrypto-digest"]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["ar-hash-generator-native-copy", "ar-webcrypto-digest"]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-hash-generator-native-copy",
+        "zh-tw-webcrypto-digest"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["tr-hash-generator-native-copy", "tr-webcrypto-digest"]
+    }
+  }
+}

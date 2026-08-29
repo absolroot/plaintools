@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "featureId": "url-codec",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/features/url-codec/contract.ts",
+    "apps/web/src/features/url-codec/UrlCodec.astro",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/pages/[locale]/url-encode/index.astro",
+    "apps/web/src/pages/[locale]/url-decode/index.astro"
+  ],
+  "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyFingerprint": "sha256:6f93479dc386f06b7f7efb7f46d03f897e16bd28bd3c41c4ac31a2313c9a1a5a",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "en-url-codec-native-copy",
+        "en-rfc3986-percent-encoding"
+      ]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ko-url-codec-native-copy",
+        "ko-rfc3986-percent-encoding"
+      ]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "es-url-codec-native-copy",
+        "es-rfc3986-percent-encoding"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-url-codec-native-copy",
+        "de-rfc3986-percent-encoding"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-url-codec-native-copy",
+        "ja-rfc3986-percent-encoding"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-url-codec-native-copy",
+        "fr-rfc3986-percent-encoding"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-url-codec-native-copy",
+        "pt-br-rfc3986-percent-encoding"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-url-codec-native-copy",
+        "it-rfc3986-percent-encoding"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-url-codec-native-copy",
+        "nl-rfc3986-percent-encoding"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-url-codec-native-copy",
+        "sv-rfc3986-percent-encoding"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-url-codec-native-copy",
+        "cs-rfc3986-percent-encoding"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-url-codec-native-copy",
+        "pl-rfc3986-percent-encoding"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-url-codec-native-copy",
+        "da-rfc3986-percent-encoding"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-url-codec-native-copy",
+        "no-rfc3986-percent-encoding"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-url-codec-native-copy",
+        "ar-rfc3986-percent-encoding"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-url-codec-native-copy",
+        "zh-tw-rfc3986-percent-encoding"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-url-codec-native-copy",
+        "tr-rfc3986-percent-encoding"
+      ]
+    }
+  }
+}

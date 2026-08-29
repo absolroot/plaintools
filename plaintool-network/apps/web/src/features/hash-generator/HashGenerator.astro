@@ -9,9 +9,10 @@ import "./styles.css";
 interface Props {
   copy: HashGeneratorCopy;
   commonCopy: ToolCommonCopy;
+  textDirection?: "ltr";
 }
 
-const { copy, commonCopy } = Astro.props;
+const { copy, commonCopy, textDirection = "ltr" } = Astro.props;
 const format = (template: string, values: Record<string, string>) =>
   template.replace(
     /\{(\w+)\}/gu,
@@ -40,7 +41,7 @@ const format = (template: string, values: Record<string, string>) =>
     <textarea
       id="hash-input"
       data-input
-      dir="ltr"
+      dir={textDirection}
       spellcheck="false"
       placeholder={copy.inputPlaceholder}></textarea>
     <p class="hash-file-meta" data-file-meta hidden></p>
@@ -59,7 +60,7 @@ const format = (template: string, values: Record<string, string>) =>
             <input
               id={`hash-result-${algorithm}`}
               data-hash-output={algorithm}
-              dir="ltr"
+              dir={textDirection}
               readonly
               aria-label={format(copy.resultValueLabel, { algorithm })}
             />

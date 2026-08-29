@@ -14,8 +14,10 @@ interface Props {
   category: ToolCategory;
   guideTitle: string;
   guideBody: string;
+  safetyTitle?: string;
+  safetyBody?: string;
   faqs: Array<{ q: string; a: string }>;
-  featureStylesheet: string;
+  featureStylesheet?: string;
 }
 const {
   locale,
@@ -25,6 +27,8 @@ const {
   category,
   guideTitle,
   guideBody,
+  safetyTitle,
+  safetyBody,
   faqs,
   featureStylesheet,
 } = Astro.props;
@@ -74,6 +78,16 @@ const structuredData = [
     <section class="content-section">
       <h2>{guideTitle}</h2><p>{guideBody}</p>
     </section>
+    {
+      safetyTitle && safetyBody && (
+        <section class="content-section">
+          <>
+            <h2>{safetyTitle}</h2>
+            <p>{safetyBody}</p>
+          </>
+        </section>
+      )
+    }
     <FaqSection title={c.faqTitle} faqs={faqs} />
   </div>
 </SiteLayout>

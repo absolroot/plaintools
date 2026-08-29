@@ -59,6 +59,19 @@ const toolMarks: Record<RegisteredToolId, string> = {
   "unix-timestamp-converter": "T",
   "text-compare": "≠",
   "case-converter": "aA",
+  "ai-watermark-remover": "AI",
+  "url-encode": "%",
+  "url-decode": "%",
+  "hash-generator": "#",
+  "jwt-decoder": "JWT",
+  "qr-code-generator": "QR",
+  "qr-code-scanner": "QR",
+  "csv-to-markdown": "CSV",
+  "markdown-to-csv": "MD",
+  "json-to-csv": "{}",
+  "csv-to-json": "CSV",
+  "html-to-markdown": "<>",
+  "markdown-to-html": "MD",
 };
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {

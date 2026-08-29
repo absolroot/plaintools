@@ -1,4 +1,5 @@
 import type { LocaleBundle } from "./bundle";
+import { catalog as newToolCatalog, tools } from "./new-tools/cs";
 
 const csBundle = {
   site: {
@@ -672,7 +673,9 @@ const csBundle = {
         "text",
       ],
     },
+    ...newToolCatalog,
   },
+  tools,
   network: {
     allTools: "Všechny nástroje",
     directoryMetaTitle:

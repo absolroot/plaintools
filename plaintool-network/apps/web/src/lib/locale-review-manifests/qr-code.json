@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "featureId": "qr-code",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/features/qr/contract.ts",
+    "apps/web/src/features/qr/QrGenerator.astro",
+    "apps/web/src/features/qr/QrScanner.astro",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/pages/[locale]/qr-code-generator/index.astro",
+    "apps/web/src/pages/[locale]/qr-code-scanner/index.astro"
+  ],
+  "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyFingerprint": "sha256:17c52a9d79fc7a8708e7e25ceee03a41f8ba0238493cf89959d7d396862e1963",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["en-qr-code-native-copy", "en-iso18004-qr"]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["ko-qr-code-native-copy", "ko-iso18004-qr"]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["es-qr-code-native-copy", "es-iso18004-qr"]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["de-qr-code-native-copy", "de-iso18004-qr"]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["ja-qr-code-native-copy", "ja-iso18004-qr"]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["fr-qr-code-native-copy", "fr-iso18004-qr"]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["pt-br-qr-code-native-copy", "pt-br-iso18004-qr"]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["it-qr-code-native-copy", "it-iso18004-qr"]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["nl-qr-code-native-copy", "nl-iso18004-qr"]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["sv-qr-code-native-copy", "sv-iso18004-qr"]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["cs-qr-code-native-copy", "cs-iso18004-qr"]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["pl-qr-code-native-copy", "pl-iso18004-qr"]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["da-qr-code-native-copy", "da-iso18004-qr"]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["no-qr-code-native-copy", "no-iso18004-qr"]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["ar-qr-code-native-copy", "ar-iso18004-qr"]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["zh-tw-qr-code-native-copy", "zh-tw-iso18004-qr"]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": ["tr-qr-code-native-copy", "tr-iso18004-qr"]
+    }
+  }
+}

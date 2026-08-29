@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "featureId": "data-converter",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/features/data-converter/contract.ts",
+    "apps/web/src/features/data-converter/DataConverter.astro",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/pages/[locale]/csv-to-markdown/index.astro",
+    "apps/web/src/pages/[locale]/markdown-to-csv/index.astro",
+    "apps/web/src/pages/[locale]/json-to-csv/index.astro",
+    "apps/web/src/pages/[locale]/csv-to-json/index.astro",
+    "apps/web/src/pages/[locale]/html-to-markdown/index.astro",
+    "apps/web/src/pages/[locale]/markdown-to-html/index.astro"
+  ],
+  "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyFingerprint": "sha256:d95ce493cf390d60191ec53bc65d16d7f94c3c228053d796eef080e8b769bdba",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "en-data-converter-native-copy",
+        "en-csv-markdown-json-html"
+      ]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ko-data-converter-native-copy",
+        "ko-csv-markdown-json-html"
+      ]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "es-data-converter-native-copy",
+        "es-csv-markdown-json-html"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-data-converter-native-copy",
+        "de-csv-markdown-json-html"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-data-converter-native-copy",
+        "ja-csv-markdown-json-html"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-data-converter-native-copy",
+        "fr-csv-markdown-json-html"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-data-converter-native-copy",
+        "pt-br-csv-markdown-json-html"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-data-converter-native-copy",
+        "it-csv-markdown-json-html"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-data-converter-native-copy",
+        "nl-csv-markdown-json-html"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-data-converter-native-copy",
+        "sv-csv-markdown-json-html"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-data-converter-native-copy",
+        "cs-csv-markdown-json-html"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-data-converter-native-copy",
+        "pl-csv-markdown-json-html"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-data-converter-native-copy",
+        "da-csv-markdown-json-html"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-data-converter-native-copy",
+        "no-csv-markdown-json-html"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-data-converter-native-copy",
+        "ar-csv-markdown-json-html"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-data-converter-native-copy",
+        "zh-tw-csv-markdown-json-html"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-data-converter-native-copy",
+        "tr-csv-markdown-json-html"
+      ]
+    }
+  }
+}

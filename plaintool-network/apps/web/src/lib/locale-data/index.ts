@@ -39,24 +39,114 @@ export const localeBundles = {
 export type LocaleBundleId = keyof typeof localeBundles;
 
 export const localeMetadata = {
-  en: { direction: "ltr", ogLocale: "en_US", flagCountry: "us" },
-  ko: { direction: "ltr", ogLocale: "ko_KR", flagCountry: "kr" },
-  es: { direction: "ltr", ogLocale: "es_ES", flagCountry: "es" },
-  de: { direction: "ltr", ogLocale: "de_DE", flagCountry: "de" },
-  ja: { direction: "ltr", ogLocale: "ja_JP", flagCountry: "jp" },
-  fr: { direction: "ltr", ogLocale: "fr_FR", flagCountry: "fr" },
-  "pt-BR": { direction: "ltr", ogLocale: "pt_BR", flagCountry: "br" },
-  it: { direction: "ltr", ogLocale: "it_IT", flagCountry: "it" },
-  nl: { direction: "ltr", ogLocale: "nl_NL", flagCountry: "nl" },
-  sv: { direction: "ltr", ogLocale: "sv_SE", flagCountry: "se" },
-  cs: { direction: "ltr", ogLocale: "cs_CZ", flagCountry: "cz" },
-  pl: { direction: "ltr", ogLocale: "pl_PL", flagCountry: "pl" },
-  da: { direction: "ltr", ogLocale: "da_DK", flagCountry: "dk" },
-  no: { direction: "ltr", ogLocale: "no_NO", flagCountry: "no" },
-  ar: { direction: "rtl", ogLocale: "ar_SA", flagCountry: "sa" },
-  "zh-TW": { direction: "ltr", ogLocale: "zh_TW", flagCountry: "tw" },
-  tr: { direction: "ltr", ogLocale: "tr_TR", flagCountry: "tr" },
+  en: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "en_US",
+    flagCountry: "us",
+  },
+  ko: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "ko_KR",
+    flagCountry: "kr",
+  },
+  es: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "es_ES",
+    flagCountry: "es",
+  },
+  de: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "de_DE",
+    flagCountry: "de",
+  },
+  ja: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "ja_JP",
+    flagCountry: "jp",
+  },
+  fr: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "fr_FR",
+    flagCountry: "fr",
+  },
+  "pt-BR": {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "pt_BR",
+    flagCountry: "br",
+  },
+  it: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "it_IT",
+    flagCountry: "it",
+  },
+  nl: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "nl_NL",
+    flagCountry: "nl",
+  },
+  sv: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "sv_SE",
+    flagCountry: "se",
+  },
+  cs: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "cs_CZ",
+    flagCountry: "cz",
+  },
+  pl: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "pl_PL",
+    flagCountry: "pl",
+  },
+  da: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "da_DK",
+    flagCountry: "dk",
+  },
+  no: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "no_NO",
+    flagCountry: "no",
+  },
+  ar: {
+    direction: "rtl",
+    technicalDirection: "ltr",
+    ogLocale: "ar_SA",
+    flagCountry: "sa",
+  },
+  "zh-TW": {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "zh_TW",
+    flagCountry: "tw",
+  },
+  tr: {
+    direction: "ltr",
+    technicalDirection: "ltr",
+    ogLocale: "tr_TR",
+    flagCountry: "tr",
+  },
 } as const satisfies Record<
   LocaleBundleId,
-  { direction: "ltr" | "rtl"; ogLocale: string; flagCountry: string }
+  {
+    direction: "ltr" | "rtl";
+    technicalDirection: "ltr";
+    ogLocale: string;
+    flagCountry: string;
+  }
 >;

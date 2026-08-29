@@ -1,4 +1,5 @@
 import type { LocaleBundle } from "./bundle";
+import { catalog as newToolCatalog, tools } from "./new-tools/ar";
 
 const bundle: LocaleBundle = {
   site: {
@@ -665,7 +666,9 @@ const bundle: LocaleBundle = {
         "حروف لاتينية",
       ],
     },
+    ...newToolCatalog,
   },
+  tools,
   network: {
     allTools: "كل الأدوات",
     directoryMetaTitle:

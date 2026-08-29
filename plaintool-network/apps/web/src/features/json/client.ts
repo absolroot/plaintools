@@ -1,4 +1,4 @@
-import { fill } from "../../lib/tool-i18n";
+import { fill } from "../../lib/template";
 import type { JsonIssue } from "@plaintool/json-core";
 import {
   appendBadge,

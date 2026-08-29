@@ -9,6 +9,7 @@ from .config import BASE_URL, QA_DIR, select_browser_locales
 from .directory_feature import run_directory_desktop, run_directory_mobile
 from .feature_coverage import FEATURE_COVERAGE
 from .legal_feature import run_legal_desktop
+from .new_tools_contract import validate_new_tool_inventory
 from .preflight import validate_feature_coverage, verify_server
 from .registry import load_route_inventory
 from .responsive_feature import run_route_matrix
@@ -20,6 +21,7 @@ def main(*, full: bool = False) -> None:
     QA_DIR.mkdir(parents=True, exist_ok=True)
 
     inventory = load_route_inventory()
+    validate_new_tool_inventory(inventory)
     validate_feature_coverage(inventory, FEATURE_COVERAGE)
     browser_locales = select_browser_locales(inventory.locales, full=full)
     browser_inventory = replace(inventory, locales=browser_locales)
@@ -49,7 +51,7 @@ def main(*, full: bool = False) -> None:
                 FEATURE_COVERAGE[feature_id].desktop(
                     desktop, report, browser_inventory
                 )
-            run_directory_desktop(desktop, report)
+            run_directory_desktop(desktop, report, browser_inventory)
 
             mobile = browser.new_page(
                 viewport={"width": 390, "height": 844},
@@ -69,7 +71,7 @@ def main(*, full: bool = False) -> None:
                 browser_inventory,
                 FEATURE_COVERAGE,
             )
-            run_directory_mobile(mobile, report)
+            run_directory_mobile(mobile, report, browser_inventory)
         finally:
             browser.close()
 

@@ -1,0 +1,236 @@
+---
+import PreviewToolPage from "../../components/PreviewToolPage.astro";
+import type { DataConversionMode } from "@plaintool/data-conversion-core";
+import AiTextCleaner from "../ai-text-cleaner/AiTextCleaner.astro";
+import aiTextCleanerStylesheet from "../ai-text-cleaner/styles.css?url";
+import DataConverter from "../data-converter/DataConverter.astro";
+import dataConverterStylesheet from "../data-converter/styles.css?url";
+import HashGenerator from "../hash-generator/HashGenerator.astro";
+import JwtDecoder from "../jwt-decoder/JwtDecoder.astro";
+import QrGenerator from "../qr/QrGenerator.astro";
+import QrScanner from "../qr/QrScanner.astro";
+import qrStylesheet from "../qr/styles.css?url";
+import UrlCodec from "../url-codec/UrlCodec.astro";
+import { localeBundles, localeMetadata } from "../../lib/locale-data";
+import type { NewToolId } from "../../lib/locale-data/bundle";
+import { localizedPath, type Locale } from "../../lib/site";
+import type { ToolCategory } from "../../lib/tool-catalog";
+
+interface Props {
+  locale: Locale;
+  page: NewToolId;
+}
+
+const { locale, page } = Astro.props;
+const bundle = localeBundles[locale];
+const content = bundle.tools[page];
+const direction = localeMetadata[locale].direction;
+const technicalDirection = localeMetadata[locale].technicalDirection;
+
+const categories = {
+  "ai-watermark-remover": "text",
+  "url-encode": "encoding",
+  "url-decode": "encoding",
+  "hash-generator": "encoding",
+  "jwt-decoder": "encoding",
+  "qr-code-generator": "encoding",
+  "qr-code-scanner": "encoding",
+  "csv-to-markdown": "data",
+  "markdown-to-csv": "data",
+  "json-to-csv": "data",
+  "csv-to-json": "data",
+  "html-to-markdown": "data",
+  "markdown-to-html": "data",
+} as const satisfies Record<NewToolId, ToolCategory>;
+
+const featureStylesheets = {
+  "ai-watermark-remover": aiTextCleanerStylesheet,
+  "url-encode": undefined,
+  "url-decode": undefined,
+  "hash-generator": undefined,
+  "jwt-decoder": undefined,
+  "qr-code-generator": qrStylesheet,
+  "qr-code-scanner": qrStylesheet,
+  "csv-to-markdown": dataConverterStylesheet,
+  "markdown-to-csv": dataConverterStylesheet,
+  "json-to-csv": dataConverterStylesheet,
+  "csv-to-json": dataConverterStylesheet,
+  "html-to-markdown": dataConverterStylesheet,
+  "markdown-to-html": dataConverterStylesheet,
+} as const satisfies Record<NewToolId, string | undefined>;
+
+const urlFeature =
+  page === "url-encode"
+    ? bundle.tools["url-encode"].feature
+    : page === "url-decode"
+      ? bundle.tools["url-decode"].feature
+      : undefined;
+const dataModes = [
+  "csv-to-markdown",
+  "markdown-to-csv",
+  "json-to-csv",
+  "csv-to-json",
+  "html-to-markdown",
+  "markdown-to-html",
+] as const satisfies readonly DataConversionMode[];
+const isDataMode = (value: NewToolId): value is DataConversionMode =>
+  (dataModes as readonly NewToolId[]).includes(value);
+const dataMode = isDataMode(page) ? page : undefined;
+const dataFeature = dataMode ? bundle.tools[dataMode].feature : undefined;
+---
+
+<PreviewToolPage
+  locale={locale}
+  page={page}
+  title={content.title}
+  description={content.description}
+  category={categories[page]}
+  guideTitle={content.guideTitle}
+  guideBody={content.guideBody}
+  safetyTitle={content.safetyTitle}
+  safetyBody={content.safetyBody}
+  faqs={content.faqs}
+  featureStylesheet={featureStylesheets[page]}
+>
+  {
+    page === "ai-watermark-remover" && (
+      <AiTextCleaner
+        copy={bundle.tools[page].feature}
+        textDirection={direction}
+      />
+    )
+  }
+  {
+    urlFeature && (
+      <div class="url-tool-route">
+        <nav class="url-route-switch" aria-label={urlFeature?.modeLabel}>
+          <a
+            href={localizedPath(locale, "url-encode")}
+            aria-current={page === "url-encode" ? "page" : undefined}
+          >
+            {urlFeature?.encodeMode}
+          </a>
+          <a
+            href={localizedPath(locale, "url-decode")}
+            aria-current={page === "url-decode" ? "page" : undefined}
+          >
+            {urlFeature?.decodeMode}
+          </a>
+        </nav>
+        <UrlCodec
+          copy={urlFeature!}
+          commonCopy={bundle.common}
+          initialMode={page === "url-encode" ? "encode" : "decode"}
+          textDirection={technicalDirection}
+        />
+      </div>
+    )
+  }
+  {
+    page === "hash-generator" && (
+      <HashGenerator
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+        textDirection={technicalDirection}
+      />
+    )
+  }
+  {
+    page === "jwt-decoder" && (
+      <JwtDecoder
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+        textDirection={technicalDirection}
+      />
+    )
+  }
+  {
+    page === "qr-code-generator" && (
+      <QrGenerator copy={bundle.tools[page].feature} textDirection="auto" />
+    )
+  }
+  {
+    page === "qr-code-scanner" && (
+      <QrScanner copy={bundle.tools[page].feature} resultDirection="auto" />
+    )
+  }
+  {
+    dataMode && dataFeature && (
+      <DataConverter
+        mode={dataMode}
+        copy={dataFeature}
+        textDirection={technicalDirection}
+      />
+    )
+  }
+</PreviewToolPage>
+
+<style>
+  .url-tool-route {
+    min-width: 0;
+  }
+
+  .url-route-switch {
+    min-height: 52px;
+    padding: var(--space-2) var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--base);
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 2px 8px var(--shadow-layer);
+  }
+
+  .url-route-switch a {
+    min-width: 76px;
+    height: 36px;
+    padding: 0 var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    background: var(--recessed);
+    box-shadow: inset 0 0 0 1px var(--line);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .url-route-switch a:hover {
+    color: var(--ink);
+    background: var(--tint);
+  }
+
+  .url-route-switch a[aria-current="page"] {
+    position: relative;
+    z-index: 1;
+    color: var(--ink);
+    background: var(--base);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  .url-tool-route :global(.url-codec) {
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 2px 8px var(--shadow-layer);
+  }
+
+  .url-tool-route :global(.url-codec > .url-codec-topbar > .mode-switch) {
+    display: none;
+  }
+
+  @media (max-width: 680px) {
+    .url-route-switch {
+      min-height: 60px;
+      padding: var(--space-2);
+    }
+
+    .url-route-switch a {
+      min-width: 0;
+      height: 44px;
+      flex: 1;
+    }
+  }
+</style>

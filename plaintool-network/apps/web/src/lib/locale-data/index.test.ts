@@ -4,6 +4,23 @@ import { copyPlaceholders, flattenCopy } from "../locale-test-helpers";
 import { locales } from "../site";
 import { toolRegistry } from "../tool-registry.js";
 import { localeBundles, localeMetadata } from ".";
+import type { NewToolId } from "./bundle";
+
+const newToolIds: NewToolId[] = [
+  "ai-watermark-remover",
+  "url-encode",
+  "url-decode",
+  "hash-generator",
+  "jwt-decoder",
+  "qr-code-generator",
+  "qr-code-scanner",
+  "csv-to-markdown",
+  "markdown-to-csv",
+  "json-to-csv",
+  "csv-to-json",
+  "html-to-markdown",
+  "markdown-to-html",
+];
 
 describe("locale bundles", () => {
   it("keeps the public locale, bundle, and metadata registries symmetric", () => {
@@ -74,6 +91,42 @@ describe("locale bundles", () => {
     }
   });
 
+  it("provides complete page, FAQ, feature, and catalog copy for new tools", () => {
+    for (const locale of locales) {
+      const bundle = localeBundles[locale];
+      expect(Object.keys(bundle.tools), locale).toEqual(newToolIds);
+      for (const toolId of newToolIds) {
+        const tool = bundle.tools[toolId];
+        expect(tool.title.trim(), `${locale}:${toolId}:title`).not.toBe("");
+        expect(
+          tool.description.trim(),
+          `${locale}:${toolId}:description`,
+        ).not.toBe("");
+        expect(tool.guideBody.trim(), `${locale}:${toolId}:guide`).not.toBe("");
+        expect(tool.safetyBody.trim(), `${locale}:${toolId}:safety`).not.toBe(
+          "",
+        );
+        expect(
+          tool.faqs.length,
+          `${locale}:${toolId}:faqs`,
+        ).toBeGreaterThanOrEqual(3);
+        expect(
+          bundle.catalog[toolId].searchTerms.length,
+          `${locale}:${toolId}:terms`,
+        ).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("keeps the AI cleaner claim literal and non-attributional", () => {
+    expect(localeBundles.ko.tools["ai-watermark-remover"].title).toBe(
+      "AI 워터마크 제거기 - GPT·Claude 숨은 문자 정리",
+    );
+    expect(
+      localeBundles.en.tools["ai-watermark-remover"].description,
+    ).toContain("does not detect AI authorship");
+  });
+
   it("declares Arabic as RTL and every other locale as LTR", () => {
     const flagCountries = locales.map(
       (locale) => localeMetadata[locale].flagCountry,
@@ -85,6 +138,7 @@ describe("locale bundles", () => {
       expect(localeMetadata[locale].direction).toBe(
         locale === "ar" ? "rtl" : "ltr",
       );
+      expect(localeMetadata[locale].technicalDirection).toBe("ltr");
     }
   });
 });

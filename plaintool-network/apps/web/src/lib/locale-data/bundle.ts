@@ -7,6 +7,57 @@ import type {
   NetworkCopy,
   RegisteredToolId,
 } from "../tool-catalog";
+import type { AiTextCleanerCopy } from "../../features/ai-text-cleaner/contract";
+import type { DataConverterCopy } from "../../features/data-converter/contract";
+import type { HashGeneratorCopy } from "../../features/hash-generator/contract";
+import type { JwtDecoderCopy } from "../../features/jwt-decoder/contract";
+import type {
+  QrGeneratorCopy,
+  QrScannerCopy,
+} from "../../features/qr/contract";
+import type { UrlCodecCopy } from "../../features/url-codec/contract";
+
+export type NewToolId =
+  | "ai-watermark-remover"
+  | "url-encode"
+  | "url-decode"
+  | "hash-generator"
+  | "jwt-decoder"
+  | "qr-code-generator"
+  | "qr-code-scanner"
+  | "csv-to-markdown"
+  | "markdown-to-csv"
+  | "json-to-csv"
+  | "csv-to-json"
+  | "html-to-markdown"
+  | "markdown-to-html";
+
+export type ToolPageCopy<T> = {
+  title: string;
+  description: string;
+  guideTitle: string;
+  guideBody: string;
+  safetyTitle: string;
+  safetyBody: string;
+  faqs: Array<{ q: string; a: string }>;
+  feature: T;
+};
+
+export type NewToolsCopy = {
+  "ai-watermark-remover": ToolPageCopy<AiTextCleanerCopy>;
+  "url-encode": ToolPageCopy<UrlCodecCopy>;
+  "url-decode": ToolPageCopy<UrlCodecCopy>;
+  "hash-generator": ToolPageCopy<HashGeneratorCopy>;
+  "jwt-decoder": ToolPageCopy<JwtDecoderCopy>;
+  "qr-code-generator": ToolPageCopy<QrGeneratorCopy>;
+  "qr-code-scanner": ToolPageCopy<QrScannerCopy>;
+  "csv-to-markdown": ToolPageCopy<DataConverterCopy>;
+  "markdown-to-csv": ToolPageCopy<DataConverterCopy>;
+  "json-to-csv": ToolPageCopy<DataConverterCopy>;
+  "csv-to-json": ToolPageCopy<DataConverterCopy>;
+  "html-to-markdown": ToolPageCopy<DataConverterCopy>;
+  "markdown-to-html": ToolPageCopy<DataConverterCopy>;
+};
 
 export type LocaleBundle = {
   site: Copy;
@@ -14,5 +65,6 @@ export type LocaleBundle = {
   preview: Omit<PreviewToolCopy, "common">;
   examples: ToolExamples;
   catalog: Record<RegisteredToolId, LocaleCatalogToolCopy>;
+  tools: NewToolsCopy;
   network: NetworkCopy;
 };

@@ -8,9 +8,10 @@ import "./styles.css";
 interface Props {
   copy: JwtDecoderCopy;
   commonCopy: ToolCommonCopy;
+  textDirection?: "ltr";
 }
 
-const { copy, commonCopy } = Astro.props;
+const { copy, commonCopy, textDirection = "ltr" } = Astro.props;
 ---
 
 <section
@@ -36,7 +37,7 @@ const { copy, commonCopy } = Astro.props;
     <textarea
       id="jwt-input"
       data-input
-      dir="ltr"
+      dir={textDirection}
       spellcheck="false"
       autocapitalize="off"
       autocomplete="off"
@@ -59,7 +60,7 @@ const { copy, commonCopy } = Astro.props;
       <textarea
         id="jwt-header-output"
         data-output="header"
-        dir="ltr"
+        dir={textDirection}
         readonly
         spellcheck="false"></textarea>
     </section>
@@ -79,7 +80,7 @@ const { copy, commonCopy } = Astro.props;
       <textarea
         id="jwt-payload-output"
         data-output="payload"
-        dir="ltr"
+        dir={textDirection}
         readonly
         spellcheck="false"></textarea>
     </section>
@@ -99,7 +100,7 @@ const { copy, commonCopy } = Astro.props;
           <UiIcon name="copy" size={14} />{commonCopy.copy}
         </button>
       </div>
-      <output data-output="signature" dir="ltr"></output>
+      <output data-output="signature" dir={textDirection}></output>
     </div>
     <div class="jwt-timestamps">
       <h2>{copy.timestampsLabel}</h2>

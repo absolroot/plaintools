@@ -1,4 +1,5 @@
 import type { LocaleBundle } from "./bundle";
+import { catalog as newToolCatalog, tools } from "./new-tools/fr";
 
 export const frBundle: LocaleBundle = {
   site: {
@@ -683,7 +684,9 @@ export const frBundle: LocaleBundle = {
         "capitaliser",
       ],
     },
+    ...newToolCatalog,
   },
+  tools,
   network: {
     allTools: "Tous les outils",
     directoryMetaTitle:

@@ -76,6 +76,136 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/case-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  {
+    id: "ai-watermark-remover",
+    featureId: "ai-text-cleaner",
+    slug: "ai-watermark-remover",
+    category: "text",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/ai-text-cleaner.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "url-encode",
+    featureId: "url-codec",
+    slug: "url-encode",
+    category: "encoding",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/url-codec.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "url-decode",
+    featureId: "url-codec",
+    slug: "url-decode",
+    category: "encoding",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/url-codec.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "hash-generator",
+    featureId: "hash-generator",
+    slug: "hash-generator",
+    category: "encoding",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/hash-generator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "jwt-decoder",
+    featureId: "jwt-decoder",
+    slug: "jwt-decoder",
+    category: "encoding",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/jwt-decoder.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "qr-code-generator",
+    featureId: "qr-code",
+    slug: "qr-code-generator",
+    category: "encoding",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/qr-code.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "qr-code-scanner",
+    featureId: "qr-code",
+    slug: "qr-code-scanner",
+    category: "encoding",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/qr-code.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "csv-to-markdown",
+    featureId: "data-converter",
+    slug: "csv-to-markdown",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/data-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "markdown-to-csv",
+    featureId: "data-converter",
+    slug: "markdown-to-csv",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/data-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "json-to-csv",
+    featureId: "data-converter",
+    slug: "json-to-csv",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/data-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "csv-to-json",
+    featureId: "data-converter",
+    slug: "csv-to-json",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/data-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "html-to-markdown",
+    featureId: "data-converter",
+    slug: "html-to-markdown",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/data-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "markdown-to-html",
+    featureId: "data-converter",
+    slug: "markdown-to-html",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/data-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);

@@ -7,9 +7,10 @@ import type { DataConverterCopy } from "./contract";
 interface Props {
   mode: DataConversionMode;
   copy: DataConverterCopy;
+  textDirection?: "ltr";
 }
 
-const { mode, copy } = Astro.props;
+const { mode, copy, textDirection = "ltr" } = Astro.props;
 const csvInput = mode === "csv-to-markdown" || mode === "csv-to-json";
 const csvOutput = mode === "markdown-to-csv" || mode === "json-to-csv";
 const accepts = csvInput
@@ -75,7 +76,7 @@ const accepts = csvInput
       <textarea
         id={`${mode}-input`}
         data-input
-        dir="ltr"
+        dir={textDirection}
         spellcheck="false"
         autocapitalize="off"
         autocomplete="off"
@@ -98,7 +99,7 @@ const accepts = csvInput
       <textarea
         id={`${mode}-output`}
         data-output
-        dir="ltr"
+        dir={textDirection}
         readonly
         spellcheck="false"
         placeholder={copy.outputPlaceholder}></textarea>

@@ -1,12 +1,28 @@
 from .base64_feature import run_base64_desktop
+from .ai_text_cleaner_feature import (
+    run_ai_text_cleaner_desktop,
+    run_ai_text_cleaner_mobile,
+)
 from .case_converter_feature import run_case_converter_desktop, run_case_converter_mobile
+from .code_security_feature import (
+    run_hash_desktop,
+    run_hash_mobile,
+    run_jwt_desktop,
+    run_jwt_mobile,
+)
+from .data_converter_feature import (
+    run_data_converter_desktop,
+    run_data_converter_mobile,
+)
 from .json_feature import run_json_desktop, run_json_mobile
 from .preflight import FeatureCoverage
 from .registry import RouteInventory
 from .responsive_feature import run_base64_mobile
+from .qr_feature import run_qr_desktop, run_qr_mobile
 from .time_feature import run_time_desktop, run_time_mobile
 from .text_compare_feature import run_text_compare_desktop, run_text_compare_mobile
 from .word_feature import run_word_desktop, run_word_mobile
+from .url_codec_feature import run_url_codec_desktop, run_url_codec_mobile
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -97,6 +113,50 @@ FEATURE_COVERAGE = {
         desktop=_run_case_converter_desktop,
         mobile=_run_case_converter_mobile,
         focus_targets=(("input", "[data-input]"), ("output", "[data-output]")),
+        focus_style="editor",
+        exercise_faq=True,
+    ),
+    "ai-text-cleaner": FeatureCoverage(
+        desktop=run_ai_text_cleaner_desktop,
+        mobile=run_ai_text_cleaner_mobile,
+        focus_targets=(("input", "[data-ai-text-cleaner] [data-input]"),),
+        exercise_faq=True,
+    ),
+    "data-converter": FeatureCoverage(
+        desktop=run_data_converter_desktop,
+        mobile=run_data_converter_mobile,
+        focus_targets=(
+            ("input", "[data-data-converter] [data-input]"),
+            ("output", "[data-data-converter] [data-output]"),
+        ),
+        focus_style="editor",
+        exercise_faq=True,
+    ),
+    "hash-generator": FeatureCoverage(
+        desktop=run_hash_desktop,
+        mobile=run_hash_mobile,
+        focus_targets=(("input", "[data-hash-generator] [data-input]"),),
+        exercise_faq=True,
+    ),
+    "jwt-decoder": FeatureCoverage(
+        desktop=run_jwt_desktop,
+        mobile=run_jwt_mobile,
+        focus_targets=(("input", "[data-jwt-decoder] [data-input]"),),
+        exercise_faq=True,
+    ),
+    "qr-code": FeatureCoverage(
+        desktop=run_qr_desktop,
+        mobile=run_qr_mobile,
+        focus_targets=(("input", ".converter textarea"),),
+        exercise_faq=True,
+    ),
+    "url-codec": FeatureCoverage(
+        desktop=run_url_codec_desktop,
+        mobile=run_url_codec_mobile,
+        focus_targets=(
+            ("input", "[data-url-codec] [data-input]"),
+            ("output", "[data-url-codec] [data-output]"),
+        ),
         focus_style="editor",
         exercise_faq=True,
     ),

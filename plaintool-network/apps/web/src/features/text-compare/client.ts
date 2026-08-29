@@ -4,7 +4,7 @@ import type {
   TextDiffRow,
   TextDiffSegment,
 } from "@plaintool/text-diff-core";
-import { fill } from "../../lib/tool-i18n";
+import { fill } from "../../lib/template";
 import {
   appendBadge,
   createDeferredIndicator,

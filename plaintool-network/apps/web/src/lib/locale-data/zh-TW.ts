@@ -1,4 +1,5 @@
 import type { LocaleBundle } from "./bundle";
+import { catalog as newToolCatalog, tools } from "./new-tools/zh-TW";
 
 const bundle: LocaleBundle = {
   site: {
@@ -621,7 +622,9 @@ const bundle: LocaleBundle = {
         "文字",
       ],
     },
+    ...newToolCatalog,
   },
+  tools,
   network: {
     allTools: "所有工具",
     directoryMetaTitle: "免費線上文字、資料與編碼工具 | AbsolTools",

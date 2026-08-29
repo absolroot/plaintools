@@ -1,6 +1,7 @@
 import { commonToolCopy, type CommonToolCopy } from "./common-tool-i18n";
 import { localeBundles } from "./locale-data";
 import { locales, type Locale } from "./site";
+export { fill } from "./template";
 
 type Faq = { q: string; a: string };
 
@@ -158,12 +159,3 @@ export const previewCopy = Object.fromEntries(
     { common: commonToolCopy[locale], ...localeBundles[locale].preview },
   ]),
 ) as Record<Locale, PreviewToolCopy>;
-
-export function fill(
-  template: string,
-  values: Record<string, string | number>,
-): string {
-  return template.replace(/\{(\w+)\}/gu, (_, key: string) =>
-    String(values[key] ?? `{${key}}`),
-  );
-}

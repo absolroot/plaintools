@@ -9,9 +9,15 @@ interface Props {
   copy: UrlCodecCopy;
   commonCopy: ToolCommonCopy;
   initialMode?: "encode" | "decode";
+  textDirection?: "ltr";
 }
 
-const { copy, commonCopy, initialMode = "encode" } = Astro.props;
+const {
+  copy,
+  commonCopy,
+  initialMode = "encode",
+  textDirection = "ltr",
+} = Astro.props;
 ---
 
 <section
@@ -86,7 +92,7 @@ const { copy, commonCopy, initialMode = "encode" } = Astro.props;
       <textarea
         id="url-codec-input"
         data-input
-        dir="ltr"
+        dir={textDirection}
         spellcheck="false"
         autocapitalize="off"
         autocomplete="off"
@@ -115,7 +121,7 @@ const { copy, commonCopy, initialMode = "encode" } = Astro.props;
       <textarea
         id="url-codec-output"
         data-output
-        dir="ltr"
+        dir={textDirection}
         readonly
         spellcheck="false"
         placeholder={copy.outputPlaceholder}></textarea>

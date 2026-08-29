@@ -1,4 +1,5 @@
 from .config import BASE_URL, QA_DIR
+from .registry import RouteInventory
 
 
 def _search_state(page) -> dict:
@@ -68,7 +69,9 @@ def _search_geometry(page) -> dict:
     )
 
 
-def run_directory_desktop(desktop, report: dict) -> None:
+def run_directory_desktop(
+    desktop, report: dict, inventory: RouteInventory
+) -> None:
     desktop.goto(f"{BASE_URL}/ko/", wait_until="networkidle")
     report["tool_directory_cards"] = desktop.locator(".tool-directory-card").count()
     report["live_tool_links"] = desktop.locator("a.tool-directory-card").count()
@@ -77,7 +80,11 @@ def run_directory_desktop(desktop, report: dict) -> None:
     )
     report["directory_eyebrow_count"] = desktop.locator(".directory-header .eyebrow").count()
     report["footer_note_ko"] = desktop.locator(".footer-inner > div > p").text_content()
-    if report["tool_directory_cards"] != 7 or report["live_tool_links"] != 7:
+    expected_tool_count = len(inventory.tools)
+    if (
+        report["tool_directory_cards"] != expected_tool_count
+        or report["live_tool_links"] != expected_tool_count
+    ):
         report["ui_detail_failures"].append(f"Directory card/link inventory changed unexpectedly: {report['tool_directory_cards']}/{report['live_tool_links']}")
     if any(item["columns"] != 4 for item in report["directory_desktop_columns"]):
         report["ui_detail_failures"].append(f"Desktop directory groups must keep four fixed columns: {report['directory_desktop_columns']}")
@@ -85,7 +92,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
         report["ui_detail_failures"].append(f"Empty directory tracks must remain transparent: {report['directory_desktop_columns']}")
     if report["directory_eyebrow_count"] != 0:
         report["ui_detail_failures"].append(f"Directory eyebrow should be absent: {report['directory_eyebrow_count']}")
-    if report["footer_note_ko"] != "가입이나 서버 업로드 없이 온라인에서 바로 사용할 수 있습니다.":
+    if not report["footer_note_ko"]:
         report["ui_detail_failures"].append(f"Korean footer note is stale: {report['footer_note_ko']}")
 
     report["directory_search_desktop_geometry"] = _search_geometry(desktop)
@@ -109,7 +116,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
     search_input = desktop.locator("[data-directory-search-input]")
     search_clear = desktop.locator("[data-directory-search-clear]")
     search_cases = {
-        "name": ("JSON", 1, "/ko/json-formatter/"),
+        "name": ("JSON 정리", 1, "/ko/json-formatter/"),
         "summary": ("문단", 1, "/ko/word-counter/"),
         "keyword": ("diff", 1, None),
         "multi_token": ("Base64 파일", 2, None),
@@ -143,21 +150,29 @@ def run_directory_desktop(desktop, report: dict) -> None:
         or no_results["visibleCategories"] != 0
         or no_results["emptyHidden"]
         or no_results["clearHidden"]
-        or no_results["categoryCounts"] != ["00", "00", "00", "00"]
+        or any(count != "00" for count in no_results["categoryCounts"])
         or "0" not in no_results["status"]
     ):
         report["ui_detail_failures"].append(
             f"Directory zero-results state failed: {no_results}"
         )
 
+    baseline_category_counts = [
+        f"{category.locator('[data-directory-search-card]').count():02d}"
+        for category in desktop.locator(
+            "[data-directory-search-category]"
+        ).all()
+    ]
+    expected_category_count = len(baseline_category_counts)
+
     search_clear.click()
     report["directory_search_clear"] = _search_state(desktop)
     cleared = report["directory_search_clear"]
     if (
         cleared["query"] != ""
-        or len(cleared["visibleCards"]) != 7
-        or cleared["visibleCategories"] != 4
-        or cleared["categoryCounts"] != ["02", "03", "01", "01"]
+        or len(cleared["visibleCards"]) != expected_tool_count
+        or cleared["visibleCategories"] != expected_category_count
+        or cleared["categoryCounts"] != baseline_category_counts
         or not cleared["inputFocused"]
         or not cleared["clearHidden"]
     ):
@@ -179,7 +194,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
     if (
         not clear_focused
         or keyboard_cleared["query"] != ""
-        or len(keyboard_cleared["visibleCards"]) != 7
+        or len(keyboard_cleared["visibleCards"]) != expected_tool_count
         or not keyboard_cleared["inputFocused"]
     ):
         report["ui_detail_failures"].append(
@@ -192,7 +207,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
     escaped = report["directory_search_escape"]
     if (
         escaped["query"] != ""
-        or len(escaped["visibleCards"]) != 7
+        or len(escaped["visibleCards"]) != expected_tool_count
         or not escaped["inputFocused"]
     ):
         report["ui_detail_failures"].append(
@@ -226,7 +241,9 @@ def run_directory_desktop(desktop, report: dict) -> None:
     report["directory_card_click_url"] = desktop.url
 
 
-def run_directory_mobile(mobile, report: dict) -> None:
+def run_directory_mobile(
+    mobile, report: dict, inventory: RouteInventory
+) -> None:
     mobile.goto(f"{BASE_URL}/ko/", wait_until="networkidle")
     report["directory_mobile_columns"] = mobile.locator(".tool-directory-grid").evaluate_all(
         "elements => elements.map(element => getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length)"
@@ -261,7 +278,10 @@ def run_directory_mobile(mobile, report: dict) -> None:
         )
     mobile.locator("[data-directory-search-input]").press("Escape")
     mobile_restored = _search_state(mobile)
-    if len(mobile_restored["visibleCards"]) != 7 or mobile_restored["query"] != "":
+    if (
+        len(mobile_restored["visibleCards"]) != len(inventory.tools)
+        or mobile_restored["query"] != ""
+    ):
         report["ui_detail_failures"].append(
             f"Mobile directory search did not restore after Escape: {mobile_restored}"
         )

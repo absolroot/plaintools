@@ -1,4 +1,5 @@
 import type { LocaleBundle } from "./bundle";
+import { catalog as newToolCatalog, tools } from "./new-tools/ko";
 
 const bundle: LocaleBundle = {
   site: {
@@ -672,7 +673,9 @@ const bundle: LocaleBundle = {
         "텍스트를 대문자, 소문자, 문장형 또는 단어 첫 글자 대문자로 바꿉니다.",
       searchTerms: ["대문자", "소문자", "문장형", "단어 첫 글자", "텍스트"],
     },
+    ...newToolCatalog,
   },
+  tools,
   network: {
     allTools: "전체 도구",
     directoryMetaTitle: "무료 온라인 도구 - 텍스트·데이터·인코딩 | AbsolTools",

@@ -1,0 +1,346 @@
+import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
+
+const seed = {
+  ui: {
+    clear: "Clear",
+    copy: "Copy",
+    download: "Download",
+    openFile: "Open file",
+    chooseImage: "Choose image",
+    dropFile: "Drop an image here.",
+    ready: "Ready",
+    working: "Working…",
+    complete: "Complete",
+    unchanged: "No change needed",
+    outdated: "Result is out of date",
+    copied: "Copied",
+    copyFailed: "Could not copy",
+    tooLarge: "The input is too large to process safely.",
+    failed: "Processing failed. Check the input and try again.",
+    resultHere: "The result appears here.",
+    localTitle: "Processed only in this browser",
+    localBody:
+      "Your input and results are not uploaded or stored. They remain in this browser tab.",
+    guideTitle: "How to use {name}",
+    safetyTitle: "Private, local processing",
+    faqWhat: "What does {name} do?",
+    faqPrivacy: "Is my data uploaded?",
+    faqCheck: "What should I check when using {name}?",
+  },
+  ai: {
+    input: "Original text",
+    output: "Cleaned text",
+    placeholder: "Paste text that may contain hidden Unicode characters.",
+    run: "Clean hidden characters",
+    report: "Removal report",
+    removed: "Removed characters",
+    normalized: "Normalized spaces",
+    noChanges: "No targeted hidden characters were found.",
+    count: "{count} removed",
+    advanced: "Advanced Unicode options",
+    advancedWarning:
+      "These options can change spelling, emoji, or script shaping. Enable them only when you understand the source text.",
+    joinControls: "Remove ZWJ and ZWNJ",
+    joinWarning:
+      "May break emoji sequences and Arabic, Persian, or Indic text shaping.",
+    variationSelectors: "Remove variation selectors",
+    variationWarning: "May change emoji or CJK glyph appearance.",
+    combiningMarks: "Remove combining marks",
+    combiningWarning:
+      "May remove accents, vowel signs, and other meaningful marks.",
+    noBreakSpaces: "Normalize no-break spaces",
+    noBreakNote: "Converts NBSP-like spacing characters to ordinary spaces.",
+    kinds: [
+      "Zero-width space",
+      "Word joiner",
+      "Byte order mark",
+      "Soft hyphen",
+      "Bidirectional control",
+      "Invisible separator",
+      "Join control",
+      "Variation selector",
+      "Combining mark",
+      "No-break or figure space",
+      "Narrow no-break space",
+    ],
+  },
+  url: {
+    mode: "URL conversion mode",
+    encode: "Encode",
+    decode: "Decode",
+    encodeInput: "Text or URL to encode",
+    decodeInput: "Encoded URL value",
+    encodeOutput: "Encoded result",
+    decodeOutput: "Decoded result",
+    encodePlaceholder: "Example: https://example.com/search?q=hello world",
+    decodePlaceholder: "Example: hello%20world%3Fpage%3D1",
+    scope: "Encoding scope",
+    component: "URL component",
+    uri: "Complete URI",
+    formSpace: "Use + for spaces in form data",
+    recursive: "Decode repeatedly",
+    passLimit: "Maximum passes",
+    encoded: "URL encoding complete",
+    decoded: "URL decoding complete",
+    passCount: "Decoded in {count} pass(es)",
+    limitReached: "More encoded layers remain after the pass limit.",
+    errors: [
+      "Enter a value first.",
+      "A percent escape is incomplete or invalid.",
+      "The decoded bytes are not valid UTF-8.",
+      "Choose a pass limit from 1 to 10.",
+    ],
+  },
+  hash: {
+    input: "Text or file",
+    placeholder:
+      "Enter text to calculate SHA-256, SHA-512, SHA-1, and MD5 hashes.",
+    results: "Hash values",
+    resultLabel: "{algorithm} hash value",
+    copyLabel: "Copy {algorithm} hash",
+    fileSelected: "Selected: {name} ({size})",
+    drop: "Drop a file here to hash it locally.",
+    textTooLarge: "The text is too large for this browser session.",
+    fileTooLarge: "The file exceeds the local safety limit.",
+    legacyWarning:
+      "MD5 and SHA-1 are included for compatibility checks, not password storage or new security designs.",
+    empty: "Enter text or choose a file first.",
+    unavailable: "This browser cannot calculate one of the requested hashes.",
+  },
+  jwt: {
+    input: "JWT token",
+    placeholder: "Paste a three-part JWT: header.payload.signature",
+    header: "Header",
+    payload: "Payload",
+    signature: "Signature",
+    copyHeader: "Copy decoded JWT header",
+    copyPayload: "Copy decoded JWT payload",
+    copySignature: "Copy JWT signature bytes",
+    signatureBytes: "{count} bytes",
+    timestamps: "Timestamp claims",
+    expires: "Expires (exp)",
+    notBefore: "Not before (nbf)",
+    issuedAt: "Issued at (iat)",
+    invalidTimestamp: "This claim is not a valid numeric timestamp.",
+    noTimestamps: "No exp, nbf, or iat claims were found.",
+    noVerifyTitle: "Signature not verified",
+    noVerifyBody:
+      "Decoding only reveals token contents. It does not prove who issued the token or whether the signature is valid.",
+    errors: [
+      "Paste a JWT first.",
+      "A JWT must contain exactly three dot-separated parts.",
+      "The JWT header is empty.",
+      "The JWT payload is empty.",
+      "A segment is not valid Base64URL.",
+      "A segment is not valid UTF-8.",
+      "The header is not valid JSON.",
+      "The payload is not valid JSON.",
+      "The header must be a JSON object.",
+      "The payload must be a JSON object.",
+    ],
+  },
+  qr: {
+    input: "Text or URL",
+    placeholder: "Enter the text or URL to place in the QR code.",
+    preview: "QR code preview",
+    previewEmpty: "Enter content to generate a QR code.",
+    options: "QR code options",
+    correction: "Error correction",
+    correctionLevels: ["Low (L)", "Medium (M)", "Quartile (Q)", "High (H)"],
+    quietZone: "Quiet zone",
+    quietZones: ["None", "2 modules", "4 modules (recommended)", "8 modules"],
+    generate: "Generate QR code",
+    png: "Download PNG",
+    svg: "Download SVG",
+    empty: "Enter text or a URL first.",
+    tooLong: "The content is too long for this error-correction level.",
+    generationFailed: "The QR code could not be generated.",
+    downloadFailed: "The image could not be prepared for download.",
+    upload: "QR code image",
+    formats: "PNG, JPEG, WebP, GIF, or BMP up to 15 MB",
+    camera: "Camera scanner",
+    cameraHint:
+      "Allow camera access to scan continuously. Decoded URLs are never opened automatically.",
+    startCamera: "Start camera",
+    stopCamera: "Stop camera",
+    scanResult: "Decoded content",
+    scanPlaceholder: "The scanned text appears here.",
+    urlDetected: "URL detected",
+    reading: "Reading image…",
+    starting: "Starting camera…",
+    scanning: "Looking for a QR code…",
+    invalidImage: "Choose a valid supported image.",
+    noCode: "No readable QR code was found in this image.",
+    unsupported: "Camera scanning is not supported in this browser.",
+    denied: "Camera permission was denied.",
+    unavailable: "No suitable camera is available.",
+    scanFailed: "The QR code could not be scanned.",
+  },
+  data: {
+    convert: "Convert",
+    inputPlaceholder: "Paste source data here.",
+    outputPlaceholder: "Converted output appears here.",
+    drop: "Drop a supported text file here.",
+    readFailed: "The file could not be read.",
+    errorAt: "{message} Line {line}, column {column}.",
+    delimiter: "CSV delimiter",
+    auto: "Detect automatically",
+    comma: "Comma (,)",
+    semicolon: "Semicolon (;)",
+    tab: "Tab",
+    pipe: "Pipe (|)",
+    firstHeader: "Use first row as header",
+    pretty: "Format JSON with indentation",
+    errors: [
+      "The CSV contains an unclosed quote or malformed field.",
+      "No Markdown table with a separator row was found.",
+      "The Markdown table is malformed.",
+      "The input is not valid JSON.",
+      "JSON must be an array of objects.",
+      "A CSV header is empty.",
+      "CSV headers must be unique.",
+    ],
+  },
+  pages: {
+    "ai-watermark-remover": {
+      title: "AI watermark & hidden character remover",
+      description:
+        "Find and remove literal hidden Unicode artifacts often copied from GPT, Claude, PDFs, or web pages. This tool does not detect AI authorship.",
+      guide:
+        "Paste text and review the cleaned result first, then inspect the exact character names, counts, and U+ code points. Risky script-shaping options stay off by default.",
+      terms: [
+        "AI watermark remover",
+        "GPT hidden characters",
+        "Claude hidden characters",
+        "zero width space",
+        "Unicode cleaner",
+      ],
+    },
+    "url-encode": {
+      title: "URL encoder",
+      description:
+        "Percent-encode text, query values, or complete URIs with the correct browser standard.",
+      guide:
+        "Choose URL component for a single query value or complete URI to preserve URL separators. Enable plus signs only for form-style data.",
+      terms: [
+        "URL encode",
+        "percent encoding",
+        "encodeURIComponent",
+        "query string",
+      ],
+    },
+    "url-decode": {
+      title: "URL decoder",
+      description:
+        "Decode percent-encoded URLs and query values, with an optional bounded multi-pass mode.",
+      guide:
+        "Paste the encoded value, choose its scope, and use repeated decoding only when the source is known to contain nested encoding.",
+      terms: [
+        "URL decode",
+        "percent decode",
+        "decodeURIComponent",
+        "query string",
+      ],
+    },
+    "hash-generator": {
+      title: "Hash generator",
+      description:
+        "Calculate SHA-256, SHA-512, SHA-1, and MD5 checksums for text or files locally.",
+      guide:
+        "Enter text or choose a file, then compare the required algorithm exactly. Hashes check equality; they do not encrypt data or safely store passwords by themselves.",
+      terms: ["SHA-256", "SHA-512", "MD5", "checksum", "file hash"],
+    },
+    "jwt-decoder": {
+      title: "JWT decoder",
+      description:
+        "Decode a JWT header, payload, signature bytes, and timestamp claims without uploading the token.",
+      guide:
+        "Inspect the decoded JSON and timestamps, but verify signatures and claims in the system that owns the signing key. Decoding alone does not establish trust.",
+      terms: ["JWT decoder", "JSON Web Token", "JWT payload", "JWT header"],
+    },
+    "qr-code-generator": {
+      title: "QR code generator",
+      description:
+        "Create a standards-compatible static QR code for text or a URL and download it as PNG or SVG.",
+      guide:
+        "Enter the exact content, keep a four-module quiet zone for reliable scanning, and raise error correction when the code may be partly obscured.",
+      terms: ["QR code generator", "QR PNG", "QR SVG", "static QR"],
+    },
+    "qr-code-scanner": {
+      title: "QR code scanner",
+      description:
+        "Read a QR code from an image or camera locally without automatically opening decoded links.",
+      guide:
+        "Use a sharp, well-lit image with the full quiet zone visible. Review and copy the decoded value before deciding whether a URL is safe.",
+      terms: ["QR scanner", "scan QR image", "camera QR reader", "decode QR"],
+    },
+    "csv-to-markdown": {
+      title: "CSV to Markdown converter",
+      description:
+        "Turn CSV rows into a clean Markdown table with delimiter detection and escaped cells.",
+      guide:
+        "Check the delimiter and whether the first row is a header. Multiline cells become table-safe line breaks and pipe characters are escaped.",
+      inputLabel: "CSV input",
+      outputLabel: "Markdown table",
+      inputPlaceholder: "name,score\nAri,92",
+      terms: ["CSV to Markdown", "Markdown table", "CSV converter"],
+    },
+    "markdown-to-csv": {
+      title: "Markdown to CSV converter",
+      description:
+        "Convert a Markdown table into standards-friendly CSV for spreadsheets and data tools.",
+      guide:
+        "Include a header and separator row in the Markdown table, then choose the delimiter required by the destination application.",
+      inputLabel: "Markdown table",
+      outputLabel: "CSV output",
+      inputPlaceholder: "| name | score |\n| --- | --- |\n| Ari | 92 |",
+      terms: ["Markdown to CSV", "table to CSV", "Markdown converter"],
+    },
+    "json-to-csv": {
+      title: "JSON to CSV converter",
+      description:
+        "Convert an array of JSON objects into CSV with a stable union of object keys.",
+      guide:
+        "Use a top-level array of objects. Nested values are preserved as compact JSON strings, so check how the destination spreadsheet should handle them.",
+      inputLabel: "JSON array",
+      outputLabel: "CSV output",
+      inputPlaceholder: '[{"name":"Ari","score":92}]',
+      terms: ["JSON to CSV", "JSON array to CSV", "data converter"],
+    },
+    "csv-to-json": {
+      title: "CSV to JSON converter",
+      description:
+        "Convert CSV into an array of JSON objects using the first row as field names.",
+      guide:
+        "Make every header non-empty and unique. Review delimiter detection before converting data that contains commas, quotes, or multiline cells.",
+      inputLabel: "CSV input",
+      outputLabel: "JSON array",
+      inputPlaceholder: "name,score\nAri,92",
+      terms: ["CSV to JSON", "CSV parser", "JSON array"],
+    },
+    "html-to-markdown": {
+      title: "HTML to Markdown converter",
+      description:
+        "Convert HTML structure into readable Markdown, including headings, links, lists, code, and tables.",
+      guide:
+        "Paste the HTML fragment you want to convert. Review complex layouts and embedded content because Markdown cannot represent every HTML behavior.",
+      inputLabel: "HTML input",
+      outputLabel: "Markdown output",
+      inputPlaceholder: "<h1>Title</h1><p>Hello <strong>world</strong>.</p>",
+      terms: ["HTML to Markdown", "HTML converter", "Turndown"],
+    },
+    "markdown-to-html": {
+      title: "Markdown to HTML converter",
+      description:
+        "Render Markdown as HTML with common GFM tables, lists, links, and fenced code blocks.",
+      guide:
+        "Convert only the Markdown you intend to use, then sanitize the HTML again before inserting untrusted output into a web page.",
+      inputLabel: "Markdown input",
+      outputLabel: "HTML output",
+      inputPlaceholder: "# Title\n\nHello **world**.",
+      terms: ["Markdown to HTML", "Markdown renderer", "GFM"],
+    },
+  },
+} satisfies NewToolLocaleSeed;
+
+export const { tools, catalog } = createNewToolLocale(seed);
