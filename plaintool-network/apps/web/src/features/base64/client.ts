@@ -4,6 +4,7 @@ import type {
   CodecResult,
 } from "@plaintool/codec-core";
 import {
+  appendBadge,
   copyText,
   createDeferredIndicator,
   downloadBlob,
@@ -12,8 +13,18 @@ import {
   setToolStatus,
   type ToolState,
 } from "../../scripts/shared/tool-dom";
-import type { Base64ClientCopy, Base64WorkerReply } from "./contract";
+import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
+import type {
+  Base64ClientCopy,
+  Base64WorkerReply,
+  Base64WorkerRequest,
+} from "./contract";
 import { createBase64ModeDefinitions } from "./mode-definition";
+import {
+  base64FailureCode,
+  prepareBase64WorkerMessage,
+  type Base64RunContext,
+} from "./run-preparation";
 
 const MAX_BYTES = 100 * 1024 * 1024;
 const AUTO_RUN_CHARS = 1024 * 1024;
@@ -50,13 +61,11 @@ function initConverter(root: HTMLElement): void {
   const previewImage = query<HTMLImageElement>("[data-preview-image]");
   let mode: CodecMode =
     root.dataset.initialMode === "encode" ? "encode" : "decode";
-  let requestId = 0;
+  let revision = 0;
   let autoTimer = 0;
-  let workerBusy = false;
   let pendingFile: File | null = null;
   let result: CodecResult | null = null;
   let previewUrl = "";
-  let worker: Worker;
 
   const setStatus = (message: string, state: ToolState = "idle") =>
     setToolStatus(root, status, message, state);
@@ -255,26 +264,21 @@ function initConverter(root: HTMLElement): void {
     return { ...values, mode } as Partial<CodecOptions>;
   }
 
-  function makeBadge(label: string, warning = false): void {
-    const badge = document.createElement("span");
-    badge.className = `badge${warning ? " is-warning" : ""}`;
-    badge.textContent = label;
-    badges.append(badge);
-  }
-
   function renderResult(nextResult: CodecResult): void {
     result = nextResult;
     output.value = nextResult.text;
     badges.replaceChildren();
     if (nextResult.detectedVariant)
-      makeBadge(
+      appendBadge(
+        badges,
         `${copy.detected}: Base64${nextResult.detectedVariant === "url" ? "URL" : ""}`,
       );
     nextResult.repairs.forEach((repair) =>
-      makeBadge(copy.repairs[repair] || repair),
+      appendBadge(badges, copy.repairs[repair]),
     );
     nextResult.warnings.forEach((warning) =>
-      makeBadge(
+      appendBadge(
+        badges,
         warning === "executable-file"
           ? copy.executableWarning
           : copy.binaryOutput,
@@ -282,7 +286,8 @@ function initConverter(root: HTMLElement): void {
       ),
     );
     if (nextResult.signature)
-      makeBadge(
+      appendBadge(
+        badges,
         `${nextResult.signature.mime} (.${nextResult.signature.extension})`,
         nextResult.signature.executable,
       );
@@ -301,49 +306,34 @@ function initConverter(root: HTMLElement): void {
     setStatus(modeDefinitions[mode].completeLabel, "success");
   }
 
-  function createWorker(): Worker {
-    const nextWorker = new Worker(new URL("./worker.ts", import.meta.url), {
-      type: "module",
-    });
-    nextWorker.addEventListener(
-      "message",
-      (event: MessageEvent<Base64WorkerReply>) => {
-        if (event.data.id !== requestId) return;
-        workerBusy = false;
-        workingIndicator.end();
-        if (event.data.ok) renderResult(event.data.result);
-        else {
-          invalidateResult();
-          setStatus(
-            copy.errors[event.data.error] || copy.errors["decode-failed"],
-            "error",
-          );
-        }
-      },
-    );
-    const handleFailure = () => {
-      if (worker !== nextWorker) return;
-      requestId += 1;
-      workerBusy = false;
+  const runner = createLatestWorkerRunner<
+    Base64WorkerRequest,
+    Base64WorkerReply,
+    Base64RunContext
+  >({
+    createWorker: () =>
+      new Worker(new URL("./worker.ts", import.meta.url), { type: "module" }),
+    prepare: prepareBase64WorkerMessage,
+    replyId: (reply) => reply.id,
+    onReply: (reply) => {
+      workingIndicator.end();
+      if (reply.ok) renderResult(reply.result);
+      else {
+        invalidateResult();
+        setStatus(copy.errors[reply.error], "error");
+      }
+    },
+    onFailure: (context) => {
       workingIndicator.end();
       invalidateResult();
-      setStatus(copy.errors["decode-failed"], "error");
-      nextWorker.terminate();
-      worker = createWorker();
-    };
-    nextWorker.addEventListener("error", handleFailure);
-    nextWorker.addEventListener("messageerror", handleFailure);
-    return nextWorker;
-  }
+      setStatus(copy.errors[base64FailureCode(context?.mode ?? mode)], "error");
+    },
+  });
 
   function cancelActiveWork(): void {
-    requestId += 1;
+    revision += 1;
     const wasWorking = workingIndicator.cancel();
-    if (workerBusy) {
-      worker.terminate();
-      worker = createWorker();
-      workerBusy = false;
-    }
+    runner.cancel();
     if (wasWorking) restoreSettledStatus();
   }
 
@@ -354,46 +344,27 @@ function initConverter(root: HTMLElement): void {
   async function run(): Promise<void> {
     window.clearTimeout(autoTimer);
     workingIndicator.cancel();
+    runner.cancel();
     markResultPending();
-    const id = ++requestId;
-    let payload: string | ArrayBuffer = input.value;
+    revision += 1;
     if (pendingFile) {
-      const file = pendingFile;
-      if (file.size > MAX_BYTES) {
+      if (pendingFile.size > MAX_BYTES) {
         invalidateResult();
         setStatus(copy.fileTooLarge, "error");
-        return;
-      }
-      workingIndicator.begin();
-      try {
-        payload =
-          mode === "encode" ? await file.arrayBuffer() : await file.text();
-      } catch {
-        if (id === requestId) {
-          workingIndicator.end();
-          invalidateResult();
-          setStatus(
-            copy.errors[mode === "encode" ? "encode-failed" : "decode-failed"],
-            "error",
-          );
-        }
         return;
       }
     } else if (exceedsTextLimit(input.value)) {
       invalidateResult();
       setStatus(copy.fileTooLarge, "error");
       return;
-    } else {
-      workingIndicator.begin();
     }
-    if (id !== requestId) return;
-    if (workerBusy) {
-      worker.terminate();
-      worker = createWorker();
-    }
-    workerBusy = true;
-    const transfer = payload instanceof ArrayBuffer ? [payload] : [];
-    worker.postMessage({ id, input: payload, options: getOptions() }, transfer);
+    workingIndicator.begin();
+    runner.submit({
+      mode,
+      input: input.value,
+      file: pendingFile,
+      options: getOptions(),
+    });
   }
 
   root.querySelectorAll<HTMLButtonElement>("[data-mode]").forEach((button) =>
@@ -457,9 +428,9 @@ function initConverter(root: HTMLElement): void {
   });
 
   copyButton.addEventListener("click", async () => {
-    const copyRequestId = requestId;
+    const copyRevision = revision;
     const copied = await copyText(output.value);
-    if (copyRequestId !== requestId) return;
+    if (copyRevision !== revision) return;
     setStatus(
       copied ? copy.copied : copy.copyFailed,
       copied ? "success" : "error",
@@ -506,12 +477,11 @@ function initConverter(root: HTMLElement): void {
   window.addEventListener(
     "pagehide",
     () => {
-      worker.terminate();
+      runner.dispose();
       clearPreview();
     },
     { once: true },
   );
-  worker = createWorker();
   updateMode(mode, false);
 }
 

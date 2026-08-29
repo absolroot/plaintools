@@ -1,4 +1,14 @@
-import type { CodecOptions, CodecResult } from "@plaintool/codec-core";
+import type {
+  CodecErrorCode,
+  CodecOptions,
+  CodecResult,
+  RepairCode,
+} from "@plaintool/codec-core";
+
+export type Base64ClientErrorCode =
+  | CodecErrorCode
+  | "encode-failed"
+  | "file-too-large";
 
 export type Base64ClientCopy = {
   decodeMetaTitle: string;
@@ -33,8 +43,8 @@ export type Base64ClientCopy = {
   detected: string;
   binaryOutput: string;
   executableWarning: string;
-  errors: Record<string, string>;
-  repairs: Record<string, string>;
+  errors: Record<Base64ClientErrorCode, string>;
+  repairs: Record<RepairCode, string>;
 };
 
 export type Base64ModeDefinition = {
@@ -89,4 +99,4 @@ export type Base64WorkerRequest = {
 
 export type Base64WorkerReply =
   | { id: number; ok: true; result: CodecResult }
-  | { id: number; ok: false; error: string };
+  | { id: number; ok: false; error: CodecErrorCode };

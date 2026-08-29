@@ -1,4 +1,10 @@
+import type { CodecErrorCode, RepairCode } from "@plaintool/codec-core";
 import type { LegalPage, Locale } from "./site";
+
+type Base64ClientErrorCode =
+  | CodecErrorCode
+  | "encode-failed"
+  | "file-too-large";
 
 type Copy = {
   languageName: string;
@@ -50,8 +56,8 @@ type Copy = {
   binaryOutput: string;
   executableWarning: string;
   imagePreview: string;
-  errors: Record<string, string>;
-  repairs: Record<string, string>;
+  errors: Record<Base64ClientErrorCode, string>;
+  repairs: Record<RepairCode, string>;
   guideTitle: string;
   guideIntro: string;
   guideSteps: string[];
@@ -141,6 +147,7 @@ export const copy: Record<Locale, Copy> = {
       "invalid-length":
         "The Base64 value is truncated or has an impossible length.",
       "decode-failed": "The value could not be decoded.",
+      "encode-failed": "The file could not be encoded.",
       "unsupported-charset":
         "This character encoding is not supported by your browser.",
       "file-too-large": "This input is larger than the 100 MiB safety limit.",
@@ -423,6 +430,7 @@ copy.ko = {
     "invalid-character": "Base64에 사용할 수 없는 문자가 들어 있습니다.",
     "invalid-length": "Base64 값이 중간에 잘렸거나 올바른 길이가 아닙니다.",
     "decode-failed": "입력한 값을 디코딩할 수 없습니다.",
+    "encode-failed": "파일을 인코딩할 수 없습니다.",
     "unsupported-charset":
       "이 브라우저에서는 선택한 문자 인코딩을 지원하지 않습니다.",
     "file-too-large": "입력 크기가 100 MiB 제한을 넘었습니다.",
@@ -704,6 +712,7 @@ copy.es = {
     "invalid-length":
       "El valor Base64 está incompleto o tiene una longitud no válida.",
     "decode-failed": "No se ha podido decodificar el valor.",
+    "encode-failed": "No se ha podido codificar el archivo.",
     "unsupported-charset":
       "Este navegador no admite la codificación de caracteres seleccionada.",
     "file-too-large": "La entrada supera el límite de 100 MiB.",
