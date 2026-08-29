@@ -153,6 +153,10 @@ expectDeclaration(
   "--focus-ring",
   "color-mix(in oklch, var(--focus), var(--base) 75%)",
 );
+expectDeclaration(":root", "--canvas", "#fff");
+expectDeclaration(":root", "--footer-bg", "oklch(98.75% 0 0)");
+expectDeclaration(':root[data-theme="dark"]', "--footer-bg", "var(--base)");
+expectDeclaration(".site-footer", "background", "var(--footer-bg)");
 expectDeclaration(":focus-visible", "outline", "2px solid var(--focus-ring)");
 expectDeclaration(".editor-pane:focus-within", "box-shadow", "none");
 expectDeclaration(".editor-pane textarea:focus-visible", "outline", "0");

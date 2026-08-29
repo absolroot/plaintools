@@ -97,7 +97,8 @@
   --space-8: 32px;
   --space-12: 48px;
   --space-16: 64px;
-  --canvas: oklch(98.75% 0 0);
+  --canvas: #fff;
+  --footer-bg: oklch(98.75% 0 0);
   --elevated: oklch(98% 0 0);
   --recessed: oklch(96% 0 0);
   --base: #fff;
@@ -152,6 +153,7 @@
     --elevated: oklch(19% 0.008 270);
     --recessed: oklch(22% 0.009 270);
     --base: oklch(20% 0.008 270);
+    --footer-bg: var(--base);
     --tint: oklch(24% 0.01 270);
     --control: oklch(22% 0.009 270);
     --fill: oklch(29% 0.01 270);
@@ -186,6 +188,7 @@
   --elevated: oklch(19% 0.008 270);
   --recessed: oklch(22% 0.009 270);
   --base: oklch(20% 0.008 270);
+  --footer-bg: var(--base);
   --tint: oklch(24% 0.01 270);
   --control: oklch(22% 0.009 270);
   --fill: oklch(29% 0.01 270);
@@ -1138,7 +1141,7 @@ a.tool-directory-card:focus-visible {
   margin-top: 72px;
   padding: 32px 0 40px;
   border-top: 1px solid var(--line);
-  background: var(--base);
+  background: var(--footer-bg);
 }
 .footer-inner {
   display: grid;
