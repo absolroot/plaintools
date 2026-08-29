@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "featureId": "json-formatter",
+  "featureId": "text-compare",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
   "publicLocales": ["en", "ko", "es"],
@@ -8,32 +8,31 @@
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
     "apps/web/src/lib/tool-i18n.ts",
-    "apps/web/src/features/json/copy.ts",
-    "apps/web/src/lib/tool-examples.ts",
+    "apps/web/src/features/text-compare/copy.ts",
     "apps/web/src/lib/common-tool-i18n.ts",
     "apps/web/src/lib/tool-catalog.ts",
     "apps/web/src/components/PreviewToolPage.astro",
     "apps/web/src/components/ConverterStatus.astro",
     "apps/web/src/components/LocalProcessingNote.astro",
-    "apps/web/src/features/json/JsonFormatter.astro",
-    "apps/web/src/pages/[locale]/json-formatter/index.astro"
+    "apps/web/src/features/text-compare/TextCompare.astro",
+    "apps/web/src/pages/[locale]/text-compare/index.astro"
   ],
-  "copyFingerprint": "sha256:17d6f25fb9bfcf5eb27635bc04dd67d579cfe75536b481c167a84733c000863c",
+  "copyFingerprint": "sha256:8eaee7a68ac6610c3e1ae046dd26815a608b271ce5e628195c464f99a3be8da9",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["en-json-formatter-org", "en-mdn-json"]
+      "referenceIds": ["en-w3schools-text-diff", "en-mdn-del"]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["ko-toolatom-json", "ko-mdn-json"]
+      "referenceIds": ["ko-textcompare-org", "ko-mdn-del"]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["es-jsonpretty", "es-mdn-json"]
+      "referenceIds": ["es-comparetext-org", "es-wikipedia-diff"]
     }
   }
 }

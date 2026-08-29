@@ -22,7 +22,7 @@
     "apps/web/src/pages/[locale]/base64-encode/index.astro",
     "apps/web/src/pages/[locale]/[page].astro"
   ],
-  "copyFingerprint": "sha256:3934147e498333c172987a0363765a6aeb6b1cc216d3e75307a43e8ad26ad379",
+  "copyFingerprint": "sha256:a600b6f95bc87fd713a8f06fbd0480912bca85ae8de09ddd9c0b5929c21dec57",
   "locales": {
     "en": {
       "status": "reference-backed",

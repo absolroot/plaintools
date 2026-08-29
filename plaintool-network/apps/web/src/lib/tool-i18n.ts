@@ -92,6 +92,43 @@ export interface PreviewToolCopy {
     guideBody: string;
     faqs: Faq[];
   };
+  textCompare: {
+    title: string;
+    description: string;
+    originalLabel: string;
+    changedLabel: string;
+    originalPlaceholder: string;
+    changedPlaceholder: string;
+    compare: string;
+    swap: string;
+    results: string;
+    empty: string;
+    tooLarge: string;
+    tooManyLines: string;
+    tooComplex: string;
+    stale: string;
+    complete: string;
+    identical: string;
+    approximate: string;
+    inlineLimited: string;
+    additions: string;
+    deletions: string;
+    changes: string;
+    previousChange: string;
+    nextChange: string;
+    expandUnchanged: string;
+    whitespaceChange: string;
+    lineEndingChange: string;
+    unchangedRow: string;
+    addedRow: string;
+    removedRow: string;
+    changedRow: string;
+    originalLine: string;
+    changedLine: string;
+    guideTitle: string;
+    guideBody: string;
+    faqs: Faq[];
+  };
 }
 
 export const previewCopy: Record<Locale, PreviewToolCopy> = {
@@ -287,6 +324,58 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
         },
       ],
     },
+    textCompare: {
+      title: "Text compare",
+      description:
+        "Compare two texts line by line and highlight additions, removals, and edits without uploading either version.",
+      originalLabel: "Original text",
+      changedLabel: "Changed text",
+      originalPlaceholder: "Paste the original text here…",
+      changedPlaceholder: "Paste the changed text here…",
+      compare: "Compare",
+      swap: "Swap",
+      results: "Comparison results",
+      empty: "Enter text in at least one side to compare.",
+      tooLarge: "Each text must be 1 MiB or smaller.",
+      tooManyLines: "The two texts can contain up to 20,000 lines in total.",
+      tooComplex:
+        "This comparison is too complex to finish safely in the browser. Try shorter texts.",
+      stale:
+        "The result below is from the previous comparison. Compare again to update it.",
+      complete: "Comparison complete",
+      identical: "The two texts are identical.",
+      approximate:
+        "This browser lacks Intl.Segmenter, so inline character highlights are approximate.",
+      inlineLimited:
+        "Some long edited lines are shown as whole-line changes to keep the comparison responsive.",
+      additions: "Added lines: {count}",
+      deletions: "Removed lines: {count}",
+      changes: "Changed rows: {count}",
+      previousChange: "Previous change",
+      nextChange: "Next change",
+      expandUnchanged: "Show {count} unchanged lines",
+      whitespaceChange: "Whitespace changed",
+      lineEndingChange: "Line ending changed",
+      unchangedRow: "Unchanged line",
+      addedRow: "Added line",
+      removedRow: "Removed line",
+      changedRow: "Changed line",
+      originalLine: "Original line {line}",
+      changedLine: "Changed line {line}",
+      guideTitle: "How the comparison works",
+      guideBody:
+        "The comparison aligns lines first, then highlights character-level edits inside paired changed lines. Spaces and line-ending-only changes are labeled explicitly. Long unchanged sections stay collapsed until you expand them.",
+      faqs: [
+        {
+          q: "Does PlainTool upload the texts?",
+          a: "No. Both texts are compared locally in your browser and are not sent to a server.",
+        },
+        {
+          q: "Are different line endings detected?",
+          a: "Yes. Differences between CRLF, LF, and CR line endings are marked even when the visible line text is the same.",
+        },
+      ],
+    },
   },
   ko: {
     common: commonToolCopy.ko,
@@ -468,6 +557,57 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
         {
           q: "서머타임(DST)이 Unix 타임스탬프를 모호하게 만드나요?",
           a: "아니요. Unix 타임스탬프는 하나의 시점을 가리킵니다. 시계를 바꾸는 지역의 현지 날짜·시간을 변환할 때만 일부 시각이 건너뛰어지거나 두 번 나타납니다. 이 도구는 기본적으로 오류를 표시하며, 필요할 때만 이른 결과 또는 늦은 결과를 선택하면 됩니다.",
+        },
+      ],
+    },
+    textCompare: {
+      title: "텍스트 비교",
+      description:
+        "두 텍스트를 업로드하지 않고 줄 단위로 비교해 추가, 삭제, 변경된 부분을 표시합니다.",
+      originalLabel: "원본 텍스트",
+      changedLabel: "변경한 텍스트",
+      originalPlaceholder: "원본 텍스트를 붙여 넣으세요…",
+      changedPlaceholder: "변경한 텍스트를 붙여 넣으세요…",
+      compare: "비교",
+      swap: "서로 바꾸기",
+      results: "비교 결과",
+      empty: "비교할 텍스트를 한쪽 이상 입력하세요.",
+      tooLarge: "각 텍스트는 1 MiB 이하여야 합니다.",
+      tooManyLines: "두 텍스트는 합쳐서 최대 20,000줄까지 비교할 수 있습니다.",
+      tooComplex:
+        "브라우저에서 안전하게 처리하기에는 비교가 너무 복잡합니다. 텍스트를 줄여 보세요.",
+      stale: "아래 결과는 이전 비교 내용입니다. 다시 비교해 결과를 갱신하세요.",
+      complete: "비교 완료",
+      identical: "두 텍스트가 같습니다.",
+      approximate:
+        "이 브라우저는 Intl.Segmenter를 지원하지 않아 글자 단위 강조가 근사값입니다.",
+      inlineLimited:
+        "반응 속도를 유지하기 위해 일부 긴 줄은 줄 전체가 변경된 것으로 표시됩니다.",
+      additions: "추가된 줄: {count}",
+      deletions: "삭제된 줄: {count}",
+      changes: "변경된 행: {count}",
+      previousChange: "이전 변경",
+      nextChange: "다음 변경",
+      expandUnchanged: "변경 없는 줄 {count}개 보기",
+      whitespaceChange: "공백 변경",
+      lineEndingChange: "줄바꿈 형식 변경",
+      unchangedRow: "변경 없는 줄",
+      addedRow: "추가된 줄",
+      removedRow: "삭제된 줄",
+      changedRow: "변경된 줄",
+      originalLine: "원본 {line}번째 줄",
+      changedLine: "변경본 {line}번째 줄",
+      guideTitle: "비교 방식",
+      guideBody:
+        "먼저 줄을 맞춘 뒤 짝지어진 변경 줄 안에서 글자 단위 차이를 강조합니다. 공백만 바뀌었거나 줄바꿈 형식만 다른 경우도 따로 표시합니다. 긴 미변경 구간은 펼치기 전까지 접어 둡니다.",
+      faqs: [
+        {
+          q: "입력한 텍스트가 서버로 전송되나요?",
+          a: "아니요. 두 텍스트는 브라우저 안에서만 비교되며 서버로 전송되지 않습니다.",
+        },
+        {
+          q: "줄바꿈 형식 차이도 찾나요?",
+          a: "네. 화면에 보이는 글자가 같아도 CRLF, LF, CR 줄바꿈이 다르면 변경으로 표시합니다.",
         },
       ],
     },
@@ -662,6 +802,59 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
         {
           q: "¿El horario de verano puede hacer ambiguo un timestamp Unix?",
           a: "No. Un timestamp Unix identifica un instante único. La ambigüedad solo aparece al convertir una fecha y hora local en una zona que cambia el reloj: algunas horas se omiten y otras aparecen dos veces. La herramienta muestra un error de forma predeterminada; elige el instante anterior o posterior solo si quieres resolverlo.",
+        },
+      ],
+    },
+    textCompare: {
+      title: "Comparador de textos",
+      description:
+        "Compara dos textos línea por línea y señala adiciones, eliminaciones y cambios sin subirlos a un servidor.",
+      originalLabel: "Texto original",
+      changedLabel: "Texto modificado",
+      originalPlaceholder: "Pega aquí el texto original…",
+      changedPlaceholder: "Pega aquí el texto modificado…",
+      compare: "Comparar",
+      swap: "Intercambiar",
+      results: "Resultados de la comparación",
+      empty: "Introduce texto en al menos uno de los lados para comparar.",
+      tooLarge: "Cada texto debe ocupar 1 MiB o menos.",
+      tooManyLines:
+        "Los dos textos pueden contener hasta 20.000 líneas en total.",
+      tooComplex:
+        "La comparación es demasiado compleja para completarla con seguridad en el navegador. Prueba con textos más cortos.",
+      stale:
+        "El resultado inferior corresponde a la comparación anterior. Vuelve a comparar para actualizarlo.",
+      complete: "Comparación completada",
+      identical: "Los dos textos son idénticos.",
+      approximate:
+        "Este navegador no admite Intl.Segmenter; el resaltado de caracteres es aproximado.",
+      inlineLimited:
+        "Algunas líneas largas se muestran como cambios de línea completa para mantener una respuesta fluida.",
+      additions: "Líneas añadidas: {count}",
+      deletions: "Líneas eliminadas: {count}",
+      changes: "Filas modificadas: {count}",
+      previousChange: "Cambio anterior",
+      nextChange: "Cambio siguiente",
+      expandUnchanged: "Mostrar {count} líneas sin cambios",
+      whitespaceChange: "Espacios modificados",
+      lineEndingChange: "Fin de línea modificado",
+      unchangedRow: "Línea sin cambios",
+      addedRow: "Línea añadida",
+      removedRow: "Línea eliminada",
+      changedRow: "Línea modificada",
+      originalLine: "Línea original {line}",
+      changedLine: "Línea modificada {line}",
+      guideTitle: "Cómo funciona la comparación",
+      guideBody:
+        "La herramienta alinea primero las líneas y después resalta los cambios de caracteres dentro de las líneas emparejadas. También identifica cambios solo de espacios o de fin de línea. Los tramos largos sin cambios permanecen plegados hasta que los abras.",
+      faqs: [
+        {
+          q: "¿PlainTool sube los textos a un servidor?",
+          a: "No. Los dos textos se comparan localmente en el navegador y no se envían a un servidor.",
+        },
+        {
+          q: "¿Detecta distintos fines de línea?",
+          a: "Sí. Las diferencias entre CRLF, LF y CR se marcan aunque el texto visible de la línea sea el mismo.",
         },
       ],
     },

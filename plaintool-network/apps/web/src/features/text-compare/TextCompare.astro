@@ -1,0 +1,141 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import { previewCopy } from "../../lib/tool-i18n";
+import type { Locale } from "../../lib/site";
+import type { TextCompareClientCopy } from "./contract";
+import { textCompareCopy } from "./copy";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = previewCopy[locale].common;
+const t = textCompareCopy[locale];
+const clientCopy = {
+  ready: c.ready,
+  working: c.working,
+  processingFailed: c.processingFailed,
+  empty: t.empty,
+  tooLarge: t.tooLarge,
+  tooManyLines: t.tooManyLines,
+  tooComplex: t.tooComplex,
+  stale: t.stale,
+  complete: t.complete,
+  identical: t.identical,
+  approximate: t.approximate,
+  inlineLimited: t.inlineLimited,
+  additions: t.additions,
+  deletions: t.deletions,
+  changes: t.changes,
+  previousChange: t.previousChange,
+  nextChange: t.nextChange,
+  expandUnchanged: t.expandUnchanged,
+  whitespaceChange: t.whitespaceChange,
+  lineEndingChange: t.lineEndingChange,
+  unchangedRow: t.unchangedRow,
+  addedRow: t.addedRow,
+  removedRow: t.removedRow,
+  changedRow: t.changedRow,
+  originalLine: t.originalLine,
+  changedLine: t.changedLine,
+} satisfies TextCompareClientCopy;
+---
+
+<section
+  class="converter text-compare"
+  data-text-compare
+  data-locale={locale}
+  aria-label={t.title}
+>
+  <div class="converter-topbar compare-actions">
+    <div class="primary-actions">
+      <button
+        class="primary-button"
+        type="button"
+        data-compare
+        aria-keyshortcuts="Control+Enter Meta+Enter">{t.compare}</button
+      >
+      <button class="secondary-button" type="button" data-swap>{t.swap}</button>
+      <button class="secondary-button" type="button" data-clear
+        ><UiIcon name="x" size={14} />{c.clear}</button
+      >
+    </div>
+  </div>
+
+  <div class="converter-grid compare-inputs">
+    <section class="editor-pane">
+      <div class="pane-heading">
+        <label for="text-compare-original">{t.originalLabel}</label>
+      </div>
+      <textarea
+        id="text-compare-original"
+        data-original
+        spellcheck="true"
+        placeholder={t.originalPlaceholder}></textarea>
+    </section>
+    <section class="editor-pane output-pane">
+      <div class="pane-heading">
+        <label for="text-compare-changed">{t.changedLabel}</label>
+      </div>
+      <textarea
+        id="text-compare-changed"
+        data-changed
+        spellcheck="true"
+        placeholder={t.changedPlaceholder}></textarea>
+    </section>
+  </div>
+
+  <ConverterStatus status={c.ready} badges>
+    <div class="change-navigation" data-change-navigation hidden>
+      <button
+        class="secondary-button"
+        type="button"
+        data-previous-change
+        disabled
+        aria-label={t.previousChange}
+        ><UiIcon name="arrow-left" size={16} /><span class="navigation-label"
+          >{t.previousChange}</span
+        ></button
+      >
+      <button
+        class="secondary-button"
+        type="button"
+        data-next-change
+        disabled
+        aria-label={t.nextChange}
+        ><span class="navigation-label">{t.nextChange}</span><UiIcon
+          name="arrow-right"
+          size={16}
+        /></button
+      >
+    </div>
+  </ConverterStatus>
+
+  <section
+    class="compare-results"
+    data-results
+    hidden
+    aria-labelledby="compare-results-title"
+  >
+    <h2 id="compare-results-title" class="visually-hidden">{t.results}</h2>
+    <p class="stale-notice" data-stale-notice hidden>{t.stale}</p>
+    <p class="identical-result" data-identical hidden>{t.identical}</p>
+    <div class="diff-table" data-diff-table role="table" aria-label={t.results}>
+    </div>
+  </section>
+
+  <LocalProcessingNote locale={locale} />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy)}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

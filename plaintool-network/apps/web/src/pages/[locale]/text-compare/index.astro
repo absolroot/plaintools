@@ -1,0 +1,32 @@
+---
+import TextCompare from "../../../features/text-compare/TextCompare.astro";
+import PreviewToolPage from "../../../components/PreviewToolPage.astro";
+import { textCompareCopy } from "../../../features/text-compare/copy";
+import featureStylesheet from "../../../features/text-compare/styles.css?url";
+import { locales, type Locale } from "../../../lib/site";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props as Props;
+const t = textCompareCopy[locale];
+const category = "text" as const;
+---
+
+<PreviewToolPage
+  locale={locale}
+  page="text-compare"
+  title={t.title}
+  description={t.description}
+  category={category}
+  guideTitle={t.guideTitle}
+  guideBody={t.guideBody}
+  faqs={t.faqs}
+  featureStylesheet={featureStylesheet}
+  ><TextCompare locale={locale} /></PreviewToolPage
+>

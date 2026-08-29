@@ -1,0 +1,341 @@
+.text-compare,
+.text-compare :where(button, textarea) {
+  border-radius: 0;
+}
+
+.compare-actions {
+  flex-wrap: wrap;
+}
+
+.compare-actions .primary-actions {
+  flex-wrap: wrap;
+}
+
+.compare-actions .secondary-button:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.text-compare .primary-button {
+  background: oklch(42% 0.18 260);
+}
+
+.text-compare .primary-button:hover {
+  background: oklch(37% 0.17 260);
+}
+
+.compare-inputs .editor-pane textarea {
+  min-height: 300px;
+  font-family: var(--code-font);
+  font-size: 13px;
+  line-height: 1.65;
+  tab-size: 4;
+}
+
+.change-navigation {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.change-navigation[hidden] {
+  display: none;
+}
+
+.change-navigation .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.compare-results {
+  min-width: 0;
+  border-top: 1px solid var(--line);
+  background: var(--base);
+}
+
+.compare-results[hidden] {
+  display: none;
+}
+
+.compare-results.is-stale .diff-table,
+.compare-results.is-stale .identical-result {
+  opacity: 0.68;
+}
+
+.stale-notice,
+.identical-result {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.stale-notice {
+  color: var(--warning);
+  border-bottom: 1px solid var(--line);
+  background: var(--warning-tint);
+  font-weight: 600;
+}
+
+.stale-notice[hidden],
+.identical-result[hidden] {
+  display: none;
+}
+
+.identical-result {
+  color: var(--ink);
+  background: var(--success-tint);
+}
+
+.diff-table {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--line);
+  font-family: var(--code-font);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.diff-table[hidden] {
+  display: none;
+}
+
+.diff-header,
+.diff-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1px;
+}
+
+.diff-header {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.diff-header > div {
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  overflow: hidden;
+  color: var(--muted);
+  background: var(--elevated);
+  font-family: var(--sans);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.diff-group {
+  display: block;
+}
+
+.diff-row {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-block: 96px;
+}
+
+.diff-row:last-child {
+  border-bottom: 0;
+}
+
+.diff-row:focus-visible,
+.diff-row.is-active-change {
+  z-index: 2;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+.diff-row-flags {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: 3px var(--space-3);
+  color: var(--warning);
+  background: var(--warning-tint);
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.diff-row-flags span + span::before {
+  margin-right: var(--space-1);
+  content: "·";
+}
+
+.diff-cell {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  background: var(--base);
+}
+
+.diff-cell-original {
+  background: var(--input-surface);
+}
+
+.diff-cell-changed {
+  background: var(--output-surface);
+}
+
+.diff-row.is-removed .diff-cell-original,
+.diff-row.is-changed .diff-cell-original {
+  background: color-mix(in oklch, var(--danger-tint), var(--base) 58%);
+}
+
+.diff-row.is-added .diff-cell-changed,
+.diff-row.is-changed .diff-cell-changed {
+  background: color-mix(in oklch, var(--success-tint), var(--base) 58%);
+}
+
+.diff-gutter {
+  min-height: 31px;
+  padding: 5px var(--space-2);
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: var(--space-1);
+  color: var(--muted);
+  border-right: 1px solid var(--line);
+  background: color-mix(in oklch, var(--elevated), transparent 8%);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  user-select: none;
+}
+
+.diff-marker {
+  color: var(--ink);
+  font-weight: 800;
+  text-align: center;
+}
+
+.diff-line-content {
+  min-width: 0;
+  min-height: 31px;
+  margin: 0;
+  padding: 5px var(--space-3);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.diff-segment {
+  text-decoration: none;
+}
+
+.diff-cell-original .diff-segment.is-removed {
+  color: var(--ink-strong);
+  background: color-mix(in oklch, var(--danger), transparent 78%);
+}
+
+.diff-cell-changed .diff-segment.is-added {
+  color: var(--ink-strong);
+  background: color-mix(in oklch, var(--success), transparent 78%);
+}
+
+.empty-line-marker {
+  color: var(--placeholder);
+}
+
+.diff-expand-row {
+  display: grid;
+  border-bottom: 1px solid var(--line);
+  background: var(--elevated);
+}
+
+.diff-expand-button {
+  width: 100%;
+  min-height: 36px;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.diff-expand-button:hover {
+  color: var(--ink);
+  background: var(--tint);
+}
+
+@media (max-width: 840px) {
+  .compare-actions .primary-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .compare-actions .primary-button,
+  .compare-actions .secondary-button,
+  .change-navigation .secondary-button,
+  .diff-expand-button {
+    min-height: 44px;
+  }
+
+  .compare-inputs .editor-pane textarea {
+    min-height: 190px;
+  }
+
+  .navigation-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .change-navigation .secondary-button {
+    width: 44px;
+    padding: 0;
+  }
+
+  .diff-header {
+    display: none;
+  }
+
+  .diff-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .diff-cell-original::before,
+  .diff-cell-changed::before {
+    grid-column: 1 / -1;
+    padding: 2px var(--space-3);
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    background: var(--elevated);
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .diff-cell-original::before {
+    content: attr(data-side-label);
+  }
+
+  .diff-cell-changed::before {
+    content: attr(data-side-label);
+  }
+
+  .diff-cell {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .compare-actions .primary-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .compare-actions .primary-button {
+    grid-column: 1 / -1;
+  }
+}

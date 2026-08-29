@@ -210,6 +210,24 @@ const registeredToolCopy: Record<RegisteredToolId, CatalogPresentation> = {
       ],
     },
   },
+  "text-compare": {
+    mark: "≠",
+    name: {
+      en: "Text compare",
+      ko: "텍스트 비교",
+      es: "Comparador de textos",
+    },
+    summary: {
+      en: "Compare two texts line by line and highlight their differences.",
+      ko: "두 텍스트를 줄 단위로 비교해 다른 부분을 표시합니다.",
+      es: "Compara dos textos línea por línea y resalta sus diferencias.",
+    },
+    searchTerms: {
+      en: ["text diff", "compare text", "differences", "line comparison"],
+      ko: ["텍스트 비교", "문자열 비교", "차이", "줄 비교", "diff"],
+      es: ["comparar textos", "diferencias", "comparar líneas", "diff"],
+    },
+  },
 };
 
 const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
@@ -222,23 +240,6 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
 
 export const toolCatalog: ToolCatalogItem[] = [
   ...registeredTools,
-  {
-    id: "text-compare",
-    mark: "≠",
-    category: "text",
-    status: "reserve",
-    name: { en: "Text compare", ko: "텍스트 비교", es: "Comparador de texto" },
-    summary: {
-      en: "Not available yet.",
-      ko: "아직 제공되지 않는 도구입니다.",
-      es: "Esta herramienta aún no está disponible.",
-    },
-    searchTerms: {
-      en: ["text diff", "compare text", "differences"],
-      ko: ["텍스트 비교", "문자열 비교", "차이", "diff"],
-      es: ["comparar texto", "diferencias", "diff"],
-    },
-  },
   {
     id: "case-converter",
     mark: "aA",

@@ -1,5 +1,7 @@
 ---
 type IconName =
+  | "arrow-left"
+  | "arrow-right"
   | "calendar"
   | "check"
   | "chevron-right"
@@ -37,6 +39,8 @@ const { name, size = 16, class: className = "" } = Astro.props;
   aria-hidden="true"
   focusable="false"
 >
+  {name === "arrow-left" && <path d="m15 18-6-6 6-6M9 12h10" />}
+  {name === "arrow-right" && <path d="m9 18 6-6-6-6M5 12h10" />}
   {
     name === "calendar" && (
       <>

@@ -18,7 +18,7 @@
     "apps/web/src/features/word/WordCounter.astro",
     "apps/web/src/pages/[locale]/word-counter/index.astro"
   ],
-  "copyFingerprint": "sha256:0fc3ab03a28ff4d9691db544bc5acd588fab7a80a1869d02a177a3ab8091e20e",
+  "copyFingerprint": "sha256:b40c5462ae26a336dcfb11ff187d83675c094d56890ebb8c1a9a5bae392097b6",
   "locales": {
     "en": {
       "status": "reference-backed",

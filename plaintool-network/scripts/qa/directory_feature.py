@@ -77,7 +77,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
     )
     report["directory_eyebrow_count"] = desktop.locator(".directory-header .eyebrow").count()
     report["footer_note_ko"] = desktop.locator(".footer-inner > div > p").text_content()
-    if report["tool_directory_cards"] != 7 or report["live_tool_links"] != 5:
+    if report["tool_directory_cards"] != 7 or report["live_tool_links"] != 6:
         report["ui_detail_failures"].append(f"Directory card/link inventory changed unexpectedly: {report['tool_directory_cards']}/{report['live_tool_links']}")
     if any(item["columns"] != 4 for item in report["directory_desktop_columns"]):
         report["ui_detail_failures"].append(f"Desktop directory groups must keep four fixed columns: {report['directory_desktop_columns']}")
@@ -201,7 +201,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
 
     desktop.goto(f"{BASE_URL}/es/", wait_until="networkidle")
     spanish_search = desktop.locator("[data-directory-search-input]")
-    spanish_search.fill("lineas")
+    spanish_search.fill("parrafos")
     report["directory_search_accentless"] = _search_state(desktop)
     accentless = report["directory_search_accentless"]
     if (

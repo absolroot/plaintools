@@ -6,6 +6,7 @@ const cssUrls = [
   "../apps/web/src/features/json/styles.css",
   "../apps/web/src/features/time/styles.css",
   "../apps/web/src/features/word/styles.css",
+  "../apps/web/src/features/text-compare/styles.css",
 ].map((path) => new URL(path, import.meta.url));
 const pageUrl = new URL(
   "../apps/web/src/features/base64/Base64Page.astro",

@@ -4,6 +4,7 @@ from .preflight import FeatureCoverage
 from .registry import RouteInventory
 from .responsive_feature import run_base64_mobile
 from .time_feature import run_time_desktop, run_time_mobile
+from .text_compare_feature import run_text_compare_desktop, run_text_compare_mobile
 from .word_feature import run_word_desktop, run_word_mobile
 
 
@@ -39,6 +40,14 @@ def _run_time_mobile(page, report: dict, inventory: RouteInventory) -> None:
     run_time_mobile(page, report, inventory.locales)
 
 
+def _run_text_compare_desktop(page, report: dict, _inventory: RouteInventory) -> None:
+    run_text_compare_desktop(page, report)
+
+
+def _run_text_compare_mobile(page, report: dict, _inventory: RouteInventory) -> None:
+    run_text_compare_mobile(page, report)
+
+
 FEATURE_COVERAGE = {
     "base64-codec": FeatureCoverage(
         desktop=_run_base64_desktop,
@@ -67,5 +76,12 @@ FEATURE_COVERAGE = {
             ("input", "[data-timestamp]"),
             ("output", "#time-result-instant"),
         ),
+    ),
+    "text-compare": FeatureCoverage(
+        desktop=_run_text_compare_desktop,
+        mobile=_run_text_compare_mobile,
+        focus_targets=(("input", "[data-original]"), ("output", "[data-changed]")),
+        focus_style="editor",
+        exercise_faq=True,
     ),
 }
