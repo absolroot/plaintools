@@ -1,0 +1,110 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import type { QrGeneratorCopy } from "./contract";
+
+interface Props {
+  copy: QrGeneratorCopy;
+  textDirection?: "auto" | "ltr" | "rtl";
+}
+
+const { copy, textDirection = "ltr" } = Astro.props;
+---
+
+<section
+  class="converter qr-generator"
+  data-qr-generator
+  aria-label={copy.accessibleLabel}
+>
+  <div class="qr-workspace">
+    <section class="editor-pane qr-input-pane">
+      <div class="pane-heading">
+        <label for="qr-generator-input">{copy.inputLabel}</label>
+        <button class="text-button" type="button" data-clear>
+          <UiIcon name="x" size={14} />{copy.clear}
+        </button>
+      </div>
+      <textarea
+        id="qr-generator-input"
+        data-input
+        dir={textDirection}
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="off"
+        placeholder={copy.inputPlaceholder}></textarea>
+    </section>
+
+    <section class="qr-preview-pane" aria-labelledby="qr-preview-heading">
+      <div class="pane-heading">
+        <span id="qr-preview-heading">{copy.previewLabel}</span>
+      </div>
+      <div class="qr-preview" data-preview>
+        <canvas data-canvas role="img" aria-label={copy.previewLabel} hidden
+        ></canvas>
+        <p data-preview-placeholder>{copy.previewPlaceholder}</p>
+      </div>
+      <div class="qr-downloads">
+        <button
+          class="secondary-button"
+          type="button"
+          data-download-png
+          disabled
+        >
+          <UiIcon name="download" size={14} />{copy.downloadPng}
+        </button>
+        <button
+          class="secondary-button"
+          type="button"
+          data-download-svg
+          disabled
+        >
+          <UiIcon name="download" size={14} />{copy.downloadSvg}
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <div class="qr-options" role="group" aria-label={copy.optionsLabel}>
+    <label>
+      <span>{copy.errorCorrectionLabel}</span>
+      <select data-error-correction>
+        {
+          (["L", "M", "Q", "H"] as const).map((level) => (
+            <option value={level} selected={level === "M"}>
+              {copy.errorCorrectionOptions[level]}
+            </option>
+          ))
+        }
+      </select>
+    </label>
+    <label>
+      <span>{copy.quietZoneLabel}</span>
+      <select data-quiet-zone>
+        {
+          (["0", "2", "4", "8"] as const).map((value) => (
+            <option value={value} selected={value === "4"}>
+              {copy.quietZoneOptions[value]}
+            </option>
+          ))
+        }
+      </select>
+    </label>
+  </div>
+
+  <ConverterStatus status={copy.ready}>
+    <button class="primary-button" type="button" data-generate>
+      {copy.generate}
+    </button>
+  </ConverterStatus>
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(copy)}
+  />
+</section>
+
+<script>
+  import "./generator-client";
+</script>

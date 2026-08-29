@@ -1,0 +1,94 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import type { QrScannerCopy } from "./contract";
+
+interface Props {
+  copy: QrScannerCopy;
+  resultDirection?: "auto" | "ltr" | "rtl";
+}
+
+const { copy, resultDirection = "ltr" } = Astro.props;
+---
+
+<section
+  class="converter qr-scanner"
+  data-qr-scanner
+  aria-label={copy.accessibleLabel}
+>
+  <div class="qr-scanner-workspace">
+    <section class="qr-upload-pane" data-drop-zone>
+      <div class="pane-heading">
+        <span>{copy.uploadLabel}</span>
+        <button class="text-button" type="button" data-clear>
+          <UiIcon name="x" size={14} />{copy.clear}
+        </button>
+      </div>
+      <div class="qr-upload-body">
+        <button class="secondary-button" type="button" data-open-file>
+          <UiIcon name="folder-open" size={14} />{copy.chooseImage}
+        </button>
+        <input
+          data-file-input
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/gif,image/bmp"
+          hidden
+        />
+        <p>{copy.dropHint}</p>
+        <small>{copy.supportedImageTypes}</small>
+      </div>
+    </section>
+
+    <section class="qr-camera-pane">
+      <div class="pane-heading"><span>{copy.cameraLabel}</span></div>
+      <div class="qr-camera-stage">
+        <video data-video aria-label={copy.cameraLabel} playsinline muted hidden
+        ></video>
+        <p data-camera-hint>{copy.cameraHint}</p>
+      </div>
+      <div class="qr-camera-actions">
+        <button class="secondary-button" type="button" data-start-camera>
+          {copy.startCamera}
+        </button>
+        <button class="secondary-button" type="button" data-stop-camera hidden>
+          {copy.stopCamera}
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <section class="editor-pane qr-scan-result">
+    <div class="pane-heading">
+      <label for="qr-scanner-result">{copy.resultLabel}</label>
+      <div class="pane-actions">
+        <span class="qr-url-badge" data-url-badge hidden
+          >{copy.urlDetected}</span
+        >
+        <button class="text-button" type="button" data-copy disabled>
+          <UiIcon name="copy" size={14} />{copy.copy}
+        </button>
+      </div>
+    </div>
+    <textarea
+      id="qr-scanner-result"
+      data-result
+      dir={resultDirection}
+      readonly
+      spellcheck="false"
+      placeholder={copy.resultPlaceholder}></textarea>
+  </section>
+
+  <ConverterStatus status={copy.ready} />
+  <canvas data-scan-canvas hidden></canvas>
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(copy)}
+  />
+</section>
+
+<script>
+  import "./scanner-client";
+</script>

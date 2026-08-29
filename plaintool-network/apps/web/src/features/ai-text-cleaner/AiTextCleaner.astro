@@ -1,0 +1,117 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import type { AiTextCleanerCopy } from "./contract";
+
+interface Props {
+  copy: AiTextCleanerCopy;
+  textDirection?: "auto" | "ltr" | "rtl";
+}
+
+const { copy, textDirection = "auto" } = Astro.props;
+---
+
+<section
+  class="converter ai-text-cleaner"
+  data-ai-text-cleaner
+  aria-label={copy.accessibleLabel}
+>
+  <div class="converter-grid cleaner-editors">
+    <section class="editor-pane input-pane">
+      <div class="pane-heading">
+        <label for="ai-cleaner-input">{copy.inputLabel}</label>
+        <button class="text-button" type="button" data-clear>
+          <UiIcon name="x" size={14} />{copy.clear}
+        </button>
+      </div>
+      <textarea
+        id="ai-cleaner-input"
+        data-input
+        dir={textDirection}
+        spellcheck="true"
+        placeholder={copy.inputPlaceholder}></textarea>
+    </section>
+
+    <section class="editor-pane output-pane">
+      <div class="pane-heading">
+        <label for="ai-cleaner-output">{copy.outputLabel}</label>
+        <button class="text-button" type="button" data-copy disabled>
+          <UiIcon name="copy" size={14} />{copy.copy}
+        </button>
+      </div>
+      <textarea
+        id="ai-cleaner-output"
+        data-output
+        dir={textDirection}
+        readonly
+        spellcheck="true"
+        placeholder={copy.outputPlaceholder}></textarea>
+    </section>
+  </div>
+
+  <section class="cleaner-report" data-report hidden aria-live="polite">
+    <h2>{copy.reportTitle}</h2>
+    <p class="cleaner-no-changes" data-no-changes hidden>{copy.noChanges}</p>
+    <div class="cleaner-report-group" data-removed-group hidden>
+      <h3>{copy.removedHeading}</h3>
+      <ul data-removed-list></ul>
+    </div>
+    <div class="cleaner-report-group" data-normalized-group hidden>
+      <h3>{copy.normalizedHeading}</h3>
+      <ul data-normalized-list></ul>
+    </div>
+  </section>
+
+  <details class="cleaner-options">
+    <summary>
+      <UiIcon name="chevron-right" class="options-chevron" />
+      <span>{copy.advancedTitle}</span>
+    </summary>
+    <div class="cleaner-options-body">
+      <p class="tool-warning">{copy.advancedWarning}</p>
+      <label>
+        <input type="checkbox" data-option="removeJoinControls" />
+        <span>
+          <strong>{copy.removeJoinControls}</strong>
+          <small>{copy.removeJoinControlsWarning}</small>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" data-option="removeVariationSelectors" />
+        <span>
+          <strong>{copy.removeVariationSelectors}</strong>
+          <small>{copy.removeVariationSelectorsWarning}</small>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" data-option="removeCombiningMarks" />
+        <span>
+          <strong>{copy.removeCombiningMarks}</strong>
+          <small>{copy.removeCombiningMarksWarning}</small>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox" data-option="normalizeNoBreakSpaces" />
+        <span>
+          <strong>{copy.normalizeNoBreakSpaces}</strong>
+          <small>{copy.normalizeNoBreakSpacesNote}</small>
+        </span>
+      </label>
+    </div>
+  </details>
+
+  <ConverterStatus status={copy.ready}>
+    <button class="primary-button" type="button" data-run>{copy.run}</button>
+  </ConverterStatus>
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(copy)}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

@@ -1,0 +1,59 @@
+import type { QrErrorCorrectionLevel, QrScanResult } from "@plaintool/qr-core";
+
+export type QrGeneratorCopy = {
+  accessibleLabel: string;
+  inputLabel: string;
+  inputPlaceholder: string;
+  clear: string;
+  previewLabel: string;
+  previewPlaceholder: string;
+  optionsLabel: string;
+  errorCorrectionLabel: string;
+  errorCorrectionOptions: Record<QrErrorCorrectionLevel, string>;
+  quietZoneLabel: string;
+  quietZoneOptions: Record<"0" | "2" | "4" | "8", string>;
+  generate: string;
+  downloadPng: string;
+  downloadSvg: string;
+  ready: string;
+  completed: string;
+  empty: string;
+  tooLong: string;
+  generationFailed: string;
+  downloadFailed: string;
+  pngFileName: string;
+  svgFileName: string;
+};
+
+export type QrScannerCopy = {
+  accessibleLabel: string;
+  uploadLabel: string;
+  chooseImage: string;
+  dropHint: string;
+  supportedImageTypes: string;
+  cameraLabel: string;
+  cameraHint: string;
+  startCamera: string;
+  stopCamera: string;
+  resultLabel: string;
+  resultPlaceholder: string;
+  copy: string;
+  clear: string;
+  urlDetected: string;
+  ready: string;
+  readingImage: string;
+  cameraStarting: string;
+  cameraScanning: string;
+  completed: string;
+  copied: string;
+  copyFailed: string;
+  fileTooLarge: string;
+  invalidImage: string;
+  noCode: string;
+  cameraUnsupported: string;
+  permissionDenied: string;
+  cameraUnavailable: string;
+  scanFailed: string;
+};
+
+export type QrScannerResult = QrScanResult;
