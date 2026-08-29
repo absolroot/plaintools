@@ -9,7 +9,6 @@ export interface PreviewToolCopy {
     title: string;
     description: string;
     inputLabel: string;
-    placeholder: string;
     words: string;
     characters: string;
     noWhitespace: string;
@@ -103,7 +102,6 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       description:
         "Count words, characters, characters without whitespace, lines, and paragraphs without uploading your text.",
       inputLabel: "Text",
-      placeholder: "Type or paste text here…",
       words: "Words",
       characters: "Characters",
       noWhitespace: "Characters without whitespace",
@@ -112,14 +110,15 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       completed: "Count complete",
       approximate:
         "This browser lacks Intl.Segmenter, so character and word counts are approximate.",
-      tooLarge: "Input exceeds the 10 MiB limit.",
+      tooLarge:
+        "Input exceeds the 1 MiB limit. Shorten or clear the text to continue.",
       guideTitle: "What is counted",
       guideBody:
-        "Supported browsers count user-perceived characters as grapheme clusters, so an emoji or a letter with combining marks usually counts as one character. Blank lines separate paragraphs.",
+        "In supported browsers, characters are counted as user-perceived grapheme clusters, so an emoji or a letter with combining marks usually counts as one. The count without whitespace skips whitespace graphemes in the original text without merging the graphemes on either side. Lines follow line breaks. Visually blank lines, including lines that contain only whitespace, separate paragraphs.",
       faqs: [
         {
           q: "How are words counted?",
-          a: "Browsers with Intl.Segmenter use language-aware word boundaries and count word-like segments. Other browsers show an approximate count.",
+          a: "Browsers with Intl.Segmenter use the current page language for word boundaries and count word-like segments. Other browsers show an approximate count.",
         },
         {
           q: "Do emoji count as characters?",
@@ -296,7 +295,6 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       description:
         "텍스트를 서버에 업로드하지 않고 단어, 글자, 공백 제외 글자, 줄, 문단 수를 셉니다.",
       inputLabel: "텍스트",
-      placeholder: "여기에 텍스트를 입력하거나 붙여 넣으세요…",
       words: "단어",
       characters: "글자",
       noWhitespace: "공백 제외 글자",
@@ -305,14 +303,15 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       completed: "계산 완료",
       approximate:
         "이 브라우저는 Intl.Segmenter를 지원하지 않아 단어와 글자 수가 근사값입니다.",
-      tooLarge: "입력이 10 MiB 제한을 넘었습니다.",
+      tooLarge:
+        "입력이 1 MiB 제한을 넘었습니다. 텍스트를 줄이거나 지운 뒤 계속하세요.",
       guideTitle: "계산 기준",
       guideBody:
-        "지원되는 브라우저에서는 이모지와 결합 문자를 포함해 화면에서 한 글자로 인식되는 단위로 셉니다. 빈 줄을 기준으로 문단을 구분합니다.",
+        "지원되는 브라우저에서는 이모지와 결합 문자를 포함해 화면에서 한 글자로 인식되는 단위로 셉니다. 공백 제외 글자 수는 원문의 글자 단위 중 공백인 단위를 빼되, 공백 양쪽의 글자를 합치지 않습니다. 줄바꿈을 기준으로 줄을 세고, 공백만 있는 줄을 포함해 화면에서 비어 보이는 줄을 기준으로 문단을 구분합니다.",
       faqs: [
         {
           q: "단어 수는 어떻게 계산하나요?",
-          a: "Intl.Segmenter를 지원하는 브라우저에서는 언어별 단어 경계를 기준으로 단어에 해당하는 구간을 셉니다. 지원하지 않는 브라우저에서는 근사값을 표시합니다.",
+          a: "Intl.Segmenter를 지원하는 브라우저에서는 현재 페이지 언어의 단어 경계를 적용해 단어에 해당하는 구간을 셉니다. 지원하지 않는 브라우저에서는 근사값을 표시합니다.",
         },
         {
           q: "글자 수에는 이모지도 포함되나요?",
@@ -480,7 +479,6 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       description:
         "Cuenta palabras, caracteres, caracteres sin espacios en blanco, líneas y párrafos sin subir el texto a un servidor.",
       inputLabel: "Texto",
-      placeholder: "Escribe o pega texto aquí…",
       words: "Palabras",
       characters: "Caracteres",
       noWhitespace: "Caracteres sin espacios en blanco",
@@ -489,14 +487,15 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       completed: "Recuento completado",
       approximate:
         "Este navegador no admite Intl.Segmenter; los recuentos son aproximados.",
-      tooLarge: "La entrada supera el límite de 10 MiB.",
+      tooLarge:
+        "La entrada supera el límite de 1 MiB. Acorta o borra el texto para continuar.",
       guideTitle: "Qué se cuenta",
       guideBody:
-        "En navegadores compatibles se cuentan los caracteres percibidos como unidades completas, por lo que un emoji o una letra con marcas combinadas suele contar como un carácter. Las líneas en blanco separan los párrafos.",
+        "En navegadores compatibles, los caracteres se cuentan como unidades percibidas completas, por lo que un emoji o una letra con marcas combinadas suele contar como uno. El recuento sin espacios omite del texto original las unidades que son espacios en blanco, sin unir los caracteres de ambos lados. Las líneas se cuentan según los saltos de línea. Los párrafos se separan por líneas visualmente vacías, incluidas las que solo contienen espacios en blanco.",
       faqs: [
         {
           q: "¿Cómo se cuentan las palabras?",
-          a: "Los navegadores con Intl.Segmenter usan límites de palabra adaptados al idioma y cuentan los segmentos que forman palabras. En otros navegadores se muestra una aproximación.",
+          a: "Los navegadores con Intl.Segmenter usan el idioma de la página actual para establecer los límites de palabra y cuentan los segmentos que forman palabras. En otros navegadores se muestra una aproximación.",
         },
         {
           q: "¿Los emoji cuentan como caracteres?",

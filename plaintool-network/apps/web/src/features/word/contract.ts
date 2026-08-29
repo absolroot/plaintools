@@ -9,7 +9,7 @@ export type WordClientCopy = {
   approximate: string;
 };
 
-export type WordWorkerRequest = { id: number; text: string };
+export type WordWorkerRequest = { id: number; text: string; locale: string };
 export type WordWorkerReply = { id: number; metrics: TextMetrics };
 
 export const metricKeys = [

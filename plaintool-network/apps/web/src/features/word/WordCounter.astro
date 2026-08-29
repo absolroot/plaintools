@@ -24,21 +24,43 @@ const clientCopy = {
 } satisfies WordClientCopy;
 ---
 
-<section class="converter text-counter" data-word-counter aria-label={t.title}>
-  <div class="metric-grid">
-    {
-      [t.words, t.characters, t.noWhitespace, t.lines, t.paragraphs].map(
-        (label, index) => (
-          <div class="metric">
-            <>
-              <strong data-metric={index}>0</strong>
-              <span>{label}</span>
-            </>
-          </div>
-        ),
-      )
-    }
+<section
+  class="converter text-counter"
+  data-word-counter
+  data-locale={locale}
+  aria-label={t.title}
+>
+  <div class="metric-groups" aria-describedby="word-approximate-note">
+    <ul class="metric-grid metric-grid-primary">
+      {
+        [t.words, t.characters].map((label, index) => (
+          <li class="metric metric-primary">
+            <strong data-metric={index}>0</strong>
+            <span>{label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="metric-grid metric-grid-secondary">
+      {
+        [t.noWhitespace, t.lines, t.paragraphs].map((label, index) => (
+          <li class="metric">
+            <strong data-metric={index + 2}>0</strong>
+            <span>{label}</span>
+          </li>
+        ))
+      }
+    </ul>
   </div>
+  <p
+    id="word-approximate-note"
+    class="tool-warning"
+    data-approximate
+    role="note"
+    hidden
+  >
+    {t.approximate}
+  </p>
   <section class="editor-pane">
     <div class="pane-heading">
       <label for="word-input">{t.inputLabel}</label><button
@@ -53,7 +75,6 @@ const clientCopy = {
       placeholder={examples.wordInput}></textarea>
   </section>
   <ConverterStatus status={c.ready} />
-  <p class="tool-warning" data-approximate hidden>{t.approximate}</p>
   <LocalProcessingNote locale={locale} />
   <script
     is:inline

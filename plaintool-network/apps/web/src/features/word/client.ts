@@ -11,26 +11,28 @@ import {
   type WordWorkerReply,
   type WordWorkerRequest,
 } from "./contract";
-const MAX_BYTES = 10 * 1024 * 1024;
-const LARGE_INPUT_BYTES = 1024 * 1024;
+const MAX_BYTES = 1024 * 1024;
 
 function init(root: HTMLElement): void {
   if (root.dataset.initialized) return;
   root.dataset.initialized = "true";
   const input = root.querySelector<HTMLTextAreaElement>("[data-input]")!;
+  const locale = root.dataset.locale || "en";
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const approximate = root.querySelector<HTMLElement>("[data-approximate]")!;
   const copy = readClientCopy<WordClientCopy>(root);
   let timer = 0;
   let hasMetrics = false;
-  const size = () =>
-    exceedsUtf8ByteLimit(input.value, MAX_BYTES)
-      ? MAX_BYTES + 1
-      : new TextEncoder().encode(input.value).byteLength;
+  const exceedsLimit = () => exceedsUtf8ByteLimit(input.value, MAX_BYTES);
   const setStatus = (
     message: string,
     state: "idle" | "working" | "success" | "error" = "idle",
-  ) => setToolStatus(root, status, message, state);
+    accessibleMessage?: string,
+  ) => {
+    setToolStatus(root, status, message, state);
+    if (accessibleMessage) status.setAttribute("aria-label", accessibleMessage);
+    else status.removeAttribute("aria-label");
+  };
   const clearMetrics = () => {
     root.querySelectorAll<HTMLElement>("[data-metric]").forEach((node) => {
       node.textContent = "0";
@@ -53,7 +55,7 @@ function init(root: HTMLElement): void {
   >({
     createWorker: () =>
       new Worker(new URL("./worker.ts", import.meta.url), { type: "module" }),
-    prepare: (id) => ({ payload: { id, text: input.value } }),
+    prepare: (id) => ({ payload: { id, text: input.value, locale } }),
     replyId: (reply) => reply.id,
     onReply: (reply) => {
       workingIndicator.end();
@@ -61,11 +63,17 @@ function init(root: HTMLElement): void {
         const node = root.querySelector<HTMLElement>(
           `[data-metric="${index}"]`,
         );
-        if (node) node.textContent = reply.metrics[key].toLocaleString();
+        if (node) node.textContent = reply.metrics[key].toLocaleString(locale);
       });
       approximate.hidden = !reply.metrics.approximate;
       hasMetrics = true;
-      setStatus(copy.completed, "success");
+      setStatus(
+        copy.completed,
+        "success",
+        reply.metrics.approximate
+          ? `${copy.completed} ${copy.approximate}`
+          : undefined,
+      );
     },
     onFailure: () => {
       workingIndicator.end();
@@ -80,7 +88,7 @@ function init(root: HTMLElement): void {
   };
   const run = () => {
     window.clearTimeout(timer);
-    if (size() > MAX_BYTES) {
+    if (exceedsLimit()) {
       clearMetrics();
       setStatus(copy.tooLarge, "error");
       return;
@@ -91,8 +99,7 @@ function init(root: HTMLElement): void {
   input.addEventListener("input", () => {
     window.clearTimeout(timer);
     cancelPendingWork();
-    const inputSize = size();
-    if (inputSize > MAX_BYTES) {
+    if (exceedsLimit()) {
       clearMetrics();
       return setStatus(copy.tooLarge, "error");
     }
@@ -102,7 +109,7 @@ function init(root: HTMLElement): void {
     }
     if (!hasMetrics && root.classList.contains("has-error"))
       setStatus(copy.ready);
-    timer = window.setTimeout(run, inputSize > LARGE_INPUT_BYTES ? 260 : 90);
+    timer = window.setTimeout(run, 90);
   });
   root.querySelector("[data-clear]")?.addEventListener("click", () => {
     window.clearTimeout(timer);
