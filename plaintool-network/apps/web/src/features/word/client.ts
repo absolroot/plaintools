@@ -11,7 +11,7 @@ import {
   type WordWorkerReply,
   type WordWorkerRequest,
 } from "./contract";
-const MAX_BYTES = 1024 * 1024;
+const MAX_BYTES = 1_000_000;
 
 function init(root: HTMLElement): void {
   if (root.dataset.initialized) return;

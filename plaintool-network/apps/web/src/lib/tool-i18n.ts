@@ -111,7 +111,7 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       approximate:
         "This browser lacks Intl.Segmenter, so character and word counts are approximate.",
       tooLarge:
-        "Input exceeds the 1 MiB limit. Shorten or clear the text to continue.",
+        "Input exceeds the 1 MB limit. Shorten or clear the text to continue.",
       guideTitle: "What is counted",
       guideBody:
         "In supported browsers, characters are counted as user-perceived grapheme clusters, so an emoji or a letter with combining marks usually counts as one. The count without whitespace skips whitespace graphemes in the original text without merging the graphemes on either side. Lines follow line breaks. Visually blank lines, including lines that contain only whitespace, separate paragraphs.",
@@ -304,7 +304,7 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       approximate:
         "이 브라우저는 Intl.Segmenter를 지원하지 않아 단어와 글자 수가 근사값입니다.",
       tooLarge:
-        "입력이 1 MiB 제한을 넘었습니다. 텍스트를 줄이거나 지운 뒤 계속하세요.",
+        "입력이 1 MB 제한을 넘었습니다. 텍스트를 줄이거나 지운 뒤 계속하세요.",
       guideTitle: "계산 기준",
       guideBody:
         "지원되는 브라우저에서는 이모지와 결합 문자를 포함해 화면에서 한 글자로 인식되는 단위로 셉니다. 공백 제외 글자 수는 원문의 글자 단위 중 공백인 단위를 빼되, 공백 양쪽의 글자를 합치지 않습니다. 줄바꿈을 기준으로 줄을 세고, 공백만 있는 줄을 포함해 화면에서 비어 보이는 줄을 기준으로 문단을 구분합니다.",
@@ -488,7 +488,7 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
       approximate:
         "Este navegador no admite Intl.Segmenter; los recuentos son aproximados.",
       tooLarge:
-        "La entrada supera el límite de 1 MiB. Acorta o borra el texto para continuar.",
+        "La entrada supera el límite de 1 MB. Acorta o borra el texto para continuar.",
       guideTitle: "Qué se cuenta",
       guideBody:
         "En navegadores compatibles, los caracteres se cuentan como unidades percibidas completas, por lo que un emoji o una letra con marcas combinadas suele contar como uno. El recuento sin espacios omite del texto original las unidades que son espacios en blanco, sin unir los caracteres de ambos lados. Las líneas se cuentan según los saltos de línea. Los párrafos se separan por líneas visualmente vacías, incluidas las que solo contienen espacios en blanco.",
