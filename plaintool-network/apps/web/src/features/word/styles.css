@@ -85,6 +85,14 @@
     border-top: 1px solid var(--line);
     border-left: 0;
   }
+
+  .text-counter .text-button {
+    height: 44px;
+  }
+
+  .text-counter .tool-status {
+    min-height: 0;
+  }
 }
 
 @media (max-width: 680px) {
