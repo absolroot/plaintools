@@ -1,0 +1,134 @@
+.hash-input-pane textarea {
+  min-height: 180px;
+}
+
+.hash-generator.is-dragging .hash-input-pane {
+  background: color-mix(in oklch, var(--brand), var(--base) 94%);
+  box-shadow: inset 0 0 0 1.5px var(--brand);
+}
+
+.hash-file-meta,
+.hash-input-pane .drop-hint {
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-3);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.hash-file-meta {
+  color: var(--ink);
+  font-family: var(--code-font);
+}
+
+.hash-results {
+  border-top: 1px solid var(--line);
+}
+
+.hash-results-heading {
+  min-height: 52px;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  background: var(--elevated);
+}
+
+.hash-results-heading h2,
+.hash-results-heading p {
+  margin: 0;
+}
+
+.hash-results-heading h2 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hash-results-heading p {
+  max-width: 620px;
+  color: var(--warning);
+  font-size: 12px;
+  text-align: end;
+}
+
+.hash-result-list {
+  display: grid;
+}
+
+.hash-result-row {
+  min-width: 0;
+  min-height: 48px;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.hash-result-row:first-child {
+  border-top: 0;
+}
+
+.hash-result-row label {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hash-result-row input {
+  width: 100%;
+  height: 34px;
+  padding: 0 var(--space-2);
+  border: 0;
+  outline: 0;
+  color: var(--ink);
+  background: var(--recessed);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-family: var(--code-font);
+  font-size: 12px;
+}
+
+.hash-generator.has-stale-result .hash-result-list {
+  opacity: 0.68;
+}
+
+.hash-generator .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (max-width: 680px) {
+  .hash-input-pane textarea {
+    min-height: 150px;
+  }
+
+  .hash-results-heading {
+    min-height: 72px;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-1);
+  }
+
+  .hash-results-heading p {
+    text-align: start;
+  }
+
+  .hash-result-row {
+    min-height: 92px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .hash-result-row input {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 44px;
+  }
+
+  .hash-copy-button {
+    height: 44px;
+  }
+}

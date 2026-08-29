@@ -12,11 +12,14 @@
   "dependencies": {
     "@plaintool/codec-core": "*",
     "@plaintool/data-conversion-core": "*",
+    "@plaintool/hash-core": "*",
     "@plaintool/json-core": "*",
+    "@plaintool/jwt-core": "*",
     "@plaintool/text-case-core": "*",
     "@plaintool/text-diff-core": "*",
     "@plaintool/text-metrics-core": "*",
     "@plaintool/time-core": "*",
+    "@plaintool/url-core": "*",
     "astro": "^7.2.9",
     "flag-icons": "7.5.0"
   },

@@ -1,0 +1,108 @@
+---
+import { hashAlgorithms } from "@plaintool/hash-core";
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import type { ToolCommonCopy } from "../common-copy-contract";
+import type { HashGeneratorCopy } from "./contract";
+import "./styles.css";
+
+interface Props {
+  copy: HashGeneratorCopy;
+  commonCopy: ToolCommonCopy;
+}
+
+const { copy, commonCopy } = Astro.props;
+const format = (template: string, values: Record<string, string>) =>
+  template.replace(
+    /\{(\w+)\}/gu,
+    (_, key: string) => values[key] ?? `{${key}}`,
+  );
+---
+
+<section
+  class="converter hash-generator"
+  data-hash-generator
+  aria-label={copy.ariaLabel}
+>
+  <section class="editor-pane hash-input-pane" data-drop-zone>
+    <div class="pane-heading">
+      <label for="hash-input">{copy.inputLabel}</label>
+      <div class="pane-actions">
+        <button class="text-button" type="button" data-open-file>
+          <UiIcon name="folder-open" size={14} />{copy.openFile}
+        </button>
+        <input data-file-input type="file" hidden />
+        <button class="text-button" type="button" data-clear>
+          <UiIcon name="x" size={14} />{commonCopy.clear}
+        </button>
+      </div>
+    </div>
+    <textarea
+      id="hash-input"
+      data-input
+      dir="ltr"
+      spellcheck="false"
+      placeholder={copy.inputPlaceholder}></textarea>
+    <p class="hash-file-meta" data-file-meta hidden></p>
+    <p class="drop-hint">{copy.dropHint}</p>
+  </section>
+  <section class="hash-results" aria-labelledby="hash-results-heading">
+    <div class="hash-results-heading">
+      <h2 id="hash-results-heading">{copy.resultsLabel}</h2>
+      <p role="note">{copy.legacyWarning}</p>
+    </div>
+    <div class="hash-result-list">
+      {
+        hashAlgorithms.map((algorithm) => (
+          <div class="hash-result-row">
+            <label for={`hash-result-${algorithm}`}>{algorithm}</label>
+            <input
+              id={`hash-result-${algorithm}`}
+              data-hash-output={algorithm}
+              dir="ltr"
+              readonly
+              aria-label={format(copy.resultValueLabel, { algorithm })}
+            />
+            <button
+              class="text-button hash-copy-button"
+              type="button"
+              data-copy-hash={algorithm}
+              aria-label={format(copy.copyHashLabel, { algorithm })}
+              disabled
+            >
+              <>
+                <UiIcon name="copy" size={14} />
+                <span>{commonCopy.copy}</span>
+              </>
+            </button>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+  <ConverterStatus status={commonCopy.ready}>
+    <button class="secondary-button" type="button" data-download disabled>
+      <UiIcon name="download" size={14} />{commonCopy.download}
+    </button>
+  </ConverterStatus>
+  <div class="privacy-note">
+    <span class="privacy-icon" aria-hidden="true"
+      ><UiIcon name="shield" size={14} /></span
+    >
+    <div>
+      <strong>{commonCopy.localTitle}</strong><p>{commonCopy.localBody}</p>
+    </div>
+  </div>
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify({ feature: copy, common: commonCopy }).replace(
+      /</gu,
+      "\\u003c",
+    )}
+  />
+</section>
+<script>
+  import "./client";
+</script>

@@ -1,0 +1,136 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import type { ToolCommonCopy } from "../common-copy-contract";
+import type { JwtDecoderCopy } from "./contract";
+import "./styles.css";
+
+interface Props {
+  copy: JwtDecoderCopy;
+  commonCopy: ToolCommonCopy;
+}
+
+const { copy, commonCopy } = Astro.props;
+---
+
+<section
+  class="converter jwt-decoder"
+  data-jwt-decoder
+  aria-label={copy.ariaLabel}
+>
+  <aside class="jwt-verification-warning" role="note">
+    <UiIcon name="shield" size={16} />
+    <div>
+      <strong>{copy.noVerificationTitle}</strong><p>
+        {copy.noVerificationBody}
+      </p>
+    </div>
+  </aside>
+  <section class="editor-pane jwt-input-pane">
+    <div class="pane-heading">
+      <label for="jwt-input">{copy.inputLabel}</label>
+      <button class="text-button" type="button" data-clear>
+        <UiIcon name="x" size={14} />{commonCopy.clear}
+      </button>
+    </div>
+    <textarea
+      id="jwt-input"
+      data-input
+      dir="ltr"
+      spellcheck="false"
+      autocapitalize="off"
+      autocomplete="off"
+      placeholder={copy.inputPlaceholder}></textarea>
+  </section>
+  <div class="jwt-results">
+    <section class="jwt-result-pane">
+      <div class="pane-heading">
+        <label for="jwt-header-output">{copy.headerLabel}</label>
+        <button
+          class="text-button"
+          type="button"
+          data-copy-target="header"
+          aria-label={copy.copyHeaderLabel}
+          disabled
+        >
+          <UiIcon name="copy" size={14} />{commonCopy.copy}
+        </button>
+      </div>
+      <textarea
+        id="jwt-header-output"
+        data-output="header"
+        dir="ltr"
+        readonly
+        spellcheck="false"></textarea>
+    </section>
+    <section class="jwt-result-pane">
+      <div class="pane-heading">
+        <label for="jwt-payload-output">{copy.payloadLabel}</label>
+        <button
+          class="text-button"
+          type="button"
+          data-copy-target="payload"
+          aria-label={copy.copyPayloadLabel}
+          disabled
+        >
+          <UiIcon name="copy" size={14} />{commonCopy.copy}
+        </button>
+      </div>
+      <textarea
+        id="jwt-payload-output"
+        data-output="payload"
+        dir="ltr"
+        readonly
+        spellcheck="false"></textarea>
+    </section>
+  </div>
+  <section class="jwt-details">
+    <div class="jwt-signature">
+      <div class="jwt-detail-heading">
+        <h2>{copy.signatureLabel}</h2>
+        <span data-signature-size></span>
+        <button
+          class="text-button"
+          type="button"
+          data-copy-target="signature"
+          aria-label={copy.copySignatureLabel}
+          disabled
+        >
+          <UiIcon name="copy" size={14} />{commonCopy.copy}
+        </button>
+      </div>
+      <output data-output="signature" dir="ltr"></output>
+    </div>
+    <div class="jwt-timestamps">
+      <h2>{copy.timestampsLabel}</h2>
+      <ul data-timestamps>
+        <li data-empty-timestamps>{copy.noTimestamps}</li>
+      </ul>
+    </div>
+  </section>
+  <ConverterStatus status={commonCopy.ready}>
+    <button class="secondary-button" type="button" data-download disabled>
+      <UiIcon name="download" size={14} />{commonCopy.download}
+    </button>
+  </ConverterStatus>
+  <div class="privacy-note">
+    <span class="privacy-icon" aria-hidden="true"
+      ><UiIcon name="shield" size={14} /></span
+    >
+    <div>
+      <strong>{commonCopy.localTitle}</strong><p>{commonCopy.localBody}</p>
+    </div>
+  </div>
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify({ feature: copy, common: commonCopy }).replace(
+      /</gu,
+      "\\u003c",
+    )}
+  />
+</section>
+<script>
+  import "./client";
+</script>
