@@ -677,9 +677,10 @@ export const itBundle: LocaleBundle = {
       "Strumenti online gratuiti per testo e dati | AbsolTools",
     directoryMetaDescription:
       "Svolgi online attività relative a testo, dati, tempo e codifica.",
-    directoryTitle: "Trova lo strumento che ti serve.",
+    directoryTitle:
+      "Rendiamo più semplici e pratici gli strumenti che usi più spesso",
     directoryIntro:
-      "Rendiamo gli strumenti online più usati semplici e comodi da usare. Aggiungi questo sito ai preferiti.",
+      "Aggiungi questo sito ai preferiti per tornarci subito la prossima volta.",
     toolPromise:
       "AbsolTools rende gli strumenti online più usati più precisi e facili da usare. Aggiungi questo sito ai preferiti.",
     directorySearchLabel: "Cerca strumenti",

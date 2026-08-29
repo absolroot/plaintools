@@ -682,9 +682,10 @@ const plBundle = {
       "Darmowe narzędzia online do tekstu, danych i kodowania | AbsolTools",
     directoryMetaDescription:
       "Obsługuj zadania związane z tekstem, danymi, czasem i kodowaniem online.",
-    directoryTitle: "Znajdź narzędzie, którego potrzebujesz.",
+    directoryTitle:
+      "Sprawiamy, że narzędzia, z których często korzystasz, są prostsze i wygodniejsze",
     directoryIntro:
-      "Sprawiamy, że często używane narzędzia online są prostsze i wygodniejsze. Dodaj tę stronę do zakładek.",
+      "Dodaj tę stronę do zakładek, aby następnym razem od razu do niej wrócić.",
     toolPromise:
       "AbsolTools sprawia, że często używane narzędzia online są dokładniejsze i łatwiejsze w obsłudze. Dodaj tę stronę do zakładek.",
     directorySearchLabel: "Szukaj narzędzi",

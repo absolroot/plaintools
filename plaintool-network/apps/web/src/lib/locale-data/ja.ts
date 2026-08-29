@@ -657,9 +657,9 @@ const bundle: LocaleBundle = {
       "文字列・データ・エンコードの無料オンラインツール | AbsolTools",
     directoryMetaDescription:
       "文字列、データ、日時、エンコードの作業をオンラインで処理できます。",
-    directoryTitle: "必要なツールを探す",
+    directoryTitle: "よく使うツールを、もっとすっきり使いやすくします",
     directoryIntro:
-      "オンラインでよく使われるツールを、よりシンプルで使いやすくします。このサイトをブックマークに追加してください。",
+      "このサイトをブックマークしておけば、次回すぐにアクセスできます。",
     toolPromise:
       "AbsolToolsは、オンラインでよく使われるツールを、より正確で使いやすいものにします。このサイトをブックマークに追加してください。",
     directorySearchLabel: "ツールを検索",

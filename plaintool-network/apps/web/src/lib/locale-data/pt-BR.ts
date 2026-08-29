@@ -677,9 +677,10 @@ export const ptBRBundle: LocaleBundle = {
       "Ferramentas online gratuitas para texto e dados | AbsolTools",
     directoryMetaDescription:
       "Resolva tarefas de texto, dados, tempo e codificação online.",
-    directoryTitle: "Encontre a ferramenta que você precisa.",
+    directoryTitle:
+      "Deixamos as ferramentas que você usa com frequência mais simples e práticas",
     directoryIntro:
-      "Tornamos as ferramentas online mais usadas mais simples e práticas. Adicione este site aos favoritos.",
+      "Adicione este site aos favoritos para acessá-lo diretamente na próxima vez.",
     toolPromise:
       "O AbsolTools torna as ferramentas online mais usadas mais precisas e fáceis de usar. Adicione este site aos favoritos.",
     directorySearchLabel: "Pesquisar ferramentas",

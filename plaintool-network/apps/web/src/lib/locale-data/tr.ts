@@ -679,9 +679,10 @@ const bundle: LocaleBundle = {
       "Metin, Veri ve Kodlama için Ücretsiz Çevrim İçi Araçlar | AbsolTools",
     directoryMetaDescription:
       "Metin, veri, zaman ve kodlama işlemlerini çevrim içi yapın.",
-    directoryTitle: "İhtiyacınız olan aracı bulun.",
+    directoryTitle:
+      "Sık kullandığınız araçları daha sade ve kullanışlı hâle getiriyoruz",
     directoryIntro:
-      "Sık kullanılan çevrim içi araçları daha sade ve kullanışlı hâle getiriyoruz. Siteyi yer imlerinize ekleyin.",
+      "Bu siteyi yer imlerinize ekleyin; böylece bir sonraki sefer doğrudan erişebilirsiniz.",
     toolPromise:
       "AbsolTools, sık kullanılan çevrim içi araçları daha doğru ve kullanışlı hâle getirir. Siteyi yer imlerinize ekleyin.",
     directorySearchLabel: "Araçlarda ara",

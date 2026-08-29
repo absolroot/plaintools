@@ -681,9 +681,10 @@ const daBundle = {
       "Gratis onlineværktøjer til tekst, data og kodning | AbsolTools",
     directoryMetaDescription:
       "Håndter tekst, data, tid og kodningsopgaver online.",
-    directoryTitle: "Find det værktøj, du har brug for.",
+    directoryTitle:
+      "Vi gør ofte brugte værktøjer mere overskuelige og nemmere at bruge",
     directoryIntro:
-      "Vi gør ofte brugte onlineværktøjer enklere og mere praktiske. Føj siden til dine bogmærker.",
+      "Føj siden til dine bogmærker, så du kan gå direkte hertil næste gang.",
     toolPromise:
       "AbsolTools gør ofte brugte onlineværktøjer mere præcise og nemmere at bruge. Føj siden til dine bogmærker.",
     directorySearchLabel: "Søg efter værktøjer",

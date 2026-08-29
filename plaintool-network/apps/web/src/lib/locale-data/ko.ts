@@ -678,9 +678,9 @@ const bundle: LocaleBundle = {
     directoryMetaTitle: "무료 온라인 도구 - 텍스트·데이터·인코딩 | AbsolTools",
     directoryMetaDescription:
       "텍스트, 데이터, 시간, 인코딩 작업을 온라인에서 바로 처리하세요.",
-    directoryTitle: "필요한 도구를 바로 찾아보세요.",
+    directoryTitle: "자주 쓰이는 도구를 더 깔끔하고 편리하게 만듭니다",
     directoryIntro:
-      "온라인에서 자주 쓰이는 도구를 더 깔끔하고 편리하게 만듭니다. 즐겨찾기에 사이트를 추가하세요.",
+      "즐겨찾기에 사이트를 추가하면 다음에 바로 접속하실 수 있어요.",
     toolPromise:
       "AbsolTools는 자주 쓰이는 온라인 도구를 더 정확하고 편리하게 만듭니다. 즐겨찾기에 사이트를 추가하세요.",
     directorySearchLabel: "도구 검색",

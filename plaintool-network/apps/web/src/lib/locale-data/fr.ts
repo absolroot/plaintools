@@ -690,9 +690,10 @@ export const frBundle: LocaleBundle = {
       "Outils gratuits en ligne pour texte et données | AbsolTools",
     directoryMetaDescription:
       "Effectuez en ligne des tâches de texte, de données, de temps et d’encodage.",
-    directoryTitle: "Trouvez l’outil qu’il vous faut.",
+    directoryTitle:
+      "Nous rendons les outils que vous utilisez souvent plus clairs et plus pratiques",
     directoryIntro:
-      "Nous rendons les outils en ligne courants plus simples et plus pratiques. Ajoutez ce site à vos favoris.",
+      "Ajoutez ce site à vos favoris pour y accéder directement la prochaine fois.",
     toolPromise:
       "AbsolTools rend les outils en ligne courants plus précis et plus faciles à utiliser. Ajoutez ce site à vos favoris.",
     directorySearchLabel: "Rechercher un outil",

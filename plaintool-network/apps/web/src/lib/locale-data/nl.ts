@@ -684,9 +684,10 @@ export const nlBundle: LocaleBundle = {
       "Gratis online tools voor tekst en gegevens | AbsolTools",
     directoryMetaDescription:
       "Voer online taken uit met tekst, gegevens, tijd en codering.",
-    directoryTitle: "Vind de tool die je nodig hebt.",
+    directoryTitle:
+      "We maken de tools die je vaak gebruikt overzichtelijker en gebruiksvriendelijker",
     directoryIntro:
-      "We maken veelgebruikte online tools overzichtelijker en gebruiksvriendelijker. Voeg deze site toe aan je bladwijzers.",
+      "Voeg deze site toe aan je bladwijzers, zodat je er de volgende keer direct naartoe kunt.",
     toolPromise:
       "AbsolTools maakt veelgebruikte online tools nauwkeuriger en gebruiksvriendelijker. Voeg deze site toe aan je bladwijzers.",
     directorySearchLabel: "Tools zoeken",

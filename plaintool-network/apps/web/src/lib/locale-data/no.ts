@@ -682,9 +682,10 @@ const noBundle = {
       "Gratis nettbaserte verktøy for tekst, data og koding | AbsolTools",
     directoryMetaDescription:
       "Håndter tekst-, data-, tids- og kodingoppgaver på nettet.",
-    directoryTitle: "Finn verktøyet du trenger.",
+    directoryTitle:
+      "Vi gjør verktøyene du bruker ofte ryddigere og enklere å bruke",
     directoryIntro:
-      "Vi gjør ofte brukte nettverktøy enklere og mer praktiske. Legg nettstedet til i bokmerkene.",
+      "Legg nettstedet til i bokmerkene, så kan du gå rett hit neste gang.",
     toolPromise:
       "AbsolTools gjør ofte brukte nettverktøy mer presise og enklere å bruke. Legg nettstedet til i bokmerkene.",
     directorySearchLabel: "Søk etter verktøy",

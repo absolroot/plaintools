@@ -679,9 +679,10 @@ const csBundle = {
       "Zdarma online nástroje pro text, data a kódování | AbsolTools",
     directoryMetaDescription:
       "Zpracovávejte text, data, čas a úkoly kódování online.",
-    directoryTitle: "Najděte nástroj, který potřebujete.",
+    directoryTitle:
+      "Často používané nástroje děláme přehlednějšími a praktičtějšími",
     directoryIntro:
-      "Často používané online nástroje děláme přehlednější a pohodlnější. Přidejte si web do záložek.",
+      "Přidejte si tento web do záložek, abyste se sem příště dostali rovnou.",
     toolPromise:
       "AbsolTools dělá běžně používané online nástroje přesnější a snadněji použitelné. Přidejte si web do záložek.",
     directorySearchLabel: "Hledat nástroje",

@@ -686,9 +686,10 @@ export const deBundle: LocaleBundle = {
       "Kostenlose Online-Werkzeuge für Text und Daten | AbsolTools",
     directoryMetaDescription:
       "Aufgaben rund um Text, Daten, Zeit und Codierung online erledigen.",
-    directoryTitle: "Das passende Werkzeug finden.",
+    directoryTitle:
+      "Wir machen häufig genutzte Tools übersichtlicher und praktischer",
     directoryIntro:
-      "Wir machen häufig genutzte Online-Werkzeuge übersichtlicher und bequemer. Speichern Sie diese Website als Lesezeichen.",
+      "Speichern Sie diese Website als Lesezeichen, damit Sie beim nächsten Mal direkt darauf zugreifen können.",
     toolPromise:
       "AbsolTools macht häufig genutzte Online-Werkzeuge präziser und einfacher zu bedienen. Speichern Sie diese Website als Lesezeichen.",
     directorySearchLabel: "Werkzeuge durchsuchen",

@@ -681,9 +681,10 @@ const svBundle = {
       "Gratis onlineverktyg för text, data och kodning | AbsolTools",
     directoryMetaDescription:
       "Hantera text, data, tid och kodningsuppgifter online.",
-    directoryTitle: "Hitta verktyget du behöver.",
+    directoryTitle:
+      "Vi gör verktygen du använder ofta enklare och smidigare att använda",
     directoryIntro:
-      "Vi gör vanliga onlineverktyg enklare och smidigare att använda. Lägg till webbplatsen i dina bokmärken.",
+      "Lägg till webbplatsen som bokmärke så kan du gå direkt hit nästa gång.",
     toolPromise:
       "AbsolTools gör vanliga onlineverktyg mer exakta och enklare att använda. Lägg till webbplatsen i dina bokmärken.",
     directorySearchLabel: "Sökverktyg",

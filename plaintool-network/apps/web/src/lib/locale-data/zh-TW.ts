@@ -626,9 +626,8 @@ const bundle: LocaleBundle = {
     allTools: "所有工具",
     directoryMetaTitle: "免費線上文字、資料與編碼工具 | AbsolTools",
     directoryMetaDescription: "線上處理文字、資料、時間與編碼工作。",
-    directoryTitle: "找到您需要的工具",
-    directoryIntro:
-      "我們讓常用的線上工具更簡潔、更方便使用。將本站加入書籤，方便下次使用。",
+    directoryTitle: "我們讓常用工具更簡潔、更好用",
+    directoryIntro: "將本站加入書籤，下次就能直接開啟。",
     toolPromise:
       "AbsolTools 讓常用的線上工具更精準、更容易使用。將本站加入書籤，方便下次使用。",
     directorySearchLabel: "搜尋工具",

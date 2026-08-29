@@ -696,9 +696,8 @@ const bundle: LocaleBundle = {
       "Free Online Tools for Text, Data & Encoding | AbsolTools",
     directoryMetaDescription:
       "Handle text, data, time, and encoding tasks online.",
-    directoryTitle: "Find the tool you need.",
-    directoryIntro:
-      "We make commonly used online tools cleaner and more convenient. Bookmark this site for easy access.",
+    directoryTitle: "We make the tools you use often cleaner and easier to use",
+    directoryIntro: "Bookmark this site to come straight back next time.",
     toolPromise:
       "AbsolTools makes commonly used online tools more accurate and easier to use. Bookmark this site for easy access.",
     directorySearchLabel: "Search tools",

@@ -698,9 +698,10 @@ const bundle: LocaleBundle = {
     directoryMetaTitle: "Herramientas en línea para texto y datos | AbsolTools",
     directoryMetaDescription:
       "Resuelve tareas de texto, datos, tiempo y codificación en línea.",
-    directoryTitle: "Encuentra la herramienta que necesitas.",
+    directoryTitle:
+      "Hacemos más claras y prácticas las herramientas que usas a menudo",
     directoryIntro:
-      "Hacemos que las herramientas en línea más utilizadas sean más sencillas y cómodas de usar. Añade este sitio a tus favoritos.",
+      "Añade este sitio a tus favoritos para volver aquí directamente la próxima vez.",
     toolPromise:
       "AbsolTools hace que las herramientas en línea más utilizadas sean más precisas y fáciles de usar. Añade este sitio a tus favoritos.",
     directorySearchLabel: "Buscar herramientas",
