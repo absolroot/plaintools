@@ -8,6 +8,7 @@ const completeEnvironment = {
   PUBLIC_SITE_ORIGIN: "https://plaintool.example",
   PUBLIC_OPERATOR_NAME: "PlainTool Operator",
   PUBLIC_CONTACT_EMAIL: "contact@plaintool.example",
+  PUBLIC_OPERATOR_REGION: "Republic of Korea",
   PUBLIC_POLICY_EFFECTIVE_DATE: "2026-08-29",
   PUBLIC_HOST_PROVIDER_NAME: "Example Host",
   PUBLIC_HOST_PRIVACY_URL: "https://host.example/privacy",
@@ -61,6 +62,64 @@ describe("deployment configuration", () => {
         "PUBLIC_HOST_PRIVACY_URL",
         "PUBLIC_OPERATOR_NAME",
       ]),
+    );
+  });
+
+  it("requires an explicit operator region instead of promoting the preview fallback", () => {
+    const { PUBLIC_OPERATOR_REGION: _region, ...withoutRegion } =
+      completeEnvironment;
+    const config = resolveDeploymentConfig(
+      withoutRegion,
+      "production",
+      implementedIntegrationCapabilities,
+    );
+
+    expect(config.productionReady).toBe(false);
+    expect(config.origin).toBe("https://preview.invalid");
+    expect(config.operator.region).toBe(
+      "[Operator region required before launch]",
+    );
+    expect(config.issues).toContainEqual(
+      expect.objectContaining({
+        code: "required",
+        key: "PUBLIC_OPERATOR_REGION",
+      }),
+    );
+  });
+
+  it.each([
+    ["PUBLIC_CONTACT_EMAIL", "not-an-email", "invalid-email"],
+    ["PUBLIC_CONTACT_EMAIL", "two@@plaintool.example", "invalid-email"],
+    ["PUBLIC_CONTACT_EMAIL", "contact@plain..example", "invalid-email"],
+    ["PUBLIC_POLICY_EFFECTIVE_DATE", "2026-02-30", "invalid-date"],
+    ["PUBLIC_POLICY_EFFECTIVE_DATE", "29-08-2026", "invalid-date"],
+  ])("rejects invalid typed production fact %s=%s", (key, value, code) => {
+    const config = resolveDeploymentConfig(
+      { ...completeEnvironment, [key]: value },
+      "production",
+      implementedIntegrationCapabilities,
+    );
+
+    expect(config.productionReady).toBe(false);
+    expect(config.issues).toContainEqual(
+      expect.objectContaining({ code, key }),
+    );
+  });
+
+  it("rejects HTTPS deployment URLs that contain embedded credentials", () => {
+    const config = resolveDeploymentConfig(
+      {
+        ...completeEnvironment,
+        PUBLIC_SITE_ORIGIN: "https://user:secret@plaintool.example",
+        PUBLIC_HOST_PRIVACY_URL: "https://user@host.example/privacy",
+      },
+      "production",
+      implementedIntegrationCapabilities,
+    );
+
+    expect(config.productionReady).toBe(false);
+    expect(config.issues.map((issue) => issue.key)).toEqual(
+      expect.arrayContaining(["PUBLIC_SITE_ORIGIN", "PUBLIC_HOST_PRIVACY_URL"]),
     );
   });
 

@@ -1,17 +1,29 @@
 import { defineConfig } from "astro/config";
+import {
+  implementedIntegrationCapabilities,
+  resolveDeploymentConfig,
+} from "./src/lib/deployment-config.js";
 
-const site = process.env.PUBLIC_SITE_ORIGIN || "https://preview.invalid";
+const deploymentTarget =
+  process.env.PLAINTOOL_BUILD_TARGET === "production"
+    ? "production"
+    : "preview";
+const deploymentConfig = resolveDeploymentConfig(
+  process.env,
+  deploymentTarget,
+  implementedIntegrationCapabilities,
+);
 
 export default defineConfig({
-  site,
+  site: deploymentConfig.origin,
   output: "static",
   trailingSlash: "always",
   build: {
-    format: "directory"
+    format: "directory",
   },
   vite: {
     build: {
-      sourcemap: true
-    }
-  }
+      sourcemap: true,
+    },
+  },
 });
