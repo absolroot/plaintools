@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "featureId": "base64-codec",
+  "enforcement": "existing-baseline",
+  "sourceLocale": "en",
+  "publicLocales": ["en", "ko", "es"],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/i18n.ts",
+    "apps/web/src/features/base64/copy.ts",
+    "apps/web/src/features/base64/mode-definition.ts",
+    "apps/web/src/lib/common-tool-i18n.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/components/AdSlot.astro",
+    "apps/web/src/features/base64/Converter.astro",
+    "apps/web/src/components/ConverterStatus.astro",
+    "apps/web/src/components/LocalProcessingNote.astro",
+    "apps/web/src/layouts/SiteLayout.astro",
+    "apps/web/src/features/base64/Base64Page.astro",
+    "apps/web/src/pages/[locale]/base64-decode/index.astro",
+    "apps/web/src/pages/[locale]/base64-encode/index.astro",
+    "apps/web/src/pages/[locale]/[page].astro"
+  ],
+  "copyFingerprint": "sha256:5fdab8b7896db68e546825043ec9fa8f73815e10d41c6df62522b488f54ce880",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["en-wikipedia-base64", "en-base64-sh"]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["ko-wikipedia-base64", "ko-base64-sh"]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["es-wikipedia-base64", "es-base64-sh"]
+    }
+  }
+}

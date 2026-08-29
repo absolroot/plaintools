@@ -12,7 +12,9 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "base64-decode",
     category: "encoding",
     publication: "indexable",
-    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/base64-codec.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
     id: "base64-encode",
@@ -20,7 +22,9 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "base64-encode",
     category: "encoding",
     publication: "indexable",
-    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/base64-codec.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
     id: "word-counter",
@@ -28,7 +32,9 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "word-counter",
     category: "text",
     publication: "preview",
-    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/word-counter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
     id: "json-formatter",
@@ -36,7 +42,9 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "json-formatter",
     category: "data",
     publication: "preview",
-    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/json-formatter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
     id: "unix-timestamp-converter",
@@ -44,10 +52,16 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "unix-timestamp-converter",
     category: "time",
     publication: "preview",
-    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
-  }
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/unix-timestamp-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);
-export const previewPages = toolRegistry.filter((tool) => tool.publication === "preview").map((tool) => tool.slug);
-export const publicToolPages = toolRegistry.filter((tool) => tool.publication === "indexable").map((tool) => tool.slug);
+export const previewPages = toolRegistry
+  .filter((tool) => tool.publication === "preview")
+  .map((tool) => tool.slug);
+export const publicToolPages = toolRegistry
+  .filter((tool) => tool.publication === "indexable")
+  .map((tool) => tool.slug);

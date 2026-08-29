@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "featureId": "unix-timestamp-converter",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": ["en", "ko", "es"],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/tool-i18n.ts",
+    "apps/web/src/features/time/copy.ts",
+    "apps/web/src/lib/tool-examples.ts",
+    "apps/web/src/lib/common-tool-i18n.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/components/PreviewToolPage.astro",
+    "apps/web/src/components/ConverterStatus.astro",
+    "apps/web/src/components/LocalProcessingNote.astro",
+    "apps/web/src/features/time/TimeConverter.astro",
+    "apps/web/src/pages/[locale]/unix-timestamp-converter/index.astro"
+  ],
+  "copyFingerprint": "sha256:296e0110306e2398a973751fddcfc4f1f2c6059c4588f489c9bb56828c3322f1",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["en-timestamp-tools", "en-wikipedia-unix-time"]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["ko-webi-timestamp", "ko-jhnsoft-timestamp"]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["es-toolssoup-timestamp", "es-wikipedia-tiempo-unix"]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "featureId": "json-formatter",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": ["en", "ko", "es"],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/tool-i18n.ts",
+    "apps/web/src/features/json/copy.ts",
+    "apps/web/src/lib/tool-examples.ts",
+    "apps/web/src/lib/common-tool-i18n.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/components/PreviewToolPage.astro",
+    "apps/web/src/components/ConverterStatus.astro",
+    "apps/web/src/components/LocalProcessingNote.astro",
+    "apps/web/src/features/json/JsonFormatter.astro",
+    "apps/web/src/pages/[locale]/json-formatter/index.astro"
+  ],
+  "copyFingerprint": "sha256:e1d70baa4491fefc51020a17609481e7ce4799b305c3d56bed4503dd6b933b93",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["en-json-formatter-org", "en-mdn-json"]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["ko-toolatom-json", "ko-mdn-json"]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-29",
+      "referenceIds": ["es-jsonpretty", "es-mdn-json"]
+    }
+  }
+}
