@@ -3,17 +3,14 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
-from .base64_feature import run_base64_desktop
-from .common import attach_page_error_collectors
+from .common import attach_external_request_collector, attach_page_error_collectors
 from .config import BASE_URL, QA_DIR
 from .directory_feature import run_directory_desktop, run_directory_mobile
-from .json_feature import run_json_desktop, run_json_mobile
+from .feature_coverage import FEATURE_COVERAGE
 from .legal_feature import run_legal_desktop
-from .preflight import validate_feature_inventory, verify_server
+from .preflight import validate_feature_coverage, verify_server
 from .registry import load_route_inventory
-from .responsive_feature import run_base64_mobile, run_route_matrix
-from .time_feature import run_time_desktop, run_time_mobile
-from .word_feature import run_word_desktop, run_word_mobile
+from .responsive_feature import run_route_matrix
 
 
 def main() -> None:
@@ -22,9 +19,9 @@ def main() -> None:
     QA_DIR.mkdir(parents=True, exist_ok=True)
 
     inventory = load_route_inventory()
-    validate_feature_inventory(inventory)
+    validate_feature_coverage(inventory, FEATURE_COVERAGE)
     preflight_locale = "ko" if "ko" in inventory.locales else inventory.locales[0]
-    verify_server(BASE_URL, f"/{preflight_locale}/base64-decode/")
+    verify_server(BASE_URL, f"/{preflight_locale}/{inventory.tools[0].slug}/")
 
     report: dict = {
         "console_errors": [],
@@ -40,12 +37,11 @@ def main() -> None:
                 viewport={"width": 1440, "height": 1000}, device_scale_factor=1
             )
             attach_page_error_collectors(desktop, report)
+            attach_external_request_collector(desktop, report, "desktop")
 
-            run_base64_desktop(desktop, report)
+            for feature_id in inventory.feature_ids:
+                FEATURE_COVERAGE[feature_id].desktop(desktop, report, inventory)
             run_directory_desktop(desktop, report)
-            run_word_desktop(desktop, report)
-            run_json_desktop(desktop, report)
-            run_time_desktop(desktop, report, inventory.locales)
 
             mobile = browser.new_page(
                 viewport={"width": 390, "height": 844},
@@ -53,13 +49,12 @@ def main() -> None:
                 has_touch=True,
             )
             attach_page_error_collectors(mobile, report)
+            attach_external_request_collector(mobile, report, "mobile")
 
-            run_base64_mobile(mobile, report, inventory.locales)
-            run_json_mobile(mobile, report, inventory.locales)
+            for feature_id in inventory.feature_ids:
+                FEATURE_COVERAGE[feature_id].mobile(mobile, report, inventory)
             run_legal_desktop(desktop, report)
-            run_route_matrix(desktop, mobile, report, inventory)
-            run_word_mobile(mobile)
-            run_time_mobile(mobile, report, inventory.locales)
+            run_route_matrix(desktop, mobile, report, inventory, FEATURE_COVERAGE)
             run_directory_mobile(mobile, report)
         finally:
             browser.close()

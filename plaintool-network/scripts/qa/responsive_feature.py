@@ -39,13 +39,21 @@ def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
         report["mobile_locale_actions"][locale] = {}
         for mode in ("decode", "encode"):
             mobile.goto(f"{BASE_URL}/{locale}/base64-{mode}/", wait_until="networkidle")
+            sample_input = "SGVsbG8=" if mode == "decode" else "Hello"
+            expected_output = "Hello" if mode == "decode" else "SGVsbG8="
+            mobile.locator("#codec-input").fill(sample_input)
+            mobile.wait_for_function(
+                "expected => document.querySelector('#codec-output').value === expected",
+                arg=expected_output,
+            )
             action_box = mobile.locator(".primary-button").bounding_box()
             command_box = mobile.locator(".converter-commandbar").bounding_box()
             action = {
                 "bottom": action_box["y"] + action_box["height"],
                 "safety_margin": 844 - (action_box["y"] + action_box["height"]),
                 "command_height": command_box["height"],
-                "scroll_width": mobile.evaluate("document.documentElement.scrollWidth")
+                "scroll_width": mobile.evaluate("document.documentElement.scrollWidth"),
+                "sample_output": mobile.locator("#codec-output").input_value(),
             }
             report["mobile_locale_actions"][locale][mode] = action
             if action["safety_margin"] < 16:
@@ -59,15 +67,15 @@ def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
 
 
 
-def run_route_matrix(desktop, mobile, report: dict, inventory: RouteInventory) -> None:
+def run_route_matrix(
+    desktop,
+    mobile,
+    report: dict,
+    inventory: RouteInventory,
+    feature_coverage,
+) -> None:
     routes = inventory.routes
     faq_routes = inventory.faq_routes
-    focus_routes = {
-        "base64-decode/": (("input", "#codec-input"), ("output", "#codec-output")),
-        "base64-encode/": (("input", "#codec-input"), ("output", "#codec-output")),
-        "word-counter/": (("input", "#word-input"),),
-        "unix-timestamp-converter/": (("input", "[data-timestamp]"), ("output", "#time-result-instant")),
-    }
     report["route_matrix"] = {"desktop": {}, "mobile": {}}
     for surface, page, width in (("desktop", desktop, 1440), ("mobile", mobile, 390)):
         for locale in inventory.locales:
@@ -75,6 +83,8 @@ def run_route_matrix(desktop, mobile, report: dict, inventory: RouteInventory) -
                 path = f"/{locale}/{route}"
                 page.goto(f"{BASE_URL}{path}", wait_until="networkidle")
                 page.wait_for_selector("main h1", timeout=3000)
+                tool = inventory.tool_for_route(route)
+                coverage = feature_coverage[tool.feature_id] if tool else None
                 key = f"{locale}:{route or 'home'}"
                 entry = {
                     "h1_count": page.locator("main h1").count(),
@@ -87,13 +97,13 @@ def run_route_matrix(desktop, mobile, report: dict, inventory: RouteInventory) -
                     report["ui_detail_failures"].append(f"{surface} {path} has {entry['h1_count']} h1 elements.")
                 if entry["scroll_width"] > width:
                     report["ui_detail_failures"].append(f"{surface} {path} overflows at {entry['scroll_width']}px.")
-                if route == "json-formatter/":
+                if coverage and coverage.focus_style == "editor":
                     entry["focus_matrix"] = {}
                     original_theme = page.evaluate("document.documentElement.dataset.theme || null")
                     for theme in ("light", "dark"):
                         page.evaluate("theme => { document.documentElement.dataset.theme = theme; }", theme)
                         focus_states = {}
-                        for focus_surface, selector in (("input", "#json-input"), ("output", "#json-output")):
+                        for focus_surface, selector in coverage.focus_targets:
                             page.locator(selector).click()
                             focus_states[focus_surface] = page.locator(selector).evaluate("""
                               element => {
@@ -135,13 +145,13 @@ def run_route_matrix(desktop, mobile, report: dict, inventory: RouteInventory) -
                         "theme => { if (theme) document.documentElement.dataset.theme = theme; else delete document.documentElement.dataset.theme; }",
                         original_theme,
                     )
-                elif route in focus_routes:
+                elif coverage:
                     entry["focus_matrix"] = {}
                     original_theme = page.evaluate("document.documentElement.dataset.theme || null")
                     for theme in ("light", "dark"):
                         page.evaluate("theme => { document.documentElement.dataset.theme = theme; }", theme)
                         focus_states = {}
-                        for focus_surface, selector in focus_routes[route]:
+                        for focus_surface, selector in coverage.focus_targets:
                             page.locator(selector).click()
                             focus_states[focus_surface] = page.locator(selector).evaluate("""
                               element => {
@@ -172,7 +182,7 @@ def run_route_matrix(desktop, mobile, report: dict, inventory: RouteInventory) -
                             report["ui_detail_failures"].append(
                                 f"{surface} {path} {theme} focus does not use the shared quiet ring: {focus_states}."
                             )
-                        if route in {"base64-decode/", "base64-encode/"} and "input" in focus_states and "output" in focus_states:
+                        if coverage.compare_focus_surfaces and "input" in focus_states and "output" in focus_states:
                             input_style = {key: value for key, value in focus_states["input"].items() if key != "focus_visible"}
                             output_style = {key: value for key, value in focus_states["output"].items() if key != "focus_visible"}
                             if input_style != output_style:
@@ -194,7 +204,7 @@ def run_route_matrix(desktop, mobile, report: dict, inventory: RouteInventory) -
                             f"{surface} {path} FAQ rows and shared chevrons diverged: "
                             f"summaries={faq_summary_count}, chevrons={faq_chevron_count}."
                         )
-                    elif locale == "ko" and route in {"base64-decode/", "word-counter/"}:
+                    elif locale == "ko" and coverage and coverage.exercise_faq:
                         first_faq = faq_summaries.nth(0)
                         first_faq.click()
                         page.wait_for_timeout(150)
@@ -217,7 +227,17 @@ def run_route_matrix(desktop, mobile, report: dict, inventory: RouteInventory) -
                     if small:
                         report["ui_detail_failures"].append(f"mobile {path} has undersized tool controls: {small}")
 
-    desktop.goto(f"{BASE_URL}/ko/base64-decode/", wait_until="networkidle")
+    probe_feature = next(
+        feature_id
+        for feature_id, coverage in feature_coverage.items()
+        if coverage.surface_probe
+    )
+    probe_tool = next(tool for tool in inventory.tools if tool.feature_id == probe_feature)
+    probe_locale = "ko" if "ko" in inventory.locales else inventory.locales[0]
+    desktop.goto(
+        f"{BASE_URL}/{probe_locale}/{probe_tool.slug}/",
+        wait_until="networkidle",
+    )
     report["square_surface_radii"] = desktop.evaluate("""
       () => Object.fromEntries([
         ['converter', '.converter'], ['mode', '.mode-switch'], ['primary', '.primary-button'],

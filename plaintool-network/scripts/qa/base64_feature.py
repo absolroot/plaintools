@@ -143,15 +143,10 @@ def run_base64_desktop(desktop, report: dict) -> None:
     if "SGVsbG8sIFBsYWluVG9vbCE=" not in report["base64_decode_example"]:
         report["ui_detail_failures"].append(f"Base64 decode input lacks a usable example: {report['base64_decode_example']}")
 
-    conversion_requests = []
-    desktop.on("request", lambda request: conversion_requests.append(request.url))
     desktop.locator("#codec-input").fill("SGVsbG8g7ZWc6rWt7Ja0")
     desktop.locator("#codec-output").wait_for(state="visible")
     desktop.wait_for_function("document.querySelector('#codec-output').value === 'Hello 한국어'")
     report["decode_output"] = desktop.locator("#codec-output").input_value()
-    report["external_conversion_requests"] = [
-        url for url in conversion_requests if not url.startswith(BASE_URL) and not url.startswith("blob:")
-    ]
 
     desktop.get_by_role("button", name="인코딩", exact=True).click()
     report["encode_mode_url"] = desktop.url

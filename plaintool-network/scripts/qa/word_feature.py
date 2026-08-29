@@ -31,7 +31,7 @@ def run_word_desktop(desktop, report: dict) -> None:
     if report["word_metrics"] != ["5", "18", "13", "3", "2"]:
         report["ui_detail_failures"].append(f"Word metrics do not match the documented counting rules: {report['word_metrics']}")
     desktop.locator("[data-word-counter] [data-input]").fill("🇺 🇸\n \n두 번째 문단")
-    desktop.wait_for_function("document.querySelector('[data-metric=\"4\"]').textContent === '2'")
+    desktop.wait_for_function("document.querySelector('[data-metric=\"1\"]').textContent === '13'")
     report["word_unicode_metrics"] = [desktop.locator(f'[data-metric="{index}"]').text_content() for index in range(5)]
     if report["word_unicode_metrics"] != ["3", "13", "7", "3", "2"]:
         report["ui_detail_failures"].append(

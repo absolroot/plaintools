@@ -1,24 +1,61 @@
+from dataclasses import dataclass
+from typing import Any, Callable, Mapping
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from .registry import RouteInventory
 
 
-_REQUIRED_FEATURE_ROUTES = {
-    "base64-decode",
-    "base64-encode",
-    "word-counter",
-    "json-formatter",
-    "unix-timestamp-converter",
-}
+BehaviorRunner = Callable[[Any, dict, RouteInventory], None]
 
 
-def validate_feature_inventory(inventory: RouteInventory) -> None:
-    missing = sorted(_REQUIRED_FEATURE_ROUTES.difference(inventory.tool_slugs))
+@dataclass(frozen=True)
+class FeatureCoverage:
+    desktop: BehaviorRunner
+    mobile: BehaviorRunner
+    focus_targets: tuple[tuple[str, str], ...]
+    focus_style: str = "standard"
+    compare_focus_surfaces: bool = False
+    exercise_faq: bool = False
+    surface_probe: bool = False
+
+
+def validate_feature_coverage(
+    inventory: RouteInventory,
+    coverage: Mapping[str, FeatureCoverage],
+) -> None:
+    registered = set(inventory.feature_ids)
+    missing = sorted(registered.difference(coverage))
     if missing:
         raise RuntimeError(
-            "UI QA requires registered feature routes that are missing: "
+            "Registered features have no browser behavior coverage: "
             + ", ".join(missing)
+        )
+    stale = sorted(set(coverage).difference(registered))
+    if stale:
+        raise RuntimeError(
+            "Browser behavior coverage has no registered feature: " + ", ".join(stale)
+        )
+
+    invalid = sorted(
+        feature_id
+        for feature_id, handler in coverage.items()
+        if not callable(handler.desktop)
+        or not callable(handler.mobile)
+        or not handler.focus_targets
+        or handler.focus_style not in {"standard", "editor"}
+    )
+    if invalid:
+        raise RuntimeError(
+            "Browser behavior coverage is incomplete for: " + ", ".join(invalid)
+        )
+
+    surface_probes = [
+        feature_id for feature_id, handler in coverage.items() if handler.surface_probe
+    ]
+    if len(surface_probes) != 1:
+        raise RuntimeError(
+            "Browser behavior coverage must select exactly one shared-surface probe."
         )
 
 

@@ -158,10 +158,16 @@ def run_time_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
     for locale in locales:
         mobile.goto(f"{BASE_URL}/{locale}/unix-timestamp-converter/", wait_until="networkidle")
         mobile.wait_for_function("document.querySelector('[data-result=\"instant\"]').value.length > 0")
+        mobile.locator("[data-timestamp]").fill("0")
+        mobile.locator("[data-convert]").click()
+        mobile.wait_for_function(
+            "document.querySelector('[data-result=\"instant\"]').value === '1970-01-01T00:00:00Z'"
+        )
         state = mobile.evaluate("""
             () => ({
               clientWidth: document.documentElement.clientWidth,
               scrollWidth: document.documentElement.scrollWidth,
+              epochResult: document.querySelector('[data-result="instant"]').value,
               controlHeights: [...document.querySelectorAll('[data-time-tool] button:not([hidden]), [data-time-tool] select:not([hidden]), [data-time-tool] input:not([type="hidden"])')]
                 .filter((element) => element.getClientRects().length)
                 .map((element) => ({ name: element.getAttribute('name') || element.getAttribute('data-mode-button') || element.getAttribute('data-convert') || element.getAttribute('data-now') || element.getAttribute('data-clear'), height: element.getBoundingClientRect().height }))

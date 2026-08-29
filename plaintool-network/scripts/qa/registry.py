@@ -1,17 +1,21 @@
 from dataclasses import dataclass
+import json
 from pathlib import Path
-import re
+import subprocess
+from typing import Any
 
 from .config import ROOT
 
 
-_TOOL_BLOCK = re.compile(r"(?ms)^  \{\s*(.*?)^  \}")
-_QUOTED_VALUE = re.compile(r'"([^"]+)"')
+EXPORT_SCHEMA_VERSION = 1
 
 
 @dataclass(frozen=True)
 class ToolRoute:
+    id: str
+    feature_id: str
     slug: str
+    publication: str
     structured_data: tuple[str, ...]
 
 
@@ -20,51 +24,87 @@ class RouteInventory:
     locales: tuple[str, ...]
     routes: tuple[str, ...]
     faq_routes: frozenset[str]
-    tool_slugs: tuple[str, ...]
+    tools: tuple[ToolRoute, ...]
+    legal_pages: tuple[str, ...]
+
+    @property
+    def tool_slugs(self) -> tuple[str, ...]:
+        return tuple(tool.slug for tool in self.tools)
+
+    @property
+    def feature_ids(self) -> tuple[str, ...]:
+        return tuple(dict.fromkeys(tool.feature_id for tool in self.tools))
+
+    def tool_for_route(self, route: str) -> ToolRoute | None:
+        slug = route.removesuffix("/")
+        return next((tool for tool in self.tools if tool.slug == slug), None)
 
 
-def parse_public_locales(source: str) -> tuple[str, ...]:
-    match = re.search(
-        r"export const locales\s*=.*?\[([^\]]+)\]",
-        source,
-        flags=re.DOTALL,
-    )
-    locales = tuple(_QUOTED_VALUE.findall(match.group(1))) if match else ()
-    if not locales:
-        raise ValueError("The content registry contains no public locales.")
-    return locales
+def _string_tuple(value: Any, field: str) -> tuple[str, ...]:
+    if not isinstance(value, list) or not value or any(
+        not isinstance(item, str) or not item for item in value
+    ):
+        raise ValueError(f"Registry export field '{field}' must be a non-empty string array.")
+    return tuple(value)
 
 
-def parse_tool_registry(source: str) -> tuple[ToolRoute, ...]:
-    tools = []
-    for block in _TOOL_BLOCK.findall(source):
-        slug_match = re.search(r'\bslug:\s*"([^"]+)"', block)
-        structured_match = re.search(r"\bstructuredData:\s*\[([^\]]*)\]", block)
-        if not slug_match or not structured_match:
-            continue
+def parse_registry_export(source: str) -> RouteInventory:
+    try:
+        payload = json.loads(source)
+    except json.JSONDecodeError as error:
+        raise ValueError("The registry exporter returned invalid JSON.") from error
+
+    if not isinstance(payload, dict) or payload.get("schemaVersion") != EXPORT_SCHEMA_VERSION:
+        raise ValueError(
+            f"Registry export must use schema version {EXPORT_SCHEMA_VERSION}."
+        )
+
+    locales = _string_tuple(payload.get("locales"), "locales")
+    legal_pages = _string_tuple(payload.get("legalPages"), "legalPages")
+    raw_tools = payload.get("tools")
+    if not isinstance(raw_tools, list) or not raw_tools:
+        raise ValueError("Registry export field 'tools' must contain at least one tool.")
+
+    tools: list[ToolRoute] = []
+    for index, raw_tool in enumerate(raw_tools):
+        if not isinstance(raw_tool, dict):
+            raise ValueError(f"Registry export tool {index} must be an object.")
+        values = {
+            field: raw_tool.get(field)
+            for field in ("id", "featureId", "slug", "publication")
+        }
+        invalid = [
+            field
+            for field, value in values.items()
+            if not isinstance(value, str) or not value
+        ]
+        if invalid:
+            raise ValueError(
+                f"Registry export tool {index} has invalid fields: {', '.join(invalid)}."
+            )
         tools.append(
             ToolRoute(
-                slug=slug_match.group(1),
-                structured_data=tuple(_QUOTED_VALUE.findall(structured_match.group(1))),
+                id=values["id"],
+                feature_id=values["featureId"],
+                slug=values["slug"],
+                publication=values["publication"],
+                structured_data=_string_tuple(
+                    raw_tool.get("structuredData"),
+                    f"tools[{index}].structuredData",
+                ),
             )
         )
-    if not tools:
-        raise ValueError("The tool registry contains no tool routes.")
-    return tuple(tools)
 
+    for label, values in (
+        ("tool ids", tuple(tool.id for tool in tools)),
+        ("tool slugs", tuple(tool.slug for tool in tools)),
+        ("locales", locales),
+        ("legal pages", legal_pages),
+    ):
+        if len(values) != len(set(values)):
+            raise ValueError(f"Registry export contains duplicate {label}.")
 
-def parse_legal_pages(source: str) -> tuple[str, ...]:
-    match = re.search(
-        r"export const legalPages\s*=.*?\[([^\]]+)\]",
-        source,
-        flags=re.DOTALL,
-    )
-    if not match:
-        raise ValueError("Could not read legalPages from the content registry.")
-    pages = tuple(_QUOTED_VALUE.findall(match.group(1)))
-    if not pages:
-        raise ValueError("The content registry contains no legal pages.")
-    return pages
+    return build_route_inventory(locales, tuple(tools), legal_pages)
 
 
 def build_route_inventory(
@@ -72,32 +112,32 @@ def build_route_inventory(
     tools: tuple[ToolRoute, ...],
     legal_pages: tuple[str, ...],
 ) -> RouteInventory:
-    tool_slugs = tuple(tool.slug for tool in tools)
-    routes = ("",) + tuple(f"{slug}/" for slug in tool_slugs) + tuple(
+    routes = ("",) + tuple(f"{tool.slug}/" for tool in tools) + tuple(
         f"{page}/" for page in legal_pages
     )
     faq_routes = frozenset(
-        f"{tool.slug}/"
-        for tool in tools
-        if "FAQPage" in tool.structured_data
+        f"{tool.slug}/" for tool in tools if "FAQPage" in tool.structured_data
     )
     return RouteInventory(
         locales=locales,
         routes=routes,
         faq_routes=faq_routes,
-        tool_slugs=tool_slugs,
+        tools=tools,
+        legal_pages=legal_pages,
     )
 
 
 def load_route_inventory(root: Path = ROOT) -> RouteInventory:
-    tool_source = (
-        root / "apps" / "web" / "src" / "lib" / "tool-registry.js"
-    ).read_text(encoding="utf-8")
-    content_source = (
-        root / "apps" / "web" / "src" / "lib" / "content-registry.js"
-    ).read_text(encoding="utf-8")
-    return build_route_inventory(
-        parse_public_locales(content_source),
-        parse_tool_registry(tool_source),
-        parse_legal_pages(content_source),
+    exporter = root / "scripts" / "qa" / "export_registry.mjs"
+    result = subprocess.run(
+        ["node", str(exporter)],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=False,
     )
+    if result.returncode != 0:
+        detail = result.stderr.strip() or "no diagnostic output"
+        raise RuntimeError(f"Registry exporter failed: {detail}")
+    return parse_registry_export(result.stdout)
