@@ -1,0 +1,4 @@
+interface:
+  display_name: "PlainTool Feature Orchestrator"
+  short_description: "Parallel feature branches with safe integration"
+  default_prompt: "Use $plain-tools-feature-orchestration to build several PlainTool features in parallel worktrees and integrate them safely."
