@@ -5,7 +5,6 @@ export type HiddenCharacterKind =
   | "soft-hyphen"
   | "bidi-control"
   | "invisible-separator"
-  | "mongolian-vowel-separator"
   | "join-control"
   | "variation-selector"
   | "combining-mark";
@@ -41,7 +40,6 @@ export interface TextCleanerResult {
 const DEFAULT_REMOVALS = new Map<number, HiddenCharacterKind>([
   [0x00ad, "soft-hyphen"],
   [0x061c, "bidi-control"],
-  [0x180e, "mongolian-vowel-separator"],
   [0x200b, "zero-width-space"],
   [0x200e, "bidi-control"],
   [0x200f, "bidi-control"],

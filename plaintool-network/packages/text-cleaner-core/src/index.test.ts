@@ -28,6 +28,14 @@ describe("cleanHiddenUnicode", () => {
     expect(result.changed).toBe(false);
   });
 
+  it("preserves the legacy Mongolian vowel separator by default", () => {
+    const source = `ᠮ\u180Eᠣ`;
+    const result = cleanHiddenUnicode(source);
+
+    expect(result.cleanedText).toBe(source);
+    expect(result.changed).toBe(false);
+  });
+
   it("applies risky and space normalization options only when requested", () => {
     const result = cleanHiddenUnicode(
       "a\u200Db\uFE0Fc\u0301d\u00A0e\u202Ff\u2007g",

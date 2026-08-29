@@ -13,12 +13,12 @@ Before spawning agents:
 
 1. Read `ARCHITECTURE.md`, repository `AGENTS.md` files, the current status, worktree list, recent commits, registries, locale entrypoints, representative feature code, and test commands.
 2. Inspect other worktrees read-only when their uncommitted work defines a structure this run must preserve. Never edit or commit another session's work.
-3. Record a run ledger under `.codex/orchestration/`. Include base commit, integration branch, worktree paths, branch owners, owned paths, forbidden shared paths, dependencies, commit hashes, test results, and next integration action.
+3. Record a run ledger under `.codex/orchestration/`. Include base commit, integration branch, worktree paths, branch owners, owned paths, forbidden shared paths, dependencies, commit hashes, test results, and next integration action. Commit the initial ledger before spawning. Commit milestone updates with the next root integration commit; an in-progress update may stay tracked and dirty briefly, but never leave the ledger untracked.
 4. Group features by code ownership and shared semantics, not merely by feature count. Keep shared registries, routes, locale bundles, dependency reconciliation, SEO publication state, and final QA with the root owner unless one integration agent owns them exclusively.
 
 ## Create the branch tree
 
-Use a separate Git worktree and branch for each parallel agent. `scripts/new-feature-worktrees.ps1` can create the initial set from one explicit base commit. Never ask agents to switch branches in the same worktree.
+Use a separate Git worktree and branch for each parallel agent. `scripts/new-feature-worktrees.ps1` can create the initial set from one explicit base commit. It preflights the full batch, but worktree creation itself is not transactional; if Git fails after creation starts, keep the printed created paths and recover them deliberately. Never ask agents to switch branches in the same worktree.
 
 Give every agent:
 
@@ -26,7 +26,7 @@ Give every agent:
 - the feature outcomes and behavioral edge cases;
 - owned and forbidden paths;
 - the component or data contract expected by integration;
-- required focused tests and commit message;
+- required focused tests and commit message; require named test files and a positive discovered test count, not only exit code zero;
 - an instruction to commit and return the hash, changed paths, tests, and caveats.
 
 Keep one slot for the root orchestrator. A child may create a deeper subtree only when its task itself contains multiple independent owned areas and available concurrency remains. Record that subtree in the ledger before delegation.

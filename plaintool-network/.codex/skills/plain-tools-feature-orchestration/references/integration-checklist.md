@@ -5,7 +5,7 @@
 - Confirm the feature branch starts from the recorded base and has a clean committed tip.
 - Review `git diff <base>...<branch> --stat` and the full diff.
 - Confirm it changed only owned paths or explicitly allowed manifests.
-- Confirm core code has unit tests and visible copy is injected rather than hardcoded.
+- Confirm core code has unit tests and visible copy is injected rather than hardcoded. Record the discovered test file names and a positive test count; a command that exits successfully with zero tests is not evidence.
 - Confirm browser input stays local and no tool payload enters URLs, logs, storage, analytics, ads, or third-party requests.
 
 ## Integration order
