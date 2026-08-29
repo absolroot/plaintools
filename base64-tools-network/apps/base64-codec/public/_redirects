@@ -1,0 +1,6 @@
+/ /en/ 301
+/en /en/ 301
+/ko /ko/ 301
+/kr /ko/ 301
+/kr/* /ko/:splat 301
+/es /es/ 301

@@ -1,0 +1,47 @@
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line);
+  background: var(--elevated);
+}
+
+.metric {
+  min-width: 0;
+  padding: var(--space-4);
+  border-left: 1px solid var(--line);
+}
+
+.metric:first-child {
+  border-left: 0;
+}
+
+.metric strong {
+  display: block;
+  overflow: hidden;
+  color: var(--ink-strong);
+  font-family: var(--mono);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+}
+
+.metric span {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.text-counter .editor-pane textarea {
+  min-height: 360px;
+}
+
+.tool-warning {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  color: var(--warning);
+  border-top: 1px solid var(--line);
+  background: var(--warning-tint);
+  font-size: 12px;
+}

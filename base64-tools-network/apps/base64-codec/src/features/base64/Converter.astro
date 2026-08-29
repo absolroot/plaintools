@@ -1,0 +1,226 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import { commonToolCopy } from "../../lib/common-tool-i18n";
+import type { Locale } from "../../lib/site";
+import type { Base64ClientCopy } from "./contract";
+import { getBase64Copy } from "./copy";
+
+interface Props {
+  locale: Locale;
+  initialMode?: "decode" | "encode";
+}
+const { locale, initialMode = "decode" } = Astro.props;
+const t = getBase64Copy(locale);
+const c = commonToolCopy[locale];
+const clientCopy = {
+  decodeMetaTitle: t.decodeMetaTitle,
+  encodeMetaTitle: t.encodeMetaTitle,
+  heading: t.heading,
+  subheading: t.subheading,
+  encodeHeading: t.encodeHeading,
+  encodeSubheading: t.encodeSubheading,
+  guideTitle: t.guideTitle,
+  guideIntro: t.guideIntro,
+  guideSteps: t.guideSteps,
+  encodeGuideTitle: t.encodeGuideTitle,
+  encodeGuideIntro: t.encodeGuideIntro,
+  encodeGuideSteps: t.encodeGuideSteps,
+  faqs: t.faqs,
+  encodeFaqs: t.encodeFaqs,
+  inputLabel: t.inputLabel,
+  outputLabel: t.outputLabel,
+  encodeInputLabel: t.encodeInputLabel,
+  encodeOutputLabel: t.encodeOutputLabel,
+  decodePlaceholder: t.decodePlaceholder,
+  encodePlaceholder: t.encodePlaceholder,
+  runDecode: t.runDecode,
+  runEncode: t.runEncode,
+  ready: c.ready,
+  working: c.working,
+  decodeComplete: t.decodeComplete,
+  encodeComplete: t.encodeComplete,
+  copied: c.copied,
+  copyFailed: c.copyFailed,
+  fileTooLarge: t.fileTooLarge,
+  detected: t.detected,
+  binaryOutput: t.binaryOutput,
+  executableWarning: t.executableWarning,
+  errors: t.errors,
+  repairs: t.repairs,
+} satisfies Base64ClientCopy;
+---
+
+<section
+  class="converter"
+  data-converter
+  data-locale={locale}
+  data-initial-mode={initialMode}
+  aria-label={initialMode === "decode" ? t.heading : t.encodeHeading}
+>
+  <div class="converter-topbar">
+    <div class="mode-switch" role="group" aria-label={t.modeLabel}>
+      <button
+        class:list={["mode-button", { "is-active": initialMode === "decode" }]}
+        type="button"
+        data-mode="decode"
+        aria-pressed={initialMode === "decode"}>{t.decode}</button
+      >
+      <button
+        class:list={["mode-button", { "is-active": initialMode === "encode" }]}
+        type="button"
+        data-mode="encode"
+        aria-pressed={initialMode === "encode"}>{t.encode}</button
+      >
+    </div>
+  </div>
+
+  <div class="converter-grid" data-drop-zone>
+    <section class="editor-pane input-pane">
+      <div class="pane-heading">
+        <label for="codec-input" data-input-label>{t.inputLabel}</label>
+        <div class="pane-actions">
+          <button class="text-button file-button" type="button" data-open-file
+            ><UiIcon name="folder-open" size={14} />{t.openFile}</button
+          >
+          <input id="codec-file" data-file-input type="file" hidden />
+          <button class="text-button" type="button" data-clear
+            ><UiIcon name="x" size={14} />{c.clear}</button
+          >
+        </div>
+      </div>
+      <textarea
+        id="codec-input"
+        data-input
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="off"
+        placeholder={t.decodePlaceholder}></textarea>
+      <p class="drop-hint">{t.dropHint}</p>
+    </section>
+
+    <section class="editor-pane output-pane">
+      <div class="pane-heading">
+        <label for="codec-output" data-output-label>{t.outputLabel}</label>
+        <div class="pane-actions">
+          <button class="text-button" type="button" data-copy disabled
+            ><UiIcon name="copy" size={14} />{c.copy}</button
+          >
+          <button class="text-button" type="button" data-download disabled
+            ><UiIcon name="download" size={14} />{c.download}</button
+          >
+        </div>
+      </div>
+      <textarea
+        id="codec-output"
+        data-output
+        readonly
+        spellcheck="false"
+        placeholder={t.outputPlaceholder}></textarea>
+      <div class="preview" data-preview hidden>
+        <span>{t.imagePreview}</span>
+        <img data-preview-image alt={t.imagePreview} />
+      </div>
+    </section>
+  </div>
+
+  <ConverterStatus status={c.ready} badges>
+    <div class="primary-actions">
+      <button class="primary-button" type="button" data-run
+        >{t.runDecode}</button
+      >
+    </div>
+  </ConverterStatus>
+
+  <details class="options" data-options>
+    <summary
+      ><UiIcon name="chevron-right" class="options-chevron" /><span
+        >{t.options}</span
+      ></summary
+    >
+    <div class="options-grid">
+      <label class="decode-only">
+        <span>{t.charset}</span>
+        <select name="charset" data-option="charset">
+          <option value="utf-8">UTF-8</option>
+          <option value="euc-kr">CP949 / EUC-KR</option>
+          <option value="shift_jis">Shift-JIS</option>
+          <option value="gb18030">GB18030</option>
+          <option value="big5">Big5</option>
+          <option value="windows-1252">Windows-1252</option>
+        </select>
+      </label>
+      <label>
+        <span>{t.variant}</span>
+        <select name="base64-variant" data-option="variant">
+          <option value="auto">{t.auto}</option>
+          <option value="standard">{t.standard}</option>
+          <option value="url">{t.urlSafe}</option>
+        </select>
+      </label>
+      <label class="decode-only">
+        <span>{t.outputView}</span>
+        <select name="output-view" data-option="outputView">
+          <option value="text">{t.text}</option>
+          <option value="hex">{t.hex}</option>
+        </select>
+      </label>
+      <label class="check-row decode-only"
+        ><input name="strict" type="checkbox" data-option="strict" />
+        <span>{t.strict}</span></label
+      >
+      <label class="check-row decode-only"
+        ><input name="line-by-line" type="checkbox" data-option="lineByLine" />
+        <span>{t.lineByLine}</span></label
+      >
+      <label class="check-row decode-only"
+        ><input
+          name="auto-repair"
+          type="checkbox"
+          data-option="autoRepair"
+          checked
+        />
+        <span>{t.autoRepair}</span></label
+      >
+      <label class="check-row decode-only"
+        ><input
+          name="lenient-repair"
+          type="checkbox"
+          data-option="lenientRepair"
+        />
+        <span>{t.lenientRepair}</span></label
+      >
+      <label class="check-row encode-only"
+        ><input
+          name="include-padding"
+          type="checkbox"
+          data-option="includePadding"
+          checked
+        />
+        <span>{t.includePadding}</span></label
+      >
+      <label class="check-row encode-only"
+        ><input name="mime-wrap" type="checkbox" data-option="mimeWrap" />
+        <span>{t.mimeWrap}</span></label
+      >
+      <label class="check-row encode-only"
+        ><input name="data-uri" type="checkbox" data-option="dataUri" />
+        <span>{t.dataUri}</span></label
+      >
+    </div>
+  </details>
+
+  <LocalProcessingNote locale={locale} />
+
+  <script
+    is:inline
+    type="application/json"
+    data-tool-copy
+    set:html={JSON.stringify(clientCopy)}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

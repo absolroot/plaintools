@@ -1,0 +1,73 @@
+const roots = Array.from(
+  document.querySelectorAll<HTMLElement>("[data-tooltip]"),
+);
+
+function setOpen(root: HTMLElement, open: boolean): void {
+  root.toggleAttribute("data-tooltip-open", open);
+  root
+    .querySelector<HTMLButtonElement>("[data-tooltip-trigger]")
+    ?.setAttribute("aria-pressed", String(open));
+}
+
+function closeAll(except?: HTMLElement): void {
+  for (const root of roots) {
+    if (root !== except) setOpen(root, false);
+  }
+}
+
+for (const root of roots) {
+  if (root.dataset.tooltipBound === "true") continue;
+  root.dataset.tooltipBound = "true";
+
+  const trigger = root.querySelector<HTMLButtonElement>(
+    "[data-tooltip-trigger]",
+  );
+  if (!trigger) continue;
+  trigger.setAttribute("aria-pressed", "false");
+
+  trigger.addEventListener("click", () => {
+    const shouldOpen = !root.hasAttribute("data-tooltip-open");
+    closeAll(root);
+    root.removeAttribute("data-tooltip-dismissed");
+    setOpen(root, shouldOpen);
+  });
+
+  root.addEventListener("pointerleave", () =>
+    root.removeAttribute("data-tooltip-dismissed"),
+  );
+  root.addEventListener("focusout", (event) => {
+    if (!root.contains(event.relatedTarget as Node | null)) {
+      root.removeAttribute("data-tooltip-dismissed");
+      setOpen(root, false);
+    }
+  });
+}
+
+document.addEventListener("pointerdown", (event) => {
+  const target = event.target as Node;
+  for (const root of roots) {
+    const trigger = root.querySelector("[data-tooltip-trigger]");
+    if (root.hasAttribute("data-tooltip-open") && !trigger?.contains(target))
+      setOpen(root, false);
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  for (const root of roots) {
+    if (
+      root.matches(":hover") ||
+      root.contains(document.activeElement) ||
+      root.hasAttribute("data-tooltip-open")
+    ) {
+      const focusedControl =
+        root.contains(document.activeElement) &&
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : root.querySelector<HTMLElement>("[data-tooltip-trigger]");
+      root.setAttribute("data-tooltip-dismissed", "");
+      setOpen(root, false);
+      focusedControl?.focus({ preventScroll: true });
+    }
+  }
+});

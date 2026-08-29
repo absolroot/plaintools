@@ -1,0 +1,20 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  locale="en"
+  title="Page not found | PlainTool"
+  description="The requested page could not be found."
+  noindex
+  canonicalize={false}
+>
+  <article class="legal-page">
+    <p class="eyebrow">404</p>
+    <h1>Page not found.</h1>
+    <p class="legal-intro">
+      The address may be incorrect or the page may have moved.
+    </p>
+    <a class="primary-button inline-action" href="/en/">Back to all tools</a>
+  </article>
+</SiteLayout>

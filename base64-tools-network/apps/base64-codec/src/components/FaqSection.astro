@@ -1,0 +1,27 @@
+---
+import UiIcon from "./UiIcon.astro";
+
+interface Props {
+  title: string;
+  faqs: Array<{ q: string; a: string }>;
+}
+
+const { title, faqs } = Astro.props;
+---
+
+<section class="content-section">
+  <h2>{title}</h2>
+  <div class="faq-list">
+    {
+      faqs.map((faq) => (
+        <details>
+          <summary>
+            <UiIcon name="chevron-right" size={16} class="faq-chevron" />
+            <span data-faq-question>{faq.q}</span>
+          </summary>
+          <p data-faq-answer>{faq.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>

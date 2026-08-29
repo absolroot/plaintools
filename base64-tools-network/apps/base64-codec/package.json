@@ -1,0 +1,22 @@
+{
+  "name": "@plaintool/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@plaintool/codec-core": "*",
+    "@plaintool/json-core": "*",
+    "@plaintool/text-metrics-core": "*",
+    "@plaintool/time-core": "*",
+    "astro": "^7.2.9"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4"
+  }
+}

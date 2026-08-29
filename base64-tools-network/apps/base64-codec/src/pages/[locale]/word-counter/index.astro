@@ -1,0 +1,26 @@
+---
+import PreviewToolPage from "../../../components/PreviewToolPage.astro";
+import WordCounter from "../../../features/word/WordCounter.astro";
+import { wordCopy } from "../../../features/word/copy";
+import { locales, type Locale } from "../../../lib/site";
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props as Props;
+const t = wordCopy[locale];
+const category = "text" as const;
+---
+
+<PreviewToolPage
+  locale={locale}
+  page="word-counter"
+  title={t.title}
+  description={t.description}
+  category={category}
+  guideTitle={t.guideTitle}
+  guideBody={t.guideBody}
+  faqs={t.faqs}><WordCounter locale={locale} /></PreviewToolPage
+>

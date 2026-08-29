@@ -1,0 +1,20 @@
+---
+interface Props {
+  status: string;
+  badges?: boolean;
+  statusId?: string;
+}
+
+const { status, badges = false, statusId } = Astro.props;
+---
+
+<div class="converter-commandbar">
+  <div class="tool-status" aria-live="polite">
+    <div class="status-copy">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span id={statusId} data-status>{status}</span>
+    </div>
+    {badges && <div class="detection-badges" data-badges />}
+  </div>
+  <slot />
+</div>

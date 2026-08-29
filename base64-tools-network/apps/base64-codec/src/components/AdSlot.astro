@@ -1,0 +1,30 @@
+---
+import { siteConfig } from "../lib/site";
+import { getCopy } from "../lib/i18n";
+import type { Locale } from "../lib/site";
+
+interface Props {
+  placement: "rail" | "after-tool";
+  locale: Locale;
+}
+
+const { placement, locale } = Astro.props;
+const t = getCopy(locale);
+const enabled = Boolean(
+  siteConfig.integrations.adsensePublisherId &&
+    siteConfig.integrations.googleCmpEnabled,
+);
+---
+
+{
+  enabled && (
+    <aside
+      class:list={["ad-slot", `ad-slot--${placement}`]}
+      aria-label={t.advertisement}
+      data-ad-slot={placement}
+    >
+      <span>{t.advertisement}</span>
+      {/* The approved manual AdSense unit is injected here only after CMP consent. */}
+    </aside>
+  )
+}

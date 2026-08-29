@@ -1,0 +1,26 @@
+---
+import JsonFormatter from "../../../features/json/JsonFormatter.astro";
+import PreviewToolPage from "../../../components/PreviewToolPage.astro";
+import { jsonCopy } from "../../../features/json/copy";
+import { locales, type Locale } from "../../../lib/site";
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props as Props;
+const t = jsonCopy[locale];
+const category = "data" as const;
+---
+
+<PreviewToolPage
+  locale={locale}
+  page="json-formatter"
+  title={t.title}
+  description={t.description}
+  category={category}
+  guideTitle={t.guideTitle}
+  guideBody={t.guideBody}
+  faqs={t.faqs}><JsonFormatter locale={locale} /></PreviewToolPage
+>

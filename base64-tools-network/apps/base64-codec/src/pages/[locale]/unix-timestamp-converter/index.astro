@@ -1,0 +1,26 @@
+---
+import PreviewToolPage from "../../../components/PreviewToolPage.astro";
+import TimeConverter from "../../../features/time/TimeConverter.astro";
+import { timeCopy } from "../../../features/time/copy";
+import { locales, type Locale } from "../../../lib/site";
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props as Props;
+const t = timeCopy[locale];
+const category = "time" as const;
+---
+
+<PreviewToolPage
+  locale={locale}
+  page="unix-timestamp-converter"
+  title={t.title}
+  description={t.description}
+  category={category}
+  guideTitle={t.guideTitle}
+  guideBody={t.guideBody}
+  faqs={t.faqs}><TimeConverter locale={locale} /></PreviewToolPage
+>

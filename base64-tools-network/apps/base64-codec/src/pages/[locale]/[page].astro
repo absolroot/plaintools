@@ -1,0 +1,67 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getCopy, interpolate } from "../../lib/i18n";
+import {
+  legalPages,
+  locales,
+  siteConfig,
+  type LegalPage,
+  type Locale,
+} from "../../lib/site";
+
+export function getStaticPaths() {
+  return locales.flatMap((locale) =>
+    legalPages.map((page) => ({
+      params: { locale, page },
+      props: { locale, page },
+    })),
+  );
+}
+
+interface Props {
+  locale: Locale;
+  page: LegalPage;
+}
+const { locale, page } = Astro.props;
+const t = getCopy(locale);
+const content = t.legal[page];
+const active = Boolean(
+  siteConfig.integrations.ga4MeasurementId ||
+    siteConfig.integrations.adsensePublisherId,
+);
+const integrationState = t.integrationState[active ? "enabled" : "disabled"];
+const variables = {
+  operator: siteConfig.operator.name,
+  email: siteConfig.operator.email,
+  region: siteConfig.operator.region,
+  date: siteConfig.operator.effectiveDate,
+  governing_law: siteConfig.operator.governingLaw,
+  jurisdiction: siteConfig.operator.jurisdiction,
+  host_provider: siteConfig.hosting.provider,
+  host_privacy_url: siteConfig.hosting.privacyUrl,
+  host_log_retention: siteConfig.hosting.logRetention,
+  integration_state: integrationState,
+};
+---
+
+<SiteLayout
+  locale={locale}
+  page={page}
+  title={`${content.title} · PlainTool`}
+  description={content.intro}
+>
+  <article class="legal-page">
+    <h1>{content.title}</h1>
+    <p class="legal-intro">{content.intro}</p>
+    {
+      content.sections.map((section) => (
+        <section class="legal-section">
+          <h2>{section.title}</h2>
+          {section.body.map((paragraph) => (
+            <p>{interpolate(paragraph, variables)}</p>
+          ))}
+        </section>
+      ))
+    }
+  </article>
+</SiteLayout>

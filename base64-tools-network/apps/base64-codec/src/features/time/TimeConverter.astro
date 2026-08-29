@@ -1,0 +1,255 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import { previewCopy } from "../../lib/tool-i18n";
+import { toolExamples } from "../../lib/tool-examples";
+import type { Locale } from "../../lib/site";
+import type { TimeClientCopy } from "./contract";
+import { timeCopy } from "./copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = previewCopy[locale].common;
+const t = timeCopy[locale];
+const examples = toolExamples[locale];
+const clientCopy = {
+  ready: c.ready,
+  working: c.working,
+  converted: t.converted,
+  copied: c.copied,
+  copyFailed: c.copyFailed,
+  invalid: t.invalid,
+  ambiguousUnit: t.ambiguousUnit,
+  nonexistentTime: t.nonexistentTime,
+  repeatedTime: t.repeatedTime,
+  y2038: t.y2038,
+} satisfies TimeClientCopy;
+const offsetOptions = [
+  "-12:00",
+  "-11:00",
+  "-10:00",
+  "-09:30",
+  "-09:00",
+  "-08:00",
+  "-07:00",
+  "-06:00",
+  "-05:00",
+  "-04:00",
+  "-03:30",
+  "-03:00",
+  "-02:00",
+  "-01:00",
+  "+00:00",
+  "+01:00",
+  "+02:00",
+  "+03:00",
+  "+03:30",
+  "+04:00",
+  "+04:30",
+  "+05:00",
+  "+05:30",
+  "+05:45",
+  "+06:00",
+  "+06:30",
+  "+07:00",
+  "+08:00",
+  "+08:45",
+  "+09:00",
+  "+09:30",
+  "+10:00",
+  "+10:30",
+  "+11:00",
+  "+12:00",
+  "+12:45",
+  "+13:00",
+  "+13:45",
+  "+14:00",
+].map((value) => ({ value, label: `UTC${value}` }));
+---
+
+<section
+  class="converter time-converter"
+  data-time-tool
+  data-mode="timestamp"
+  aria-label={t.title}
+>
+  <div class="converter-topbar">
+    <div class="mode-switch" role="group" aria-label={t.title}>
+      <button
+        class="mode-button is-active"
+        type="button"
+        data-mode-button="timestamp"
+        aria-pressed="true">{t.timestampMode}</button
+      ><button
+        class="mode-button"
+        type="button"
+        data-mode-button="date"
+        aria-pressed="false">{t.dateMode}</button
+      >
+    </div>
+  </div>
+  <div class="time-workspace">
+    <div class="time-fields">
+      <label class="field timestamp-only"
+        ><span>{t.timestampLabel}</span><input
+          name="timestamp"
+          data-timestamp
+          inputmode="decimal"
+          autocomplete="off"
+          value={examples.timestampInput}
+          placeholder={examples.timestampInput}
+          aria-describedby="time-timestamp-hint time-status"
+        /><small id="time-timestamp-hint" class="field-hint"
+          >{examples.timestampHint}</small
+        ></label
+      >
+      <label class="field timestamp-only"
+        ><span>{t.unit}</span><select
+          name="timestamp-unit"
+          data-unit
+          aria-describedby="time-status"
+          ><option value="auto">{t.auto}</option><option value="seconds"
+            >{t.seconds}</option
+          ><option value="milliseconds">{t.milliseconds}</option></select
+        ></label
+      >
+      <div class="field date-only">
+        <label for="local-date-time">{t.dateLabel}</label>
+        <div class="date-time-input">
+          <input
+            id="local-date-time"
+            name="local-date-time"
+            data-date
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            value={examples.dateInput}
+            placeholder={examples.dateInput}
+            aria-describedby="time-date-hint time-status"
+          />
+          <span class="date-picker-control">
+            <span class="secondary-button date-picker-label" aria-hidden="true"
+              ><UiIcon name="calendar" size={14} />{t.pickDate}</span
+            >
+            <input
+              name="local-date-time-picker"
+              data-native-date
+              type="datetime-local"
+              step="0.001"
+              value={examples.dateInput}
+              aria-label={t.pickDate}
+            />
+          </span>
+        </div>
+        <small id="time-date-hint" class="field-hint">{examples.dateHint}</small
+        >
+      </div>
+      <label class="field"
+        ><span>{t.zoneMode}</span><select
+          name="zone-mode"
+          data-zone-mode
+          aria-describedby="time-status"
+          ><option value="local" selected>{t.local}</option><option
+            value="offset">{t.utc}</option
+          ><option value="selected">{t.selected}</option></select
+        ></label
+      >
+      <label class="field zone-selected" hidden
+        ><span>{t.zoneLabel}</span><input
+          name="iana-zone"
+          data-zone
+          list="iana-zones"
+          autocomplete="off"
+          placeholder={t.zonePlaceholder}
+          aria-describedby="time-status"
+        /><datalist id="iana-zones"
+          >{
+            t.popularZones.map(({ value, label }) => (
+              <option value={value} label={label} />
+            ))
+          }</datalist
+        ></label
+      >
+      <label class="field zone-offset" hidden
+        ><span>{t.offsetLabel}</span><select
+          name="utc-offset"
+          data-zone-offset
+          aria-describedby="time-status"
+          >{
+            offsetOptions.map(({ value, label }) => (
+              <option value={value} selected={value === "+00:00"}>
+                {label}
+              </option>
+            ))
+          }</select
+        ></label
+      >
+      <label class="field date-only dst-field" hidden
+        ><span>{t.disambiguation}</span><select
+          name="dst-disambiguation"
+          data-disambiguation
+          ><option value="reject">{t.reject}</option><option value="earlier"
+            >{t.earlier}</option
+          ><option value="later">{t.later}</option></select
+        ></label
+      >
+    </div>
+    <div class="time-actions">
+      <button class="secondary-button" type="button" data-now>{t.now}</button
+      ><button class="primary-button" type="button" data-convert
+        >{t.convert}</button
+      ><button class="secondary-button" type="button" data-clear
+        ><UiIcon name="x" size={14} />{c.clear}</button
+      >
+    </div>
+  </div>
+  <div class="time-results">
+    {
+      [
+        ["instant", t.instant],
+        ["zoned", t.zoned],
+        ["unixSeconds", t.unixSeconds],
+        ["unixMilliseconds", t.unixMilliseconds],
+      ].map(([key, label]) => (
+        <div class="result-field">
+          <>
+            <label for={`time-result-${key}`}>{label}</label>
+            <span class="result-control">
+              <>
+                <input
+                  id={`time-result-${key}`}
+                  readonly
+                  data-result={key}
+                  placeholder={examples.timeResult}
+                />
+                <button
+                  class="text-button"
+                  type="button"
+                  data-copy-result={key}
+                  aria-label={`${c.copy}: ${label}`}
+                  disabled
+                >
+                  <UiIcon name="copy" size={14} />
+                  {c.copy}
+                </button>
+              </>
+            </span>
+          </>
+        </div>
+      ))
+    }
+  </div>
+  <ConverterStatus status={c.ready} statusId="time-status" badges />
+  <LocalProcessingNote locale={locale} />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy)}
+  />
+</section>
+<script>
+  import "./client";
+</script>

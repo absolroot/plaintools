@@ -1,0 +1,148 @@
+.field select,
+.field input {
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.date-time-input {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+}
+
+.date-picker-control {
+  position: relative;
+  display: block;
+  height: 36px;
+}
+
+.date-picker-label {
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  white-space: nowrap;
+}
+
+.date-picker-control [data-native-date] {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.date-picker-control:focus-within .date-picker-label {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.time-workspace {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--input-surface);
+}
+
+.time-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--space-3);
+}
+
+.field {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.field input,
+.field select {
+  width: 100%;
+}
+
+.field input {
+  font-family: var(--code-font);
+}
+
+.field-hint {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.time-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.time-actions .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.time-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+}
+
+.result-field {
+  min-width: 0;
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+  background: var(--output-surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.result-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.result-control input {
+  min-width: 0;
+  width: auto;
+  height: 36px;
+  padding: 0 var(--space-3);
+  flex: 1 1 auto;
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--recessed);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-family: var(--code-font);
+  font-size: 12px;
+}
+
+.result-control .text-button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.time-converter[data-mode="timestamp"] .date-only,
+.time-converter[data-mode="date"] .timestamp-only {
+  display: none;
+}

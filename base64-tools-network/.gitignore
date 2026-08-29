@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+coverage/
+research/competitive/screenshots/
+research/competitive/network/
+playwright-report/
+test-results/

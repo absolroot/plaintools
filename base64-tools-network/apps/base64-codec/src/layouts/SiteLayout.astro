@@ -1,0 +1,317 @@
+---
+import "../features/json/styles.css";
+import "../features/time/styles.css";
+import "../features/word/styles.css";
+import "../styles/global.css";
+import { getCopy } from "../lib/i18n";
+import { networkCopy } from "../lib/tool-catalog";
+import {
+  absoluteUrl,
+  legalPages,
+  locales,
+  localizedPath,
+  siteConfig,
+  type ContentPage,
+  type Locale,
+} from "../lib/site";
+import type { StructuredData } from "../lib/seo";
+import UiIcon from "../components/UiIcon.astro";
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  page?: ContentPage;
+  noindex?: boolean;
+  canonicalize?: boolean;
+  structuredData?: StructuredData[];
+}
+
+const {
+  locale,
+  title,
+  description,
+  page,
+  noindex = false,
+  canonicalize = true,
+  structuredData = [],
+} = Astro.props;
+const t = getCopy(locale);
+const n = networkCopy[locale];
+const path = localizedPath(locale, page);
+const canonical = absoluteUrl(path);
+const siteUrl = absoluteUrl("/");
+const pageTitle = title || t.metaTitle;
+const pageDescription = description || t.metaDescription;
+const robots = !siteConfig.productionReady
+  ? "noindex,nofollow"
+  : noindex
+    ? "noindex,follow"
+    : "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
+const ogLocales: Record<Locale, string> = {
+  en: "en_US",
+  ko: "ko_KR",
+  es: "es_ES",
+};
+const graph: StructuredData[] = canonicalize
+  ? [
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}#website`,
+        url: siteUrl,
+        name: "PlainTool",
+        inLanguage: locales,
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${canonical}#webpage`,
+        url: canonical,
+        name: pageTitle,
+        description: pageDescription,
+        inLanguage: locale,
+        isPartOf: { "@id": `${siteUrl}#website` },
+      },
+      ...structuredData,
+    ]
+  : [];
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": graph,
+}).replace(/</gu, "\\u003c");
+const integrationActive = Boolean(
+  siteConfig.integrations.adsensePublisherId ||
+    siteConfig.integrations.ga4MeasurementId,
+);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fbfbfb" data-theme-color />
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem("plaintool.theme");
+          if (saved === "light" || saved === "dark")
+            document.documentElement.dataset.theme = saved;
+        } catch {}
+      })();
+    </script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <meta name="robots" content={robots} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    {canonicalize && <link rel="canonical" href={canonical} />}
+    {
+      canonicalize &&
+        locales.map((targetLocale) => (
+          <link
+            rel="alternate"
+            hreflang={targetLocale}
+            href={absoluteUrl(localizedPath(targetLocale, page))}
+          />
+        ))
+    }
+    {
+      canonicalize && (
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={absoluteUrl(localizedPath("en", page))}
+        />
+      )
+    }
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PlainTool" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    {canonicalize && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content={ogLocales[locale]} />
+    {
+      locales
+        .filter((targetLocale) => targetLocale !== locale)
+        .map((targetLocale) => (
+          <meta
+            property="og:locale:alternate"
+            content={ogLocales[targetLocale]}
+          />
+        ))
+    }
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    {
+      graph.length > 0 && (
+        <script
+          is:inline
+          type="application/ld+json"
+          data-page-schema
+          set:html={jsonLd}
+        />
+      )
+    }
+  </head>
+  <body
+    data-locale={locale}
+    data-integrations={integrationActive ? "enabled" : "disabled"}
+  >
+    <a class="skip-link" href="#main">{t.skipToContent}</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="wordmark" href={localizedPath(locale)}>
+          <span class="wordmark-mark" aria-hidden="true">P</span>
+          <span>PlainTool</span>
+        </a>
+        <div class="header-actions">
+          <button
+            class="theme-toggle"
+            type="button"
+            data-theme-toggle
+            data-use-light-label={n.useLightTheme}
+            data-use-dark-label={n.useDarkTheme}
+            aria-label={n.useDarkTheme}
+          >
+            <span data-theme-icon="dark"><UiIcon name="moon" size={16} /></span>
+            <span data-theme-icon="light"><UiIcon name="sun" size={16} /></span>
+          </button>
+          <a
+            class="tool-index-link"
+            href={localizedPath(locale)}
+            aria-label={n.allTools}
+            aria-current={!page ? "page" : undefined}
+          >
+            <UiIcon name="grid" size={14} />
+            <span class="tool-index-label">{n.allTools}</span>
+          </a>
+          <details class="language-menu" data-language-menu>
+            <summary>
+              <UiIcon name="languages" size={14} />
+              <span>{t.languageName}</span>
+              <UiIcon
+                name="chevron-right"
+                size={14}
+                class="language-menu-chevron"
+              />
+            </summary>
+            <nav class="language-menu-panel" aria-label={t.languageNavLabel}>
+              {
+                locales.map((targetLocale) => {
+                  const target = getCopy(targetLocale);
+                  const active = targetLocale === locale;
+                  return (
+                    <a
+                      href={localizedPath(targetLocale, page)}
+                      lang={targetLocale}
+                      hreflang={targetLocale}
+                      aria-current={active ? "page" : undefined}
+                      data-locale-link
+                    >
+                      <span>{target.languageName}</span>
+                      {active && <UiIcon name="check" size={14} />}
+                    </a>
+                  );
+                })
+              }
+            </nav>
+          </details>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <a class="footer-brand" href={localizedPath(locale)}>PlainTool</a>
+          <p>{n.footerNote}</p>
+        </div>
+        <nav class="footer-links" aria-label={t.legalNavLabel}>
+          <a href={localizedPath(locale)}>{n.allTools}</a>
+          {
+            legalPages.map((legalPage) => (
+              <a href={localizedPath(locale, legalPage)}>
+                {t.legalNav[legalPage]}
+              </a>
+            ))
+          }
+        </nav>
+        <nav class="footer-languages" aria-label={t.languageNavLabel}>
+          {
+            locales.map((targetLocale) => (
+              <a
+                href={localizedPath(targetLocale, page)}
+                lang={targetLocale}
+                hreflang={targetLocale}
+                data-locale-link
+              >
+                {getCopy(targetLocale).languageName}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </footer>
+    <script>
+      const themeToggle = document.querySelector<HTMLButtonElement>(
+        "[data-theme-toggle]",
+      );
+      const themeColor =
+        document.querySelector<HTMLMetaElement>("[data-theme-color]");
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+      const syncTheme = () => {
+        const dark =
+          document.documentElement.dataset.theme === "dark" ||
+          (!document.documentElement.dataset.theme && systemDark.matches);
+        if (themeColor) themeColor.content = dark ? "#191a1d" : "#fbfbfb";
+        if (themeToggle) {
+          themeToggle.dataset.currentTheme = dark ? "dark" : "light";
+          themeToggle.ariaLabel = dark
+            ? themeToggle.dataset.useLightLabel || ""
+            : themeToggle.dataset.useDarkLabel || "";
+        }
+      };
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const value =
+            themeToggle.dataset.currentTheme === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = value;
+          try {
+            localStorage.setItem("plaintool.theme", value);
+          } catch {}
+          syncTheme();
+        });
+      }
+      systemDark.addEventListener?.("change", syncTheme);
+      syncTheme();
+      const languageMenus = document.querySelectorAll<HTMLDetailsElement>(
+        "[data-language-menu]",
+      );
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Node)) return;
+        languageMenus.forEach((menu) => {
+          if (!menu.contains(target)) menu.removeAttribute("open");
+        });
+      });
+      document.addEventListener(
+        "keydown",
+        (event) => {
+          if (event.key !== "Escape") return;
+          languageMenus.forEach((menu) => {
+            if (!menu.open) return;
+            event.preventDefault();
+            menu.removeAttribute("open");
+            menu.querySelector<HTMLElement>("summary")?.focus();
+          });
+        },
+        true,
+      );
+    </script>
+  </body>
+</html>

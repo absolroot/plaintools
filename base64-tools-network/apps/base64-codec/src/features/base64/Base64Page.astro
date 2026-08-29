@@ -1,0 +1,107 @@
+---
+import AdSlot from "../../components/AdSlot.astro";
+import FaqSection from "../../components/FaqSection.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { networkCopy } from "../../lib/tool-catalog";
+import { localizedPath, siteConfig, type Locale } from "../../lib/site";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  webApplicationSchema,
+} from "../../lib/seo";
+import Converter from "./Converter.astro";
+import { createBase64ModeDefinitions } from "./mode-definition";
+import { getBase64Copy } from "./copy";
+interface Props {
+  locale: Locale;
+  mode: "decode" | "encode";
+}
+const { locale, mode } = Astro.props;
+const t = getBase64Copy(locale);
+const n = networkCopy[locale];
+const definition = createBase64ModeDefinitions(t);
+const {
+  heading,
+  description: subheading,
+  guideTitle,
+  guideIntro,
+  guideSteps,
+  faqs,
+  slug: page,
+  metaTitle,
+} = definition[mode];
+const integrationsEnabled = Boolean(
+  siteConfig.integrations.adsensePublisherId &&
+    siteConfig.integrations.googleCmpEnabled,
+);
+const structuredData = [
+  breadcrumbSchema({
+    locale,
+    page,
+    homeLabel: n.allTools,
+    categoryLabel: n.encodingCategory,
+    itemLabel: heading,
+  }),
+  webApplicationSchema({
+    locale,
+    page,
+    name: heading,
+    description: subheading,
+    features: guideSteps,
+  }),
+];
+const faqJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  ...faqSchema(faqs),
+}).replace(/</gu, "\\u003c");
+---
+
+<SiteLayout
+  locale={locale}
+  page={page}
+  title={metaTitle}
+  description={subheading}
+  structuredData={structuredData}
+>
+  <section class="tool-intro">
+    <nav class="breadcrumbs" aria-label={n.breadcrumbLabel}>
+      <a href={localizedPath(locale)}>{n.allTools}</a><span aria-hidden="true"
+        >/</span
+      ><span>{n.encodingCategory}</span><span class="breadcrumb-meta"
+        >Base64 <span aria-hidden="true">·</span> RFC 4648</span
+      >
+    </nav><div class="tool-intro-copy">
+      <h1 data-mode-heading>{heading}</h1><p
+        class="hero-subheading"
+        data-mode-subheading
+      >
+        {subheading}
+      </p>
+    </div>
+  </section>
+  <div class:list={["tool-shell", { "has-rail": integrationsEnabled }]}>
+    <Converter locale={locale} initialMode={mode} /><AdSlot
+      placement="rail"
+      locale={locale}
+    />
+  </div><AdSlot placement="after-tool" locale={locale} />
+  <div class="content-sections">
+    <section class="content-section">
+      <h2 data-guide-title>{guideTitle}</h2><div>
+        <p data-guide-intro>{guideIntro}</p><ol>
+          {guideSteps.map((step) => <li data-guide-step>{step}</li>)}
+        </ol>
+      </div>
+    </section><section class="content-section">
+      <h2>{t.safetyTitle}</h2><p>{t.safetyBody}</p>
+    </section><section class="content-section">
+      <h2>{t.detailsTitle}</h2><p>{t.detailsBody}</p>
+    </section><FaqSection title={t.faqTitle} faqs={faqs} />
+  </div>
+  <script
+    is:inline
+    type="application/ld+json"
+    data-faq-schema
+    set:html={faqJsonLd}
+  />
+</SiteLayout>

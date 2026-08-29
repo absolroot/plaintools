@@ -1,0 +1,13 @@
+---
+import Base64Page from "../../../features/base64/Base64Page.astro";
+import { locales, type Locale } from "../../../lib/site";
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<Base64Page locale={locale} mode="encode" />

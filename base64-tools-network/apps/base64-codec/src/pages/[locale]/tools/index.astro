@@ -1,0 +1,7 @@
+---
+import { locales } from "../../../lib/site";
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+return Astro.redirect(`/${Astro.params.locale}/`, 301);
+---

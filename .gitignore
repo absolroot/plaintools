@@ -1,0 +1,89 @@
+# Dependencies and package-manager caches
+**/node_modules/
+**/.npm/
+**/.pnpm-store/
+**/.yarn/cache/
+**/.yarn/unplugged/
+
+# Generated application output and framework caches
+**/dist/
+**/.astro/
+**/.cache/
+**/.turbo/
+**/coverage/
+**/.nyc_output/
+**/*.tsbuildinfo
+**/.eslintcache
+
+# Local environment and deployment secrets
+**/.env
+**/.env.*
+!**/.env.example
+**/.dev.vars
+**/.dev.vars.*
+**/.wrangler/
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+
+# Logs and crash reports
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# Browser and test artifacts
+/.playwright-mcp/
+**/playwright-report/
+**/test-results/
+**/blob-report/
+**/research/qa/*.png
+/cloudflare-service-desktop-ko.png
+
+# Python caches and local virtual environments
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
+**/venv/
+**/*.py[cod]
+
+# Editor and operating-system state
+**/.idea/
+**/.vscode/
+**/.vs/
+**/*.suo
+**/*.user
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local isolated checkouts for parallel agent branches
+/.worktrees/
+
+# Local AI-assisted development guidance and workflows
+/.agents/
+**/.agents/
+/AGENTS.md
+**/AGENTS.md
+/SESSION_HANDOFF.md
+**/SESSION_HANDOFF.md
+**/research/design/ai-assisted-*.md
+
+# Private product research, evidence, and research-only tooling
+/research/
+**/research/
+/scripts/collect-autocomplete.mjs
+/scripts/validate-all-locale-seo.mjs
+/scripts/validate-locale-seo.mjs
+
+# Temporary and backup files
+**/*.tmp
+**/*.temp
+**/*.bak
+**/*.swp
+**/*~
+
+# Third-party inspection snapshots and provenance remain local.
+/references/

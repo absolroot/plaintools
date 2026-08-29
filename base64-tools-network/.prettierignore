@@ -1,0 +1,4 @@
+apps/base64-codec/dist/
+node_modules/
+research/
+scripts/qa/

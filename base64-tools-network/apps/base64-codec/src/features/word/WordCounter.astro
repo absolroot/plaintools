@@ -1,0 +1,67 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import { previewCopy } from "../../lib/tool-i18n";
+import { toolExamples } from "../../lib/tool-examples";
+import type { Locale } from "../../lib/site";
+import type { WordClientCopy } from "./contract";
+import { wordCopy } from "./copy";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = previewCopy[locale].common;
+const t = wordCopy[locale];
+const examples = toolExamples[locale];
+const clientCopy = {
+  ready: c.ready,
+  working: c.working,
+  completed: t.completed,
+  processingFailed: c.processingFailed,
+  tooLarge: t.tooLarge,
+  approximate: t.approximate,
+} satisfies WordClientCopy;
+---
+
+<section class="converter text-counter" data-word-counter aria-label={t.title}>
+  <div class="metric-grid">
+    {
+      [t.words, t.characters, t.noWhitespace, t.lines, t.paragraphs].map(
+        (label, index) => (
+          <div class="metric">
+            <>
+              <strong data-metric={index}>0</strong>
+              <span>{label}</span>
+            </>
+          </div>
+        ),
+      )
+    }
+  </div>
+  <section class="editor-pane">
+    <div class="pane-heading">
+      <label for="word-input">{t.inputLabel}</label><button
+        class="text-button"
+        type="button"
+        data-clear><UiIcon name="x" size={14} />{c.clear}</button
+      >
+    </div><textarea
+      id="word-input"
+      data-input
+      spellcheck="true"
+      placeholder={examples.wordInput}></textarea>
+  </section>
+  <ConverterStatus status={c.ready} />
+  <p class="tool-warning" data-approximate hidden>{t.approximate}</p>
+  <LocalProcessingNote locale={locale} />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy)}
+  />
+</section>
+<script>
+  import "./client";
+</script>

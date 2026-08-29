@@ -1,0 +1,74 @@
+---
+import FaqSection from "./FaqSection.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { networkCopy, type ToolCategory } from "../lib/tool-catalog";
+import { previewCopy } from "../lib/tool-i18n";
+import { localizedPath, type Locale, type ToolPage } from "../lib/site";
+import { breadcrumbSchema, faqSchema, webApplicationSchema } from "../lib/seo";
+interface Props {
+  locale: Locale;
+  page: ToolPage;
+  title: string;
+  description: string;
+  category: ToolCategory;
+  guideTitle: string;
+  guideBody: string;
+  faqs: Array<{ q: string; a: string }>;
+}
+const {
+  locale,
+  page,
+  title,
+  description,
+  category,
+  guideTitle,
+  guideBody,
+  faqs,
+} = Astro.props;
+const n = networkCopy[locale];
+const c = previewCopy[locale].common;
+const structuredData = [
+  breadcrumbSchema({
+    locale,
+    page,
+    homeLabel: n.allTools,
+    categoryLabel: n.categories[category],
+    itemLabel: title,
+  }),
+  webApplicationSchema({
+    locale,
+    page,
+    name: title,
+    description,
+  }),
+  faqSchema(faqs),
+];
+---
+
+<SiteLayout
+  locale={locale}
+  page={page}
+  title={`${title} | PlainTool`}
+  description={description}
+  noindex
+  structuredData={structuredData}
+>
+  <section class="tool-intro">
+    <nav class="breadcrumbs" aria-label={n.breadcrumbLabel}>
+      <a href={localizedPath(locale)}>{n.allTools}</a><span aria-hidden="true"
+        >/</span
+      ><span>{n.categories[category]}</span><span class="breadcrumb-meta"
+        >{c.preview}</span
+      >
+    </nav><div class="tool-intro-copy">
+      <h1>{title}</h1><p class="hero-subheading">{description}</p>
+    </div>
+  </section>
+  <div class="tool-shell"><slot /></div>
+  <div class="content-sections">
+    <section class="content-section">
+      <h2>{guideTitle}</h2><p>{guideBody}</p>
+    </section>
+    <FaqSection title={c.faqTitle} faqs={faqs} />
+  </div>
+</SiteLayout>

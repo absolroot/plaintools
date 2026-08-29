@@ -1,0 +1,28 @@
+---
+import UiIcon from "./UiIcon.astro";
+
+interface Props {
+  id: string;
+  triggerLabel: string;
+  mobileAlign?: "center" | "end";
+}
+
+const { id, triggerLabel, mobileAlign = "center" } = Astro.props;
+---
+
+<span class:list={["tooltip", `tooltip--mobile-${mobileAlign}`]} data-tooltip>
+  <span class="tooltip-target"><slot name="target" /></span>
+  <button
+    class="tooltip-trigger"
+    type="button"
+    aria-label={triggerLabel}
+    aria-describedby={id}
+    data-tooltip-trigger
+  >
+    <UiIcon name="help-circle" size={16} />
+  </button>
+  <span class="tooltip-content" id={id} role="tooltip"><slot /></span>
+</span>
+<script>
+  import "../scripts/tooltip";
+</script>

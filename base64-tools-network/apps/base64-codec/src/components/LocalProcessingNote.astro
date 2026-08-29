@@ -1,0 +1,19 @@
+---
+import UiIcon from "./UiIcon.astro";
+import { commonToolCopy } from "../lib/common-tool-i18n";
+import type { Locale } from "../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { localTitle, localBody } = commonToolCopy[locale];
+---
+
+<div class="privacy-note">
+  <span class="privacy-icon" aria-hidden="true"
+    ><UiIcon name="shield" size={14} /></span
+  >
+  <div><strong>{localTitle}</strong><p>{localBody}</p></div>
+</div>
