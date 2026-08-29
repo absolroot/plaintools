@@ -18,7 +18,7 @@
     "apps/web/src/features/json/JsonFormatter.astro",
     "apps/web/src/pages/[locale]/json-formatter/index.astro"
   ],
-  "copyFingerprint": "sha256:17d6f25fb9bfcf5eb27635bc04dd67d579cfe75536b481c167a84733c000863c",
+  "copyFingerprint": "sha256:2d7ac200d0dc355d9dfef9c0389a09c2f17eb4a33e469c6eb7b9d015cd118666",
   "locales": {
     "en": {
       "status": "reference-backed",

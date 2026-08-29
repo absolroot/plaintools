@@ -18,7 +18,7 @@
     "apps/web/src/features/time/TimeConverter.astro",
     "apps/web/src/pages/[locale]/unix-timestamp-converter/index.astro"
   ],
-  "copyFingerprint": "sha256:a624f1fa38af50eeeba52c92856810fc01534a812cd6c035e84ce6186875bef5",
+  "copyFingerprint": "sha256:832387cd0cd88a185dabb21349e16d9a76279cdb14bc437a4c2ff73c51a47e50",
   "locales": {
     "en": {
       "status": "reference-backed",

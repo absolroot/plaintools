@@ -23,7 +23,8 @@ async function fingerprint(files) {
   for (const file of files) {
     hash.update(file.replaceAll("\\", "/"));
     hash.update("\0");
-    hash.update(await readFile(resolve(projectRoot, file)));
+    const source = await readFile(resolve(projectRoot, file), "utf8");
+    hash.update(source.replace(/\r\n?/g, "\n"));
     hash.update("\0");
   }
   return `sha256:${hash.digest("hex")}`;

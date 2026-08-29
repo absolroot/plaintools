@@ -1,0 +1,102 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import { previewCopy } from "../../lib/tool-i18n";
+import type { Locale } from "../../lib/site";
+import type { CaseClientCopy } from "./contract";
+import { caseConverterCopy } from "./copy";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = previewCopy[locale].common;
+const t = caseConverterCopy[locale];
+const clientCopy = {
+  ready: c.ready,
+  working: c.working,
+  converted: t.converted,
+  noChange: t.noChange,
+  outdated: t.outdated,
+  copied: c.copied,
+  copyFailed: c.copyFailed,
+  processingFailed: c.processingFailed,
+  tooLarge: t.tooLarge,
+} satisfies CaseClientCopy;
+---
+
+<section
+  class="converter case-converter"
+  data-case-converter
+  aria-label={t.title}
+>
+  <fieldset class="case-mode-bar">
+    <legend>{t.modeLabel}</legend>
+    <div class="case-mode-options">
+      {
+        [
+          ["upper", t.upper],
+          ["lower", t.lower],
+          ["sentence", t.sentence],
+          ["capitalize-words", t.capitalizeWords],
+        ].map(([value, label], index) => (
+          <label class="case-mode-option">
+            <input
+              type="radio"
+              name="case-mode"
+              value={value}
+              checked={index === 0}
+              data-mode
+            />
+            <span>{label}</span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+  <div class="converter-grid">
+    <section class="editor-pane">
+      <div class="pane-heading">
+        <label for="case-input">{t.inputLabel}</label><button
+          class="text-button"
+          type="button"
+          data-clear><UiIcon name="x" size={14} />{c.clear}</button
+        >
+      </div><textarea
+        id="case-input"
+        data-input
+        spellcheck="true"
+        placeholder={t.placeholder}></textarea>
+    </section><section class="editor-pane output-pane">
+      <div class="pane-heading">
+        <label for="case-output">{t.outputLabel}</label><div
+          class="pane-actions"
+        >
+          <button class="text-button" type="button" data-copy disabled
+            ><UiIcon name="copy" size={14} />{c.copy}</button
+          ><button class="text-button" type="button" data-download disabled
+            ><UiIcon name="download" size={14} />{c.download}</button
+          >
+        </div>
+      </div><textarea
+        id="case-output"
+        data-output
+        readonly
+        spellcheck="false"
+        placeholder={t.outputPlaceholder}></textarea>
+    </section>
+  </div>
+  <ConverterStatus status={c.ready} />
+  <LocalProcessingNote locale={locale} />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy)}
+  />
+</section>
+<script>
+  import "./client";
+</script>

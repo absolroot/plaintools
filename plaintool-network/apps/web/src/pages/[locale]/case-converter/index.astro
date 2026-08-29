@@ -1,0 +1,32 @@
+---
+import PreviewToolPage from "../../../components/PreviewToolPage.astro";
+import CaseConverter from "../../../features/case-converter/CaseConverter.astro";
+import { caseConverterCopy } from "../../../features/case-converter/copy";
+import featureStylesheet from "../../../features/case-converter/styles.css?url";
+import { locales, type Locale } from "../../../lib/site";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props as Props;
+const t = caseConverterCopy[locale];
+const category = "text" as const;
+---
+
+<PreviewToolPage
+  locale={locale}
+  page="case-converter"
+  title={t.title}
+  description={t.description}
+  category={category}
+  guideTitle={t.guideTitle}
+  guideBody={t.guideBody}
+  faqs={t.faqs}
+  featureStylesheet={featureStylesheet}
+  ><CaseConverter locale={locale} /></PreviewToolPage
+>

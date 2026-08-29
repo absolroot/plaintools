@@ -129,6 +129,26 @@ export interface PreviewToolCopy {
     guideBody: string;
     faqs: Faq[];
   };
+  caseConverter: {
+    title: string;
+    description: string;
+    inputLabel: string;
+    outputLabel: string;
+    placeholder: string;
+    outputPlaceholder: string;
+    modeLabel: string;
+    upper: string;
+    lower: string;
+    sentence: string;
+    capitalizeWords: string;
+    converted: string;
+    noChange: string;
+    outdated: string;
+    tooLarge: string;
+    guideTitle: string;
+    guideBody: string;
+    faqs: Faq[];
+  };
 }
 
 export const previewCopy: Record<Locale, PreviewToolCopy> = {
@@ -376,6 +396,37 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
         },
       ],
     },
+    caseConverter: {
+      title: "Case converter",
+      description:
+        "Convert text to uppercase, lowercase, sentence case, or capitalized words without uploading it.",
+      inputLabel: "Text",
+      outputLabel: "Converted text",
+      placeholder: "Type or paste text here…",
+      outputPlaceholder: "Converted text appears here.",
+      modeLabel: "Conversion",
+      upper: "UPPERCASE",
+      lower: "lowercase",
+      sentence: "Sentence case",
+      capitalizeWords: "Capitalize words",
+      converted: "Conversion complete",
+      noChange: "The text already matches this conversion.",
+      outdated: "The visible output is from the previous input.",
+      tooLarge: "Input exceeds the 1 MB limit.",
+      guideTitle: "How each conversion works",
+      guideBody:
+        "Uppercase and lowercase use Unicode's default case mappings. Sentence case lowercases the text and capitalizes the first cased letter at the start, after a line break, or after . ! ? 。 ！ ？. Capitalize words uppercases the first cased letter of each word while preserving spaces, punctuation, line breaks, apostrophes, hyphens, and underscores.",
+      faqs: [
+        {
+          q: "Is Capitalize words the same as title case?",
+          a: "No. It capitalizes every word mechanically and does not apply language-specific title rules for articles, prepositions, names, or abbreviations.",
+        },
+        {
+          q: "Does conversion preserve spacing and line breaks?",
+          a: "Yes. The tool changes letter case only and keeps the original spacing, punctuation, and line breaks.",
+        },
+      ],
+    },
   },
   ko: {
     common: commonToolCopy.ko,
@@ -608,6 +659,37 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
         {
           q: "줄바꿈 형식 차이도 찾나요?",
           a: "네. 화면에 보이는 글자가 같아도 CRLF, LF, CR 줄바꿈이 다르면 변경으로 표시합니다.",
+        },
+      ],
+    },
+    caseConverter: {
+      title: "대소문자 변환기",
+      description:
+        "텍스트를 업로드하지 않고 대문자, 소문자, 문장형, 단어 첫 글자 대문자로 변환합니다.",
+      inputLabel: "텍스트",
+      outputLabel: "변환 결과",
+      placeholder: "텍스트를 입력하거나 붙여 넣으세요…",
+      outputPlaceholder: "변환한 텍스트가 여기에 표시됩니다.",
+      modeLabel: "변환 방식",
+      upper: "대문자",
+      lower: "소문자",
+      sentence: "문장형",
+      capitalizeWords: "단어 첫 글자",
+      converted: "변환 완료",
+      noChange: "이미 선택한 방식과 같은 텍스트입니다.",
+      outdated: "표시된 결과는 이전 입력을 변환한 내용입니다.",
+      tooLarge: "입력이 1 MB 제한을 넘었습니다.",
+      guideTitle: "변환 방식 안내",
+      guideBody:
+        "대문자와 소문자는 Unicode 기본 대소문자 매핑을 사용합니다. 문장형은 전체를 소문자로 바꾼 뒤 처음, 줄바꿈 뒤, 또는 . ! ? 。 ！ ？ 뒤에서 처음 나타나는 대소문자 구분 글자를 대문자로 바꿉니다. 단어 첫 글자는 공백, 문장부호, 줄바꿈, 아포스트로피, 하이픈, 밑줄을 유지하면서 각 단어에서 처음 나타나는 대소문자 구분 글자를 대문자로 바꿉니다.",
+      faqs: [
+        {
+          q: "단어 첫 글자 변환은 제목 표기법과 같나요?",
+          a: "아니요. 모든 단어를 기계적으로 변환하며 언어별 조사·전치사, 이름, 약어 같은 제목 표기 규칙은 적용하지 않습니다.",
+        },
+        {
+          q: "공백과 줄바꿈도 그대로 유지되나요?",
+          a: "네. 글자의 대소문자만 바꾸며 원래 공백, 문장부호, 줄바꿈은 유지합니다.",
         },
       ],
     },
@@ -855,6 +937,37 @@ export const previewCopy: Record<Locale, PreviewToolCopy> = {
         {
           q: "¿Detecta distintos fines de línea?",
           a: "Sí. Las diferencias entre CRLF, LF y CR se marcan aunque el texto visible de la línea sea el mismo.",
+        },
+      ],
+    },
+    caseConverter: {
+      title: "Conversor de mayúsculas y minúsculas",
+      description:
+        "Convierte texto a mayúsculas, minúsculas, formato oración o iniciales de palabra sin subirlo a un servidor.",
+      inputLabel: "Texto",
+      outputLabel: "Texto convertido",
+      placeholder: "Escribe o pega el texto aquí…",
+      outputPlaceholder: "El texto convertido aparece aquí.",
+      modeLabel: "Conversión",
+      upper: "MAYÚSCULAS",
+      lower: "minúsculas",
+      sentence: "Formato oración",
+      capitalizeWords: "Iniciales de palabra",
+      converted: "Conversión completada",
+      noChange: "El texto ya coincide con esta conversión.",
+      outdated: "El resultado visible corresponde a la entrada anterior.",
+      tooLarge: "La entrada supera el límite de 1 MB.",
+      guideTitle: "Cómo funciona cada conversión",
+      guideBody:
+        "Mayúsculas y minúsculas usan las asignaciones predeterminadas de Unicode. Formato oración pasa el texto a minúsculas y pone en mayúscula la primera letra con caja al inicio, después de un salto de línea o después de . ! ? 。 ！ ？. Iniciales de palabra pone en mayúscula la primera letra con caja de cada palabra y conserva espacios, signos, saltos de línea, apóstrofos, guiones y guiones bajos.",
+      faqs: [
+        {
+          q: "¿Iniciales de palabra aplica las reglas de los títulos?",
+          a: "No. Convierte cada palabra de forma mecánica y no aplica reglas lingüísticas para artículos, preposiciones, nombres o abreviaturas.",
+        },
+        {
+          q: "¿Se conservan los espacios y saltos de línea?",
+          a: "Sí. La herramienta solo cambia las mayúsculas y minúsculas; conserva los espacios, signos y saltos de línea originales.",
         },
       ],
     },

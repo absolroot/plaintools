@@ -17,7 +17,7 @@
     "apps/web/src/features/text-compare/TextCompare.astro",
     "apps/web/src/pages/[locale]/text-compare/index.astro"
   ],
-  "copyFingerprint": "sha256:8eaee7a68ac6610c3e1ae046dd26815a608b271ce5e628195c464f99a3be8da9",
+  "copyFingerprint": "sha256:b845602b76c15a248f6b431cad927ec8bc071ccf28dc3c65b98ded6b204b1c2e",
   "locales": {
     "en": {
       "status": "reference-backed",

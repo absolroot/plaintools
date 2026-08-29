@@ -13,6 +13,7 @@
     "@plaintool/codec-core": "*",
     "@plaintool/json-core": "*",
     "@plaintool/text-diff-core": "*",
+    "@plaintool/text-case-core": "*",
     "@plaintool/text-metrics-core": "*",
     "@plaintool/time-core": "*",
     "astro": "^7.2.9"

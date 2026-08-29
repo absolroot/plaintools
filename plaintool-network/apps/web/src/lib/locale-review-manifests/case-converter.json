@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "featureId": "word-counter",
+  "featureId": "case-converter",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
   "publicLocales": ["en", "ko", "es"],
@@ -8,32 +8,31 @@
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
     "apps/web/src/lib/tool-i18n.ts",
-    "apps/web/src/features/word/copy.ts",
-    "apps/web/src/lib/tool-examples.ts",
+    "apps/web/src/features/case-converter/copy.ts",
     "apps/web/src/lib/common-tool-i18n.ts",
     "apps/web/src/lib/tool-catalog.ts",
     "apps/web/src/components/PreviewToolPage.astro",
     "apps/web/src/components/ConverterStatus.astro",
     "apps/web/src/components/LocalProcessingNote.astro",
-    "apps/web/src/features/word/WordCounter.astro",
-    "apps/web/src/pages/[locale]/word-counter/index.astro"
+    "apps/web/src/features/case-converter/CaseConverter.astro",
+    "apps/web/src/pages/[locale]/case-converter/index.astro"
   ],
-  "copyFingerprint": "sha256:7ea764c988c5843bddb2c7128e0c04c8456096f5e5ed75e6c248e6160fb92a10",
+  "copyFingerprint": "sha256:4e7203eaafb5b3d89e50e42f9f5f4a8ab6cf8e106bf8d875c6baed10310815e7",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["en-fastwordcount", "en-mdn-segmenter"]
+      "referenceIds": ["en-w3schools-case-converter", "en-mdn-string"]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["ko-wordcount", "ko-mdn-segmenter"]
+      "referenceIds": ["ko-formatter-case-converter", "ko-onul-case-converter"]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
-      "referenceIds": ["es-contarletras", "es-mdn-segmenter"]
+      "referenceIds": ["es-convertcase-net", "es-mdn-uppercase"]
     }
   }
 }

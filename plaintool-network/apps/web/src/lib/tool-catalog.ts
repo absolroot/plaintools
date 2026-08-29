@@ -228,6 +228,30 @@ const registeredToolCopy: Record<RegisteredToolId, CatalogPresentation> = {
       es: ["comparar textos", "diferencias", "comparar líneas", "diff"],
     },
   },
+  "case-converter": {
+    mark: "aA",
+    name: {
+      en: "Case converter",
+      ko: "대소문자 변환기",
+      es: "Conversor de mayúsculas y minúsculas",
+    },
+    summary: {
+      en: "Convert text to uppercase, lowercase, sentence case, or capitalized words.",
+      ko: "텍스트를 대문자, 소문자, 문장형 또는 단어 첫 글자 대문자로 바꿉니다.",
+      es: "Convierte texto a mayúsculas, minúsculas, formato oración o iniciales de palabra.",
+    },
+    searchTerms: {
+      en: ["uppercase", "lowercase", "sentence case", "capitalize", "text"],
+      ko: ["대문자", "소문자", "문장형", "단어 첫 글자", "텍스트"],
+      es: [
+        "mayúsculas",
+        "minúsculas",
+        "formato oración",
+        "capitalizar",
+        "texto",
+      ],
+    },
+  },
 };
 
 const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
@@ -238,30 +262,7 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   ...registeredToolCopy[tool.id],
 }));
 
-export const toolCatalog: ToolCatalogItem[] = [
-  ...registeredTools,
-  {
-    id: "case-converter",
-    mark: "aA",
-    category: "text",
-    status: "reserve",
-    name: {
-      en: "Case converter",
-      ko: "대소문자 변환기",
-      es: "Conversor de mayúsculas y minúsculas",
-    },
-    summary: {
-      en: "Not available yet.",
-      ko: "아직 제공되지 않는 도구입니다.",
-      es: "Esta herramienta aún no está disponible.",
-    },
-    searchTerms: {
-      en: ["uppercase", "lowercase", "title case", "capitalize", "text"],
-      ko: ["대문자", "소문자", "영문 변환", "텍스트"],
-      es: ["mayúsculas", "minúsculas", "capitalizar", "texto"],
-    },
-  },
-];
+export const toolCatalog: ToolCatalogItem[] = [...registeredTools];
 
 export const networkCopy: Record<
   Locale,

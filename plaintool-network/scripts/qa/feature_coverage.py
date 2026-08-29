@@ -1,4 +1,5 @@
 from .base64_feature import run_base64_desktop
+from .case_converter_feature import run_case_converter_desktop, run_case_converter_mobile
 from .json_feature import run_json_desktop, run_json_mobile
 from .preflight import FeatureCoverage
 from .registry import RouteInventory
@@ -14,6 +15,14 @@ def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
 
 def _run_base64_mobile(page, report: dict, inventory: RouteInventory) -> None:
     run_base64_mobile(page, report, inventory.locales)
+
+
+def _run_case_converter_desktop(page, report: dict, _inventory: RouteInventory) -> None:
+    run_case_converter_desktop(page, report)
+
+
+def _run_case_converter_mobile(page, report: dict, _inventory: RouteInventory) -> None:
+    run_case_converter_mobile(page, report)
 
 
 def _run_word_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -81,6 +90,13 @@ FEATURE_COVERAGE = {
         desktop=_run_text_compare_desktop,
         mobile=_run_text_compare_mobile,
         focus_targets=(("input", "[data-original]"), ("output", "[data-changed]")),
+        focus_style="editor",
+        exercise_faq=True,
+    ),
+    "case-converter": FeatureCoverage(
+        desktop=_run_case_converter_desktop,
+        mobile=_run_case_converter_mobile,
+        focus_targets=(("input", "[data-input]"), ("output", "[data-output]")),
         focus_style="editor",
         exercise_faq=True,
     ),
