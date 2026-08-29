@@ -2,6 +2,7 @@
 import JsonFormatter from "../../../features/json/JsonFormatter.astro";
 import PreviewToolPage from "../../../components/PreviewToolPage.astro";
 import { jsonCopy } from "../../../features/json/copy";
+import featureStylesheet from "../../../features/json/styles.css?url";
 import { locales, type Locale } from "../../../lib/site";
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale }, props: { locale } }));
@@ -22,5 +23,7 @@ const category = "data" as const;
   category={category}
   guideTitle={t.guideTitle}
   guideBody={t.guideBody}
-  faqs={t.faqs}><JsonFormatter locale={locale} /></PreviewToolPage
+  faqs={t.faqs}
+  featureStylesheet={featureStylesheet}
+  ><JsonFormatter locale={locale} /></PreviewToolPage
 >

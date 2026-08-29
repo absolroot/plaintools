@@ -20,3 +20,35 @@
   background: var(--control);
   box-shadow: 0 0 0 1px var(--line);
 }
+
+@media (max-width: 680px) {
+  .action-topbar {
+    align-items: stretch;
+  }
+
+  .action-topbar .primary-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .action-topbar .primary-button,
+  .action-topbar .secondary-button {
+    height: 44px;
+    padding-inline: var(--space-2);
+  }
+
+  .action-topbar .tooltip-target > :where(button, a, [role="button"]) {
+    width: 100%;
+    padding-right: 52px;
+  }
+
+  .inline-field {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .inline-field select {
+    height: 44px;
+  }
+}

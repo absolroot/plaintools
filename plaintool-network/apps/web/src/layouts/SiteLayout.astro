@@ -1,7 +1,4 @@
 ---
-import "../features/json/styles.css";
-import "../features/time/styles.css";
-import "../features/word/styles.css";
 import "../styles/global.css";
 import { getCopy } from "../lib/i18n";
 import { networkCopy } from "../lib/tool-catalog";
@@ -25,6 +22,7 @@ interface Props {
   noindex?: boolean;
   canonicalize?: boolean;
   structuredData?: StructuredData[];
+  featureStylesheet?: string;
 }
 
 const {
@@ -35,6 +33,7 @@ const {
   noindex = false,
   canonicalize = true,
   structuredData = [],
+  featureStylesheet,
 } = Astro.props;
 const t = getCopy(locale);
 const n = networkCopy[locale];
@@ -101,6 +100,7 @@ const integrationActive = Boolean(
     </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap.xml" />
+    {featureStylesheet && <link rel="stylesheet" href={featureStylesheet} />}
     <meta name="robots" content={robots} />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />

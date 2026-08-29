@@ -2,6 +2,7 @@
 import PreviewToolPage from "../../../components/PreviewToolPage.astro";
 import TimeConverter from "../../../features/time/TimeConverter.astro";
 import { timeCopy } from "../../../features/time/copy";
+import featureStylesheet from "../../../features/time/styles.css?url";
 import { locales, type Locale } from "../../../lib/site";
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale }, props: { locale } }));
@@ -22,5 +23,7 @@ const category = "time" as const;
   category={category}
   guideTitle={t.guideTitle}
   guideBody={t.guideBody}
-  faqs={t.faqs}><TimeConverter locale={locale} /></PreviewToolPage
+  faqs={t.faqs}
+  featureStylesheet={featureStylesheet}
+  ><TimeConverter locale={locale} /></PreviewToolPage
 >

@@ -14,6 +14,7 @@ interface Props {
   guideTitle: string;
   guideBody: string;
   faqs: Array<{ q: string; a: string }>;
+  featureStylesheet: string;
 }
 const {
   locale,
@@ -24,6 +25,7 @@ const {
   guideTitle,
   guideBody,
   faqs,
+  featureStylesheet,
 } = Astro.props;
 const n = networkCopy[locale];
 const c = previewCopy[locale].common;
@@ -52,6 +54,7 @@ const structuredData = [
   description={description}
   noindex
   structuredData={structuredData}
+  featureStylesheet={featureStylesheet}
 >
   <section class="tool-intro">
     <nav class="breadcrumbs" aria-label={n.breadcrumbLabel}>

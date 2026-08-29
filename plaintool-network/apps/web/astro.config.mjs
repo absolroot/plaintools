@@ -23,6 +23,7 @@ export default defineConfig({
   },
   vite: {
     build: {
+      cssCodeSplit: true,
       sourcemap: true,
     },
   },

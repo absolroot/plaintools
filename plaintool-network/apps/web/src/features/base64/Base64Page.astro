@@ -12,6 +12,7 @@ import {
 import Converter from "./Converter.astro";
 import { createBase64ModeDefinitions } from "./mode-definition";
 import { getBase64Copy } from "./copy";
+import featureStylesheet from "./styles.css?url";
 interface Props {
   locale: Locale;
   mode: "decode" | "encode";
@@ -62,6 +63,7 @@ const faqJsonLd = JSON.stringify({
   title={metaTitle}
   description={subheading}
   structuredData={structuredData}
+  featureStylesheet={featureStylesheet}
 >
   <section class="tool-intro">
     <nav class="breadcrumbs" aria-label={n.breadcrumbLabel}>

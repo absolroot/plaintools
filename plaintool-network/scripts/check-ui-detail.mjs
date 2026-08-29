@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 
 const cssUrls = [
   "../apps/web/src/styles/global.css",
+  "../apps/web/src/features/base64/styles.css",
   "../apps/web/src/features/json/styles.css",
   "../apps/web/src/features/time/styles.css",
   "../apps/web/src/features/word/styles.css",

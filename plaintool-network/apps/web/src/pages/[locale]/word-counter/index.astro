@@ -2,6 +2,7 @@
 import PreviewToolPage from "../../../components/PreviewToolPage.astro";
 import WordCounter from "../../../features/word/WordCounter.astro";
 import { wordCopy } from "../../../features/word/copy";
+import featureStylesheet from "../../../features/word/styles.css?url";
 import { locales, type Locale } from "../../../lib/site";
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale }, props: { locale } }));
@@ -22,5 +23,7 @@ const category = "text" as const;
   category={category}
   guideTitle={t.guideTitle}
   guideBody={t.guideBody}
-  faqs={t.faqs}><WordCounter locale={locale} /></PreviewToolPage
+  faqs={t.faqs}
+  featureStylesheet={featureStylesheet}
+  ><WordCounter locale={locale} /></PreviewToolPage
 >

@@ -146,3 +146,39 @@
 .time-converter[data-mode="date"] .timestamp-only {
   display: none;
 }
+
+@media (max-width: 840px) {
+  .time-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .field select,
+  .field input,
+  .date-picker-control,
+  .date-picker-label {
+    height: 44px;
+  }
+
+  .time-fields,
+  .time-results {
+    grid-template-columns: 1fr;
+  }
+
+  .time-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .time-actions .primary-button,
+  .time-actions .secondary-button {
+    height: 44px;
+    justify-content: center;
+  }
+
+  .result-control input,
+  .result-control .text-button {
+    height: 44px;
+  }
+}
