@@ -1,57 +1,57 @@
 import { readFile } from "node:fs/promises";
 
 const cssUrls = [
-  "../apps/base64-codec/src/styles/global.css",
-  "../apps/base64-codec/src/features/json/styles.css",
-  "../apps/base64-codec/src/features/time/styles.css",
-  "../apps/base64-codec/src/features/word/styles.css",
+  "../apps/web/src/styles/global.css",
+  "../apps/web/src/features/json/styles.css",
+  "../apps/web/src/features/time/styles.css",
+  "../apps/web/src/features/word/styles.css",
 ].map((path) => new URL(path, import.meta.url));
 const pageUrl = new URL(
-  "../apps/base64-codec/src/features/base64/Base64Page.astro",
+  "../apps/web/src/features/base64/Base64Page.astro",
   import.meta.url,
 );
 const converterUrl = new URL(
-  "../apps/base64-codec/src/features/base64/Converter.astro",
+  "../apps/web/src/features/base64/Converter.astro",
   import.meta.url,
 );
 const faqSectionUrl = new URL(
-  "../apps/base64-codec/src/components/FaqSection.astro",
+  "../apps/web/src/components/FaqSection.astro",
   import.meta.url,
 );
 const jsonFormatterUrl = new URL(
-  "../apps/base64-codec/src/features/json/JsonFormatter.astro",
+  "../apps/web/src/features/json/JsonFormatter.astro",
   import.meta.url,
 );
 const previewToolPageUrl = new URL(
-  "../apps/base64-codec/src/components/PreviewToolPage.astro",
+  "../apps/web/src/components/PreviewToolPage.astro",
   import.meta.url,
 );
 const processingNoteUrl = new URL(
-  "../apps/base64-codec/src/components/LocalProcessingNote.astro",
+  "../apps/web/src/components/LocalProcessingNote.astro",
   import.meta.url,
 );
 const tooltipUrl = new URL(
-  "../apps/base64-codec/src/components/Tooltip.astro",
+  "../apps/web/src/components/Tooltip.astro",
   import.meta.url,
 );
 const iconUrl = new URL(
-  "../apps/base64-codec/src/components/UiIcon.astro",
+  "../apps/web/src/components/UiIcon.astro",
   import.meta.url,
 );
 const statusUrl = new URL(
-  "../apps/base64-codec/src/components/ConverterStatus.astro",
+  "../apps/web/src/components/ConverterStatus.astro",
   import.meta.url,
 );
 const toolDomUrl = new URL(
-  "../apps/base64-codec/src/scripts/shared/tool-dom.ts",
+  "../apps/web/src/scripts/shared/tool-dom.ts",
   import.meta.url,
 );
 const timeConverterUrl = new URL(
-  "../apps/base64-codec/src/features/time/client.ts",
+  "../apps/web/src/features/time/client.ts",
   import.meta.url,
 );
 const tooltipScriptUrl = new URL(
-  "../apps/base64-codec/src/scripts/tooltip.ts",
+  "../apps/web/src/scripts/tooltip.ts",
   import.meta.url,
 );
 const [

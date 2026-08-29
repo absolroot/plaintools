@@ -91,10 +91,10 @@ def build_route_inventory(
 
 def load_route_inventory(root: Path = ROOT) -> RouteInventory:
     tool_source = (
-        root / "apps" / "base64-codec" / "src" / "lib" / "tool-registry.js"
+        root / "apps" / "web" / "src" / "lib" / "tool-registry.js"
     ).read_text(encoding="utf-8")
     content_source = (
-        root / "apps" / "base64-codec" / "src" / "lib" / "content-registry.js"
+        root / "apps" / "web" / "src" / "lib" / "content-registry.js"
     ).read_text(encoding="utf-8")
     return build_route_inventory(
         parse_public_locales(content_source),

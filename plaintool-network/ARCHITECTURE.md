@@ -19,7 +19,7 @@ The only approved localStorage entry is `plaintool.theme`, with the value
 ## Source ownership
 
 ```text
-apps/base64-codec/src/
+apps/web/src/
   features/
     <tool>/
       <Tool>.astro       Tool-owned rendered workspace

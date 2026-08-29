@@ -1,7 +1,7 @@
 import {
   implementedIntegrationCapabilities,
   resolveDeploymentConfig,
-} from "../apps/base64-codec/src/lib/deployment-config.js";
+} from "../apps/web/src/lib/deployment-config.js";
 
 const config = resolveDeploymentConfig(
   process.env,

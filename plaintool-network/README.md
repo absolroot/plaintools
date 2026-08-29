@@ -49,9 +49,9 @@ The generated site includes English (`/en/`), Korean (`/ko/`), and Spanish (`/es
 ## Repository map
 
 ```text
-apps/base64-codec/src/features/ Feature-owned Astro UI, client runtime, worker, copy facade, contract, and styles
-apps/base64-codec/src/components/ Shared presentation components
-apps/base64-codec/src/lib/ Shared content, deployment, locale, and SEO registries
+apps/web/src/features/ Feature-owned Astro UI, client runtime, worker, copy facade, contract, and styles
+apps/web/src/components/ Shared presentation components
+apps/web/src/lib/ Shared content, deployment, locale, and SEO registries
 packages/codec-core/     Framework-independent conversion and detection logic
 packages/json-core/      Strict JSON inspection and lossless text transforms
 packages/text-metrics-core/ Unicode-aware text counting
@@ -71,7 +71,7 @@ logic, and registries own cross-route inventory. Do not move tool behavior back
 into generic `components/`, rebuild route lists in scripts, or add a universal
 controller merely to reduce line count.
 
-The build output is `apps/base64-codec/dist/` and can be deployed directly to Cloudflare Pages or GitHub Pages on a custom root domain.
+The build output is `apps/web/dist/` and can be deployed directly to Cloudflare Pages or GitHub Pages on a custom root domain.
 
 ## Production gate
 
@@ -81,7 +81,7 @@ Do not send input text, output text, file names, file bytes, error details, or h
 
 ## Localization and localized SEO
 
-The public locale inventory lives in `apps/base64-codec/src/lib/content-registry.js`; tool publication state lives in `apps/base64-codec/src/lib/tool-registry.js`. Public builds validate routes, locale completeness, structured-data requirements, crawler membership, and preview/indexable boundaries without shipping private market or review evidence.
+The public locale inventory lives in `apps/web/src/lib/content-registry.js`; tool publication state lives in `apps/web/src/lib/tool-registry.js`. Public builds validate routes, locale completeness, structured-data requirements, crawler membership, and preview/indexable boundaries without shipping private market or review evidence.
 
 Useful commands:
 
@@ -89,4 +89,4 @@ Useful commands:
 npm run seo:check
 ```
 
-Implemented tool routes are registered once in `apps/base64-codec/src/lib/tool-registry.js`. That registry drives route typing, sitemap membership, `llms.txt`, directory status, and rendered SEO QA. A new registry entry fails `npm test`, `npm run check`, and `npm run build` until its route, complete localized directory copy, metadata, structured data, and indexability state agree. New features must enter as `preview` until their private publication review is complete.
+Implemented tool routes are registered once in `apps/web/src/lib/tool-registry.js`. That registry drives route typing, sitemap membership, `llms.txt`, directory status, and rendered SEO QA. A new registry entry fails `npm test`, `npm run check`, and `npm run build` until its route, complete localized directory copy, metadata, structured data, and indexability state agree. New features must enter as `preview` until their private publication review is complete.

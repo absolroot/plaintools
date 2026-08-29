@@ -1,14 +1,11 @@
 import { access, readdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import {
-  locales,
-  toolRegistry,
-} from "../apps/base64-codec/src/lib/content-registry.js";
+import { locales, toolRegistry } from "../apps/web/src/lib/content-registry.js";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const production = process.argv.slice(2).includes("--production");
-const routeRoot = resolve(projectRoot, "apps/base64-codec/src/pages/[locale]");
+const routeRoot = resolve(projectRoot, "apps/web/src/pages/[locale]");
 const errors = [];
 const registeredTools =
   process.env.SEO_REGISTRY_SELF_TEST === "1"
@@ -58,7 +55,7 @@ for (const tool of registeredTools) {
     );
   }
 
-  const routeFile = `apps/base64-codec/src/pages/[locale]/${tool.slug}/index.astro`;
+  const routeFile = `apps/web/src/pages/[locale]/${tool.slug}/index.astro`;
   try {
     await access(resolve(projectRoot, routeFile));
   } catch {

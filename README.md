@@ -17,8 +17,8 @@ PlainTools is the source workspace for a network of fast, single-purpose static 
 ```text
 plain-tools/
 ├─ README.md                   Portfolio direction and current status
-└─ base64-tools-network/       PlainTool network app and reusable cores
-   ├─ apps/base64-codec/       Single static Astro network app
+└─ plaintool-network/          PlainTool network app and reusable cores
+   ├─ apps/web/                Single static Astro network app
    ├─ packages/codec-core/     Browser-compatible Base64 engine
    ├─ packages/json-core/      Strict lossless JSON operations
    ├─ packages/text-metrics-core/ Unicode-aware text metrics
@@ -26,7 +26,7 @@ plain-tools/
    └─ README.md                Project-specific commands and architecture
 ```
 
-Future sites should be siblings of `base64-tools-network`, not features pushed into its main screen. Start a sibling when the primary intent, domain, or data model is meaningfully different. Shared code should be extracted only after at least two real sites need the same implementation.
+Future sites should be siblings of `plaintool-network`, not features pushed into its main screen. Start a sibling when the primary intent, domain, or data model is meaningfully different. Shared code should be extracted only after at least two real sites need the same implementation.
 
 ## Repository boundaries
 
@@ -49,7 +49,7 @@ Reference snapshots remain local because they are third-party source, not PlainT
 
 ## Current project
 
-The implemented network prototype is [base64-tools-network](./base64-tools-network/README.md). It provides:
+The implemented network prototype is [plaintool-network](./plaintool-network/README.md). It provides:
 
 - a localized tool directory at each locale root;
 - dedicated Base64 decode and encode routes with the existing worker optimizations;
@@ -66,13 +66,13 @@ Rendered UI changes also pass the repository-local Cloudflare product UI review 
 
 The current feature ownership, registry boundaries, async state rules, and
 known regression patterns are recorded in the project
-[architecture contract](./base64-tools-network/ARCHITECTURE.md). That document,
+[architecture contract](./plaintool-network/ARCHITECTURE.md). That document,
 not folder-name intuition, is the starting point for future refactors.
 
 ## Continue work
 
 ```powershell
-Set-Location .\base64-tools-network
+Set-Location .\plaintool-network
 npm install
 npm test
 npm run check

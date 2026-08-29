@@ -30,7 +30,7 @@ export default [
     languageOptions: { globals: globals.node },
   },
   {
-    files: ["apps/base64-codec/src/**/*.{ts,astro}"],
+    files: ["apps/web/src/**/*.{ts,astro}"],
     languageOptions: { globals: { ...globals.browser, ...globals.worker } },
     rules: {
       "@typescript-eslint/no-explicit-any": "off",

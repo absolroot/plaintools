@@ -4,11 +4,11 @@ import {
   legalPages,
   locales,
   toolRegistry,
-} from "../apps/base64-codec/src/lib/content-registry.js";
+} from "../apps/web/src/lib/content-registry.js";
 import {
   implementedIntegrationCapabilities,
   resolveDeploymentConfig,
-} from "../apps/base64-codec/src/lib/deployment-config.js";
+} from "../apps/web/src/lib/deployment-config.js";
 
 const args = process.argv.slice(2);
 const targetIndex = args.indexOf("--target");
@@ -28,7 +28,7 @@ if (target === "production" && !config.productionReady) {
   );
 }
 
-const dist = resolve("apps/base64-codec/dist");
+const dist = resolve("apps/web/dist");
 const previewTools = toolRegistry.filter(
   (tool) => tool.publication === "preview",
 );
