@@ -18,21 +18,21 @@
     "apps/web/src/features/word/WordCounter.astro",
     "apps/web/src/pages/[locale]/word-counter/index.astro"
   ],
-  "copyFingerprint": "sha256:07a8faa348292124870afd54309132e5b406faa1858fae7d101df1fd5a4914ac",
+  "copyFingerprint": "sha256:0fc3ab03a28ff4d9691db544bc5acd588fab7a80a1869d02a177a3ab8091e20e",
   "locales": {
     "en": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["en-fastwordcount", "en-mdn-segmenter"]
     },
     "ko": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["ko-wordcount", "ko-mdn-segmenter"]
     },
     "es": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["es-contarletras", "es-mdn-segmenter"]
     }
   }

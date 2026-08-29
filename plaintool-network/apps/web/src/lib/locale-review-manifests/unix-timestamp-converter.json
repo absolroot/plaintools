@@ -18,21 +18,21 @@
     "apps/web/src/features/time/TimeConverter.astro",
     "apps/web/src/pages/[locale]/unix-timestamp-converter/index.astro"
   ],
-  "copyFingerprint": "sha256:296e0110306e2398a973751fddcfc4f1f2c6059c4588f489c9bb56828c3322f1",
+  "copyFingerprint": "sha256:32828f1168f0ecd17710c74d8b87a373611ac32e60bda891c51ef82b5871ea17",
   "locales": {
     "en": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["en-timestamp-tools", "en-wikipedia-unix-time"]
     },
     "ko": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["ko-webi-timestamp", "ko-jhnsoft-timestamp"]
     },
     "es": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["es-toolssoup-timestamp", "es-wikipedia-tiempo-unix"]
     }
   }

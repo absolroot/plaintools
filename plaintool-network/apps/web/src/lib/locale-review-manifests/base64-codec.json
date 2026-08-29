@@ -22,21 +22,21 @@
     "apps/web/src/pages/[locale]/base64-encode/index.astro",
     "apps/web/src/pages/[locale]/[page].astro"
   ],
-  "copyFingerprint": "sha256:5fdab8b7896db68e546825043ec9fa8f73815e10d41c6df62522b488f54ce880",
+  "copyFingerprint": "sha256:3934147e498333c172987a0363765a6aeb6b1cc216d3e75307a43e8ad26ad379",
   "locales": {
     "en": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["en-wikipedia-base64", "en-base64-sh"]
     },
     "ko": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["ko-wikipedia-base64", "ko-base64-sh"]
     },
     "es": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["es-wikipedia-base64", "es-base64-sh"]
     }
   }

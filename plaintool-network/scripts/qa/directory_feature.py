@@ -48,11 +48,17 @@ def _search_geometry(page) -> dict:
             };
           };
           const control = document.querySelector('.directory-search-control');
+          const categoryGaps = [...document.querySelectorAll('.directory-category-heading')].map((heading) => {
+            const label = heading.querySelector('h2').getBoundingClientRect();
+            const count = heading.querySelector('[data-directory-search-category-count]').getBoundingClientRect();
+            return count.left - label.right;
+          });
           return {
             header: box('.directory-header'),
             search: box('.directory-search'),
             control: box('.directory-search-control'),
             categories: box('.directory-categories'),
+            categoryGaps,
             radius: getComputedStyle(control).borderRadius,
             scrollWidth: document.documentElement.scrollWidth,
             clientWidth: document.documentElement.clientWidth
@@ -92,6 +98,7 @@ def run_directory_desktop(desktop, report: dict) -> None:
         or geometry["header"]["bottom"] > geometry["search"]["top"]
         or geometry["search"]["bottom"] > geometry["categories"]["top"]
         or abs(geometry["control"]["height"] - 36) > 0.5
+        or any(abs(gap - 8) > 0.5 for gap in geometry["categoryGaps"])
         or geometry["radius"] != "0px"
         or geometry["scrollWidth"] != geometry["clientWidth"]
     ):
@@ -245,6 +252,7 @@ def run_directory_mobile(mobile, report: dict) -> None:
         or geometry["search"]["bottom"] > geometry["categories"]["top"]
         or abs(geometry["control"]["height"] - 44) > 0.5
         or abs(clear_height - 44) > 0.5
+        or any(abs(gap - 8) > 0.5 for gap in geometry["categoryGaps"])
         or geometry["radius"] != "0px"
         or geometry["scrollWidth"] != geometry["clientWidth"]
     ):

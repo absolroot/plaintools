@@ -18,21 +18,21 @@
     "apps/web/src/features/json/JsonFormatter.astro",
     "apps/web/src/pages/[locale]/json-formatter/index.astro"
   ],
-  "copyFingerprint": "sha256:e1d70baa4491fefc51020a17609481e7ce4799b305c3d56bed4503dd6b933b93",
+  "copyFingerprint": "sha256:12bf3d7c885cd6be95c0b638c6b1ac44de6c354547cf9d5893b6b25176d38e36",
   "locales": {
     "en": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["en-json-formatter-org", "en-mdn-json"]
     },
     "ko": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["ko-toolatom-json", "ko-mdn-json"]
     },
     "es": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-29",
+      "reviewedAt": "2026-08-30",
       "referenceIds": ["es-jsonpretty", "es-mdn-json"]
     }
   }

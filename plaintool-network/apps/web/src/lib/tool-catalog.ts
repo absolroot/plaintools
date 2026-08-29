@@ -292,7 +292,7 @@ export const networkCopy: Record<
       "Free Browser Tools for Text, Data & Encoding | PlainTool",
     directoryTitle: "Find the tool you need.",
     directoryIntro:
-      "Run text, data, time, and encoding tasks directly in your browser. Preview tools work normally but remain out of search engine results until review is complete.",
+      "Run text, data, time, and encoding tasks directly in your browser.",
     directorySearchLabel: "Search tools",
     directorySearchPlaceholder: "Search by name, description, or keyword",
     directorySearchClear: "Clear search",
@@ -320,7 +320,7 @@ export const networkCopy: Record<
     directoryMetaTitle: "무료 브라우저 도구 - 텍스트·데이터·인코딩 | PlainTool",
     directoryTitle: "필요한 도구를 바로 찾아보세요.",
     directoryIntro:
-      "텍스트, 데이터, 시간, 인코딩 작업을 브라우저에서 바로 처리하세요. 시험판 도구는 정상적으로 사용할 수 있지만 검토가 끝날 때까지 검색 엔진 결과에 노출되지 않습니다.",
+      "텍스트, 데이터, 시간, 인코딩 작업을 브라우저에서 바로 처리하세요.",
     directorySearchLabel: "도구 검색",
     directorySearchPlaceholder: "이름, 설명 또는 키워드로 검색",
     directorySearchClear: "검색어 지우기",
@@ -348,7 +348,7 @@ export const networkCopy: Record<
     directoryMetaTitle: "Herramientas web para texto y datos | PlainTool",
     directoryTitle: "Encuentra la herramienta que necesitas.",
     directoryIntro:
-      "Resuelve tareas de texto, datos, tiempo y codificación directamente en el navegador. Las herramientas en versión preliminar funcionan, pero no aparecerán en los resultados de los buscadores hasta terminar la revisión.",
+      "Resuelve tareas de texto, datos, tiempo y codificación directamente en el navegador.",
     directorySearchLabel: "Buscar herramientas",
     directorySearchPlaceholder: "Busca por nombre, descripción o palabra clave",
     directorySearchClear: "Borrar búsqueda",
