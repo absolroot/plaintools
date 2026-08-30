@@ -341,6 +341,9 @@ function init(root: HTMLElement): void {
 
   openUrlButton.addEventListener("click", openUrlDialog);
   cancelUrlButton.addEventListener("click", () => urlDialog.close("cancel"));
+  urlDialog.addEventListener("close", () => {
+    if (result) requestAnimationFrame(scrollToResult);
+  });
   confirmUrlButton.addEventListener("click", () => {
     if (!resultUrl) return;
     const destination = resultUrl.href;

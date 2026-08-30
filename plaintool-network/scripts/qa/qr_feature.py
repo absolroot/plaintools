@@ -87,7 +87,7 @@ def run_qr_desktop(page, report: dict, _inventory) -> None:
 
 
 def run_qr_mobile(page, report: dict, _inventory) -> None:
-    sentinel = "qa-mobile-scroll-result"
+    sentinel = "https://example.com/qa-mobile-scroll-result"
     page.goto(f"{BASE_URL}/ar/qr-code-generator/", wait_until="networkidle")
     generator_state = page.evaluate(
         """
@@ -124,6 +124,9 @@ def run_qr_mobile(page, report: dict, _inventory) -> None:
         "expected => document.querySelector('[data-qr-scanner] [data-result]').value === expected",
         arg=sentinel,
     )
+    page.wait_for_function("document.querySelector('[data-url-dialog]').open")
+    page.locator("[data-cancel-url]").click()
+    page.wait_for_function("!document.querySelector('[data-url-dialog]').open")
     page.wait_for_function(
         """
         () => {
