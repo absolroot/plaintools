@@ -180,6 +180,12 @@ const seed = {
     scanResult: "Dekodierter Inhalt",
     scanPlaceholder: "Der gescannte Text erscheint hier.",
     urlDetected: "URL erkannt",
+    openUrl: "URL öffnen",
+    urlDialogTitle: "Diese URL öffnen?",
+    urlDialogBody:
+      "Diese URL wurde im QR-Code gefunden. Prüfen Sie, ob sie sicher ist und zu der erwarteten Website gehört.",
+    urlDialogDestination: "Zieladresse",
+    cancel: "Abbrechen",
     reading: "Bild wird gelesen…",
     starting: "Kamera wird gestartet…",
     scanning: "QR-Code wird gesucht…",

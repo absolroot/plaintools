@@ -64,8 +64,14 @@ const {
           accept="image/png,image/jpeg,image/webp,image/gif,image/bmp"
           hidden
         />
-        <p>{copy.dropHint}</p>
-        <small>{copy.supportedImageTypes}</small>
+        <div class="qr-upload-empty" data-upload-empty>
+          <p>{copy.dropHint}</p>
+          <small>{copy.supportedImageTypes}</small>
+        </div>
+        <figure class="qr-upload-preview" data-upload-preview hidden>
+          <img data-preview-image alt={copy.uploadLabel} />
+          <figcaption data-preview-name></figcaption>
+        </figure>
       </div>
     </section>
 
@@ -94,6 +100,9 @@ const {
         <span class="qr-url-badge" data-url-badge hidden
           >{copy.urlDetected}</span
         >
+        <button class="text-button" type="button" data-open-url hidden disabled>
+          <UiIcon name="arrow-right" size={14} />{copy.openUrl}
+        </button>
         <button class="text-button" type="button" data-copy disabled>
           <UiIcon name="copy" size={14} />{copy.copy}
         </button>
@@ -107,6 +116,33 @@ const {
       spellcheck="false"
       placeholder={copy.resultPlaceholder}></textarea>
   </section>
+
+  <dialog
+    class="qr-url-dialog"
+    data-url-dialog
+    aria-labelledby="qr-url-dialog-title"
+    aria-describedby="qr-url-dialog-description"
+  >
+    <div class="qr-url-dialog-content">
+      <div class="qr-url-dialog-heading">
+        <UiIcon name="shield" size={20} />
+        <h2 id="qr-url-dialog-title">{copy.urlDialogTitle}</h2>
+      </div>
+      <p id="qr-url-dialog-description">{copy.urlDialogBody}</p>
+      <div class="qr-url-destination">
+        <span>{copy.urlDialogDestination}</span>
+        <code data-url-destination dir="ltr"></code>
+      </div>
+      <div class="qr-url-dialog-actions">
+        <button class="secondary-button" type="button" data-cancel-url autofocus
+          >{copy.cancel}</button
+        >
+        <button class="primary-button" type="button" data-confirm-url>
+          {copy.openUrl}
+        </button>
+      </div>
+    </div>
+  </dialog>
 
   <ConverterStatus status={copy.ready} />
   <canvas data-scan-canvas hidden></canvas>

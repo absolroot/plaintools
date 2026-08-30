@@ -179,6 +179,12 @@ const seed = {
     scanResult: "Avkodat innehåll",
     scanPlaceholder: "Den skannade texten visas här.",
     urlDetected: "URL hittad",
+    openUrl: "Öppna URL",
+    urlDialogTitle: "Öppna den här webbadressen?",
+    urlDialogBody:
+      "Webbadressen hittades i QR-koden. Kontrollera att den är säker och tillhör webbplatsen du förväntar dig.",
+    urlDialogDestination: "Måladress",
+    cancel: "Avbryt",
     reading: "Läser bild…",
     starting: "Startar kamera…",
     scanning: "Söker efter en QR-kod…",

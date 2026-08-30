@@ -172,6 +172,12 @@ const seed = {
     scanResult: "Decoded content",
     scanPlaceholder: "The scanned text appears here.",
     urlDetected: "URL detected",
+    openUrl: "Open URL",
+    urlDialogTitle: "Open this URL?",
+    urlDialogBody:
+      "This URL was found in the QR code. Check that it is safe and belongs to the site you expect.",
+    urlDialogDestination: "Destination",
+    cancel: "Cancel",
     reading: "Reading image…",
     starting: "Starting camera…",
     scanning: "Looking for a QR code…",

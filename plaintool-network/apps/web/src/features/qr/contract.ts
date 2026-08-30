@@ -40,6 +40,11 @@ export type QrScannerCopy = {
   copy: string;
   clear: string;
   urlDetected: string;
+  openUrl: string;
+  urlDialogTitle: string;
+  urlDialogBody: string;
+  urlDialogDestination: string;
+  cancel: string;
   ready: string;
   readingImage: string;
   cameraStarting: string;
