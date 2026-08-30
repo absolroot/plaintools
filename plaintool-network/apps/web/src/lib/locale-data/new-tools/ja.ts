@@ -176,6 +176,12 @@ const seed = {
     scanResult: "読み取り結果",
     scanPlaceholder: "読み取ったテキストがここに表示されます。",
     urlDetected: "URLを検出",
+    openUrl: "URLを開く",
+    urlDialogTitle: "このURLを開きますか？",
+    urlDialogBody:
+      "QRコードからURLが見つかりました。安全なURLか、想定したサイトのアドレスかを確認してください。",
+    urlDialogDestination: "移動先",
+    cancel: "キャンセル",
     reading: "画像を読み取り中…",
     starting: "カメラを起動中…",
     scanning: "QRコードを検索中…",

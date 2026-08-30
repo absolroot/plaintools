@@ -170,6 +170,12 @@ const seed = {
     scanResult: "المحتوى المفكوك",
     scanPlaceholder: "سيظهر النص الممسوح هنا.",
     urlDetected: "تم اكتشاف URL",
+    openUrl: "فتح الرابط",
+    urlDialogTitle: "هل تريد فتح هذا الرابط؟",
+    urlDialogBody:
+      "تم العثور على هذا الرابط في رمز QR. تحقق من أنه آمن وينتمي إلى الموقع الذي تتوقعه.",
+    urlDialogDestination: "عنوان الوجهة",
+    cancel: "إلغاء",
     reading: "جارٍ قراءة الصورة…",
     starting: "جارٍ تشغيل الكاميرا…",
     scanning: "جارٍ البحث عن رمز QR…",

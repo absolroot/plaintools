@@ -174,6 +174,12 @@ const seed = {
     scanResult: "Çözülen içerik",
     scanPlaceholder: "Taranan metin burada görünür.",
     urlDetected: "URL algılandı",
+    openUrl: "URL’yi aç",
+    urlDialogTitle: "Bu URL açılsın mı?",
+    urlDialogBody:
+      "Bu URL, QR kodunda bulundu. Güvenli olduğunu ve beklediğiniz siteye ait olduğunu kontrol edin.",
+    urlDialogDestination: "Hedef adres",
+    cancel: "İptal",
     reading: "Görsel okunuyor…",
     starting: "Kamera başlatılıyor…",
     scanning: "QR kodu aranıyor…",

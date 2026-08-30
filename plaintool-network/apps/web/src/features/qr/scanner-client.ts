@@ -10,12 +10,12 @@ const MAX_FILE_BYTES = 10_000_000;
 const MAX_SCAN_DIMENSION = 1800;
 const CAMERA_SCAN_INTERVAL = 160;
 
-function isUrl(value: string): boolean {
+function toHttpUrl(value: string): URL | null {
   try {
     const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:";
+    return url.protocol === "http:" || url.protocol === "https:" ? url : null;
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -73,8 +73,8 @@ function init(root: HTMLElement): void {
   root.dataset.initialized = "true";
   const copy = readClientCopy<QrScannerCopy>(root);
   const fileInput = root.querySelector<HTMLInputElement>("[data-file-input]")!;
-  const openFileButton =
-    root.querySelector<HTMLButtonElement>("[data-open-file]")!;
+  const openFileButtons =
+    root.querySelectorAll<HTMLButtonElement>("[data-open-file]");
   const startCameraButton = root.querySelector<HTMLButtonElement>(
     "[data-start-camera]",
   )!;
@@ -87,9 +87,30 @@ function init(root: HTMLElement): void {
   const resultOutput =
     root.querySelector<HTMLTextAreaElement>("[data-result]")!;
   const copyButton = root.querySelector<HTMLButtonElement>("[data-copy]")!;
+  const openUrlButton =
+    root.querySelector<HTMLButtonElement>("[data-open-url]")!;
   const urlBadge = root.querySelector<HTMLElement>("[data-url-badge]")!;
+  const resultSection = root.querySelector<HTMLElement>(".qr-scan-result")!;
+  const uploadEmpty = root.querySelector<HTMLElement>("[data-upload-empty]")!;
+  const uploadPreview = root.querySelector<HTMLElement>(
+    "[data-upload-preview]",
+  )!;
+  const previewImage = root.querySelector<HTMLImageElement>(
+    "[data-preview-image]",
+  )!;
+  const previewName = root.querySelector<HTMLElement>("[data-preview-name]")!;
+  const urlDialog = root.querySelector<HTMLDialogElement>("[data-url-dialog]")!;
+  const urlDestination = root.querySelector<HTMLElement>(
+    "[data-url-destination]",
+  )!;
+  const cancelUrlButton =
+    root.querySelector<HTMLButtonElement>("[data-cancel-url]")!;
+  const confirmUrlButton =
+    root.querySelector<HTMLButtonElement>("[data-confirm-url]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   let result: QrScannerResult | null = null;
+  let resultUrl: URL | null = null;
+  let previewObjectUrl: string | null = null;
   let stream: MediaStream | null = null;
   let frameRequest = 0;
   let lastScanTime = 0;
@@ -100,19 +121,65 @@ function init(root: HTMLElement): void {
     state: "idle" | "working" | "success" | "error" = "idle",
   ) => setToolStatus(root, status, message, state);
 
+  function scrollToResult(): void {
+    if (!window.matchMedia("(max-width: 680px)").matches) return;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    resultSection.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }
+
+  function openUrlDialog(): void {
+    if (!resultUrl) return;
+    urlDestination.textContent = resultUrl.href;
+    if (urlDialog.open) urlDialog.close();
+    urlDialog.showModal();
+  }
+
+  function clearPreview(): void {
+    if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+    previewObjectUrl = null;
+    previewImage.removeAttribute("src");
+    previewName.textContent = "";
+    uploadPreview.hidden = true;
+    uploadEmpty.hidden = false;
+  }
+
+  function renderPreview(file: File): void {
+    clearPreview();
+    previewObjectUrl = URL.createObjectURL(file);
+    previewImage.src = previewObjectUrl;
+    previewName.textContent = file.name;
+    uploadEmpty.hidden = true;
+    uploadPreview.hidden = false;
+  }
+
   function renderResult(nextResult: QrScannerResult): void {
     result = nextResult;
+    resultUrl = toHttpUrl(nextResult.text);
     resultOutput.value = nextResult.text;
     copyButton.disabled = false;
-    urlBadge.hidden = !isUrl(nextResult.text);
+    urlBadge.hidden = !resultUrl;
+    openUrlButton.hidden = !resultUrl;
+    openUrlButton.disabled = !resultUrl;
     setStatus(copy.completed, "success");
+    scrollToResult();
+    if (resultUrl) openUrlDialog();
   }
 
   function invalidateResult(): void {
     result = null;
+    resultUrl = null;
     resultOutput.value = "";
     copyButton.disabled = true;
     urlBadge.hidden = true;
+    openUrlButton.hidden = true;
+    openUrlButton.disabled = true;
+    if (urlDialog.open) urlDialog.close();
+    urlDestination.textContent = "";
   }
 
   function decodeImageData(imageData: ImageData): QrScannerResult | null {
@@ -174,6 +241,7 @@ function init(root: HTMLElement): void {
   async function startCamera(): Promise<void> {
     stopCamera(false);
     invalidateResult();
+    clearPreview();
     if (!navigator.mediaDevices?.getUserMedia) {
       setStatus(copy.cameraUnsupported, "error");
       return;
@@ -221,6 +289,7 @@ function init(root: HTMLElement): void {
     stopCamera(false);
     const fileRevision = revision;
     invalidateResult();
+    clearPreview();
     if (file.size > MAX_FILE_BYTES) {
       setStatus(copy.fileTooLarge, "error");
       return;
@@ -229,6 +298,7 @@ function init(root: HTMLElement): void {
       setStatus(copy.invalidImage, "error");
       return;
     }
+    renderPreview(file);
     setStatus(copy.readingImage, "working");
     try {
       const image = await loadImage(file);
@@ -250,7 +320,9 @@ function init(root: HTMLElement): void {
     }
   }
 
-  openFileButton.addEventListener("click", () => fileInput.click());
+  openFileButtons.forEach((button) =>
+    button.addEventListener("click", () => fileInput.click()),
+  );
   fileInput.addEventListener("change", () => {
     const file = fileInput.files?.[0];
     fileInput.value = "";
@@ -262,8 +334,18 @@ function init(root: HTMLElement): void {
   root.querySelector("[data-clear]")?.addEventListener("click", () => {
     stopCamera(false);
     invalidateResult();
+    clearPreview();
     setStatus(copy.ready);
-    openFileButton.focus();
+    openFileButtons[0]?.focus();
+  });
+
+  openUrlButton.addEventListener("click", openUrlDialog);
+  cancelUrlButton.addEventListener("click", () => urlDialog.close("cancel"));
+  confirmUrlButton.addEventListener("click", () => {
+    if (!resultUrl) return;
+    const destination = resultUrl.href;
+    urlDialog.close("open");
+    window.open(destination, "_blank", "noopener,noreferrer");
   });
 
   copyButton.addEventListener("click", async () => {
@@ -293,7 +375,14 @@ function init(root: HTMLElement): void {
     const file = event.dataTransfer?.files?.[0];
     if (file) void scanFile(file);
   });
-  window.addEventListener("pagehide", () => stopCamera(false), { once: true });
+  window.addEventListener(
+    "pagehide",
+    () => {
+      stopCamera(false);
+      clearPreview();
+    },
+    { once: true },
+  );
 }
 
 document.querySelectorAll<HTMLElement>("[data-qr-scanner]").forEach(init);

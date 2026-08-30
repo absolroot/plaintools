@@ -279,6 +279,11 @@ export type NewToolLocaleSeed = {
     scanResult: string;
     scanPlaceholder: string;
     urlDetected: string;
+    openUrl: string;
+    urlDialogTitle: string;
+    urlDialogBody: string;
+    urlDialogDestination: string;
+    cancel: string;
     reading: string;
     starting: string;
     scanning: string;
@@ -550,6 +555,11 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     copy: ui.copy,
     clear: ui.clear,
     urlDetected: seed.qr.urlDetected,
+    openUrl: seed.qr.openUrl,
+    urlDialogTitle: seed.qr.urlDialogTitle,
+    urlDialogBody: seed.qr.urlDialogBody,
+    urlDialogDestination: seed.qr.urlDialogDestination,
+    cancel: seed.qr.cancel,
     ready: ui.ready,
     readingImage: seed.qr.reading,
     cameraStarting: seed.qr.starting,

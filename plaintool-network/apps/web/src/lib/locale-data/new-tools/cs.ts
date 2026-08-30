@@ -178,6 +178,12 @@ const seed = {
     scanResult: "Dekódovaný obsah",
     scanPlaceholder: "Zde se zobrazí naskenovaný text.",
     urlDetected: "Zjištěna URL",
+    openUrl: "Otevřít URL",
+    urlDialogTitle: "Otevřít tuto adresu URL?",
+    urlDialogBody:
+      "Tato adresa URL byla nalezena v QR kódu. Ověřte, že je bezpečná a patří webu, který očekáváte.",
+    urlDialogDestination: "Cílová adresa",
+    cancel: "Zrušit",
     reading: "Načítání obrázku…",
     starting: "Spouštění fotoaparátu…",
     scanning: "Hledání QR kódu…",

@@ -167,6 +167,12 @@ const seed = {
     scanResult: "解碼內容",
     scanPlaceholder: "掃描出的文字會顯示在這裡。",
     urlDetected: "偵測到URL",
+    openUrl: "開啟網址",
+    urlDialogTitle: "要開啟這個網址嗎？",
+    urlDialogBody:
+      "在 QR Code 中找到這個網址。請確認它安全，且屬於您預期的網站。",
+    urlDialogDestination: "前往的網址",
+    cancel: "取消",
     reading: "正在讀取圖片…",
     starting: "正在啟動相機…",
     scanning: "正在尋找QR Code…",

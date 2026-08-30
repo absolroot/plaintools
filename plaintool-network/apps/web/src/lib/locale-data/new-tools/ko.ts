@@ -185,14 +185,20 @@ const seed = {
     downloadFailed: "다운로드할 이미지를 준비하지 못했습니다.",
     upload: "QR 코드 이미지",
     formats: "PNG, JPEG, WebP, GIF, BMP · 최대 10MB",
-    camera: "카메라 스캐너",
+    camera: "카메라로 읽기",
     cameraHint:
       "카메라 권한을 허용하면 계속 스캔합니다. 읽은 URL은 자동으로 열지 않습니다.",
     startCamera: "카메라 시작",
     stopCamera: "카메라 중지",
     scanResult: "읽은 내용",
-    scanPlaceholder: "스캔한 텍스트가 여기에 표시됩니다.",
+    scanPlaceholder: "읽은 텍스트가 여기에 표시됩니다.",
     urlDetected: "URL 감지됨",
+    openUrl: "URL 열기",
+    urlDialogTitle: "이 URL로 이동할까요?",
+    urlDialogBody:
+      "QR 코드에서 URL을 찾았습니다. 안전한 URL인지, 예상한 사이트 주소가 맞는지 확인하세요.",
+    urlDialogDestination: "이동할 주소",
+    cancel: "취소",
     reading: "이미지 읽는 중…",
     starting: "카메라 시작 중…",
     scanning: "QR 코드 찾는 중…",
@@ -295,17 +301,12 @@ const seed = {
       terms: ["QR 코드 생성기", "QR PNG", "QR SVG", "정적 QR"],
     },
     "qr-code-scanner": {
-      title: "QR 코드 스캐너",
+      title: "QR 코드 리더",
       description:
         "이미지 또는 카메라의 QR 코드를 브라우저에서 읽으며, 감지한 링크를 자동으로 열지 않습니다.",
       guide:
-        "QR 전체 여백이 보이는 선명한 이미지를 사용하세요. URL의 안전성을 직접 확인한 뒤 필요한 경우에만 복사해 여세요.",
-      terms: [
-        "QR 코드 스캐너",
-        "QR 이미지 인식",
-        "카메라 QR 리더",
-        "QR 디코드",
-      ],
+        "QR 전체 여백이 보이는 선명한 이미지를 사용하세요. URL의 주소를 확인한 뒤 복사하거나 열기를 선택하세요.",
+      terms: ["QR 코드 리더", "QR 코드 스캐너", "QR 이미지 인식", "QR 디코드"],
     },
     "csv-to-markdown": {
       title: "CSV → Markdown 변환기",
