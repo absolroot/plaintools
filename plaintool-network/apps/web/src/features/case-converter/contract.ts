@@ -16,6 +16,7 @@ export type CaseWorkerRequest = {
   id: number;
   input: string;
   mode: CaseMode;
+  locale: string;
 };
 
 export type CaseWorkerReply = {
@@ -26,5 +27,6 @@ export type CaseWorkerReply = {
 export type CaseRunContext = {
   source: string;
   mode: CaseMode;
+  locale: string;
   revision: number;
 };
