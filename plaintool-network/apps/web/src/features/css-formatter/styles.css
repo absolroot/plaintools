@@ -1,0 +1,106 @@
+.css-formatter-topbar {
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.css-options {
+  position: relative;
+}
+
+.css-options > summary {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--line);
+  cursor: pointer;
+}
+
+.css-options > summary::-webkit-details-marker {
+  display: none;
+}
+
+.css-option-fields {
+  min-width: 260px;
+  position: absolute;
+  z-index: 3;
+  inset-inline-end: 0;
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+  background: var(--surface);
+  box-shadow:
+    0 0 0 1px var(--line),
+    var(--shadow-raised);
+}
+
+.css-option-fields label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.css-option-fields select,
+.css-option-fields input {
+  width: 112px;
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.css-formatter.has-stale-result [data-output] {
+  opacity: 0.7;
+}
+
+.css-stale-notice,
+.css-scope-notice {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.css-stale-notice {
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.css-stale-notice[hidden] {
+  display: none;
+}
+
+.css-scope-notice {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 680px) {
+  .css-formatter-topbar {
+    align-items: stretch;
+  }
+
+  .css-formatter-topbar .primary-button,
+  .css-options > summary,
+  .css-option-fields select,
+  .css-option-fields input {
+    min-height: 44px;
+  }
+
+  .css-options {
+    margin-inline-start: auto;
+  }
+
+  .css-option-fields {
+    max-width: calc(100vw - 32px);
+  }
+}
