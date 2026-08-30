@@ -22,10 +22,14 @@
 
 ## Locale and SEO review
 
-- Updated `directoryMetaTitle`, `directoryMetaDescription`, `directoryTitle`,
-  and `directoryIntro` in `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`,
-  `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`.
-- The shared source meaning names browser-based text, data, and code tasks and
+- Updated `directoryMetaTitle` and `directoryMetaDescription` in `en`, `ko`,
+  `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`,
+  `ar`, `zh-TW`, and `tr`.
+- A direct user correction restored the established `directoryTitle` and
+  `directoryIntro` in all 17 locales. Visible headings keep the shared promise
+  that frequently used tools are cleaner and easier to use; the task-specific
+  SEO title and description remain separate.
+- The search description names browser-based text, data, and code tasks and
   limits the no-upload statement to tool inputs and results.
 - All 14 feature manifests were reviewed and refreshed because their locale
   fingerprints include the shared directory fields.
@@ -80,6 +84,27 @@
 - A Korean browser that explicitly opened `/en/` remained on `/en/`; explicit
   locale routes were not replaced. The focused pass found no console error or
   cross-origin request.
+
+### Visible-heading correction
+
+- Restored the exact pre-SEO-rewrite directory heading and introduction in all
+  17 locale bundles after direct user feedback.
+- Korean is again `자주 쓰이는 도구를 더 깔끔하고 편리하게 만듭니다` with
+  `즐겨찾기에 사이트를 추가하면 다음에 바로 접속하실 수 있어요.`
+- `npm run locale:check`, `npm run seo:check`, 344 tests, and scoped Prettier
+  checks passed after the correction.
+- Chrome DevTools MCP again failed because the user's Chrome profile did not
+  expose `DevToolsActivePort`; the in-app browser fallback again failed on the
+  missing sandbox policy metadata.
+- Task-owned server command: `$env:ASTRO_DEV_BACKGROUND='1'; node
+  ..\..\node_modules\astro\bin\astro.mjs dev --ignore-lock --host 127.0.0.1
+  --port 4330` (unified-exec session `26904`). Existing listeners on 4321,
+  4322, and 4327 were preserved.
+- Focused Playwright rendering checked all 17 locale directories at 390 x 844.
+  Every rendered `main h1` exactly matched the restored locale copy, every page
+  returned 200, and the pass found no console errors or horizontal overflow.
+- The Korean mobile rendering was visually inspected after the automated pass;
+  the restored heading and introduction wrapped cleanly above the directory.
 
 ## Source and build checks
 

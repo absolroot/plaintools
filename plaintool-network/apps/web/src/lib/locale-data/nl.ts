@@ -689,9 +689,9 @@ export const nlBundle: LocaleBundle = {
     directoryMetaDescription:
       "Formatteer, converteer, codeer, decodeer, vergelijk en inspecteer tekst, gegevens en code rechtstreeks in je browser. Invoer en resultaten worden niet geüpload.",
     directoryTitle:
-      "Werk rechtstreeks in je browser met tekst, gegevens en code",
+      "We maken de tools die je vaak gebruikt overzichtelijker en gebruiksvriendelijker",
     directoryIntro:
-      "Open de juiste tool om te formatteren, converteren, coderen of vergelijken. Invoer en resultaten worden in je browser verwerkt.",
+      "Voeg deze site toe aan je bladwijzers, zodat je er de volgende keer direct naartoe kunt.",
     toolPromise:
       "AbsolTools maakt veelgebruikte online tools nauwkeuriger en gebruiksvriendelijker. Voeg deze site toe aan je bladwijzers.",
     directorySearchLabel: "Tools zoeken",

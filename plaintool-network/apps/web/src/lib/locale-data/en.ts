@@ -699,9 +699,8 @@ const bundle: LocaleBundle = {
     directoryMetaTitle: "AbsolTools | Text, Data & Code Tools in Your Browser",
     directoryMetaDescription:
       "Format, convert, encode, decode, compare, and inspect text, data, and code directly in your browser. Tool inputs and results are not uploaded.",
-    directoryTitle: "Work with text, data, and code directly in your browser",
-    directoryIntro:
-      "Open the exact tool you need for formatting, conversion, encoding, and comparison. Tool inputs and results are processed in your browser.",
+    directoryTitle: "We make the tools you use often cleaner and easier to use",
+    directoryIntro: "Bookmark this site to come straight back next time.",
     toolPromise:
       "AbsolTools makes commonly used online tools more accurate and easier to use. Bookmark this site for easy access.",
     directorySearchLabel: "Search tools",

@@ -695,9 +695,9 @@ export const frBundle: LocaleBundle = {
     directoryMetaDescription:
       "Formatez, convertissez, encodez, décodez, comparez et inspectez du texte, des données et du code directement dans votre navigateur. Les entrées et résultats ne sont pas téléversés.",
     directoryTitle:
-      "Traitez du texte, des données et du code directement dans votre navigateur",
+      "Nous rendons les outils que vous utilisez souvent plus clairs et plus pratiques",
     directoryIntro:
-      "Ouvrez l’outil adapté pour formater, convertir, encoder ou comparer. Les entrées et résultats sont traités dans votre navigateur.",
+      "Ajoutez ce site à vos favoris pour y accéder directement la prochaine fois.",
     toolPromise:
       "AbsolTools rend les outils en ligne courants plus précis et plus faciles à utiliser. Ajoutez ce site à vos favoris.",
     directorySearchLabel: "Rechercher un outil",

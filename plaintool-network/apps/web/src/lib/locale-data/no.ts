@@ -686,9 +686,10 @@ const noBundle = {
       "AbsolTools | Verktøy for tekst, data og kode i nettleseren",
     directoryMetaDescription:
       "Formater, konverter, kod, dekod, sammenlign og kontroller tekst, data og kode direkte i nettleseren. Inndata og resultater lastes ikke opp.",
-    directoryTitle: "Arbeid med tekst, data og kode direkte i nettleseren",
+    directoryTitle:
+      "Vi gjør verktøyene du bruker ofte ryddigere og enklere å bruke",
     directoryIntro:
-      "Åpne riktig verktøy for formatering, konvertering, koding eller sammenligning. Inndata og resultater behandles i nettleseren.",
+      "Legg nettstedet til i bokmerkene, så kan du gå rett hit neste gang.",
     toolPromise:
       "AbsolTools gjør ofte brukte nettverktøy mer presise og enklere å bruke. Legg nettstedet til i bokmerkene.",
     directorySearchLabel: "Søk etter verktøy",

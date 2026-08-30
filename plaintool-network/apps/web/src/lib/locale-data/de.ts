@@ -690,9 +690,10 @@ export const deBundle: LocaleBundle = {
       "AbsolTools | Text-, Daten- und Codewerkzeuge im Browser",
     directoryMetaDescription:
       "Formatiere, konvertiere, kodiere, dekodiere, vergleiche und prüfe Text, Daten und Code direkt im Browser. Eingaben und Ergebnisse werden nicht hochgeladen.",
-    directoryTitle: "Text, Daten und Code direkt im Browser bearbeiten",
+    directoryTitle:
+      "Wir machen häufig genutzte Tools übersichtlicher und praktischer",
     directoryIntro:
-      "Öffne das passende Werkzeug zum Formatieren, Konvertieren, Kodieren oder Vergleichen. Eingaben und Ergebnisse werden im Browser verarbeitet.",
+      "Speichern Sie diese Website als Lesezeichen, damit Sie beim nächsten Mal direkt darauf zugreifen können.",
     toolPromise:
       "AbsolTools macht häufig genutzte Online-Werkzeuge präziser und einfacher zu bedienen. Speichern Sie diese Website als Lesezeichen.",
     directorySearchLabel: "Werkzeuge durchsuchen",

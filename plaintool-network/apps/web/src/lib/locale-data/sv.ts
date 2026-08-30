@@ -685,9 +685,10 @@ const svBundle = {
       "AbsolTools | Verktyg för text, data och kod i webbläsaren",
     directoryMetaDescription:
       "Formatera, konvertera, koda, avkoda, jämför och granska text, data och kod direkt i webbläsaren. Indata och resultat laddas inte upp.",
-    directoryTitle: "Arbeta med text, data och kod direkt i webbläsaren",
+    directoryTitle:
+      "Vi gör verktygen du använder ofta enklare och smidigare att använda",
     directoryIntro:
-      "Öppna rätt verktyg för formatering, konvertering, kodning eller jämförelse. Indata och resultat behandlas i webbläsaren.",
+      "Lägg till webbplatsen som bokmärke så kan du gå direkt hit nästa gång.",
     toolPromise:
       "AbsolTools gör vanliga onlineverktyg mer exakta och enklare att använda. Lägg till webbplatsen i dina bokmärken.",
     directorySearchLabel: "Sökverktyg",

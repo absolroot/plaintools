@@ -687,9 +687,9 @@ const plBundle = {
     directoryMetaDescription:
       "Formatuj, konwertuj, koduj, dekoduj, porównuj i sprawdzaj tekst, dane oraz kod bezpośrednio w przeglądarce. Dane wejściowe i wyniki nie są przesyłane.",
     directoryTitle:
-      "Pracuj z tekstem, danymi i kodem bezpośrednio w przeglądarce",
+      "Sprawiamy, że narzędzia, z których często korzystasz, są prostsze i wygodniejsze",
     directoryIntro:
-      "Otwórz właściwe narzędzie do formatowania, konwersji, kodowania lub porównywania. Dane wejściowe i wyniki są przetwarzane w przeglądarce.",
+      "Dodaj tę stronę do zakładek, aby następnym razem od razu do niej wrócić.",
     toolPromise:
       "AbsolTools sprawia, że często używane narzędzia online są dokładniejsze i łatwiejsze w obsłudze. Dodaj tę stronę do zakładek.",
     directorySearchLabel: "Szukaj narzędzi",

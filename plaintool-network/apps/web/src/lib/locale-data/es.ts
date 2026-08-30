@@ -704,9 +704,9 @@ const bundle: LocaleBundle = {
     directoryMetaDescription:
       "Formatea, convierte, codifica, decodifica, compara e inspecciona texto, datos y código directamente en tu navegador. Las entradas y los resultados no se suben.",
     directoryTitle:
-      "Trabaja con texto, datos y código directamente en tu navegador",
+      "Hacemos más claras y prácticas las herramientas que usas a menudo",
     directoryIntro:
-      "Abre la herramienta exacta para formatear, convertir, codificar o comparar. Las entradas y los resultados se procesan en tu navegador.",
+      "Añade este sitio a tus favoritos para volver aquí directamente la próxima vez.",
     toolPromise:
       "AbsolTools hace que las herramientas en línea más utilizadas sean más precisas y fáciles de usar. Añade este sitio a tus favoritos.",
     directorySearchLabel: "Buscar herramientas",

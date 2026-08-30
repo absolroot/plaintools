@@ -682,9 +682,10 @@ const bundle: LocaleBundle = {
     directoryMetaTitle: "AbsolTools | Tarayıcıda metin, veri ve kod araçları",
     directoryMetaDescription:
       "Metin, veri ve kodu doğrudan tarayıcıda biçimlendirin, dönüştürün, kodlayın, çözün, karşılaştırın ve inceleyin. Girdiler ve sonuçlar yüklenmez.",
-    directoryTitle: "Metin, veri ve kodla doğrudan tarayıcıda çalışın",
+    directoryTitle:
+      "Sık kullandığınız araçları daha sade ve kullanışlı hâle getiriyoruz",
     directoryIntro:
-      "Biçimlendirme, dönüştürme, kodlama veya karşılaştırma için gereken aracı açın. Girdiler ve sonuçlar tarayıcıda işlenir.",
+      "Bu siteyi yer imlerinize ekleyin; böylece bir sonraki sefer doğrudan erişebilirsiniz.",
     toolPromise:
       "AbsolTools, sık kullanılan çevrim içi araçları daha doğru ve kullanışlı hâle getirir. Siteyi yer imlerinize ekleyin.",
     directorySearchLabel: "Araçlarda ara",

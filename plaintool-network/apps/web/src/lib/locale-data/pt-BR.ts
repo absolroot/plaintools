@@ -682,9 +682,9 @@ export const ptBRBundle: LocaleBundle = {
     directoryMetaDescription:
       "Formate, converta, codifique, decodifique, compare e inspecione texto, dados e código diretamente no navegador. Entradas e resultados não são enviados.",
     directoryTitle:
-      "Trabalhe com texto, dados e código diretamente no navegador",
+      "Deixamos as ferramentas que você usa com frequência mais simples e práticas",
     directoryIntro:
-      "Abra a ferramenta certa para formatar, converter, codificar ou comparar. Entradas e resultados são processados no navegador.",
+      "Adicione este site aos favoritos para acessá-lo diretamente na próxima vez.",
     toolPromise:
       "O AbsolTools torna as ferramentas online mais usadas mais precisas e fáceis de usar. Adicione este site aos favoritos.",
     directorySearchLabel: "Pesquisar ferramentas",

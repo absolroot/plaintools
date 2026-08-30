@@ -31,14 +31,15 @@
   "sourceMeaning": {
     "title": "Lead with the AbsolTools brand and identify the product as a browser-based set of text, data, and code tools.",
     "description": "Name the supported task families and state narrowly that tool inputs and results are not uploaded.",
-    "heading": "Describe the main user outcome instead of the generic free-online-tools category.",
-    "intro": "Direct users to the needed task and repeat the browser-processing boundary without making a general no-network claim."
+    "heading": "Keep the established brand promise that frequently used tools are cleaner and easier to use.",
+    "intro": "Keep the established locale-specific bookmark and return-visit invitation."
   },
   "implementationNotes": [
     "The change is a truthful brand-positioning rewrite, not a keyword-volume or ranking claim.",
     "The no-upload statement applies only to tool inputs and results; it does not claim that ordinary hosting request metadata is absent.",
     "Canonical URLs, locale routes, hreflang, sitemap entries, publication state, and structured-data shape remain unchanged.",
     "The locale copy is source-meaning-aligned agent review and is not recorded as native-human approval.",
+    "A direct user correction restored the established visible heading and introduction in all 17 locales; the brand-first search title and task-specific meta description remain separate.",
     "The favicon keeps the existing blue identity color and replaces the obsolete 64 label with a font-independent AT monogram."
   ]
 }
