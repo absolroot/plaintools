@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "qr-code",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -35,7 +35,7 @@
     "apps/web/src/pages/[locale]/qr-code-scanner/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:6cdf319160c80ffaa8f053080df6efb7fd30a57e746d6990c7a6f6d7269a34dc",
+  "copyFingerprint": "sha256:4ee315049174926734e6f1ef7ff7ffc6e7b8006025d3a24b0687bdd52032ded3",
   "locales": {
     "en": {
       "status": "reference-backed",

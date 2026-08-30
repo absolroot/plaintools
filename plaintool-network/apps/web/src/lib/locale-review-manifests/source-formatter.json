@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "source-formatter",
-  "enforcement": "preview-feature",
+  "enforcement": "new-feature",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -42,10 +42,10 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:74c591ab7417d85cb125de3455e7eb4fd2e03b8608c195042662cfc0fe09b313",
+  "copyFingerprint": "sha256:943dcae84aa2d9560ad5561c4c84db6abd88dee267f8e70ba72ac61961bd9209",
   "locales": {
     "en": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "en-formatter-native-copy",
@@ -53,7 +53,7 @@
       ]
     },
     "ko": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "ko-formatter-native-copy",
@@ -61,7 +61,7 @@
       ]
     },
     "es": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "es-formatter-native-copy",
@@ -69,7 +69,7 @@
       ]
     },
     "de": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "de-formatter-native-copy",
@@ -77,7 +77,7 @@
       ]
     },
     "ja": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "ja-formatter-native-copy",
@@ -85,7 +85,7 @@
       ]
     },
     "fr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "fr-formatter-native-copy",
@@ -93,7 +93,7 @@
       ]
     },
     "pt-BR": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "pt-BR-formatter-native-copy",
@@ -101,7 +101,7 @@
       ]
     },
     "it": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "it-formatter-native-copy",
@@ -109,7 +109,7 @@
       ]
     },
     "nl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "nl-formatter-native-copy",
@@ -117,7 +117,7 @@
       ]
     },
     "sv": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "sv-formatter-native-copy",
@@ -125,7 +125,7 @@
       ]
     },
     "cs": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "cs-formatter-native-copy",
@@ -133,7 +133,7 @@
       ]
     },
     "pl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "pl-formatter-native-copy",
@@ -141,7 +141,7 @@
       ]
     },
     "da": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "da-formatter-native-copy",
@@ -149,7 +149,7 @@
       ]
     },
     "no": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "no-formatter-native-copy",
@@ -157,7 +157,7 @@
       ]
     },
     "ar": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "ar-formatter-native-copy",
@@ -165,7 +165,7 @@
       ]
     },
     "zh-TW": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "zh-TW-formatter-native-copy",
@@ -173,7 +173,7 @@
       ]
     },
     "tr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "tr-formatter-native-copy",

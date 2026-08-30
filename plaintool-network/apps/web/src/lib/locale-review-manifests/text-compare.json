@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "text-compare",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -38,7 +38,7 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:9c48fe7728870a7fd97bb2647df2672e20f4339a40932d82cd765261b6e44b5b",
+  "copyFingerprint": "sha256:d471035331527343ec64f0c545bfd9d3d0c8865a6e619e61b2ee36b883f15996",
   "locales": {
     "en": {
       "status": "reference-backed",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "unix-timestamp-converter",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -39,7 +39,7 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:c7824c9b45f971c6bec867264b8146ab89b6c1170151a31c72a2308d4e7af6aa",
+  "copyFingerprint": "sha256:2cbd9a197cf3308614e57d01812f76fca95095e8dffa6e54420a00d73f23d17e",
   "locales": {
     "en": {
       "status": "reference-backed",

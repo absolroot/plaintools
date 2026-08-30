@@ -57,7 +57,6 @@ const structuredData = [
   page={page}
   title={`${title} | AbsolTools`}
   description={description}
-  noindex
   structuredData={structuredData}
   featureStylesheet={featureStylesheet}
 >
@@ -65,9 +64,7 @@ const structuredData = [
     <nav class="breadcrumbs" aria-label={n.breadcrumbLabel}>
       <a href={localizedPath(locale)}>{n.allTools}</a><span aria-hidden="true"
         >/</span
-      ><span>{n.categories[category]}</span><span class="breadcrumb-meta"
-        >{c.preview}</span
-      >
+      ><span>{n.categories[category]}</span>
     </nav><div class="tool-intro-copy">
       <h1>{title}</h1><p class="hero-subheading">{description}</p>
       <ToolPromise locale={locale} />

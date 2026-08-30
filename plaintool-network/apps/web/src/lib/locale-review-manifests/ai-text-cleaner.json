@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "ai-text-cleaner",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -33,7 +33,7 @@
     "apps/web/src/pages/[locale]/ai-watermark-remover/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:8217c11607011a8c7051b709dc134cdb7ac1fdc66539171d881e75d56667b4de",
+  "copyFingerprint": "sha256:fa56e0e8b3d82bfc4ff5f96a5a3c4123852154516c325e5141967cda97cecd67",
   "locales": {
     "en": {
       "status": "reference-backed",

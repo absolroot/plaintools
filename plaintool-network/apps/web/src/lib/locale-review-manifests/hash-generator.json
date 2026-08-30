@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "hash-generator",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -33,7 +33,7 @@
     "apps/web/src/pages/[locale]/hash-generator/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:eac67967ea9b00d30e32fadd33dd1fb676d1c789f81ebd18d8a093b5068b325c",
+  "copyFingerprint": "sha256:2119bf233c5f3442830a7cac48d0077044af6780a38c236dd652a3d6214099d2",
   "locales": {
     "en": {
       "status": "reference-backed",

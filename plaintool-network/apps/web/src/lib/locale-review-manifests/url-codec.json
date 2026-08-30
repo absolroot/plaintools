@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "url-codec",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -34,7 +34,7 @@
     "apps/web/src/pages/[locale]/url-decode/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:639314b5846c967e2705d96dde3f707e9685e11883a6f1879767d10e971fb8de",
+  "copyFingerprint": "sha256:e41605db79073c23fcc0ef7b20685cb08eccc181feecf614481e0290c31efffd",
   "locales": {
     "en": {
       "status": "reference-backed",

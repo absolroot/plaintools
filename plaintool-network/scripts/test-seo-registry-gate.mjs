@@ -24,6 +24,7 @@ const productionResult = spawnSync(
   {
     cwd: process.cwd(),
     encoding: "utf8",
+    env: { ...process.env, SEO_REGISTRY_SELF_TEST: "1" },
   },
 );
 const productionOutput = `${productionResult.stdout}\n${productionResult.stderr}`;

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "case-converter",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -38,7 +38,7 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:391826e631f018ed8b9a8181c2d888993e39e1963a13af21e2e67a075a87322c",
+  "copyFingerprint": "sha256:5168d3ace4287a948ea230dc7931a2f5acd7cd59d60b6bc4195e09d9d093eb9c",
   "locales": {
     "en": {
       "status": "reference-backed",

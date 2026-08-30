@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "json-formatter",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -39,7 +39,7 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:f005f147b38e4c37d3d37df3db18e003ae79587fbca845d848042855b8ec29f0",
+  "copyFingerprint": "sha256:5539ad52be7c8e5d12448fe8043dbfc7ce4fa609b4fd4107df640ff6a84f0789",
   "locales": {
     "en": {
       "status": "reference-backed",

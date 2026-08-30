@@ -31,7 +31,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "word-counter",
     slug: "word-counter",
     category: "text",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/word-counter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -41,7 +41,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "json-formatter",
     slug: "json-formatter",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/json-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -51,7 +51,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "unix-timestamp-converter",
     slug: "unix-timestamp-converter",
     category: "time",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/unix-timestamp-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -61,7 +61,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "text-compare",
     slug: "text-compare",
     category: "text",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/text-compare.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -71,7 +71,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "case-converter",
     slug: "case-converter",
     category: "text",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/case-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -81,7 +81,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "ai-text-cleaner",
     slug: "ai-watermark-remover",
     category: "text",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/ai-text-cleaner.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -91,7 +91,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "url-codec",
     slug: "url-encode",
     category: "encoding",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/url-codec.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -101,7 +101,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "url-codec",
     slug: "url-decode",
     category: "encoding",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/url-codec.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -111,7 +111,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "hash-generator",
     slug: "hash-generator",
     category: "encoding",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/hash-generator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -121,7 +121,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "jwt-decoder",
     slug: "jwt-decoder",
     category: "encoding",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/jwt-decoder.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -131,7 +131,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "qr-code",
     slug: "qr-code-generator",
     category: "encoding",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/qr-code.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -141,7 +141,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "qr-code",
     slug: "qr-code-scanner",
     category: "encoding",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/qr-code.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -151,7 +151,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "data-converter",
     slug: "csv-to-markdown",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -161,7 +161,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "data-converter",
     slug: "markdown-to-csv",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -171,7 +171,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "data-converter",
     slug: "json-to-csv",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -181,7 +181,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "data-converter",
     slug: "csv-to-json",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -191,7 +191,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "data-converter",
     slug: "html-to-markdown",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -201,7 +201,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "data-converter",
     slug: "markdown-to-html",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -211,7 +211,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "source-formatter",
     slug: "html-formatter",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -221,7 +221,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "source-formatter",
     slug: "css-formatter",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -231,7 +231,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "source-formatter",
     slug: "javascript-formatter",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -241,7 +241,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "source-formatter",
     slug: "sql-formatter",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -251,7 +251,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "ip-subnet",
     slug: "ip-subnet-calculator",
     category: "data",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/ip-subnet.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "word-counter",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -39,7 +39,7 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:dc3d5f3187a4d808a8933b4f6e13015ccf6773120ad109ea7ba5b1bf70bf010e",
+  "copyFingerprint": "sha256:0974999278ae6caa6242406a992642e4e487901cbbb8caa43b24ced4921768b5",
   "locales": {
     "en": {
       "status": "reference-backed",

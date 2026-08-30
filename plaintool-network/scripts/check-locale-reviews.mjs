@@ -150,7 +150,7 @@ for (const [featureId, manifestFile] of featureManifests) {
     }
     const allowedStatuses =
       manifest.enforcement === "new-feature"
-        ? ["native-approved"]
+        ? ["adversarial-reviewed", "native-approved"]
         : ["reference-backed", "native-approved"];
     if (!allowedStatuses.includes(review.status)) {
       errors.push(

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "ip-subnet",
-  "enforcement": "preview-feature",
+  "enforcement": "new-feature",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -36,10 +36,10 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:48d1e334972f26ca3867f845ff9943f005f9ce370a3c318f6a340a5d01bb6041",
+  "copyFingerprint": "sha256:9d689394526dbe731481b36e92395b73906f4efde8c17d7012ef8ae3018b007a",
   "locales": {
     "en": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "en-ipv4-subnet-native-copy",
@@ -47,7 +47,7 @@
       ]
     },
     "ko": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "ko-ipv4-subnet-native-copy",
@@ -55,7 +55,7 @@
       ]
     },
     "es": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "es-ipv4-subnet-native-copy",
@@ -63,7 +63,7 @@
       ]
     },
     "de": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "de-ipv4-subnet-native-copy",
@@ -71,7 +71,7 @@
       ]
     },
     "ja": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "ja-ipv4-subnet-native-copy",
@@ -79,7 +79,7 @@
       ]
     },
     "fr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "fr-ipv4-subnet-native-copy",
@@ -87,7 +87,7 @@
       ]
     },
     "pt-BR": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "pt-BR-ipv4-subnet-native-copy",
@@ -95,7 +95,7 @@
       ]
     },
     "it": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "it-ipv4-subnet-native-copy",
@@ -103,7 +103,7 @@
       ]
     },
     "nl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "nl-ipv4-subnet-native-copy",
@@ -111,7 +111,7 @@
       ]
     },
     "sv": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "sv-ipv4-subnet-native-copy",
@@ -119,7 +119,7 @@
       ]
     },
     "cs": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "cs-ipv4-subnet-native-copy",
@@ -127,7 +127,7 @@
       ]
     },
     "pl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "pl-ipv4-subnet-native-copy",
@@ -135,7 +135,7 @@
       ]
     },
     "da": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "da-ipv4-subnet-native-copy",
@@ -143,7 +143,7 @@
       ]
     },
     "no": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "no-ipv4-subnet-native-copy",
@@ -151,7 +151,7 @@
       ]
     },
     "ar": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "ar-ipv4-subnet-native-copy",
@@ -159,7 +159,7 @@
       ]
     },
     "zh-TW": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "zh-TW-ipv4-subnet-native-copy",
@@ -167,7 +167,7 @@
       ]
     },
     "tr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
         "tr-ipv4-subnet-native-copy",

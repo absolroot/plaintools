@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "jwt-decoder",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -33,7 +33,7 @@
     "apps/web/src/pages/[locale]/jwt-decoder/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:28e5cd53e09ff63d3134c89ec1a1fda8fb7e5e571f42111f439f3b7abc20ec58",
+  "copyFingerprint": "sha256:1a7684458322b048901900eaef7ddc59e8ea9ebe894cf9e68476289b216d27ef",
   "locales": {
     "en": {
       "status": "reference-backed",

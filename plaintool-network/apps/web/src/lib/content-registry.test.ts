@@ -17,17 +17,9 @@ describe("content registry", () => {
     expect(new Set(contentPages).size).toBe(contentPages.length);
   });
 
-  it("derives public and preview tool pages from publication state", () => {
-    expect(publicToolPages).toEqual(
-      toolRegistry
-        .filter((tool) => tool.publication === "indexable")
-        .map((tool) => tool.slug),
-    );
-    expect(previewPages).toEqual(
-      toolRegistry
-        .filter((tool) => tool.publication === "preview")
-        .map((tool) => tool.slug),
-    );
+  it("publishes every reviewed tool route without preview leftovers", () => {
+    expect(publicToolPages).toEqual(toolRegistry.map((tool) => tool.slug));
+    expect(previewPages).toEqual([]);
     expect(toolPages).toEqual(toolRegistry.map((tool) => tool.slug));
   });
 });
