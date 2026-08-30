@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "featureId": "case-converter",
+  "featureId": "ip-subnet",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
   "publicLocales": [
@@ -25,155 +25,153 @@
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
-    "apps/web/src/lib/tool-i18n.ts",
-    "apps/web/src/features/case-converter/copy.ts",
-    "apps/web/src/lib/common-tool-i18n.ts",
+    "apps/web/src/lib/locale-data/bundle.ts",
     "apps/web/src/lib/tool-catalog.ts",
-    "apps/web/src/components/PreviewToolPage.astro",
-    "apps/web/src/components/ConverterStatus.astro",
-    "apps/web/src/components/LocalProcessingNote.astro",
-    "apps/web/src/features/case-converter/CaseConverter.astro",
-    "apps/web/src/pages/[locale]/case-converter/index.astro"
+    "apps/web/src/lib/locale-data/new-tools/formatter-subnet.ts",
+    "apps/web/src/lib/locale-data/new-tools/formatter-subnet-secondary.ts",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/features/ip-subnet/IpSubnetCalculator.astro",
+    "apps/web/src/pages/[locale]/ip-subnet-calculator/index.astro"
   ],
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:0f62bd461f529e506ffa44c9afc0d570f405f93622e27fa2ad917211326555f3",
+  "copyFingerprint": "sha256:3f0c04a0911727a0a30d6c1667225a07d31de4901526bc45779438f63041b563",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "en-w3schools-case-converter",
-        "en-mdn-string"
+        "en-ipv4-subnet-native-copy",
+        "en-ipv4-subnet-technical-terms"
       ]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "ko-formatter-case-converter",
-        "ko-onul-case-converter"
+        "ko-ipv4-subnet-native-copy",
+        "ko-ipv4-subnet-technical-terms"
       ]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "es-convertcase-net",
-        "es-mdn-uppercase"
+        "es-ipv4-subnet-native-copy",
+        "es-ipv4-subnet-technical-terms"
       ]
     },
     "de": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "de-flinktools-case",
-        "de-wikipedia-unicode-casing"
+        "de-ipv4-subnet-native-copy",
+        "de-ipv4-subnet-technical-terms"
       ]
     },
     "ja": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "ja-shigoto-case",
-        "ja-mdn-to-uppercase"
+        "ja-ipv4-subnet-native-copy",
+        "ja-ipv4-subnet-technical-terms"
       ]
     },
     "fr": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "fr-cogitans-case",
-        "fr-wikipedia-case-sensitivity"
+        "fr-ipv4-subnet-native-copy",
+        "fr-ipv4-subnet-technical-terms"
       ]
     },
     "pt-BR": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "pt-br-ajudo-maiusculas-minusculas",
-        "pt-br-mdn-touppercase"
+        "pt-BR-ipv4-subnet-native-copy",
+        "pt-BR-ipv4-subnet-technical-terms"
       ]
     },
     "it": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "it-cratex-case",
-        "it-wikipedia-case"
+        "it-ipv4-subnet-native-copy",
+        "it-ipv4-subnet-technical-terms"
       ]
     },
     "nl": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "nl-converttext-case",
-        "nl-taalunie-capitals"
+        "nl-ipv4-subnet-native-copy",
+        "nl-ipv4-subnet-technical-terms"
       ]
     },
     "sv": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "sv-case-converter-native-tool",
-        "sv-case-converter-concept"
+        "sv-ipv4-subnet-native-copy",
+        "sv-ipv4-subnet-technical-terms"
       ]
     },
     "cs": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "cs-case-converter-native-tool",
-        "cs-case-converter-concept"
+        "cs-ipv4-subnet-native-copy",
+        "cs-ipv4-subnet-technical-terms"
       ]
     },
     "pl": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "pl-case-converter-native-tool",
-        "pl-case-converter-concept"
+        "pl-ipv4-subnet-native-copy",
+        "pl-ipv4-subnet-technical-terms"
       ]
     },
     "da": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "da-case-converter-native-tool",
-        "da-case-converter-concept"
+        "da-ipv4-subnet-native-copy",
+        "da-ipv4-subnet-technical-terms"
       ]
     },
     "no": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "no-case-converter-native-tool",
-        "no-case-converter-concept"
+        "no-ipv4-subnet-native-copy",
+        "no-ipv4-subnet-technical-terms"
       ]
     },
     "ar": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "ar-i2text-case",
-        "ar-microsoft-change-case"
+        "ar-ipv4-subnet-native-copy",
+        "ar-ipv4-subnet-technical-terms"
       ]
     },
     "zh-TW": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "zh-tw-tooltl-case",
-        "zh-tw-mdn-to-uppercase"
+        "zh-TW-ipv4-subnet-native-copy",
+        "zh-TW-ipv4-subnet-technical-terms"
       ]
     },
     "tr": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "tr-wordcount-case-converter",
-        "tr-microsoft-change-case"
+        "tr-ipv4-subnet-native-copy",
+        "tr-ipv4-subnet-technical-terms"
       ]
     }
   }

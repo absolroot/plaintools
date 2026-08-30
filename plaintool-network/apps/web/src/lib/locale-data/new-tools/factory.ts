@@ -7,7 +7,18 @@ import type {
   QrScannerCopy,
 } from "../../../features/qr/contract";
 import type { UrlCodecCopy } from "../../../features/url-codec/contract";
-import type { NewToolId, NewToolsCopy, ToolPageCopy } from "../bundle";
+import type { HtmlFormatterCopy } from "../../../features/html-formatter/contract";
+import type { CssFormatterCopy } from "../../../features/css-formatter/contract";
+import type { JavaScriptFormatterCopy } from "../../../features/javascript-formatter/contract";
+import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract";
+import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
+import type {
+  FormatterSubnetToolId,
+  LegacyNewToolId,
+  NewToolId,
+  NewToolsCopy,
+  ToolPageCopy,
+} from "../bundle";
 import type { LocaleCatalogToolCopy } from "../../tool-catalog";
 
 type PageSeed = {
@@ -18,6 +29,96 @@ type PageSeed = {
   outputLabel?: string;
   inputPlaceholder?: string;
   terms: readonly string[];
+};
+
+export type FormatterSubnetLocaleSeed = {
+  formatter: {
+    mode: string;
+    format: string;
+    minify: string;
+    loadSample: string;
+    options: string;
+    indentation: string;
+    twoSpaces: string;
+    fourSpaces: string;
+    tabs: string;
+    printWidth: string;
+    formatted: string;
+    minified: string;
+    manualRequired: string;
+    invalidAt: string;
+    syntaxError: string;
+    unknownError: string;
+  };
+  scopes: {
+    html: string;
+    css: string;
+    javascript: string;
+    sql: string;
+  };
+  javascript: {
+    runFormat: string;
+    runMinify: string;
+    semicolons: string;
+    singleQuotes: string;
+    preserveComments: string;
+    emptyInput: string;
+    transformError: string;
+  };
+  sql: {
+    dialect: string;
+    standard: string;
+    keywordCase: string;
+    preserveCase: string;
+    uppercase: string;
+    lowercase: string;
+    formattingFailed: string;
+  };
+  subnet: {
+    inputHint: string;
+    sample: string;
+    resultTitle: string;
+    normalizedCidr: string;
+    netmask: string;
+    wildcardMask: string;
+    networkAddress: string;
+    broadcastAddress: string;
+    firstUsableAddress: string;
+    lastUsableAddress: string;
+    totalAddresses: string;
+    usableAddresses: string;
+    containingRange: string;
+    semanticsLabel: string;
+    semantics: [string, string, string];
+    specialUseTitle: string;
+    classificationLabel: string;
+    classificationBlockLabel: string;
+    classifications: [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+    ];
+    binaryTitle: string;
+    binaryAddress: string;
+    binaryNetmask: string;
+    binaryWildcard: string;
+    binaryNetwork: string;
+    binaryBroadcast: string;
+    errors: [string, string, string, string, string, string, string, string];
+  };
+  pages: Record<FormatterSubnetToolId, PageSeed>;
 };
 
 export type NewToolLocaleSeed = {
@@ -200,7 +301,8 @@ export type NewToolLocaleSeed = {
     pretty: string;
     errors: [string, string, string, string, string, string, string];
   };
-  pages: Record<NewToolId, PageSeed>;
+  pages: Record<LegacyNewToolId, PageSeed>;
+  formatterSubnet: FormatterSubnetLocaleSeed;
 };
 
 export type NewToolLocale = {
@@ -217,8 +319,12 @@ function fill(value: string, replacements: Record<string, string>): string {
 
 export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const { ui } = seed;
+  const pageSeed = (id: NewToolId): PageSeed =>
+    id in seed.pages
+      ? seed.pages[id as LegacyNewToolId]
+      : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
-    const source = seed.pages[id];
+    const source = pageSeed(id);
     return {
       title: source.title,
       description: source.description,
@@ -452,7 +558,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
 
   const dataErrors = seed.data.errors;
   const dataFeature = (id: NewToolId): DataConverterCopy => {
-    const source = seed.pages[id];
+    const source = pageSeed(id);
     return {
       ariaLabel: source.title,
       inputLabel: source.inputLabel!,
@@ -496,6 +602,215 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     };
   };
 
+  const extra = seed.formatterSubnet;
+  const formatterPage = (id: FormatterSubnetToolId) => pageSeed(id);
+  const htmlFormatter: HtmlFormatterCopy = {
+    ariaLabel: formatterPage("html-formatter").title,
+    format: extra.formatter.format,
+    inputLabel: formatterPage("html-formatter").inputLabel!,
+    inputPlaceholder: formatterPage("html-formatter").inputPlaceholder!,
+    outputLabel: formatterPage("html-formatter").outputLabel!,
+    outputPlaceholder: ui.resultHere,
+    openFile: ui.openFile,
+    loadSample: extra.formatter.loadSample,
+    optionsLabel: extra.formatter.options,
+    indentationLabel: extra.formatter.indentation,
+    twoSpaces: extra.formatter.twoSpaces,
+    fourSpaces: extra.formatter.fourSpaces,
+    tabs: extra.formatter.tabs,
+    printWidthLabel: extra.formatter.printWidth,
+    formatted: extra.formatter.formatted,
+    downloadFilename: "formatted.html",
+    outdated: ui.outdated,
+    tooLarge: ui.tooLarge,
+    manualRequired: extra.formatter.manualRequired,
+    invalidAt: extra.formatter.invalidAt,
+    scopeNotice: extra.scopes.html,
+    sampleInput:
+      '<main class="page"><h1>Title</h1><p>Hello <strong>world</strong>.</p></main>',
+    errors: {
+      SyntaxError: extra.formatter.syntaxError,
+      Unknown: extra.formatter.unknownError,
+    },
+  };
+  const cssFormatter: CssFormatterCopy = {
+    ariaLabel: formatterPage("css-formatter").title,
+    modeLabel: extra.formatter.mode,
+    format: extra.formatter.format,
+    inputLabel: formatterPage("css-formatter").inputLabel!,
+    inputPlaceholder: formatterPage("css-formatter").inputPlaceholder!,
+    outputLabel: formatterPage("css-formatter").outputLabel!,
+    outputPlaceholder: ui.resultHere,
+    openFile: ui.openFile,
+    loadSample: extra.formatter.loadSample,
+    optionsLabel: extra.formatter.options,
+    indentationLabel: extra.formatter.indentation,
+    twoSpaces: extra.formatter.twoSpaces,
+    fourSpaces: extra.formatter.fourSpaces,
+    tabs: extra.formatter.tabs,
+    printWidthLabel: extra.formatter.printWidth,
+    formatted: extra.formatter.formatted,
+    downloadFilename: "formatted.css",
+    outdated: ui.outdated,
+    tooLarge: ui.tooLarge,
+    manualRequired: extra.formatter.manualRequired,
+    invalidAt: extra.formatter.invalidAt,
+    scopeNotice: extra.scopes.css,
+    sampleInput:
+      ".card{display:grid;gap:1rem;color:#1f2937}@media(max-width:680px){.card{display:block}}",
+    errors: {
+      SyntaxError: extra.formatter.syntaxError,
+      Unknown: extra.formatter.unknownError,
+    },
+  };
+  const javascriptFormatter: JavaScriptFormatterCopy = {
+    ariaLabel: formatterPage("javascript-formatter").title,
+    modeLabel: extra.formatter.mode,
+    formatMode: extra.formatter.format,
+    minifyMode: extra.formatter.minify,
+    runFormat: extra.javascript.runFormat,
+    runMinify: extra.javascript.runMinify,
+    inputLabel: formatterPage("javascript-formatter").inputLabel!,
+    inputPlaceholder: formatterPage("javascript-formatter").inputPlaceholder!,
+    outputLabel: formatterPage("javascript-formatter").outputLabel!,
+    outputPlaceholder: ui.resultHere,
+    openFile: ui.openFile,
+    loadSample: extra.formatter.loadSample,
+    optionsLabel: extra.formatter.options,
+    indentationLabel: extra.formatter.indentation,
+    twoSpaces: extra.formatter.twoSpaces,
+    fourSpaces: extra.formatter.fourSpaces,
+    tabs: extra.formatter.tabs,
+    printWidthLabel: extra.formatter.printWidth,
+    semicolonsLabel: extra.javascript.semicolons,
+    singleQuoteLabel: extra.javascript.singleQuotes,
+    preserveCommentsLabel: extra.javascript.preserveComments,
+    formatted: extra.formatter.formatted,
+    minified: extra.formatter.minified,
+    formatDownloadFilename: "formatted.js",
+    minifyDownloadFilename: "minified.js",
+    outdated: ui.outdated,
+    tooLarge: ui.tooLarge,
+    manualRequired: extra.formatter.manualRequired,
+    invalidAt: extra.formatter.invalidAt,
+    scopeNotice: extra.scopes.javascript,
+    sampleInput:
+      "const greet=(name)=>{console.log(`Hello, ${name}!`)};greet('world');",
+    errors: {
+      EmptyInput: extra.javascript.emptyInput,
+      SyntaxError: extra.formatter.syntaxError,
+      TransformError: extra.javascript.transformError,
+      Unknown: extra.formatter.unknownError,
+    },
+  };
+  const sqlFormatter: SqlFormatterCopy = {
+    ariaLabel: formatterPage("sql-formatter").title,
+    format: extra.formatter.format,
+    inputLabel: formatterPage("sql-formatter").inputLabel!,
+    inputPlaceholder: formatterPage("sql-formatter").inputPlaceholder!,
+    outputLabel: formatterPage("sql-formatter").outputLabel!,
+    outputPlaceholder: ui.resultHere,
+    openFile: ui.openFile,
+    loadSample: extra.formatter.loadSample,
+    dialectLabel: extra.sql.dialect,
+    dialects: {
+      sql: extra.sql.standard,
+      postgresql: "PostgreSQL",
+      mysql: "MySQL",
+      mariadb: "MariaDB",
+      sqlite: "SQLite",
+      transactsql: "SQL Server / T-SQL",
+    },
+    optionsLabel: extra.formatter.options,
+    indentationLabel: extra.formatter.indentation,
+    twoSpaces: extra.formatter.twoSpaces,
+    fourSpaces: extra.formatter.fourSpaces,
+    tabs: extra.formatter.tabs,
+    keywordCaseLabel: extra.sql.keywordCase,
+    preserveCase: extra.sql.preserveCase,
+    uppercase: extra.sql.uppercase,
+    lowercase: extra.sql.lowercase,
+    formatted: extra.formatter.formatted,
+    downloadFilename: "formatted.sql",
+    outdated: ui.outdated,
+    tooLarge: ui.tooLarge,
+    manualRequired: extra.formatter.manualRequired,
+    invalidAt: extra.formatter.invalidAt,
+    scopeNotice: extra.scopes.sql,
+    sampleInput:
+      "select users.id,users.name from users where users.active=true order by users.name;",
+    errors: {
+      FormattingFailed: extra.sql.formattingFailed,
+      Unknown: extra.formatter.unknownError,
+    },
+  };
+  const subnetSemantics = extra.subnet.semantics;
+  const subnetClassifications = extra.subnet.classifications;
+  const subnetErrors = extra.subnet.errors;
+  const ipSubnet: IpSubnetCopy = {
+    ariaLabel: formatterPage("ip-subnet-calculator").title,
+    inputLabel: formatterPage("ip-subnet-calculator").inputLabel!,
+    inputPlaceholder: formatterPage("ip-subnet-calculator").inputPlaceholder!,
+    inputHint: extra.subnet.inputHint,
+    sample: extra.subnet.sample,
+    resultTitle: extra.subnet.resultTitle,
+    normalizedCidr: extra.subnet.normalizedCidr,
+    netmask: extra.subnet.netmask,
+    wildcardMask: extra.subnet.wildcardMask,
+    networkAddress: extra.subnet.networkAddress,
+    broadcastAddress: extra.subnet.broadcastAddress,
+    firstUsableAddress: extra.subnet.firstUsableAddress,
+    lastUsableAddress: extra.subnet.lastUsableAddress,
+    totalAddresses: extra.subnet.totalAddresses,
+    usableAddresses: extra.subnet.usableAddresses,
+    containingRange: extra.subnet.containingRange,
+    semanticsLabel: extra.subnet.semanticsLabel,
+    semantics: {
+      subnet: subnetSemantics[0],
+      "point-to-point": subnetSemantics[1],
+      "single-address": subnetSemantics[2],
+    },
+    specialUseTitle: extra.subnet.specialUseTitle,
+    classificationLabel: extra.subnet.classificationLabel,
+    classificationBlockLabel: extra.subnet.classificationBlockLabel,
+    classifications: {
+      "not-classified": subnetClassifications[0],
+      unspecified: subnetClassifications[1],
+      "current-network": subnetClassifications[2],
+      "private-use": subnetClassifications[3],
+      "shared-address-space": subnetClassifications[4],
+      loopback: subnetClassifications[5],
+      "link-local": subnetClassifications[6],
+      "ietf-protocol-assignment": subnetClassifications[7],
+      documentation: subnetClassifications[8],
+      "deprecated-6to4-relay": subnetClassifications[9],
+      "6a44-relay": subnetClassifications[10],
+      benchmarking: subnetClassifications[11],
+      multicast: subnetClassifications[12],
+      reserved: subnetClassifications[13],
+      "limited-broadcast": subnetClassifications[14],
+    },
+    binaryTitle: extra.subnet.binaryTitle,
+    binaryAddress: extra.subnet.binaryAddress,
+    binaryNetmask: extra.subnet.binaryNetmask,
+    binaryWildcard: extra.subnet.binaryWildcard,
+    binaryNetwork: extra.subnet.binaryNetwork,
+    binaryBroadcast: extra.subnet.binaryBroadcast,
+    calculated: ui.complete,
+    outdated: ui.outdated,
+    downloadFilename: "subnet-result.txt",
+    errors: {
+      "empty-input": subnetErrors[0],
+      "missing-prefix": subnetErrors[1],
+      "invalid-format": subnetErrors[2],
+      "invalid-address": subnetErrors[3],
+      "invalid-octet": subnetErrors[4],
+      "invalid-prefix": subnetErrors[5],
+      "invalid-netmask": subnetErrors[6],
+      "non-contiguous-netmask": subnetErrors[7],
+    },
+  };
+
   const tools: NewToolsCopy = {
     "ai-watermark-remover": page("ai-watermark-remover", ai),
     "url-encode": page("url-encode", urlFeature("url-encode")),
@@ -516,6 +831,11 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       "markdown-to-html",
       dataFeature("markdown-to-html"),
     ),
+    "html-formatter": page("html-formatter", htmlFormatter),
+    "css-formatter": page("css-formatter", cssFormatter),
+    "javascript-formatter": page("javascript-formatter", javascriptFormatter),
+    "sql-formatter": page("sql-formatter", sqlFormatter),
+    "ip-subnet-calculator": page("ip-subnet-calculator", ipSubnet),
   };
 
   const catalog = Object.fromEntries(
@@ -524,7 +844,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       {
         name: tools[id].title,
         summary: tools[id].description,
-        searchTerms: seed.pages[id].terms,
+        searchTerms: pageSeed(id).terms,
       },
     ]),
   ) as Record<NewToolId, LocaleCatalogToolCopy>;

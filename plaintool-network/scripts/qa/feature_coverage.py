@@ -23,6 +23,10 @@ from .time_feature import run_time_desktop, run_time_mobile
 from .text_compare_feature import run_text_compare_desktop, run_text_compare_mobile
 from .word_feature import run_word_desktop, run_word_mobile
 from .url_codec_feature import run_url_codec_desktop, run_url_codec_mobile
+from .formatter_subnet_feature import (
+    run_source_formatter_desktop, run_source_formatter_mobile,
+    run_ip_subnet_desktop, run_ip_subnet_mobile,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -158,6 +162,19 @@ FEATURE_COVERAGE = {
             ("output", "[data-url-codec] [data-output]"),
         ),
         focus_style="editor",
+        exercise_faq=True,
+    ),
+    "source-formatter": FeatureCoverage(
+        desktop=run_source_formatter_desktop,
+        mobile=run_source_formatter_mobile,
+        focus_targets=(("input", ".converter [data-input]"), ("output", ".converter [data-output]")),
+        focus_style="editor",
+        exercise_faq=True,
+    ),
+    "ip-subnet": FeatureCoverage(
+        desktop=run_ip_subnet_desktop,
+        mobile=run_ip_subnet_mobile,
+        focus_targets=(("input", "[data-ip-subnet] [data-input]"),),
         exercise_faq=True,
     ),
 }

@@ -37,10 +37,10 @@ Feature branches may change only their assigned `packages/*-core`, feature-owned
 | Phase | Branch | Planned worktree | Owner | Owned scope | Base | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | A | `agent/formatter-html-pilot` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-html-pilot` | `/root/html_pilot` | JSON audit plus HTML core/feature/focused tests | `f4f6efb` | integrated as `41c4a2d`; focused 15 tests and type check passed |
-| C | `agent/ip-subnet` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-ip-subnet` | `/root/ip_subnet` | IPv4 subnet core/feature/focused tests | `f4f6efb` | complete at `58e619b`; held for ordered integration |
-| B | `agent/formatter-css` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-css` | CSS agent | CSS core/feature/focused tests | pilot integration tip | blocked on pilot |
-| B | `agent/formatter-javascript` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-javascript` | JavaScript agent | JavaScript core/feature/focused tests | pilot integration tip | blocked on pilot |
-| B | `agent/formatter-sql` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-sql` | SQL agent | SQL core/feature/focused tests | pilot integration tip | blocked on pilot |
+| C | `agent/ip-subnet` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-ip-subnet` | `/root/ip_subnet` | IPv4 subnet core/feature/focused tests | `f4f6efb` | integrated as `1b059f8`; focused tests passed |
+| B | `agent/formatter-css` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-css` | `/root/html_pilot` | CSS core/feature/focused tests | `e256e73` | integrated as `1e107a7`; focused tests passed |
+| B | `agent/formatter-javascript` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-javascript` | `/root/ip_subnet` | JavaScript core/feature/focused tests | `e256e73` | integrated as `a4a54d1`; focused tests passed |
+| B | `agent/formatter-sql` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-sql` | `/root/sql_formatter` | SQL core/feature/focused tests | `e256e73` | integrated as `3a414bc`; focused tests passed |
 
 ## Integration order
 
@@ -86,6 +86,16 @@ Common research completed before delegation. It includes direct 1440x1000 and 39
 - The pilot intentionally does not format embedded CSS/JavaScript and makes no semantic-preservation claim for whitespace-sensitive HTML. Those limits must remain explicit in localized page copy.
 - Integrated commit: `41c4a2d`. The exact Prettier workspace dependency was installed and the updated lockfile is owned by root.
 
+## Central integration result
+
+- CSS, JavaScript, SQL, and subnet branches were integrated in the recorded order after the HTML pilot.
+- Root reconciled exact workspace dependencies and notices once, wired five routes through the registry/catalog, and added explicit copy contracts for all 17 locales without source-locale fallback spreads.
+- Shared contract QA now covers 18 new-tool routes and 8 feature families. Vitest passed 35 files and 310 tests; Python contract tests passed 18 tests.
+- `npm run check` passed the 14-feature / 17-locale review gate, 25-tool SEO registry, UI detail, type, lint, and formatting gates.
+- `npm run build` produced 546 pages and passed metadata, JSON-LD, indexability, crawler, sitemap, locale-link, integration, and route-isolation QA.
+- Browser QA passed the representative `en`, `ko`, `de`, `ar`, and `zh-TW` desktop/mobile matrix with no console errors, page errors, external conversion requests, or UI detail failures.
+- The first two browser runs exposed Vite's `504 Outdated Optimize Dep` behavior while newly introduced formatter dependencies were optimized. After the owned server was restarted against the completed optimizer cache, the unchanged full matrix passed. This development-server startup behavior remains an explicit later-phase fix target.
+
 ## Next action
 
-Commit the pilot lockfile/ledger reconciliation, record that commit as the Phase B base, then start CSS, JavaScript, and SQL feature branches. Integrate their commits in that order before the completed subnet commit.
+Create the central integration recovery commit. Then run the requested sequential adversarial locale, security, performance, and development-server phases with a recovery commit after each phase.

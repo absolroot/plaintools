@@ -206,6 +206,56 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  {
+    id: "html-formatter",
+    featureId: "source-formatter",
+    slug: "html-formatter",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "css-formatter",
+    featureId: "source-formatter",
+    slug: "css-formatter",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "javascript-formatter",
+    featureId: "source-formatter",
+    slug: "javascript-formatter",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "sql-formatter",
+    featureId: "source-formatter",
+    slug: "sql-formatter",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "ip-subnet-calculator",
+    featureId: "ip-subnet",
+    slug: "ip-subnet-calculator",
+    category: "data",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/ip-subnet.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);

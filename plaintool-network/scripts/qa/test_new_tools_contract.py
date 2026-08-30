@@ -24,9 +24,9 @@ def _inventory(*, publication: str = "preview") -> RouteInventory:
 
 
 class NewToolsContractTests(unittest.TestCase):
-    def test_defines_all_thirteen_routes_and_six_feature_families(self) -> None:
-        self.assertEqual(len(NEW_TOOL_ROUTES), 13)
-        self.assertEqual(len(set(NEW_TOOL_FEATURES.values())), 6)
+    def test_defines_all_eighteen_routes_and_eight_feature_families(self) -> None:
+        self.assertEqual(len(NEW_TOOL_ROUTES), 18)
+        self.assertEqual(len(set(NEW_TOOL_FEATURES.values())), 8)
         self.assertTrue(set(TECHNICAL_DIRECTION_SELECTORS).issubset(NEW_TOOL_ROUTES))
 
     def test_accepts_complete_preview_inventory(self) -> None:
@@ -41,7 +41,7 @@ class NewToolsContractTests(unittest.TestCase):
             tools=inventory.tools[:-1],
             legal_pages=inventory.legal_pages,
         )
-        with self.assertRaisesRegex(RuntimeError, "markdown-to-html"):
+        with self.assertRaisesRegex(RuntimeError, "ip-subnet-calculator"):
             validate_new_tool_inventory(incomplete)
 
     def test_rejects_non_preview_publication(self) -> None:

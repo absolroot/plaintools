@@ -11,6 +11,14 @@ import QrGenerator from "../qr/QrGenerator.astro";
 import QrScanner from "../qr/QrScanner.astro";
 import qrStylesheet from "../qr/styles.css?url";
 import UrlCodec from "../url-codec/UrlCodec.astro";
+import HtmlFormatter from "../html-formatter/HtmlFormatter.astro";
+import htmlFormatterStylesheet from "../html-formatter/styles.css?url";
+import CssFormatter from "../css-formatter/CssFormatter.astro";
+import cssFormatterStylesheet from "../css-formatter/styles.css?url";
+import JavaScriptFormatter from "../javascript-formatter/JavaScriptFormatter.astro";
+import SqlFormatter from "../sql-formatter/SqlFormatter.astro";
+import sqlFormatterStylesheet from "../sql-formatter/styles.css?url";
+import IpSubnetCalculator from "../ip-subnet/IpSubnetCalculator.astro";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
 import { localizedPath, type Locale } from "../../lib/site";
@@ -41,6 +49,11 @@ const categories = {
   "csv-to-json": "data",
   "html-to-markdown": "data",
   "markdown-to-html": "data",
+  "html-formatter": "data",
+  "css-formatter": "data",
+  "javascript-formatter": "data",
+  "sql-formatter": "data",
+  "ip-subnet-calculator": "data",
 } as const satisfies Record<NewToolId, ToolCategory>;
 
 const featureStylesheets = {
@@ -57,6 +70,11 @@ const featureStylesheets = {
   "csv-to-json": dataConverterStylesheet,
   "html-to-markdown": dataConverterStylesheet,
   "markdown-to-html": dataConverterStylesheet,
+  "html-formatter": htmlFormatterStylesheet,
+  "css-formatter": cssFormatterStylesheet,
+  "javascript-formatter": undefined,
+  "sql-formatter": sqlFormatterStylesheet,
+  "ip-subnet-calculator": undefined,
 } as const satisfies Record<NewToolId, string | undefined>;
 
 const urlFeature =
@@ -160,6 +178,47 @@ const dataFeature = dataMode ? bundle.tools[dataMode].feature : undefined;
         mode={dataMode}
         copy={dataFeature}
         textDirection={technicalDirection}
+      />
+    )
+  }
+  {
+    page === "html-formatter" && (
+      <HtmlFormatter
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+      />
+    )
+  }
+  {
+    page === "css-formatter" && (
+      <CssFormatter
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+      />
+    )
+  }
+  {
+    page === "javascript-formatter" && (
+      <JavaScriptFormatter
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+      />
+    )
+  }
+  {
+    page === "sql-formatter" && (
+      <SqlFormatter
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+      />
+    )
+  }
+  {
+    page === "ip-subnet-calculator" && (
+      <IpSubnetCalculator
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+        sampleInput="192.168.1.10/24"
       />
     )
   }

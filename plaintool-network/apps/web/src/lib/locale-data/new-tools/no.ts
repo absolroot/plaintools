@@ -1,6 +1,8 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
+import { formatterSubnetFor } from "./formatter-subnet";
 
 const seed = {
+  formatterSubnet: formatterSubnetFor("no"),
   ui: {
     clear: "Tøm",
     copy: "Kopier",

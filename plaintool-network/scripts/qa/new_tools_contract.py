@@ -15,6 +15,11 @@ NEW_TOOL_ROUTES = (
     "csv-to-json",
     "html-to-markdown",
     "markdown-to-html",
+    "html-formatter",
+    "css-formatter",
+    "javascript-formatter",
+    "sql-formatter",
+    "ip-subnet-calculator",
 )
 
 NEW_TOOL_FEATURES = {
@@ -31,6 +36,11 @@ NEW_TOOL_FEATURES = {
     "csv-to-json": "data-converter",
     "html-to-markdown": "data-converter",
     "markdown-to-html": "data-converter",
+    "html-formatter": "source-formatter",
+    "css-formatter": "source-formatter",
+    "javascript-formatter": "source-formatter",
+    "sql-formatter": "source-formatter",
+    "ip-subnet-calculator": "ip-subnet",
 }
 
 TECHNICAL_DIRECTION_SELECTORS = {
@@ -44,6 +54,11 @@ TECHNICAL_DIRECTION_SELECTORS = {
     "csv-to-json": ("[data-data-converter] [data-input]", "[data-data-converter] [data-output]"),
     "html-to-markdown": ("[data-data-converter] [data-input]", "[data-data-converter] [data-output]"),
     "markdown-to-html": ("[data-data-converter] [data-input]", "[data-data-converter] [data-output]"),
+    "html-formatter": ("[data-html-formatter] [data-input]", "[data-html-formatter] [data-output]"),
+    "css-formatter": ("[data-css-formatter] [data-input]", "[data-css-formatter] [data-output]"),
+    "javascript-formatter": ("[data-javascript-formatter] [data-input]", "[data-javascript-formatter] [data-output]"),
+    "sql-formatter": ("[data-sql-formatter] [data-input]", "[data-sql-formatter] [data-output]"),
+    "ip-subnet-calculator": ("[data-ip-subnet] [data-input]", "[data-ip-subnet] [data-result='cidr']"),
 }
 
 

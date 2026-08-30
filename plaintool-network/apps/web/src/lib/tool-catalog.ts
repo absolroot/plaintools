@@ -72,6 +72,11 @@ const toolMarks: Record<RegisteredToolId, string> = {
   "csv-to-json": "CSV",
   "html-to-markdown": "<>",
   "markdown-to-html": "MD",
+  "html-formatter": "<>",
+  "css-formatter": "CSS",
+  "javascript-formatter": "JS",
+  "sql-formatter": "SQL",
+  "ip-subnet-calculator": "IP",
 };
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {

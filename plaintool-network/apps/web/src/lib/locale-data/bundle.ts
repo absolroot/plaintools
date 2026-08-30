@@ -16,6 +16,11 @@ import type {
   QrScannerCopy,
 } from "../../features/qr/contract";
 import type { UrlCodecCopy } from "../../features/url-codec/contract";
+import type { HtmlFormatterCopy } from "../../features/html-formatter/contract";
+import type { CssFormatterCopy } from "../../features/css-formatter/contract";
+import type { JavaScriptFormatterCopy } from "../../features/javascript-formatter/contract";
+import type { SqlFormatterCopy } from "../../features/sql-formatter/contract";
+import type { IpSubnetCopy } from "../../features/ip-subnet/contract";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -30,7 +35,21 @@ export type NewToolId =
   | "json-to-csv"
   | "csv-to-json"
   | "html-to-markdown"
-  | "markdown-to-html";
+  | "markdown-to-html"
+  | "html-formatter"
+  | "css-formatter"
+  | "javascript-formatter"
+  | "sql-formatter"
+  | "ip-subnet-calculator";
+
+export type FormatterSubnetToolId =
+  | "html-formatter"
+  | "css-formatter"
+  | "javascript-formatter"
+  | "sql-formatter"
+  | "ip-subnet-calculator";
+
+export type LegacyNewToolId = Exclude<NewToolId, FormatterSubnetToolId>;
 
 export type ToolPageCopy<T> = {
   title: string;
@@ -57,6 +76,11 @@ export type NewToolsCopy = {
   "csv-to-json": ToolPageCopy<DataConverterCopy>;
   "html-to-markdown": ToolPageCopy<DataConverterCopy>;
   "markdown-to-html": ToolPageCopy<DataConverterCopy>;
+  "html-formatter": ToolPageCopy<HtmlFormatterCopy>;
+  "css-formatter": ToolPageCopy<CssFormatterCopy>;
+  "javascript-formatter": ToolPageCopy<JavaScriptFormatterCopy>;
+  "sql-formatter": ToolPageCopy<SqlFormatterCopy>;
+  "ip-subnet-calculator": ToolPageCopy<IpSubnetCopy>;
 };
 
 export type LocaleBundle = {

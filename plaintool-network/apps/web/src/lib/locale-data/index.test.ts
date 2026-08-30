@@ -20,6 +20,11 @@ const newToolIds: NewToolId[] = [
   "csv-to-json",
   "html-to-markdown",
   "markdown-to-html",
+  "html-formatter",
+  "css-formatter",
+  "javascript-formatter",
+  "sql-formatter",
+  "ip-subnet-calculator",
 ];
 
 describe("locale bundles", () => {

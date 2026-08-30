@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "featureId": "case-converter",
+  "featureId": "source-formatter",
   "enforcement": "preview-feature",
   "sourceLocale": "en",
   "publicLocales": [
@@ -25,155 +25,159 @@
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
-    "apps/web/src/lib/tool-i18n.ts",
-    "apps/web/src/features/case-converter/copy.ts",
-    "apps/web/src/lib/common-tool-i18n.ts",
+    "apps/web/src/lib/locale-data/bundle.ts",
     "apps/web/src/lib/tool-catalog.ts",
-    "apps/web/src/components/PreviewToolPage.astro",
-    "apps/web/src/components/ConverterStatus.astro",
-    "apps/web/src/components/LocalProcessingNote.astro",
-    "apps/web/src/features/case-converter/CaseConverter.astro",
-    "apps/web/src/pages/[locale]/case-converter/index.astro"
+    "apps/web/src/lib/locale-data/new-tools/formatter-subnet.ts",
+    "apps/web/src/lib/locale-data/new-tools/formatter-subnet-secondary.ts",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/features/html-formatter/HtmlFormatter.astro",
+    "apps/web/src/features/css-formatter/CssFormatter.astro",
+    "apps/web/src/features/javascript-formatter/JavaScriptFormatter.astro",
+    "apps/web/src/features/sql-formatter/SqlFormatter.astro",
+    "apps/web/src/pages/[locale]/html-formatter/index.astro",
+    "apps/web/src/pages/[locale]/css-formatter/index.astro",
+    "apps/web/src/pages/[locale]/javascript-formatter/index.astro",
+    "apps/web/src/pages/[locale]/sql-formatter/index.astro"
   ],
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:0f62bd461f529e506ffa44c9afc0d570f405f93622e27fa2ad917211326555f3",
+  "copyFingerprint": "sha256:c1ea18e456015d6ab1eccb4fd4395bf8d2dddfec1d569c28dc66601e5a687897",
   "locales": {
     "en": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "en-w3schools-case-converter",
-        "en-mdn-string"
+        "en-formatter-native-copy",
+        "en-formatter-technical-terms"
       ]
     },
     "ko": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "ko-formatter-case-converter",
-        "ko-onul-case-converter"
+        "ko-formatter-native-copy",
+        "ko-formatter-technical-terms"
       ]
     },
     "es": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "es-convertcase-net",
-        "es-mdn-uppercase"
+        "es-formatter-native-copy",
+        "es-formatter-technical-terms"
       ]
     },
     "de": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "de-flinktools-case",
-        "de-wikipedia-unicode-casing"
+        "de-formatter-native-copy",
+        "de-formatter-technical-terms"
       ]
     },
     "ja": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "ja-shigoto-case",
-        "ja-mdn-to-uppercase"
+        "ja-formatter-native-copy",
+        "ja-formatter-technical-terms"
       ]
     },
     "fr": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "fr-cogitans-case",
-        "fr-wikipedia-case-sensitivity"
+        "fr-formatter-native-copy",
+        "fr-formatter-technical-terms"
       ]
     },
     "pt-BR": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "pt-br-ajudo-maiusculas-minusculas",
-        "pt-br-mdn-touppercase"
+        "pt-BR-formatter-native-copy",
+        "pt-BR-formatter-technical-terms"
       ]
     },
     "it": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "it-cratex-case",
-        "it-wikipedia-case"
+        "it-formatter-native-copy",
+        "it-formatter-technical-terms"
       ]
     },
     "nl": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "nl-converttext-case",
-        "nl-taalunie-capitals"
+        "nl-formatter-native-copy",
+        "nl-formatter-technical-terms"
       ]
     },
     "sv": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "sv-case-converter-native-tool",
-        "sv-case-converter-concept"
+        "sv-formatter-native-copy",
+        "sv-formatter-technical-terms"
       ]
     },
     "cs": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "cs-case-converter-native-tool",
-        "cs-case-converter-concept"
+        "cs-formatter-native-copy",
+        "cs-formatter-technical-terms"
       ]
     },
     "pl": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "pl-case-converter-native-tool",
-        "pl-case-converter-concept"
+        "pl-formatter-native-copy",
+        "pl-formatter-technical-terms"
       ]
     },
     "da": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "da-case-converter-native-tool",
-        "da-case-converter-concept"
+        "da-formatter-native-copy",
+        "da-formatter-technical-terms"
       ]
     },
     "no": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "no-case-converter-native-tool",
-        "no-case-converter-concept"
+        "no-formatter-native-copy",
+        "no-formatter-technical-terms"
       ]
     },
     "ar": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "ar-i2text-case",
-        "ar-microsoft-change-case"
+        "ar-formatter-native-copy",
+        "ar-formatter-technical-terms"
       ]
     },
     "zh-TW": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "zh-tw-tooltl-case",
-        "zh-tw-mdn-to-uppercase"
+        "zh-TW-formatter-native-copy",
+        "zh-TW-formatter-technical-terms"
       ]
     },
     "tr": {
       "status": "reference-backed",
       "reviewedAt": "2026-08-30",
       "referenceIds": [
-        "tr-wordcount-case-converter",
-        "tr-microsoft-change-case"
+        "tr-formatter-native-copy",
+        "tr-formatter-technical-terms"
       ]
     }
   }
