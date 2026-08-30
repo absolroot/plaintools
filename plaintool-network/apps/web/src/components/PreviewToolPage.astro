@@ -4,7 +4,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import ToolPromise from "./ToolPromise.astro";
 import { networkCopy, type ToolCategory } from "../lib/tool-catalog";
 import { previewCopy } from "../lib/tool-i18n";
-import { localizedPath, type Locale, type ToolPage } from "../lib/site";
+import { type Locale, type ToolPage } from "../lib/site";
 import { breadcrumbSchema, faqSchema, webApplicationSchema } from "../lib/seo";
 interface Props {
   locale: Locale;
@@ -61,11 +61,7 @@ const structuredData = [
   featureStylesheet={featureStylesheet}
 >
   <section class="tool-intro">
-    <nav class="breadcrumbs" aria-label={n.breadcrumbLabel}>
-      <a href={localizedPath(locale)}>{n.allTools}</a><span aria-hidden="true"
-        >/</span
-      ><span>{n.categories[category]}</span>
-    </nav><div class="tool-intro-copy">
+    <div class="tool-intro-copy">
       <h1>{title}</h1><p class="hero-subheading">{description}</p>
       <ToolPromise locale={locale} />
     </div>

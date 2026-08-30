@@ -39,6 +39,32 @@ describe("codec core", () => {
     expect(normalized.repairs).toContain("url-alphabet-normalized");
   });
 
+  it("decodes nested Base64 layers when recursive decoding is enabled", () => {
+    const inner = encodeText("nested value", defaultOptions).text;
+    const outer = encodeText(inner, defaultOptions).text;
+    const result = decodeText(outer, defaultOptions);
+
+    expect(result.text).toBe("nested value");
+    expect(result.decodePasses).toBe(2);
+  });
+
+  it("stops recursive decoding when the next layer is not text or a known file", () => {
+    const encoded = encodeText("test", defaultOptions).text;
+    const result = decodeText(encoded, defaultOptions);
+
+    expect(result.text).toBe("test");
+    expect(result.decodePasses).toBe(1);
+  });
+
+  it("leaves nested Base64 visible when recursive decoding is disabled", () => {
+    const inner = encodeText("nested value", defaultOptions).text;
+    const outer = encodeText(inner, defaultOptions).text;
+    const result = decodeText(outer, { ...defaultOptions, recursive: false });
+
+    expect(result.text).toBe(inner);
+    expect(result.decodePasses).toBe(1);
+  });
+
   it("strips a data URI and whitespace with visible repairs", () => {
     const normalized = normalizeBase64(
       "data:text/plain;base64,SGVs\n bG8=",

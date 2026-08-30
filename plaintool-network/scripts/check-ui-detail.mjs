@@ -142,7 +142,6 @@ for (const selector of [".tool-intro", ".tool-shell", ".content-sections"]) {
   expectDeclaration(selector, "width", "var(--page)");
 }
 
-expectDeclaration(".breadcrumbs", "min-height", "40px");
 expectDeclaration(".tool-intro-copy", "padding", "var(--space-6) 0");
 expectDeclaration(".tool-intro-copy", "gap", "var(--space-2)");
 expectDeclaration(".hero-subheading", "max-width", "none");
@@ -240,8 +239,9 @@ expectDeclaration(
 expectDeclaration(".directory-search-clear", "height", "36px", directorySearch);
 
 expectSource(
-  page.includes('class="breadcrumb-meta"'),
-  "Base64/RFC metadata must stay in the breadcrumb row.",
+  !page.includes('class="breadcrumbs"') &&
+    !previewToolPage.includes('class="breadcrumbs"'),
+  "Tool pages must keep visual breadcrumb rows out of the content area.",
 );
 expectSource(
   !page.includes('class="eyebrow"'),
@@ -275,6 +275,10 @@ expectSource(
 expectSource(
   faqSection.includes('class="faq-chevron"'),
   "The shared FAQ chevron must keep the shared open-state styling hook.",
+);
+expectSource(
+  faqSection.includes("<details open>"),
+  "Shared FAQ items must render expanded by default.",
 );
 expectSource(
   css.includes("--space-16: 64px"),
@@ -421,6 +425,10 @@ for (const hook of [
 expectSource(
   directoryPage.includes("buildToolDirectorySearchCorpus"),
   "Directory cards must receive corpus text from the pure search helper.",
+);
+expectSource(
+  directoryPage.includes('tool.status !== "available"'),
+  "Directory cards must hide the redundant Available status label.",
 );
 expectSource(
   (directorySearch.match(/role="search"/g) ?? []).length === 1,

@@ -14,7 +14,7 @@ const { title, faqs } = Astro.props;
   <div class="faq-list">
     {
       faqs.map((faq) => (
-        <details>
+        <details open>
           <summary>
             <UiIcon name="chevron-right" size={16} class="faq-chevron" />
             <span data-faq-question>{faq.q}</span>

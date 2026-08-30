@@ -292,7 +292,7 @@ const bundle: LocaleBundle = {
     processingFailed: "처리하지 못했습니다. 다시 시도하세요.",
     download: "다운로드",
     faqTitle: "자주 묻는 질문",
-    localTitle: "AbsolTools는 브라우저에서 작동합니다.",
+    localTitle: "AbsolTools는 브라우저에서만 작동합니다.",
     localBody:
       "입력한 내용과 결과는 브라우저 안에서만 처리되며 서버로 전송되거나 저장되지 않습니다.",
   },

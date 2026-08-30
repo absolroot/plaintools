@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { getCopy } from "../lib/i18n";
 import { localeMetadata } from "../lib/locale-data";
 import { networkCopy } from "../lib/tool-catalog";
+import { toolCatalog } from "../lib/tool-catalog";
 import {
   absoluteUrl,
   legalPages,
@@ -39,6 +40,12 @@ const {
 } = Astro.props;
 const t = getCopy(locale);
 const n = networkCopy[locale];
+const currentTool = toolCatalog.find((tool) => tool.slug === page);
+const currentPageLabel =
+  currentTool?.name[locale] ??
+  (page && legalPages.includes(page as (typeof legalPages)[number])
+    ? t.legalNav[page as (typeof legalPages)[number]]
+    : undefined);
 const path = localizedPath(locale, page);
 const canonical = absoluteUrl(path);
 const siteUrl = absoluteUrl("/");
@@ -160,9 +167,23 @@ const integrationActive = Boolean(
     <a class="skip-link" href="#main">{t.skipToContent}</a>
     <header class="site-header">
       <div class="header-inner">
-        <a class="wordmark" href={localizedPath(locale)}>
-          <span>AbsolTools</span>
-        </a>
+        <div class="header-branding">
+          <a class="wordmark" href={localizedPath(locale)}>
+            <span>AbsolTools</span>
+          </a>
+          {
+            currentPageLabel && (
+              <div
+                class="header-context"
+                aria-label={currentPageLabel}
+                data-header-context
+              >
+                <UiIcon name="chevron-right" size={14} />
+                <span data-header-context-label>{currentPageLabel}</span>
+              </div>
+            )
+          }
+        </div>
         <div class="header-actions">
           <button
             class="theme-toggle"
@@ -172,8 +193,8 @@ const integrationActive = Boolean(
             data-use-dark-label={n.useDarkTheme}
             aria-label={n.useDarkTheme}
           >
-            <span data-theme-icon="dark"><UiIcon name="moon" size={16} /></span>
-            <span data-theme-icon="light"><UiIcon name="sun" size={16} /></span>
+            <span data-theme-icon="dark"><UiIcon name="moon" size={18} /></span>
+            <span data-theme-icon="light"><UiIcon name="sun" size={18} /></span>
           </button>
           <a
             class="tool-index-link"

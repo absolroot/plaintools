@@ -8,6 +8,7 @@ export interface CodecOptions {
   charset: string;
   strict: boolean;
   lineByLine: boolean;
+  recursive: boolean;
   autoRepair: boolean;
   lenientRepair: boolean;
   outputView: OutputView;
@@ -22,7 +23,7 @@ export type Base64DecodeOptions = Pick<
 >;
 
 export type DecodeOptions = Base64DecodeOptions &
-  Pick<CodecOptions, "charset" | "lineByLine" | "outputView">;
+  Pick<CodecOptions, "charset" | "lineByLine" | "recursive" | "outputView">;
 
 export type EncodeOptions = Pick<
   CodecOptions,
@@ -61,6 +62,7 @@ export interface CodecResult {
   warnings: CodecWarningCode[];
   signature?: FileSignature;
   detectedVariant?: "standard" | "url";
+  decodePasses?: number;
 }
 
 export class CodecError extends Error {
@@ -96,6 +98,7 @@ export const defaultOptions: CodecOptions = {
   charset: "utf-8",
   strict: false,
   lineByLine: false,
+  recursive: true,
   autoRepair: true,
   lenientRepair: false,
   outputView: "text",
@@ -355,11 +358,54 @@ export function bytesToHex(bytes: Uint8Array, limit = 65536): string {
 }
 
 export function decodeText(input: string, options: DecodeOptions): CodecResult {
+  const decodeLayers = (value: string, allowBinary: boolean) => {
+    let decoded = decodeBase64Bytes(value, options);
+    let repairs = [...decoded.repairs];
+    let detectedVariant = decoded.variant;
+    let decodePasses = 1;
+
+    while (options.recursive && decodePasses < 10) {
+      const text = decodeBytesToText(decoded.bytes, options.charset);
+      const signature = detectFileSignature(decoded.bytes, decoded.mime);
+      if (signature || !isLikelyText(decoded.bytes, text)) break;
+
+      const nestedInput = text.trim();
+      if (
+        nestedInput.length < 4 ||
+        (nestedInput.length < 8 && !nestedInput.includes("="))
+      )
+        break;
+
+      try {
+        const next = decodeBase64Bytes(nestedInput, options);
+        const nextText = decodeBytesToText(next.bytes, options.charset);
+        const nextSignature = detectFileSignature(next.bytes, next.mime);
+        const nextIsText = !nextSignature && isLikelyText(next.bytes, nextText);
+        if ((!allowBinary && nextSignature) || (!nextSignature && !nextIsText))
+          break;
+        decoded = next;
+        repairs = [...repairs, ...next.repairs];
+        if (next.variant === "url") detectedVariant = "url";
+        decodePasses += 1;
+      } catch (error) {
+        if (error instanceof CodecError) break;
+        throw error;
+      }
+    }
+
+    return {
+      ...decoded,
+      repairs: [...new Set(repairs)],
+      variant: detectedVariant,
+      decodePasses,
+    };
+  };
+
   if (options.lineByLine) {
     const lines = input.split(/\r?\n/).filter((line) => line.trim());
     if (!lines.length) throw new CodecError("empty-input");
     const decoded = lines.map((line) => {
-      const result = decodeBase64Bytes(line, options);
+      const result = decodeLayers(line, false);
       return {
         ...result,
         text: decodeBytesToText(result.bytes, options.charset),
@@ -374,10 +420,11 @@ export function decodeText(input: string, options: DecodeOptions): CodecResult {
       detectedVariant: decoded.some((item) => item.variant === "url")
         ? "url"
         : "standard",
+      decodePasses: Math.max(...decoded.map((item) => item.decodePasses)),
     };
   }
 
-  const decoded = decodeBase64Bytes(input, options);
+  const decoded = decodeLayers(input, true);
   const text = decodeBytesToText(decoded.bytes, options.charset);
   const signature = detectFileSignature(decoded.bytes, decoded.mime);
   const textLike = !signature && isLikelyText(decoded.bytes, text);
@@ -397,5 +444,6 @@ export function decodeText(input: string, options: DecodeOptions): CodecResult {
         : ["binary-output"],
     signature,
     detectedVariant: decoded.variant,
+    decodePasses: decoded.decodePasses,
   };
 }

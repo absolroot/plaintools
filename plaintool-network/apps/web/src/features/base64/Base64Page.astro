@@ -4,7 +4,7 @@ import FaqSection from "../../components/FaqSection.astro";
 import ToolPromise from "../../components/ToolPromise.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { networkCopy } from "../../lib/tool-catalog";
-import { localizedPath, siteConfig, type Locale } from "../../lib/site";
+import { siteConfig, type Locale } from "../../lib/site";
 import {
   breadcrumbSchema,
   faqSchema,
@@ -67,13 +67,7 @@ const faqJsonLd = JSON.stringify({
   featureStylesheet={featureStylesheet}
 >
   <section class="tool-intro">
-    <nav class="breadcrumbs" aria-label={n.breadcrumbLabel}>
-      <a href={localizedPath(locale)}>{n.allTools}</a><span aria-hidden="true"
-        >/</span
-      ><span>{n.encodingCategory}</span><span class="breadcrumb-meta"
-        >Base64 <span aria-hidden="true">·</span> RFC 4648</span
-      >
-    </nav><div class="tool-intro-copy">
+    <div class="tool-intro-copy">
       <h1 data-mode-heading>{heading}</h1><p
         class="hero-subheading"
         data-mode-subheading

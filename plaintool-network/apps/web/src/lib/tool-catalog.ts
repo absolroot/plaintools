@@ -52,8 +52,8 @@ export type NetworkCopy = {
 };
 
 const toolMarks: Record<RegisteredToolId, string> = {
-  "base64-decode": "64",
-  "base64-encode": "64",
+  "base64-decode": "B64",
+  "base64-encode": "B64",
   "word-counter": "Aa",
   "json-formatter": "{}",
   "unix-timestamp-converter": "T",

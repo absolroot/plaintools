@@ -336,6 +336,12 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   justify-content: space-between;
   gap: 24px;
 }
+.header-branding {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
 .wordmark {
   display: inline-flex;
   align-items: center;
@@ -343,6 +349,19 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   font-size: 14px;
   font-weight: 650;
   text-decoration: none;
+  white-space: nowrap;
+}
+.header-context {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 13px;
+}
+.header-context > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .header-actions {
@@ -386,14 +405,28 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
 }
 .theme-toggle:hover {
   color: var(--ink);
-  background: var(--tint);
+  background: transparent;
 }
 .theme-toggle [data-theme-icon] {
   display: none;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease,
+    transform 80ms ease;
 }
 .theme-toggle[data-current-theme="light"] [data-theme-icon="dark"],
 .theme-toggle[data-current-theme="dark"] [data-theme-icon="light"] {
-  display: block;
+  display: grid;
+}
+.theme-toggle:hover [data-theme-icon],
+.theme-toggle:focus-visible [data-theme-icon] {
+  background: var(--tint);
+}
+.theme-toggle:active [data-theme-icon] {
+  transform: scale(0.88);
 }
 .language-menu {
   position: relative;
@@ -499,35 +532,6 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   width: var(--page);
   margin: 0 auto;
 }
-.breadcrumbs {
-  min-height: 40px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  border-bottom: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 12px;
-}
-.breadcrumbs a {
-  min-height: 36px;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-}
-.breadcrumbs a:hover {
-  color: var(--brand);
-  text-decoration: underline;
-}
-.breadcrumb-meta {
-  margin-inline-start: auto;
-  color: var(--muted);
-  white-space: nowrap;
-}
-.breadcrumb-meta span {
-  padding: 0 var(--space-1);
-  color: var(--placeholder);
-}
 .tool-intro-copy {
   padding: var(--space-6) 0;
   display: grid;
@@ -606,7 +610,11 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
 }
 .mode-button {
   min-width: 76px;
+  height: 100%;
   padding: 0 var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   border-radius: var(--radius-sm);
   color: var(--muted);
@@ -614,6 +622,8 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
 }
 .mode-button:hover {
   color: var(--ink);
@@ -1097,10 +1107,10 @@ a.tool-directory-card:focus-visible {
 .tool-directory-card.is-reserve {
   background: color-mix(in oklch, var(--base), var(--recessed) 35%);
 }
-.tool-directory-card-top {
+.tool-directory-card-heading {
+  min-width: 0;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: var(--space-3);
 }
 .tool-mark {
@@ -1117,12 +1127,21 @@ a.tool-directory-card:focus-visible {
   font-size: 11px;
   font-weight: 600;
 }
-.tool-directory-copy h3 {
+.tool-mark svg {
+  width: 22px;
+  height: 22px;
+}
+.tool-directory-card-heading h3 {
+  min-width: 0;
+  flex: 1 1 auto;
   margin: 0;
   color: var(--ink-strong);
   font-size: 15px;
   line-height: 1.35;
   font-weight: 600;
+}
+.tool-directory-card-heading h3 > span {
+  display: block;
 }
 .tool-directory-copy p {
   margin: var(--space-1) 0 0;
@@ -1131,6 +1150,7 @@ a.tool-directory-card:focus-visible {
   line-height: 1.5;
 }
 .directory-status {
+  margin-inline-start: auto;
   padding: 2px 6px;
   border-radius: var(--radius-xs);
   color: var(--muted);
@@ -1138,15 +1158,39 @@ a.tool-directory-card:focus-visible {
   font-size: 10px;
   font-weight: 500;
 }
-.directory-status.is-available {
-  color: var(--success);
-  background: var(--success-tint);
-}
-
 .legal-page {
   width: min(840px, calc(100% - 48px));
   margin: 0 auto;
   padding: 48px 0 72px;
+}
+.not-found-page {
+  width: min(720px, calc(100% - 48px));
+  min-height: calc(100svh - 260px);
+  margin: 0 auto;
+  padding: 88px 0;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+}
+.not-found-code {
+  margin: 0 0 var(--space-3);
+  color: var(--brand);
+  font-family: var(--mono);
+  font-size: clamp(64px, 12vw, 112px);
+  font-weight: 650;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+}
+.not-found-page h1 {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 28px;
+  line-height: 1.2;
+}
+.not-found-page p {
+  max-width: 520px;
+  margin: var(--space-3) 0 var(--space-6);
+  color: var(--muted);
 }
 .legal-page h1 {
   margin: 0;
@@ -1280,13 +1324,16 @@ a.tool-directory-card:focus-visible {
     min-height: 56px;
     gap: var(--space-2);
   }
-  .wordmark {
+  .header-branding {
     min-width: 0;
     flex: 1 1 auto;
     margin-inline-end: auto;
   }
-  .wordmark > span:last-child {
+  .header-context {
     min-width: 0;
+    flex: 1 1 auto;
+  }
+  .header-context > span {
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -1327,9 +1374,6 @@ a.tool-directory-card:focus-visible {
     width: min(220px, calc(100vw - var(--space-8)));
     max-height: min(360px, calc(100vh - 72px));
     grid-template-columns: 1fr;
-  }
-  .breadcrumbs {
-    min-height: 36px;
   }
   .tool-intro-copy {
     padding: var(--space-3) 0 var(--space-2);
@@ -1448,8 +1492,8 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 420px) {
-  .wordmark > span:last-child {
-    max-width: 132px;
+  .header-context {
+    display: none;
   }
   .mode-button {
     min-width: 68px;

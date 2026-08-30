@@ -58,6 +58,8 @@ function initConverter(root: HTMLElement): void {
   const openFileButton = query<HTMLButtonElement>("[data-open-file]");
   const fileInput = query<HTMLInputElement>("[data-file-input]");
   const outputView = query<HTMLSelectElement>('[data-option="outputView"]');
+  const optionsPanel = query<HTMLDetailsElement>("[data-options]");
+  const recursiveOption = query<HTMLInputElement>('[data-option="recursive"]');
   const preview = query<HTMLElement>("[data-preview]");
   const previewImage = query<HTMLImageElement>("[data-preview-image]");
   let mode: CodecMode =
@@ -126,6 +128,18 @@ function initConverter(root: HTMLElement): void {
     runButton.textContent = definition.runLabel;
     const heading = definition.heading;
     if (pageHeading) pageHeading.textContent = heading;
+    const headerContext = document.querySelector<HTMLElement>(
+      "[data-header-context]",
+    );
+    const headerContextLabel = headerContext?.querySelector<HTMLElement>(
+      "[data-header-context-label]",
+    );
+    if (headerContext && headerContextLabel) {
+      const headerLabel =
+        mode === "decode" ? copy.decodeHeaderLabel : copy.encodeHeaderLabel;
+      headerContext.ariaLabel = headerLabel;
+      headerContextLabel.textContent = headerLabel;
+    }
     if (pageSubheading) pageSubheading.textContent = definition.description;
     const { guideTitle, guideIntro, guideSteps, faqs } = definition;
     const guideTitleNode =
@@ -299,6 +313,17 @@ function initConverter(root: HTMLElement): void {
         `${nextResult.signature.mime} (.${nextResult.signature.extension})`,
         nextResult.signature.executable,
       );
+    if ((nextResult.decodePasses ?? 1) > 1) {
+      appendBadge(
+        badges,
+        copy.recursiveApplied.replace(
+          "{count}",
+          String(nextResult.decodePasses),
+        ),
+      );
+      recursiveOption.checked = true;
+      optionsPanel.open = true;
+    }
     copyButton.disabled = !nextResult.text;
     downloadButton.disabled = !nextResult.text && !nextResult.bytes?.length;
     clearPreview();

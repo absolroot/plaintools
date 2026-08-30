@@ -13,6 +13,8 @@ export type Base64ClientErrorCode =
 export type Base64ClientCopy = {
   decodeMetaTitle: string;
   encodeMetaTitle: string;
+  decodeHeaderLabel: string;
+  encodeHeaderLabel: string;
   heading: string;
   subheading: string;
   encodeHeading: string;
@@ -43,6 +45,8 @@ export type Base64ClientCopy = {
   detected: string;
   binaryOutput: string;
   executableWarning: string;
+  recursive: string;
+  recursiveApplied: string;
   errors: Record<Base64ClientErrorCode, string>;
   repairs: Record<RepairCode, string>;
 };

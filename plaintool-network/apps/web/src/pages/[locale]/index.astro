@@ -1,14 +1,19 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import ToolDirectorySearch from "../../components/ToolDirectorySearch.astro";
+import ToolMark from "../../components/ToolMark.astro";
 import {
   networkCopy,
   toolCatalog,
   toolPath,
   type ToolCategory,
-  type ToolStatus,
 } from "../../lib/tool-catalog";
-import { absoluteUrl, locales, localizedPath } from "../../lib/site";
+import {
+  absoluteUrl,
+  locales,
+  localizedPath,
+  type ToolPage,
+} from "../../lib/site";
 import { itemListSchema } from "../../lib/seo";
 import { buildToolDirectorySearchCorpus } from "../../lib/tool-directory-search";
 
@@ -17,20 +22,23 @@ export function getStaticPaths() {
 }
 const { locale } = Astro.props;
 const n = networkCopy[locale];
-const statusLabels: Record<ToolStatus, string> = {
-  available: n.available,
-  preview: n.research,
-  reserve: n.reserve,
-};
+const statusLabels = { preview: n.research, reserve: n.reserve } as const;
 const categories: ToolCategory[] = ["encoding", "text", "data", "time"];
 const directoryCategoriesId = "tool-directory-categories";
+const toolsForCategory = (category: ToolCategory) => {
+  const tools = toolCatalog.filter((tool) => tool.category === category);
+  if (category !== "text") return tools;
+  return tools.toSorted(
+    (left, right) =>
+      Number(right.id === "ai-watermark-remover") -
+      Number(left.id === "ai-watermark-remover"),
+  );
+};
 const publicItems = toolCatalog
   .filter((tool) => tool.status === "available" && tool.slug)
   .map((tool) => ({
     name: tool.name[locale],
-    url: absoluteUrl(
-      localizedPath(locale, tool.slug as "base64-decode" | "base64-encode"),
-    ),
+    url: absoluteUrl(localizedPath(locale, tool.slug as ToolPage)),
   }));
 ---
 
@@ -56,9 +64,7 @@ const publicItems = toolCatalog
     >
       {
         categories.map((category) => {
-          const tools = toolCatalog.filter(
-            (tool) => tool.category === category,
-          );
+          const tools = toolsForCategory(category);
           return (
             <section class="directory-category" data-directory-search-category>
               <div class="directory-category-heading">
@@ -72,6 +78,7 @@ const publicItems = toolCatalog
               <div class="tool-directory-grid">
                 {tools.map((tool) => {
                   const href = toolPath(locale, tool);
+                  const nameLines = tool.name[locale].split(" - ");
                   return href ? (
                     <a
                       class:list={["tool-directory-card", `is-${tool.status}`]}
@@ -82,18 +89,25 @@ const publicItems = toolCatalog
                         locale,
                       )}
                     >
-                      <div class="tool-directory-card-top">
-                        <span class="tool-mark" aria-hidden="true">
-                          {tool.mark}
-                        </span>
-                        <span
-                          class:list={["directory-status", `is-${tool.status}`]}
-                        >
-                          {statusLabels[tool.status]}
-                        </span>
+                      <div class="tool-directory-card-heading">
+                        <ToolMark toolId={tool.id} mark={tool.mark} />
+                        <h3>
+                          {nameLines.map((line) => (
+                            <span>{line}</span>
+                          ))}
+                        </h3>
+                        {tool.status !== "available" && (
+                          <span
+                            class:list={[
+                              "directory-status",
+                              `is-${tool.status}`,
+                            ]}
+                          >
+                            {statusLabels[tool.status]}
+                          </span>
+                        )}
                       </div>
                       <div class="tool-directory-copy">
-                        <h3>{tool.name[locale]}</h3>
                         <p>{tool.summary[locale]}</p>
                       </div>
                     </a>
@@ -106,18 +120,25 @@ const publicItems = toolCatalog
                         locale,
                       )}
                     >
-                      <div class="tool-directory-card-top">
-                        <span class="tool-mark" aria-hidden="true">
-                          {tool.mark}
-                        </span>
-                        <span
-                          class:list={["directory-status", `is-${tool.status}`]}
-                        >
-                          {statusLabels[tool.status]}
-                        </span>
+                      <div class="tool-directory-card-heading">
+                        <ToolMark toolId={tool.id} mark={tool.mark} />
+                        <h3>
+                          {nameLines.map((line) => (
+                            <span>{line}</span>
+                          ))}
+                        </h3>
+                        {tool.status !== "available" && (
+                          <span
+                            class:list={[
+                              "directory-status",
+                              `is-${tool.status}`,
+                            ]}
+                          >
+                            {statusLabels[tool.status]}
+                          </span>
+                        )}
                       </div>
                       <div class="tool-directory-copy">
-                        <h3>{tool.name[locale]}</h3>
                         <p>{tool.summary[locale]}</p>
                       </div>
                     </article>
