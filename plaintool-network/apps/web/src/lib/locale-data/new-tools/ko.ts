@@ -25,9 +25,9 @@ const seed = {
       "입력과 결과를 서버로 전송하거나 저장하지 않습니다. 현재 브라우저 탭 안에서만 처리됩니다.",
     guideTitle: "{name} 사용 방법",
     safetyTitle: "서버 전송 없는 로컬 처리",
-    faqWhat: "{name}는 무엇을 하나요?",
+    faqWhat: "{name}의 기능은 무엇인가요?",
     faqPrivacy: "입력한 데이터가 서버로 전송되나요?",
-    faqCheck: "{name}를 사용할 때 무엇을 확인해야 하나요?",
+    faqCheck: "{name} 사용 시 무엇을 확인해야 하나요?",
   },
   ai: {
     input: "원본 텍스트",

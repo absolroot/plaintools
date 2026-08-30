@@ -25,9 +25,9 @@ const seed = {
       "L’input e i risultati non vengono caricati né salvati. Rimangono in questa scheda del browser.",
     guideTitle: "Come usare {name}",
     safetyTitle: "Elaborazione privata e locale",
-    faqWhat: "Che cosa fa {name}?",
+    faqWhat: "A cosa serve lo strumento «{name}»?",
     faqPrivacy: "I miei dati vengono caricati?",
-    faqCheck: "Che cosa devo controllare quando uso {name}?",
+    faqCheck: "Che cosa devo controllare quando uso lo strumento «{name}»?",
   },
   ai: {
     input: "Testo originale",

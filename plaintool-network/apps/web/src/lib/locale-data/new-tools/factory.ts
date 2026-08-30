@@ -626,8 +626,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     manualRequired: extra.formatter.manualRequired,
     invalidAt: extra.formatter.invalidAt,
     scopeNotice: extra.scopes.html,
-    sampleInput:
-      '<main class="page"><h1>Title</h1><p>Hello <strong>world</strong>.</p></main>',
+    sampleInput: formatterPage("html-formatter").inputPlaceholder!,
     errors: {
       SyntaxError: extra.formatter.syntaxError,
       Unknown: extra.formatter.unknownError,

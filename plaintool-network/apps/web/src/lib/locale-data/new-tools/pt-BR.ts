@@ -25,9 +25,9 @@ const seed = {
       "Sua entrada e os resultados não são enviados nem armazenados. Eles permanecem nesta aba do navegador.",
     guideTitle: "Como usar {name}",
     safetyTitle: "Processamento local e privado",
-    faqWhat: "O que {name} faz?",
+    faqWhat: "Para que serve a ferramenta “{name}”?",
     faqPrivacy: "Meus dados são enviados?",
-    faqCheck: "O que devo verificar ao usar {name}?",
+    faqCheck: "O que devo verificar ao usar a ferramenta “{name}”?",
   },
   ai: {
     input: "Texto original",

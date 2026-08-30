@@ -24,10 +24,10 @@ const seed = {
     localBody:
       "入力内容と結果はアップロードも保存もされません。このブラウザータブ内にのみ保持されます。",
     guideTitle: "{name}の使い方",
-    safetyTitle: "非公開のローカル処理",
+    safetyTitle: "ブラウザー内でのローカル処理",
     faqWhat: "{name}では何ができますか？",
     faqPrivacy: "データはアップロードされますか？",
-    faqCheck: "{name}を使う際に確認すべきことは何ですか？",
+    faqCheck: "{name}を使う際は、どの点を確認すればよいですか？",
   },
   ai: {
     input: "元のテキスト",

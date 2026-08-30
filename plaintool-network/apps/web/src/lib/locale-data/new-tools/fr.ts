@@ -26,9 +26,9 @@ const seed = {
       "Vos données et les résultats ne sont ni envoyés ni enregistrés. Ils restent dans cet onglet du navigateur.",
     guideTitle: "Comment utiliser {name}",
     safetyTitle: "Traitement privé et local",
-    faqWhat: "À quoi sert {name} ?",
+    faqWhat: "À quoi sert l’outil « {name} » ?",
     faqPrivacy: "Mes données sont-elles envoyées ?",
-    faqCheck: "Que faut-il vérifier lors de l’utilisation de {name} ?",
+    faqCheck: "Que faut-il vérifier avec l’outil « {name} » ?",
   },
   ai: {
     input: "Texte d’origine",

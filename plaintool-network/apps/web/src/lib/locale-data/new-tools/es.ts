@@ -25,9 +25,9 @@ const seed = {
       "La entrada y los resultados no se suben ni se guardan. Permanecen en esta pestaña del navegador.",
     guideTitle: "Cómo usar {name}",
     safetyTitle: "Procesamiento privado y local",
-    faqWhat: "¿Qué hace {name}?",
+    faqWhat: "¿Qué hace la herramienta «{name}»?",
     faqPrivacy: "¿Se suben mis datos?",
-    faqCheck: "¿Qué debo comprobar al usar {name}?",
+    faqCheck: "¿Qué debo comprobar al usar la herramienta «{name}»?",
   },
   ai: {
     input: "Texto original",
