@@ -1,0 +1,129 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { ToolCommonCopy } from "../common-copy-contract";
+import type { SqlFormatterCopy } from "./contract";
+import { createSqlFormatterClientCopy } from "./copy";
+
+interface Props {
+  copy: SqlFormatterCopy;
+  commonCopy: ToolCommonCopy;
+}
+
+const { copy, commonCopy } = Astro.props;
+const clientCopy = createSqlFormatterClientCopy(copy, commonCopy);
+---
+
+<section
+  class="converter sql-formatter"
+  data-sql-formatter
+  aria-label={copy.ariaLabel}
+>
+  <div class="converter-topbar sql-formatter-topbar">
+    <button
+      class="primary-button"
+      type="button"
+      data-format
+      aria-keyshortcuts="Control+Enter Meta+Enter">{copy.format}</button
+    >
+    <label class="sql-dialect-field">
+      <span>{copy.dialectLabel}</span>
+      <select data-dialect>
+        <option value="sql">{copy.dialects.sql}</option>
+        <option value="postgresql">{copy.dialects.postgresql}</option>
+        <option value="mysql">{copy.dialects.mysql}</option>
+        <option value="mariadb">{copy.dialects.mariadb}</option>
+        <option value="sqlite">{copy.dialects.sqlite}</option>
+        <option value="transactsql">{copy.dialects.transactsql}</option>
+      </select>
+    </label>
+    <details class="sql-options">
+      <summary>{copy.optionsLabel}</summary>
+      <div class="sql-option-fields">
+        <label>
+          <span>{copy.indentationLabel}</span>
+          <select data-indent>
+            <option value="2">{copy.twoSpaces}</option>
+            <option value="4">{copy.fourSpaces}</option>
+            <option value="tab">{copy.tabs}</option>
+          </select>
+        </label>
+        <label>
+          <span>{copy.keywordCaseLabel}</span>
+          <select data-keyword-case>
+            <option value="preserve">{copy.preserveCase}</option>
+            <option value="upper">{copy.uppercase}</option>
+            <option value="lower">{copy.lowercase}</option>
+          </select>
+        </label>
+      </div>
+    </details>
+  </div>
+  <div class="converter-grid">
+    <section class="editor-pane">
+      <div class="pane-heading">
+        <label for="sql-formatter-input">{copy.inputLabel}</label>
+        <div class="pane-actions">
+          <button class="text-button" type="button" data-sample>
+            {copy.loadSample}
+          </button>
+          <button class="text-button" type="button" data-open-file>
+            <UiIcon name="folder-open" size={14} />{copy.openFile}
+          </button>
+          <input data-file type="file" accept="text/sql,.sql" hidden />
+          <button class="text-button" type="button" data-clear>
+            <UiIcon name="x" size={14} />{commonCopy.clear}
+          </button>
+        </div>
+      </div>
+      <textarea
+        id="sql-formatter-input"
+        data-input
+        dir="ltr"
+        spellcheck="false"
+        placeholder={copy.inputPlaceholder}></textarea>
+    </section>
+    <section class="editor-pane output-pane">
+      <div class="pane-heading">
+        <label for="sql-formatter-output">{copy.outputLabel}</label>
+        <div class="pane-actions">
+          <button class="text-button" type="button" data-copy disabled>
+            <UiIcon name="copy" size={14} />{commonCopy.copy}
+          </button>
+          <button class="text-button" type="button" data-download disabled>
+            <UiIcon name="download" size={14} />{commonCopy.download}
+          </button>
+        </div>
+      </div>
+      <textarea
+        id="sql-formatter-output"
+        data-output
+        dir="ltr"
+        readonly
+        spellcheck="false"
+        placeholder={copy.outputPlaceholder}></textarea>
+      <p class="sql-stale-notice" data-stale-notice hidden>
+        {copy.outdated}
+      </p>
+    </section>
+  </div>
+  <p class="sql-scope-notice" role="note">{copy.scopeNotice}</p>
+  <ConverterStatus status={commonCopy.ready} />
+  <div class="privacy-note">
+    <span class="privacy-icon" aria-hidden="true">
+      <UiIcon name="shield" size={14} />
+    </span>
+    <div>
+      <strong>{commonCopy.localTitle}</strong><p>{commonCopy.localBody}</p>
+    </div>
+  </div>
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>

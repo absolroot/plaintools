@@ -1,0 +1,12 @@
+{
+  "name": "@plaintool/sql-formatter-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "sql-formatter": "15.8.2"
+  }
+}
