@@ -57,6 +57,8 @@ export interface CodecResult {
   mode: CodecMode;
   kind: "text" | "binary" | "base64";
   text: string;
+  byteLength: number;
+  hexPreviewTruncated: boolean;
   bytes?: Uint8Array;
   repairs: RepairCode[];
   warnings: CodecWarningCode[];
@@ -98,7 +100,7 @@ export const defaultOptions: CodecOptions = {
   charset: "utf-8",
   strict: false,
   lineByLine: false,
-  recursive: true,
+  recursive: false,
   autoRepair: true,
   lenientRepair: false,
   outputView: "text",
@@ -106,6 +108,8 @@ export const defaultOptions: CodecOptions = {
   mimeWrap: false,
   dataUri: false,
 };
+
+export const HEX_PREVIEW_BYTE_LIMIT = 65536;
 
 function getAtob(): (value: string) => string {
   if (typeof globalThis.atob !== "function") {
@@ -273,6 +277,8 @@ export function encodeText(input: string, options: EncodeOptions): CodecResult {
     mode: "encode",
     kind: "base64",
     text: encodeBytes(bytes, options),
+    byteLength: bytes.byteLength,
+    hexPreviewTruncated: false,
     bytes,
     repairs: [],
     warnings: [],
@@ -337,7 +343,10 @@ export function detectFileSignature(
   return undefined;
 }
 
-export function bytesToHex(bytes: Uint8Array, limit = 65536): string {
+export function bytesToHex(
+  bytes: Uint8Array,
+  limit = HEX_PREVIEW_BYTE_LIMIT,
+): string {
   const shown = bytes.subarray(0, Math.min(bytes.length, limit));
   const rows: string[] = [];
   for (let offset = 0; offset < shown.length; offset += 16) {
@@ -415,6 +424,8 @@ export function decodeText(input: string, options: DecodeOptions): CodecResult {
       mode: "decode",
       kind: "text",
       text: decoded.map((item) => item.text).join("\n"),
+      byteLength: decoded.reduce((sum, item) => sum + item.bytes.byteLength, 0),
+      hexPreviewTruncated: false,
       repairs: [...new Set(decoded.flatMap((item) => item.repairs))],
       warnings: [],
       detectedVariant: decoded.some((item) => item.variant === "url")
@@ -435,6 +446,10 @@ export function decodeText(input: string, options: DecodeOptions): CodecResult {
       options.outputView === "hex" || !textLike
         ? bytesToHex(decoded.bytes)
         : text,
+    byteLength: decoded.bytes.byteLength,
+    hexPreviewTruncated:
+      (options.outputView === "hex" || !textLike) &&
+      decoded.bytes.byteLength > HEX_PREVIEW_BYTE_LIMIT,
     bytes: decoded.bytes,
     repairs: decoded.repairs,
     warnings: signature?.executable

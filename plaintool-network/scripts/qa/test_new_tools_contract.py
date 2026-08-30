@@ -9,7 +9,7 @@ from qa.new_tools_contract import (
 from qa.registry import RouteInventory, ToolRoute, build_route_inventory
 
 
-def _inventory(*, publication: str = "preview") -> RouteInventory:
+def _inventory(*, publication: str = "indexable") -> RouteInventory:
     tools = tuple(
         ToolRoute(
             id=slug,
@@ -29,7 +29,7 @@ class NewToolsContractTests(unittest.TestCase):
         self.assertEqual(len(set(NEW_TOOL_FEATURES.values())), 8)
         self.assertTrue(set(TECHNICAL_DIRECTION_SELECTORS).issubset(NEW_TOOL_ROUTES))
 
-    def test_accepts_complete_preview_inventory(self) -> None:
+    def test_accepts_complete_indexable_inventory(self) -> None:
         validate_new_tool_inventory(_inventory())
 
     def test_rejects_missing_route(self) -> None:
@@ -44,9 +44,9 @@ class NewToolsContractTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "ip-subnet-calculator"):
             validate_new_tool_inventory(incomplete)
 
-    def test_rejects_non_preview_publication(self) -> None:
-        with self.assertRaisesRegex(RuntimeError, "expected preview"):
-            validate_new_tool_inventory(_inventory(publication="indexable"))
+    def test_rejects_non_indexable_publication(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "expected indexable"):
+            validate_new_tool_inventory(_inventory(publication="preview"))
 
 
 if __name__ == "__main__":

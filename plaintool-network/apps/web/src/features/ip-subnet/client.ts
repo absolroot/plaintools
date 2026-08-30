@@ -28,9 +28,12 @@ function init(root: HTMLElement): void {
   const copyButton = root.querySelector<HTMLButtonElement>("[data-copy]")!;
   const downloadButton =
     root.querySelector<HTMLButtonElement>("[data-download]")!;
+  const rowCopyButtons = [
+    ...root.querySelectorAll<HTMLButtonElement>("[data-copy-result]"),
+  ];
   let timer = 0;
   let revision = 0;
-  let committed: { text: string } | undefined;
+  let committed: { text: string; values: Record<string, string> } | undefined;
 
   const setStatus = (
     message: string,
@@ -38,13 +41,16 @@ function init(root: HTMLElement): void {
   ) => setToolStatus(root, status, message, state);
   const setActions = (enabled: boolean) => {
     copyButton.disabled = downloadButton.disabled = !enabled;
+    rowCopyButtons.forEach((button) => (button.disabled = !enabled));
   };
   const clearRenderedResult = () => {
     committed = undefined;
     setActions(false);
     resultSurface.hidden = true;
     resultSurface
-      .querySelectorAll<HTMLElement>("dd")
+      .querySelectorAll<HTMLElement>(
+        "[data-result], [data-semantics], [data-classification], [data-classification-block], [data-binary]",
+      )
       .forEach((element) => (element.textContent = ""));
     root.classList.remove("has-stale-result");
   };
@@ -54,7 +60,8 @@ function init(root: HTMLElement): void {
     setActions(false);
   };
   const render = (result: IpSubnetResult) => {
-    createIpSubnetResultRows(result, copy.feature).forEach(({ key, value }) => {
+    const rows = createIpSubnetResultRows(result, copy.feature);
+    rows.forEach(({ key, value }) => {
       const field = resultSurface.querySelector<HTMLElement>(
         `[data-result="${key}"]`,
       );
@@ -80,7 +87,10 @@ function init(root: HTMLElement): void {
       if (field) field.textContent = value;
     });
     const text = createIpSubnetTextResult(result, copy.feature);
-    committed = { text };
+    committed = {
+      text,
+      values: Object.fromEntries(rows.map(({ key, value }) => [key, value])),
+    };
     resultSurface.hidden = false;
     root.classList.remove("has-stale-result");
     input.removeAttribute("aria-invalid");
@@ -165,6 +175,25 @@ function init(root: HTMLElement): void {
       succeeded ? "success" : "error",
     );
   });
+  rowCopyButtons.forEach((button) =>
+    button.addEventListener("click", async () => {
+      const key = button.dataset.copyResult!;
+      if (!committed || button.disabled || !(key in committed.values)) return;
+      const authority = committed;
+      const copyRevision = revision;
+      const succeeded = await copyText(authority.values[key]);
+      if (
+        copyRevision !== revision ||
+        committed !== authority ||
+        button.disabled
+      )
+        return;
+      setStatus(
+        succeeded ? copy.common.copied : copy.common.copyFailed,
+        succeeded ? "success" : "error",
+      );
+    }),
+  );
   downloadButton.addEventListener("click", () => {
     if (!committed || downloadButton.disabled) return;
     downloadBlob(

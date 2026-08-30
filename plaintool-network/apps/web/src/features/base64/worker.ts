@@ -25,6 +25,8 @@ self.addEventListener("message", (event: MessageEvent<Base64WorkerRequest>) => {
         mode: "encode",
         kind: "base64",
         text: encodeBytes(bytes, options),
+        byteLength: bytes.byteLength,
+        hexPreviewTruncated: false,
         repairs: [],
         warnings: [],
         detectedVariant: options.variant === "url" ? "url" : "standard",

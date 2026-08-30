@@ -106,6 +106,10 @@ const seed = {
     fileTooLarge: "The file exceeds the local safety limit.",
     legacyWarning:
       "MD5 and SHA-1 are included for compatibility checks, not password storage or new security designs.",
+    expectedChecksum: "Expected checksum",
+    checksumMatch: "Matches",
+    checksumMismatch: "Does not match",
+    checksumInvalid: "Enter a supported hexadecimal checksum.",
     empty: "Enter text or choose a file first.",
     unavailable: "This browser cannot calculate one of the requested hashes.",
   },

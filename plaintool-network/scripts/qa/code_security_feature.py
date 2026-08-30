@@ -9,7 +9,19 @@ def run_hash_desktop(page, report: dict, _inventory) -> None:
         "expected => document.querySelector('[data-hash-output=\"SHA-256\"]').value === expected",
         arg=expected,
     )
-    report["hash_generator"] = {"sha256": expected}
+    comparison = page.locator("[data-expected-checksum]")
+    comparison.fill(expected)
+    page.wait_for_function(
+        "document.querySelector('[data-checksum-status]').classList.contains('is-match')"
+    )
+    comparison.fill("0" + expected[1:])
+    page.wait_for_function(
+        "document.querySelector('[data-checksum-status]').classList.contains('is-mismatch')"
+    )
+    report["hash_generator"] = {
+        "sha256": expected,
+        "comparison": "match-and-mismatch-confirmed",
+    }
 
 
 def run_hash_mobile(page, report: dict, _inventory) -> None:
@@ -36,13 +48,21 @@ def run_jwt_desktop(page, report: dict, _inventory) -> None:
         "document.querySelector('[data-jwt-decoder] [data-output=\"payload\"]').value.includes('\"sub\": \"123\"')"
     )
     after = warning.inner_text().strip()
+    result_warning = page.locator("[data-result-verification]")
     if not before or before != after or not warning.is_visible():
         report["ui_detail_failures"].append(
             f"JWT no-verification warning disappeared or changed: {before!r} -> {after!r}"
         )
+    if not result_warning.is_visible() or before.splitlines()[0] not in result_warning.inner_text():
+        report["ui_detail_failures"].append(
+            "JWT decoded results do not retain their no-verification context."
+        )
     if token in page.url:
         report["ui_detail_failures"].append("JWT token leaked into the route URL.")
-    report["jwt_decoder"] = {"warning": after}
+    report["jwt_decoder"] = {
+        "warning": after,
+        "result_warning": result_warning.inner_text().strip(),
+    }
 
 
 def run_jwt_mobile(page, report: dict, _inventory) -> None:

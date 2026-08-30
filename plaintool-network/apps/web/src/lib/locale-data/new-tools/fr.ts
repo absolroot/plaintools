@@ -110,6 +110,10 @@ const seed = {
       "Le fichier dépasse la limite de sécurité du traitement local.",
     legacyWarning:
       "MD5 et SHA-1 sont proposés pour les contrôles de compatibilité, pas pour stocker des mots de passe ni concevoir de nouveaux systèmes de sécurité.",
+    expectedChecksum: "Somme de contrôle attendue",
+    checksumMatch: "Correspond",
+    checksumMismatch: "Ne correspond pas",
+    checksumInvalid: "Saisissez une somme hexadécimale prise en charge.",
     empty: "Saisissez du texte ou choisissez d’abord un fichier.",
     unavailable:
       "Ce navigateur ne peut pas calculer l’un des condensats demandés.",

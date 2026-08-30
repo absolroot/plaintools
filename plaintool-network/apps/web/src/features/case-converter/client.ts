@@ -32,6 +32,7 @@ function init(root: HTMLElement): void {
     ...root.querySelectorAll<HTMLInputElement>("[data-mode]"),
   ];
   const copy = readClientCopy<CaseClientCopy>(root);
+  const locale = root.dataset.locale ?? "en";
   let timer = 0;
   let revision = 0;
   let committedOutput: string | undefined;
@@ -77,7 +78,12 @@ function init(root: HTMLElement): void {
     createWorker: () =>
       new Worker(new URL("./worker.ts", import.meta.url), { type: "module" }),
     prepare: (id, context) => ({
-      payload: { id, input: context.source, mode: context.mode },
+      payload: {
+        id,
+        input: context.source,
+        mode: context.mode,
+        locale: context.locale,
+      },
     }),
     replyId: (reply) => reply.id,
     onReply: (reply, context) => {
@@ -126,6 +132,7 @@ function init(root: HTMLElement): void {
       runner.submit({
         source: input.value,
         mode: mode(),
+        locale,
         revision: runRevision,
       });
     }, DEBOUNCE_MS);

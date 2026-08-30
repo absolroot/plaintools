@@ -15,6 +15,7 @@ export type NormalizedSpaceKind =
   | "figure-space";
 
 export interface TextCleanerOptions {
+  removeBidiControls?: boolean;
   removeJoinControls?: boolean;
   removeVariationSelectors?: boolean;
   removeCombiningMarks?: boolean;
@@ -39,22 +40,15 @@ export interface TextCleanerResult {
 
 const DEFAULT_REMOVALS = new Map<number, HiddenCharacterKind>([
   [0x00ad, "soft-hyphen"],
-  [0x061c, "bidi-control"],
   [0x200b, "zero-width-space"],
-  [0x200e, "bidi-control"],
-  [0x200f, "bidi-control"],
-  [0x202a, "bidi-control"],
-  [0x202b, "bidi-control"],
-  [0x202c, "bidi-control"],
-  [0x202d, "bidi-control"],
-  [0x202e, "bidi-control"],
   [0x2060, "word-joiner"],
   [0x2063, "invisible-separator"],
-  [0x2066, "bidi-control"],
-  [0x2067, "bidi-control"],
-  [0x2068, "bidi-control"],
-  [0x2069, "bidi-control"],
   [0xfeff, "byte-order-mark"],
+]);
+
+const BIDI_CONTROLS = new Set([
+  0x061c, 0x200e, 0x200f, 0x202a, 0x202b, 0x202c, 0x202d, 0x202e, 0x2066,
+  0x2067, 0x2068, 0x2069,
 ]);
 
 const NORMALIZED_SPACES = new Map<number, NormalizedSpaceKind>([
@@ -109,6 +103,9 @@ export function cleanHiddenUnicode(
     const defaultKind = DEFAULT_REMOVALS.get(codePoint);
     let removalKind = defaultKind;
 
+    if (!removalKind && options.removeBidiControls) {
+      if (BIDI_CONTROLS.has(codePoint)) removalKind = "bidi-control";
+    }
     if (!removalKind && options.removeJoinControls) {
       if (codePoint === 0x200c || codePoint === 0x200d) {
         removalKind = "join-control";

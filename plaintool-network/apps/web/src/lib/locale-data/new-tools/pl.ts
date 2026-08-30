@@ -108,6 +108,10 @@ const seed = {
     fileTooLarge: "Plik przekracza lokalny limit bezpieczeństwa.",
     legacyWarning:
       "Algorytmy MD5 i SHA-1 są dostępne do sprawdzania zgodności, a nie do przechowywania haseł ani projektowania nowych zabezpieczeń.",
+    expectedChecksum: "Oczekiwana suma kontrolna",
+    checksumMatch: "Zgodna",
+    checksumMismatch: "Niezgodna",
+    checksumInvalid: "Wprowadź obsługiwaną szesnastkową sumę kontrolną.",
     empty: "Najpierw wprowadź tekst lub wybierz plik.",
     unavailable:
       "Ta przeglądarka nie może obliczyć jednego z żądanych skrótów.",

@@ -6,6 +6,20 @@ def run_word_desktop(desktop, report: dict) -> None:
     report["word_counter_run_buttons"] = desktop.locator("[data-word-counter] [data-run]").count()
     report["word_counter_example"] = desktop.locator("[data-word-counter] [data-input]").get_attribute("placeholder")
     report["word_idle_status"] = desktop.locator("[data-word-counter] [data-status]").text_content()
+    explanation = desktop.locator("[data-word-counter] .metric-explanation")
+    report["word_metric_explanation"] = {
+        "collapsed": explanation.get_attribute("open") is None,
+        "summary": explanation.locator("summary").text_content().strip(),
+        "body": explanation.locator("p").text_content().strip(),
+    }
+    if (
+        not report["word_metric_explanation"]["collapsed"]
+        or not report["word_metric_explanation"]["summary"]
+        or not report["word_metric_explanation"]["body"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Word metric explanation is missing or expanded by default: {report['word_metric_explanation']}"
+        )
     report["word_idle_status_dot"] = desktop.locator("[data-word-counter] .status-dot").evaluate("""
       (dot) => {
         const probe = document.createElement('span');

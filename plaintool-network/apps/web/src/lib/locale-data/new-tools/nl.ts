@@ -107,6 +107,10 @@ const seed = {
     fileTooLarge: "Het bestand overschrijdt de lokale veiligheidslimiet.",
     legacyWarning:
       "MD5 en SHA-1 zijn opgenomen voor compatibiliteitscontroles, niet voor wachtwoordopslag of nieuwe beveiligingsontwerpen.",
+    expectedChecksum: "Verwachte controlesom",
+    checksumMatch: "Komt overeen",
+    checksumMismatch: "Komt niet overeen",
+    checksumInvalid: "Voer een ondersteunde hexadecimale controlesom in.",
     empty: "Voer eerst tekst in of kies een bestand.",
     unavailable: "Deze browser kan een van de gevraagde hashes niet berekenen.",
   },

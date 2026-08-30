@@ -70,6 +70,13 @@ const { copy, textDirection = "auto" } = Astro.props;
     <div class="cleaner-options-body">
       <p class="tool-warning">{copy.advancedWarning}</p>
       <label>
+        <input type="checkbox" data-option="removeBidiControls" />
+        <span>
+          <strong>{copy.kindLabels["bidi-control"]}</strong>
+          <small>{copy.advancedWarning}</small>
+        </span>
+      </label>
+      <label>
         <input type="checkbox" data-option="removeJoinControls" />
         <span>
           <strong>{copy.removeJoinControls}</strong>

@@ -11,6 +11,19 @@ describe("convertCase", () => {
     );
   });
 
+  it("uses locale-aware mappings when the route locale is provided", () => {
+    expect(convertCase("istanbul ızmir", "upper", "tr")).toBe(
+      "İSTANBUL IZMİR",
+    );
+    expect(convertCase("I İ", "lower", "tr")).toBe("ı i");
+    expect(convertCase("İSTANBUL. IZMIR", "sentence", "tr")).toBe(
+      "İstanbul. Izmır",
+    );
+    expect(convertCase("İSTANBUL IZMIR", "capitalize-words", "tr")).toBe(
+      "İstanbul Izmır",
+    );
+  });
+
   it("does not normalize combining sequences", () => {
     const decomposed = "Cafe\u0301";
     expect(convertCase(decomposed, "upper")).toBe("CAFE\u0301");

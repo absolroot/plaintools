@@ -2,6 +2,11 @@ export const hashAlgorithms = ["MD5", "SHA-1", "SHA-256", "SHA-512"] as const;
 export type HashAlgorithm = (typeof hashAlgorithms)[number];
 export type HashResults = Record<HashAlgorithm, string>;
 
+export type ChecksumComparison =
+  | { status: "empty" }
+  | { status: "invalid" }
+  | { status: "match" | "mismatch"; algorithm: HashAlgorithm };
+
 export type HashErrorCode = "empty-input" | "digest-unavailable";
 
 export class HashError extends Error {
@@ -9,6 +14,25 @@ export class HashError extends Error {
     super(code);
     this.name = "HashError";
   }
+}
+
+export function compareExpectedChecksum(
+  expected: string,
+  results: HashResults,
+): ChecksumComparison {
+  const normalized = expected.trim().toLowerCase();
+  if (!normalized) return { status: "empty" };
+  if (!/^[0-9a-f]+$/u.test(normalized)) return { status: "invalid" };
+
+  const algorithm = hashAlgorithms.find(
+    (candidate) => results[candidate].length === normalized.length,
+  );
+  if (!algorithm) return { status: "invalid" };
+  return {
+    status:
+      results[algorithm].toLowerCase() === normalized ? "match" : "mismatch",
+    algorithm,
+  };
 }
 
 function rotateLeft(value: number, bits: number): number {

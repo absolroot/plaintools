@@ -3,6 +3,7 @@ import type {
   CodecOptions,
   CodecResult,
 } from "@plaintool/codec-core";
+import { HEX_PREVIEW_BYTE_LIMIT } from "@plaintool/codec-core";
 import {
   appendBadge,
   copyText,
@@ -31,6 +32,12 @@ const AUTO_RUN_CHARS = 1024 * 1024;
 const QUICK_AUTO_RUN_CHARS = 64 * 1024;
 const QUICK_AUTO_RUN_DELAY = 70;
 const LARGE_AUTO_RUN_DELAY = 140;
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KiB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MiB`;
+}
 
 function initConverter(root: HTMLElement): void {
   if (root.dataset.initialized) return;
@@ -294,6 +301,13 @@ function initConverter(root: HTMLElement): void {
       appendBadge(
         badges,
         `${copy.detected}: Base64${nextResult.detectedVariant === "url" ? "URL" : ""}`,
+      );
+    appendBadge(badges, formatBytes(nextResult.byteLength));
+    if (nextResult.hexPreviewTruncated)
+      appendBadge(
+        badges,
+        `${copy.hexLabel}: ${formatBytes(HEX_PREVIEW_BYTE_LIMIT)} / ${formatBytes(nextResult.byteLength)}`,
+        true,
       );
     nextResult.repairs.forEach((repair) =>
       appendBadge(badges, copy.repairs[repair]),

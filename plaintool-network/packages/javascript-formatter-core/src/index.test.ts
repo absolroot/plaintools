@@ -103,13 +103,18 @@ describe("JavaScript source minification", () => {
     expect(output).not.toContain("explanation");
   });
 
-  it("removes comments by default and preserves all comments only on request", async () => {
-    const input = "/*! license */\n// note\nconst value = 1;";
-    expect(await minifyJavaScript(input)).not.toContain("license");
+  it("preserves legal comments by default and all comments only on request", async () => {
+    const input =
+      "/*! license */\n/* @preserve attribution */\n// note\nconst value = 1;";
+    const defaultOutput = await minifyJavaScript(input);
+    expect(defaultOutput).toContain("/*! license */");
+    expect(defaultOutput).toContain("@preserve attribution");
+    expect(defaultOutput).not.toContain("// note");
     const preserved = await minifyJavaScript(input, {
       preserveComments: true,
     });
     expect(preserved).toContain("/*! license */");
+    expect(preserved).toContain("@preserve attribution");
     expect(preserved).toContain("// note");
   });
 

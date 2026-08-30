@@ -107,6 +107,10 @@ const seed = {
     fileTooLarge: "Soubor překračuje místní bezpečnostní limit.",
     legacyWarning:
       "MD5 a SHA-1 jsou určeny ke kontrole kompatibility, nikoli k ukládání hesel nebo návrhu nového zabezpečení.",
+    expectedChecksum: "Očekávaný kontrolní součet",
+    checksumMatch: "Shoda",
+    checksumMismatch: "Neshoda",
+    checksumInvalid: "Zadejte podporovaný šestnáctkový kontrolní součet.",
     empty: "Nejprve zadejte text nebo vyberte soubor.",
     unavailable: "Prohlížeč nedokáže vypočítat jeden z požadovaných hashů.",
   },

@@ -95,6 +95,9 @@ const isDataMode = (value: NewToolId): value is DataConversionMode =>
   (dataModes as readonly NewToolId[]).includes(value);
 const dataMode = isDataMode(page) ? page : undefined;
 const dataFeature = dataMode ? bundle.tools[dataMode].feature : undefined;
+const dataModeLabels = Object.fromEntries(
+  dataModes.map((id) => [id, bundle.catalog[id].name]),
+) as Record<DataConversionMode, string>;
 ---
 
 <PreviewToolPage
@@ -189,6 +192,7 @@ const dataFeature = dataMode ? bundle.tools[dataMode].feature : undefined;
       <DataConverter
         locale={locale}
         mode={dataMode}
+        modeLabels={dataModeLabels}
         copy={dataFeature}
         textDirection={technicalDirection}
       />

@@ -103,6 +103,10 @@ const seed = {
     fileTooLarge: "檔案超過本機安全處理上限。",
     legacyWarning:
       "MD5和SHA-1僅供相容性檢查，不適合用來儲存密碼或設計新的安全機制。",
+    expectedChecksum: "預期雜湊值",
+    checksumMatch: "相符",
+    checksumMismatch: "不相符",
+    checksumInvalid: "請輸入支援的十六進位雜湊值。",
     empty: "請先輸入文字或選擇檔案。",
     unavailable: "此瀏覽器無法計算其中一種要求的雜湊。",
   },

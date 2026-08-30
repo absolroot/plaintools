@@ -19,6 +19,10 @@ export interface HashGeneratorCopy {
   textTooLarge: string;
   fileTooLarge: string;
   legacyWarning: string;
+  expectedChecksum: string;
+  checksumMatch: string;
+  checksumMismatch: string;
+  checksumInvalid: string;
   errors: Record<HashErrorCode, string>;
 }
 

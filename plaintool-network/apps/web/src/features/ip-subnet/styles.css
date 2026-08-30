@@ -125,6 +125,28 @@
   line-height: 1.5;
 }
 
+.ip-subnet-result-grid dd {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ip-subnet-result-grid dd > span {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+}
+
+.ip-subnet-row-copy {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
 .ip-subnet-result-grid dd[dir="ltr"],
 .ip-subnet-detail-grid dd[dir="ltr"],
 .ip-subnet-binary-grid dd[dir="ltr"] {
@@ -190,6 +212,7 @@
 
   .ip-subnet-input-row .secondary-button,
   .ip-subnet-result-actions .text-button,
+  .ip-subnet-row-copy,
   .ip-subnet-details summary {
     min-height: 44px;
   }

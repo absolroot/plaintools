@@ -3,14 +3,14 @@ from .config import BASE_URL
 
 def run_ai_text_cleaner_desktop(page, report: dict, _inventory) -> None:
     states = {}
-    sample = "A\u200bB\u2060C👩\u200d💻"
+    sample = "A\u200bB\u202eC\u2060D👩\u200d💻"
     for locale in ("en", "ko", "ar"):
         page.goto(
             f"{BASE_URL}/{locale}/ai-watermark-remover/", wait_until="networkidle"
         )
         page.locator("[data-ai-text-cleaner] [data-input]").fill(sample)
         page.wait_for_function(
-            "document.querySelector('[data-ai-text-cleaner] [data-output]').value === 'ABC👩‍💻'"
+            "document.querySelector('[data-ai-text-cleaner] [data-output]').value === 'AB\\u202eCD👩‍💻'"
         )
         states[locale] = page.evaluate(
             """
@@ -28,7 +28,7 @@ def run_ai_text_cleaner_desktop(page, report: dict, _inventory) -> None:
         expected_dir = "rtl" if locale == "ar" else "ltr"
         if (
             state["html_dir"] != expected_dir
-            or state["output"] != "ABC👩‍💻"
+            or state["output"] != "AB\u202eCD👩‍💻"
             or state["report_hidden"]
             or state["removed_rows"] != 2
             or "U+200B" not in state["report_text"]

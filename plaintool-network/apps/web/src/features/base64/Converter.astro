@@ -49,6 +49,7 @@ const clientCopy = {
   detected: t.detected,
   binaryOutput: t.binaryOutput,
   executableWarning: t.executableWarning,
+  hexLabel: t.hex,
   recursive: t.recursive,
   recursiveApplied: t.recursiveApplied,
   errors: t.errors,
@@ -190,12 +191,7 @@ const clientCopy = {
         <span>{t.autoRepair}</span></label
       >
       <label class="check-row decode-only"
-        ><input
-          name="recursive"
-          type="checkbox"
-          data-option="recursive"
-          checked
-        />
+        ><input name="recursive" type="checkbox" data-option="recursive" />
         <span>{t.recursive}</span></label
       >
       <label class="check-row decode-only"

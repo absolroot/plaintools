@@ -8,6 +8,8 @@ import {
 
 type LocatedError = { line?: unknown };
 
+const LEGAL_COMMENT_PATTERN = /^!|@preserve|@license|@cc_on/i;
+
 async function runTerser(
   input: string,
   module: boolean,
@@ -20,7 +22,7 @@ async function runTerser(
     sourceMap: false,
     ecma: 2020,
     format: {
-      comments: preserveComments ? "all" : false,
+      comments: preserveComments ? "all" : LEGAL_COMMENT_PATTERN,
       semicolons: true,
     },
   });

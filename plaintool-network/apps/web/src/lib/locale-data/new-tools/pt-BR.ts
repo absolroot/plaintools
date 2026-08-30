@@ -107,6 +107,10 @@ const seed = {
       "O arquivo excede o limite de segurança do processamento local.",
     legacyWarning:
       "MD5 e SHA-1 estão disponíveis para verificações de compatibilidade, não para armazenar senhas nem criar novos projetos de segurança.",
+    expectedChecksum: "Checksum esperado",
+    checksumMatch: "Corresponde",
+    checksumMismatch: "Não corresponde",
+    checksumInvalid: "Digite um checksum hexadecimal compatível.",
     empty: "Digite um texto ou escolha um arquivo primeiro.",
     unavailable:
       "Este navegador não consegue calcular um dos hashes solicitados.",

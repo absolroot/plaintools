@@ -111,6 +111,10 @@ const seed = {
     fileTooLarge: "Die Datei überschreitet das lokale Sicherheitslimit.",
     legacyWarning:
       "MD5 und SHA-1 sind für Kompatibilitätsprüfungen enthalten, nicht zum Speichern von Passwörtern oder für neue Sicherheitskonzepte.",
+    expectedChecksum: "Erwartete Prüfsumme",
+    checksumMatch: "Stimmt überein",
+    checksumMismatch: "Stimmt nicht überein",
+    checksumInvalid: "Geben Sie eine unterstützte hexadezimale Prüfsumme ein.",
     empty: "Geben Sie zuerst Text ein oder wählen Sie eine Datei aus.",
     unavailable:
       "Dieser Browser kann einen der angeforderten Hashes nicht berechnen.",
