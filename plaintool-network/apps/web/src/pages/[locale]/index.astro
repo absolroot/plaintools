@@ -99,9 +99,16 @@ const publicItems = toolCatalog
                       <div class="tool-directory-card-heading">
                         <ToolMark toolId={tool.id} mark={tool.mark} />
                         <h3>
-                          {nameLines.map((line) => (
+                          {nameLines.map((line, lineIndex) => (
                             <span>
-                              <bdi dir="auto">{line}</bdi>
+                              <bdi
+                                class:list={{
+                                  "tool-directory-card-subtitle": lineIndex > 0,
+                                }}
+                                dir="auto"
+                              >
+                                {line}
+                              </bdi>
                             </span>
                           ))}
                         </h3>
@@ -129,9 +136,16 @@ const publicItems = toolCatalog
                       <div class="tool-directory-card-heading">
                         <ToolMark toolId={tool.id} mark={tool.mark} />
                         <h3>
-                          {nameLines.map((line) => (
+                          {nameLines.map((line, lineIndex) => (
                             <span>
-                              <bdi dir="auto">{line}</bdi>
+                              <bdi
+                                class:list={{
+                                  "tool-directory-card-subtitle": lineIndex > 0,
+                                }}
+                                dir="auto"
+                              >
+                                {line}
+                              </bdi>
                             </span>
                           ))}
                         </h3>

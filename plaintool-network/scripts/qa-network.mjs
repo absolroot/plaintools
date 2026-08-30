@@ -7,6 +7,7 @@ import {
 } from "../apps/web/src/lib/content-registry.js";
 import {
   implementedIntegrationCapabilities,
+  productionIntegrationDefaults,
   resolveDeploymentConfig,
 } from "../apps/web/src/lib/deployment-config.js";
 
@@ -18,7 +19,9 @@ if (target !== "preview" && target !== "production") {
 }
 
 const config = resolveDeploymentConfig(
-  process.env,
+  target === "production"
+    ? { ...productionIntegrationDefaults, ...process.env }
+    : process.env,
   target,
   implementedIntegrationCapabilities,
 );

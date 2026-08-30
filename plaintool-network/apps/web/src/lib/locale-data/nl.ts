@@ -182,7 +182,7 @@ export const nlBundle: LocaleBundle = {
           {
             title: "Analyse en advertenties",
             body: [
-              "Google Analytics en Google AdSense zijn momenteel {{integration_state}}. Als ze worden ingeschakeld, worden gegevens over apparaat, gebruik, cookies, toestemming, bewaring en internationale overdrachten hier beschreven en via de privacyinstellingen beheerd. Invoer en resultaten van tools zijn standaard uitgesloten van analyse- en advertentiegebeurtenissen.",
+              "Google Analytics is momenteel {{analytics_state}}, terwijl Google AdSense {{advertising_state}} is. Wanneer Analytics is ingeschakeld, beheert {{consent_provider}} de toestemming en ontvangt Google pas na toestemming voor statistische cookies gegevens over pagina, sessie, globale locatie, browser en apparaat. Invoer, bestanden, resultaten, fouten en daarvan afgeleide waarden zijn uitgesloten van analyse- en advertentiegebeurtenissen.",
             ],
           },
           {
@@ -224,13 +224,13 @@ export const nlBundle: LocaleBundle = {
           {
             title: "Huidig gebruik",
             body: [
-              "Analyse en advertenties zijn momenteel {{integration_state}}. De website bewaart invoer en resultaten van tools niet in cookies of lokale opslag. Alleen de gekozen themavoorkeur light of dark wordt lokaal opgeslagen; die waarde wordt niet verzonden.",
+              "Analyse is momenteel {{analytics_state}}, terwijl advertenties {{advertising_state}} zijn. Google Analytics wordt pas geladen na toestemming voor statistische cookies die door {{consent_provider}} wordt beheerd. De website bewaart invoer en resultaten van tools niet in cookies of lokale opslag. Alleen de gekozen themavoorkeur light of dark wordt lokaal opgeslagen; die waarde wordt niet verzonden.",
             ],
           },
           {
-            title: "Als integraties worden ingeschakeld",
+            title: "Toestemming en cookiedetails",
             body: [
-              "Een toestemmingsplatform beheert dan de noodzakelijke opslag voor voorkeuren, analyse en advertenties. Met een permanente privacyoptie kun je toestemming bekijken of intrekken.",
+              "{{consent_provider}} registreert en beheert cookiekeuzes. De verklaring hieronder vermeldt de huidige cookies, aanbieders, doeleinden en bewaartermijnen en biedt de mogelijkheid om toestemming te bekijken of in te trekken.",
             ],
           },
         ],
@@ -684,8 +684,7 @@ export const nlBundle: LocaleBundle = {
   tools,
   network: {
     allTools: "Alle tools",
-    directoryMetaTitle:
-      "AbsolTools | Tools voor tekst, gegevens en code in je browser",
+    directoryMetaTitle: "AbsolTools | Handige tools, meteen bij de hand",
     directoryMetaDescription:
       "Formatteer, converteer, codeer, decodeer, vergelijk en inspecteer tekst, gegevens en code rechtstreeks in je browser. Invoer en resultaten worden niet geüpload.",
     directoryTitle:

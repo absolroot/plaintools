@@ -1,10 +1,11 @@
 import {
   implementedIntegrationCapabilities,
+  productionIntegrationDefaults,
   resolveDeploymentConfig,
 } from "../apps/web/src/lib/deployment-config.js";
 
 const config = resolveDeploymentConfig(
-  process.env,
+  { ...productionIntegrationDefaults, ...process.env },
   "production",
   implementedIntegrationCapabilities,
 );

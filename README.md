@@ -84,7 +84,7 @@ npm run dev
 
 The prototype is ready for local evaluation, not an indexed ad-supported launch. `absoltools.com` is selected and intended for purchase, but it is not yet recorded as purchased or controlled. Before public release, verify ownership and the final host; enter the real operator/contact/host/retention/law values; obtain legal review; run the complete browser and large-file matrix; and rebuild with `npm run build:production`.
 
-Do not enable GA4 or AdSense by setting environment variables alone. First implement and verify the chosen CMP, permanent privacy choices, Consent Mode, provider/transfer disclosures, GA event allowlist, domain-level `ads.txt`, and live ad placement behavior. Current production validation intentionally fails while required facts are missing.
+GA4 is implemented behind Cookiebot Statistics consent with a permanent cookie declaration and withdrawal control. Production validation requires the configured Cookiebot domain-group ID and GA4 measurement ID, while AdSense remains disabled and still requires separate consent, disclosure, `ads.txt`, and placement review before implementation.
 
 The selected network identity is `AbsolTools` at the planned domain `absoltools.com`, using localized function paths such as `/en/base64-decode/`. No domain purchase, DNS control, or production connection is represented by the default source configuration.
 

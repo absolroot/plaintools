@@ -181,7 +181,7 @@ const noBundle = {
           {
             title: "Analyse og annonsering",
             body: [
-              "Google Analytics og Google AdSense er for øyeblikket {{integration_state}}. Når de er aktivert, vil deres enhets-, bruk-, cookie-, samtykke-, lagrings- og internasjonale overføringsdetaljer bli oppgitt her og administrert gjennom personvernvalg. Verktøyinnspill og resultater er utelukket fra analyse- og reklamehendelser etter design.",
+              "Google Analytics er for øyeblikket {{analytics_state}}, mens Google AdSense er {{advertising_state}}. Når Analytics er aktivert, administrerer {{consent_provider}} samtykket, og Google mottar side-, økt-, omtrentlig posisjons-, nettleser- og enhetsdata først etter samtykke til statistikkapsler. Verktøyinnspill, filer, resultater, feil og avledede verdier er utelukket fra analyse- og annonsehendelser.",
             ],
           },
           {
@@ -224,13 +224,13 @@ const noBundle = {
           {
             title: "Nåværende bruk",
             body: [
-              "Analyse og annonsering er for øyeblikket {{integration_state}}. Nettstedet lagrer ikke verktøyinnsats eller resultater i informasjonskapsler eller lokal lagring. Det lagrer kun ditt valgte temapreferanse (lys eller mørk) i lokal lagring; denne verdien sendes ikke.",
+              "Analyse er for øyeblikket {{analytics_state}}, mens annonsering er {{advertising_state}}. Google Analytics lastes først etter samtykke til statistikkapsler administrert av {{consent_provider}}. Nettstedet lagrer ikke verktøyinnsats eller resultater i informasjonskapsler eller lokal lagring. Det lagrer kun ditt valgte temapreferanse (lys eller mørk) i lokal lagring; denne verdien sendes ikke.",
             ],
           },
           {
-            title: "Hvis integrasjoner er aktivert",
+            title: "Samtykke og informasjonskapseldetaljer",
             body: [
-              "En samtykkeplattform vil kontrollere pålagt lagring av preferanser, lagring av analyser og lagring av annonsering. En permanent personvernkontroll vil la besøkende gjennomgå eller trekke tilbake samtykke.",
+              "{{consent_provider}} registrerer og administrerer valg av informasjonskapsler. Erklæringen nedenfor viser gjeldende informasjonskapsler, leverandører, formål og lagringsperioder og gjør det mulig å gjennomgå eller trekke tilbake samtykke.",
             ],
           },
         ],
@@ -682,8 +682,7 @@ const noBundle = {
   tools,
   network: {
     allTools: "Alle verktøy",
-    directoryMetaTitle:
-      "AbsolTools | Verktøy for tekst, data og kode i nettleseren",
+    directoryMetaTitle: "AbsolTools | Nyttige verktøy, klare til bruk",
     directoryMetaDescription:
       "Formater, konverter, kod, dekod, sammenlign og kontroller tekst, data og kode direkte i nettleseren. Inndata og resultater lastes ikke opp.",
     directoryTitle:

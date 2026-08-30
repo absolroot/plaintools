@@ -9,6 +9,7 @@ import {
 } from "./content-registry.js";
 import {
   implementedIntegrationCapabilities,
+  productionIntegrationDefaults,
   resolveDeploymentConfig,
 } from "./deployment-config.js";
 
@@ -32,7 +33,9 @@ const deploymentTarget =
     : "preview";
 
 export const siteConfig = resolveDeploymentConfig(
-  import.meta.env,
+  deploymentTarget === "production"
+    ? { ...productionIntegrationDefaults, ...import.meta.env }
+    : import.meta.env,
   deploymentTarget,
   implementedIntegrationCapabilities,
 );

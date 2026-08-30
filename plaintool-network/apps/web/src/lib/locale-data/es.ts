@@ -181,7 +181,7 @@ const bundle: LocaleBundle = {
           {
             title: "Analítica y publicidad",
             body: [
-              "Google Analytics y Google AdSense están actualmente {{integration_state}}. Si se activan, esta política explicará el tratamiento de datos del dispositivo y de uso, cookies, consentimiento, conservación y transferencias internacionales, y ofrecerá controles de privacidad. El contenido introducido y los resultados quedan excluidos de los eventos de analítica y publicidad por diseño.",
+              "Google Analytics está actualmente {{analytics_state}}, mientras que Google AdSense está {{advertising_state}}. Cuando Analytics está habilitado, {{consent_provider}} gestiona el consentimiento y Google recibe datos de página, sesión, ubicación aproximada, navegador y dispositivo solo después de consentir las cookies de estadísticas. El contenido introducido, los archivos, los resultados, los errores y sus valores derivados quedan excluidos de los eventos de analítica y publicidad.",
             ],
           },
           {
@@ -224,13 +224,13 @@ const bundle: LocaleBundle = {
           {
             title: "Uso actual",
             body: [
-              "La analítica y la publicidad están actualmente {{integration_state}}. El contenido introducido y los resultados no se guardan en cookies ni almacenamiento local. Solo se guarda la preferencia de tema elegida (claro u oscuro) en el almacenamiento local; este valor no se transmite.",
+              "La analítica está actualmente {{analytics_state}}, mientras que la publicidad está {{advertising_state}}. Google Analytics solo se carga después de consentir las cookies de estadísticas gestionadas por {{consent_provider}}. El contenido introducido y los resultados no se guardan en cookies ni almacenamiento local. Solo se guarda la preferencia de tema elegida (claro u oscuro) en el almacenamiento local; este valor no se transmite.",
             ],
           },
           {
-            title: "Si se activan integraciones",
+            title: "Consentimiento y detalles de las cookies",
             body: [
-              "Una plataforma de consentimiento controlará el almacenamiento necesario para las preferencias, la analítica y la publicidad. Un control de privacidad permanente permitirá revisar o retirar el consentimiento.",
+              "{{consent_provider}} registra y gestiona las preferencias de cookies. La declaración que aparece a continuación enumera las cookies, los proveedores, los fines y los periodos de conservación actuales, y permite revisar o retirar el consentimiento.",
             ],
           },
         ],
@@ -699,8 +699,7 @@ const bundle: LocaleBundle = {
   tools,
   network: {
     allTools: "Todas las herramientas",
-    directoryMetaTitle:
-      "AbsolTools | Herramientas de texto, datos y código en tu navegador",
+    directoryMetaTitle: "AbsolTools | Herramientas útiles, listas al instante",
     directoryMetaDescription:
       "Formatea, convierte, codifica, decodifica, compara e inspecciona texto, datos y código directamente en tu navegador. Las entradas y los resultados no se suben.",
     directoryTitle:

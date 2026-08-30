@@ -182,7 +182,7 @@ export const frBundle: LocaleBundle = {
           {
             title: "Analyse et publicité",
             body: [
-              "Google Analytics et Google AdSense sont actuellement {{integration_state}}. S’ils sont activés, les informations relatives à l’appareil, à l’utilisation, aux cookies, au consentement, à la conservation et aux transferts internationaux seront décrites ici et gérées dans les paramètres de confidentialité. Par défaut, les saisies et résultats des outils sont exclus des événements d’analyse et de publicité.",
+              "Google Analytics est actuellement {{analytics_state}}, tandis que Google AdSense est {{advertising_state}}. Lorsque Analytics est activé, {{consent_provider}} gère le consentement et Google ne reçoit les données de page, de session, de localisation approximative, de navigateur et d’appareil qu’après le consentement aux cookies statistiques. Les saisies, fichiers, résultats, erreurs et valeurs qui en sont dérivées sont exclus des événements d’analyse et de publicité.",
             ],
           },
           {
@@ -225,13 +225,13 @@ export const frBundle: LocaleBundle = {
           {
             title: "Utilisation actuelle",
             body: [
-              "L’analyse et la publicité sont actuellement {{integration_state}}. Le site n’enregistre ni saisies ni résultats dans des cookies ou dans le stockage local. Seule la préférence de thème choisie, light ou dark, y est conservée et cette valeur n’est pas transmise.",
+              "L’analyse est actuellement {{analytics_state}}, tandis que la publicité est {{advertising_state}}. Google Analytics n’est chargé qu’après le consentement aux cookies statistiques géré par {{consent_provider}}. Le site n’enregistre ni saisies ni résultats dans des cookies ou dans le stockage local. Seule la préférence de thème choisie, light ou dark, y est conservée et cette valeur n’est pas transmise.",
             ],
           },
           {
-            title: "Si des intégrations sont activées",
+            title: "Consentement et détails des cookies",
             body: [
-              "Une plateforme de consentement contrôlera le stockage nécessaire aux préférences, à l’analyse et à la publicité. Un réglage de confidentialité permanent permettra de revoir ou de retirer le consentement.",
+              "{{consent_provider}} enregistre et gère les choix relatifs aux cookies. La déclaration ci-dessous répertorie les cookies, fournisseurs, finalités et durées de conservation actuels et permet de revoir ou de retirer le consentement.",
             ],
           },
         ],
@@ -691,7 +691,7 @@ export const frBundle: LocaleBundle = {
   network: {
     allTools: "Tous les outils",
     directoryMetaTitle:
-      "AbsolTools | Outils de texte, de données et de code dans le navigateur",
+      "AbsolTools | Des outils utiles, toujours à portée de main",
     directoryMetaDescription:
       "Formatez, convertissez, encodez, décodez, comparez et inspectez du texte, des données et du code directement dans votre navigateur. Les entrées et résultats ne sont pas téléversés.",
     directoryTitle:

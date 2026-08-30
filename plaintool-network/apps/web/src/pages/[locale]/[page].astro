@@ -26,11 +26,6 @@ interface Props {
 const { locale, page } = Astro.props;
 const t = getCopy(locale);
 const content = t.legal[page];
-const active = Boolean(
-  siteConfig.integrations.ga4MeasurementId ||
-    siteConfig.integrations.adsensePublisherId,
-);
-const integrationState = t.integrationState[active ? "enabled" : "disabled"];
 const analyticsState =
   t.integrationState[
     siteConfig.integrations.ga4MeasurementId ? "enabled" : "disabled"
@@ -49,7 +44,6 @@ const variables = {
   host_provider: siteConfig.hosting.provider,
   host_privacy_url: siteConfig.hosting.privacyUrl,
   host_log_retention: siteConfig.hosting.logRetention,
-  integration_state: integrationState,
   analytics_state: analyticsState,
   advertising_state: advertisingState,
   consent_provider: "Cookiebot by Usercentrics",

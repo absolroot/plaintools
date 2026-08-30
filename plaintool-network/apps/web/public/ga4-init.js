@@ -1,22 +1,24 @@
 /* global document, window */
 
 (() => {
-  const element = document.currentScript;
+  const element = globalThis.document.currentScript;
   const measurementId = element?.dataset.measurementId || "";
   if (!/^G-[A-Z0-9]+$/.test(measurementId)) return;
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag =
-    window.gtag ||
+  globalThis.dataLayer = globalThis.dataLayer || [];
+  globalThis.gtag =
+    globalThis.gtag ||
     function gtag() {
-      window.dataLayer.push(arguments);
+      globalThis.dataLayer.push(arguments);
     };
 
   let configured = false;
   const syncConsent = () => {
-    const statisticsGranted = Boolean(window.Cookiebot?.consent?.statistics);
-    window[`ga-disable-${measurementId}`] = !statisticsGranted;
-    window.gtag("consent", "update", {
+    const statisticsGranted = Boolean(
+      globalThis.Cookiebot?.consent?.statistics,
+    );
+    globalThis[`ga-disable-${measurementId}`] = !statisticsGranted;
+    globalThis.gtag("consent", "update", {
       ad_personalization: "denied",
       ad_storage: "denied",
       ad_user_data: "denied",
@@ -28,15 +30,15 @@
 
     if (!statisticsGranted || configured) return;
     configured = true;
-    window.gtag("js", new Date());
-    window.gtag("config", measurementId, {
+    globalThis.gtag("js", new Date());
+    globalThis.gtag("config", measurementId, {
       allow_ad_personalization_signals: false,
       allow_google_signals: false,
       cookie_expires: 33696000,
     });
   };
 
-  window.addEventListener("CookiebotOnAccept", syncConsent);
-  window.addEventListener("CookiebotOnDecline", syncConsent);
+  globalThis.addEventListener("CookiebotOnAccept", syncConsent);
+  globalThis.addEventListener("CookiebotOnDecline", syncConsent);
   syncConsent();
 })();

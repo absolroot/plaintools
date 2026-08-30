@@ -26,6 +26,17 @@ export const implementedIntegrationCapabilities = /** @type {const} */ ({
   adsense: false,
 });
 
+// These identifiers are public deployment configuration, not credentials.
+// Keeping the production defaults in source prevents a Cloudflare rebuild from
+// silently dropping consent and analytics when a new environment variable has
+// not yet been added to the project dashboard. Explicit environment values can
+// still override them.
+export const productionIntegrationDefaults = /** @type {const} */ ({
+  PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID: "f5e5dae2-8573-4cbc-8d0d-426c3950e389",
+  PUBLIC_GA4_MEASUREMENT_ID: "G-0NCP26Q60K",
+  PUBLIC_GOOGLE_CMP_ENABLED: "true",
+});
+
 const requiredProductionKeys = /** @type {const} */ ([
   "PUBLIC_SITE_ORIGIN",
   "PUBLIC_OPERATOR_NAME",

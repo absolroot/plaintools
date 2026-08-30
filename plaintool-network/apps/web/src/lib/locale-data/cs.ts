@@ -179,7 +179,7 @@ const csBundle = {
           {
             title: "Analytika a reklama",
             body: [
-              "Google Analytics a Google AdSense jsou aktuálně {{integration_state}}. Po povolení budou zde zveřejněny a spravovány prostřednictvím voleb ochrany soukromí jejich údaje o zařízení, využívání, souborech cookie, souhlasu, uchovávání a mezinárodních přenosech. Vstupy a výsledky nástroje jsou z analytických a reklamních událostí záměrně vyloučeny.",
+              "Google Analytics je aktuálně {{analytics_state}}, zatímco Google AdSense je {{advertising_state}}. Když je Analytics povolena, {{consent_provider}} spravuje souhlas a Google obdrží údaje o stránce, relaci, přibližné poloze, prohlížeči a zařízení až po souhlasu se statistickými cookies. Vstupy, soubory, výsledky, chyby a odvozené hodnoty jsou z analytických a reklamních událostí vyloučeny.",
             ],
           },
           {
@@ -221,13 +221,13 @@ const csBundle = {
           {
             title: "Současné použití",
             body: [
-              "Analytika a reklama jsou v současné době {{integration_state}}. Stránka neukládá vstupy ani výsledky nástroje do cookies nebo místního úložiště. Ukládá pouze vaši vybranou preferenci tématu (světlé nebo tmavé) do místního úložiště; tato hodnota není přenášena.",
+              "Analytika je v současné době {{analytics_state}}, zatímco reklama je {{advertising_state}}. Google Analytics se načte až po souhlasu se statistickými cookies spravovaném službou {{consent_provider}}. Stránka neukládá vstupy ani výsledky nástroje do cookies nebo místního úložiště. Ukládá pouze vaši vybranou preferenci tématu (světlé nebo tmavé) do místního úložiště; tato hodnota není přenášena.",
             ],
           },
           {
-            title: "Pokud jsou integrace povoleny",
+            title: "Souhlas a podrobnosti o cookies",
             body: [
-              "Platforma pro souhlas bude řídit nezbytné uchovávání preferencí, uchovávání analytických údajů a uchovávání reklamních údajů. Trvalá kontrola soukromí umožní návštěvníkům přezkoumat nebo odvolat souhlas.",
+              "{{consent_provider}} zaznamenává a spravuje volby cookies. Níže uvedené prohlášení uvádí aktuální cookies, poskytovatele, účely a doby uchování a umožňuje souhlas zkontrolovat nebo odvolat.",
             ],
           },
         ],
@@ -679,8 +679,7 @@ const csBundle = {
   tools,
   network: {
     allTools: "Všechny nástroje",
-    directoryMetaTitle:
-      "AbsolTools | Nástroje pro text, data a kód v prohlížeči",
+    directoryMetaTitle: "AbsolTools | Praktické nástroje, vždy po ruce",
     directoryMetaDescription:
       "Formátujte, převádějte, kódujte, dekódujte, porovnávejte a kontrolujte text, data a kód přímo v prohlížeči. Vstupy ani výsledky se nikam neodesílají.",
     directoryTitle:

@@ -1173,6 +1173,14 @@ a.tool-directory-card:focus-visible {
 .tool-directory-card-heading h3 > span {
   display: block;
 }
+.tool-directory-card-subtitle {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+}
 .directory-status {
   margin-inline-start: auto;
   padding: 2px 6px;

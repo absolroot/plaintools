@@ -13,8 +13,12 @@ URL, log, analytics event, advertisement request, or other third-party request.
 There is no server conversion, upload endpoint, database, account system,
 service worker, or tool-data persistence.
 
-The only approved localStorage entry is `plaintool.theme`, with the value
-`light` or `dark`. Do not store tool state or results.
+The only application-owned localStorage entry is `plaintool.theme`, with the
+value `light` or `dark`. Cookiebot may store consent choices, and consented GA4
+may store its first-party analytics identifiers. GA4 receives page and device
+metadata only after Statistics consent; tool input, filenames, output, raw
+errors, and payload-derived values remain prohibited. Do not persist tool state
+or results.
 
 ## Source ownership
 
