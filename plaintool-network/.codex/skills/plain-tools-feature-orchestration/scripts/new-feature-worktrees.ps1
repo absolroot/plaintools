@@ -64,9 +64,21 @@ if (-not (Test-Path -LiteralPath $parentPath)) {
 }
 
 foreach ($item in $planned) {
-  git -C $repositoryPath worktree add -b $item.Branch $item.Target $BaseCommit 2>$null | Out-Null
-  if ($LASTEXITCODE -ne 0) {
-    throw "Could not create worktree for $($item.Branch). Earlier created worktrees, if any, were printed above and were not removed automatically."
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    # Windows PowerShell can promote Git's normal "Preparing worktree" stderr
+    # progress message to a terminating NativeCommandError when Stop is active.
+    # Capture both streams and decide from Git's exit code instead.
+    $ErrorActionPreference = "Continue"
+    $gitOutput = @(git -C $repositoryPath worktree add -b $item.Branch $item.Target $BaseCommit 2>&1)
+    $gitExitCode = $LASTEXITCODE
+  }
+  finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+  if ($gitExitCode -ne 0) {
+    $details = $gitOutput -join [Environment]::NewLine
+    throw "Could not create worktree for $($item.Branch). Earlier created worktrees, if any, were printed above and were not removed automatically.$([Environment]::NewLine)$details"
   }
   Write-Output "$($item.Branch)`t$($item.Target)"
 }

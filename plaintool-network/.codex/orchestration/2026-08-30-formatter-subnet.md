@@ -36,8 +36,8 @@ Feature branches may change only their assigned `packages/*-core`, feature-owned
 
 | Phase | Branch | Planned worktree | Owner | Owned scope | Base | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| A | `agent/formatter-html-pilot` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-html-pilot` | pilot agent | JSON audit plus HTML core/feature/focused tests | `f4f6efb` | pending common research |
-| C | `agent/ip-subnet` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-ip-subnet` | subnet agent | IPv4 subnet core/feature/focused tests | `f4f6efb` | pending common research |
+| A | `agent/formatter-html-pilot` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-html-pilot` | `/root/html_pilot` | JSON audit plus HTML core/feature/focused tests | `f4f6efb` | started after common research |
+| C | `agent/ip-subnet` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-ip-subnet` | `/root/ip_subnet` | IPv4 subnet core/feature/focused tests | `f4f6efb` | started after common research |
 | B | `agent/formatter-css` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-css` | CSS agent | CSS core/feature/focused tests | pilot integration tip | blocked on pilot |
 | B | `agent/formatter-javascript` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-javascript` | JavaScript agent | JavaScript core/feature/focused tests | pilot integration tip | blocked on pilot |
 | B | `agent/formatter-sql` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-sql` | SQL agent | SQL core/feature/focused tests | pilot integration tip | blocked on pilot |
@@ -71,6 +71,12 @@ Ignored local path: `references/tmp/absoltools-formatter-subnet-research-2026-08
 
 Required files: `README.md`, `competitor-matrix.md`, `oss-and-licenses.md`, `json-formatter-review.md`, `claim-candidates.md`, and `implementation-lessons.md`.
 
+Common research completed before delegation. It includes direct 1440x1000 and 390x844 renders for nine public surfaces, exact npm registry version/license snapshots, the JSON audit, and claim/implementation boundaries.
+
+## Orchestration incidents
+
+- The provided worktree helper stopped after creating the HTML pilot because Windows PowerShell promoted Git's normal `Preparing worktree` stderr message to a terminating error under `$ErrorActionPreference = "Stop"`. Git state was inspected before recovery; only the missing subnet worktree was then added directly. No created worktree was removed or recreated.
+
 ## Next action
 
-Complete and write the common research pack, then create only the phase A pilot and phase C subnet worktrees from `f4f6efb`.
+Wait for the HTML pilot and subnet commits while root prepares integration review criteria. Review the HTML pilot first and do not start CSS/JavaScript/SQL branches until its integration tip and lessons are fixed.
