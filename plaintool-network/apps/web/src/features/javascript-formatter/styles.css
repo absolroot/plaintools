@@ -1,102 +1,6 @@
 .javascript-formatter-topbar {
-  position: relative;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.javascript-primary-controls {
   min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.javascript-options {
-  position: relative;
-}
-
-.javascript-options > summary {
-  min-height: 36px;
-  padding: 0 var(--space-3);
-  display: flex;
-  align-items: center;
-  color: var(--ink);
-  background: var(--control);
-  box-shadow: 0 0 0 1px var(--control-line);
-  cursor: pointer;
-  list-style: none;
-}
-
-.javascript-options > summary::-webkit-details-marker {
-  display: none;
-}
-
-.javascript-option-panel {
-  min-width: 288px;
-  max-width: min(360px, calc(100vw - 32px));
-  position: absolute;
-  z-index: 3;
-  inset-inline-end: 0;
-  margin-top: var(--space-2);
-  padding: var(--space-3);
-  background: var(--elevated);
-  box-shadow:
-    0 0 0 1px var(--line),
-    0 12px 24px var(--shadow-popover);
-}
-
-.javascript-option-fields {
-  min-width: 0;
-  display: grid;
-  gap: var(--space-3);
-}
-
-.javascript-option-fields[hidden] {
-  display: none;
-}
-
-.javascript-option-fields > label:not(.javascript-check-row),
-.javascript-option-field {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.javascript-option-field .tooltip--label {
-  width: min(100%, 148px);
-}
-
-.javascript-option-fields select,
-.javascript-option-fields input[type="number"] {
-  width: 112px;
-  height: 36px;
-  padding: 0 var(--space-3);
-  border: 0;
-  color: var(--ink);
-  background: var(--control);
-  box-shadow: 0 0 0 1px var(--control-line);
-}
-
-.javascript-check-row {
-  min-width: 0;
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.javascript-check-row input {
-  width: 16px;
-  height: 16px;
-  margin: 1px 0 0;
-  flex: 0 0 auto;
+  justify-content: flex-start;
 }
 
 .javascript-formatter.has-stale-result [data-output] {
@@ -126,60 +30,16 @@
 }
 
 @media (max-width: 680px) {
-  .javascript-formatter-topbar {
-    align-items: stretch;
-  }
-
-  .javascript-primary-controls {
-    width: 100%;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .javascript-primary-controls .mode-switch {
+  .javascript-formatter-topbar .mode-switch {
     min-width: 0;
     width: 100%;
   }
 
-  .javascript-primary-controls .mode-button {
+  .javascript-formatter-topbar .mode-button {
     flex: 1 1 0;
-  }
-
-  .javascript-primary-controls .mode-button,
-  .javascript-primary-controls > .primary-button,
-  .javascript-options > summary,
-  .javascript-option-fields select,
-  .javascript-option-fields input[type="number"] {
     min-height: 44px;
-  }
-
-  .javascript-primary-controls .mode-button {
     min-width: 0;
     white-space: normal;
     text-align: center;
-  }
-
-  .javascript-options {
-    margin-inline-start: auto;
-  }
-
-  .javascript-option-panel {
-    min-width: min(288px, calc(100vw - 32px));
-  }
-
-  .javascript-check-row {
-    min-height: 44px;
-    align-items: center;
-  }
-
-  .javascript-check-row > .tooltip--label {
-    min-width: 0;
-    flex: 1 1 auto;
-  }
-
-  .javascript-check-row .tooltip-target > label {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
   }
 }

@@ -1,6 +1,7 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import FormatterOptions from "../../components/FormatterOptions.astro";
 import Tooltip from "../../components/Tooltip.astro";
 import type { JavaScriptFormatterComponentProps } from "./contract";
 import { createJavaScriptFormatterClientCopy } from "./copy";
@@ -19,139 +20,20 @@ const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
   aria-label={copy.ariaLabel}
 >
   <div class="converter-topbar javascript-formatter-topbar">
-    <div class="javascript-primary-controls">
-      <div class="mode-switch" role="group" aria-label={copy.modeLabel}>
-        <button
-          class:list={[
-            "mode-button",
-            { "is-active": initialMode === "format" },
-          ]}
-          type="button"
-          data-mode-button="format"
-          aria-pressed={initialMode === "format"}>{copy.formatMode}</button
-        >
-        <button
-          class:list={[
-            "mode-button",
-            { "is-active": initialMode === "minify" },
-          ]}
-          type="button"
-          data-mode-button="minify"
-          aria-pressed={initialMode === "minify"}>{copy.minifyMode}</button
-        >
-      </div>
+    <div class="mode-switch" role="group" aria-label={copy.modeLabel}>
       <button
-        class="primary-button"
+        class:list={["mode-button", { "is-active": initialMode === "format" }]}
         type="button"
-        data-run
-        aria-keyshortcuts="Control+Enter Meta+Enter"
-        >{initialMode === "format" ? copy.runFormat : copy.runMinify}</button
+        data-mode-button="format"
+        aria-pressed={initialMode === "format"}>{copy.formatMode}</button
+      >
+      <button
+        class:list={["mode-button", { "is-active": initialMode === "minify" }]}
+        type="button"
+        data-mode-button="minify"
+        aria-pressed={initialMode === "minify"}>{copy.minifyMode}</button
       >
     </div>
-    <details class="javascript-options">
-      <summary>{copy.optionsLabel}</summary>
-      <div class="javascript-option-panel">
-        <div
-          class="javascript-option-fields"
-          data-format-options
-          hidden={initialMode !== "format"}
-        >
-          <label>
-            <span>{copy.indentationLabel}</span>
-            <select data-indent disabled={initialMode !== "format"}>
-              <option value="2">{copy.twoSpaces}</option>
-              <option value="4">{copy.fourSpaces}</option>
-              <option value="tab">{copy.tabs}</option>
-            </select>
-          </label>
-          <div class="javascript-option-field">
-            <Tooltip
-              id="javascript-print-width-help"
-              triggerLabel={help.triggerLabel}
-              variant="label"
-              mobileAlign="end"
-            >
-              <label slot="target" for="javascript-print-width"
-                >{copy.printWidthLabel}</label
-              >
-              {help.formatter.printWidth}
-            </Tooltip>
-            <input
-              id="javascript-print-width"
-              data-print-width
-              type="number"
-              min="40"
-              max="240"
-              value="80"
-              disabled={initialMode !== "format"}
-            />
-          </div>
-          <div class="javascript-check-row">
-            <input
-              id="javascript-semicolons"
-              data-semi
-              type="checkbox"
-              checked
-              disabled={initialMode !== "format"}
-            />
-            <Tooltip
-              id="javascript-semicolons-help"
-              triggerLabel={help.triggerLabel}
-              variant="label"
-            >
-              <label slot="target" for="javascript-semicolons"
-                >{copy.semicolonsLabel}</label
-              >
-              {help.formatter.semicolons}
-            </Tooltip>
-          </div>
-          <div class="javascript-check-row">
-            <input
-              id="javascript-single-quotes"
-              data-single-quote
-              type="checkbox"
-              disabled={initialMode !== "format"}
-            />
-            <Tooltip
-              id="javascript-single-quotes-help"
-              triggerLabel={help.triggerLabel}
-              variant="label"
-              mobileAlign="end"
-            >
-              <label slot="target" for="javascript-single-quotes"
-                >{copy.singleQuoteLabel}</label
-              >
-              {help.formatter.singleQuotes}
-            </Tooltip>
-          </div>
-        </div>
-        <div
-          class="javascript-option-fields"
-          data-minify-options
-          hidden={initialMode !== "minify"}
-        >
-          <div class="javascript-check-row">
-            <input
-              id="javascript-preserve-comments"
-              data-preserve-comments
-              type="checkbox"
-              disabled={initialMode !== "minify"}
-            />
-            <Tooltip
-              id="javascript-preserve-comments-help"
-              triggerLabel={help.triggerLabel}
-              variant="label"
-              mobileAlign="end"
-            >
-              <label slot="target" for="javascript-preserve-comments"
-                >{copy.preserveCommentsLabel}</label
-              >
-              {help.formatter.preserveComments}
-            </Tooltip>
-          </div>
-        </div>
-      </div>
-    </details>
   </div>
   <div class="converter-grid">
     <section class="editor-pane">
@@ -208,8 +90,122 @@ const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
       </p>
     </section>
   </div>
+  <ConverterStatus status={commonCopy.ready}>
+    <button
+      class="secondary-button formatter-manual-run"
+      type="button"
+      data-manual-run
+      aria-keyshortcuts="Control+Enter Meta+Enter"
+      hidden
+      >{initialMode === "format" ? copy.runFormat : copy.runMinify}</button
+    >
+  </ConverterStatus>
+  <FormatterOptions label={copy.optionsLabel}>
+    <div
+      class="formatter-options-grid"
+      data-format-options
+      hidden={initialMode !== "format"}
+    >
+      <div class="formatter-option-field">
+        <label for="javascript-indent">{copy.indentationLabel}</label>
+        <select
+          id="javascript-indent"
+          data-indent
+          disabled={initialMode !== "format"}
+        >
+          <option value="2">{copy.twoSpaces}</option>
+          <option value="4">{copy.fourSpaces}</option>
+          <option value="tab">{copy.tabs}</option>
+        </select>
+      </div>
+      <div class="formatter-option-field">
+        <Tooltip
+          id="javascript-print-width-help"
+          triggerLabel={help.triggerLabel}
+          variant="label"
+          mobileAlign="end"
+        >
+          <label slot="target" for="javascript-print-width"
+            >{copy.printWidthLabel}</label
+          >
+          {help.formatter.printWidth}
+        </Tooltip>
+        <input
+          id="javascript-print-width"
+          data-print-width
+          type="number"
+          min="40"
+          max="240"
+          value="80"
+          disabled={initialMode !== "format"}
+        />
+      </div>
+      <div class="formatter-check-row">
+        <input
+          id="javascript-semicolons"
+          data-semi
+          type="checkbox"
+          checked
+          disabled={initialMode !== "format"}
+        />
+        <Tooltip
+          id="javascript-semicolons-help"
+          triggerLabel={help.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="javascript-semicolons"
+            >{copy.semicolonsLabel}</label
+          >
+          {help.formatter.semicolons}
+        </Tooltip>
+      </div>
+      <div class="formatter-check-row">
+        <input
+          id="javascript-single-quotes"
+          data-single-quote
+          type="checkbox"
+          disabled={initialMode !== "format"}
+        />
+        <Tooltip
+          id="javascript-single-quotes-help"
+          triggerLabel={help.triggerLabel}
+          variant="label"
+          mobileAlign="end"
+        >
+          <label slot="target" for="javascript-single-quotes"
+            >{copy.singleQuoteLabel}</label
+          >
+          {help.formatter.singleQuotes}
+        </Tooltip>
+      </div>
+    </div>
+    <div
+      class="formatter-options-grid"
+      data-minify-options
+      hidden={initialMode !== "minify"}
+    >
+      <div class="formatter-check-row">
+        <input
+          id="javascript-preserve-comments"
+          data-preserve-comments
+          type="checkbox"
+          disabled={initialMode !== "minify"}
+        />
+        <Tooltip
+          id="javascript-preserve-comments-help"
+          triggerLabel={help.triggerLabel}
+          variant="label"
+          mobileAlign="end"
+        >
+          <label slot="target" for="javascript-preserve-comments"
+            >{copy.preserveCommentsLabel}</label
+          >
+          {help.formatter.preserveComments}
+        </Tooltip>
+      </div>
+    </div>
+  </FormatterOptions>
   <p class="javascript-scope-notice" role="note">{copy.scopeNotice}</p>
-  <ConverterStatus status={commonCopy.ready} />
   <div class="privacy-note">
     <span class="privacy-icon" aria-hidden="true">
       <UiIcon name="shield" size={14} />

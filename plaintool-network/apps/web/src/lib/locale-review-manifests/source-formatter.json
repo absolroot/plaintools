@@ -39,10 +39,8 @@
     "apps/web/src/pages/[locale]/javascript-formatter/index.astro",
     "apps/web/src/pages/[locale]/sql-formatter/index.astro"
   ],
-  "copyDirectories": [
-    "apps/web/src/lib/locale-data"
-  ],
-  "copyFingerprint": "sha256:020b770ada7a21bfc873951ea129ed981dbf4a3d1735fc0acc27c9d6549a30d9",
+  "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyFingerprint": "sha256:dfa72e464114cb093db10dc5a43b51516eb02aafd1b26bfc77b8d43b0f042d56",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",
