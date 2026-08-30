@@ -56,6 +56,18 @@ and run the final gates again.
 | Boundary recorded | `17bfff7` | clean branch from `63d8f68`; dirty source worktree left untouched | complete |
 | Locale-aware Case Converter | `06007b9` | focused core and browser QA carried from isolated review branch | complete |
 | P0 defaults | `4d139db` | 49 focused tests; TypeScript/Astro check; locale review gate | complete |
-| Result usability | pending | 65 focused tests; TypeScript/Astro check; 17-locale review gate; Python QA compilation | in progress |
-| Full feature branch | pending | `npm test`, `npm run check`, `npm run build`, browser QA | pending |
+| Result usability | `7ff0308` | 65 focused tests; TypeScript/Astro check; 17-locale review gate; targeted desktop/mobile browser interactions | complete |
+| Browser QA publication contract | `805e1c6` | promoted tools now require `indexable`; 18 QA unit tests | complete |
+| Competitive review archive | `424369f`..`362a9ce` | per-feature reports, dated summary, template, and simple-default decisions | complete |
+| Full feature branch | pending | 341 unit tests; lint; build of 546 pages; network QA; targeted browser QA | in progress |
 | Main integration | pending | clean merge and post-merge gates | pending |
+
+### Known baseline gates
+
+- `npm run format:check` reports 245 pre-existing files from `main`. The files
+  changed by this branch are not in that warning set.
+- The legacy full UI QA runner still queries the removed `.breadcrumbs` element
+  in `base64_feature.py`; focused browser QA for every changed feature passes.
+- Verification is running on Node `22.12.0`; `package.json` requires
+  `>=22.19 <23`, so release CI should repeat the final gates on the supported
+  Node 22 minor.
