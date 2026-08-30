@@ -75,9 +75,9 @@ def validate_new_tool_inventory(inventory: RouteInventory) -> None:
             failures.append(
                 f"{slug} uses feature {tool.feature_id}, expected {expected_feature}"
             )
-        if tool.publication != "preview":
+        if tool.publication != "indexable":
             failures.append(
-                f"{slug} publication is {tool.publication}, expected preview"
+                f"{slug} publication is {tool.publication}, expected indexable"
             )
     if failures:
         raise RuntimeError("New browser QA inventory is invalid: " + "; ".join(failures))

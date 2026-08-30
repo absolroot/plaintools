@@ -37,7 +37,7 @@ def run_data_converter_desktop(page, report: dict, _inventory) -> None:
     localized_modes = page.locator(
         "[data-data-converter] .mode-switch [data-mode]"
     ).all_text_contents()
-    if localized_modes != ["CSVからJSONへの変換", "JSONからCSVへの変換"]:
+    if localized_modes != ["JSONからCSVへの変換", "CSVからJSONへの変換"]:
         report["ui_detail_failures"].append(
             f"Data converter mode labels are not localized catalog names: {localized_modes}"
         )
