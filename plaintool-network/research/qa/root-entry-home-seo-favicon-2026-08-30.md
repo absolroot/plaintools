@@ -106,6 +106,18 @@
 - The Korean mobile rendering was visually inspected after the automated pass;
   the restored heading and introduction wrapped cleanly above the directory.
 
+### Root-entry flash correction
+
+- The live root response was confirmed to return HTTP 200 with `Continue to all
+  tools` in the rendered body before the browser-language module completed.
+- Browser-language selection remains client-side so supported browser locales
+  still enter their matching directory. The detection module now loads from the
+  document head, and the English link is restricted to a `noscript` fallback.
+- Browsers without JavaScript receive an immediate `/en/` meta-refresh fallback;
+  unsupported or unavailable browser language values still resolve to `/en/`.
+- Network QA now rejects any visible scripting-browser copy before locale
+  detection and requires the no-JavaScript English fallback.
+
 ## Source and build checks
 
 - `npm run locale:check`: passed, 14 features and 17 public locales.

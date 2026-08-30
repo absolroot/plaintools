@@ -1,5 +1,3 @@
-/* global document, window */
-
 (() => {
   const element = globalThis.document.currentScript;
   const measurementId = element?.dataset.measurementId || "";

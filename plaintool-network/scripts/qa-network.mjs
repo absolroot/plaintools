@@ -488,6 +488,24 @@ verifyFaviconLink(notFound, "404");
 const rootIndex = await readFile(join(dist, "index.html"), "utf8");
 verifyStaticContentPolicy(rootIndex, "root index");
 verifyFaviconLink(rootIndex, "root index");
+const rootIndexForScriptingBrowsers = rootIndex.replace(
+  /<noscript\b[^>]*>[\s\S]*?<\/noscript>/giu,
+  "",
+);
+if (rootIndexForScriptingBrowsers.includes("Continue to all tools")) {
+  throw new Error(
+    "The root entry exposes its English fallback before browser-language detection completes.",
+  );
+}
+if (
+  !/<noscript\b[^>]*>[\s\S]*?http-equiv=["']refresh["'][\s\S]*?url=\/en\/[\s\S]*?<\/noscript>/iu.test(
+    rootIndex,
+  )
+) {
+  throw new Error(
+    "The root entry must retain an English fallback when browser-language detection cannot run.",
+  );
+}
 const redirectLines = redirects
   .split(/\r?\n/u)
   .map((line) => line.trim())

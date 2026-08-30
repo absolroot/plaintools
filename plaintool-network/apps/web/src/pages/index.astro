@@ -16,14 +16,19 @@
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
     <link rel="canonical" href="/en/" />
     <link rel="license" href="/third-party-notices.txt" />
-  </head>
-  <body>
-    <p><a href="/en/">Continue to all tools</a></p>
     <script>
       import { detectPreferredLocale } from "../lib/locale-detection";
 
       const locale = detectPreferredLocale(navigator.languages);
       window.location.replace(`/${locale}/`);
     </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=/en/" />
+    </noscript>
+  </head>
+  <body>
+    <noscript>
+      <p><a href="/en/">Continue to all tools</a></p>
+    </noscript>
   </body>
 </html>
