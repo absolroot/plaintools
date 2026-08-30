@@ -1,0 +1,139 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import type { IpSubnetComponentProps } from "./contract";
+import { createIpSubnetClientCopy } from "./copy";
+import "./styles.css";
+
+type Props = IpSubnetComponentProps;
+
+const { copy, commonCopy, sampleInput } = Astro.props;
+const clientCopy = createIpSubnetClientCopy(copy, commonCopy);
+const coreRows = [
+  ["cidr", copy.normalizedCidr],
+  ["netmask", copy.netmask],
+  ["wildcardMask", copy.wildcardMask],
+  ["networkAddress", copy.networkAddress],
+  ["broadcastAddress", copy.broadcastAddress],
+  ["firstUsableAddress", copy.firstUsableAddress],
+  ["lastUsableAddress", copy.lastUsableAddress],
+  ["totalAddresses", copy.totalAddresses],
+  ["usableAddresses", copy.usableAddresses],
+  ["containingRange", copy.containingRange],
+] as const;
+const binaryRows = [
+  ["address", copy.binaryAddress],
+  ["netmask", copy.binaryNetmask],
+  ["wildcardMask", copy.binaryWildcard],
+  ["networkAddress", copy.binaryNetwork],
+  ["broadcastAddress", copy.binaryBroadcast],
+] as const;
+---
+
+<section
+  class="converter ip-subnet"
+  data-ip-subnet
+  data-sample-input={sampleInput}
+  aria-label={copy.ariaLabel}
+>
+  <div class="ip-subnet-input-surface">
+    <label for="ip-subnet-input">{copy.inputLabel}</label>
+    <div class="ip-subnet-input-row">
+      <input
+        id="ip-subnet-input"
+        data-input
+        dir="ltr"
+        inputmode="decimal"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        maxlength="64"
+        placeholder={copy.inputPlaceholder}
+        aria-describedby="ip-subnet-hint ip-subnet-status"
+      />
+      <button class="secondary-button" type="button" data-sample>
+        {copy.sample}
+      </button>
+      <button class="secondary-button" type="button" data-clear>
+        <UiIcon name="x" size={14} />{commonCopy.clear}
+      </button>
+    </div>
+    <small id="ip-subnet-hint">{copy.inputHint}</small>
+  </div>
+
+  <section class="ip-subnet-results" data-results hidden>
+    <div class="ip-subnet-result-heading">
+      <h2>{copy.resultTitle}</h2>
+      <div class="ip-subnet-result-actions">
+        <button class="text-button" type="button" data-copy disabled>
+          <UiIcon name="copy" size={14} />{commonCopy.copy}
+        </button>
+        <button class="text-button" type="button" data-download disabled>
+          <UiIcon name="download" size={14} />{commonCopy.download}
+        </button>
+      </div>
+    </div>
+    <dl class="ip-subnet-result-grid">
+      {
+        coreRows.map(([key, label]) => (
+          <div class:list={["ip-subnet-result", `result-${key}`]}>
+            <dt>{label}</dt>
+            <dd data-result={key} dir="ltr" />
+          </div>
+        ))
+      }
+      <div class="ip-subnet-result result-semantics">
+        <dt>{copy.semanticsLabel}</dt>
+        <dd data-semantics></dd>
+      </div>
+    </dl>
+
+    <div class="ip-subnet-details">
+      <details>
+        <summary>{copy.specialUseTitle}</summary>
+        <dl class="ip-subnet-detail-grid">
+          <div>
+            <dt>{copy.classificationLabel}</dt>
+            <dd data-classification></dd>
+          </div>
+          <div data-classification-block-row>
+            <dt>{copy.classificationBlockLabel}</dt>
+            <dd data-classification-block dir="ltr"></dd>
+          </div>
+        </dl>
+      </details>
+      <details>
+        <summary>{copy.binaryTitle}</summary>
+        <dl class="ip-subnet-binary-grid">
+          {
+            binaryRows.map(([key, label]) => (
+              <div>
+                <dt>{label}</dt>
+                <dd data-binary={key} dir="ltr" />
+              </div>
+            ))
+          }
+        </dl>
+      </details>
+    </div>
+  </section>
+
+  <ConverterStatus status={commonCopy.ready} statusId="ip-subnet-status" />
+  <div class="privacy-note">
+    <span class="privacy-icon" aria-hidden="true">
+      <UiIcon name="shield" size={14} />
+    </span>
+    <div>
+      <strong>{commonCopy.localTitle}</strong><p>{commonCopy.localBody}</p>
+    </div>
+  </div>
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>
