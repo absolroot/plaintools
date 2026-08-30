@@ -60,7 +60,7 @@ and run the final gates again.
 | Browser QA publication contract | `805e1c6` | promoted tools now require `indexable`; 18 QA unit tests | complete |
 | Competitive review archive | `424369f`..`362a9ce` | per-feature reports, dated summary, template, and simple-default decisions | complete |
 | Full feature branch | pending | 341 unit tests; lint; 18 QA tests; build of 546 pages; network QA; targeted desktop/mobile browser QA with no console, page, or external-request errors | complete |
-| Main integration | pending | clean merge and post-merge gates | pending |
+| Main integration | `d709065` | latest `main` merged into feature branch first; conflict-free `--no-ff` merge; post-merge gates on the main checkout | complete |
 
 ### Known baseline gates
 
