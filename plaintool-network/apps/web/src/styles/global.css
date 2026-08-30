@@ -973,6 +973,9 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   background: var(--base);
   font-size: 10px;
 }
+.ad-slot--rail {
+  display: none;
+}
 .ad-slot--after-tool {
   width: var(--page);
   margin: 24px auto;
@@ -1383,12 +1386,18 @@ a.tool-directory-card:focus-visible {
   color: var(--ink);
 }
 
-@media (min-width: 1420px) {
+@media (min-width: 1860px) {
   .tool-shell.has-rail {
-    width: min(1512px, calc(100% - 32px));
-    grid-template-columns: minmax(0, 1180px) 300px;
+    position: relative;
+    width: var(--page);
+    grid-template-columns: minmax(0, 1180px);
   }
-  .ad-slot--rail {
+  .tool-shell.has-rail > .ad-slot--rail {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: calc(100% + 24px);
+    width: 300px;
+    display: grid;
     min-height: 600px;
   }
   .ad-slot--after-tool {

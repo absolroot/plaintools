@@ -8,6 +8,7 @@ const cssUrls = [
   "../apps/web/src/features/word/styles.css",
   "../apps/web/src/features/text-compare/styles.css",
   "../apps/web/src/features/case-converter/styles.css",
+  "../apps/web/src/features/hash-generator/styles.css",
 ].map((path) => new URL(path, import.meta.url));
 const pageUrl = new URL(
   "../apps/web/src/features/base64/Base64Page.astro",
@@ -148,6 +149,13 @@ expectDeclaration(".hero-subheading", "max-width", "none");
 expectDeclaration(".content-section", "padding", "32px 0");
 expectDeclaration(".directory-header", "padding", "24px 0");
 expectDeclaration(".converter-topbar", "justify-content", "flex-start");
+expectDeclaration(".ad-slot--rail", "display", "none");
+expectDeclaration(".tool-shell.has-rail", "width", "var(--page)");
+expectDeclaration(
+  ".tool-shell.has-rail > .ad-slot--rail",
+  "inset-inline-start",
+  "calc(100% + 24px)",
+);
 expectDeclaration(".editor-pane textarea", "min-height", "264px");
 expectDeclaration(":root", "--focus-ring", "var(--focus)");
 expectDeclaration(":root", "--canvas", "#fff");
@@ -218,6 +226,12 @@ for (const [property, expected] of Object.entries({
 
 expectDeclaration(".pane-heading", "align-items", "center");
 expectDeclaration(".pane-actions", "align-items", "center");
+expectDeclaration(".hash-generator", "overflow", "visible");
+expectDeclaration(
+  ".hash-generator > .hash-input-pane + .hash-output-pane",
+  "margin-block-start",
+  "var(--space-3)",
+);
 
 expectDeclaration(".directory-search", "width", "100%", directorySearch);
 expectDeclaration(

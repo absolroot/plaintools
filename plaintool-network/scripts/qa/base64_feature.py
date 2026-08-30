@@ -139,6 +139,12 @@ def run_base64_desktop(desktop, report: dict) -> None:
         report["ui_detail_failures"].append(f"Options chevron did not expose its open state: {report['options_open_state']}")
     desktop.locator(".options summary").click()
 
+    report["base64_decode_heading"] = desktop.locator("[data-mode-heading]").inner_text().strip()
+    decode_header_label = desktop.locator("[data-header-context-label]").inner_text().strip()
+    if report["base64_decode_heading"] != decode_header_label:
+        report["ui_detail_failures"].append(
+            f"Base64 decode H1 must use only the catalog tool name: {report['base64_decode_heading']}"
+        )
     report["base64_decode_example"] = desktop.locator("#codec-input").get_attribute("placeholder")
     if "SGVsbG8sIFBsYWluVG9vbCE=" not in report["base64_decode_example"]:
         report["ui_detail_failures"].append(f"Base64 decode input lacks a usable example: {report['base64_decode_example']}")
@@ -160,6 +166,12 @@ def run_base64_desktop(desktop, report: dict) -> None:
 
     desktop.get_by_role("button", name="인코딩", exact=True).click()
     report["encode_mode_url"] = desktop.url
+    report["base64_encode_heading"] = desktop.locator("[data-mode-heading]").inner_text().strip()
+    encode_header_label = desktop.locator("[data-header-context-label]").inner_text().strip()
+    if report["base64_encode_heading"] != encode_header_label:
+        report["ui_detail_failures"].append(
+            f"Base64 encode H1 must use only the catalog tool name: {report['base64_encode_heading']}"
+        )
     report["base64_encode_example"] = desktop.locator("#codec-input").get_attribute("placeholder")
     if "AbsolTools" not in report["base64_encode_example"]:
         report["ui_detail_failures"].append(f"Base64 encode input lacks a usable example: {report['base64_encode_example']}")

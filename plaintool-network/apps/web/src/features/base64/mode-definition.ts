@@ -8,7 +8,7 @@ export function createBase64ModeDefinitions(
     decode: {
       slug: "base64-decode",
       metaTitle: copy.decodeMetaTitle,
-      heading: copy.heading,
+      heading: copy.decodeHeaderLabel,
       description: copy.subheading,
       guideTitle: copy.guideTitle,
       guideIntro: copy.guideIntro,
@@ -23,7 +23,7 @@ export function createBase64ModeDefinitions(
     encode: {
       slug: "base64-encode",
       metaTitle: copy.encodeMetaTitle,
-      heading: copy.encodeHeading,
+      heading: copy.encodeHeaderLabel,
       description: copy.encodeSubheading,
       guideTitle: copy.encodeGuideTitle,
       guideIntro: copy.encodeGuideIntro,

@@ -1,3 +1,22 @@
+.hash-generator {
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hash-generator > .hash-input-pane,
+.hash-output-pane {
+  overflow: hidden;
+  background: var(--base);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 2px 8px var(--shadow-layer);
+}
+
+.hash-generator > .hash-input-pane + .hash-output-pane {
+  margin-block-start: var(--space-3);
+}
+
 .hash-input-pane textarea {
   min-height: 180px;
 }
@@ -153,16 +172,6 @@
 @media (max-width: 680px) {
   .hash-results {
     background: var(--base);
-  }
-
-  .hash-generator > :is(.hash-results, .hash-comparison) {
-    box-shadow: 0 0 0 1px var(--control-line);
-  }
-
-  .hash-generator > .hash-input-pane + .hash-results,
-  .hash-generator > .hash-results + .hash-comparison,
-  .hash-generator > .hash-comparison + .converter-commandbar {
-    margin-block-start: var(--space-3);
   }
 
   .hash-input-pane textarea {
