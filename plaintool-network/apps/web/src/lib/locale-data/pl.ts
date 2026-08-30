@@ -683,13 +683,13 @@ const plBundle = {
   network: {
     allTools: "Wszystkie narzędzia",
     directoryMetaTitle:
-      "Darmowe narzędzia online do tekstu, danych i kodowania | AbsolTools",
+      "AbsolTools | Narzędzia do tekstu, danych i kodu w przeglądarce",
     directoryMetaDescription:
-      "Obsługuj zadania związane z tekstem, danymi, czasem i kodowaniem online.",
+      "Formatuj, konwertuj, koduj, dekoduj, porównuj i sprawdzaj tekst, dane oraz kod bezpośrednio w przeglądarce. Dane wejściowe i wyniki nie są przesyłane.",
     directoryTitle:
-      "Sprawiamy, że narzędzia, z których często korzystasz, są prostsze i wygodniejsze",
+      "Pracuj z tekstem, danymi i kodem bezpośrednio w przeglądarce",
     directoryIntro:
-      "Dodaj tę stronę do zakładek, aby następnym razem od razu do niej wrócić.",
+      "Otwórz właściwe narzędzie do formatowania, konwersji, kodowania lub porównywania. Dane wejściowe i wyniki są przetwarzane w przeglądarce.",
     toolPromise:
       "AbsolTools sprawia, że często używane narzędzia online są dokładniejsze i łatwiejsze w obsłudze. Dodaj tę stronę do zakładek.",
     directorySearchLabel: "Szukaj narzędzi",

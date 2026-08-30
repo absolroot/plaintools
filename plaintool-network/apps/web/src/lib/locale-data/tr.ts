@@ -679,14 +679,12 @@ const bundle: LocaleBundle = {
   tools,
   network: {
     allTools: "Tüm araçlar",
-    directoryMetaTitle:
-      "Metin, Veri ve Kodlama için Ücretsiz Çevrim İçi Araçlar | AbsolTools",
+    directoryMetaTitle: "AbsolTools | Tarayıcıda metin, veri ve kod araçları",
     directoryMetaDescription:
-      "Metin, veri, zaman ve kodlama işlemlerini çevrim içi yapın.",
-    directoryTitle:
-      "Sık kullandığınız araçları daha sade ve kullanışlı hâle getiriyoruz",
+      "Metin, veri ve kodu doğrudan tarayıcıda biçimlendirin, dönüştürün, kodlayın, çözün, karşılaştırın ve inceleyin. Girdiler ve sonuçlar yüklenmez.",
+    directoryTitle: "Metin, veri ve kodla doğrudan tarayıcıda çalışın",
     directoryIntro:
-      "Bu siteyi yer imlerinize ekleyin; böylece bir sonraki sefer doğrudan erişebilirsiniz.",
+      "Biçimlendirme, dönüştürme, kodlama veya karşılaştırma için gereken aracı açın. Girdiler ve sonuçlar tarayıcıda işlenir.",
     toolPromise:
       "AbsolTools, sık kullanılan çevrim içi araçları daha doğru ve kullanışlı hâle getirir. Siteyi yer imlerinize ekleyin.",
     directorySearchLabel: "Araçlarda ara",

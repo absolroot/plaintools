@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-30",
+  "decisionSource": "Direct user instruction after absoltools.com production connection",
+  "scope": [
+    "directoryMetaTitle",
+    "directoryMetaDescription",
+    "directoryTitle",
+    "directoryIntro",
+    "shared favicon"
+  ],
+  "localeScope": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "sourceMeaning": {
+    "title": "Lead with the AbsolTools brand and identify the product as a browser-based set of text, data, and code tools.",
+    "description": "Name the supported task families and state narrowly that tool inputs and results are not uploaded.",
+    "heading": "Describe the main user outcome instead of the generic free-online-tools category.",
+    "intro": "Direct users to the needed task and repeat the browser-processing boundary without making a general no-network claim."
+  },
+  "implementationNotes": [
+    "The change is a truthful brand-positioning rewrite, not a keyword-volume or ranking claim.",
+    "The no-upload statement applies only to tool inputs and results; it does not claim that ordinary hosting request metadata is absent.",
+    "Canonical URLs, locale routes, hreflang, sitemap entries, publication state, and structured-data shape remain unchanged.",
+    "The locale copy is source-meaning-aligned agent review and is not recorded as native-human approval.",
+    "The favicon keeps the existing blue identity color and replaces the obsolete 64 label with a font-independent AT monogram."
+  ]
+}

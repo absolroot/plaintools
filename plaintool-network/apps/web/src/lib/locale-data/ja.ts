@@ -658,12 +658,12 @@ const bundle: LocaleBundle = {
   network: {
     allTools: "すべてのツール",
     directoryMetaTitle:
-      "文字列・データ・エンコードの無料オンラインツール | AbsolTools",
+      "AbsolTools | ブラウザで使える文字列・データ・コードツール",
     directoryMetaDescription:
-      "文字列、データ、日時、エンコードの作業をオンラインで処理できます。",
-    directoryTitle: "よく使うツールを、もっとすっきり使いやすくします",
+      "テキスト、データ、コードの整形、変換、エンコード、デコード、比較、確認をブラウザ内で行えます。入力内容と結果はアップロードされません。",
+    directoryTitle: "テキスト、データ、コードをブラウザ内で処理",
     directoryIntro:
-      "このサイトをブックマークしておけば、次回すぐにアクセスできます。",
+      "整形、変換、エンコード、比較に必要なツールをすぐに開けます。入力内容と結果はブラウザ内で処理されます。",
     toolPromise:
       "AbsolToolsは、オンラインでよく使われるツールを、より正確で使いやすいものにします。このサイトをブックマークに追加してください。",
     directorySearchLabel: "ツールを検索",

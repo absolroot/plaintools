@@ -678,13 +678,12 @@ export const itBundle: LocaleBundle = {
   network: {
     allTools: "Tutti gli strumenti",
     directoryMetaTitle:
-      "Strumenti online gratuiti per testo e dati | AbsolTools",
+      "AbsolTools | Strumenti per testo, dati e codice nel browser",
     directoryMetaDescription:
-      "Svolgi online attività relative a testo, dati, tempo e codifica.",
-    directoryTitle:
-      "Rendiamo più semplici e pratici gli strumenti che usi più spesso",
+      "Formatta, converti, codifica, decodifica, confronta e analizza testo, dati e codice direttamente nel browser. Input e risultati non vengono caricati.",
+    directoryTitle: "Lavora con testo, dati e codice direttamente nel browser",
     directoryIntro:
-      "Aggiungi questo sito ai preferiti per tornarci subito la prossima volta.",
+      "Apri lo strumento giusto per formattare, convertire, codificare o confrontare. Input e risultati vengono elaborati nel browser.",
     toolPromise:
       "AbsolTools rende gli strumenti online più usati più precisi e facili da usare. Aggiungi questo sito ai preferiti.",
     directorySearchLabel: "Cerca strumenti",

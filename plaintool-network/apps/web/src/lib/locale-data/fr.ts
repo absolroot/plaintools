@@ -691,13 +691,13 @@ export const frBundle: LocaleBundle = {
   network: {
     allTools: "Tous les outils",
     directoryMetaTitle:
-      "Outils gratuits en ligne pour texte et données | AbsolTools",
+      "AbsolTools | Outils de texte, de données et de code dans le navigateur",
     directoryMetaDescription:
-      "Effectuez en ligne des tâches de texte, de données, de temps et d’encodage.",
+      "Formatez, convertissez, encodez, décodez, comparez et inspectez du texte, des données et du code directement dans votre navigateur. Les entrées et résultats ne sont pas téléversés.",
     directoryTitle:
-      "Nous rendons les outils que vous utilisez souvent plus clairs et plus pratiques",
+      "Traitez du texte, des données et du code directement dans votre navigateur",
     directoryIntro:
-      "Ajoutez ce site à vos favoris pour y accéder directement la prochaine fois.",
+      "Ouvrez l’outil adapté pour formater, convertir, encoder ou comparer. Les entrées et résultats sont traités dans votre navigateur.",
     toolPromise:
       "AbsolTools rend les outils en ligne courants plus précis et plus faciles à utiliser. Ajoutez ce site à vos favoris.",
     directorySearchLabel: "Rechercher un outil",

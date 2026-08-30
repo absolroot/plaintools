@@ -699,13 +699,14 @@ const bundle: LocaleBundle = {
   tools,
   network: {
     allTools: "Todas las herramientas",
-    directoryMetaTitle: "Herramientas en línea para texto y datos | AbsolTools",
+    directoryMetaTitle:
+      "AbsolTools | Herramientas de texto, datos y código en tu navegador",
     directoryMetaDescription:
-      "Resuelve tareas de texto, datos, tiempo y codificación en línea.",
+      "Formatea, convierte, codifica, decodifica, compara e inspecciona texto, datos y código directamente en tu navegador. Las entradas y los resultados no se suben.",
     directoryTitle:
-      "Hacemos más claras y prácticas las herramientas que usas a menudo",
+      "Trabaja con texto, datos y código directamente en tu navegador",
     directoryIntro:
-      "Añade este sitio a tus favoritos para volver aquí directamente la próxima vez.",
+      "Abre la herramienta exacta para formatear, convertir, codificar o comparar. Las entradas y los resultados se procesan en tu navegador.",
     toolPromise:
       "AbsolTools hace que las herramientas en línea más utilizadas sean más precisas y fáciles de usar. Añade este sitio a tus favoritos.",
     directorySearchLabel: "Buscar herramientas",

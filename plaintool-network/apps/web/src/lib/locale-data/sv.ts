@@ -682,13 +682,12 @@ const svBundle = {
   network: {
     allTools: "Alla verktyg",
     directoryMetaTitle:
-      "Gratis onlineverktyg för text, data och kodning | AbsolTools",
+      "AbsolTools | Verktyg för text, data och kod i webbläsaren",
     directoryMetaDescription:
-      "Hantera text, data, tid och kodningsuppgifter online.",
-    directoryTitle:
-      "Vi gör verktygen du använder ofta enklare och smidigare att använda",
+      "Formatera, konvertera, koda, avkoda, jämför och granska text, data och kod direkt i webbläsaren. Indata och resultat laddas inte upp.",
+    directoryTitle: "Arbeta med text, data och kod direkt i webbläsaren",
     directoryIntro:
-      "Lägg till webbplatsen som bokmärke så kan du gå direkt hit nästa gång.",
+      "Öppna rätt verktyg för formatering, konvertering, kodning eller jämförelse. Indata och resultat behandlas i webbläsaren.",
     toolPromise:
       "AbsolTools gör vanliga onlineverktyg mer exakta och enklare att använda. Lägg till webbplatsen i dina bokmärken.",
     directorySearchLabel: "Sökverktyg",

@@ -41,6 +41,8 @@ const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
 const robots = await readFile(join(dist, "robots.txt"), "utf8");
 const llms = await readFile(join(dist, "llms.txt"), "utf8");
 const headers = await readFile(join(dist, "_headers"), "utf8");
+const redirects = await readFile(join(dist, "_redirects"), "utf8");
+const faviconPng = await readFile(join(dist, "favicon.png"));
 const thirdPartyNotices = await readFile(
   join(dist, "third-party-notices.txt"),
   "utf8",
@@ -134,6 +136,14 @@ const requiredSecurityHeaders = [
   "Cross-Origin-Resource-Policy: same-origin",
   "Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'",
 ];
+if (
+  faviconPng.length < 24 ||
+  faviconPng.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a" ||
+  faviconPng.readUInt32BE(16) !== 64 ||
+  faviconPng.readUInt32BE(20) !== 64
+) {
+  throw new Error("The deployed favicon must be a valid 64x64 PNG.");
+}
 for (const header of requiredSecurityHeaders) {
   if (!headers.includes(header)) {
     throw new Error(`Static deployment is missing security header: ${header}`);
@@ -231,6 +241,16 @@ function verifyStaticContentPolicy(html, route) {
   }
 }
 
+function verifyFaviconLink(html, route) {
+  if (
+    !html.includes(
+      '<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">',
+    )
+  ) {
+    throw new Error(`${route} does not expose the shared PNG favicon.`);
+  }
+}
+
 function nodeTypes(node) {
   return Array.isArray(node["@type"]) ? node["@type"] : [node["@type"]];
 }
@@ -273,6 +293,7 @@ function verifyMetadata(
   route,
 ) {
   verifyStaticContentPolicy(html, route);
+  verifyFaviconLink(html, route);
   const canonical = canonicalUrl(html);
   const expectedCanonical = expectedUrl(locale, page);
   if (canonical !== expectedCanonical)
@@ -442,8 +463,19 @@ for (const legalPage of legalPages) {
 
 const notFound = await readFile(join(dist, "404.html"), "utf8");
 verifyStaticContentPolicy(notFound, "404");
+verifyFaviconLink(notFound, "404");
 const rootIndex = await readFile(join(dist, "index.html"), "utf8");
 verifyStaticContentPolicy(rootIndex, "root index");
+verifyFaviconLink(rootIndex, "root index");
+const redirectLines = redirects
+  .split(/\r?\n/u)
+  .map((line) => line.trim())
+  .filter((line) => line && !line.startsWith("#"));
+if (redirectLines[0] !== "/ /en/ 302") {
+  throw new Error(
+    "The root entry must redirect to the x-default English directory before static HTML is served.",
+  );
+}
 if (!rootIndex.includes('<link rel="license" href="/third-party-notices.txt">'))
   throw new Error("Root index does not expose its third-party notices.");
 if (

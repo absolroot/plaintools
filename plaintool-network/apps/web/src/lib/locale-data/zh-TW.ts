@@ -628,10 +628,12 @@ const bundle: LocaleBundle = {
   tools,
   network: {
     allTools: "所有工具",
-    directoryMetaTitle: "免費線上文字、資料與編碼工具 | AbsolTools",
-    directoryMetaDescription: "線上處理文字、資料、時間與編碼工作。",
-    directoryTitle: "我們讓常用工具更簡潔、更好用",
-    directoryIntro: "將本站加入書籤，下次就能直接開啟。",
+    directoryMetaTitle: "AbsolTools | 瀏覽器中的文字、資料與程式碼工具",
+    directoryMetaDescription:
+      "直接在瀏覽器中格式化、轉換、編碼、解碼、比較及檢查文字、資料與程式碼。工具輸入與結果不會上傳。",
+    directoryTitle: "直接在瀏覽器中處理文字、資料與程式碼",
+    directoryIntro:
+      "開啟格式化、轉換、編碼或比較所需的工具。輸入與結果都在瀏覽器中處理。",
     toolPromise:
       "AbsolTools 讓常用的線上工具更精準、更容易使用。將本站加入書籤，方便下次使用。",
     directorySearchLabel: "搜尋工具",

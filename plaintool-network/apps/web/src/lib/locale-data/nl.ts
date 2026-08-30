@@ -685,13 +685,13 @@ export const nlBundle: LocaleBundle = {
   network: {
     allTools: "Alle tools",
     directoryMetaTitle:
-      "Gratis online tools voor tekst en gegevens | AbsolTools",
+      "AbsolTools | Tools voor tekst, gegevens en code in je browser",
     directoryMetaDescription:
-      "Voer online taken uit met tekst, gegevens, tijd en codering.",
+      "Formatteer, converteer, codeer, decodeer, vergelijk en inspecteer tekst, gegevens en code rechtstreeks in je browser. Invoer en resultaten worden niet geüpload.",
     directoryTitle:
-      "We maken de tools die je vaak gebruikt overzichtelijker en gebruiksvriendelijker",
+      "Werk rechtstreeks in je browser met tekst, gegevens en code",
     directoryIntro:
-      "Voeg deze site toe aan je bladwijzers, zodat je er de volgende keer direct naartoe kunt.",
+      "Open de juiste tool om te formatteren, converteren, coderen of vergelijken. Invoer en resultaten worden in je browser verwerkt.",
     toolPromise:
       "AbsolTools maakt veelgebruikte online tools nauwkeuriger en gebruiksvriendelijker. Voeg deze site toe aan je bladwijzers.",
     directorySearchLabel: "Tools zoeken",

@@ -680,13 +680,12 @@ const csBundle = {
   network: {
     allTools: "Všechny nástroje",
     directoryMetaTitle:
-      "Zdarma online nástroje pro text, data a kódování | AbsolTools",
+      "AbsolTools | Nástroje pro text, data a kód v prohlížeči",
     directoryMetaDescription:
-      "Zpracovávejte text, data, čas a úkoly kódování online.",
-    directoryTitle:
-      "Často používané nástroje děláme přehlednějšími a praktičtějšími",
+      "Formátujte, převádějte, kódujte, dekódujte, porovnávejte a kontrolujte text, data a kód přímo v prohlížeči. Vstupy ani výsledky se nikam neodesílají.",
+    directoryTitle: "Pracujte s textem, daty a kódem přímo v prohlížeči",
     directoryIntro:
-      "Přidejte si tento web do záložek, abyste se sem příště dostali rovnou.",
+      "Otevřete správný nástroj pro formátování, převod, kódování nebo porovnání. Vstupy i výsledky se zpracovávají v prohlížeči.",
     toolPromise:
       "AbsolTools dělá běžně používané online nástroje přesnější a snadněji použitelné. Přidejte si web do záložek.",
     directorySearchLabel: "Hledat nástroje",

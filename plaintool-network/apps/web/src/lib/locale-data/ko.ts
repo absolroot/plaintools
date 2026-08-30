@@ -679,12 +679,13 @@ const bundle: LocaleBundle = {
   tools,
   network: {
     allTools: "전체 도구",
-    directoryMetaTitle: "무료 온라인 도구 - 텍스트·데이터·인코딩 | AbsolTools",
+    directoryMetaTitle:
+      "AbsolTools | 브라우저에서 바로 쓰는 텍스트·데이터·코드 도구",
     directoryMetaDescription:
-      "텍스트, 데이터, 시간, 인코딩 작업을 온라인에서 바로 처리하세요.",
-    directoryTitle: "자주 쓰이는 도구를 더 깔끔하고 편리하게 만듭니다",
+      "텍스트·데이터·코드를 브라우저에서 변환, 정리, 인코딩, 디코딩, 비교하세요. 도구의 입력값과 결과는 서버로 업로드되지 않습니다.",
+    directoryTitle: "텍스트·데이터·코드를 브라우저에서 바로 다루세요",
     directoryIntro:
-      "즐겨찾기에 사이트를 추가하면 다음에 바로 접속하실 수 있어요.",
+      "변환, 정리, 인코딩, 비교에 필요한 도구를 바로 열어 쓰세요. 입력값과 결과는 브라우저에서 처리됩니다.",
     toolPromise:
       "AbsolTools는 자주 쓰이는 온라인 도구를 더 정확하고 편리하게 만듭니다. 즐겨찾기에 사이트를 추가하세요.",
     directorySearchLabel: "도구 검색",
