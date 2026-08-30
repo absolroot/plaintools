@@ -18,6 +18,7 @@ import type { StructuredData } from "../lib/seo";
 import UiIcon from "../components/UiIcon.astro";
 import LanguageFlag from "../components/LanguageFlag.astro";
 import RelatedTools from "../components/RelatedTools.astro";
+import AnalyticsConsent from "../components/AnalyticsConsent.astro";
 
 interface Props {
   locale: Locale;
@@ -88,6 +89,9 @@ const integrationActive = Boolean(
   siteConfig.integrations.adsensePublisherId ||
     siteConfig.integrations.ga4MeasurementId,
 );
+const contentSecurityPolicy = integrationActive
+  ? "default-src 'self'; script-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://imgsct.cookiebot.com https://www.google-analytics.com; worker-src 'self'; connect-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; form-action 'none'"
+  : "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
 ---
 
 <!doctype html>
@@ -99,12 +103,13 @@ const integrationActive = Boolean(
       import.meta.env.PROD && (
         <meta
           http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+          content={contentSecurityPolicy}
         />
       )
     }
     <meta name="theme-color" content="#fbfbfb" data-theme-color />
     <script is:inline src="/theme-init.js"></script>
+    <AnalyticsConsent />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
     <link rel="license" href="/third-party-notices.txt" />
     <link rel="sitemap" href="/sitemap.xml" />

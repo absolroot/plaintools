@@ -16,6 +16,7 @@ const completeEnvironment = {
   PUBLIC_GOVERNING_LAW: "Republic of Korea",
   PUBLIC_JURISDICTION: "Seoul Central District Court",
 };
+const cookiebotDomainGroupId = "f5e5dae2-8573-4cbc-8d0d-426c3950e389";
 
 describe("deployment configuration", () => {
   it("keeps preview builds non-indexable even when production facts are present", () => {
@@ -128,6 +129,7 @@ describe("deployment configuration", () => {
       {
         ...completeEnvironment,
         PUBLIC_GOOGLE_CMP_ENABLED: "true",
+        PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID: cookiebotDomainGroupId,
         PUBLIC_GA4_MEASUREMENT_ID: "G-ABC123",
         PUBLIC_ADSENSE_PUBLISHER_ID: "ca-pub-1234567890",
       },
@@ -138,13 +140,49 @@ describe("deployment configuration", () => {
     expect(config.productionReady).toBe(false);
     expect(config.integrations).toEqual({
       adsensePublisherId: "",
+      cookiebotDomainGroupId: "",
       ga4MeasurementId: "",
       googleCmpEnabled: false,
       active: false,
     });
     expect(
       config.issues.filter((issue) => issue.code === "unsupported-capability"),
-    ).toHaveLength(3);
+    ).toHaveLength(1);
+  });
+
+  it("requires a valid Cookiebot domain group when consent is enabled", () => {
+    const missing = resolveDeploymentConfig(
+      {
+        ...completeEnvironment,
+        PUBLIC_GOOGLE_CMP_ENABLED: "true",
+        PUBLIC_GA4_MEASUREMENT_ID: "G-ABC123",
+      },
+      "production",
+      implementedIntegrationCapabilities,
+    );
+    const invalid = resolveDeploymentConfig(
+      {
+        ...completeEnvironment,
+        PUBLIC_GOOGLE_CMP_ENABLED: "true",
+        PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID: "not-a-uuid",
+        PUBLIC_GA4_MEASUREMENT_ID: "G-ABC123",
+      },
+      "production",
+      implementedIntegrationCapabilities,
+    );
+
+    expect(missing.issues).toContainEqual(
+      expect.objectContaining({
+        code: "required",
+        key: "PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID",
+      }),
+    );
+    expect(invalid.issues).toContainEqual(
+      expect.objectContaining({
+        code: "invalid-id",
+        key: "PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID",
+      }),
+    );
   });
 
   it("enables integrations only when configuration and implementation capabilities agree", () => {
@@ -152,6 +190,7 @@ describe("deployment configuration", () => {
       {
         ...completeEnvironment,
         PUBLIC_GOOGLE_CMP_ENABLED: "true",
+        PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID: cookiebotDomainGroupId,
         PUBLIC_GA4_MEASUREMENT_ID: "G-ABC123",
         PUBLIC_ADSENSE_PUBLISHER_ID: "ca-pub-1234567890",
       },
@@ -162,6 +201,7 @@ describe("deployment configuration", () => {
     expect(config.productionReady).toBe(true);
     expect(config.integrations).toEqual({
       adsensePublisherId: "ca-pub-1234567890",
+      cookiebotDomainGroupId,
       ga4MeasurementId: "G-ABC123",
       googleCmpEnabled: true,
       active: true,

@@ -21,8 +21,8 @@
  */
 
 export const implementedIntegrationCapabilities = /** @type {const} */ ({
-  googleCmp: false,
-  ga4: false,
+  googleCmp: true,
+  ga4: true,
   adsense: false,
 });
 
@@ -124,6 +124,7 @@ export function resolveDeploymentConfig(env, target, capabilities) {
     [
       ...requiredProductionKeys,
       "PUBLIC_ADSENSE_PUBLISHER_ID",
+      "PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID",
       "PUBLIC_GA4_MEASUREMENT_ID",
       "PUBLIC_GOOGLE_CMP_ENABLED",
     ].map((key) => [key, clean(env[key])]),
@@ -197,7 +198,9 @@ export function resolveDeploymentConfig(env, target, capabilities) {
       );
     }
 
-    const cmpConfigured = values.PUBLIC_GOOGLE_CMP_ENABLED === "true";
+    const cmpRequested = values.PUBLIC_GOOGLE_CMP_ENABLED === "true";
+    const cmpConfigured =
+      cmpRequested && Boolean(values.PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID);
     const ga4Configured = Boolean(values.PUBLIC_GA4_MEASUREMENT_ID);
     const adsenseConfigured = Boolean(values.PUBLIC_ADSENSE_PUBLISHER_ID);
 
@@ -218,6 +221,27 @@ export function resolveDeploymentConfig(env, target, capabilities) {
         "unsupported-capability",
         "PUBLIC_GOOGLE_CMP_ENABLED",
         "This build does not contain a verified Google CMP capability.",
+      );
+    }
+    if (cmpRequested && !values.PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID) {
+      addIssue(
+        issues,
+        "required",
+        "PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID",
+        "PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID is required when the Google CMP is enabled.",
+      );
+    }
+    if (
+      values.PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID &&
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(
+        values.PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID,
+      )
+    ) {
+      addIssue(
+        issues,
+        "invalid-id",
+        "PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID",
+        "PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID must be a valid UUID.",
       );
     }
     if (
@@ -272,6 +296,9 @@ export function resolveDeploymentConfig(env, target, capabilities) {
   const integrationsEnabled =
     productionReady && values.PUBLIC_GOOGLE_CMP_ENABLED === "true";
   const googleCmpEnabled = integrationsEnabled && capabilities.googleCmp;
+  const cookiebotDomainGroupId = googleCmpEnabled
+    ? values.PUBLIC_COOKIEBOT_DOMAIN_GROUP_ID
+    : "";
   const ga4MeasurementId =
     googleCmpEnabled && capabilities.ga4
       ? values.PUBLIC_GA4_MEASUREMENT_ID
@@ -318,6 +345,7 @@ export function resolveDeploymentConfig(env, target, capabilities) {
     },
     integrations: {
       adsensePublisherId,
+      cookiebotDomainGroupId,
       ga4MeasurementId,
       googleCmpEnabled,
       active: Boolean(adsensePublisherId || ga4MeasurementId),

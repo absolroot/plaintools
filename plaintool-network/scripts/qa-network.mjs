@@ -134,7 +134,7 @@ const requiredSecurityHeaders = [
   "X-Frame-Options: DENY",
   "Cross-Origin-Opener-Policy: same-origin",
   "Cross-Origin-Resource-Policy: same-origin",
-  "Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'",
+  "Content-Security-Policy: default-src 'self'; script-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://imgsct.cookiebot.com https://www.google-analytics.com; worker-src 'self'; connect-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'",
 ];
 if (
   faviconPng.length < 24 ||
@@ -212,15 +212,16 @@ function structuredDataNodes(documents) {
 }
 
 function verifyStaticContentPolicy(html, route) {
-  const metaPolicy =
-    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
+  const metaPolicy = html.includes('id="Cookiebot"')
+    ? "default-src 'self'; script-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://imgsct.cookiebot.com https://www.google-analytics.com; worker-src 'self'; connect-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; form-action 'none'"
+    : "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
   if (
     !html.includes(
       `<meta http-equiv="Content-Security-Policy" content="${metaPolicy}">`,
     )
   ) {
     throw new Error(
-      `${route} is missing the host-independent CSP meta policy.`,
+      `${route} is missing the expected CSP meta policy.`,
     );
   }
 
@@ -346,6 +347,23 @@ function verifyMetadata(
     throw new Error(
       `${route} integration state does not match validated capabilities.`,
     );
+  if (config.integrations.ga4MeasurementId) {
+    for (const marker of [
+      'id="Cookiebot"',
+      `data-cbid="${config.integrations.cookiebotDomainGroupId}"`,
+      `gtag/js?id=${config.integrations.ga4MeasurementId}`,
+      'data-cookieconsent="statistics"',
+      `data-measurement-id="${config.integrations.ga4MeasurementId}"`,
+    ]) {
+      if (!html.includes(marker))
+        throw new Error(`${route} is missing consented analytics marker ${marker}.`);
+    }
+  } else if (
+    html.includes('id="Cookiebot"') ||
+    html.includes("googletagmanager.com/gtag/js")
+  ) {
+    throw new Error(`${route} ships consent or analytics code while disabled.`);
+  }
 }
 
 for (const locale of locales) {

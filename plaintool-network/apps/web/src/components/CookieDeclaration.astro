@@ -1,0 +1,21 @@
+---
+import { siteConfig } from "../lib/site";
+
+const { cookiebotDomainGroupId, googleCmpEnabled } = siteConfig.integrations;
+const enabled = Boolean(googleCmpEnabled && cookiebotDomainGroupId);
+const declarationSource = `https://consent.cookiebot.com/${encodeURIComponent(cookiebotDomainGroupId)}/cd.js`;
+---
+
+{
+  enabled && (
+    <div class="cookie-declaration" data-cookie-declaration>
+      <script
+        is:inline
+        id="CookieDeclaration"
+        src={declarationSource}
+        type="text/javascript"
+        async
+      />
+    </div>
+  )
+}
