@@ -157,7 +157,7 @@ const seed = {
     generationFailed: "تعذر إنشاء رمز QR.",
     downloadFailed: "تعذر تجهيز الصورة للتنزيل.",
     upload: "صورة رمز QR",
-    formats: "PNG أو JPEG أو WebP أو GIF أو BMP حتى 15 MB",
+    formats: "PNG أو JPEG أو WebP أو GIF أو BMP حتى 10 MB",
     camera: "ماسح الكاميرا",
     cameraHint:
       "اسمح بالوصول إلى الكاميرا للمسح المتواصل. لا تُفتح عناوين URL المفكوكة تلقائيًا أبدًا.",

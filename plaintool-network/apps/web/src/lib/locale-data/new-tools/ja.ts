@@ -163,7 +163,7 @@ const seed = {
     generationFailed: "QRコードを生成できませんでした。",
     downloadFailed: "ダウンロード用の画像を準備できませんでした。",
     upload: "QRコード画像",
-    formats: "PNG、JPEG、WebP、GIF、BMP（最大15 MB）",
+    formats: "PNG、JPEG、WebP、GIF、BMP（最大10 MB）",
     camera: "カメラスキャナー",
     cameraHint:
       "カメラへのアクセスを許可すると連続スキャンできます。読み取ったURLが自動で開くことはありません。",

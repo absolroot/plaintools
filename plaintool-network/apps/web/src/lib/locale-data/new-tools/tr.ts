@@ -161,7 +161,7 @@ const seed = {
     generationFailed: "QR kodu oluşturulamadı.",
     downloadFailed: "Görsel indirmeye hazırlanamadı.",
     upload: "QR kodu görseli",
-    formats: "En fazla 15 MB PNG, JPEG, WebP, GIF veya BMP",
+    formats: "En fazla 10 MB PNG, JPEG, WebP, GIF veya BMP",
     camera: "Kamera tarayıcısı",
     cameraHint:
       "Sürekli tarama için kamera erişimine izin verin. Çözülen URL'ler hiçbir zaman otomatik açılmaz.",

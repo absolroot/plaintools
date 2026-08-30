@@ -167,7 +167,7 @@ const seed = {
     downloadFailed:
       "Das Bild konnte nicht für den Download vorbereitet werden.",
     upload: "QR-Code-Bild",
-    formats: "PNG, JPEG, WebP, GIF oder BMP bis 15 MB",
+    formats: "PNG, JPEG, WebP, GIF oder BMP bis 10 MB",
     camera: "Kamera-Scanner",
     cameraHint:
       "Erlauben Sie den Kamerazugriff für fortlaufendes Scannen. Dekodierte URLs werden nie automatisch geöffnet.",

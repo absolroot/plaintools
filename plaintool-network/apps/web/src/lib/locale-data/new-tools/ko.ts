@@ -160,7 +160,7 @@ const seed = {
     generationFailed: "QR 코드를 생성하지 못했습니다.",
     downloadFailed: "다운로드할 이미지를 준비하지 못했습니다.",
     upload: "QR 코드 이미지",
-    formats: "PNG, JPEG, WebP, GIF, BMP · 최대 15MB",
+    formats: "PNG, JPEG, WebP, GIF, BMP · 최대 10MB",
     camera: "카메라 스캐너",
     cameraHint:
       "카메라 권한을 허용하면 계속 스캔합니다. 읽은 URL은 자동으로 열지 않습니다.",

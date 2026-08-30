@@ -155,7 +155,7 @@ const seed = {
     generationFailed: "無法產生QR Code。",
     downloadFailed: "無法準備要下載的圖片。",
     upload: "QR Code圖片",
-    formats: "PNG、JPEG、WebP、GIF或BMP，最大15 MB",
+    formats: "PNG、JPEG、WebP、GIF或BMP，最大10 MB",
     camera: "相機掃描器",
     cameraHint: "允許相機存取即可持續掃描。解碼出的URL絕不會自動開啟。",
     startCamera: "啟動相機",

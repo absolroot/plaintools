@@ -159,7 +159,7 @@ const seed = {
     generationFailed: "QR-koden kunne ikke genereres.",
     downloadFailed: "Bildet kunne ikke klargjøres for nedlasting.",
     upload: "Bilde av QR-kode",
-    formats: "PNG, JPEG, WebP, GIF eller BMP på opptil 15 MB",
+    formats: "PNG, JPEG, WebP, GIF eller BMP på opptil 10 MB",
     camera: "Kameraskanner",
     cameraHint:
       "Tillat kameratilgang for kontinuerlig skanning. Dekodede URL-er åpnes aldri automatisk.",

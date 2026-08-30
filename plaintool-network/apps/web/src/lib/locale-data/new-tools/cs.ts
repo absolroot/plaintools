@@ -165,7 +165,7 @@ const seed = {
     generationFailed: "QR kód se nepodařilo vytvořit.",
     downloadFailed: "Obrázek se nepodařilo připravit ke stažení.",
     upload: "Obrázek QR kódu",
-    formats: "PNG, JPEG, WebP, GIF nebo BMP do 15 MB",
+    formats: "PNG, JPEG, WebP, GIF nebo BMP do 10 MB",
     camera: "Skener fotoaparátem",
     cameraHint:
       "Povolte přístup k fotoaparátu pro průběžné skenování. Dekódované URL se nikdy neotevírají automaticky.",

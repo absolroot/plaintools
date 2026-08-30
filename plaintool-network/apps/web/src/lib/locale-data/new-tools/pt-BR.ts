@@ -166,7 +166,7 @@ const seed = {
     generationFailed: "Não foi possível gerar o código QR.",
     downloadFailed: "Não foi possível preparar a imagem para download.",
     upload: "Imagem do código QR",
-    formats: "PNG, JPEG, WebP, GIF ou BMP de até 15 MB",
+    formats: "PNG, JPEG, WebP, GIF ou BMP de até 10 MB",
     camera: "Leitor pela câmera",
     cameraHint:
       "Permita o acesso à câmera para fazer a leitura contínua. As URLs decodificadas nunca são abertas automaticamente.",

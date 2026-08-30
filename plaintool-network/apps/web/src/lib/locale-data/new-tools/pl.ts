@@ -168,7 +168,7 @@ const seed = {
     generationFailed: "Nie udało się utworzyć kodu QR.",
     downloadFailed: "Nie udało się przygotować obrazu do pobrania.",
     upload: "Obraz kodu QR",
-    formats: "PNG, JPEG, WebP, GIF lub BMP do 15 MB",
+    formats: "PNG, JPEG, WebP, GIF lub BMP do 10 MB",
     camera: "Skaner aparatu",
     cameraHint:
       "Zezwól na dostęp do aparatu, aby skanować bez przerwy. Zdekodowane adresy URL nigdy nie są otwierane automatycznie.",

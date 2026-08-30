@@ -160,7 +160,7 @@ const seed = {
     generationFailed: "De QR-code kon niet worden gemaakt.",
     downloadFailed: "De afbeelding kon niet voor downloaden worden voorbereid.",
     upload: "QR-codeafbeelding",
-    formats: "PNG, JPEG, WebP, GIF of BMP tot 15 MB",
+    formats: "PNG, JPEG, WebP, GIF of BMP tot 10 MB",
     camera: "Camerascanner",
     cameraHint:
       "Sta cameratoegang toe om continu te scannen. Gedecodeerde URL’s worden nooit automatisch geopend.",

@@ -6,7 +6,7 @@ import {
 } from "../../scripts/shared/tool-dom";
 import type { QrScannerCopy, QrScannerResult } from "./contract";
 
-const MAX_FILE_BYTES = 15_000_000;
+const MAX_FILE_BYTES = 10_000_000;
 const MAX_SCAN_DIMENSION = 1800;
 const CAMERA_SCAN_INTERVAL = 160;
 
