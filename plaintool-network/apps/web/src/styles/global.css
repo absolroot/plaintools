@@ -110,6 +110,7 @@
   --muted: oklch(50% 0.004 285.885);
   --placeholder: oklch(51% 0.004 285.885);
   --line: oklch(14.5% 0 0 / 0.1);
+  --control-line: oklch(14.5% 0 0 / 0.19);
   --hairline: oklch(93.5% 0 0);
   --focus: oklch(39% 0.16 260);
   --focus-ring: var(--focus);
@@ -165,6 +166,7 @@
     --muted: oklch(73% 0.008 270);
     --placeholder: oklch(68% 0.008 270);
     --line: oklch(100% 0 0 / 0.15);
+    --control-line: oklch(100% 0 0 / 0.28);
     --hairline: oklch(31% 0.01 270);
     --focus: oklch(78% 0.13 255);
     --brand: oklch(63% 0.19 258);
@@ -202,6 +204,7 @@
   --muted: oklch(73% 0.008 270);
   --placeholder: oklch(68% 0.008 270);
   --line: oklch(100% 0 0 / 0.15);
+  --control-line: oklch(100% 0 0 / 0.28);
   --hairline: oklch(31% 0.01 270);
   --focus: oklch(78% 0.13 255);
   --brand: oklch(63% 0.19 258);
@@ -1495,14 +1498,19 @@ a.tool-directory-card:focus-visible {
     grid-template-columns: 1fr;
   }
   .tool-intro-copy {
-    padding: var(--space-3) 0 var(--space-2);
-    gap: var(--space-1);
+    padding: var(--space-4) 0 14px;
+    gap: var(--space-2);
   }
   .tool-promise {
-    padding: var(--space-1) var(--space-2);
+    padding: var(--space-2) 10px;
+    line-height: 1.6;
   }
   .tool-intro h1 {
     font-size: 20px;
+    line-height: 1.4;
+  }
+  .hero-subheading-mobile {
+    line-height: 1.65;
   }
   .hero-subheading-desktop {
     display: none;
@@ -1548,11 +1556,11 @@ a.tool-directory-card:focus-visible {
     gap: var(--space-3);
     background: transparent;
   }
-  .converter-grid > .editor-pane {
-    box-shadow: 0 0 0 1px var(--line);
+  .converter .editor-pane {
+    box-shadow: 0 0 0 1px var(--control-line);
   }
-  .converter-grid > .editor-pane:focus-within {
-    box-shadow: none;
+  .converter .editor-pane:focus-within {
+    box-shadow: 0 0 0 1px var(--control-line);
   }
   .converter-topbar {
     min-height: 60px;
