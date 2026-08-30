@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/it";
 
 export const itBundle: LocaleBundle = {
   site: {
+    brandName: "AbsolTools",
     languageName: "Italiano",
     metaTitle: "Decoder e encoder Base64 — rapido, privato e online",
     metaDescription:

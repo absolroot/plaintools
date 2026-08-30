@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/ko";
 
 const bundle: LocaleBundle = {
   site: {
+    brandName: "앱솔툴즈",
     languageName: "한국어",
     metaTitle: "Base64 디코딩·인코딩 — 빠른 온라인 변환기",
     metaDescription:

@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/no";
 
 const noBundle = {
   site: {
+    brandName: "AbsolTools",
     languageName: "Norsk (bokmål)",
     metaTitle: "Base64-dekoder og -koder — rask, privat, online",
     metaDescription:

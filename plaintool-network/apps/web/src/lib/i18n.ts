@@ -8,6 +8,7 @@ type Base64ClientErrorCode =
   | "file-too-large";
 
 export type Copy = {
+  brandName: string;
   languageName: string;
   metaTitle: string;
   metaDescription: string;

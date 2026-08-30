@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/cs";
 
 const csBundle = {
   site: {
+    brandName: "AbsolTools",
     languageName: "Čeština",
     metaTitle: "Base64 Dekodér & Encoder — Rychlý, Soukromý, Online",
     metaDescription:
