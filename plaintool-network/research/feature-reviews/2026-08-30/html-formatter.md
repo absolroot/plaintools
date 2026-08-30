@@ -60,7 +60,7 @@
 | 우선순위 | 후보 | 사용자 영향 | 확신 | 노력 | 판단 |
 | --- | --- | --- | --- | --- | --- |
 | P0 | 없음 | - | 높음 | - | 확인된 source 실행 또는 stale 권한 blocker는 없다. |
-| P1 | embedded CSS/JS formatting을 명시 opt-in으로 제공할지 성능·bundle 실험 | 큼 | 높음 | 중간~큼 | HTML + PostCSS + Babel/Estree plugin 비용과 오류 경계를 측정한 뒤 결정한다. source-only output은 유지한다. |
+| P3 | embedded CSS/JS formatting은 기본 formatter 옵션으로 넣지 않고 별도 실험으로 보류 | 중간 | 중간 | 중간~큼 | HTML + PostCSS + Babel/Estree plugin 비용과 숨은 결과 변경이 크다. 반복 수요와 오류 경계를 먼저 확인하고 source-only output을 유지한다. |
 | P1 | 1 MiB 상한과 64 KiB auto threshold를 실제 파일 benchmark로 재조정 | 중간~큼 | 중간 | 중간 | 현재 수치는 방어적이다. timeout·memory·mobile 결과가 확보될 때만 상향한다. |
 | P2 | 오류 line/column을 보이는 최소 line-number gutter | 중간 | 중간 | 중간 | textarea selection만으로 찾기 어려운 긴 문서를 개선한다. |
 | P2 | HTML minifier를 별도 route/operation으로 설계 | 중간 | 중간 | 큼 | whitespace-sensitive content와 embedded code 정책이 달라 format과 분리 검토한다. |

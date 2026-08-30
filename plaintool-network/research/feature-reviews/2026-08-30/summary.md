@@ -36,7 +36,8 @@ AbsolTools의 가장 설득력 있는 강점은 기능 수가 아니다. 입력�
 ## 부족한 지점
 
 1. 전문 경쟁 도구의 폭: JSON tree/search, diff ignore/patch, checksum compare,
-   structured QR, timestamp micro/nanoseconds, IPv6/VLSM이 없다.
+   structured QR, IPv6/VLSM이 없다. 다만 이 중 다수는 기본 화면에 넣을 기능이
+   아니라 수요에 따라 보조 보기·고급 옵션·별도 route로 판단할 후보이다.
 2. 대용량 처리: Base64/hash는 파일 전체 메모리 모델이고, SQL/formatter 한도는
    실제 large-source benchmark가 부족하다.
 3. 결과 사용성: 일부 도구는 전체 결과만 복사하거나, 단계/중간 결과·행별 복사·
@@ -69,12 +70,20 @@ AbsolTools의 가장 설득력 있는 강점은 기능 수가 아니다. 입력�
 5. Word Counter 결과 가까이에 grapheme/문단 계산 규칙 설명 추가.
 6. IP subnet 결과 행별 복사 추가.
 
-### P1/P2 — 별도 설계가 필요한 확장
+### P1/P2 — 기본 화면을 복잡하게 하지 않는 확장
 
-- JSON tree/search, Text Compare ignore rules+patch, timestamp micro/nano,
-  IPv6/VLSM, QR structured payload, large-file streaming.
-- 이 확장은 기능 수를 늘리는 것보다 현재 한 route 한 주기능을 유지하는 것이
-  중요하다. 보조 보기, 접힌 Options, 또는 별도 route 중 하나를 먼저 결정한다.
+- 자동 적용: large-file streaming, stale-result 차단처럼 사용자가 설정할 필요가
+  없는 구현 품질 개선.
+- 항상 표시: Base64 byte 수/잘림, JWT `NOT VERIFIED`, IP 결과 복사처럼 선택지를
+  늘리지 않고 결과 이해와 행동을 돕는 정보.
+- 기본 off 고급 옵션: Text Compare ignore rules, Base64 반복 디코드, JSON sort
+  keys처럼 원문 의미나 결과 범위를 바꾸는 기능.
+- 보조 보기: JSON tree/search처럼 같은 결과를 더 쉽게 읽는 기능.
+- 별도 route 또는 보류: IPv6/VLSM, batch 변환, structured QR처럼 주 작업 흐름이
+  달라지는 기능. timestamp micro/nanoseconds는 현재 일반 사용자 가치보다 복잡성이
+  커서 수요 근거가 생길 때까지 보류한다.
+
+세부 기본값 판정은 [기능 옵션과 기본값 원칙](../ux-defaults.md)을 따른다.
 
 ## 이번 감사에서 실제 반영한 변경
 

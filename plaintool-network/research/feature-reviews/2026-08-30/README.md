@@ -14,7 +14,7 @@
 | Hash generator | `hash-generator` | 원시 파일 바이트, 4개 digest 동시 계산, legacy 경고 | expected checksum 직접 비교와 large-file streaming | [보고서](./hash-generator.md) |
 | JWT decoder | `jwt-decoder` | decode와 verify 경계를 상단 고정 경고로 유지 | 결과와 다운로드에도 `NOT VERIFIED` 고정 | [보고서](./jwt-decoder.md) |
 | QR | `qr-code-generator`, `qr-code-scanner` | 생성→PNG→스캔 왕복, 카메라 정리, URL 자동 탐색 금지 | EC/quiet-zone matrix와 structured payload | [보고서](./qr-code.md) |
-| Word counter | `word-counter` | locale-aware word/grapheme 계산과 fallback 고지 | 문장 수·읽기 시간과 계산 규칙 도움말 | [보고서](./word-counter.md) |
+| Word counter | `word-counter` | locale-aware word/grapheme 계산과 fallback 고지 | 계산 규칙 도움말 우선; 추가 지표는 수요 확인 후 Details | [보고서](./word-counter.md) |
 | Text compare | `text-compare` | line ending/whitespace 구분, 원문 재구성, stale 보존 | ignore rules와 unified patch export | [보고서](./text-compare.md) |
 | Case converter | `case-converter` | 원본/결과 분리, Unicode/공백 보존, locale-aware mapping | title case 범위를 정의한 별도 모드 | [보고서](./case-converter.md) |
 | AI text cleaner | `ai-watermark-remover` | 제거 code point·개수 공개, AI 판별과 literal Unicode 분리 | bidi/NBSP를 보수적 safe preset 밖으로 분리 | [보고서](./ai-text-cleaner.md) |
@@ -24,8 +24,8 @@
 | CSS formatter | `css-formatter` | plain CSS 범위 명시, URL 비실행, print width | SCSS/Less를 별도 parser/route로 수요 검증 | [보고서](./css-formatter.md) |
 | JavaScript formatter | `javascript-formatter` | source 비실행, conservative minify, format 옵션 | license/preserve comments 기본 보존 | [보고서](./javascript-formatter.md) |
 | SQL formatter | `sql-formatter` | 6개 dialect를 명시하고 common subset/비검증 경계 유지 | dialect 확대와 8/32 KiB 한도 재측정 | [보고서](./sql-formatter.md) |
-| Unix timestamp | `unix-timestamp-converter` | IANA zone, DST gap/repeat 구분, 단위 모호성 거부 | micro/nanoseconds와 multi-zone 비교 | [보고서](./unix-timestamp-converter.md) |
-| IP subnet | `ip-subnet-calculator` | `/0`·`/31`·`/32`, special-use, binary, strict input | IPv6 별도 모드와 결과 행별 복사 | [보고서](./ip-subnet-calculator.md) |
+| Unix timestamp | `unix-timestamp-converter` | IANA zone, DST gap/repeat 구분, 단위 모호성 거부 | 현재 기본 흐름 유지; 전문 정밀도는 수요 전까지 보류 | [보고서](./unix-timestamp-converter.md) |
+| IP subnet | `ip-subnet-calculator` | `/0`·`/31`·`/32`, special-use, binary, strict input | 결과 행별 복사 우선; IPv6/VLSM은 별도 기능 판단 | [보고서](./ip-subnet-calculator.md) |
 
 ## 상태 표기
 
