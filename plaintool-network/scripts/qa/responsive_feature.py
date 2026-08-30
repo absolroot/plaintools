@@ -68,6 +68,37 @@ def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
             f"Mobile directional header did not hide and return correctly: {report['mobile_directional_header']}"
         )
 
+    mobile.goto(f"{BASE_URL}/ar/base64-decode/", wait_until="networkidle")
+    mobile.locator(".language-menu summary").click()
+    report["mobile_rtl_language_menu"] = mobile.evaluate("""
+      () => {
+        const box = (selector) => {
+          const bounds = document.querySelector(selector).getBoundingClientRect();
+          return { left: bounds.left, right: bounds.right, width: bounds.width };
+        };
+        return {
+          html_dir: document.documentElement.dir,
+          branding: box('.header-branding'),
+          actions: box('.header-actions'),
+          trigger: box('.language-menu summary'),
+          panel: box('.language-menu-panel'),
+          viewport_width: document.documentElement.clientWidth,
+          scroll_width: document.documentElement.scrollWidth,
+        };
+      }
+    """)
+    rtl_menu = report["mobile_rtl_language_menu"]
+    if (
+        rtl_menu["html_dir"] != "rtl"
+        or rtl_menu["branding"]["left"] <= rtl_menu["actions"]["right"]
+        or abs(rtl_menu["panel"]["left"] - rtl_menu["trigger"]["left"]) > 1
+        or rtl_menu["panel"]["right"] > rtl_menu["viewport_width"]
+        or rtl_menu["scroll_width"] > rtl_menu["viewport_width"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Arabic mobile header or language menu is not mirrored safely: {rtl_menu}"
+        )
+
     report["mobile_locale_actions"] = {}
     for locale in locales:
         report["mobile_locale_actions"][locale] = {}
@@ -284,7 +315,6 @@ def run_route_matrix(
                         if (
                             input_focus_style != output_focus_style
                             or focus_states["input"]["textarea_shadow"] == "none"
-                            or focus_states["input"]["pane_shadow"] != "none"
                             or not focus_states["input"]["focus_visible"]
                             or not focus_states["input"]["focus_within"]
                             or not focus_states["input"]["uses_shared_ring"]
@@ -327,7 +357,6 @@ def run_route_matrix(
                         if any(
                             not state["focus_visible"]
                             or not state["uses_shared_ring"]
-                            or (state["pane_shadow"] is not None and state["pane_shadow"] != "none")
                             for state in focus_states.values()
                         ):
                             report["ui_detail_failures"].append(

@@ -1446,6 +1446,14 @@ a.tool-directory-card:focus-visible {
     min-height: 56px;
     gap: var(--space-2);
   }
+  html[dir="rtl"] .header-inner {
+    direction: ltr;
+    flex-direction: row-reverse;
+  }
+  html[dir="rtl"] .header-branding,
+  html[dir="rtl"] .header-actions {
+    direction: rtl;
+  }
   .header-branding {
     min-width: 0;
     flex: 1 1 auto;
@@ -1496,6 +1504,11 @@ a.tool-directory-card:focus-visible {
     width: min(220px, calc(100vw - var(--space-8)));
     max-height: min(360px, calc(100vh - 72px));
     grid-template-columns: 1fr;
+  }
+  html[dir="rtl"] .language-menu-panel {
+    inset-inline-end: auto;
+    right: auto;
+    left: 0;
   }
   .tool-intro-copy {
     padding: var(--space-4) 0 14px;
