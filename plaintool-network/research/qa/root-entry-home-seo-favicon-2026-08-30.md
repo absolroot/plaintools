@@ -2,23 +2,23 @@
 
 ## Scope
 
-- Make `/` redirect at the Cloudflare Pages HTTP layer to the x-default `/en/`
-  route before the fallback HTML can paint.
+- Keep `/` available to the root document so a first visit can choose the
+  closest supported browser language.
 - Replace generic free-online-tools directory positioning with brand-first text,
   data, and code tool wording in all 17 public locales.
 - Replace the legacy `64` favicon with a shared blue `AT` monogram and expose a
   64 x 64 PNG from every generated HTML surface.
 
-## Redirect contract
+## Root locale contract
 
-- `_redirects` begins with `/ /en/ 302`; the first-match order is asserted by
-  `scripts/qa-network.mjs`.
+- `_redirects` contains no `/` rule; `scripts/qa-network.mjs` fails if a static
+  root redirect is added again.
+- The root document selects the first supported `navigator.languages` value and
+  falls back to `/en/`. It does not use IP lookup, storage, telemetry, or a
+  third-party request.
 - `/en/` remains the existing `x-default` directory. Explicit locale routes,
   canonical URLs, reciprocal hreflang, sitemap URLs, and the `www` to apex
   redirect contract are unchanged.
-- Astro development mode does not interpret Cloudflare Pages `_redirects`, so
-  the HTTP redirect itself is gated in build output and requires live
-  verification after deployment. It is not reported as live before that point.
 
 ## Locale and SEO review
 
@@ -59,11 +59,33 @@
   64 x 64 image was visually inspected as a clear white `AT` on the existing
   blue tile.
 
+### Browser-language follow-up
+
+- The later product decision removed the static `/ /en/ 302` rule so the built
+  root document remains available for browser-language selection. The live
+  deployment was not rechecked in this follow-up.
+- Chrome DevTools MCP again failed before navigation because the user's Chrome
+  profile did not expose `DevToolsActivePort`. The in-app browser fallback then
+  failed during connection with `codex/sandbox-state-meta: missing field
+  sandboxPolicy`.
+- Pre-existing listeners at ports 4321, 4322, and 4327 were preserved.
+- Task-owned server command: `$env:ASTRO_DEV_BACKGROUND='1'; node
+  ..\..\node_modules\astro\bin\astro.mjs dev --ignore-lock --host 127.0.0.1
+  --port 4329`.
+- Task-owned URL and unified-exec session: `http://127.0.0.1:4329`, session
+  `16410`.
+- Focused Playwright contexts verified `ko-KR -> /ko/`, `ja-JP -> /ja/`,
+  `zh-TW -> /zh-TW/`, and `fr-CA -> /fr/`. Unsupported `pt-PT` and `zh-CN`
+  fell back to `/en/`.
+- A Korean browser that explicitly opened `/en/` remained on `/en/`; explicit
+  locale routes were not replaced. The focused pass found no console error or
+  cross-origin request.
+
 ## Source and build checks
 
 - `npm run locale:check`: passed, 14 features and 17 public locales.
 - `npm run seo:check`: passed, 25 tools and 17 locales.
-- `npm test`: passed, 38 files and 341 tests.
+- `npm test`: passed, 38 files and 344 tests.
 - `npm run ui:check`: passed.
 - TypeScript, Astro diagnostics, and ESLint passed as part of `npm run check`.
 - The full `npm run check` remained blocked only at the repository-wide
@@ -72,3 +94,7 @@
 - `npm run build`: passed, 546 preview pages and preview network QA.
 - `npm run build:production`: passed with the reviewed production facts, 546
   production pages, and production network QA.
+- The browser-language follow-up reran `npm run build:production` without those
+  environment values. It reached the fail-closed production configuration gate
+  and stopped on the 10 required operator, contact, host, retention, and legal
+  fields; no production build was claimed from that environment.

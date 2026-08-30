@@ -47,7 +47,7 @@ uses the representative `en`, `ko`, `de`, `ar`, and `zh-TW` layout-risk matrix;
 run `npm run ui:qa:full` when a release needs every published locale traversed.
 The build and locale/SEO gates continue to verify all locale routes on every run.
 
-The generated site includes 17 complete locale route families: `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`. On Cloudflare Pages, the root returns a static `302` to the x-default `/en/` route before the fallback HTML is served, preventing a blank client-side redirect flash. The fallback document still chooses the closest supported `navigator.languages` value on hosts that do not process `_redirects`; explicit locale routes are never replaced. Legacy `/{locale}/tools/` routes redirect to the locale directory.
+The generated site includes 17 complete locale route families: `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`. On the first visit to `/`, the root document chooses the closest supported `navigator.languages` value and falls back to `/en/`; it does not use IP lookup, storage, or a third-party request. Explicit locale routes are never replaced. Legacy `/{locale}/tools/` routes redirect to the locale directory.
 
 ## What is implemented
 

@@ -471,9 +471,9 @@ const redirectLines = redirects
   .split(/\r?\n/u)
   .map((line) => line.trim())
   .filter((line) => line && !line.startsWith("#"));
-if (redirectLines[0] !== "/ /en/ 302") {
+if (redirectLines.some((line) => line.split(/\s+/u)[0] === "/")) {
   throw new Error(
-    "The root entry must redirect to the x-default English directory before static HTML is served.",
+    "The root entry must remain available for browser-language detection instead of forcing a static locale redirect.",
   );
 }
 if (!rootIndex.includes('<link rel="license" href="/third-party-notices.txt">'))

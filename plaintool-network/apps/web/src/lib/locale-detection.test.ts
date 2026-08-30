@@ -4,6 +4,7 @@ import { detectPreferredLocale } from "./locale-detection";
 describe("preferred locale detection", () => {
   it.each([
     [["ko-KR"], "ko"],
+    [["ko-KR", "en-US"], "ko"],
     [["de-CH"], "de"],
     [["pt-BR"], "pt-BR"],
     [["nb-NO"], "no"],
@@ -19,6 +20,13 @@ describe("preferred locale detection", () => {
     "does not redirect an unsupported language variant: %s",
     (language) => {
       expect(detectPreferredLocale([language])).toBe("en");
+    },
+  );
+
+  it.each([[undefined], [[]]])(
+    "falls back to English when no browser language is available: %j",
+    (languages) => {
+      expect(detectPreferredLocale(languages)).toBe("en");
     },
   );
 });
