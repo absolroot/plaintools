@@ -220,9 +220,7 @@ function verifyStaticContentPolicy(html, route) {
       `<meta http-equiv="Content-Security-Policy" content="${metaPolicy}">`,
     )
   ) {
-    throw new Error(
-      `${route} is missing the expected CSP meta policy.`,
-    );
+    throw new Error(`${route} is missing the expected CSP meta policy.`);
   }
 
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gu)];
@@ -356,7 +354,9 @@ function verifyMetadata(
       `data-measurement-id="${config.integrations.ga4MeasurementId}"`,
     ]) {
       if (!html.includes(marker))
-        throw new Error(`${route} is missing consented analytics marker ${marker}.`);
+        throw new Error(
+          `${route} is missing consented analytics marker ${marker}.`,
+        );
     }
   } else if (
     html.includes('id="Cookiebot"') ||
