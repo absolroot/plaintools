@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/pl";
 
 const plBundle = {
   site: {
+    brandName: "AbsolTools",
     languageName: "Polski",
     metaTitle: "Dekoder i koder Base64 — szybki, prywatny, online",
     metaDescription:

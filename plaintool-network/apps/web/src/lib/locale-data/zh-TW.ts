@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/zh-TW";
 
 const bundle: LocaleBundle = {
   site: {
+    brandName: "AbsolTools",
     languageName: "繁體中文",
     metaTitle: "Base64 編碼與解碼 — 快速、隱私的線上工具",
     metaDescription:

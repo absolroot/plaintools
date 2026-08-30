@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/sv";
 
 const svBundle = {
   site: {
+    brandName: "AbsolTools",
     languageName: "Svenska",
     metaTitle: "Base64-dekoder & kodare — Snabb, privat, online",
     metaDescription:

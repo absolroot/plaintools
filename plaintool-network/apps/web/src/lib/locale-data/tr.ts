@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/tr";
 
 const bundle: LocaleBundle = {
   site: {
+    brandName: "AbsolTools",
     languageName: "Türkçe",
     metaTitle: "Base64 Kodlayıcı ve Kod Çözücü — Hızlı, Gizli, Çevrim İçi",
     metaDescription:

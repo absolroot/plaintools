@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/ja";
 
 const bundle: LocaleBundle = {
   site: {
+    brandName: "アブソルツールズ",
     languageName: "日本語",
     metaTitle: "Base64 エンコード・デコード — 高速・安全なオンラインツール",
     metaDescription:

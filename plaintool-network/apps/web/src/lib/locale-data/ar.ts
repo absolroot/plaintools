@@ -3,6 +3,7 @@ import { catalog as newToolCatalog, tools } from "./new-tools/ar";
 
 const bundle: LocaleBundle = {
   site: {
+    brandName: "أبسول تولز",
     languageName: "العربية",
     metaTitle: "ترميز Base64 وفك ترميزه — سريع وخاص عبر الإنترنت",
     metaDescription:

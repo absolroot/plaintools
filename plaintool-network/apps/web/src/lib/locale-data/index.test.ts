@@ -33,6 +33,32 @@ describe("locale bundles", () => {
     expect(Object.keys(localeMetadata)).toEqual([...locales]);
   });
 
+  it("uses the reviewed locale-specific header wordmark", () => {
+    expect(
+      Object.fromEntries(
+        locales.map((locale) => [locale, localeBundles[locale].site.brandName]),
+      ),
+    ).toEqual({
+      en: "AbsolTools",
+      ko: "앱솔툴즈",
+      es: "AbsolTools",
+      de: "AbsolTools",
+      ja: "アブソルツールズ",
+      fr: "AbsolTools",
+      "pt-BR": "AbsolTools",
+      it: "AbsolTools",
+      nl: "AbsolTools",
+      sv: "AbsolTools",
+      cs: "AbsolTools",
+      pl: "AbsolTools",
+      da: "AbsolTools",
+      no: "AbsolTools",
+      ar: "أبسول تولز",
+      "zh-TW": "AbsolTools",
+      tr: "AbsolTools",
+    });
+  });
+
   it("owns an independent complete surface for every locale", () => {
     const bundles = locales.map((locale) => localeBundles[locale]);
     const english = new Map(flattenCopy(localeBundles.en));
