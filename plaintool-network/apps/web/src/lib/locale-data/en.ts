@@ -180,7 +180,7 @@ const bundle: LocaleBundle = {
           {
             title: "Analytics and advertising",
             body: [
-              "Google Analytics is currently {{analytics_state}}, while Google AdSense is {{advertising_state}}. When Analytics is enabled, {{consent_provider}} manages consent and Google receives page, session, approximate-location, browser, and device data only after Statistics consent. Tool input, files, results, errors, and values derived from them are excluded from analytics and advertising events by design.",
+              "Google Analytics is currently {{analytics_state}}, while Google AdSense is {{advertising_state}}. Where consent is required, {{consent_provider}} loads Analytics only after Statistics consent and AdSense only after Marketing consent. Google may receive page, session, approximate-location, browser, device, consent, and advertising-request data. Tool input, files, results, errors, and values derived from them are excluded from analytics and advertising events by design.",
             ],
           },
           {
@@ -198,7 +198,7 @@ const bundle: LocaleBundle = {
           {
             title: "Recipients and international transfers",
             body: [
-              "The selected host may process request data outside your country in the locations and under the safeguards described in its policy. Cookiebot by Usercentrics processes consent choices, and Google processes consented Analytics data through its global infrastructure under their published safeguards. The cookie declaration identifies current providers, purposes, data categories, and retention periods; Google AdSense remains disabled.",
+              "The selected host may process request data outside your country in the locations and under the safeguards described in its policy. Cookiebot by Usercentrics processes consent choices, and Google processes consented Analytics and AdSense data through its global infrastructure under their published safeguards. The cookie declaration identifies current providers, purposes, data categories, and retention periods.",
             ],
           },
           {
@@ -222,7 +222,7 @@ const bundle: LocaleBundle = {
           {
             title: "Current use",
             body: [
-              "Analytics is currently {{analytics_state}}, while advertising is {{advertising_state}}. Google Analytics loads only after Statistics consent managed by {{consent_provider}}. The site does not store tool input or results in cookies or local storage. It stores only your selected theme preference (light or dark) in local storage; this value is not transmitted.",
+              "Analytics is currently {{analytics_state}}, while advertising is {{advertising_state}}. Where consent is required, Google Analytics loads only after Statistics consent and Google AdSense only after Marketing consent managed by {{consent_provider}}. The site does not store tool input or results in cookies or local storage. It stores only your selected theme preference (light or dark) in local storage; this value is not transmitted.",
             ],
           },
           {

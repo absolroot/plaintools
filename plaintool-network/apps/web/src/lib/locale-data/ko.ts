@@ -178,7 +178,7 @@ const bundle: LocaleBundle = {
           {
             title: "분석과 광고",
             body: [
-              "Google Analytics는 현재 {{analytics_state}}, Google AdSense는 {{advertising_state}}. 분석이 활성화된 경우 {{consent_provider}}이 동의를 관리하며, 통계 쿠키에 동의한 뒤에만 페이지·세션·대략적 지역·브라우저·기기 정보가 Google로 전송됩니다. 도구 입력·파일·결과·오류 및 입력에서 파생된 값은 분석·광고 이벤트에 포함하지 않습니다.",
+              "Google Analytics는 현재 {{analytics_state}}, Google AdSense는 {{advertising_state}}. 동의가 필요한 지역에서는 {{consent_provider}}이 동의를 관리하며 Analytics는 통계 동의 후, AdSense는 마케팅 동의 후에만 로드됩니다. Google은 페이지·세션·대략적 지역·브라우저·기기·동의 및 광고 요청 정보를 처리할 수 있습니다. 도구 입력·파일·결과·오류 및 입력에서 파생된 값은 분석·광고 이벤트에 포함하지 않습니다.",
             ],
           },
           {
@@ -196,7 +196,7 @@ const bundle: LocaleBundle = {
           {
             title: "제3자 제공 및 국외 이전",
             body: [
-              "선택한 호스팅 서비스는 자체 정책에 명시된 지역과 보호 조치에 따라 이용자의 국가 밖에서 요청 정보를 처리할 수 있습니다. Cookiebot by Usercentrics는 동의 선택을 처리하고, Google은 공개한 보호 조치에 따라 동의된 Analytics 데이터를 글로벌 인프라에서 처리합니다. 쿠키 선언에서 현재 제공자·목적·데이터 범주·보유 기간을 확인할 수 있으며 Google AdSense는 비활성화되어 있습니다.",
+              "선택한 호스팅 서비스는 자체 정책에 명시된 지역과 보호 조치에 따라 이용자의 국가 밖에서 요청 정보를 처리할 수 있습니다. Cookiebot by Usercentrics는 동의 선택을 처리하고, Google은 공개한 보호 조치에 따라 동의된 Analytics 및 AdSense 데이터를 글로벌 인프라에서 처리합니다. 쿠키 선언에서 현재 제공자·목적·데이터 범주·보유 기간을 확인할 수 있습니다.",
             ],
           },
           {
@@ -220,7 +220,7 @@ const bundle: LocaleBundle = {
           {
             title: "현재 사용",
             body: [
-              "분석은 현재 {{analytics_state}}, 광고는 {{advertising_state}}. Google Analytics는 {{consent_provider}}에서 통계 쿠키에 동의한 뒤에만 로드됩니다. 도구 입력과 결과는 쿠키나 로컬 스토리지에 저장하지 않습니다. 선택한 테마(라이트·다크)만 로컬 스토리지에 저장하며 이 값은 외부로 전송하지 않습니다.",
+              "분석은 현재 {{analytics_state}}, 광고는 {{advertising_state}}. 동의가 필요한 지역에서는 Google Analytics가 {{consent_provider}}의 통계 동의 후, Google AdSense가 마케팅 동의 후에만 로드됩니다. 도구 입력과 결과는 쿠키나 로컬 스토리지에 저장하지 않습니다. 선택한 테마(라이트·다크)만 로컬 스토리지에 저장하며 이 값은 외부로 전송하지 않습니다.",
             ],
           },
           {
