@@ -32,7 +32,7 @@ const packs = {
         "Precision requires WebGPU and is unavailable in this browser.",
       precisionConsentTitle: "Use the Precision model?",
       precisionConsentBody:
-        "The 98.5 MB model downloads when you next remove a background. It stays in the browser cache, and your image remains on this device.",
+        "The 98.5 MB model and a roughly 26 MB WebGPU runtime download when you next remove a background, for about 125 MB on first use. They stay in the browser cache, and your image remains on this device.",
       precisionConsentNotice:
         "Precision uses WebGPU and substantially more memory. It may be slower or fail on lower-memory devices; the other models remain available.",
       precisionConsentConfirm: "Use Precision",
@@ -93,7 +93,7 @@ const packs = {
         "정밀 모델은 WebGPU가 필요해 이 브라우저에서 사용할 수 없습니다.",
       precisionConsentTitle: "정밀 모델을 사용할까요?",
       precisionConsentBody:
-        "다음 배경 제거 때 98.5MB 모델을 받습니다. 받은 모델은 브라우저 캐시에 저장되며 이미지는 이 기기를 벗어나지 않습니다.",
+        "다음 배경 제거 때 98.5MB 모델과 약 26MB WebGPU 실행 파일을 받아 최초 사용 시 약 125MB가 전송됩니다. 받은 파일은 브라우저 캐시에 저장되며 이미지는 이 기기를 벗어나지 않습니다.",
       precisionConsentNotice:
         "WebGPU와 더 많은 메모리를 사용합니다. 메모리가 적은 기기에서는 느리거나 실패할 수 있으며 다른 모델은 계속 사용할 수 있습니다.",
       precisionConsentConfirm: "정밀 모델 사용",
@@ -154,7 +154,7 @@ const packs = {
         "Precisión requiere WebGPU y no está disponible en este navegador.",
       precisionConsentTitle: "¿Usar el modelo Precisión?",
       precisionConsentBody:
-        "El modelo de 98,5 MB se descargará al quitar el próximo fondo. Quedará en la caché del navegador y la imagen no saldrá del dispositivo.",
+        "El modelo de 98,5 MB y un entorno WebGPU de unos 26 MB se descargarán al quitar el próximo fondo: unos 125 MB en el primer uso. Quedarán en la caché y la imagen no saldrá del dispositivo.",
       precisionConsentNotice:
         "Usa WebGPU y bastante más memoria. Puede ser lento o fallar en dispositivos con poca memoria; los demás modelos seguirán disponibles.",
       precisionConsentConfirm: "Usar Precisión",
@@ -216,7 +216,7 @@ const packs = {
         "Präzision benötigt WebGPU und ist in diesem Browser nicht verfügbar.",
       precisionConsentTitle: "Präzisionsmodell verwenden?",
       precisionConsentBody:
-        "Das 98,5-MB-Modell wird beim nächsten Freistellen geladen und im Browser-Cache gespeichert. Das Bild bleibt auf diesem Gerät.",
+        "Beim nächsten Freistellen werden das 98,5-MB-Modell und eine etwa 26 MB große WebGPU-Laufzeit geladen, beim ersten Mal also rund 125 MB. Beides bleibt im Browser-Cache; das Bild bleibt auf diesem Gerät.",
       precisionConsentNotice:
         "Es nutzt WebGPU und deutlich mehr Speicher. Auf Geräten mit wenig Speicher kann es langsam sein oder scheitern; die anderen Modelle bleiben verfügbar.",
       precisionConsentConfirm: "Präzision verwenden",
@@ -279,7 +279,7 @@ const packs = {
         "高精度モデルにはWebGPUが必要なため、このブラウザーでは利用できません。",
       precisionConsentTitle: "高精度モデルを使用しますか？",
       precisionConsentBody:
-        "次回の背景削除時に98.5 MBのモデルをダウンロードします。モデルはブラウザーにキャッシュされ、画像は端末外へ送信されません。",
+        "次回の背景削除時に98.5 MBのモデルと約26 MBのWebGPU実行ファイルをダウンロードするため、初回は合計約125 MBです。ファイルはブラウザーにキャッシュされ、画像は端末外へ送信されません。",
       precisionConsentNotice:
         "WebGPUと多くのメモリを使用します。メモリの少ない端末では遅延または失敗する可能性がありますが、他のモデルは引き続き利用できます。",
       precisionConsentConfirm: "高精度を使用",
@@ -334,7 +334,7 @@ const packs = {
         "Précision nécessite WebGPU et n’est pas disponible dans ce navigateur.",
       precisionConsentTitle: "Utiliser le modèle Précision ?",
       precisionConsentBody:
-        "Le modèle de 98,5 Mo sera téléchargé lors du prochain détourage puis conservé dans le cache du navigateur. L’image reste sur cet appareil.",
+        "Le modèle de 98,5 Mo et un moteur WebGPU d’environ 26 Mo seront téléchargés au prochain détourage, soit environ 125 Mo au premier usage. Ils resteront en cache et l’image restera sur cet appareil.",
       precisionConsentNotice:
         "Il utilise WebGPU et beaucoup plus de mémoire. Il peut ralentir ou échouer sur un appareil peu doté ; les autres modèles restent disponibles.",
       precisionConsentConfirm: "Utiliser Précision",
@@ -396,7 +396,7 @@ const packs = {
         "Precisão exige WebGPU e não está disponível neste navegador.",
       precisionConsentTitle: "Usar o modelo Precisão?",
       precisionConsentBody:
-        "O modelo de 98,5 MB será baixado na próxima remoção e ficará no cache do navegador. A imagem permanece neste dispositivo.",
+        "O modelo de 98,5 MB e um runtime WebGPU de cerca de 26 MB serão baixados na próxima remoção, totalizando cerca de 125 MB no primeiro uso. Eles ficarão no cache e a imagem permanecerá neste dispositivo.",
       precisionConsentNotice:
         "Ele usa WebGPU e bem mais memória. Pode ficar lento ou falhar em dispositivos com pouca memória; os outros modelos continuam disponíveis.",
       precisionConsentConfirm: "Usar Precisão",
@@ -457,7 +457,7 @@ const packs = {
         "Precisione richiede WebGPU e non è disponibile in questo browser.",
       precisionConsentTitle: "Usare il modello Precisione?",
       precisionConsentBody:
-        "Il modello da 98,5 MB verrà scaricato alla prossima rimozione e resterà nella cache del browser. L’immagine rimane sul dispositivo.",
+        "Il modello da 98,5 MB e un runtime WebGPU di circa 26 MB verranno scaricati alla prossima rimozione, per circa 125 MB al primo utilizzo. Resteranno nella cache e l’immagine rimarrà sul dispositivo.",
       precisionConsentNotice:
         "Usa WebGPU e molta più memoria. Può rallentare o non riuscire sui dispositivi con poca memoria; gli altri modelli restano disponibili.",
       precisionConsentConfirm: "Usa Precisione",
@@ -519,7 +519,7 @@ const packs = {
         "Precisie vereist WebGPU en is niet beschikbaar in deze browser.",
       precisionConsentTitle: "Het Precisiemodel gebruiken?",
       precisionConsentBody:
-        "Het model van 98,5 MB wordt bij de volgende verwijdering gedownload en in de browsercache bewaard. De afbeelding blijft op dit apparaat.",
+        "Het model van 98,5 MB en een WebGPU-runtime van ongeveer 26 MB worden bij de volgende verwijdering gedownload: circa 125 MB bij het eerste gebruik. Ze blijven in de cache en de afbeelding blijft op dit apparaat.",
       precisionConsentNotice:
         "Het gebruikt WebGPU en veel meer geheugen. Op apparaten met weinig geheugen kan het traag zijn of mislukken; de andere modellen blijven beschikbaar.",
       precisionConsentConfirm: "Precisie gebruiken",
@@ -581,7 +581,7 @@ const packs = {
         "Precision kräver WebGPU och är inte tillgänglig i den här webbläsaren.",
       precisionConsentTitle: "Använda modellen Precision?",
       precisionConsentBody:
-        "Modellen på 98,5 MB hämtas vid nästa borttagning och sparas i webbläsarens cache. Bilden stannar på enheten.",
+        "Modellen på 98,5 MB och en WebGPU-körmiljö på cirka 26 MB hämtas vid nästa borttagning, totalt cirka 125 MB första gången. De sparas i cache och bilden stannar på enheten.",
       precisionConsentNotice:
         "Den använder WebGPU och betydligt mer minne. Den kan vara långsam eller misslyckas på enheter med lite minne; övriga modeller finns kvar.",
       precisionConsentConfirm: "Använd Precision",
@@ -642,7 +642,7 @@ const packs = {
         "Přesný model vyžaduje WebGPU a v tomto prohlížeči není dostupný.",
       precisionConsentTitle: "Použít Přesný model?",
       precisionConsentBody:
-        "Model o velikosti 98,5 MB se stáhne při příštím odstranění a zůstane v mezipaměti prohlížeče. Obrázek zůstává v zařízení.",
+        "Při příštím odstranění se stáhne model o velikosti 98,5 MB a prostředí WebGPU o velikosti přibližně 26 MB, tedy při prvním použití asi 125 MB. Soubory zůstanou v mezipaměti a obrázek v zařízení.",
       precisionConsentNotice:
         "Používá WebGPU a výrazně více paměti. Na slabších zařízeních může být pomalý nebo selhat; ostatní modely zůstanou dostupné.",
       precisionConsentConfirm: "Použít Přesný",
@@ -703,7 +703,7 @@ const packs = {
         "Model Precyzyjny wymaga WebGPU i nie jest dostępny w tej przeglądarce.",
       precisionConsentTitle: "Użyć modelu Precyzyjnego?",
       precisionConsentBody:
-        "Model 98,5 MB zostanie pobrany przy następnym usuwaniu i zapisany w pamięci podręcznej przeglądarki. Obraz pozostaje na urządzeniu.",
+        "Przy następnym usuwaniu zostaną pobrane model 98,5 MB i środowisko WebGPU około 26 MB, czyli około 125 MB przy pierwszym użyciu. Pliki pozostaną w pamięci podręcznej, a obraz na urządzeniu.",
       precisionConsentNotice:
         "Używa WebGPU i znacznie więcej pamięci. Na słabszych urządzeniach może działać wolno lub zawieść; pozostałe modele nadal będą dostępne.",
       precisionConsentConfirm: "Użyj Precyzyjnego",
@@ -764,7 +764,7 @@ const packs = {
         "Præcision kræver WebGPU og er ikke tilgængelig i denne browser.",
       precisionConsentTitle: "Brug modellen Præcision?",
       precisionConsentBody:
-        "Modellen på 98,5 MB hentes ved næste fjernelse og gemmes i browserens cache. Billedet bliver på enheden.",
+        "Modellen på 98,5 MB og en WebGPU-kørselspakke på cirka 26 MB hentes ved næste fjernelse, i alt cirka 125 MB første gang. De gemmes i cachen, og billedet bliver på enheden.",
       precisionConsentNotice:
         "Den bruger WebGPU og væsentligt mere hukommelse. Den kan være langsom eller fejle på enheder med lidt hukommelse; de andre modeller er fortsat tilgængelige.",
       precisionConsentConfirm: "Brug Præcision",
@@ -825,7 +825,7 @@ const packs = {
         "Presisjon krever WebGPU og er ikke tilgjengelig i denne nettleseren.",
       precisionConsentTitle: "Bruke modellen Presisjon?",
       precisionConsentBody:
-        "Modellen på 98,5 MB lastes ned ved neste fjerning og lagres i nettleserbufferen. Bildet forblir på enheten.",
+        "Modellen på 98,5 MB og en WebGPU-kjørepakke på omtrent 26 MB lastes ned ved neste fjerning, totalt omtrent 125 MB første gang. De lagres i hurtigbufferen, og bildet forblir på enheten.",
       precisionConsentNotice:
         "Den bruker WebGPU og betydelig mer minne. Den kan være treg eller mislykkes på enheter med lite minne; de andre modellene er fortsatt tilgjengelige.",
       precisionConsentConfirm: "Bruk Presisjon",
@@ -886,7 +886,7 @@ const packs = {
         "يتطلب نموذج الدقة الفائقة WebGPU وهو غير متاح في هذا المتصفح.",
       precisionConsentTitle: "هل تريد استخدام نموذج الدقة الفائقة؟",
       precisionConsentBody:
-        "سيُنزل النموذج بحجم 98.5 ميجابايت عند الإزالة التالية ويُحفظ في ذاكرة المتصفح المؤقتة. تبقى الصورة على هذا الجهاز.",
+        "سيُنزل النموذج بحجم 98.5 ميجابايت وبيئة WebGPU بحجم يقارب 26 ميجابايت عند الإزالة التالية، أي نحو 125 ميجابايت في أول استخدام. تُحفظ الملفات مؤقتًا وتبقى الصورة على هذا الجهاز.",
       precisionConsentNotice:
         "يستخدم WebGPU وذاكرة أكبر بكثير. قد يكون بطيئًا أو يفشل على الأجهزة محدودة الذاكرة؛ وتظل النماذج الأخرى متاحة.",
       precisionConsentConfirm: "استخدام الدقة الفائقة",
@@ -945,7 +945,7 @@ const packs = {
       precisionUnavailable: "精細模型需要 WebGPU，此瀏覽器無法使用。",
       precisionConsentTitle: "要使用精細模型嗎？",
       precisionConsentBody:
-        "下次移除背景時會下載 98.5 MB 模型並存入瀏覽器快取。圖片仍留在此裝置。",
+        "下次移除背景時會下載 98.5 MB 模型與約 26 MB 的 WebGPU 執行檔，首次使用合計約 125 MB。檔案會存入瀏覽器快取，圖片仍留在此裝置。",
       precisionConsentNotice:
         "此模型會使用 WebGPU 與更多記憶體。在記憶體較少的裝置上可能較慢或失敗；其他模型仍可使用。",
       precisionConsentConfirm: "使用精細模型",
@@ -998,7 +998,7 @@ const packs = {
         "Hassas model WebGPU gerektirir ve bu tarayıcıda kullanılamaz.",
       precisionConsentTitle: "Hassas model kullanılsın mı?",
       precisionConsentBody:
-        "98,5 MB model bir sonraki kaldırmada indirilir ve tarayıcı önbelleğinde tutulur. Resim bu cihazda kalır.",
+        "Bir sonraki kaldırmada 98,5 MB model ile yaklaşık 26 MB WebGPU çalışma dosyası indirilir; ilk kullanımda toplam yaklaşık 125 MB aktarılır. Dosyalar önbellekte, resim ise bu cihazda kalır.",
       precisionConsentNotice:
         "WebGPU ve çok daha fazla bellek kullanır. Düşük bellekli cihazlarda yavaşlayabilir veya başarısız olabilir; diğer modeller kullanılabilir kalır.",
       precisionConsentConfirm: "Hassas modeli kullan",

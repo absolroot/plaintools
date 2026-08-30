@@ -420,6 +420,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         "cancelRestored": False,
         "confirmed": False,
         "downloadBeforeRun": False,
+        "disclosesFirstDownload": False,
     }
     precision_state = None
     precision_resources = []
@@ -434,7 +435,8 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
                 () => ({
                   dialogOpened: document.querySelector('[data-precision-consent]').open,
                   selectionDeferred: !document.querySelector('input[name="background-model"][value="precision"]').checked
-                    && document.querySelector('input[name="background-model"][value="quality"]').checked
+                    && document.querySelector('input[name="background-model"][value="quality"]').checked,
+                  disclosesFirstDownload: document.querySelector('[data-precision-consent]').innerText.includes('125 MB')
                 })
                 """
             )
@@ -463,6 +465,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             or not precision_consent["cancelRestored"]
             or not precision_consent["confirmed"]
             or precision_consent["downloadBeforeRun"]
+            or not precision_consent["disclosesFirstDownload"]
         ):
             report["ui_detail_failures"].append(
                 "Precision-model consent did not defer the large download correctly: "
