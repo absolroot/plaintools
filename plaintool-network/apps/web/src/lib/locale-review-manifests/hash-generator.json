@@ -33,7 +33,7 @@
     "apps/web/src/pages/[locale]/hash-generator/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:4e4688c3a42188e03081a8576ede29879cd9a8253025e4ea768f906dc93fe6f9",
+  "copyFingerprint": "sha256:2c43d8e4698a923293f6cfca521588a04f5d748833458b7cd632c0c9505759d9",
   "locales": {
     "en": {
       "status": "reference-backed",

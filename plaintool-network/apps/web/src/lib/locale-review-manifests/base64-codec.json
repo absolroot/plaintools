@@ -43,7 +43,7 @@
   "copyDirectories": [
     "apps/web/src/lib/locale-data"
   ],
-  "copyFingerprint": "sha256:09a1d33b0f23280b019fe83e5402225f312e933da58d387f8e025f4331da7dc2",
+  "copyFingerprint": "sha256:de2f30adfa03fe0c8b95f8f9afde40c5c13702489cd29713104934b0eda2c14f",
   "locales": {
     "en": {
       "status": "reference-backed",
