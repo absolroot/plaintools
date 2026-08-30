@@ -117,6 +117,17 @@
   unsupported or unavailable browser language values still resolve to `/en/`.
 - Network QA now rejects any visible scripting-browser copy before locale
   detection and requires the no-JavaScript English fallback.
+- Chrome DevTools MCP failed before navigation because the user's Chrome profile
+  did not expose `DevToolsActivePort`; the in-app browser fallback failed on the
+  missing sandbox policy metadata.
+- Pre-existing servers on ports 4321 and 4322 were preserved. The task-owned
+  server used `$env:ASTRO_DEV_BACKGROUND='1'; node
+  ..\..\node_modules\astro\bin\astro.mjs dev --ignore-lock --host 127.0.0.1
+  --port 4331` at `http://127.0.0.1:4331/` (unified-exec session `53528`).
+- Focused Playwright verified that suppressing the root detection module leaves
+  the scripting-browser body with no visible text, `ko-KR` enters `/ko/`,
+  `fr-CA` enters `/fr/`, unsupported `pt-PT` enters `/en/`, and disabling
+  JavaScript also enters `/en/` through the fallback.
 
 ## Source and build checks
 
