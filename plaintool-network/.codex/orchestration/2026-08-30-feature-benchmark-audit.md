@@ -37,10 +37,10 @@ Each feature report must record:
 
 | Branch | Planned worktree | Owner | Scope | Owned deliverables | Status |
 | --- | --- | --- | --- | --- | --- |
-| `agent/review-text` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-text` | `/root/review_text` | word counter, text compare, case converter, AI text cleaner | `word-counter.md`, `text-compare.md`, `case-converter.md`, `ai-text-cleaner.md` | planned |
-| `agent/review-codec-security` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-codec-security` | `/root/review_codec_security` | Base64, URL codec, hash, JWT, QR | `base64-codec.md`, `url-codec.md`, `hash-generator.md`, `jwt-decoder.md`, `qr-code.md` | planned |
-| `agent/review-data-source` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-data-source` | `/root/review_data_source` | JSON, structured converters, HTML/CSS/JS/SQL formatters | `json-formatter.md`, `data-converters.md`, `html-formatter.md`, `css-formatter.md`, `javascript-formatter.md`, `sql-formatter.md` | planned |
-| root | integration worktree | `/root` | timestamp, subnet, cross-tool UX, integration, fixes, browser QA | `unix-timestamp-converter.md`, `ip-subnet-calculator.md`, `README.md`, `summary.md` | in progress |
+| `agent/review-text` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-text` | `/root/review_text` | word counter, text compare, case converter, AI text cleaner | `word-counter.md`, `text-compare.md`, `case-converter.md`, `ai-text-cleaner.md` | integrated as `984b491` from `4285b27` |
+| `agent/review-codec-security` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-codec-security` | `/root/review_codec_security` | Base64, URL codec, hash, JWT, QR | `base64-codec.md`, `url-codec.md`, `hash-generator.md`, `jwt-decoder.md`, `qr-code.md` | integrated as `61f82a6` from `e06eb00` |
+| `agent/review-data-source` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-data-source` | `/root/review_data_source` | JSON, structured converters, HTML/CSS/JS/SQL formatters | `json-formatter.md`, `data-converters.md`, `html-formatter.md`, `css-formatter.md`, `javascript-formatter.md`, `sql-formatter.md` | integrated as `d8685e9` from `34dcf77` |
+| root | integration worktree | `/root` | timestamp, subnet, cross-tool UX, integration, fixes, browser QA | `unix-timestamp-converter.md`, `ip-subnet-calculator.md`, `README.md`, `summary.md` | reports complete; final gates pending |
 
 ## Forbidden paths for review agents
 
@@ -63,3 +63,39 @@ Each feature report must record:
 6. Run focused tests, repository gates, and representative desktop/mobile browser checks.
 7. Record final commits, tests, limitations, and remaining backlog here.
 
+## Integration results
+
+- Initial audit ledger: `6025eb0`.
+- Text reports: `984b491` (source branch `4285b27`).
+- Data/formatter reports: `d8685e9` (source branch `34dcf77`).
+- Codec/security reports: `61f82a6` (source branch `e06eb00`).
+- Case Converter locale-aware fix: `7e59906`; Turkish upper/lower/sentence/
+  capitalize-words coverage added.
+- Root reports and indexes: staged for the final audit documentation commit.
+
+## Verification and blockers
+
+- Passed: timestamp+subnet `2 files / 69 tests`.
+- Passed after fix: Case Converter `1 file / 13 tests`.
+- Review branch evidence: text cores `4 files / 46 tests`, codec/security
+  `6 files / 41 tests`, data/formatter `13 files / 112 tests`.
+- Root `tsc -p tsconfig.json` passed as the first half of `npm run type:check`.
+- Full Astro check is currently blocked by five `help` prop omissions in the
+  separately modified `NewToolPreview.astro`; no Case Converter diagnostic was
+  reported. Do not repair that other session's in-progress ownership here.
+- In-app browser connection failed because the execution metadata required by
+  the browser runtime was unavailable. Repository Chromium QA remains the
+  fallback final surface gate.
+- Current Node is `22.12.0`, below the repository's `>=22.19 <23` requirement;
+  focused test results are regression evidence, not a formal release gate.
+
+## Remaining P0 queue
+
+1. AI cleaner: preserve bidi controls in the safe default and reconsider the
+   hidden default-on NBSP normalization.
+2. Base64: make recursive decode opt-in or preserve an explicit first-stage
+   result beside the final recursive result.
+3. JWT: carry `NOT VERIFIED` into result headings and downloaded output.
+
+These paths overlap a separate session's active uncommitted UI/locale changes,
+so this audit records them without overwriting that work.

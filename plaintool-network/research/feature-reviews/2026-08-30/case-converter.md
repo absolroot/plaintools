@@ -3,7 +3,7 @@
 - 감사일: `2026-08-30`
 - 감사 계약 기준 커밋: `02a7c57`
 - 실제 검토 표면: `worktree/lucky-cloud-860c`의 `6025eb0` 및 당시 미커밋 변경(Case Converter 관련 미커밋 변경 없음)
-- 결론: 현재 도구는 Unicode 보존, 상태 경합 방지, 정확한 TXT 다운로드가 강하다. 그러나 17개 로케일을 공개하면서 실제 case mapping에는 locale을 전달하지 않아 터키어 같은 언어에서 현지 기대와 어긋날 수 있는 것이 최우선 결함이다.
+- 결론: 현재 도구는 Unicode 보존, 상태 경합 방지, 정확한 TXT 다운로드가 강하다. 감사에서 발견한 locale 전달 누락은 같은 날 `7e59906`에서 수정해, 공개 route locale이 Worker와 core의 locale-aware case mapping까지 이어진다.
 
 ## 경로, 공개 상태, 소유권
 
@@ -25,6 +25,7 @@
 | 현재 client/worker | 90ms debounce, 1MB 제한, latest-only Worker, stale result와 action disable, clipboard race 차단, Worker failure, Clear 권한을 구현한다. |
 | `scripts/qa/case_converter_feature.py` | 네 모드 결과, UTF-8 download, clipboard failure/race, 1MB 초과 회복, rapid input, delayed Worker 후 Clear, 모바일 control 크기와 overflow를 검사하도록 작성돼 있다. |
 | `7d560c8`, `1f69677` | 17개 로케일 copy/manifest와 route를 갖추고 `indexable`로 승격됐다. |
+| `7e59906` (`Make case conversion locale aware`) | route locale을 UI→Worker→core로 전달하고 Turkish dotted/dotless I를 네 모드에서 회귀 테스트한다. 감사에서 확인한 locale-insensitive P0를 해결했다. |
 
 ## 경쟁 페이지 관찰
 
@@ -50,7 +51,6 @@
 
 ### AbsolTools가 약한 지점
 
-- `locale`이 UI→Worker→core 요청에 전달되지 않고 `toUpperCase()`/`toLowerCase()`를 사용한다. `/tr/`에서도 Turkish dotted/dotless I의 locale-aware mapping을 적용하지 않는다.
 - title case와 style-guide 규칙이 없고, sentence case는 abbreviation/proper noun/decimal을 이해하지 않는 의도적인 단순 규칙이다.
 - alternating/inverse와 개발자용 camel/Pascal/snake/kebab/constant mode가 없다.
 - Undo가 없어 여러 모드를 실험한 결과 사이를 되돌릴 수 없다. 다만 원본/결과가 분리돼 원문 자체는 보존된다.
@@ -59,7 +59,7 @@
 
 | 우선순위 | 후보 | 사용자 영향 | 확신 | 노력 | 판단 |
 | --- | --- | --- | --- | --- | --- |
-| P0 | locale-aware casing 도입 및 Turkish/Azeri/Lithuanian 회귀 테스트 | 높음 | 높음 | 중간 | 17개 로케일 공개 상태와 현재 locale-insensitive core가 직접 충돌한다. UI locale을 typed worker request와 core에 전달하고 지원/예외 규칙을 문서화해야 한다. |
+| P0 완료 | locale-aware casing 도입 및 Turkish 회귀 테스트 | 높음 | 높음 | 중간 | `7e59906`에서 route locale 전달과 Turkish 네 모드 테스트를 반영했다. Azeri/Lithuanian 전용 fixture 확대는 후속 범위다. |
 | P1 | `Title case`를 별도 모드로 추가하되 언어/스타일 범위를 명시 | 높음 | 높음 | 중간~높음 | 경쟁 페이지에서 반복되는 대표 모드다. 단순 “모든 단어 대문자”와 AP/Chicago식 title case를 같은 이름으로 섞지 않는다. |
 | P2 | 개발자 naming case를 별도 Options 또는 전용 route로 분리 | 중간 | 높음 | 중간 | camel/Pascal/snake/kebab 수요는 관찰됐지만 prose case라는 현재 주기능을 흐릴 수 있다. 구두점·약어·숫자·Unicode 식별자 규칙이 필요하다. |
 | P2 | 결과 스냅샷 1단계 Undo | 중간 | 중간 | 낮음~중간 | 모드 비교를 쉽게 한다. 도구 상태를 영구 저장할 필요는 없고 현재 탭 메모리만 사용한다. |
@@ -71,11 +71,11 @@
 - “원본과 결과를 나란히 유지하고 결과를 복사하거나 UTF-8 TXT로 다운로드할 수 있습니다.”
 - “공백, 줄바꿈, 결합 문자 시퀀스를 임의 정규화하지 않습니다.”
 - “빠른 입력과 복사 작업이 겹쳐도 오래된 결과가 최신 입력을 덮지 않도록 테스트했습니다.”
-- locale-aware 개선 전에는 “JavaScript 기본 Unicode case mapping을 사용합니다”가 정확한 표현이다.
+- “공개 route locale을 JavaScript locale-aware case mapping에 전달합니다.” 단, 언어별 문법이나 style-guide title case까지 보장한다는 뜻은 아니다.
 
 ## 금지하거나 추가 증거가 필요한 claim
 
-- “모든 언어에 locale-aware”, “터키어를 정확히 처리” — 현재 locale이 core에 전달되지 않는다.
+- “모든 언어의 문법을 완벽히 이해한다” — locale-aware 문자 mapping과 문맥·문법 이해는 다르다.
 - “문법적으로 완벽한 sentence case” — 약어, 고유명사, 문맥을 이해하지 않는다.
 - “Title Case 지원” — 현재 `capitalize-words`는 단순 단어 첫 cased-character 대문자이며 title style이 아니다.
 - “모든 Unicode를 손실 없이 변환” — Unicode case mapping 자체가 길이를 바꿀 수 있다(`ß`→`SS`).
@@ -86,6 +86,7 @@
 
 - 현재 review surface의 route/registry/feature/core/copy/manifest, worker contract, `git log`를 확인했다.
 - `2026-08-30` 집중 테스트에서 네 코어 `4 files / 46 tests`가 통과했으며 `text-case-core`는 12 tests다.
+- 수정 후 `packages/text-case-core/src/index.test.ts` 13 tests가 통과했고, root TypeScript 단계도 통과했다. 전체 Astro check는 별도 미커밋 `NewToolPreview.astro`의 누락된 `help` props 5건 때문에 실패했으며 Case Converter 진단은 없었다.
 - `scripts/qa/case_converter_feature.py`의 결과/download/race/failure/mobile 계약을 검토했지만 브라우저 연결 메타데이터 문제로 실제 화면 QA를 재실행하지 못했다.
 - 테스트 Node `v22.12.0`은 저장소 요구사항 `>=22.19 <23`보다 낮으므로 공식 전체 게이트 증거는 아니다.
 - 경쟁 페이지의 UI/설명을 관찰했을 뿐 실제 locale mapping 정확도나 네트워크 동작을 독립 시험하지 않았다.
