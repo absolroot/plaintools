@@ -183,6 +183,7 @@ function init(root: HTMLElement): void {
       renderAuthority();
       setStatus(copy.common.processingFailed, "error");
     },
+    lazy: true,
     timeoutMs: FORMATTER_WORKER_TIMEOUT_MS,
   });
 

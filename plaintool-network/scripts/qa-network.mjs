@@ -1,4 +1,4 @@
-import { readdir, readFile } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import {
   legalPages,
@@ -41,7 +41,88 @@ const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
 const robots = await readFile(join(dist, "robots.txt"), "utf8");
 const llms = await readFile(join(dist, "llms.txt"), "utf8");
 const headers = await readFile(join(dist, "_headers"), "utf8");
+const thirdPartyNotices = await readFile(
+  join(dist, "third-party-notices.txt"),
+  "utf8",
+);
+const prettierNotices = await readFile(
+  join(dist, "licenses", "prettier-3.9.6.txt"),
+  "utf8",
+);
 const builtAssets = await readdir(join(dist, "_astro"));
+
+const requiredRuntimeNotices = [
+  "flag-icons",
+  "Prettier",
+  "sql-formatter",
+  "nearley",
+  "Terser",
+  "@jridgewell/source-map",
+];
+for (const packageName of requiredRuntimeNotices) {
+  if (!thirdPartyNotices.includes(packageName)) {
+    throw new Error(`Deployed third-party notices are missing ${packageName}.`);
+  }
+}
+if (
+  !thirdPartyNotices.includes("/licenses/prettier-3.9.6.txt") ||
+  prettierNotices.length < 350_000 ||
+  !prettierNotices.includes("Apache License") ||
+  !prettierNotices.includes("Blue Oak Model License")
+) {
+  throw new Error(
+    "The deployed Prettier vendor notice is missing or unexpectedly truncated.",
+  );
+}
+
+const formatterWorkerBudgets = {
+  HtmlFormatter: 300_000,
+  CssFormatter: 300_000,
+  JavaScriptFormatter: 1_250_000,
+  SqlFormatter: 150_000,
+};
+const formatterWorkerSizes = {};
+
+async function builtJavaScriptClosure(entryAsset, seen = new Set()) {
+  if (seen.has(entryAsset)) return seen;
+  seen.add(entryAsset);
+  const source = await readFile(join(dist, "_astro", entryAsset), "utf8");
+  const imports = [
+    ...source.matchAll(/\b(?:from|import\()\s*["'`]\.\/([^"'`]+\.js)["'`]/gu),
+  ].map((match) => match[1]);
+  for (const importedAsset of imports) {
+    await builtJavaScriptClosure(importedAsset, seen);
+  }
+  return seen;
+}
+
+for (const [component, budget] of Object.entries(formatterWorkerBudgets)) {
+  const clientAsset = builtAssets.find(
+    (asset) => asset.startsWith(`${component}.astro_`) && asset.endsWith(".js"),
+  );
+  if (!clientAsset) {
+    throw new Error(`Could not find the built ${component} client asset.`);
+  }
+  const clientSource = await readFile(
+    join(dist, "_astro", clientAsset),
+    "utf8",
+  );
+  const workerAsset = clientSource.match(/worker-[A-Za-z0-9_-]+\.js/u)?.[0];
+  if (!workerAsset) {
+    throw new Error(`Could not find the ${component} worker reference.`);
+  }
+  const workerClosure = await builtJavaScriptClosure(workerAsset);
+  let size = 0;
+  for (const asset of workerClosure) {
+    size += (await stat(join(dist, "_astro", asset))).size;
+  }
+  formatterWorkerSizes[component] = size;
+  if (size > budget) {
+    throw new Error(
+      `${component} worker is ${size} bytes, over its ${budget}-byte budget.`,
+    );
+  }
+}
 
 const requiredSecurityHeaders = [
   "X-Content-Type-Options: nosniff",
@@ -198,6 +279,8 @@ function verifyMetadata(
     throw new Error(
       `${route} canonical is ${canonical}, expected ${expectedCanonical}.`,
     );
+  if (!html.includes('<link rel="license" href="/third-party-notices.txt">'))
+    throw new Error(`${route} does not expose its third-party notices.`);
   if (!metaContent(html, "name", "description"))
     throw new Error(`${route} has an empty description.`);
   if (!metaContent(html, "property", "og:title"))
@@ -361,6 +444,8 @@ const notFound = await readFile(join(dist, "404.html"), "utf8");
 verifyStaticContentPolicy(notFound, "404");
 const rootIndex = await readFile(join(dist, "index.html"), "utf8");
 verifyStaticContentPolicy(rootIndex, "root index");
+if (!rootIndex.includes('<link rel="license" href="/third-party-notices.txt">'))
+  throw new Error("Root index does not expose its third-party notices.");
 if (
   metaContent(notFound, "name", "robots") !==
   (target === "production" ? "noindex,follow" : "noindex,nofollow")
@@ -392,5 +477,10 @@ if (timeHtml.includes("codec.worker"))
   throw new Error("Base64 worker code leaked into the timestamp route.");
 
 console.log(
-  `Network QA passed for ${target}: metadata, parsed JSON-LD, indexability, crawler policy, sitemap, llms.txt, redirects, locale links, integrations and route isolation are intact.`,
+  `Network QA passed for ${target}: metadata, parsed JSON-LD, indexability, crawler policy, sitemap, llms.txt, redirects, locale links, integrations, licenses, formatter worker budgets and route isolation are intact.`,
+);
+console.log(
+  `Formatter worker bytes: ${Object.entries(formatterWorkerSizes)
+    .map(([component, size]) => `${component}=${size}`)
+    .join(", ")}.`,
 );

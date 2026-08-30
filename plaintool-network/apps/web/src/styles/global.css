@@ -115,6 +115,8 @@
   --focus-ring: color-mix(in oklch, var(--focus), var(--base) 75%);
   --brand: oklch(51% 0.225 260);
   --brand-hover: oklch(45% 0.225 260);
+  --action: #1d4ed8;
+  --action-hover: #1e40af;
   --cloudflare-orange: #f6821f;
   --status-idle: #38bdf8;
   --success: oklch(43.2% 0.095 166.913);
@@ -167,6 +169,8 @@
     --focus: oklch(78% 0.13 255);
     --brand: oklch(63% 0.19 258);
     --brand-hover: oklch(69% 0.17 258);
+    --action: #2563eb;
+    --action-hover: #1d4ed8;
     --status-idle: #7dd3fc;
     --success: oklch(77% 0.12 163);
     --success-tint: oklch(30% 0.07 163 / 0.55);
@@ -202,6 +206,8 @@
   --focus: oklch(78% 0.13 255);
   --brand: oklch(63% 0.19 258);
   --brand-hover: oklch(69% 0.17 258);
+  --action: #2563eb;
+  --action-hover: #1d4ed8;
   --status-idle: #7dd3fc;
   --success: oklch(77% 0.12 163);
   --success-tint: oklch(30% 0.07 163 / 0.55);
@@ -860,11 +866,12 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
 }
 .primary-button {
   color: var(--on-action);
-  background: var(--brand);
-  box-shadow: 0 0 0 1px color-mix(in oklch, var(--brand), var(--ink-strong) 18%);
+  background: var(--action);
+  box-shadow: 0 0 0 1px
+    color-mix(in oklch, var(--action), var(--ink-strong) 18%);
 }
 .primary-button:hover {
-  background: var(--brand-hover);
+  background: var(--action-hover);
 }
 .secondary-button {
   color: var(--ink);

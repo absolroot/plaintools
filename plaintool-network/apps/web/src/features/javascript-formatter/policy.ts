@@ -1,7 +1,8 @@
 import type { JavaScriptFormatterMode } from "@plaintool/javascript-formatter-core";
+import { FORMATTER_INPUT_LIMITS } from "../../scripts/shared/formatter-resource-policy";
 
-export const JAVASCRIPT_MAX_BYTES = 10 * 1024 * 1024;
-export const JAVASCRIPT_AUTO_BYTES = 1024 * 1024;
+export const JAVASCRIPT_MAX_BYTES = FORMATTER_INPUT_LIMITS.javascript.max;
+export const JAVASCRIPT_AUTO_BYTES = FORMATTER_INPUT_LIMITS.javascript.auto;
 
 export type JavaScriptRunPolicy = "automatic" | "manual" | "too-large";
 

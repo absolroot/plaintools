@@ -1,5 +1,8 @@
 # Third-party notices
 
+The deployed copy of these notices is available at
+`/third-party-notices.txt` and is linked from every page with `rel="license"`.
+
 ## flag-icons
 
 The language menu embeds selected country flag SVGs from
@@ -31,7 +34,10 @@ SOFTWARE.
 
 The HTML, CSS, and JavaScript formatters bundle [Prettier](https://prettier.io/),
 version 3.9.6. Copyright James Long and contributors. Prettier is distributed
-under the MIT License terms reproduced above.
+under the MIT License terms reproduced above. Prettier's published standalone
+and plugin artifacts include additional third-party software. The complete
+vendor-supplied notice is deployed verbatim at
+`/licenses/prettier-3.9.6.txt`.
 
 ## sql-formatter
 
@@ -40,6 +46,12 @@ version 15.8.2. Copyright 2016-2020 ZeroTurnaround LLC, 2020-2021 George
 Leslie-Waksman and other contributors, and 2021-present inferrinizzard and
 other contributors. It is distributed under the MIT License terms reproduced
 above.
+
+### nearley
+
+The SQL formatter includes [nearley](https://nearley.js.org/), version 2.20.1.
+Copyright (c) 2014, 2015, 2016, 2017, 2018, 2019 Kartik Chandra, Tim Radvan.
+It is distributed under the MIT License terms reproduced above.
 
 ## Terser
 
@@ -66,3 +78,19 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+### @jridgewell source-map packages
+
+Terser also includes the following MIT-licensed source-map packages:
+
+- `@jridgewell/source-map` 0.3.11
+- `@jridgewell/gen-mapping` 0.3.13
+- `@jridgewell/trace-mapping` 0.3.31
+- `@jridgewell/resolve-uri` 3.1.2
+- `@jridgewell/sourcemap-codec` 1.6.0
+
+Copyright 2019 Justin Ridgewell <jridgewell@google.com>
+
+Copyright 2024 Justin Ridgewell <justin@ridgewell.name>
+
+These packages are distributed under the MIT License terms reproduced above.

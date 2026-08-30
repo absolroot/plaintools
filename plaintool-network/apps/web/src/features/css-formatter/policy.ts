@@ -1,5 +1,7 @@
-export const CSS_AUTO_BYTES = 1024 * 1024;
-export const CSS_MAX_BYTES = 10 * 1024 * 1024;
+import { FORMATTER_INPUT_LIMITS } from "../../scripts/shared/formatter-resource-policy";
+
+export const CSS_AUTO_BYTES = FORMATTER_INPUT_LIMITS.css.auto;
+export const CSS_MAX_BYTES = FORMATTER_INPUT_LIMITS.css.max;
 
 export type CssInputPolicy = "empty" | "auto" | "manual" | "too-large";
 

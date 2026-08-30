@@ -1,5 +1,8 @@
 import { fill } from "../../lib/template";
-import { FORMATTER_WORKER_TIMEOUT_MS } from "../../scripts/shared/formatter-resource-policy";
+import {
+  FORMATTER_INPUT_LIMITS,
+  FORMATTER_WORKER_TIMEOUT_MS,
+} from "../../scripts/shared/formatter-resource-policy";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
 import {
   copyText,
@@ -19,8 +22,7 @@ import type {
 } from "./contract";
 import { HtmlFormatterAuthority } from "./state";
 
-const MAX_BYTES = 10 * 1024 * 1024;
-const AUTO_BYTES = 1024 * 1024;
+const { max: MAX_BYTES, auto: AUTO_BYTES } = FORMATTER_INPUT_LIMITS.html;
 
 function init(root: HTMLElement): void {
   if (root.dataset.initialized) return;
@@ -129,6 +131,7 @@ function init(root: HTMLElement): void {
       renderAuthority();
       setStatus(copy.common.processingFailed, "error");
     },
+    lazy: true,
     timeoutMs: FORMATTER_WORKER_TIMEOUT_MS,
   });
 
@@ -163,13 +166,14 @@ function init(root: HTMLElement): void {
     authority.changeInput(input.value);
     renderAuthority();
     if (!input.value) return setStatus(copy.common.ready);
-    if (bytes() > MAX_BYTES) {
+    const inputBytes = bytes();
+    if (inputBytes > MAX_BYTES) {
       const revision = authority.beginRequest();
       authority.fail(revision);
       renderAuthority();
       return setStatus(copy.feature.tooLarge, "error");
     }
-    if (bytes() > AUTO_BYTES) return setStatus(copy.feature.manualRequired);
+    if (inputBytes > AUTO_BYTES) return setStatus(copy.feature.manualRequired);
     setStatus(
       authority.snapshot.stale ? copy.feature.outdated : copy.common.ready,
     );

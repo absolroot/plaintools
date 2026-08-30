@@ -15,6 +15,78 @@ class FakeWorker {
 }
 
 describe("createLatestWorkerRunner", () => {
+  it("creates a lazy worker only when prepared work is ready", async () => {
+    const workers: FakeWorker[] = [];
+    const runner = createLatestWorkerRunner<
+      { id: number },
+      { id: number },
+      string
+    >({
+      createWorker: () => {
+        const worker = new FakeWorker();
+        workers.push(worker);
+        return worker as unknown as Worker;
+      },
+      prepare: (id) => ({ payload: { id } }),
+      replyId: (reply) => reply.id,
+      onReply: () => undefined,
+      onFailure: () => undefined,
+      lazy: true,
+    });
+    expect(workers).toHaveLength(0);
+    const id = runner.submit("first");
+    expect(workers).toHaveLength(0);
+    await Promise.resolve();
+    expect(workers).toHaveLength(1);
+    expect(workers[0]!.postMessage).toHaveBeenCalledWith({ id }, []);
+  });
+
+  it("does not replace a cancelled lazy worker until the next submit", async () => {
+    const workers: FakeWorker[] = [];
+    const runner = createLatestWorkerRunner<
+      { id: number },
+      { id: number },
+      string
+    >({
+      createWorker: () => {
+        const worker = new FakeWorker();
+        workers.push(worker);
+        return worker as unknown as Worker;
+      },
+      prepare: (id) => ({ payload: { id } }),
+      replyId: (reply) => reply.id,
+      onReply: () => undefined,
+      onFailure: () => undefined,
+      lazy: true,
+    });
+    runner.submit("first");
+    await Promise.resolve();
+    expect(runner.cancel()).toBe(true);
+    expect(workers[0]!.terminate).toHaveBeenCalledOnce();
+    expect(workers).toHaveLength(1);
+    runner.submit("second");
+    await Promise.resolve();
+    expect(workers).toHaveLength(2);
+  });
+
+  it("disposes a lazy runner without creating a worker", () => {
+    const createWorker = vi.fn(() => new FakeWorker() as unknown as Worker);
+    const runner = createLatestWorkerRunner<
+      { id: number },
+      { id: number },
+      string
+    >({
+      createWorker,
+      prepare: (id) => ({ payload: { id } }),
+      replyId: (reply) => reply.id,
+      onReply: () => undefined,
+      onFailure: () => undefined,
+      lazy: true,
+    });
+    runner.dispose();
+    expect(createWorker).not.toHaveBeenCalled();
+  });
+
   it("terminates active work and ignores stale preparation", async () => {
     const workers: FakeWorker[] = [];
     let releaseFirst!: (value: { payload: { id: number } }) => void;

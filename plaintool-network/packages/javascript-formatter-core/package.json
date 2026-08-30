@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./format": "./src/format.ts",
+    "./minify": "./src/minify.ts",
+    "./shared": "./src/shared.ts"
   },
   "dependencies": {
     "prettier": "3.9.6",

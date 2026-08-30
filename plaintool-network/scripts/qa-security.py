@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 
 from playwright.sync_api import sync_playwright
@@ -32,6 +33,27 @@ def main() -> None:
             )
             attach_page_error_collectors(desktop, report)
             attach_external_request_collector(desktop, report, "security-desktop")
+            worker_requests = []
+            desktop.on(
+                "request",
+                lambda request: worker_requests.append(request.url)
+                if re.search(r"/worker-[A-Za-z0-9_-]+\.js$", request.url)
+                else None,
+            )
+            for route in (
+                "html-formatter",
+                "css-formatter",
+                "javascript-formatter",
+                "sql-formatter",
+            ):
+                before = len(worker_requests)
+                desktop.goto(f"{BASE_URL}/en/{route}/", wait_until="networkidle")
+                initial_requests = worker_requests[before:]
+                if initial_requests:
+                    report["ui_detail_failures"].append(
+                        f"{route} loaded a worker before input: {initial_requests}"
+                    )
+            report["formatter_initial_worker_requests"] = worker_requests.copy()
             run_source_formatter_desktop(desktop, report, None)
             run_ip_subnet_desktop(desktop, report, None)
 

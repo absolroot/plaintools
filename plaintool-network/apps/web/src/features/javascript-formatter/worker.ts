@@ -1,8 +1,7 @@
 import {
   JavaScriptInputError,
-  processJavaScript,
   type JavaScriptIssueCode,
-} from "@plaintool/javascript-formatter-core";
+} from "@plaintool/javascript-formatter-core/shared";
 import type {
   JavaScriptWorkerReply,
   JavaScriptWorkerRequest,
@@ -15,12 +14,18 @@ self.addEventListener(
     const { id, input, mode, settings } = event.data;
     let reply: JavaScriptWorkerReply;
     try {
-      const output = await processJavaScript(
-        input,
+      const output =
         mode === "format"
-          ? { mode, ...settings.format }
-          : { mode, preserveComments: settings.preserveComments },
-      );
+          ? await import("@plaintool/javascript-formatter-core/format").then(
+              ({ formatJavaScript }) =>
+                formatJavaScript(input, settings.format),
+            )
+          : await import("@plaintool/javascript-formatter-core/minify").then(
+              ({ minifyJavaScript }) =>
+                minifyJavaScript(input, {
+                  preserveComments: settings.preserveComments,
+                }),
+            );
       reply = formatterOutputWithinLimit(output)
         ? { id, ok: true, output }
         : { id, ok: false, issue: { code: "Unknown" } };

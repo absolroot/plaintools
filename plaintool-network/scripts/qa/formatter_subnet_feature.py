@@ -46,6 +46,9 @@ def run_source_formatter_desktop(page, report: dict, _inventory) -> None:
 
     page.goto(f"{BASE_URL}/ko/javascript-formatter/", wait_until="networkidle")
     page.locator("[data-javascript-formatter] [data-input]").fill("const add = (a, b) => a + b;")
+    expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
+        re.compile(r"const add =")
+    )
     page.locator("[data-mode-button='minify']").click()
     expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
         re.compile(r"const add=")
@@ -84,6 +87,13 @@ def run_source_formatter_desktop(page, report: dict, _inventory) -> None:
         report["ui_detail_failures"].append(
             f"SQL formatter activated hostile source: {sql_security}"
         )
+
+    page.locator("[data-sql-formatter] [data-input]").fill("select 1;" * 4000)
+    expect(page.locator("[data-sql-formatter]")).to_have_class(
+        re.compile(r"has-error")
+    )
+    expect(page.locator("[data-sql-formatter] [data-output]")).to_have_value("")
+    expect(page.locator("[data-sql-formatter] [data-copy]")).to_be_disabled()
 
     report["source_formatter_security"] = {
         "html": html_security,

@@ -28,5 +28,8 @@ export default defineConfig({
       cssCodeSplit: true,
       sourcemap: false,
     },
+    worker: {
+      format: "es",
+    },
   },
 });

@@ -17,6 +17,7 @@ type LatestWorkerRunnerOptions<P, R, C> = {
   replyId: (reply: R) => number;
   onReply: (reply: R, context: C) => void;
   onFailure: (context: C | undefined) => void;
+  lazy?: boolean;
   timeoutMs?: number;
 };
 
@@ -29,7 +30,7 @@ export type LatestWorkerRunner<C> = {
 export function createLatestWorkerRunner<P, R, C>(
   options: LatestWorkerRunnerOptions<P, R, C>,
 ): LatestWorkerRunner<C> {
-  let worker: WorkerLike;
+  let worker: WorkerLike | undefined;
   let generation = 0;
   let active: { id: number; context: C } | undefined;
   let watchdog: ReturnType<typeof setTimeout> | undefined;
@@ -47,7 +48,7 @@ export function createLatestWorkerRunner<P, R, C>(
     generation += 1;
     active = undefined;
     target.terminate();
-    worker = attachWorker();
+    worker = options.lazy ? undefined : attachWorker();
     options.onFailure(context);
   }
 
@@ -70,7 +71,12 @@ export function createLatestWorkerRunner<P, R, C>(
     return next;
   }
 
-  worker = attachWorker();
+  const getWorker = (): WorkerLike => {
+    worker ??= attachWorker();
+    return worker;
+  };
+
+  if (!options.lazy) worker = attachWorker();
 
   const cancel = (): boolean => {
     const hadActiveWork = Boolean(active);
@@ -78,8 +84,8 @@ export function createLatestWorkerRunner<P, R, C>(
     generation += 1;
     active = undefined;
     if (hadActiveWork) {
-      worker.terminate();
-      worker = attachWorker();
+      worker?.terminate();
+      worker = options.lazy ? undefined : attachWorker();
     }
     return hadActiveWork;
   };
@@ -93,10 +99,11 @@ export function createLatestWorkerRunner<P, R, C>(
       void Promise.resolve(options.prepare(id, context))
         .then(({ payload, transfer }) => {
           if (disposed || active?.id !== id) return;
-          worker.postMessage(payload, transfer ?? []);
+          const target = getWorker();
+          target.postMessage(payload, transfer ?? []);
           if (options.timeoutMs !== undefined) {
             watchdog = globalThis.setTimeout(() => {
-              if (!disposed && active?.id === id) failWorker(worker);
+              if (!disposed && active?.id === id) failWorker(target);
             }, options.timeoutMs);
           }
         })
@@ -115,7 +122,8 @@ export function createLatestWorkerRunner<P, R, C>(
       clearWatchdog();
       generation += 1;
       active = undefined;
-      worker.terminate();
+      worker?.terminate();
+      worker = undefined;
     },
   };
 }

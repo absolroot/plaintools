@@ -4,7 +4,10 @@ import type {
   SqlKeywordCase,
 } from "@plaintool/sql-formatter-core";
 import { fill } from "../../lib/template";
-import { FORMATTER_WORKER_TIMEOUT_MS } from "../../scripts/shared/formatter-resource-policy";
+import {
+  FORMATTER_INPUT_LIMITS,
+  FORMATTER_WORKER_TIMEOUT_MS,
+} from "../../scripts/shared/formatter-resource-policy";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
 import {
   copyText,
@@ -24,8 +27,7 @@ import type {
 } from "./contract";
 import { SqlFormatterAuthority } from "./state";
 
-const MAX_BYTES = 10 * 1024 * 1024;
-const AUTO_BYTES = 1024 * 1024;
+const { max: MAX_BYTES, auto: AUTO_BYTES } = FORMATTER_INPUT_LIMITS.sql;
 
 function readDialect(value: string): SqlDialect {
   switch (value) {
@@ -155,6 +157,7 @@ function init(root: HTMLElement): void {
       renderAuthority();
       setStatus(copy.common.processingFailed, "error");
     },
+    lazy: true,
     timeoutMs: FORMATTER_WORKER_TIMEOUT_MS,
   });
 
