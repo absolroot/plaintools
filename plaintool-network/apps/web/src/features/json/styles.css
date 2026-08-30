@@ -21,6 +21,14 @@
   box-shadow: 0 0 0 1px var(--line);
 }
 
+[data-json-tool] [data-action][aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--brand);
+}
+
+[data-json-tool].has-stale-result [data-output] {
+  opacity: 0.7;
+}
+
 @media (max-width: 680px) {
   .action-topbar {
     align-items: stretch;

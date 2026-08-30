@@ -11,6 +11,7 @@ import {
   utf8ByteLength,
 } from "../../scripts/shared/tool-dom";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
+import { jsonDownloadFilename, jsonOperationUsesIndent } from "./operation";
 import type {
   JsonClientCopy,
   JsonCommittedResult,
@@ -44,7 +45,7 @@ function init(root: HTMLElement): void {
   const copy = readClientCopy<JsonClientCopy>(root);
   let timer = 0;
   let revision = 0;
-  let lastOperation: JsonOperation = "validate";
+  let selectedOperation: JsonOperation = "validate";
   let committedResult: JsonCommittedResult = { kind: "none" };
   const bytes = () =>
     exceedsUtf8ByteLimit(input.value, MAX_BYTES)
@@ -57,12 +58,27 @@ function init(root: HTMLElement): void {
   const invalidateResult = () => {
     committedResult = { kind: "none" };
     output.value = "";
+    root.classList.remove("has-stale-result");
     badges.replaceChildren();
     copyButton.disabled = downloadButton.disabled = true;
   };
   const markResultPending = () => {
+    root.classList.toggle("has-stale-result", Boolean(output.value));
     copyButton.disabled = downloadButton.disabled = true;
   };
+  const selectOperation = (operation: JsonOperation) => {
+    selectedOperation = operation;
+    root
+      .querySelectorAll<HTMLButtonElement>("[data-action]")
+      .forEach((button) =>
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.action === operation),
+        ),
+      );
+    indentControl.disabled = !jsonOperationUsesIndent(operation);
+  };
+  selectOperation(selectedOperation);
   const restoreSettledStatus = () =>
     setStatus(
       committedResult.kind === "none" ? copy.ready : copy.valid,
@@ -95,6 +111,7 @@ function init(root: HTMLElement): void {
     replyId: (reply) => reply.id,
     onReply: (reply, context) => {
       workingIndicator.end();
+      root.classList.remove("has-stale-result");
       badges.replaceChildren();
       const inspection = reply.inspection;
       if (!inspection.valid) {
@@ -154,17 +171,17 @@ function init(root: HTMLElement): void {
     }
     markResultPending();
     workingIndicator.begin();
-    lastOperation = operation;
+    selectOperation(operation);
     revision += 1;
     runner.submit({ operation, focusError });
   };
-  root
-    .querySelectorAll<HTMLButtonElement>("[data-action]")
-    .forEach((button) =>
-      button.addEventListener("click", () =>
-        run(button.dataset.action as JsonOperation, true),
-      ),
-    );
+  root.querySelectorAll<HTMLButtonElement>("[data-action]").forEach((button) =>
+    button.addEventListener("click", () => {
+      const operation = button.dataset.action as JsonOperation;
+      selectOperation(operation);
+      run(operation, true);
+    }),
+  );
   root
     .querySelector<HTMLButtonElement>("[data-open-file]")!
     .addEventListener("click", () => fileInput.click());
@@ -184,22 +201,19 @@ function init(root: HTMLElement): void {
       return setStatus(copy.manualRequired);
     }
     if (root.classList.contains("has-error")) restoreSettledStatus();
-    const nextOperation =
-      committedResult.kind === "transformed"
-        ? committedResult.operation
-        : "validate";
     markResultPending();
-    timer = window.setTimeout(() => run(nextOperation), 120);
+    setStatus(copy.ready);
+    timer = window.setTimeout(() => run(selectedOperation), 120);
   });
   input.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
       event.preventDefault();
+      selectOperation("format");
       run("format", true);
     }
   });
   indentControl.addEventListener("change", () => {
-    if (lastOperation === "format" && input.value && output.value)
-      run("format");
+    if (selectedOperation === "format" && input.value) run("format");
   });
   root.querySelector("[data-clear]")?.addEventListener("click", () => {
     window.clearTimeout(timer);
@@ -224,7 +238,7 @@ function init(root: HTMLElement): void {
       const contents = await file.text();
       if (loadRevision !== revision) return;
       input.value = contents;
-      run("validate");
+      run(selectedOperation);
     } catch {
       if (loadRevision === revision) setStatus(copy.processingFailed, "error");
     } finally {
@@ -240,12 +254,13 @@ function init(root: HTMLElement): void {
       copied ? "success" : "error",
     );
   });
-  downloadButton.addEventListener("click", () =>
+  downloadButton.addEventListener("click", () => {
+    if (committedResult.kind !== "transformed") return;
     downloadBlob(
       new Blob([output.value], { type: "application/json;charset=utf-8" }),
-      "formatted.json",
-    ),
-  );
+      jsonDownloadFilename(committedResult.operation),
+    );
+  });
   window.addEventListener("pagehide", () => runner.dispose(), { once: true });
 }
 document.querySelectorAll<HTMLElement>("[data-json-tool]").forEach(init);
