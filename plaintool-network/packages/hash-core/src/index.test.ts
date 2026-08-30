@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { HashError, hashAllBytes, hashBytes, hashText, md5 } from "./index";
+import {
+  HashError,
+  compareExpectedChecksum,
+  hashAllBytes,
+  hashBytes,
+  hashText,
+  md5,
+} from "./index";
 
 describe("hash core", () => {
   it("matches the standard empty MD5 vector at the primitive layer", () => {
@@ -34,5 +41,23 @@ describe("hash core", () => {
     await expect(hashAllBytes(new Uint8Array())).rejects.toEqual(
       new HashError("empty-input"),
     );
+  });
+
+  it("compares an expected checksum by its supported digest length", async () => {
+    const results = await hashText("abc");
+    expect(
+      compareExpectedChecksum(results["SHA-256"].toUpperCase(), results),
+    ).toEqual({
+      status: "match",
+      algorithm: "SHA-256",
+    });
+    expect(compareExpectedChecksum("0".repeat(64), results)).toEqual({
+      status: "mismatch",
+      algorithm: "SHA-256",
+    });
+    expect(compareExpectedChecksum("not-a-checksum", results)).toEqual({
+      status: "invalid",
+    });
+    expect(compareExpectedChecksum("", results)).toEqual({ status: "empty" });
   });
 });

@@ -107,6 +107,10 @@ const seed = {
     fileTooLarge: "파일이 로컬 처리 안전 한도를 넘었습니다.",
     legacyWarning:
       "MD5와 SHA-1은 호환성 확인용입니다. 비밀번호 저장이나 새 보안 설계에는 사용하지 마세요.",
+    expectedChecksum: "예상 체크섬",
+    checksumMatch: "일치",
+    checksumMismatch: "불일치",
+    checksumInvalid: "지원되는 16진수 체크섬을 입력하세요.",
     empty: "먼저 텍스트를 입력하거나 파일을 선택하세요.",
     unavailable: "이 브라우저에서는 요청한 해시 중 하나를 계산할 수 없습니다.",
   },

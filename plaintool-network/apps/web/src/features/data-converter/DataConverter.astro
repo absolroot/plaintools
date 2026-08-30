@@ -9,11 +9,12 @@ import type { DataConverterCopy } from "./contract";
 interface Props {
   locale: Locale;
   mode: DataConversionMode;
+  modeLabels: Record<DataConversionMode, string>;
   copy: DataConverterCopy;
   textDirection?: "ltr";
 }
 
-const { locale, mode, copy, textDirection = "ltr" } = Astro.props;
+const { locale, mode, modeLabels, copy, textDirection = "ltr" } = Astro.props;
 const modePairs: Record<
   DataConversionMode,
   readonly [DataConversionMode, DataConversionMode]
@@ -24,14 +25,6 @@ const modePairs: Record<
   "csv-to-json": ["json-to-csv", "csv-to-json"],
   "html-to-markdown": ["html-to-markdown", "markdown-to-html"],
   "markdown-to-html": ["html-to-markdown", "markdown-to-html"],
-};
-const modeLabels: Record<DataConversionMode, string> = {
-  "csv-to-markdown": "CSV → Markdown",
-  "markdown-to-csv": "Markdown → CSV",
-  "json-to-csv": "JSON → CSV",
-  "csv-to-json": "CSV → JSON",
-  "html-to-markdown": "HTML → Markdown",
-  "markdown-to-html": "Markdown → HTML",
 };
 const csvInput = mode === "csv-to-markdown" || mode === "csv-to-json";
 const csvOutput = mode === "markdown-to-csv" || mode === "json-to-csv";

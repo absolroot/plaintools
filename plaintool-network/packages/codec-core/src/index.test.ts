@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   CodecError,
+  HEX_PREVIEW_BYTE_LIMIT,
   decodeBase64Bytes,
   decodeText,
   defaultOptions,
@@ -96,6 +97,19 @@ describe("codec core", () => {
     expect(decodeText("TVo=", defaultOptions).warnings).toEqual([
       "executable-file",
     ]);
+  });
+
+  it("reports decoded byte length and explicit hex preview truncation", () => {
+    const bytes = new Uint8Array(HEX_PREVIEW_BYTE_LIMIT + 1);
+    const encoded = encodeBytes(bytes, defaultOptions);
+    const result = decodeText(encoded, {
+      ...defaultOptions,
+      outputView: "hex",
+    });
+
+    expect(result.byteLength).toBe(HEX_PREVIEW_BYTE_LIMIT + 1);
+    expect(result.hexPreviewTruncated).toBe(true);
+    expect(result.text).toContain("… 1 more bytes");
   });
 
   it("does not trust a claimed image MIME type without matching magic bytes", () => {

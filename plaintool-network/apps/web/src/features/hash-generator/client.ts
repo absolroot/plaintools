@@ -1,4 +1,8 @@
-import { hashAlgorithms, type HashResults } from "@plaintool/hash-core";
+import {
+  compareExpectedChecksum,
+  hashAlgorithms,
+  type HashResults,
+} from "@plaintool/hash-core";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
 import {
   copyText,
@@ -41,6 +45,12 @@ function init(root: HTMLElement): void {
   const input = root.querySelector<HTMLTextAreaElement>("[data-input]")!;
   const fileInput = root.querySelector<HTMLInputElement>("[data-file-input]")!;
   const fileMeta = root.querySelector<HTMLElement>("[data-file-meta]")!;
+  const expectedChecksum = root.querySelector<HTMLInputElement>(
+    "[data-expected-checksum]",
+  )!;
+  const checksumStatus = root.querySelector<HTMLOutputElement>(
+    "[data-checksum-status]",
+  )!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const downloadButton =
     root.querySelector<HTMLButtonElement>("[data-download]")!;
@@ -82,6 +92,30 @@ function init(root: HTMLElement): void {
       if (target) target.value = results?.[algorithm] ?? "";
     });
   };
+  const renderComparison = () => {
+    checksumStatus.classList.remove("is-match", "is-mismatch", "is-invalid");
+    const comparison = committed
+      ? compareExpectedChecksum(expectedChecksum.value, committed)
+      : { status: "empty" as const };
+    checksumStatus.hidden = comparison.status === "empty";
+    if (comparison.status === "empty") {
+      checksumStatus.textContent = "";
+      return;
+    }
+    if (comparison.status === "invalid") {
+      checksumStatus.textContent = copy.feature.checksumInvalid;
+      checksumStatus.classList.add("is-invalid");
+      return;
+    }
+    checksumStatus.textContent = `${
+      comparison.status === "match"
+        ? copy.feature.checksumMatch
+        : copy.feature.checksumMismatch
+    }: ${comparison.algorithm}`;
+    checksumStatus.classList.add(
+      comparison.status === "match" ? "is-match" : "is-mismatch",
+    );
+  };
   const workingIndicator = createDeferredIndicator(() =>
     setStatus(copy.common.working, "working"),
   );
@@ -118,6 +152,7 @@ function init(root: HTMLElement): void {
       }
       committed = reply.results;
       renderResults(reply.results);
+      renderComparison();
       markStale(false);
       setActions(true);
       setStatus(copy.feature.completed, "success");
@@ -188,6 +223,7 @@ function init(root: HTMLElement): void {
     renderFile();
     schedule();
   });
+  expectedChecksum.addEventListener("input", renderComparison);
   root
     .querySelector("[data-open-file]")
     ?.addEventListener("click", () => fileInput.click());
@@ -200,8 +236,10 @@ function init(root: HTMLElement): void {
     pendingFile = null;
     committed = undefined;
     input.value = "";
+    expectedChecksum.value = "";
     renderFile();
     renderResults();
+    renderComparison();
     markStale(false);
     setActions(false);
     setStatus(copy.common.ready);

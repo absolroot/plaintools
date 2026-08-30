@@ -108,6 +108,10 @@ const seed = {
     fileTooLarge: "ファイルがローカル処理の安全上限を超えています。",
     legacyWarning:
       "MD5とSHA-1は互換性の確認用です。パスワード保存や新しいセキュリティ設計には使用しないでください。",
+    expectedChecksum: "期待するチェックサム",
+    checksumMatch: "一致",
+    checksumMismatch: "不一致",
+    checksumInvalid: "対応する16進チェックサムを入力してください。",
     empty: "先にテキストを入力するか、ファイルを選択してください。",
     unavailable:
       "このブラウザーでは、要求されたハッシュの一部を計算できません。",

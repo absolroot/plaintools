@@ -54,6 +54,44 @@
   font-size: 12px;
 }
 
+.metric-explanation {
+  border-bottom: 1px solid var(--line);
+  background: var(--elevated);
+}
+
+.metric-explanation summary {
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.metric-explanation summary::-webkit-details-marker {
+  display: none;
+}
+
+.metric-explanation summary::after {
+  margin-inline-start: auto;
+  content: "+";
+}
+
+.metric-explanation[open] summary::after {
+  content: "−";
+}
+
+.metric-explanation p {
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-3);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .text-counter .editor-pane textarea {
   min-height: 360px;
   font-family: var(--sans);
@@ -88,6 +126,10 @@
 
   .text-counter .text-button {
     height: 44px;
+  }
+
+  .metric-explanation summary {
+    min-height: 44px;
   }
 
   .text-counter .tool-status {

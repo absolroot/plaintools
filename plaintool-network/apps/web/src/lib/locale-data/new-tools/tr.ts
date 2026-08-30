@@ -108,6 +108,10 @@ const seed = {
     fileTooLarge: "Dosya, yerel güvenlik sınırını aşıyor.",
     legacyWarning:
       "MD5 ve SHA-1, parola saklamak veya yeni güvenlik tasarımları için değil, uyumluluk denetimleri için sunulur.",
+    expectedChecksum: "Beklenen sağlama toplamı",
+    checksumMatch: "Eşleşiyor",
+    checksumMismatch: "Eşleşmiyor",
+    checksumInvalid: "Desteklenen bir onaltılık sağlama toplamı girin.",
     empty: "Önce metin girin veya bir dosya seçin.",
     unavailable: "Bu tarayıcı istenen karmalardan birini hesaplayamıyor.",
   },

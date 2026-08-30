@@ -81,6 +81,20 @@ const format = (template: string, values: Record<string, string>) =>
       }
     </div>
   </section>
+  <section class="hash-comparison">
+    <label for="expected-checksum">{copy.expectedChecksum}</label>
+    <div class="hash-comparison-row">
+      <input
+        id="expected-checksum"
+        data-expected-checksum
+        dir="ltr"
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="off"
+      />
+      <output data-checksum-status aria-live="polite" hidden></output>
+    </div>
+  </section>
   <ConverterStatus status={commonCopy.ready}>
     <button class="secondary-button" type="button" data-download disabled>
       <UiIcon name="download" size={14} />{commonCopy.download}

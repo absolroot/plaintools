@@ -9,7 +9,19 @@ def run_hash_desktop(page, report: dict, _inventory) -> None:
         "expected => document.querySelector('[data-hash-output=\"SHA-256\"]').value === expected",
         arg=expected,
     )
-    report["hash_generator"] = {"sha256": expected}
+    comparison = page.locator("[data-expected-checksum]")
+    comparison.fill(expected)
+    page.wait_for_function(
+        "document.querySelector('[data-checksum-status]').classList.contains('is-match')"
+    )
+    comparison.fill("0" + expected[1:])
+    page.wait_for_function(
+        "document.querySelector('[data-checksum-status]').classList.contains('is-mismatch')"
+    )
+    report["hash_generator"] = {
+        "sha256": expected,
+        "comparison": "match-and-mismatch-confirmed",
+    }
 
 
 def run_hash_mobile(page, report: dict, _inventory) -> None:

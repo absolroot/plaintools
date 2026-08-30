@@ -53,8 +53,9 @@ and run the final gates again.
 
 | Stage | Commit | Evidence | Status |
 | --- | --- | --- | --- |
-| Boundary recorded | pending | clean branch from `63d8f68` | in progress |
-| P0 defaults | pending | focused core/UI/locale tests | pending |
-| Result usability | pending | focused tests and browser interactions | pending |
+| Boundary recorded | `17bfff7` | clean branch from `63d8f68`; dirty source worktree left untouched | complete |
+| Locale-aware Case Converter | `06007b9` | focused core and browser QA carried from isolated review branch | complete |
+| P0 defaults | `4d139db` | 49 focused tests; TypeScript/Astro check; locale review gate | complete |
+| Result usability | pending | 65 focused tests; TypeScript/Astro check; 17-locale review gate; Python QA compilation | in progress |
 | Full feature branch | pending | `npm test`, `npm run check`, `npm run build`, browser QA | pending |
 | Main integration | pending | clean merge and post-merge gates | pending |

@@ -214,6 +214,10 @@ export type NewToolLocaleSeed = {
     textTooLarge: string;
     fileTooLarge: string;
     legacyWarning: string;
+    expectedChecksum: string;
+    checksumMatch: string;
+    checksumMismatch: string;
+    checksumInvalid: string;
     empty: string;
     unavailable: string;
   };
@@ -443,6 +447,10 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     textTooLarge: seed.hash.textTooLarge,
     fileTooLarge: seed.hash.fileTooLarge,
     legacyWarning: seed.hash.legacyWarning,
+    expectedChecksum: seed.hash.expectedChecksum,
+    checksumMatch: seed.hash.checksumMatch,
+    checksumMismatch: seed.hash.checksumMismatch,
+    checksumInvalid: seed.hash.checksumInvalid,
     errors: {
       "empty-input": seed.hash.empty,
       "digest-unavailable": seed.hash.unavailable,

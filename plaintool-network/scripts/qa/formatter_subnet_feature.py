@@ -145,6 +145,23 @@ def run_ip_subnet_desktop(page, report: dict, _inventory) -> None:
     if state != {"first": "198.51.100.10", "last": "198.51.100.11", "usable": "2"}:
         report["ui_detail_failures"].append(f"IPv4 /31 semantics failed: {state}")
 
+    row_copy_buttons = page.locator("[data-ip-subnet] [data-copy-result]")
+    report["ip_subnet_row_copy_count"] = row_copy_buttons.count()
+    page.evaluate(
+        """() => {
+          Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: { writeText: (value) => { window.__ipSubnetCopied = value; return Promise.resolve(); } },
+          });
+        }"""
+    )
+    page.locator('[data-copy-result="cidr"]').click()
+    page.wait_for_function("window.__ipSubnetCopied === '198.51.100.10/31'")
+    if report["ip_subnet_row_copy_count"] != 10:
+        report["ui_detail_failures"].append(
+            f"IPv4 result rows do not all expose copy actions: {report['ip_subnet_row_copy_count']}"
+        )
+
     page.evaluate(
         """value => {
           const input = document.querySelector('[data-ip-subnet] [data-input]');

@@ -79,7 +79,18 @@ const binaryRows = [
         coreRows.map(([key, label]) => (
           <div class:list={["ip-subnet-result", `result-${key}`]}>
             <dt>{label}</dt>
-            <dd data-result={key} dir="ltr" />
+            <dd>
+              <span data-result={key} dir="ltr" />
+              <button
+                class="text-button ip-subnet-row-copy"
+                type="button"
+                data-copy-result={key}
+                aria-label={`${commonCopy.copy}: ${label}`}
+                disabled
+              >
+                <UiIcon name="copy" size={14} />
+              </button>
+            </dd>
           </div>
         ))
       }

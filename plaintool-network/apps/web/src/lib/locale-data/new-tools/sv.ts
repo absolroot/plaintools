@@ -106,6 +106,10 @@ const seed = {
     fileTooLarge: "Filen överskrider säkerhetsgränsen för lokal behandling.",
     legacyWarning:
       "MD5 och SHA-1 finns med för kompatibilitetskontroller, inte för lösenordslagring eller nya säkerhetslösningar.",
+    expectedChecksum: "Förväntad kontrollsumma",
+    checksumMatch: "Matchar",
+    checksumMismatch: "Matchar inte",
+    checksumInvalid: "Ange en hexadecimal kontrollsumma som stöds.",
     empty: "Ange text eller välj en fil först.",
     unavailable:
       "Den här webbläsaren kan inte beräkna någon av de begärda hasharna.",

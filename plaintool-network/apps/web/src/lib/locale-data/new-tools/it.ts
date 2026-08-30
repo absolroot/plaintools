@@ -110,6 +110,10 @@ const seed = {
       "Il file supera il limite di sicurezza per l’elaborazione locale.",
     legacyWarning:
       "MD5 e SHA-1 sono inclusi per i controlli di compatibilità, non per memorizzare password o progettare nuovi sistemi di sicurezza.",
+    expectedChecksum: "Checksum previsto",
+    checksumMatch: "Corrisponde",
+    checksumMismatch: "Non corrisponde",
+    checksumInvalid: "Inserisci un checksum esadecimale supportato.",
     empty: "Inserisci del testo o scegli prima un file.",
     unavailable: "Questo browser non può calcolare uno degli hash richiesti.",
   },

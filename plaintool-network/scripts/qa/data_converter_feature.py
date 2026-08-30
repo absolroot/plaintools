@@ -33,6 +33,15 @@ def run_data_converter_desktop(page, report: dict, _inventory) -> None:
             f"Markdown-to-HTML output escaped its textarea or executed: {state}"
         )
     report["data_converter_xss"] = state
+    page.goto(f"{BASE_URL}/ja/csv-to-json/", wait_until="networkidle")
+    localized_modes = page.locator(
+        "[data-data-converter] .mode-switch [data-mode]"
+    ).all_text_contents()
+    if localized_modes != ["CSVからJSONへの変換", "JSONからCSVへの変換"]:
+        report["ui_detail_failures"].append(
+            f"Data converter mode labels are not localized catalog names: {localized_modes}"
+        )
+    report["data_converter_localized_modes"] = localized_modes
 
 
 def run_data_converter_mobile(page, report: dict, _inventory) -> None:

@@ -45,6 +45,7 @@ export type Base64ClientCopy = {
   detected: string;
   binaryOutput: string;
   executableWarning: string;
+  hexLabel: string;
   recursive: string;
   recursiveApplied: string;
   errors: Record<Base64ClientErrorCode, string>;
