@@ -59,9 +59,26 @@ def run_jwt_desktop(page, report: dict, _inventory) -> None:
         )
     if token in page.url:
         report["ui_detail_failures"].append("JWT token leaked into the route URL.")
+    surfaces = page.evaluate(
+        """
+        () => ({
+          input: getComputedStyle(document.querySelector('.jwt-input-pane')).backgroundColor,
+          output: getComputedStyle(document.querySelector('.jwt-result-pane')).backgroundColor,
+          expected_output: getComputedStyle(document.querySelector('.jwt-decoder')).backgroundColor
+        })
+        """
+    )
+    if (
+        surfaces["input"] == surfaces["output"]
+        or surfaces["output"] != surfaces["expected_output"]
+    ):
+        report["ui_detail_failures"].append(
+            f"JWT input/output emphasis is reversed or inconsistent: {surfaces}"
+        )
     report["jwt_decoder"] = {
         "warning": after,
         "result_warning": result_warning.inner_text().strip(),
+        "surfaces": surfaces,
     }
 
 

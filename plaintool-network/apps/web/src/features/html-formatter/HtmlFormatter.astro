@@ -1,6 +1,8 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import Tooltip from "../../components/Tooltip.astro";
+import type { ToolHelpCopy } from "../../lib/locale-data/tool-help";
 import type { ToolCommonCopy } from "../common-copy-contract";
 import type { HtmlFormatterCopy } from "./contract";
 import { createHtmlFormatterClientCopy } from "./copy";
@@ -8,9 +10,10 @@ import { createHtmlFormatterClientCopy } from "./copy";
 interface Props {
   copy: HtmlFormatterCopy;
   commonCopy: ToolCommonCopy;
+  help: ToolHelpCopy;
 }
 
-const { copy, commonCopy } = Astro.props;
+const { copy, commonCopy, help } = Astro.props;
 const clientCopy = createHtmlFormatterClientCopy(copy, commonCopy);
 ---
 
@@ -37,10 +40,27 @@ const clientCopy = createHtmlFormatterClientCopy(copy, commonCopy);
             <option value="tab">{copy.tabs}</option>
           </select>
         </label>
-        <label>
-          <span>{copy.printWidthLabel}</span>
-          <input data-print-width type="number" min="40" max="240" value="80" />
-        </label>
+        <div class="html-option-field">
+          <Tooltip
+            id="html-print-width-help"
+            triggerLabel={help.triggerLabel}
+            variant="label"
+            mobileAlign="end"
+          >
+            <label slot="target" for="html-print-width"
+              >{copy.printWidthLabel}</label
+            >
+            {help.formatter.printWidth}
+          </Tooltip>
+          <input
+            id="html-print-width"
+            data-print-width
+            type="number"
+            min="40"
+            max="240"
+            value="80"
+          />
+        </div>
       </div>
     </details>
   </div>

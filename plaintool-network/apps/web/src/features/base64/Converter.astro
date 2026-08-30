@@ -2,7 +2,10 @@
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import Tooltip from "../../components/Tooltip.astro";
+import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import { commonToolCopy } from "../../lib/common-tool-i18n";
+import { localeBundles } from "../../lib/locale-data";
 import type { Locale } from "../../lib/site";
 import type { Base64ClientCopy } from "./contract";
 import { getBase64Copy } from "./copy";
@@ -14,6 +17,7 @@ interface Props {
 const { locale, initialMode = "decode" } = Astro.props;
 const t = getBase64Copy(locale);
 const c = commonToolCopy[locale];
+const h = localeBundles[locale].help;
 const clientCopy = {
   decodeMetaTitle: t.decodeMetaTitle,
   encodeMetaTitle: t.encodeMetaTitle,
@@ -49,7 +53,6 @@ const clientCopy = {
   detected: t.detected,
   binaryOutput: t.binaryOutput,
   executableWarning: t.executableWarning,
-  hexLabel: t.hex,
   recursive: t.recursive,
   recursiveApplied: t.recursiveApplied,
   errors: t.errors,
@@ -65,20 +68,21 @@ const clientCopy = {
   aria-label={initialMode === "decode" ? t.heading : t.encodeHeading}
 >
   <div class="converter-topbar">
-    <div class="mode-switch" role="group" aria-label={t.modeLabel}>
-      <button
-        class:list={["mode-button", { "is-active": initialMode === "decode" }]}
-        type="button"
-        data-mode="decode"
-        aria-pressed={initialMode === "decode"}>{t.decode}</button
-      >
-      <button
-        class:list={["mode-button", { "is-active": initialMode === "encode" }]}
-        type="button"
-        data-mode="encode"
-        aria-pressed={initialMode === "encode"}>{t.encode}</button
-      >
-    </div>
+    <ToolModeSwitch
+      label={t.modeLabel}
+      items={[
+        {
+          mode: "decode",
+          label: t.decode,
+          active: initialMode === "decode",
+        },
+        {
+          mode: "encode",
+          label: t.encode,
+          active: initialMode === "encode",
+        },
+      ]}
+    />
   </div>
 
   <div class="converter-grid" data-drop-zone>
@@ -132,13 +136,7 @@ const clientCopy = {
     </section>
   </div>
 
-  <ConverterStatus status={c.ready} badges>
-    <div class="primary-actions">
-      <button class="primary-button" type="button" data-run
-        >{t.runDecode}</button
-      >
-    </div>
-  </ConverterStatus>
+  <ConverterStatus status={c.ready} badges />
 
   <details class="options" data-options>
     <summary
@@ -147,9 +145,16 @@ const clientCopy = {
       ></summary
     >
     <div class="options-grid">
-      <label class="decode-only">
-        <span>{t.charset}</span>
-        <select name="charset" data-option="charset">
+      <div class="option-field decode-only">
+        <Tooltip
+          id="base64-charset-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-charset">{t.charset}</label>
+          {h.base64.charset}
+        </Tooltip>
+        <select id="base64-charset" name="charset" data-option="charset">
           <option value="utf-8">UTF-8</option>
           <option value="euc-kr">CP949 / EUC-KR</option>
           <option value="shift_jis">Shift-JIS</option>
@@ -157,68 +162,176 @@ const clientCopy = {
           <option value="big5">Big5</option>
           <option value="windows-1252">Windows-1252</option>
         </select>
-      </label>
-      <label>
-        <span>{t.variant}</span>
-        <select name="base64-variant" data-option="variant">
+      </div>
+      <div class="option-field">
+        <Tooltip
+          id="base64-variant-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-variant">{t.variant}</label>
+          {h.base64.variant}
+        </Tooltip>
+        <select id="base64-variant" name="base64-variant" data-option="variant">
           <option value="auto">{t.auto}</option>
           <option value="standard">{t.standard}</option>
           <option value="url">{t.urlSafe}</option>
         </select>
-      </label>
-      <label class="decode-only">
-        <span>{t.outputView}</span>
-        <select name="output-view" data-option="outputView">
+      </div>
+      <div class="option-field decode-only">
+        <Tooltip
+          id="base64-output-view-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-output-view">{t.outputView}</label>
+          {h.base64.outputView}
+        </Tooltip>
+        <select
+          id="base64-output-view"
+          name="output-view"
+          data-option="outputView"
+        >
           <option value="text">{t.text}</option>
           <option value="hex">{t.hex}</option>
         </select>
-      </label>
-      <label class="check-row decode-only"
-        ><input name="strict" type="checkbox" data-option="strict" />
-        <span>{t.strict}</span></label
-      >
-      <label class="check-row decode-only"
-        ><input name="line-by-line" type="checkbox" data-option="lineByLine" />
-        <span>{t.lineByLine}</span></label
-      >
-      <label class="check-row decode-only"
-        ><input
+      </div>
+      <div class="check-row decode-only">
+        <input
+          id="base64-strict"
+          name="strict"
+          type="checkbox"
+          data-option="strict"
+        />
+        <Tooltip
+          id="base64-strict-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-strict">{t.strict}</label>
+          {h.base64.strict}
+        </Tooltip>
+      </div>
+      <div class="check-row decode-only">
+        <input
+          id="base64-line-by-line"
+          name="line-by-line"
+          type="checkbox"
+          data-option="lineByLine"
+        />
+        <Tooltip
+          id="base64-line-by-line-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-line-by-line">{t.lineByLine}</label>
+          {h.base64.lineByLine}
+        </Tooltip>
+      </div>
+      <div class="check-row decode-only">
+        <input
+          id="base64-auto-repair"
           name="auto-repair"
           type="checkbox"
           data-option="autoRepair"
           checked
         />
-        <span>{t.autoRepair}</span></label
-      >
-      <label class="check-row decode-only"
-        ><input name="recursive" type="checkbox" data-option="recursive" />
-        <span>{t.recursive}</span></label
-      >
-      <label class="check-row decode-only"
-        ><input
+        <Tooltip
+          id="base64-auto-repair-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-auto-repair">{t.autoRepair}</label>
+          {h.base64.autoRepair}
+        </Tooltip>
+      </div>
+      <div class="check-row decode-only">
+        <input
+          id="base64-recursive"
+          name="recursive"
+          type="checkbox"
+          data-option="recursive"
+          checked
+        />
+        <Tooltip
+          id="base64-recursive-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-recursive">{t.recursive}</label>
+          {h.base64.recursive}
+        </Tooltip>
+      </div>
+      <div class="check-row decode-only">
+        <input
+          id="base64-lenient-repair"
           name="lenient-repair"
           type="checkbox"
           data-option="lenientRepair"
         />
-        <span>{t.lenientRepair}</span></label
-      >
-      <label class="check-row encode-only"
-        ><input
+        <Tooltip
+          id="base64-lenient-repair-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-lenient-repair"
+            >{t.lenientRepair}</label
+          >
+          {h.base64.lenientRepair}
+        </Tooltip>
+      </div>
+      <div class="check-row encode-only">
+        <input
+          id="base64-include-padding"
           name="include-padding"
           type="checkbox"
           data-option="includePadding"
           checked
         />
-        <span>{t.includePadding}</span></label
-      >
-      <label class="check-row encode-only"
-        ><input name="mime-wrap" type="checkbox" data-option="mimeWrap" />
-        <span>{t.mimeWrap}</span></label
-      >
-      <label class="check-row encode-only"
-        ><input name="data-uri" type="checkbox" data-option="dataUri" />
-        <span>{t.dataUri}</span></label
-      >
+        <Tooltip
+          id="base64-include-padding-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-include-padding"
+            >{t.includePadding}</label
+          >
+          {h.base64.includePadding}
+        </Tooltip>
+      </div>
+      <div class="check-row encode-only">
+        <input
+          id="base64-mime-wrap"
+          name="mime-wrap"
+          type="checkbox"
+          data-option="mimeWrap"
+        />
+        <Tooltip
+          id="base64-mime-wrap-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="base64-mime-wrap">{t.mimeWrap}</label>
+          {h.base64.mimeWrap}
+        </Tooltip>
+      </div>
+      <div class="check-row encode-only">
+        <input
+          id="base64-data-uri"
+          name="data-uri"
+          type="checkbox"
+          data-option="dataUri"
+        />
+        <Tooltip
+          id="base64-data-uri-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+          mobileAlign="end"
+        >
+          <label slot="target" for="base64-data-uri">{t.dataUri}</label>
+          {h.base64.dataUri}
+        </Tooltip>
+      </div>
     </div>
   </details>
 

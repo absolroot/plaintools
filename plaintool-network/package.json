@@ -17,7 +17,7 @@
     "build:production": "npm run seo:check:production && npm run ui:check && node scripts/validate-production-config.mjs && node scripts/build-site.mjs --target production && npm run qa:network -- --target production",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "npm run seo:check && npm run ui:check && npm run type:check && npm run lint && npm run format:check",
+    "check": "npm run seo:check && npm run ui:check && npm run qa:test && npm run type:check && npm run lint && npm run format:check",
     "type:check": "tsc -p tsconfig.json && npm run check --workspace @plaintool/web",
     "lint": "eslint .",
     "format:check": "prettier --check \"apps/web/src/**/*.{astro,css,js,ts}\" \"packages/*/src/**/*.ts\" \"scripts/**/*.{js,mjs}\" \"*.{js,json}\"",

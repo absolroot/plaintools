@@ -351,8 +351,8 @@ const bundle: LocaleBundle = {
       fourSpaces: "4 مسافات",
       tabs: "علامات تبويب",
       valid: "JSON صالح",
-      invalidAt: "{message} السطر {line}، العمود {column}.",
-      duplicate: "مفتاح مكرر في السطر {line}، العمود {column}",
+      invalidAt: "⁨{message}⁩ السطر ⁨{line}⁩، العمود ⁨{column}⁩.",
+      duplicate: "مفتاح مكرر في السطر ⁨{line}⁩، العمود ⁨{column}⁩",
       bom: "تمت إزالة UTF-8 BOM قبل المعالجة.",
       errorMessages: {
         InvalidSymbol: "رمز غير صالح.",

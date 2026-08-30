@@ -12,9 +12,7 @@ describe("convertCase", () => {
   });
 
   it("uses locale-aware mappings when the route locale is provided", () => {
-    expect(convertCase("istanbul ızmir", "upper", "tr")).toBe(
-      "İSTANBUL IZMİR",
-    );
+    expect(convertCase("istanbul ızmir", "upper", "tr")).toBe("İSTANBUL IZMİR");
     expect(convertCase("I İ", "lower", "tr")).toBe("ı i");
     expect(convertCase("İSTANBUL. IZMIR", "sentence", "tr")).toBe(
       "İstanbul. Izmır",

@@ -2,6 +2,8 @@
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import Tooltip from "../../components/Tooltip.astro";
+import { localeBundles } from "../../lib/locale-data";
 import { previewCopy } from "../../lib/tool-i18n";
 import type { Locale } from "../../lib/site";
 import type { CaseClientCopy } from "./contract";
@@ -14,6 +16,7 @@ interface Props {
 const { locale } = Astro.props;
 const c = previewCopy[locale].common;
 const t = caseConverterCopy[locale];
+const h = localeBundles[locale].help;
 const clientCopy = {
   ready: c.ready,
   working: c.working,
@@ -34,7 +37,19 @@ const clientCopy = {
   aria-label={t.title}
 >
   <fieldset class="case-mode-bar">
-    <legend>{t.modeLabel}</legend>
+    <legend>
+      <Tooltip
+        id="case-mode-help"
+        triggerLabel={h.triggerLabel}
+        variant="label"
+      >
+        <span slot="target">{t.modeLabel}</span>
+        <strong>{t.sentence}:</strong>
+        {h.caseConverter.sentence}<br />
+        <strong>{t.capitalizeWords}:</strong>
+        {h.caseConverter.capitalizeWords}
+      </Tooltip>
+    </legend>
     <div class="case-mode-options">
       {
         [

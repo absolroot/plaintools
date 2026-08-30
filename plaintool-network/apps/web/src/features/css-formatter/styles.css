@@ -32,19 +32,24 @@
   padding: var(--space-3);
   display: grid;
   gap: var(--space-3);
-  background: var(--surface);
+  background: var(--elevated);
   box-shadow:
     0 0 0 1px var(--line),
-    var(--shadow-raised);
+    0 12px 24px var(--shadow-popover);
 }
 
-.css-option-fields label {
+.css-option-fields label,
+.css-option-field {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
   color: var(--muted);
   font-size: 12px;
+}
+
+.css-option-field .tooltip--label {
+  width: min(100%, 132px);
 }
 
 .css-option-fields select,

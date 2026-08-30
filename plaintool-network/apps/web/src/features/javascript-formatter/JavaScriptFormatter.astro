@@ -1,13 +1,14 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import Tooltip from "../../components/Tooltip.astro";
 import type { JavaScriptFormatterComponentProps } from "./contract";
 import { createJavaScriptFormatterClientCopy } from "./copy";
 import "./styles.css";
 
 type Props = JavaScriptFormatterComponentProps;
 
-const { copy, commonCopy, initialMode = "format" } = Astro.props;
+const { copy, commonCopy, help, initialMode = "format" } = Astro.props;
 const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
 ---
 
@@ -63,9 +64,20 @@ const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
               <option value="tab">{copy.tabs}</option>
             </select>
           </label>
-          <label>
-            <span>{copy.printWidthLabel}</span>
+          <div class="javascript-option-field">
+            <Tooltip
+              id="javascript-print-width-help"
+              triggerLabel={help.triggerLabel}
+              variant="label"
+              mobileAlign="end"
+            >
+              <label slot="target" for="javascript-print-width"
+                >{copy.printWidthLabel}</label
+              >
+              {help.formatter.printWidth}
+            </Tooltip>
             <input
+              id="javascript-print-width"
               data-print-width
               type="number"
               min="40"
@@ -73,38 +85,70 @@ const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
               value="80"
               disabled={initialMode !== "format"}
             />
-          </label>
-          <label class="javascript-check-row">
+          </div>
+          <div class="javascript-check-row">
             <input
+              id="javascript-semicolons"
               data-semi
               type="checkbox"
               checked
               disabled={initialMode !== "format"}
             />
-            <span>{copy.semicolonsLabel}</span>
-          </label>
-          <label class="javascript-check-row">
+            <Tooltip
+              id="javascript-semicolons-help"
+              triggerLabel={help.triggerLabel}
+              variant="label"
+            >
+              <label slot="target" for="javascript-semicolons"
+                >{copy.semicolonsLabel}</label
+              >
+              {help.formatter.semicolons}
+            </Tooltip>
+          </div>
+          <div class="javascript-check-row">
             <input
+              id="javascript-single-quotes"
               data-single-quote
               type="checkbox"
               disabled={initialMode !== "format"}
             />
-            <span>{copy.singleQuoteLabel}</span>
-          </label>
+            <Tooltip
+              id="javascript-single-quotes-help"
+              triggerLabel={help.triggerLabel}
+              variant="label"
+              mobileAlign="end"
+            >
+              <label slot="target" for="javascript-single-quotes"
+                >{copy.singleQuoteLabel}</label
+              >
+              {help.formatter.singleQuotes}
+            </Tooltip>
+          </div>
         </div>
         <div
           class="javascript-option-fields"
           data-minify-options
           hidden={initialMode !== "minify"}
         >
-          <label class="javascript-check-row">
+          <div class="javascript-check-row">
             <input
+              id="javascript-preserve-comments"
               data-preserve-comments
               type="checkbox"
               disabled={initialMode !== "minify"}
             />
-            <span>{copy.preserveCommentsLabel}</span>
-          </label>
+            <Tooltip
+              id="javascript-preserve-comments-help"
+              triggerLabel={help.triggerLabel}
+              variant="label"
+              mobileAlign="end"
+            >
+              <label slot="target" for="javascript-preserve-comments"
+                >{copy.preserveCommentsLabel}</label
+              >
+              {help.formatter.preserveComments}
+            </Tooltip>
+          </div>
         </div>
       </div>
     </details>

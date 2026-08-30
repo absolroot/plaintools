@@ -6,6 +6,21 @@
   background: var(--line);
 }
 
+.qr-workspace > .converter-commandbar {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+.qr-generator .qr-input-pane {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.qr-generator .qr-preview-pane {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 .qr-input-pane,
 .qr-upload-pane {
   background: var(--input-surface);
@@ -80,12 +95,16 @@
   border-top: 1px solid var(--line);
 }
 
-.qr-options label {
+.qr-option {
   display: grid;
   gap: var(--space-1);
   color: var(--muted);
   font-size: 12px;
   font-weight: 500;
+}
+
+.qr-option .tooltip--label {
+  width: fit-content;
 }
 
 .qr-options select {
@@ -170,6 +189,24 @@
 
   .qr-input-pane textarea {
     min-height: 220px;
+  }
+
+  .qr-generator .qr-workspace > .qr-input-pane {
+    grid-column: 1;
+    grid-row: auto;
+    order: 1;
+  }
+
+  .qr-generator .converter-commandbar {
+    grid-column: 1;
+    grid-row: auto;
+    order: 2;
+  }
+
+  .qr-generator .qr-workspace > .qr-preview-pane {
+    grid-column: 1;
+    grid-row: auto;
+    order: 3;
   }
 
   .qr-options {

@@ -32,6 +32,7 @@ const AUTO_RUN_CHARS = 1024 * 1024;
 const QUICK_AUTO_RUN_CHARS = 64 * 1024;
 const QUICK_AUTO_RUN_DELAY = 70;
 const LARGE_AUTO_RUN_DELAY = 140;
+const VERY_LARGE_AUTO_RUN_DELAY = 260;
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -59,7 +60,6 @@ function initConverter(root: HTMLElement): void {
   const outputLabel = query<HTMLElement>("[data-output-label]");
   const status = query<HTMLElement>("[data-status]");
   const badges = query<HTMLElement>("[data-badges]");
-  const runButton = query<HTMLButtonElement>("[data-run]");
   const copyButton = query<HTMLButtonElement>("[data-copy]");
   const downloadButton = query<HTMLButtonElement>("[data-download]");
   const openFileButton = query<HTMLButtonElement>("[data-open-file]");
@@ -132,7 +132,6 @@ function initConverter(root: HTMLElement): void {
     inputLabel.textContent = definition.inputLabel;
     outputLabel.textContent = definition.outputLabel;
     input.placeholder = definition.inputPlaceholder;
-    runButton.textContent = definition.runLabel;
     const heading = definition.heading;
     if (pageHeading) pageHeading.textContent = heading;
     const headerContext = document.querySelector<HTMLElement>(
@@ -422,7 +421,6 @@ function initConverter(root: HTMLElement): void {
       else if (input.value) void run();
     }),
   );
-  runButton.addEventListener("click", () => void run());
   openFileButton.addEventListener("click", () => fileInput.click());
   input.addEventListener("input", () => {
     pendingFile = null;
@@ -435,16 +433,13 @@ function initConverter(root: HTMLElement): void {
     }
     if (root.classList.contains("has-error")) restoreSettledStatus();
     markResultPending();
-    if (input.value.length <= AUTO_RUN_CHARS) {
-      const delay =
-        input.value.length <= QUICK_AUTO_RUN_CHARS
-          ? QUICK_AUTO_RUN_DELAY
-          : LARGE_AUTO_RUN_DELAY;
-      autoTimer = window.setTimeout(() => void run(), delay);
-    } else {
-      invalidateResult();
-      setStatus(copy.ready);
-    }
+    const delay =
+      input.value.length <= QUICK_AUTO_RUN_CHARS
+        ? QUICK_AUTO_RUN_DELAY
+        : input.value.length <= AUTO_RUN_CHARS
+          ? LARGE_AUTO_RUN_DELAY
+          : VERY_LARGE_AUTO_RUN_DELAY;
+    autoTimer = window.setTimeout(() => void run(), delay);
   });
 
   root

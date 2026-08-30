@@ -1,13 +1,16 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import Tooltip from "../../components/Tooltip.astro";
 import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
+import type { ToolHelpCopy } from "../../lib/locale-data/tool-help";
 import { localizedPath, type Locale } from "../../lib/site";
 import type { QrGeneratorCopy } from "./contract";
 
 interface Props {
   locale: Locale;
   copy: QrGeneratorCopy;
+  help: ToolHelpCopy;
   generatorLabel: string;
   scannerLabel: string;
   textDirection?: "auto" | "ltr" | "rtl";
@@ -16,6 +19,7 @@ interface Props {
 const {
   locale,
   copy,
+  help,
   generatorLabel,
   scannerLabel,
   textDirection = "ltr",
@@ -64,6 +68,12 @@ const {
         placeholder={copy.inputPlaceholder}></textarea>
     </section>
 
+    <ConverterStatus status={copy.ready}>
+      <button class="primary-button" type="button" data-generate>
+        {copy.generate}
+      </button>
+    </ConverterStatus>
+
     <section class="qr-preview-pane" aria-labelledby="qr-preview-heading">
       <div class="pane-heading">
         <span id="qr-preview-heading">{copy.previewLabel}</span>
@@ -95,9 +105,18 @@ const {
   </div>
 
   <div class="qr-options" role="group" aria-label={copy.optionsLabel}>
-    <label>
-      <span>{copy.errorCorrectionLabel}</span>
-      <select data-error-correction>
+    <div class="qr-option">
+      <Tooltip
+        id="qr-error-correction-help"
+        triggerLabel={help.triggerLabel}
+        variant="label"
+      >
+        <label slot="target" for="qr-error-correction"
+          >{copy.errorCorrectionLabel}</label
+        >
+        {help.qr.errorCorrection}
+      </Tooltip>
+      <select id="qr-error-correction" data-error-correction>
         {
           (["L", "M", "Q", "H"] as const).map((level) => (
             <option value={level} selected={level === "M"}>
@@ -106,10 +125,18 @@ const {
           ))
         }
       </select>
-    </label>
-    <label>
-      <span>{copy.quietZoneLabel}</span>
-      <select data-quiet-zone>
+    </div>
+    <div class="qr-option">
+      <Tooltip
+        id="qr-quiet-zone-help"
+        triggerLabel={help.triggerLabel}
+        variant="label"
+        mobileAlign="end"
+      >
+        <label slot="target" for="qr-quiet-zone">{copy.quietZoneLabel}</label>
+        {help.qr.quietZone}
+      </Tooltip>
+      <select id="qr-quiet-zone" data-quiet-zone>
         {
           (["0", "2", "4", "8"] as const).map((value) => (
             <option value={value} selected={value === "4"}>
@@ -118,14 +145,8 @@ const {
           ))
         }
       </select>
-    </label>
+    </div>
   </div>
-
-  <ConverterStatus status={copy.ready}>
-    <button class="primary-button" type="button" data-generate>
-      {copy.generate}
-    </button>
-  </ConverterStatus>
 
   <script
     is:inline

@@ -20,7 +20,8 @@ def run_ai_text_cleaner_desktop(page, report: dict, _inventory) -> None:
               report_hidden: document.querySelector('[data-ai-text-cleaner] [data-report]').hidden,
               report_text: document.querySelector('[data-ai-text-cleaner] [data-report]').innerText,
               removed_rows: document.querySelectorAll('[data-ai-text-cleaner] [data-removed-list] li').length,
-              advanced_warning: document.querySelector('[data-ai-text-cleaner] .tool-warning')?.textContent.trim()
+              advanced_warning: document.querySelector('[data-ai-text-cleaner] .tool-warning')?.textContent.trim(),
+              normalize_spaces_default: document.querySelector('[data-option="normalizeNoBreakSpaces"]')?.checked
             })
             """
         )
@@ -34,6 +35,7 @@ def run_ai_text_cleaner_desktop(page, report: dict, _inventory) -> None:
             or "U+200B" not in state["report_text"]
             or "U+2060" not in state["report_text"]
             or not state["advanced_warning"]
+            or state["normalize_spaces_default"]
         ):
             report["ui_detail_failures"].append(
                 f"AI cleaner {locale} result/report is incomplete: {state}"

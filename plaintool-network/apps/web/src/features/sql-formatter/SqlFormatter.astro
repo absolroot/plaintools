@@ -1,6 +1,8 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import Tooltip from "../../components/Tooltip.astro";
 import UiIcon from "../../components/UiIcon.astro";
+import type { ToolHelpCopy } from "../../lib/locale-data/tool-help";
 import type { ToolCommonCopy } from "../common-copy-contract";
 import type { SqlFormatterCopy } from "./contract";
 import { createSqlFormatterClientCopy } from "./copy";
@@ -8,9 +10,10 @@ import { createSqlFormatterClientCopy } from "./copy";
 interface Props {
   copy: SqlFormatterCopy;
   commonCopy: ToolCommonCopy;
+  help: ToolHelpCopy;
 }
 
-const { copy, commonCopy } = Astro.props;
+const { copy, commonCopy, help } = Astro.props;
 const clientCopy = createSqlFormatterClientCopy(copy, commonCopy);
 ---
 
@@ -26,9 +29,16 @@ const clientCopy = createSqlFormatterClientCopy(copy, commonCopy);
       data-format
       aria-keyshortcuts="Control+Enter Meta+Enter">{copy.format}</button
     >
-    <label class="sql-dialect-field">
-      <span>{copy.dialectLabel}</span>
-      <select data-dialect>
+    <div class="sql-dialect-field">
+      <Tooltip
+        id="sql-dialect-help"
+        triggerLabel={help.triggerLabel}
+        variant="label"
+      >
+        <label slot="target" for="sql-dialect">{copy.dialectLabel}</label>
+        {help.sql.dialect}
+      </Tooltip>
+      <select id="sql-dialect" data-dialect>
         <option value="sql">{copy.dialects.sql}</option>
         <option value="postgresql">{copy.dialects.postgresql}</option>
         <option value="mysql">{copy.dialects.mysql}</option>
@@ -36,7 +46,7 @@ const clientCopy = createSqlFormatterClientCopy(copy, commonCopy);
         <option value="sqlite">{copy.dialects.sqlite}</option>
         <option value="transactsql">{copy.dialects.transactsql}</option>
       </select>
-    </label>
+    </div>
     <details class="sql-options">
       <summary>{copy.optionsLabel}</summary>
       <div class="sql-option-fields">
@@ -48,14 +58,24 @@ const clientCopy = createSqlFormatterClientCopy(copy, commonCopy);
             <option value="tab">{copy.tabs}</option>
           </select>
         </label>
-        <label>
-          <span>{copy.keywordCaseLabel}</span>
-          <select data-keyword-case>
+        <div class="sql-option-field">
+          <Tooltip
+            id="sql-keyword-case-help"
+            triggerLabel={help.triggerLabel}
+            variant="label"
+            mobileAlign="end"
+          >
+            <label slot="target" for="sql-keyword-case"
+              >{copy.keywordCaseLabel}</label
+            >
+            {help.sql.keywordCase}
+          </Tooltip>
+          <select id="sql-keyword-case" data-keyword-case>
             <option value="preserve">{copy.preserveCase}</option>
             <option value="upper">{copy.uppercase}</option>
             <option value="lower">{copy.lowercase}</option>
           </select>
-        </label>
+        </div>
       </div>
     </details>
   </div>

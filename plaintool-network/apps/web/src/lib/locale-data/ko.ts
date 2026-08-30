@@ -27,7 +27,7 @@ const bundle: LocaleBundle = {
     encodeInputLabel: "인코딩할 텍스트 또는 파일",
     encodeOutputLabel: "Base64 결과",
     decodePlaceholder: "예: SGVsbG8sIFBsYWluVG9vbCE=",
-    encodePlaceholder: "예: Hello, AbsolTools!",
+    encodePlaceholder: "예: 안녕하세요, AbsolTools!",
     outputPlaceholder: "결과가 여기에 표시됩니다.",
     openFile: "파일 열기",
     runDecode: "디코딩하기",

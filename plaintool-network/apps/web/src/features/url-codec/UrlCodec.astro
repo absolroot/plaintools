@@ -1,6 +1,9 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import Tooltip from "../../components/Tooltip.astro";
+import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
+import type { ToolHelpCopy } from "../../lib/locale-data/tool-help";
 import type { ToolCommonCopy } from "../common-copy-contract";
 import type { UrlCodecCopy } from "./contract";
 import "./styles.css";
@@ -8,15 +11,21 @@ import "./styles.css";
 interface Props {
   copy: UrlCodecCopy;
   commonCopy: ToolCommonCopy;
+  help: ToolHelpCopy;
   initialMode?: "encode" | "decode";
   textDirection?: "ltr";
+  encodeHref: string;
+  decodeHref: string;
 }
 
 const {
   copy,
   commonCopy,
+  help,
   initialMode = "encode",
   textDirection = "ltr",
+  encodeHref,
+  decodeHref,
 } = Astro.props;
 ---
 
@@ -27,32 +36,51 @@ const {
   aria-label={copy.ariaLabel}
 >
   <div class="converter-topbar url-codec-topbar">
-    <div class="mode-switch" role="group" aria-label={copy.modeLabel}>
-      <button
-        class:list={["mode-button", { "is-active": initialMode === "encode" }]}
-        type="button"
-        data-mode-button="encode"
-        aria-pressed={initialMode === "encode"}>{copy.encodeMode}</button
-      >
-      <button
-        class:list={["mode-button", { "is-active": initialMode === "decode" }]}
-        type="button"
-        data-mode-button="decode"
-        aria-pressed={initialMode === "decode"}>{copy.decodeMode}</button
-      >
-    </div>
+    <ToolModeSwitch
+      label={copy.modeLabel}
+      items={[
+        {
+          mode: "decode",
+          label: copy.decodeMode,
+          active: initialMode === "decode",
+          href: decodeHref,
+        },
+        {
+          mode: "encode",
+          label: copy.encodeMode,
+          active: initialMode === "encode",
+          href: encodeHref,
+        },
+      ]}
+    />
     <div class="url-inline-options">
-      <label>
-        <span>{copy.scopeLabel}</span>
-        <select data-scope>
+      <div class="url-option-field">
+        <Tooltip
+          id="url-scope-help"
+          triggerLabel={help.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="url-scope">{copy.scopeLabel}</label>
+          {help.url.scope}
+        </Tooltip>
+        <select id="url-scope" data-scope>
           <option value="component">{copy.componentScope}</option>
           <option value="uri">{copy.uriScope}</option>
         </select>
-      </label>
-      <label class="url-check-row">
-        <input type="checkbox" data-form-space />
-        <span>{copy.formSpaceLabel}</span>
-      </label>
+      </div>
+      <div class="url-check-row">
+        <input id="url-form-space" type="checkbox" data-form-space />
+        <Tooltip
+          id="url-form-space-help"
+          triggerLabel={help.triggerLabel}
+          variant="label"
+          mobileAlign="end"
+        >
+          <label slot="target" for="url-form-space">{copy.formSpaceLabel}</label
+          >
+          {help.url.formSpace}
+        </Tooltip>
+      </div>
     </div>
   </div>
   <div
@@ -60,11 +88,18 @@ const {
     data-decode-options
     hidden={initialMode !== "decode"}
   >
-    <label class="url-check-row">
-      <input type="checkbox" data-recursive />
-      <span>{copy.recursiveLabel}</span>
-    </label>
-    <label class="url-pass-limit">
+    <div class="url-check-row">
+      <input id="url-recursive" type="checkbox" data-recursive />
+      <Tooltip
+        id="url-recursive-help"
+        triggerLabel={help.triggerLabel}
+        variant="label"
+      >
+        <label slot="target" for="url-recursive">{copy.recursiveLabel}</label>
+        {help.url.recursive}
+      </Tooltip>
+    </div>
+    <label class="url-pass-limit" data-pass-limit-control hidden>
       <span>{copy.passLimitLabel}</span>
       <select data-pass-limit disabled>
         {

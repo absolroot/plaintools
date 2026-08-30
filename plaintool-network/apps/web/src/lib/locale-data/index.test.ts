@@ -151,8 +151,11 @@ describe("locale bundles", () => {
 
   it("keeps the AI cleaner claim literal and non-attributional", () => {
     expect(localeBundles.ko.tools["ai-watermark-remover"].title).toBe(
-      "AI 워터마크 제거기 - GPT·Claude 숨은 문자 정리",
+      "AI 워터마크 제거기 - GPT·Claude·Gemini 숨은 문자 정리",
     );
+    expect(
+      localeBundles.ko.tools["ai-watermark-remover"].description,
+    ).not.toMatch(/PDF|웹페이지/u);
     expect(
       localeBundles.en.tools["ai-watermark-remover"].description,
     ).toContain("does not detect AI authorship");

@@ -157,7 +157,7 @@ supporting rules, directory, and footer share the 1180 px axis at x=130..1310.
 Only a genuinely active advertisement rail may use a wider shell. Reading width
 is controlled inside that axis.
 
-The information order is header, location/metadata, task description,
+The information order is header with location context, task description,
 workspace, status/action, local-processing note, then guide/FAQ. Each visible
 message must answer a different question. Local-processing and status messages
 must have one authoritative placement.

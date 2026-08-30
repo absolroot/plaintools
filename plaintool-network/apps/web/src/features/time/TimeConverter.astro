@@ -2,6 +2,8 @@
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import Tooltip from "../../components/Tooltip.astro";
+import { localeBundles } from "../../lib/locale-data";
 import { previewCopy } from "../../lib/tool-i18n";
 import { toolExamples } from "../../lib/tool-examples";
 import type { Locale } from "../../lib/site";
@@ -13,6 +15,7 @@ interface Props {
 const { locale } = Astro.props;
 const c = previewCopy[locale].common;
 const t = timeCopy[locale];
+const h = localeBundles[locale].help;
 const examples = toolExamples[locale];
 const clientCopy = {
   ready: c.ready,
@@ -106,16 +109,25 @@ const offsetOptions = [
           >{examples.timestampHint}</small
         ></label
       >
-      <label class="field timestamp-only"
-        ><span>{t.unit}</span><select
+      <div class="field timestamp-only">
+        <Tooltip
+          id="time-unit-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="timestamp-unit">{t.unit}</label>
+          {h.time.unit}
+        </Tooltip>
+        <select
+          id="timestamp-unit"
           name="timestamp-unit"
           data-unit
           aria-describedby="time-status"
           ><option value="auto">{t.auto}</option><option value="seconds"
             >{t.seconds}</option
           ><option value="milliseconds">{t.milliseconds}</option></select
-        ></label
-      >
+        >
+      </div>
       <div class="field date-only">
         <label for="local-date-time">{t.dateLabel}</label>
         <div class="date-time-input">
@@ -125,7 +137,7 @@ const offsetOptions = [
             data-date
             dir="ltr"
             type="text"
-            inputmode="numeric"
+            inputmode="text"
             autocomplete="off"
             value={examples.dateInput}
             placeholder={examples.dateInput}
@@ -149,16 +161,25 @@ const offsetOptions = [
         <small id="time-date-hint" class="field-hint">{examples.dateHint}</small
         >
       </div>
-      <label class="field"
-        ><span>{t.zoneMode}</span><select
+      <div class="field">
+        <Tooltip
+          id="time-zone-mode-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+        >
+          <label slot="target" for="time-zone-mode">{t.zoneMode}</label>
+          {h.time.zoneMode}
+        </Tooltip>
+        <select
+          id="time-zone-mode"
           name="zone-mode"
           data-zone-mode
           aria-describedby="time-status"
           ><option value="local" selected>{t.local}</option><option
             value="offset">{t.utc}</option
           ><option value="selected">{t.selected}</option></select
-        ></label
-      >
+        >
+      </div>
       <label class="field zone-selected" hidden
         ><span>{t.zoneLabel}</span><input
           name="iana-zone"
@@ -191,15 +212,27 @@ const offsetOptions = [
           }</select
         ></label
       >
-      <label class="field date-only dst-field" hidden
-        ><span>{t.disambiguation}</span><select
+      <div class="field date-only dst-field" hidden>
+        <Tooltip
+          id="time-disambiguation-help"
+          triggerLabel={h.triggerLabel}
+          variant="label"
+          mobileAlign="end"
+        >
+          <label slot="target" for="time-disambiguation"
+            >{t.disambiguation}</label
+          >
+          {h.time.disambiguation}
+        </Tooltip>
+        <select
+          id="time-disambiguation"
           name="dst-disambiguation"
           data-disambiguation
           ><option value="reject">{t.reject}</option><option value="earlier"
             >{t.earlier}</option
           ><option value="later">{t.later}</option></select
-        ></label
-      >
+        >
+      </div>
     </div>
     <div class="time-actions">
       <button class="secondary-button" type="button" data-now>{t.now}</button

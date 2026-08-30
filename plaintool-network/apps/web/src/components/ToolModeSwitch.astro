@@ -17,14 +17,14 @@ const { label, items } = Astro.props;
 <div class="mode-switch" role="group" aria-label={label}>
   {
     items.map((item) =>
-      item.href ? (
+      item.href && !item.active ? (
         <a
           class:list={["mode-button", { "is-active": item.active }]}
           href={item.href}
           data-mode={item.mode}
           aria-current={item.active ? "page" : undefined}
         >
-          {item.label}
+          <bdi dir="auto">{item.label}</bdi>
         </a>
       ) : (
         <button
@@ -32,8 +32,10 @@ const { label, items } = Astro.props;
           type="button"
           data-mode={item.mode}
           aria-pressed={item.active}
+          aria-current={item.href && item.active ? "page" : undefined}
+          disabled={Boolean(item.href) && item.active}
         >
-          {item.label}
+          <bdi dir="auto">{item.label}</bdi>
         </button>
       ),
     )

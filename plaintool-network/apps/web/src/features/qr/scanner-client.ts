@@ -172,11 +172,12 @@ function init(root: HTMLElement): void {
   }
 
   async function startCamera(): Promise<void> {
+    stopCamera(false);
+    invalidateResult();
     if (!navigator.mediaDevices?.getUserMedia) {
       setStatus(copy.cameraUnsupported, "error");
       return;
     }
-    stopCamera(false);
     const cameraRevision = revision;
     setStatus(copy.cameraStarting, "working");
     startCameraButton.disabled = true;

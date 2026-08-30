@@ -32,7 +32,6 @@ interface Props {
 const { locale, page } = Astro.props;
 const bundle = localeBundles[locale];
 const content = bundle.tools[page];
-const direction = localeMetadata[locale].direction;
 const technicalDirection = localeMetadata[locale].technicalDirection;
 
 const categories = {
@@ -115,36 +114,20 @@ const dataModeLabels = Object.fromEntries(
 >
   {
     page === "ai-watermark-remover" && (
-      <AiTextCleaner
-        copy={bundle.tools[page].feature}
-        textDirection={direction}
-      />
+      <AiTextCleaner copy={bundle.tools[page].feature} textDirection="auto" />
     )
   }
   {
     urlFeature && (
-      <div class="url-tool-route">
-        <nav class="url-route-switch" aria-label={urlFeature?.modeLabel}>
-          <a
-            href={localizedPath(locale, "url-encode")}
-            aria-current={page === "url-encode" ? "page" : undefined}
-          >
-            {urlFeature?.encodeMode}
-          </a>
-          <a
-            href={localizedPath(locale, "url-decode")}
-            aria-current={page === "url-decode" ? "page" : undefined}
-          >
-            {urlFeature?.decodeMode}
-          </a>
-        </nav>
-        <UrlCodec
-          copy={urlFeature!}
-          commonCopy={bundle.common}
-          initialMode={page === "url-encode" ? "encode" : "decode"}
-          textDirection={technicalDirection}
-        />
-      </div>
+      <UrlCodec
+        copy={urlFeature!}
+        commonCopy={bundle.common}
+        help={bundle.help}
+        initialMode={page === "url-encode" ? "encode" : "decode"}
+        textDirection={technicalDirection}
+        encodeHref={localizedPath(locale, "url-encode")}
+        decodeHref={localizedPath(locale, "url-decode")}
+      />
     )
   }
   {
@@ -170,6 +153,7 @@ const dataModeLabels = Object.fromEntries(
       <QrGenerator
         locale={locale}
         copy={bundle.tools[page].feature}
+        help={bundle.help}
         generatorLabel={bundle.catalog["qr-code-generator"].name}
         scannerLabel={bundle.catalog["qr-code-scanner"].name}
         textDirection="auto"
@@ -194,6 +178,7 @@ const dataModeLabels = Object.fromEntries(
         mode={dataMode}
         modeLabels={dataModeLabels}
         copy={dataFeature}
+        help={bundle.help}
         textDirection={technicalDirection}
       />
     )
@@ -203,6 +188,7 @@ const dataModeLabels = Object.fromEntries(
       <HtmlFormatter
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
+        help={bundle.help}
       />
     )
   }
@@ -211,6 +197,7 @@ const dataModeLabels = Object.fromEntries(
       <CssFormatter
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
+        help={bundle.help}
       />
     )
   }
@@ -219,6 +206,7 @@ const dataModeLabels = Object.fromEntries(
       <JavaScriptFormatter
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
+        help={bundle.help}
       />
     )
   }
@@ -227,6 +215,7 @@ const dataModeLabels = Object.fromEntries(
       <SqlFormatter
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
+        help={bundle.help}
       />
     )
   }
@@ -240,73 +229,3 @@ const dataModeLabels = Object.fromEntries(
     )
   }
 </PreviewToolPage>
-
-<style>
-  .url-tool-route {
-    min-width: 0;
-  }
-
-  .url-route-switch {
-    min-height: 52px;
-    padding: var(--space-2) var(--space-3);
-    display: flex;
-    align-items: center;
-    gap: 0;
-    border-bottom: 1px solid var(--line);
-    background: var(--base);
-    box-shadow:
-      0 0 0 1px var(--line),
-      0 2px 8px var(--shadow-layer);
-  }
-
-  .url-route-switch a {
-    min-width: 76px;
-    height: 36px;
-    padding: 0 var(--space-3);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    background: var(--recessed);
-    box-shadow: inset 0 0 0 1px var(--line);
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-  }
-
-  .url-route-switch a:hover {
-    color: var(--ink);
-    background: var(--tint);
-  }
-
-  .url-route-switch a[aria-current="page"] {
-    position: relative;
-    z-index: 1;
-    color: var(--ink);
-    background: var(--base);
-    box-shadow: 0 0 0 1px var(--line);
-  }
-
-  .url-tool-route :global(.url-codec) {
-    box-shadow:
-      0 0 0 1px var(--line),
-      0 2px 8px var(--shadow-layer);
-  }
-
-  .url-tool-route :global(.url-codec > .url-codec-topbar > .mode-switch) {
-    display: none;
-  }
-
-  @media (max-width: 680px) {
-    .url-route-switch {
-      min-height: 60px;
-      padding: var(--space-2);
-    }
-
-    .url-route-switch a {
-      min-width: 0;
-      height: 44px;
-      flex: 1;
-    }
-  }
-</style>

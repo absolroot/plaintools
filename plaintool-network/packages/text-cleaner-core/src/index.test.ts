@@ -35,7 +35,7 @@ describe("cleanHiddenUnicode", () => {
 
   it("preserves normal whitespace and meaningful Unicode controls by default", () => {
     const source =
-      "A B\nC\tD 👩\u200D💻 فارسی‌ 😀\uFE0F e\u0301\u00A0x f\u2061(x)";
+      "A B\nC\tD 👩\u200D💻 فارسی‌ 😀\uFE0F e\u0301\u00A0x f\u2061(x) \u061C\u200E\u200F\u202A\u202B\u202C\u202D\u202E\u2066\u2067\u2068\u2069";
     const result = cleanHiddenUnicode(source);
 
     expect(result.cleanedText).toBe(source);

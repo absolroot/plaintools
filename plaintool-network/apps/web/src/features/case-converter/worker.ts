@@ -4,11 +4,7 @@ import type { CaseWorkerReply, CaseWorkerRequest } from "./contract";
 self.addEventListener("message", (event: MessageEvent<CaseWorkerRequest>) => {
   const reply: CaseWorkerReply = {
     id: event.data.id,
-    output: convertCase(
-      event.data.input,
-      event.data.mode,
-      event.data.locale,
-    ),
+    output: convertCase(event.data.input, event.data.mode, event.data.locale),
   };
   self.postMessage(reply);
 });

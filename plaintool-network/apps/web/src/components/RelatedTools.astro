@@ -28,7 +28,9 @@ const tools = getRelatedTools(currentPage);
       tools.map((tool) => (
         <a class="related-tool-link" href={toolPath(locale, tool)}>
           <ToolMark toolId={tool.id} mark={tool.mark} />
-          <span>{toolCardName(tool, locale)}</span>
+          <span>
+            <bdi dir="auto">{toolCardName(tool, locale)}</bdi>
+          </span>
           <UiIcon name="chevron-right" size={14} />
         </a>
       ))

@@ -167,7 +167,7 @@ const integrationActive = Boolean(
     data-integrations={integrationActive ? "enabled" : "disabled"}
   >
     <a class="skip-link" href="#main">{t.skipToContent}</a>
-    <header class="site-header">
+    <header class="site-header" data-site-header>
       <div class="header-inner">
         <div class="header-branding">
           <a class="wordmark" href={localizedPath(locale)}>
@@ -329,6 +329,51 @@ const integrationActive = Boolean(
       const languageMenus = document.querySelectorAll<HTMLDetailsElement>(
         "[data-language-menu]",
       );
+      const siteHeader =
+        document.querySelector<HTMLElement>("[data-site-header]");
+      const mobileHeaderQuery = window.matchMedia("(max-width: 680px)");
+      let previousScrollY = Math.max(window.scrollY, 0);
+      let headerScrollFrame = 0;
+      const revealHeader = () =>
+        siteHeader?.classList.remove("is-scroll-hidden");
+      const syncHeaderToScroll = () => {
+        headerScrollFrame = 0;
+        if (!siteHeader || !mobileHeaderQuery.matches) {
+          revealHeader();
+          previousScrollY = Math.max(window.scrollY, 0);
+          return;
+        }
+        const currentScrollY = Math.max(window.scrollY, 0);
+        const delta = currentScrollY - previousScrollY;
+        const menuOpen = Array.from(languageMenus).some((menu) => menu.open);
+        if (currentScrollY <= 24 || delta < -4 || menuOpen) revealHeader();
+        else if (delta > 4 && currentScrollY > siteHeader.offsetHeight + 24)
+          siteHeader.classList.add("is-scroll-hidden");
+        previousScrollY = currentScrollY;
+      };
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (!headerScrollFrame)
+            headerScrollFrame =
+              window.requestAnimationFrame(syncHeaderToScroll);
+        },
+        { passive: true },
+      );
+      mobileHeaderQuery.addEventListener?.("change", () => {
+        previousScrollY = Math.max(window.scrollY, 0);
+        revealHeader();
+      });
+      siteHeader?.addEventListener("focusin", revealHeader);
+      languageMenus.forEach((menu) =>
+        menu.addEventListener("toggle", () => {
+          if (menu.open) revealHeader();
+        }),
+      );
+      if (mobileHeaderQuery.matches)
+        document
+          .querySelectorAll<HTMLDetailsElement>(".faq-list details[open]")
+          .forEach((item) => item.removeAttribute("open"));
       document.addEventListener("click", (event) => {
         const target = event.target;
         if (!(target instanceof Node)) return;

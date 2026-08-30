@@ -40,10 +40,10 @@
   inset-inline-end: 0;
   margin-top: var(--space-2);
   padding: var(--space-3);
-  background: var(--surface);
+  background: var(--elevated);
   box-shadow:
     0 0 0 1px var(--line),
-    var(--shadow-raised);
+    0 12px 24px var(--shadow-popover);
 }
 
 .javascript-option-fields {
@@ -56,7 +56,8 @@
   display: none;
 }
 
-.javascript-option-fields > label:not(.javascript-check-row) {
+.javascript-option-fields > label:not(.javascript-check-row),
+.javascript-option-field {
   min-width: 0;
   display: flex;
   align-items: center;
@@ -64,6 +65,10 @@
   gap: var(--space-3);
   color: var(--muted);
   font-size: 12px;
+}
+
+.javascript-option-field .tooltip--label {
+  width: min(100%, 148px);
 }
 
 .javascript-option-fields select,
@@ -164,6 +169,17 @@
 
   .javascript-check-row {
     min-height: 44px;
+    align-items: center;
+  }
+
+  .javascript-check-row > .tooltip--label {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .javascript-check-row .tooltip-target > label {
+    min-height: 44px;
+    display: flex;
     align-items: center;
   }
 }

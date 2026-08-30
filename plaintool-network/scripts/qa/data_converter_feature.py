@@ -43,6 +43,35 @@ def run_data_converter_desktop(page, report: dict, _inventory) -> None:
         )
     report["data_converter_localized_modes"] = localized_modes
 
+    page.goto(f"{BASE_URL}/en/markdown-to-csv/", wait_until="networkidle")
+    page.locator("[data-data-converter] [data-delimiter]").select_option("tab")
+    page.locator("[data-data-converter] [data-input]").fill(
+        "| name | age |\n| --- | --- |\n| Ada | 37 |"
+    )
+    page.locator("[data-data-converter] [data-run]").click()
+    page.wait_for_function(
+        "document.querySelector('[data-data-converter] [data-output]').value.includes('\\t')"
+    )
+    tab_state = page.evaluate(
+        """
+        () => ({
+          delimiter: document.querySelector('[data-data-converter] [data-delimiter]').value,
+          output: document.querySelector('[data-data-converter] [data-output]').value,
+          contains_tab: document.querySelector('[data-data-converter] [data-output]').value.includes('\t'),
+          contains_literal_slash_t: document.querySelector('[data-data-converter] [data-output]').value.includes('\\\\t')
+        })
+        """
+    )
+    if (
+        tab_state["delimiter"] != "tab"
+        or not tab_state["contains_tab"]
+        or tab_state["contains_literal_slash_t"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Markdown-to-CSV tab delimiter was not a real tab: {tab_state}"
+        )
+    report["data_converter_tab"] = tab_state
+
 
 def run_data_converter_mobile(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/ar/csv-to-json/", wait_until="networkidle")
@@ -57,7 +86,9 @@ def run_data_converter_mobile(page, report: dict, _inventory) -> None:
           html_dir: document.documentElement.dir,
           input_dir: getComputedStyle(document.querySelector('[data-data-converter] [data-input]')).direction,
           output_dir: getComputedStyle(document.querySelector('[data-data-converter] [data-output]')).direction,
-          scroll_width: document.documentElement.scrollWidth
+          scroll_width: document.documentElement.scrollWidth,
+          run_bottom: document.querySelector('[data-data-converter] [data-run]').getBoundingClientRect().bottom,
+          viewport_height: window.innerHeight
         })
         """
     )
@@ -66,6 +97,7 @@ def run_data_converter_mobile(page, report: dict, _inventory) -> None:
         or state["input_dir"] != "ltr"
         or state["output_dir"] != "ltr"
         or state["scroll_width"] > 390
+        or state["run_bottom"] > state["viewport_height"] + 1
     ):
         report["ui_detail_failures"].append(
             f"Arabic data converter direction or layout is wrong: {state}"

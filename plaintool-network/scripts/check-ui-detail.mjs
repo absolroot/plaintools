@@ -149,11 +149,7 @@ expectDeclaration(".content-section", "padding", "32px 0");
 expectDeclaration(".directory-header", "padding", "24px 0");
 expectDeclaration(".converter-topbar", "justify-content", "flex-start");
 expectDeclaration(".editor-pane textarea", "min-height", "264px");
-expectDeclaration(
-  ":root",
-  "--focus-ring",
-  "color-mix(in oklch, var(--focus), var(--base) 75%)",
-);
+expectDeclaration(":root", "--focus-ring", "var(--focus)");
 expectDeclaration(":root", "--canvas", "#fff");
 expectDeclaration(":root", "--footer-bg", "oklch(98.75% 0 0)");
 expectDeclaration(':root[data-theme="dark"]', "--footer-bg", "var(--base)");
@@ -164,7 +160,7 @@ expectDeclaration(".editor-pane textarea:focus-visible", "outline", "0");
 expectDeclaration(
   ".editor-pane textarea:focus-visible",
   "box-shadow",
-  "inset 0 0 0 1px var(--focus-ring)",
+  "inset 0 0 0 2px var(--focus-ring)",
 );
 expectDeclaration(
   ".options-grid select:focus",

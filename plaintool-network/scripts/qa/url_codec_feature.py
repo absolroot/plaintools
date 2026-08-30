@@ -35,24 +35,26 @@ def run_url_codec_desktop(page, report: dict, _inventory) -> None:
     page.wait_for_function(
         "document.querySelector('[data-url-codec] [data-output]').value.includes('%20')"
     )
-    page.locator('.url-route-switch a[href="/en/url-decode/"]').click()
+    page.locator('[data-url-codec] .mode-switch a[href="/en/url-decode/"]').click()
     page.wait_for_url("**/en/url-decode/")
     decode_state = page.evaluate(
         """
         () => ({
           mode: document.querySelector('[data-url-codec]').dataset.mode,
-          current: document.querySelector('.url-route-switch [aria-current="page"]')?.getAttribute('href'),
+          current: document.querySelector('[data-url-codec] .mode-switch [aria-current="page"]')?.dataset.mode,
+          current_tag: document.querySelector('[data-url-codec] .mode-switch [aria-current="page"]')?.tagName,
           canonical: document.querySelector('link[rel="canonical"]')?.href,
-          internal_mode_visible: [...document.querySelectorAll('[data-url-codec] .mode-switch')]
+          shared_mode_visible: [...document.querySelectorAll('[data-url-codec] .mode-switch')]
             .some((element) => getComputedStyle(element).display !== 'none')
         })
         """
     )
     if (
         decode_state["mode"] != "decode"
-        or decode_state["current"] != "/en/url-decode/"
+        or decode_state["current"] != "decode"
+        or decode_state["current_tag"] != "BUTTON"
         or urlsplit(decode_state["canonical"]).path != "/en/url-decode/"
-        or decode_state["internal_mode_visible"]
+        or not decode_state["shared_mode_visible"]
         or "qa-url-sentinel" in page.url
     ):
         report["ui_detail_failures"].append(
@@ -63,6 +65,16 @@ def run_url_codec_desktop(page, report: dict, _inventory) -> None:
     page.wait_for_function(
         "document.querySelector('[data-url-codec] [data-output]').value === 'hello world'"
     )
+    pass_limit = page.locator("[data-url-codec] [data-pass-limit-control]")
+    if pass_limit.is_visible():
+        report["ui_detail_failures"].append(
+            "URL decoder pass limit is visible before repeat decode is enabled."
+        )
+    page.locator("[data-url-codec] [data-recursive]").check()
+    if not pass_limit.is_visible():
+        report["ui_detail_failures"].append(
+            "URL decoder pass limit did not appear after repeat decode was enabled."
+        )
     report["url_codec"] = {"locale_states": states, "decode": decode_state}
 
 

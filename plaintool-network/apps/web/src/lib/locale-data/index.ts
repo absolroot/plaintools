@@ -15,8 +15,9 @@ import ptBR from "./pt-BR";
 import sv from "./sv";
 import tr from "./tr";
 import zhTW from "./zh-TW";
+import { toolHelpCopy, type ToolHelpCopy } from "./tool-help";
 
-export const localeBundles = {
+const baseLocaleBundles = {
   en,
   ko,
   es,
@@ -36,7 +37,21 @@ export const localeBundles = {
   tr,
 } as const;
 
-export type LocaleBundleId = keyof typeof localeBundles;
+export type LocaleBundleId = keyof typeof baseLocaleBundles;
+
+export const localeBundles = Object.fromEntries(
+  Object.entries(baseLocaleBundles).map(([locale, bundle]) => [
+    locale,
+    {
+      ...bundle,
+      help: toolHelpCopy[locale as LocaleBundleId],
+    },
+  ]),
+) as {
+  [Key in LocaleBundleId]: (typeof baseLocaleBundles)[Key] & {
+    help: ToolHelpCopy;
+  };
+};
 
 export const localeMetadata = {
   en: {

@@ -27,7 +27,7 @@ const bundle: LocaleBundle = {
     encodeInputLabel: "Texto o archivo para codificar",
     encodeOutputLabel: "Resultado Base64",
     decodePlaceholder: "Ejemplo: SGVsbG8sIFBsYWluVG9vbCE=",
-    encodePlaceholder: "Ejemplo: Hello, AbsolTools!",
+    encodePlaceholder: "Ejemplo: Hola, AbsolTools!",
     outputPlaceholder: "El resultado aparecerá aquí.",
     openFile: "Abrir archivo",
     runDecode: "Decodificar ahora",

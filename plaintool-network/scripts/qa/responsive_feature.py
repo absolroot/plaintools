@@ -26,15 +26,46 @@ def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
         report["ui_detail_failures"].append(f"Mobile options and privacy icons do not share an axis: {mobile_option_alignment}")
     if abs(mobile_option_alignment["options_text"] - mobile_option_alignment["privacy_text"]) > 1:
         report["ui_detail_failures"].append(f"Mobile options and privacy copy do not share an axis: {mobile_option_alignment}")
-    mobile_primary_box = mobile.locator(".primary-button").bounding_box()
-    report["mobile_primary_action"] = {
-        "top": mobile_primary_box["y"],
-        "bottom": mobile_primary_box["y"] + mobile_primary_box["height"],
-        "viewport_height": 844
-    }
-    if report["mobile_primary_action"]["bottom"] > 828:
+    report["mobile_workspace_spacing"] = mobile.evaluate("""
+      () => {
+        const box = (selector) => document.querySelector(selector).getBoundingClientRect();
+        const topbar = box('.converter-topbar');
+        const input = box('.input-pane');
+        const output = box('.output-pane');
+        const status = box('.converter-commandbar');
+        const options = box('.options');
+        return {
+          topbar_to_input: input.top - topbar.bottom,
+          input_to_output: output.top - input.bottom,
+          output_to_status: status.top - output.bottom,
+          status_to_options: options.top - status.bottom,
+        };
+      }
+    """)
+    if any(abs(gap - 12) > 1 for gap in report["mobile_workspace_spacing"].values()):
         report["ui_detail_failures"].append(
-            f"Primary action lacks the 16px mobile viewport safety margin: {report['mobile_primary_action']}"
+            f"Base64 mobile workspace rhythm is inconsistent: {report['mobile_workspace_spacing']}"
+        )
+    report["mobile_base64_run_buttons"] = mobile.locator("[data-converter] [data-run]").count()
+    if report["mobile_base64_run_buttons"] != 0:
+        report["ui_detail_failures"].append("Base64 should not expose a redundant run button.")
+    mobile.evaluate("window.scrollTo(0, 700)")
+    mobile.wait_for_timeout(250)
+    header_hidden = mobile.locator(".site-header").evaluate(
+        "header => ({ hidden: header.classList.contains('is-scroll-hidden'), top: header.getBoundingClientRect().top })"
+    )
+    mobile.evaluate("window.scrollTo(0, 450)")
+    mobile.wait_for_timeout(250)
+    header_shown = mobile.locator(".site-header").evaluate(
+        "header => ({ hidden: header.classList.contains('is-scroll-hidden'), top: header.getBoundingClientRect().top })"
+    )
+    report["mobile_directional_header"] = {
+        "after_down": header_hidden,
+        "after_up": header_shown,
+    }
+    if not header_hidden["hidden"] or header_hidden["top"] >= 0 or header_shown["hidden"] or abs(header_shown["top"]) > 1:
+        report["ui_detail_failures"].append(
+            f"Mobile directional header did not hide and return correctly: {report['mobile_directional_header']}"
         )
 
     report["mobile_locale_actions"] = {}
@@ -49,20 +80,13 @@ def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
                 "expected => document.querySelector('#codec-output').value === expected",
                 arg=expected_output,
             )
-            action_box = mobile.locator(".primary-button").bounding_box()
             command_box = mobile.locator(".converter-commandbar").bounding_box()
             action = {
-                "bottom": action_box["y"] + action_box["height"],
-                "safety_margin": 844 - (action_box["y"] + action_box["height"]),
                 "command_height": command_box["height"],
                 "scroll_width": mobile.evaluate("document.documentElement.scrollWidth"),
                 "sample_output": mobile.locator("#codec-output").input_value(),
             }
             report["mobile_locale_actions"][locale][mode] = action
-            if action["safety_margin"] < 16:
-                report["ui_detail_failures"].append(
-                    f"{locale}/{mode} primary action lacks the 16px mobile viewport safety margin: {action}"
-                )
             if action["scroll_width"] > 390:
                 report["ui_detail_failures"].append(
                     f"{locale}/{mode} has horizontal overflow: {action['scroll_width']}px"
@@ -333,13 +357,19 @@ def run_route_matrix(
                         )
                     elif locale == "ko" and coverage and coverage.exercise_faq:
                         first_faq = faq_summaries.nth(0)
+                        initial_state = first_faq.evaluate(
+                            "summary => ({ open: summary.parentElement.open, transform: getComputedStyle(summary.querySelector('.faq-chevron')).transform })"
+                        )
+                        initial_open = initial_state["open"]
+                        entry["faq_initial_state"] = initial_state
                         first_faq.click()
                         page.wait_for_timeout(150)
                         faq_open_state = first_faq.evaluate(
                             "summary => ({ open: summary.parentElement.open, transform: getComputedStyle(summary.querySelector('.faq-chevron')).transform })"
                         )
                         entry["faq_open_state"] = faq_open_state
-                        if not faq_open_state["open"] or faq_open_state["transform"] == "none":
+                        expected_after_click = not initial_open
+                        if faq_open_state["open"] != expected_after_click or faq_open_state["transform"] == initial_state["transform"]:
                             report["ui_detail_failures"].append(
                                 f"{surface} {path} FAQ chevron did not expose its open state: {faq_open_state}."
                             )

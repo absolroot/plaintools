@@ -38,7 +38,7 @@ def run_base64_desktop(desktop, report: dict) -> None:
         ["converter", ".converter"],
         ["mode_switch", ".mode-switch"],
         ["active_mode", ".mode-button.is-active"],
-        ["primary_action", ".primary-button"]
+        ["file_action", ".file-button"]
       ].map(([name, selector]) => {
         const element = document.querySelector(selector);
         const style = getComputedStyle(element);
@@ -71,7 +71,7 @@ def run_base64_desktop(desktop, report: dict) -> None:
         const subheading = document.querySelector('.hero-subheading');
         const subheadingStyle = getComputedStyle(subheading);
         return {
-          breadcrumbs: box('.breadcrumbs'),
+          header: box('.header-inner'),
           intro_copy: box('.tool-intro-copy'),
           converter: box('.converter'),
           content_sections: box('.content-sections'),
@@ -83,7 +83,7 @@ def run_base64_desktop(desktop, report: dict) -> None:
             line_height: parseFloat(subheadingStyle.lineHeight),
             line_count: Math.round(subheading.getBoundingClientRect().height / parseFloat(subheadingStyle.lineHeight))
           },
-          breadcrumb_meta_count: document.querySelectorAll('.breadcrumb-meta').length,
+          header_context_count: document.querySelectorAll('[data-header-context]').length,
           workspace_assurance_count: document.querySelectorAll('.workspace-assurance').length,
           privacy_note_count: document.querySelectorAll('.privacy-note').length
         };
@@ -104,7 +104,7 @@ def run_base64_desktop(desktop, report: dict) -> None:
     """)
 
     alignment = report["desktop_alignment"]
-    axis_names = ["breadcrumbs", "intro_copy", "converter", "content_sections", "footer"]
+    axis_names = ["header", "intro_copy", "converter", "content_sections", "footer"]
     axis_lefts = [alignment[name]["left"] for name in axis_names]
     axis_rights = [alignment[name]["right"] for name in axis_names]
     if max(axis_lefts) - min(axis_lefts) > 1 or max(axis_rights) - min(axis_rights) > 1:
@@ -117,8 +117,8 @@ def run_base64_desktop(desktop, report: dict) -> None:
         report["ui_detail_failures"].append(
             f"Korean desktop subheading wrapped to {alignment['subheading']['line_count']} lines."
         )
-    if alignment["breadcrumb_meta_count"] != 1:
-        report["ui_detail_failures"].append("Breadcrumb metadata must render exactly once.")
+    if alignment["header_context_count"] != 1:
+        report["ui_detail_failures"].append("Header location context must render exactly once.")
     if alignment["workspace_assurance_count"] != 0 or alignment["privacy_note_count"] != 1:
         report["ui_detail_failures"].append("Local-processing assurance is duplicated or missing.")
     option_alignment = report["options_alignment"]
@@ -161,7 +161,7 @@ def run_base64_desktop(desktop, report: dict) -> None:
     desktop.get_by_role("button", name="인코딩", exact=True).click()
     report["encode_mode_url"] = desktop.url
     report["base64_encode_example"] = desktop.locator("#codec-input").get_attribute("placeholder")
-    if "Hello, AbsolTools!" not in report["base64_encode_example"]:
+    if "AbsolTools" not in report["base64_encode_example"]:
         report["ui_detail_failures"].append(f"Base64 encode input lacks a usable example: {report['base64_encode_example']}")
     report["encode_seo_state"] = desktop.evaluate("""
       () => {
@@ -229,15 +229,18 @@ def run_base64_desktop(desktop, report: dict) -> None:
         input.dispatchEvent(new Event('input', { bubbles: true }));
       }
     """)
-    desktop.wait_for_timeout(50)
-    report["base64_manual_threshold_state"] = desktop.evaluate("""
+    desktop.wait_for_function(
+        "document.querySelector('#codec-output').value.length > 1024 * 1024",
+        timeout=10000,
+    )
+    report["base64_large_auto_state"] = desktop.evaluate("""
       () => ({
-        output: document.querySelector('#codec-output').value,
+        output_length: document.querySelector('#codec-output').value.length,
         className: document.querySelector('[data-converter]').className
       })
     """)
-    if report["base64_manual_threshold_state"]["output"] or "is-success" in report["base64_manual_threshold_state"]["className"]:
-        report["ui_detail_failures"].append(f"Manual-only Base64 input retained a stale success result: {report['base64_manual_threshold_state']}")
+    if report["base64_large_auto_state"]["output_length"] <= 1024 * 1024 or "is-success" not in report["base64_large_auto_state"]["className"]:
+        report["ui_detail_failures"].append(f"Large Base64 input did not auto-convert: {report['base64_large_auto_state']}")
     desktop.locator("[data-converter] [data-clear]").click()
     desktop.locator("#codec-output").focus()
     report["output_focus"] = desktop.locator("#codec-output").evaluate(

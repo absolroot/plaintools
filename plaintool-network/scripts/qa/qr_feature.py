@@ -53,10 +53,46 @@ def run_qr_desktop(page, report: dict, _inventory) -> None:
     page.wait_for_function(
         "document.querySelector('[data-qr-scanner]').classList.contains('has-error')"
     )
+    stale_state = page.evaluate(
+        """
+        () => ({
+          result: document.querySelector('[data-qr-scanner] [data-result]').value,
+          copy_disabled: document.querySelector('[data-qr-scanner] [data-copy]').disabled,
+          url_badge_hidden: document.querySelector('[data-qr-scanner] [data-url-badge]').hidden
+        })
+        """
+    )
+    if (
+        stale_state["result"]
+        or not stale_state["copy_disabled"]
+        or not stale_state["url_badge_hidden"]
+    ):
+        report["ui_detail_failures"].append(
+            f"QR camera start retained an older scan result: {stale_state}"
+        )
     report["qr_code"] = state
 
 
 def run_qr_mobile(page, report: dict, _inventory) -> None:
+    page.goto(f"{BASE_URL}/ar/qr-code-generator/", wait_until="networkidle")
+    generator_state = page.evaluate(
+        """
+        () => ({
+          generate_bottom: document.querySelector('[data-qr-generator] [data-generate]').getBoundingClientRect().bottom,
+          viewport_height: window.innerHeight,
+          scroll_width: document.documentElement.scrollWidth
+        })
+        """
+    )
+    if (
+        generator_state["generate_bottom"] > generator_state["viewport_height"]
+        or generator_state["scroll_width"] > 390
+    ):
+        report["ui_detail_failures"].append(
+            f"QR generator primary action is outside the first mobile viewport: {generator_state}"
+        )
+    report["qr_generator_mobile"] = generator_state
+
     page.goto(f"{BASE_URL}/ar/qr-code-scanner/", wait_until="networkidle")
     page.evaluate(
         """

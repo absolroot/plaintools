@@ -29,6 +29,10 @@
   line-height: 1.5;
 }
 
+.jwt-input-pane {
+  background: var(--output-surface);
+}
+
 .jwt-input-pane textarea {
   min-height: 132px;
 }
@@ -60,7 +64,7 @@
 
 .jwt-result-pane {
   min-width: 0;
-  background: var(--output-surface);
+  background: var(--base);
 }
 
 .jwt-result-pane textarea {

@@ -54,19 +54,24 @@
   padding: var(--space-3);
   display: grid;
   gap: var(--space-3);
-  background: var(--surface);
+  background: var(--elevated);
   box-shadow:
     0 0 0 1px var(--line),
-    var(--shadow-raised);
+    0 12px 24px var(--shadow-popover);
 }
 
-.sql-option-fields label {
+.sql-option-fields > label,
+.sql-option-field {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
   color: var(--muted);
   font-size: 12px;
+}
+
+.sql-option-field .tooltip--label {
+  width: min(100%, 132px);
 }
 
 .sql-option-fields select {

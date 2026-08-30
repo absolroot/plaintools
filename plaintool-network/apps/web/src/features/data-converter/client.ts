@@ -107,7 +107,9 @@ function initDataConverter(root: HTMLElement): void {
     setStatus(copy.working, "working"),
   );
   const options = (): DataConversionOptions => ({
-    delimiter: (delimiterControl?.value ?? "auto") as DelimiterOption,
+    delimiter: ((delimiterControl?.value ?? "auto") === "tab"
+      ? "\t"
+      : (delimiterControl?.value ?? "auto")) as DelimiterOption,
     firstRowHeader: headerControl?.checked ?? true,
     prettyJson: prettyControl?.checked ?? true,
   });
@@ -222,7 +224,10 @@ function initDataConverter(root: HTMLElement): void {
     }
     if (root.classList.contains("has-error")) restoreSettledStatus();
     markResultPending();
-    if (!exceedsUtf8ByteLimit(input.value, AUTO_BYTES)) {
+    if (exceedsUtf8ByteLimit(input.value, AUTO_BYTES)) {
+      invalidateResult();
+      setStatus(copy.ready);
+    } else {
       timer = window.setTimeout(run, AUTO_DELAY);
     }
   });

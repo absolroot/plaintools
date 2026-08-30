@@ -39,7 +39,7 @@ const seed = {
     normalized: "일반 공백으로 바꾼 문자",
     noChanges: "기본 제거 대상인 숨은 문자를 찾지 못했습니다.",
     count: "{count}개 제거",
-    advanced: "고급 유니코드 옵션",
+    advanced: "고급 옵션",
     advancedWarning:
       "아래 옵션은 철자, 이모지 또는 문자 결합 모양을 바꿀 수 있습니다. 원문 구조를 이해할 때만 사용하세요.",
     joinControls: "ZWJ·ZWNJ 제거",
@@ -81,7 +81,7 @@ const seed = {
     component: "URL 구성 요소",
     uri: "전체 URI",
     formSpace: "폼 데이터의 공백을 +로 표시",
-    recursive: "여러 번 반복 디코드",
+    recursive: "반복 디코드",
     passLimit: "최대 반복 횟수",
     encoded: "URL 인코드 완료",
     decoded: "URL 디코드 완료",
@@ -210,15 +210,16 @@ const seed = {
   },
   pages: {
     "ai-watermark-remover": {
-      title: "AI 워터마크 제거기 - GPT·Claude 숨은 문자 정리",
+      title: "AI 워터마크 제거기 - GPT·Claude·Gemini 숨은 문자 정리",
       description:
-        "GPT·Claude, PDF, 웹페이지에서 복사된 텍스트에 섞인 실제 숨은 유니코드 문자를 찾아 제거합니다. AI 작성 여부를 판별하는 기능은 아닙니다.",
+        "GPT·Claude·Gemini 텍스트에 섞인 실제 숨은 유니코드 문자를 찾아 제거합니다. AI 작성 여부를 판별하는 기능은 아닙니다.",
       guide:
         "원문을 붙여넣고 정제된 텍스트를 먼저 확인한 뒤, 제거한 문자 이름·개수·U+ 코드 포인트를 검토하세요. 문자 모양을 바꿀 수 있는 고급 옵션은 기본으로 꺼져 있습니다.",
       terms: [
         "AI 워터마크 제거기",
         "GPT 작성 확인기",
         "클로드 숨은 문자",
+        "Gemini 숨은 문자",
         "제로폭 공백 제거",
         "AI 텍스트 정리",
       ],

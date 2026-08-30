@@ -5,12 +5,25 @@ interface Props {
   id: string;
   triggerLabel: string;
   mobileAlign?: "center" | "end";
+  variant?: "control" | "label";
 }
 
-const { id, triggerLabel, mobileAlign = "center" } = Astro.props;
+const {
+  id,
+  triggerLabel,
+  mobileAlign = "center",
+  variant = "control",
+} = Astro.props;
 ---
 
-<span class:list={["tooltip", `tooltip--mobile-${mobileAlign}`]} data-tooltip>
+<span
+  class:list={[
+    "tooltip",
+    `tooltip--${variant}`,
+    `tooltip--mobile-${mobileAlign}`,
+  ]}
+  data-tooltip
+>
   <span class="tooltip-target"><slot name="target" /></span>
   <button
     class="tooltip-trigger"

@@ -4,6 +4,7 @@ import type {
   JavaScriptIssueCode,
 } from "@plaintool/javascript-formatter-core";
 import type { ToolCommonCopy } from "../common-copy-contract";
+import type { ToolHelpCopy } from "../../lib/locale-data/tool-help";
 
 export interface JavaScriptFormatterCopy {
   ariaLabel: string;
@@ -50,6 +51,7 @@ export interface JavaScriptFormatterClientCopy {
 export interface JavaScriptFormatterComponentProps {
   copy: JavaScriptFormatterCopy;
   commonCopy: ToolCommonCopy;
+  help: ToolHelpCopy;
   initialMode?: JavaScriptFormatterMode;
 }
 

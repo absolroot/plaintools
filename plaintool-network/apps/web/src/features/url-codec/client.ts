@@ -42,12 +42,15 @@ function init(root: HTMLElement): void {
   const formSpace = root.querySelector<HTMLInputElement>("[data-form-space]")!;
   const recursive = root.querySelector<HTMLInputElement>("[data-recursive]")!;
   const passLimit = root.querySelector<HTMLSelectElement>("[data-pass-limit]")!;
+  const passLimitControl = root.querySelector<HTMLElement>(
+    "[data-pass-limit-control]",
+  )!;
   const decodeOptions = root.querySelector<HTMLElement>(
     "[data-decode-options]",
   )!;
   const inputLabel = root.querySelector<HTMLElement>("[data-input-label]")!;
   const outputLabel = root.querySelector<HTMLElement>("[data-output-label]")!;
-  let mode = (root.dataset.mode ?? "encode") as UrlCodecMode;
+  const mode = (root.dataset.mode ?? "encode") as UrlCodecMode;
   let timer = 0;
   let revision = 0;
   let committed: string | undefined;
@@ -65,6 +68,10 @@ function init(root: HTMLElement): void {
     window.clearTimeout(timer);
     revision += 1;
   };
+  const syncRecursiveOptions = () => {
+    passLimit.disabled = !recursive.checked;
+    passLimitControl.hidden = !recursive.checked;
+  };
 
   const updateModeUi = () => {
     root.dataset.mode = mode;
@@ -81,13 +88,7 @@ function init(root: HTMLElement): void {
       mode === "encode"
         ? copy.feature.encodePlaceholder
         : copy.feature.decodePlaceholder;
-    root
-      .querySelectorAll<HTMLButtonElement>("[data-mode-button]")
-      .forEach((button) => {
-        const active = button.dataset.modeButton === mode;
-        button.classList.toggle("is-active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
+    syncRecursiveOptions();
   };
 
   const run = (runRevision: number) => {
@@ -166,24 +167,16 @@ function init(root: HTMLElement): void {
     timer = window.setTimeout(() => run(runRevision), DEBOUNCE_MS);
   };
 
-  root
-    .querySelectorAll<HTMLButtonElement>("[data-mode-button]")
-    .forEach((button) =>
-      button.addEventListener("click", () => {
-        const next = button.dataset.modeButton as UrlCodecMode;
-        if (next === mode) return;
-        mode = next;
-        updateModeUi();
-        schedule();
-      }),
-    );
   input.addEventListener("input", schedule);
-  [scope, formSpace, recursive, passLimit].forEach((control) =>
+  [scope, formSpace, passLimit].forEach((control) =>
     control.addEventListener("change", () => {
-      passLimit.disabled = !recursive.checked;
       schedule();
     }),
   );
+  recursive.addEventListener("change", () => {
+    syncRecursiveOptions();
+    schedule();
+  });
   root.querySelector("[data-clear]")?.addEventListener("click", () => {
     invalidatePending();
     input.value = output.value = "";

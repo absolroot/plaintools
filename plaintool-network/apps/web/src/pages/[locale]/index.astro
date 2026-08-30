@@ -100,7 +100,9 @@ const publicItems = toolCatalog
                         <ToolMark toolId={tool.id} mark={tool.mark} />
                         <h3>
                           {nameLines.map((line) => (
-                            <span>{line}</span>
+                            <span>
+                              <bdi dir="auto">{line}</bdi>
+                            </span>
                           ))}
                         </h3>
                         {tool.status !== "available" && (
@@ -131,7 +133,9 @@ const publicItems = toolCatalog
                         <ToolMark toolId={tool.id} mark={tool.mark} />
                         <h3>
                           {nameLines.map((line) => (
-                            <span>{line}</span>
+                            <span>
+                              <bdi dir="auto">{line}</bdi>
+                            </span>
                           ))}
                         </h3>
                         {tool.status !== "available" && (

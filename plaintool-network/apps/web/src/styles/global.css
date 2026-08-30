@@ -112,7 +112,7 @@
   --line: oklch(14.5% 0 0 / 0.1);
   --hairline: oklch(93.5% 0 0);
   --focus: oklch(39% 0.16 260);
-  --focus-ring: color-mix(in oklch, var(--focus), var(--base) 75%);
+  --focus-ring: var(--focus);
   --brand: oklch(51% 0.225 260);
   --brand-hover: oklch(45% 0.225 260);
   --action: #1d4ed8;
@@ -323,6 +323,7 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   border-bottom: 1px solid var(--line);
   background: var(--header-bg);
   backdrop-filter: blur(12px);
+  transition: transform 180ms ease;
 }
 .header-inner,
 .footer-inner {
@@ -347,7 +348,7 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   align-items: center;
   color: var(--ink-strong);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 650;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -514,7 +515,7 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   min-width: 0;
   flex: 1 1 auto;
   overflow-wrap: anywhere;
-  text-align: left;
+  text-align: start;
 }
 .language-menu-panel a:hover {
   background: var(--tint);
@@ -720,7 +721,7 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
 }
 .editor-pane textarea:focus-visible {
   outline: 0;
-  box-shadow: inset 0 0 0 1px var(--focus-ring);
+  box-shadow: inset 0 0 0 2px var(--focus-ring);
 }
 .editor-pane textarea::placeholder {
   color: var(--placeholder);
@@ -833,6 +834,26 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
 .tooltip-trigger:focus {
   color: var(--ink);
   background: var(--tint);
+}
+.tooltip--label {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+}
+.tooltip--label .tooltip-target {
+  min-width: 0;
+  display: inline;
+}
+.tooltip--label .tooltip-trigger {
+  position: static;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  margin-block: -4px;
+}
+.tooltip--label .tooltip-content {
+  top: calc(100% + 4px);
 }
 .tooltip-content {
   position: absolute;
@@ -1021,6 +1042,12 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
   color: var(--muted);
 }
 
+@media (min-width: 681px) {
+  .faq-list p {
+    padding-inline-start: var(--space-6);
+  }
+}
+
 .tool-directory {
   width: var(--page);
   margin: 0 auto;
@@ -1033,7 +1060,7 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
 .directory-header h1 {
   margin: 0;
   color: var(--ink-strong);
-  font-size: 24px;
+  font-size: 30px;
   line-height: 1.2;
   font-weight: 650;
   letter-spacing: var(--tracking-display);
@@ -1180,6 +1207,8 @@ a.tool-directory-card:focus-visible {
   font-weight: 650;
 }
 .related-tools-header a {
+  min-height: 44px;
+  padding-inline: var(--space-2);
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
@@ -1402,6 +1431,9 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 680px) {
+  .site-header.is-scroll-hidden {
+    transform: translateY(calc(-100% - 1px));
+  }
   .header-inner {
     min-height: 56px;
     gap: var(--space-2);
@@ -1468,13 +1500,48 @@ a.tool-directory-card:focus-visible {
     font-size: 20px;
   }
   .directory-header h1 {
-    font-size: 24px;
+    font-size: 26px;
   }
   .tool-shell {
     width: var(--page);
   }
   .converter {
     border-radius: 0;
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+  }
+  .converter
+    > :is(
+      .converter-topbar,
+      .converter-grid,
+      .converter-commandbar,
+      details,
+      .privacy-note
+    )
+    + :is(
+      .converter-topbar,
+      .converter-grid,
+      .converter-commandbar,
+      details,
+      .privacy-note
+    ) {
+    margin-block-start: var(--space-3);
+  }
+  .converter
+    > :is(.converter-topbar, .converter-commandbar, details, .privacy-note),
+  .converter-grid > .converter-commandbar {
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .converter-grid {
+    gap: var(--space-3);
+    background: transparent;
+  }
+  .converter-grid > .editor-pane {
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .converter-grid > .editor-pane:focus-within {
+    box-shadow: none;
   }
   .converter-topbar {
     min-height: 60px;
@@ -1524,10 +1591,27 @@ a.tool-directory-card:focus-visible {
     width: 44px;
     height: 44px;
   }
+  .tooltip--label {
+    gap: 0;
+  }
+  .tooltip--label .tooltip-trigger {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+    margin-block: -10px;
+    margin-inline-end: -10px;
+  }
   .tooltip--mobile-center .tooltip-content {
     right: auto;
     left: 50%;
     transform: translateX(-50%);
+  }
+  .tooltip--label.tooltip--mobile-center .tooltip-content {
+    right: auto;
+    left: auto;
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    transform: none;
   }
   .tooltip--mobile-end .tooltip-content {
     inset-inline-end: 0;
@@ -1592,6 +1676,7 @@ a.tool-directory-card:focus-visible {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

@@ -186,7 +186,7 @@ const seed = {
     outputPlaceholder: "سيظهر الناتج المحوّل هنا.",
     drop: "أفلت ملفًا نصيًا مدعومًا هنا.",
     readFailed: "تعذرت قراءة الملف.",
-    errorAt: "{message} السطر {line}، العمود {column}.",
+    errorAt: "⁨{message}⁩ السطر ⁨{line}⁩، العمود ⁨{column}⁩.",
     delimiter: "فاصل CSV",
     auto: "اكتشاف تلقائي",
     comma: "فاصلة (,)",

@@ -10,7 +10,7 @@
   gap: var(--space-4);
 }
 
-.url-inline-options > label:not(.url-check-row),
+.url-option-field,
 .url-pass-limit {
   display: flex;
   align-items: center;
@@ -64,13 +64,40 @@
 
   .url-inline-options {
     width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+
+  .url-option-field,
+  .url-check-row {
+    width: 100%;
+  }
+
+  .url-option-field {
     justify-content: space-between;
+  }
+
+  .url-option-field > .tooltip--label {
+    min-width: 0;
+    flex: 1 1 auto;
   }
 
   .url-inline-options select,
   .url-pass-limit select,
   .url-check-row {
     min-height: 44px;
+  }
+
+  .url-check-row > .tooltip--label {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .url-check-row .tooltip-target > label {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
 
   .url-decode-options {
