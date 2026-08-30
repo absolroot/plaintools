@@ -24,6 +24,20 @@ npm run build
 npm run ui:qa
 ```
 
+The root development launcher preserves Astro's host and port options on
+Windows/npm 11 and exposes the managed-server lifecycle commands:
+
+```powershell
+npm run dev -- --host 127.0.0.1 --port 4321
+npm run dev -- status
+npm run dev -- logs
+npm run dev -- stop
+```
+
+Development pages omit the production CSP meta so Astro HMR and local browser
+inspection can run. Static builds retain the CSP meta and the deployment
+headers described below.
+
 `npm run check` is non-mutating: it runs SEO, UI-detail, TypeScript,
 ESLint, and Prettier checks. Use `npm run format` only when intentionally
 applying formatter changes. `npm run verify` combines the source tests, static

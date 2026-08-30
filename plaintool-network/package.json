@@ -12,7 +12,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace @plaintool/web",
+    "dev": "node scripts/dev-site.mjs",
     "build": "npm run seo:check && npm run ui:check && node scripts/build-site.mjs --target preview && npm run qa:network -- --target preview",
     "build:production": "npm run seo:check:production && npm run ui:check && node scripts/validate-production-config.mjs && node scripts/build-site.mjs --target production && npm run qa:network -- --target production",
     "test": "vitest run",

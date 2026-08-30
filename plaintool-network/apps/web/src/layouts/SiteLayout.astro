@@ -86,10 +86,14 @@ const integrationActive = Boolean(
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
-    />
+    {
+      import.meta.env.PROD && (
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+        />
+      )
+    }
     <meta name="theme-color" content="#fbfbfb" data-theme-color />
     <script is:inline src="/theme-init.js"></script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

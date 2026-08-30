@@ -23,6 +23,15 @@ export default defineConfig({
     inlineStylesheets: "never",
   },
   vite: {
+    optimizeDeps: {
+      include: [
+        "@plaintool/html-formatter-core",
+        "@plaintool/css-formatter-core",
+        "@plaintool/javascript-formatter-core/format",
+        "@plaintool/javascript-formatter-core/minify",
+        "@plaintool/sql-formatter-core",
+      ],
+    },
     build: {
       assetsInlineLimit: 0,
       cssCodeSplit: true,
