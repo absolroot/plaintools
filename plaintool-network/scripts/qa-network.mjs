@@ -67,6 +67,8 @@ const requiredRuntimeNotices = [
   "@jridgewell/source-map",
   "ONNX Runtime Web",
   "U²-Net model artifacts",
+  "MODNet model artifact",
+  "BiRefNet Lite model artifact",
 ];
 for (const packageName of requiredRuntimeNotices) {
   if (!thirdPartyNotices.includes(packageName)) {

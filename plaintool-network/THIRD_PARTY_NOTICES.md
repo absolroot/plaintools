@@ -74,6 +74,30 @@ under Apache License 2.0. The complete license is deployed at
 licensed; that source-code license is not presented here as a separate license
 grant for the model weights.
 
+## MODNet model artifact
+
+The image background remover serves a pinned quantized ONNX conversion of
+[MODNet](https://github.com/ZHKKKe/MODNet) from the
+[Xenova/modnet](https://huggingface.co/Xenova/modnet) model repository. Its
+exact revision, byte size, and checksum are published in
+`/models/background-remover/v1/manifest.json`.
+
+The MODNet project states that its code, models, and demos are released under
+Apache License 2.0. The complete license is deployed at
+`/licenses/u2net-apache-2.0.txt`.
+
+## BiRefNet Lite model artifact
+
+The image background remover serves a pinned 512x512 FP16 ONNX conversion of
+[BiRefNet Lite](https://huggingface.co/ZhengPeng7/BiRefNet_lite) from the
+[studioludens/birefnet-lite-512](https://huggingface.co/studioludens/birefnet-lite-512)
+model repository. Its exact revision, byte size, and checksums are published in
+`/models/background-remover/v1/manifest.json`.
+
+BiRefNet is Copyright (c) 2024 ZhengPeng and is distributed under the MIT
+License terms reproduced above. The conversion repository identifies the
+artifact as MIT-licensed and records BiRefNet Lite as its base model.
+
 ## Terser
 
 The JavaScript minifier bundles [Terser](https://terser.org/), version 5.51.2.

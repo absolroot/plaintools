@@ -10,10 +10,10 @@ import {
   createInputTensor,
   MAX_FILE_BYTES,
   MAX_IMAGE_PIXELS,
-  MODEL_INPUT_SIZE,
   outputDimensions,
   resultFileName,
 } from "./image";
+import { modelManifest } from "./model-manifest";
 
 type DecodedImage = ImageBitmap | HTMLImageElement;
 
@@ -80,13 +80,35 @@ function init(root: HTMLElement): void {
   const progressLabel = root.querySelector<HTMLElement>(
     "[data-progress-label]",
   )!;
+  const precisionInput = root.querySelector<HTMLInputElement>(
+    'input[name="background-model"][value="precision"]',
+  )!;
+  const precisionOption = root.querySelector<HTMLElement>(
+    "[data-precision-option]",
+  )!;
+  const precisionUnavailable = root.querySelector<HTMLElement>(
+    "[data-precision-unavailable]",
+  )!;
+  const precisionConsent = root.querySelector<HTMLDialogElement>(
+    "[data-precision-consent]",
+  )!;
+  const consentConfirm = root.querySelector<HTMLButtonElement>(
+    "[data-consent-confirm]",
+  )!;
+  const consentCancel = root.querySelector<HTMLButtonElement>(
+    "[data-consent-cancel]",
+  )!;
 
   let sourcePixels: ImageData | undefined;
   let mask: Uint8ClampedArray | undefined;
+  let maskWidth = 0;
+  let maskHeight = 0;
   let sourceName = "image";
   let revision = 0;
   let worker: Worker | undefined;
   let activeRequest = 0;
+  let precisionApproved = false;
+  let previousModel: BackgroundModelId = "fast";
 
   const setStatus = (
     message: string,
@@ -124,6 +146,8 @@ function init(root: HTMLElement): void {
 
   function invalidateResult(): void {
     mask = undefined;
+    maskWidth = 0;
+    maskHeight = 0;
     resultCanvas.hidden = true;
     resultPlaceholder.hidden = false;
     downloadButton.disabled = true;
@@ -132,12 +156,10 @@ function init(root: HTMLElement): void {
   function renderResult(): void {
     if (!sourcePixels || !mask) return;
     const alphaCanvas = document.createElement("canvas");
-    alphaCanvas.width = MODEL_INPUT_SIZE;
-    alphaCanvas.height = MODEL_INPUT_SIZE;
+    alphaCanvas.width = maskWidth;
+    alphaCanvas.height = maskHeight;
     const alphaContext = alphaCanvas.getContext("2d")!;
-    const maskPixels = new Uint8ClampedArray(
-      MODEL_INPUT_SIZE * MODEL_INPUT_SIZE * 4,
-    );
+    const maskPixels = new Uint8ClampedArray(maskWidth * maskHeight * 4);
     for (let pixel = 0; pixel < mask.length; pixel += 1) {
       const index = pixel * 4;
       maskPixels[index] = 255;
@@ -146,7 +168,7 @@ function init(root: HTMLElement): void {
       maskPixels[index + 3] = mask[pixel];
     }
     alphaContext.putImageData(
-      new ImageData(maskPixels, MODEL_INPUT_SIZE, MODEL_INPUT_SIZE),
+      new ImageData(maskPixels, maskWidth, maskHeight),
       0,
       0,
     );
@@ -202,11 +224,16 @@ function init(root: HTMLElement): void {
     downloadButton.disabled = false;
   }
 
-  function ensureWorker(): Worker {
+  function ensureWorker(model: BackgroundModelId): Worker {
     if (worker) return worker;
-    worker = new Worker(new URL("./worker.ts", import.meta.url), {
-      type: "module",
-    });
+    worker =
+      model === "precision"
+        ? new Worker(new URL("./precision-worker.ts", import.meta.url), {
+            type: "module",
+          })
+        : new Worker(new URL("./worker.ts", import.meta.url), {
+            type: "module",
+          });
     worker.addEventListener(
       "message",
       (event: MessageEvent<BackgroundWorkerResponse>) => {
@@ -247,6 +274,8 @@ function init(root: HTMLElement): void {
           return;
         }
         mask = message.alpha;
+        maskWidth = message.width;
+        maskHeight = message.height;
         renderResult();
         setStatus(copy.completed, "success");
       },
@@ -325,9 +354,11 @@ function init(root: HTMLElement): void {
     invalidateResult();
     setRemoveBusy(true);
     removeButton.disabled = true;
+    const selectedModelId = selectedModel();
+    const selectedManifest = modelManifest[selectedModelId];
     const preprocessingCanvas = document.createElement("canvas");
-    preprocessingCanvas.width = MODEL_INPUT_SIZE;
-    preprocessingCanvas.height = MODEL_INPUT_SIZE;
+    preprocessingCanvas.width = selectedManifest.inputSize;
+    preprocessingCanvas.height = selectedManifest.inputSize;
     const preprocessingContext = preprocessingCanvas.getContext("2d", {
       willReadFrequently: true,
     })!;
@@ -335,24 +366,25 @@ function init(root: HTMLElement): void {
       originalCanvas,
       0,
       0,
-      MODEL_INPUT_SIZE,
-      MODEL_INPUT_SIZE,
+      selectedManifest.inputSize,
+      selectedManifest.inputSize,
     );
     const tensor = createInputTensor(
       preprocessingContext.getImageData(
         0,
         0,
-        MODEL_INPUT_SIZE,
-        MODEL_INPUT_SIZE,
+        selectedManifest.inputSize,
+        selectedManifest.inputSize,
       ).data,
+      selectedManifest.normalization,
     );
     const request: RemoveRequest = {
       kind: "remove",
       requestId: activeRequest,
-      model: selectedModel(),
+      model: selectedModelId,
       tensor,
     };
-    ensureWorker().postMessage(request, [tensor.buffer]);
+    ensureWorker(selectedModelId).postMessage(request, [tensor.buffer]);
   }
 
   function reset(): void {
@@ -398,18 +430,63 @@ function init(root: HTMLElement): void {
     }, "image/png");
   });
 
+  function modelSelectionChanged(): void {
+    if (!sourcePixels) return;
+    revision += 1;
+    stopWorker();
+    setRemoveBusy(false);
+    invalidateResult();
+    hideProgress();
+    removeButton.disabled = false;
+    setStatus(copy.ready);
+  }
+
+  root.dataset.precisionSupport = "checking";
+  void (async () => {
+    let available = false;
+    const gpu = (
+      navigator as Navigator & {
+        gpu?: { requestAdapter: () => Promise<unknown> };
+      }
+    ).gpu;
+    if (gpu) {
+      try {
+        available = Boolean(await gpu.requestAdapter());
+      } catch {
+        available = false;
+      }
+    }
+    precisionInput.disabled = !available;
+    precisionOption.classList.toggle("is-unavailable", !available);
+    precisionUnavailable.hidden = available;
+    root.dataset.precisionSupport = available ? "supported" : "unsupported";
+  })();
+
+  consentCancel.addEventListener("click", () => precisionConsent.close());
+  consentConfirm.addEventListener("click", () => {
+    precisionApproved = true;
+    precisionInput.checked = true;
+    precisionConsent.close();
+    previousModel = "precision";
+    modelSelectionChanged();
+  });
+  precisionConsent.addEventListener("cancel", () => precisionConsent.close());
+
   root
     .querySelectorAll<HTMLInputElement>('input[name="background-model"]')
     .forEach((input) =>
       input.addEventListener("change", () => {
-        if (!sourcePixels) return;
-        revision += 1;
-        stopWorker();
-        setRemoveBusy(false);
-        invalidateResult();
-        hideProgress();
-        removeButton.disabled = false;
-        setStatus(copy.ready);
+        const nextModel = input.value as BackgroundModelId;
+        if (nextModel === "precision" && !precisionApproved) {
+          input.checked = false;
+          root.querySelector<HTMLInputElement>(
+            `input[name="background-model"][value="${previousModel}"]`,
+          )!.checked = true;
+          precisionConsent.showModal();
+          return;
+        }
+        previousModel = nextModel;
+        modelSelectionChanged();
       }),
     );
   root

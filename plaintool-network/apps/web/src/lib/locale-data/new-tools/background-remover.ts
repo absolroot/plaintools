@@ -22,8 +22,21 @@ const packs = {
       model: "Removal model",
       fast: "Fast",
       fastHint: "4.6 MB · quicker for clear subjects",
+      portrait: "Portrait",
+      portraitHint: "6.6 MB · best for people and hair",
       quality: "Quality",
       qualityHint: "44.2 MB · more detail, slower processing",
+      precision: "Precision",
+      precisionHint: "98.5 MB · WebGPU, strongest general detail",
+      precisionUnavailable:
+        "Precision requires WebGPU and is unavailable in this browser.",
+      precisionConsentTitle: "Use the Precision model?",
+      precisionConsentBody:
+        "The 98.5 MB model downloads when you next remove a background. It stays in the browser cache, and your image remains on this device.",
+      precisionConsentNotice:
+        "Precision uses WebGPU and substantially more memory. It may be slower or fail on lower-memory devices; the other models remain available.",
+      precisionConsentConfirm: "Use Precision",
+      cancel: "Cancel",
       background: "Result background",
       transparent: "Transparent",
       white: "White",
@@ -50,7 +63,7 @@ const packs = {
       description:
         "Remove an image background locally in your browser and download a transparent or solid-color PNG.",
       guide:
-        "Choose a PNG, JPEG, or WebP image, select Fast or Quality, then remove the background. Clear subject boundaries and contrasting backgrounds usually produce the cleanest cutout.",
+        "Choose a PNG, JPEG, or WebP image, select the model that fits your subject, then remove the background. Clear subject boundaries and contrasting backgrounds usually produce the cleanest cutout.",
       terms: [
         "background remover",
         "remove image background",
@@ -70,8 +83,21 @@ const packs = {
       model: "제거 모델",
       fast: "빠른 처리",
       fastHint: "4.6MB · 윤곽이 뚜렷한 피사체에 빠름",
+      portrait: "인물",
+      portraitHint: "6.6MB · 사람과 머리카락에 적합",
       quality: "고품질",
       qualityHint: "44.2MB · 세부 표현 향상, 처리 시간 증가",
+      precision: "정밀",
+      precisionHint: "98.5MB · WebGPU, 범용 세부 표현 강화",
+      precisionUnavailable:
+        "정밀 모델은 WebGPU가 필요해 이 브라우저에서 사용할 수 없습니다.",
+      precisionConsentTitle: "정밀 모델을 사용할까요?",
+      precisionConsentBody:
+        "다음 배경 제거 때 98.5MB 모델을 받습니다. 받은 모델은 브라우저 캐시에 저장되며 이미지는 이 기기를 벗어나지 않습니다.",
+      precisionConsentNotice:
+        "WebGPU와 더 많은 메모리를 사용합니다. 메모리가 적은 기기에서는 느리거나 실패할 수 있으며 다른 모델은 계속 사용할 수 있습니다.",
+      precisionConsentConfirm: "정밀 모델 사용",
+      cancel: "취소",
       background: "결과 배경",
       transparent: "투명",
       white: "흰색",
@@ -98,7 +124,7 @@ const packs = {
       description:
         "이미지를 업로드하지 않고 브라우저에서 배경을 제거해 투명 또는 단색 PNG로 저장합니다.",
       guide:
-        "PNG, JPEG 또는 WebP 이미지를 선택하고 빠른 처리나 고품질 모델을 고른 뒤 배경 제거를 실행하세요. 피사체 윤곽과 배경의 대비가 뚜렷할수록 결과가 깔끔합니다.",
+        "PNG, JPEG 또는 WebP 이미지를 선택하고 피사체에 맞는 모델을 고른 뒤 배경 제거를 실행하세요. 피사체 윤곽과 배경의 대비가 뚜렷할수록 결과가 깔끔합니다.",
       terms: [
         "배경 제거",
         "누끼 따기",
@@ -118,8 +144,21 @@ const packs = {
       model: "Modelo de recorte",
       fast: "Rápido",
       fastHint: "4,6 MB · más rápido con sujetos definidos",
+      portrait: "Retrato",
+      portraitHint: "6,6 MB · ideal para personas y cabello",
       quality: "Calidad",
       qualityHint: "44,2 MB · más detalle y más tiempo",
+      precision: "Precisión",
+      precisionHint: "98,5 MB · WebGPU y máximo detalle general",
+      precisionUnavailable:
+        "Precisión requiere WebGPU y no está disponible en este navegador.",
+      precisionConsentTitle: "¿Usar el modelo Precisión?",
+      precisionConsentBody:
+        "El modelo de 98,5 MB se descargará al quitar el próximo fondo. Quedará en la caché del navegador y la imagen no saldrá del dispositivo.",
+      precisionConsentNotice:
+        "Usa WebGPU y bastante más memoria. Puede ser lento o fallar en dispositivos con poca memoria; los demás modelos seguirán disponibles.",
+      precisionConsentConfirm: "Usar Precisión",
+      cancel: "Cancelar",
       background: "Fondo del resultado",
       transparent: "Transparente",
       white: "Blanco",
@@ -147,7 +186,7 @@ const packs = {
       description:
         "Quita el fondo de una imagen en tu navegador y descarga un PNG transparente o con color sólido.",
       guide:
-        "Elige una imagen PNG, JPEG o WebP, selecciona Rápido o Calidad y quita el fondo. Los sujetos bien definidos y con buen contraste suelen dar mejores resultados.",
+        "Elige una imagen PNG, JPEG o WebP, selecciona el modelo adecuado para el sujeto y quita el fondo. Los sujetos bien definidos y con buen contraste suelen dar mejores resultados.",
       terms: [
         "quitar fondo",
         "fondo transparente",
@@ -167,8 +206,21 @@ const packs = {
       model: "Freistellungsmodell",
       fast: "Schnell",
       fastHint: "4,6 MB · schneller bei klaren Motiven",
+      portrait: "Porträt",
+      portraitHint: "6,6 MB · für Personen und Haare",
       quality: "Qualität",
       qualityHint: "44,2 MB · mehr Details, langsamere Verarbeitung",
+      precision: "Präzision",
+      precisionHint: "98,5 MB · WebGPU, höchste allgemeine Details",
+      precisionUnavailable:
+        "Präzision benötigt WebGPU und ist in diesem Browser nicht verfügbar.",
+      precisionConsentTitle: "Präzisionsmodell verwenden?",
+      precisionConsentBody:
+        "Das 98,5-MB-Modell wird beim nächsten Freistellen geladen und im Browser-Cache gespeichert. Das Bild bleibt auf diesem Gerät.",
+      precisionConsentNotice:
+        "Es nutzt WebGPU und deutlich mehr Speicher. Auf Geräten mit wenig Speicher kann es langsam sein oder scheitern; die anderen Modelle bleiben verfügbar.",
+      precisionConsentConfirm: "Präzision verwenden",
+      cancel: "Abbrechen",
       background: "Ergebnishintergrund",
       transparent: "Transparent",
       white: "Weiß",
@@ -197,7 +249,7 @@ const packs = {
       description:
         "Entferne Bildhintergründe lokal im Browser und lade ein transparentes oder einfarbiges PNG herunter.",
       guide:
-        "Wähle ein PNG-, JPEG- oder WebP-Bild, danach Schnell oder Qualität, und starte die Freistellung. Klare Motivkanten und deutlicher Kontrast liefern meist das sauberste Ergebnis.",
+        "Wähle ein PNG-, JPEG- oder WebP-Bild, danach ein passendes Modell für dein Motiv, und starte die Freistellung. Klare Motivkanten und deutlicher Kontrast liefern meist das sauberste Ergebnis.",
       terms: [
         "Hintergrund entfernen",
         "Bild freistellen",
@@ -217,8 +269,21 @@ const packs = {
       model: "切り抜きモデル",
       fast: "高速",
       fastHint: "4.6 MB・輪郭が明確な被写体向け",
+      portrait: "人物",
+      portraitHint: "6.6 MB・人物や髪の毛に最適",
       quality: "高品質",
       qualityHint: "44.2 MB・細部を重視、処理は長め",
+      precision: "高精度",
+      precisionHint: "98.5 MB・WebGPU、汎用の細部を強化",
+      precisionUnavailable:
+        "高精度モデルにはWebGPUが必要なため、このブラウザーでは利用できません。",
+      precisionConsentTitle: "高精度モデルを使用しますか？",
+      precisionConsentBody:
+        "次回の背景削除時に98.5 MBのモデルをダウンロードします。モデルはブラウザーにキャッシュされ、画像は端末外へ送信されません。",
+      precisionConsentNotice:
+        "WebGPUと多くのメモリを使用します。メモリの少ない端末では遅延または失敗する可能性がありますが、他のモデルは引き続き利用できます。",
+      precisionConsentConfirm: "高精度を使用",
+      cancel: "キャンセル",
       background: "結果の背景",
       transparent: "透明",
       white: "白",
@@ -245,7 +310,7 @@ const packs = {
       description:
         "画像をアップロードせずブラウザ内で背景を削除し、透明または単色のPNGとして保存します。",
       guide:
-        "PNG、JPEG、WebP画像を選び、高速または高品質を指定して背景を削除します。被写体の輪郭と背景のコントラストが明確なほどきれいに切り抜けます。",
+        "PNG、JPEG、WebP画像を選び、被写体に合うモデルを指定して背景を削除します。被写体の輪郭と背景のコントラストが明確なほどきれいに切り抜けます。",
       terms: ["背景削除", "画像切り抜き", "透過PNG", "写真背景", "U2Net"],
     },
   },
@@ -259,8 +324,21 @@ const packs = {
       model: "Modèle de détourage",
       fast: "Rapide",
       fastHint: "4,6 Mo · rapide pour les sujets nets",
+      portrait: "Portrait",
+      portraitHint: "6,6 Mo · adapté aux personnes et aux cheveux",
       quality: "Qualité",
       qualityHint: "44,2 Mo · plus de détails, traitement plus lent",
+      precision: "Précision",
+      precisionHint: "98,5 Mo · WebGPU, détails généraux renforcés",
+      precisionUnavailable:
+        "Précision nécessite WebGPU et n’est pas disponible dans ce navigateur.",
+      precisionConsentTitle: "Utiliser le modèle Précision ?",
+      precisionConsentBody:
+        "Le modèle de 98,5 Mo sera téléchargé lors du prochain détourage puis conservé dans le cache du navigateur. L’image reste sur cet appareil.",
+      precisionConsentNotice:
+        "Il utilise WebGPU et beaucoup plus de mémoire. Il peut ralentir ou échouer sur un appareil peu doté ; les autres modèles restent disponibles.",
+      precisionConsentConfirm: "Utiliser Précision",
+      cancel: "Annuler",
       background: "Arrière-plan du résultat",
       transparent: "Transparent",
       white: "Blanc",
@@ -288,7 +366,7 @@ const packs = {
       description:
         "Supprimez localement l’arrière-plan d’une image et téléchargez un PNG transparent ou uni.",
       guide:
-        "Choisissez une image PNG, JPEG ou WebP, sélectionnez Rapide ou Qualité, puis supprimez l’arrière-plan. Des contours nets et un bon contraste donnent généralement le meilleur détourage.",
+        "Choisissez une image PNG, JPEG ou WebP, sélectionnez le modèle adapté au sujet, puis supprimez l’arrière-plan. Des contours nets et un bon contraste donnent généralement le meilleur détourage.",
       terms: [
         "supprimer arrière-plan",
         "détourage image",
@@ -308,8 +386,21 @@ const packs = {
       model: "Modelo de recorte",
       fast: "Rápido",
       fastHint: "4,6 MB · mais rápido para objetos nítidos",
+      portrait: "Retrato",
+      portraitHint: "6,6 MB · ideal para pessoas e cabelos",
       quality: "Qualidade",
       qualityHint: "44,2 MB · mais detalhes e processamento mais lento",
+      precision: "Precisão",
+      precisionHint: "98,5 MB · WebGPU e maior detalhe geral",
+      precisionUnavailable:
+        "Precisão exige WebGPU e não está disponível neste navegador.",
+      precisionConsentTitle: "Usar o modelo Precisão?",
+      precisionConsentBody:
+        "O modelo de 98,5 MB será baixado na próxima remoção e ficará no cache do navegador. A imagem permanece neste dispositivo.",
+      precisionConsentNotice:
+        "Ele usa WebGPU e bem mais memória. Pode ficar lento ou falhar em dispositivos com pouca memória; os outros modelos continuam disponíveis.",
+      precisionConsentConfirm: "Usar Precisão",
+      cancel: "Cancelar",
       background: "Fundo do resultado",
       transparent: "Transparente",
       white: "Branco",
@@ -336,7 +427,7 @@ const packs = {
       description:
         "Remova o fundo de uma imagem no navegador e baixe um PNG transparente ou com cor sólida.",
       guide:
-        "Escolha uma imagem PNG, JPEG ou WebP, selecione Rápido ou Qualidade e remova o fundo. Objetos bem definidos e com bom contraste costumam produzir o melhor recorte.",
+        "Escolha uma imagem PNG, JPEG ou WebP, selecione o modelo adequado ao objeto e remova o fundo. Objetos bem definidos e com bom contraste costumam produzir o melhor recorte.",
       terms: [
         "remover fundo",
         "fundo transparente",
@@ -356,8 +447,21 @@ const packs = {
       model: "Modello di ritaglio",
       fast: "Veloce",
       fastHint: "4,6 MB · rapido con soggetti ben definiti",
+      portrait: "Ritratto",
+      portraitHint: "6,6 MB · ideale per persone e capelli",
       quality: "Qualità",
       qualityHint: "44,2 MB · più dettagli, elaborazione più lenta",
+      precision: "Precisione",
+      precisionHint: "98,5 MB · WebGPU, massimo dettaglio generale",
+      precisionUnavailable:
+        "Precisione richiede WebGPU e non è disponibile in questo browser.",
+      precisionConsentTitle: "Usare il modello Precisione?",
+      precisionConsentBody:
+        "Il modello da 98,5 MB verrà scaricato alla prossima rimozione e resterà nella cache del browser. L’immagine rimane sul dispositivo.",
+      precisionConsentNotice:
+        "Usa WebGPU e molta più memoria. Può rallentare o non riuscire sui dispositivi con poca memoria; gli altri modelli restano disponibili.",
+      precisionConsentConfirm: "Usa Precisione",
+      cancel: "Annulla",
       background: "Sfondo del risultato",
       transparent: "Trasparente",
       white: "Bianco",
@@ -384,7 +488,7 @@ const packs = {
       description:
         "Rimuovi lo sfondo nel browser e scarica un PNG trasparente o con colore uniforme.",
       guide:
-        "Scegli un’immagine PNG, JPEG o WebP, seleziona Veloce o Qualità e rimuovi lo sfondo. Contorni netti e buon contrasto producono in genere il ritaglio migliore.",
+        "Scegli un’immagine PNG, JPEG o WebP, seleziona il modello adatto al soggetto e rimuovi lo sfondo. Contorni netti e buon contrasto producono in genere il ritaglio migliore.",
       terms: [
         "rimuovi sfondo",
         "scontorno immagine",
@@ -405,8 +509,21 @@ const packs = {
       model: "Vrijstaand model",
       fast: "Snel",
       fastHint: "4,6 MB · sneller bij duidelijke onderwerpen",
+      portrait: "Portret",
+      portraitHint: "6,6 MB · geschikt voor mensen en haar",
       quality: "Kwaliteit",
       qualityHint: "44,2 MB · meer detail, langzamere verwerking",
+      precision: "Precisie",
+      precisionHint: "98,5 MB · WebGPU, meeste algemene details",
+      precisionUnavailable:
+        "Precisie vereist WebGPU en is niet beschikbaar in deze browser.",
+      precisionConsentTitle: "Het Precisiemodel gebruiken?",
+      precisionConsentBody:
+        "Het model van 98,5 MB wordt bij de volgende verwijdering gedownload en in de browsercache bewaard. De afbeelding blijft op dit apparaat.",
+      precisionConsentNotice:
+        "Het gebruikt WebGPU en veel meer geheugen. Op apparaten met weinig geheugen kan het traag zijn of mislukken; de andere modellen blijven beschikbaar.",
+      precisionConsentConfirm: "Precisie gebruiken",
+      cancel: "Annuleren",
       background: "Achtergrond resultaat",
       transparent: "Transparant",
       white: "Wit",
@@ -434,7 +551,7 @@ const packs = {
       description:
         "Verwijder lokaal in je browser een afbeeldingsachtergrond en download een transparante of effen PNG.",
       guide:
-        "Kies een PNG-, JPEG- of WebP-afbeelding, selecteer Snel of Kwaliteit en verwijder de achtergrond. Duidelijke randen en goed contrast geven meestal het beste resultaat.",
+        "Kies een PNG-, JPEG- of WebP-afbeelding, selecteer het model dat bij het onderwerp past en verwijder de achtergrond. Duidelijke randen en goed contrast geven meestal het beste resultaat.",
       terms: [
         "achtergrond verwijderen",
         "afbeelding vrijstaand",
@@ -454,8 +571,21 @@ const packs = {
       model: "Friläggningsmodell",
       fast: "Snabb",
       fastHint: "4,6 MB · snabbare för tydliga motiv",
+      portrait: "Porträtt",
+      portraitHint: "6,6 MB · bäst för personer och hår",
       quality: "Kvalitet",
       qualityHint: "44,2 MB · fler detaljer, långsammare",
+      precision: "Precision",
+      precisionHint: "98,5 MB · WebGPU, mest allmän detalj",
+      precisionUnavailable:
+        "Precision kräver WebGPU och är inte tillgänglig i den här webbläsaren.",
+      precisionConsentTitle: "Använda modellen Precision?",
+      precisionConsentBody:
+        "Modellen på 98,5 MB hämtas vid nästa borttagning och sparas i webbläsarens cache. Bilden stannar på enheten.",
+      precisionConsentNotice:
+        "Den använder WebGPU och betydligt mer minne. Den kan vara långsam eller misslyckas på enheter med lite minne; övriga modeller finns kvar.",
+      precisionConsentConfirm: "Använd Precision",
+      cancel: "Avbryt",
       background: "Resultatbakgrund",
       transparent: "Transparent",
       white: "Vit",
@@ -482,7 +612,7 @@ const packs = {
       description:
         "Ta bort en bildbakgrund lokalt i webbläsaren och hämta en transparent eller enfärgad PNG.",
       guide:
-        "Välj en PNG-, JPEG- eller WebP-bild, välj Snabb eller Kvalitet och ta bort bakgrunden. Tydliga motivkanter och god kontrast ger oftast bäst resultat.",
+        "Välj en PNG-, JPEG- eller WebP-bild, välj modellen som passar motivet och ta bort bakgrunden. Tydliga motivkanter och god kontrast ger oftast bäst resultat.",
       terms: [
         "ta bort bakgrund",
         "frilägg bild",
@@ -502,8 +632,21 @@ const packs = {
       model: "Model výřezu",
       fast: "Rychlý",
       fastHint: "4,6 MB · rychlejší pro výrazné objekty",
+      portrait: "Portrét",
+      portraitHint: "6,6 MB · vhodný pro osoby a vlasy",
       quality: "Kvalitní",
       qualityHint: "44,2 MB · více detailů, pomalejší zpracování",
+      precision: "Přesný",
+      precisionHint: "98,5 MB · WebGPU, nejvíce obecných detailů",
+      precisionUnavailable:
+        "Přesný model vyžaduje WebGPU a v tomto prohlížeči není dostupný.",
+      precisionConsentTitle: "Použít Přesný model?",
+      precisionConsentBody:
+        "Model o velikosti 98,5 MB se stáhne při příštím odstranění a zůstane v mezipaměti prohlížeče. Obrázek zůstává v zařízení.",
+      precisionConsentNotice:
+        "Používá WebGPU a výrazně více paměti. Na slabších zařízeních může být pomalý nebo selhat; ostatní modely zůstanou dostupné.",
+      precisionConsentConfirm: "Použít Přesný",
+      cancel: "Zrušit",
       background: "Pozadí výsledku",
       transparent: "Průhledné",
       white: "Bílé",
@@ -530,7 +673,7 @@ const packs = {
       description:
         "Odstraňte pozadí obrázku přímo v prohlížeči a stáhněte průhledné nebo jednobarevné PNG.",
       guide:
-        "Vyberte obrázek PNG, JPEG nebo WebP, zvolte Rychlý nebo Kvalitní a odstraňte pozadí. Nejlépe fungují jasné obrysy a kontrastní pozadí.",
+        "Vyberte obrázek PNG, JPEG nebo WebP, zvolte model vhodný pro daný objekt a odstraňte pozadí. Nejlépe fungují jasné obrysy a kontrastní pozadí.",
       terms: [
         "odstranit pozadí",
         "výřez obrázku",
@@ -550,8 +693,21 @@ const packs = {
       model: "Model wycinania",
       fast: "Szybki",
       fastHint: "4,6 MB · szybciej dla wyraźnych obiektów",
+      portrait: "Portret",
+      portraitHint: "6,6 MB · najlepszy dla osób i włosów",
       quality: "Jakość",
       qualityHint: "44,2 MB · więcej szczegółów, wolniej",
+      precision: "Precyzyjny",
+      precisionHint: "98,5 MB · WebGPU, najwięcej ogólnych detali",
+      precisionUnavailable:
+        "Model Precyzyjny wymaga WebGPU i nie jest dostępny w tej przeglądarce.",
+      precisionConsentTitle: "Użyć modelu Precyzyjnego?",
+      precisionConsentBody:
+        "Model 98,5 MB zostanie pobrany przy następnym usuwaniu i zapisany w pamięci podręcznej przeglądarki. Obraz pozostaje na urządzeniu.",
+      precisionConsentNotice:
+        "Używa WebGPU i znacznie więcej pamięci. Na słabszych urządzeniach może działać wolno lub zawieść; pozostałe modele nadal będą dostępne.",
+      precisionConsentConfirm: "Użyj Precyzyjnego",
+      cancel: "Anuluj",
       background: "Tło wyniku",
       transparent: "Przezroczyste",
       white: "Białe",
@@ -578,7 +734,7 @@ const packs = {
       description:
         "Usuń tło obrazu lokalnie w przeglądarce i pobierz przezroczysty lub jednokolorowy plik PNG.",
       guide:
-        "Wybierz obraz PNG, JPEG lub WebP, ustaw Szybki lub Jakość i usuń tło. Wyraźne krawędzie oraz kontrastowe tło zwykle dają najlepszy wynik.",
+        "Wybierz obraz PNG, JPEG lub WebP, ustaw model odpowiedni do obiektu i usuń tło. Wyraźne krawędzie oraz kontrastowe tło zwykle dają najlepszy wynik.",
       terms: [
         "usuń tło",
         "wycinanie obrazu",
@@ -598,8 +754,21 @@ const packs = {
       model: "Fritlægningsmodel",
       fast: "Hurtig",
       fastHint: "4,6 MB · hurtigere til tydelige motiver",
+      portrait: "Portræt",
+      portraitHint: "6,6 MB · bedst til personer og hår",
       quality: "Kvalitet",
       qualityHint: "44,2 MB · flere detaljer, langsommere",
+      precision: "Præcision",
+      precisionHint: "98,5 MB · WebGPU, flest generelle detaljer",
+      precisionUnavailable:
+        "Præcision kræver WebGPU og er ikke tilgængelig i denne browser.",
+      precisionConsentTitle: "Brug modellen Præcision?",
+      precisionConsentBody:
+        "Modellen på 98,5 MB hentes ved næste fjernelse og gemmes i browserens cache. Billedet bliver på enheden.",
+      precisionConsentNotice:
+        "Den bruger WebGPU og væsentligt mere hukommelse. Den kan være langsom eller fejle på enheder med lidt hukommelse; de andre modeller er fortsat tilgængelige.",
+      precisionConsentConfirm: "Brug Præcision",
+      cancel: "Annuller",
       background: "Resultatets baggrund",
       transparent: "Gennemsigtig",
       white: "Hvid",
@@ -626,7 +795,7 @@ const packs = {
       description:
         "Fjern en billedbaggrund lokalt i browseren, og hent en gennemsigtig eller ensfarvet PNG.",
       guide:
-        "Vælg et PNG-, JPEG- eller WebP-billede, vælg Hurtig eller Kvalitet, og fjern baggrunden. Tydelige kanter og god kontrast giver normalt det bedste resultat.",
+        "Vælg et PNG-, JPEG- eller WebP-billede, vælg modellen der passer til motivet, og fjern baggrunden. Tydelige kanter og god kontrast giver normalt det bedste resultat.",
       terms: [
         "fjern baggrund",
         "fritlæg billede",
@@ -646,8 +815,21 @@ const packs = {
       model: "Frileggingsmodell",
       fast: "Rask",
       fastHint: "4,6 MB · raskere for tydelige motiver",
+      portrait: "Portrett",
+      portraitHint: "6,6 MB · best for personer og hår",
       quality: "Kvalitet",
       qualityHint: "44,2 MB · flere detaljer, tregere behandling",
+      precision: "Presisjon",
+      precisionHint: "98,5 MB · WebGPU, mest generell detalj",
+      precisionUnavailable:
+        "Presisjon krever WebGPU og er ikke tilgjengelig i denne nettleseren.",
+      precisionConsentTitle: "Bruke modellen Presisjon?",
+      precisionConsentBody:
+        "Modellen på 98,5 MB lastes ned ved neste fjerning og lagres i nettleserbufferen. Bildet forblir på enheten.",
+      precisionConsentNotice:
+        "Den bruker WebGPU og betydelig mer minne. Den kan være treg eller mislykkes på enheter med lite minne; de andre modellene er fortsatt tilgjengelige.",
+      precisionConsentConfirm: "Bruk Presisjon",
+      cancel: "Avbryt",
       background: "Resultatbakgrunn",
       transparent: "Gjennomsiktig",
       white: "Hvit",
@@ -674,7 +856,7 @@ const packs = {
       description:
         "Fjern en bildebakgrunn lokalt i nettleseren og last ned en gjennomsiktig eller ensfarget PNG.",
       guide:
-        "Velg et PNG-, JPEG- eller WebP-bilde, velg Rask eller Kvalitet og fjern bakgrunnen. Tydelige kanter og god kontrast gir vanligvis best resultat.",
+        "Velg et PNG-, JPEG- eller WebP-bilde, velg modellen som passer motivet, og fjern bakgrunnen. Tydelige kanter og god kontrast gir vanligvis best resultat.",
       terms: [
         "fjern bakgrunn",
         "frilegg bilde",
@@ -694,8 +876,21 @@ const packs = {
       model: "نموذج القص",
       fast: "سريع",
       fastHint: "4.6 ميجابايت · أسرع للعناصر الواضحة",
+      portrait: "صور شخصية",
+      portraitHint: "6.6 ميجابايت · مناسب للأشخاص والشعر",
       quality: "جودة عالية",
       qualityHint: "44.2 ميجابايت · تفاصيل أكثر ومعالجة أبطأ",
+      precision: "دقة فائقة",
+      precisionHint: "98.5 ميجابايت · WebGPU وتفاصيل عامة أفضل",
+      precisionUnavailable:
+        "يتطلب نموذج الدقة الفائقة WebGPU وهو غير متاح في هذا المتصفح.",
+      precisionConsentTitle: "هل تريد استخدام نموذج الدقة الفائقة؟",
+      precisionConsentBody:
+        "سيُنزل النموذج بحجم 98.5 ميجابايت عند الإزالة التالية ويُحفظ في ذاكرة المتصفح المؤقتة. تبقى الصورة على هذا الجهاز.",
+      precisionConsentNotice:
+        "يستخدم WebGPU وذاكرة أكبر بكثير. قد يكون بطيئًا أو يفشل على الأجهزة محدودة الذاكرة؛ وتظل النماذج الأخرى متاحة.",
+      precisionConsentConfirm: "استخدام الدقة الفائقة",
+      cancel: "إلغاء",
       background: "خلفية النتيجة",
       transparent: "شفافة",
       white: "بيضاء",
@@ -721,7 +916,7 @@ const packs = {
       description:
         "أزل خلفية الصورة داخل المتصفح ونزّل ملف PNG شفافًا أو بلون ثابت.",
       guide:
-        "اختر صورة PNG أو JPEG أو WebP، ثم اختر الوضع السريع أو عالي الجودة وأزل الخلفية. تعطي الحواف الواضحة والتباين الجيد أفضل نتيجة عادةً.",
+        "اختر صورة PNG أو JPEG أو WebP، ثم اختر النموذج المناسب للعنصر وأزل الخلفية. تعطي الحواف الواضحة والتباين الجيد أفضل نتيجة عادةً.",
       terms: [
         "إزالة الخلفية",
         "قص الصورة",
@@ -741,8 +936,20 @@ const packs = {
       model: "去背模型",
       fast: "快速",
       fastHint: "4.6 MB · 適合輪廓清楚的主體",
+      portrait: "人像",
+      portraitHint: "6.6 MB · 適合人物與髮絲",
       quality: "高品質",
       qualityHint: "44.2 MB · 細節較多、處理較慢",
+      precision: "精細",
+      precisionHint: "98.5 MB · WebGPU，強化通用細節",
+      precisionUnavailable: "精細模型需要 WebGPU，此瀏覽器無法使用。",
+      precisionConsentTitle: "要使用精細模型嗎？",
+      precisionConsentBody:
+        "下次移除背景時會下載 98.5 MB 模型並存入瀏覽器快取。圖片仍留在此裝置。",
+      precisionConsentNotice:
+        "此模型會使用 WebGPU 與更多記憶體。在記憶體較少的裝置上可能較慢或失敗；其他模型仍可使用。",
+      precisionConsentConfirm: "使用精細模型",
+      cancel: "取消",
       background: "結果背景",
       transparent: "透明",
       white: "白色",
@@ -767,7 +974,7 @@ const packs = {
       title: "圖片背景移除工具",
       description: "不需上傳圖片，直接在瀏覽器中去背並下載透明或純色 PNG。",
       guide:
-        "選擇 PNG、JPEG 或 WebP 圖片，指定快速或高品質模型後移除背景。主體輪廓清楚且與背景對比明顯時，通常能得到較乾淨的結果。",
+        "選擇 PNG、JPEG 或 WebP 圖片，指定適合主體的模型後移除背景。主體輪廓清楚且與背景對比明顯時，通常能得到較乾淨的結果。",
       terms: ["圖片去背", "移除背景", "透明 PNG", "照片去背", "U2Net"],
     },
   },
@@ -781,8 +988,21 @@ const packs = {
       model: "Kesme modeli",
       fast: "Hızlı",
       fastHint: "4,6 MB · belirgin nesnelerde daha hızlı",
+      portrait: "Portre",
+      portraitHint: "6,6 MB · insanlar ve saçlar için uygun",
       quality: "Kaliteli",
       qualityHint: "44,2 MB · daha fazla ayrıntı, daha yavaş",
+      precision: "Hassas",
+      precisionHint: "98,5 MB · WebGPU, en yüksek genel ayrıntı",
+      precisionUnavailable:
+        "Hassas model WebGPU gerektirir ve bu tarayıcıda kullanılamaz.",
+      precisionConsentTitle: "Hassas model kullanılsın mı?",
+      precisionConsentBody:
+        "98,5 MB model bir sonraki kaldırmada indirilir ve tarayıcı önbelleğinde tutulur. Resim bu cihazda kalır.",
+      precisionConsentNotice:
+        "WebGPU ve çok daha fazla bellek kullanır. Düşük bellekli cihazlarda yavaşlayabilir veya başarısız olabilir; diğer modeller kullanılabilir kalır.",
+      precisionConsentConfirm: "Hassas modeli kullan",
+      cancel: "İptal",
       background: "Sonuç arka planı",
       transparent: "Şeffaf",
       white: "Beyaz",
@@ -809,7 +1029,7 @@ const packs = {
       description:
         "Resim arka planını tarayıcıda yerel olarak kaldırın ve şeffaf veya düz renkli PNG indirin.",
       guide:
-        "PNG, JPEG veya WebP resmi seçin, Hızlı ya da Kaliteli modeli belirleyin ve arka planı kaldırın. Net nesne kenarları ve güçlü kontrast genellikle en iyi sonucu verir.",
+        "PNG, JPEG veya WebP resmi seçin, nesneye uygun modeli belirleyin ve arka planı kaldırın. Net nesne kenarları ve güçlü kontrast genellikle en iyi sonucu verir.",
       terms: [
         "arka plan kaldır",
         "resim kesme",

@@ -58,9 +58,9 @@ const { copy } = Astro.props;
   <details class="background-options" open>
     <summary>{copy.optionsLabel}</summary>
     <div class="background-option-grid">
-      <fieldset>
+      <fieldset class="background-model-options">
         <legend>{copy.modelLabel}</legend>
-        <label>
+        <label class="background-model-option">
           <input type="radio" name="background-model" value="fast" checked />
           <span
             ><strong>{copy.modelOptions.fast}</strong><small
@@ -68,7 +68,15 @@ const { copy } = Astro.props;
             ></span
           >
         </label>
-        <label>
+        <label class="background-model-option">
+          <input type="radio" name="background-model" value="portrait" />
+          <span
+            ><strong>{copy.modelOptions.portrait}</strong><small
+              >MODNet · {copy.modelHints.portrait}</small
+            ></span
+          >
+        </label>
+        <label class="background-model-option">
           <input type="radio" name="background-model" value="quality" />
           <span
             ><strong>{copy.modelOptions.quality}</strong><small
@@ -76,6 +84,28 @@ const { copy } = Astro.props;
             ></span
           >
         </label>
+        <label class="background-model-option" data-precision-option>
+          <input
+            type="radio"
+            name="background-model"
+            value="precision"
+            aria-describedby="background-precision-unavailable"
+            disabled
+          />
+          <span
+            ><strong>{copy.modelOptions.precision}</strong><small
+              >BiRefNet Lite · {copy.modelHints.precision}</small
+            ></span
+          >
+        </label>
+        <p
+          id="background-precision-unavailable"
+          class="background-model-unavailable"
+          data-precision-unavailable
+          hidden
+        >
+          {copy.precisionUnavailable}
+        </p>
       </fieldset>
       <fieldset>
         <legend>{copy.backgroundLabel}</legend>
@@ -134,6 +164,27 @@ const { copy } = Astro.props;
     data-client-copy
     set:html={JSON.stringify(copy).replace(/</gu, "\\u003c")}
   />
+
+  <dialog class="background-model-consent" data-precision-consent>
+    <div class="background-model-consent-content">
+      <div>
+        <p class="background-dialog-eyebrow">BiRefNet Lite · 98.5 MB</p>
+        <h2>{copy.precisionConsentTitle}</h2>
+      </div>
+      <p>{copy.precisionConsentBody}</p>
+      <p class="background-model-consent-notice">
+        {copy.precisionConsentNotice}
+      </p>
+      <div class="background-dialog-actions">
+        <button type="button" class="secondary-button" data-consent-cancel>
+          {copy.cancel}
+        </button>
+        <button type="button" class="primary-button" data-consent-confirm>
+          {copy.precisionConsentConfirm}
+        </button>
+      </div>
+    </div>
+  </dialog>
 </section>
 
 <script>

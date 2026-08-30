@@ -1,11 +1,12 @@
 /// <reference lib="webworker" />
 
-import * as ort from "onnxruntime-web";
-import wasmModuleUrl from "onnxruntime-web/ort-wasm-simd-threaded.mjs?url";
-import wasmUrl from "onnxruntime-web/ort-wasm-simd-threaded.wasm?url";
+import * as ort from "onnxruntime-web/webgpu";
+import wasmModuleUrl from "onnxruntime-web/ort-wasm-simd-threaded.asyncify.mjs?url";
+import wasmUrl from "onnxruntime-web/ort-wasm-simd-threaded.asyncify.wasm?url";
 import { startBackgroundWorker } from "./worker-runtime";
 
 const workerScope = self as DedicatedWorkerGlobalScope;
+ort.env.logLevel = "error";
 ort.env.wasm.numThreads = 1;
 ort.env.wasm.proxy = false;
 ort.env.wasm.wasmPaths = {

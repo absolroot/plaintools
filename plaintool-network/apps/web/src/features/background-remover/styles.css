@@ -139,6 +139,99 @@
   gap: 2px;
 }
 
+.background-model-options {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+}
+
+.background-model-options .background-model-option {
+  margin: 0;
+  padding: var(--space-2);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+.background-model-option:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--tint);
+}
+
+.background-model-option:focus-within {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.background-model-option.is-unavailable {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.background-model-unavailable {
+  margin: var(--space-1) var(--space-2) 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.background-model-consent {
+  width: min(520px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--base);
+  color: var(--ink);
+  box-shadow: 0 20px 60px var(--shadow-layer);
+}
+
+.background-model-consent::backdrop {
+  background: rgb(15 23 42 / 0.56);
+  backdrop-filter: blur(2px);
+}
+
+.background-model-consent-content {
+  padding: clamp(22px, 5vw, 34px);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.background-dialog-eyebrow {
+  margin: 0 0 var(--space-1);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.background-model-consent h2,
+.background-model-consent p {
+  margin: 0;
+}
+
+.background-model-consent h2 {
+  font-size: clamp(20px, 4vw, 26px);
+}
+
+.background-model-consent-content > p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.background-model-consent-notice {
+  padding: var(--space-3);
+  border-inline-start: 3px solid var(--accent);
+  background: var(--recessed);
+}
+
+.background-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
 .background-option-grid small {
   color: var(--muted);
 }
@@ -230,6 +323,15 @@
   .background-progress {
     grid-template-columns: 1fr;
     gap: var(--space-1);
+  }
+
+  .background-dialog-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .background-dialog-actions button {
+    min-height: 44px;
   }
 }
 

@@ -57,21 +57,47 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
 
     page.on("request", collect_background_resource)
     page.goto(f"{BASE_URL}/en/background-remover/", wait_until="networkidle")
+    page.wait_for_function(
+        """
+        () => document.querySelector('[data-background-remover]').dataset.precisionSupport !== 'checking'
+        """
+    )
     options_default = page.evaluate(
         """
         () => {
           const options = document.querySelector('.background-options');
           const fast = options.querySelector('input[name="background-model"][value="fast"]');
+          const portrait = options.querySelector('input[name="background-model"][value="portrait"]');
           const quality = options.querySelector('input[name="background-model"][value="quality"]');
+          const precision = options.querySelector('input[name="background-model"][value="precision"]');
+          const root = document.querySelector('[data-background-remover]');
           return {
             open: options.open,
             fastVisible: fast.getBoundingClientRect().height > 0,
-            qualityVisible: quality.getBoundingClientRect().height > 0
+            portraitVisible: portrait.getBoundingClientRect().height > 0,
+            qualityVisible: quality.getBoundingClientRect().height > 0,
+            precisionVisible: precision.getBoundingClientRect().height > 0,
+            precisionSupport: root.dataset.precisionSupport,
+            precisionDisabled: precision.disabled,
+            unavailableVisible: !root.querySelector('[data-precision-unavailable]').hidden
           };
         }
         """
     )
-    if not all(options_default.values()):
+    options_visible = all(
+        options_default[key]
+        for key in ("open", "fastVisible", "portraitVisible", "qualityVisible", "precisionVisible")
+    )
+    precision_support_consistent = (
+        options_default["precisionSupport"] == "supported"
+        and not options_default["precisionDisabled"]
+        and not options_default["unavailableVisible"]
+    ) or (
+        options_default["precisionSupport"] == "unsupported"
+        and options_default["precisionDisabled"]
+        and options_default["unavailableVisible"]
+    )
+    if not options_visible or not precision_support_consistent:
         report["ui_detail_failures"].append(
             "Background remover model choices were not visible by default: "
             f"{options_default}"
@@ -287,6 +313,58 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             )
 
     page.locator('input[name="background-mode"][value="transparent"]').check()
+    page.locator('input[name="background-model"][value="portrait"]').check()
+    page.locator("[data-remove]").click()
+    page.wait_for_function(
+        """
+        () => document.querySelector('[data-background-remover]').classList.contains('is-success')
+          || document.querySelector('[data-background-remover]').classList.contains('has-error')
+        """,
+        timeout=180_000,
+    )
+    portrait_state = page.evaluate(
+        """
+        () => {
+          const root = document.querySelector('[data-background-remover]');
+          const canvas = root.querySelector('[data-result-canvas]');
+          const pixels = canvas.width && canvas.height
+            ? canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data
+            : new Uint8ClampedArray();
+          let alphaMin = 255;
+          let alphaMax = 0;
+          for (let index = 3; index < pixels.length; index += 4) {
+            alphaMin = Math.min(alphaMin, pixels[index]);
+            alphaMax = Math.max(alphaMax, pixels[index]);
+          }
+          return {
+            hasError: root.classList.contains('has-error'),
+            success: root.classList.contains('is-success'),
+            resultVisible: !canvas.hidden,
+            alphaMin,
+            alphaMax
+          };
+        }
+        """
+    )
+    portrait_resources = [
+        url for url in requested_resources if url.endswith("/modnet-quantized.onnx")
+    ]
+    precision_resources_before_consent = [
+        url for url in requested_resources if "birefnet-lite-512" in url
+    ]
+    if (
+        portrait_state["hasError"]
+        or not portrait_state["success"]
+        or not portrait_state["resultVisible"]
+        or portrait_state["alphaMin"] >= portrait_state["alphaMax"]
+        or len(portrait_resources) != 1
+        or precision_resources_before_consent
+    ):
+        report["ui_detail_failures"].append(
+            "Background remover did not complete a local Portrait-model round trip: "
+            f"state={portrait_state}, resources={portrait_resources}"
+        )
+
     page.locator('input[name="background-model"][value="quality"]').check()
     page.locator("[data-remove]").click()
     page.wait_for_function(
@@ -335,6 +413,117 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             f"state={quality_state}, resources={quality_resources}"
         )
 
+    precision_consent = {
+        "support": options_default["precisionSupport"],
+        "dialogOpened": False,
+        "selectionDeferred": False,
+        "cancelRestored": False,
+        "confirmed": False,
+        "downloadBeforeRun": False,
+    }
+    precision_state = None
+    precision_resources = []
+    precision_input = page.locator(
+        'input[name="background-model"][value="precision"]'
+    )
+    if options_default["precisionSupport"] == "supported":
+        precision_input.click()
+        precision_consent.update(
+            page.evaluate(
+                """
+                () => ({
+                  dialogOpened: document.querySelector('[data-precision-consent]').open,
+                  selectionDeferred: !document.querySelector('input[name="background-model"][value="precision"]').checked
+                    && document.querySelector('input[name="background-model"][value="quality"]').checked
+                })
+                """
+            )
+        )
+        page.locator("[data-consent-cancel]").click()
+        precision_consent["cancelRestored"] = page.evaluate(
+            """
+            () => !document.querySelector('[data-precision-consent]').open
+              && document.querySelector('input[name="background-model"][value="quality"]').checked
+            """
+        )
+        precision_input.click()
+        page.locator("[data-consent-confirm]").click()
+        precision_consent["confirmed"] = page.evaluate(
+            """
+            () => !document.querySelector('[data-precision-consent]').open
+              && document.querySelector('input[name="background-model"][value="precision"]').checked
+            """
+        )
+        precision_consent["downloadBeforeRun"] = any(
+            "birefnet-lite-512" in url for url in requested_resources
+        )
+        if (
+            not precision_consent["dialogOpened"]
+            or not precision_consent["selectionDeferred"]
+            or not precision_consent["cancelRestored"]
+            or not precision_consent["confirmed"]
+            or precision_consent["downloadBeforeRun"]
+        ):
+            report["ui_detail_failures"].append(
+                "Precision-model consent did not defer the large download correctly: "
+                f"{precision_consent}"
+            )
+        page.locator("[data-remove]").click()
+        page.wait_for_function(
+            """
+            () => document.querySelector('[data-background-remover]').classList.contains('is-success')
+              || document.querySelector('[data-background-remover]').classList.contains('has-error')
+            """,
+            timeout=300_000,
+        )
+        precision_state = page.evaluate(
+            """
+            () => {
+              const root = document.querySelector('[data-background-remover]');
+              const canvas = root.querySelector('[data-result-canvas]');
+              const pixels = canvas.width && canvas.height
+                ? canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data
+                : new Uint8ClampedArray();
+              let alphaMin = 255;
+              let alphaMax = 0;
+              let partialAlpha = 0;
+              for (let index = 3; index < pixels.length; index += 4) {
+                const alpha = pixels[index];
+                alphaMin = Math.min(alphaMin, alpha);
+                alphaMax = Math.max(alphaMax, alpha);
+                if (alpha > 0 && alpha < 255) partialAlpha += 1;
+              }
+              return {
+                hasError: root.classList.contains('has-error'),
+                success: root.classList.contains('is-success'),
+                resultVisible: !canvas.hidden,
+                alphaMin,
+                alphaMax,
+                partialAlpha
+              };
+            }
+            """
+        )
+        precision_resources = [
+            url for url in requested_resources if "birefnet-lite-512" in url
+        ]
+        if (
+            precision_state["hasError"]
+            or not precision_state["success"]
+            or not precision_state["resultVisible"]
+            or precision_state["alphaMin"] >= precision_state["alphaMax"]
+            or precision_state["partialAlpha"] == 0
+            or len(precision_resources) != 5
+        ):
+            report["ui_detail_failures"].append(
+                "Background remover did not complete a local WebGPU Precision-model round trip: "
+                f"state={precision_state}, resources={precision_resources}"
+            )
+    elif not precision_input.is_disabled():
+        report["ui_detail_failures"].append(
+            "Precision model remained selectable without a WebGPU adapter."
+        )
+
     page.screenshot(
         path=str(QA_DIR / "background-remover-desktop-en.png"), full_page=False
     )
@@ -347,8 +536,13 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         "same_origin_resources": resources_after_inference,
         "white_background": white_state,
         "download_filename": download_filename,
+        "portrait_model": portrait_state,
+        "portrait_model_resources": portrait_resources,
         "quality_model": quality_state,
         "quality_model_resources": quality_resources,
+        "precision_consent": precision_consent,
+        "precision_model": precision_state,
+        "precision_model_resources": precision_resources,
     }
 
 

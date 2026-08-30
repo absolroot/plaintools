@@ -1,4 +1,6 @@
-export type BackgroundModelId = "fast" | "quality";
+export type BackgroundModelId = "fast" | "portrait" | "quality" | "precision";
+export type BackgroundModelNormalization = "u2net" | "modnet" | "imagenet";
+export type BackgroundModelOutput = "minmax" | "direct" | "sigmoid-minmax";
 export type BackgroundMode = "transparent" | "white" | "color";
 
 export type BackgroundRemoverCopy = {
@@ -12,6 +14,12 @@ export type BackgroundRemoverCopy = {
   modelLabel: string;
   modelOptions: Record<BackgroundModelId, string>;
   modelHints: Record<BackgroundModelId, string>;
+  precisionUnavailable: string;
+  precisionConsentTitle: string;
+  precisionConsentBody: string;
+  precisionConsentNotice: string;
+  precisionConsentConfirm: string;
+  cancel: string;
   backgroundLabel: string;
   backgroundOptions: Record<BackgroundMode, string>;
   colorLabel: string;
@@ -53,6 +61,8 @@ export type WorkerResult = {
   kind: "result";
   requestId: number;
   alpha: Uint8ClampedArray;
+  width: number;
+  height: number;
 };
 
 export type WorkerFailure = {

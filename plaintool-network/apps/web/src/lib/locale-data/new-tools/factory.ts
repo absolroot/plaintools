@@ -298,8 +298,18 @@ export type NewToolLocaleSeed = {
     model: string;
     fast: string;
     fastHint: string;
+    portrait: string;
+    portraitHint: string;
     quality: string;
     qualityHint: string;
+    precision: string;
+    precisionHint: string;
+    precisionUnavailable: string;
+    precisionConsentTitle: string;
+    precisionConsentBody: string;
+    precisionConsentNotice: string;
+    precisionConsentConfirm: string;
+    cancel: string;
     background: string;
     transparent: string;
     white: string;
@@ -607,12 +617,22 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     modelLabel: seed.background.model,
     modelOptions: {
       fast: seed.background.fast,
+      portrait: seed.background.portrait,
       quality: seed.background.quality,
+      precision: seed.background.precision,
     },
     modelHints: {
       fast: seed.background.fastHint,
+      portrait: seed.background.portraitHint,
       quality: seed.background.qualityHint,
+      precision: seed.background.precisionHint,
     },
+    precisionUnavailable: seed.background.precisionUnavailable,
+    precisionConsentTitle: seed.background.precisionConsentTitle,
+    precisionConsentBody: seed.background.precisionConsentBody,
+    precisionConsentNotice: seed.background.precisionConsentNotice,
+    precisionConsentConfirm: seed.background.precisionConsentConfirm,
+    cancel: seed.background.cancel,
     backgroundLabel: seed.background.background,
     backgroundOptions: {
       transparent: seed.background.transparent,
