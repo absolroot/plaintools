@@ -1,12 +1,19 @@
 ---
 import { siteConfig } from "../lib/site";
 
-const { cookiebotDomainGroupId, ga4MeasurementId, googleCmpEnabled } =
-  siteConfig.integrations;
+const {
+  adsensePublisherId,
+  cookiebotDomainGroupId,
+  ga4MeasurementId,
+  googleCmpEnabled,
+} = siteConfig.integrations;
 const enabled = Boolean(
-  googleCmpEnabled && cookiebotDomainGroupId && ga4MeasurementId,
+  googleCmpEnabled &&
+    cookiebotDomainGroupId &&
+    (ga4MeasurementId || adsensePublisherId),
 );
 const googleTagSource = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4MeasurementId)}`;
+const adsenseSource = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(adsensePublisherId)}`;
 ---
 
 {
@@ -20,20 +27,37 @@ const googleTagSource = `https://www.googletagmanager.com/gtag/js?id=${encodeURI
         type="text/javascript"
         async
       />
-      <script
-        is:inline
-        src={googleTagSource}
-        type="text/plain"
-        data-cookieconsent="statistics"
-        async
-      />
-      <script
-        is:inline
-        src="/ga4-init.js"
-        data-measurement-id={ga4MeasurementId}
-        type="text/plain"
-        data-cookieconsent="statistics"
-      />
+      {ga4MeasurementId && (
+        <>
+          <script
+            is:inline
+            src={googleTagSource}
+            type="text/plain"
+            data-cookieconsent="statistics"
+            async
+          />
+          <script
+            is:inline
+            src="/ga4-init.js"
+            data-measurement-id={ga4MeasurementId}
+            type="text/plain"
+            data-cookieconsent="statistics"
+          />
+        </>
+      )}
+      {adsensePublisherId && (
+        <>
+          <meta name="google-adsense-account" content={adsensePublisherId} />
+          <script
+            is:inline
+            async
+            src={adsenseSource}
+            crossorigin="anonymous"
+            type="text/plain"
+            data-cookieconsent="marketing"
+          />
+        </>
+      )}
     </>
   )
 }

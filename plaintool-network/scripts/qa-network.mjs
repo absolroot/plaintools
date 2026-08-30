@@ -45,6 +45,7 @@ const robots = await readFile(join(dist, "robots.txt"), "utf8");
 const llms = await readFile(join(dist, "llms.txt"), "utf8");
 const headers = await readFile(join(dist, "_headers"), "utf8");
 const redirects = await readFile(join(dist, "_redirects"), "utf8");
+const adsTxt = await readFile(join(dist, "ads.txt"), "utf8");
 const faviconPng = await readFile(join(dist, "favicon.png"));
 const thirdPartyNotices = await readFile(
   join(dist, "third-party-notices.txt"),
@@ -137,8 +138,15 @@ const requiredSecurityHeaders = [
   "X-Frame-Options: DENY",
   "Cross-Origin-Opener-Policy: same-origin",
   "Cross-Origin-Resource-Policy: same-origin",
-  "Content-Security-Policy: default-src 'self'; script-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://imgsct.cookiebot.com https://www.google-analytics.com; worker-src 'self'; connect-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'",
+  "Content-Security-Policy: default-src 'self'; script-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://www.googletagmanager.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://imgsct.cookiebot.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; worker-src 'self'; connect-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; frame-src 'self' https://consentcdn.cookiebot.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'",
 ];
+const expectedAdsRecord =
+  "google.com, pub-5862324369257695, DIRECT, f08c47fec0942fa0";
+if (adsTxt.trim() !== expectedAdsRecord) {
+  throw new Error(
+    "The deployed ads.txt does not match the approved AdSense record.",
+  );
+}
 if (
   faviconPng.length < 24 ||
   faviconPng.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a" ||
@@ -216,7 +224,7 @@ function structuredDataNodes(documents) {
 
 function verifyStaticContentPolicy(html, route) {
   const metaPolicy = html.includes('id="Cookiebot"')
-    ? "default-src 'self'; script-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://imgsct.cookiebot.com https://www.google-analytics.com; worker-src 'self'; connect-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com; frame-src 'self' https://consentcdn.cookiebot.com; object-src 'none'; base-uri 'self'; form-action 'none'"
+    ? "default-src 'self'; script-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://www.googletagmanager.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://imgsct.cookiebot.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; worker-src 'self'; connect-src 'self' https://consent.cookiebot.com https://consentcdn.cookiebot.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; frame-src 'self' https://consentcdn.cookiebot.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'none'"
     : "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
   if (
     !html.includes(
@@ -366,6 +374,26 @@ function verifyMetadata(
     html.includes("googletagmanager.com/gtag/js")
   ) {
     throw new Error(`${route} ships consent or analytics code while disabled.`);
+  }
+  if (config.integrations.adsensePublisherId) {
+    for (const marker of [
+      `name="google-adsense-account" content="${config.integrations.adsensePublisherId}"`,
+      `adsbygoogle.js?client=${config.integrations.adsensePublisherId}`,
+      'crossorigin="anonymous"',
+      'data-cookieconsent="marketing"',
+    ]) {
+      if (!html.includes(marker))
+        throw new Error(
+          `${route} is missing consented advertising marker ${marker}.`,
+        );
+    }
+  } else if (
+    html.includes('name="google-adsense-account"') ||
+    html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+  ) {
+    throw new Error(
+      `${route} ships AdSense code while advertising is disabled.`,
+    );
   }
 }
 

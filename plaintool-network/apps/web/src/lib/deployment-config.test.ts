@@ -134,7 +134,7 @@ describe("deployment configuration", () => {
         PUBLIC_ADSENSE_PUBLISHER_ID: "ca-pub-1234567890",
       },
       "production",
-      implementedIntegrationCapabilities,
+      { ...implementedIntegrationCapabilities, adsense: false },
     );
 
     expect(config.productionReady).toBe(false);

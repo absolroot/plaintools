@@ -61,7 +61,7 @@ The generated site includes 17 complete locale route families: `en`, `ko`, `es`,
 - Unix seconds/milliseconds and strict ISO local date-time conversion with IANA zones and explicit DST disambiguation
 - Localized directory with `available`, `preview`, and `reserve` states
 - Preview routes are linked and functional but forced `noindex`, excluded from the sitemap, and rejected by the production build
-- Empty, gated integration points for AdSense, GA4, and a CMP; no Google code is shipped in the default build
+- Consent-gated Cookiebot, GA4, and AdSense account integrations in production; preview builds ship no Google runtime code
 
 ## Repository map
 
@@ -93,7 +93,7 @@ The build output is `apps/web/dist/`. Cloudflare Pages applies the committed `_h
 
 ## Production gate
 
-Copy `.env.example` to `.env` and complete the operator and canonical-origin fields. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. Production enables the configured Cookiebot CMP and GA4 only when the Cookiebot domain-group ID, GA4 measurement ID, and consent flag are all valid; AdSense remains unimplemented and disabled.
+Copy `.env.example` to `.env` and complete the operator and canonical-origin fields. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. Production enables Cookiebot, GA4, and the AdSense account script only when the CMP domain-group ID, Google identifiers, and consent flag are valid. GA4 waits for Statistics consent and AdSense waits for Marketing consent.
 
 Do not send input text, output text, file names, file bytes, error details, or hashes derived from them to analytics. GA4 is manually blocked under Cookiebot's `statistics` category, uses no Google Signals or ad-personalization signals, and starts only after Statistics consent. Preview builds and invalid production configurations keep all optional integrations disabled.
 
