@@ -4,6 +4,7 @@ import {
   type HtmlIssueCode,
 } from "@plaintool/html-formatter-core";
 import type { HtmlWorkerReply, HtmlWorkerRequest } from "./contract";
+import { formatterOutputWithinLimit } from "../../scripts/shared/formatter-resource-policy";
 
 self.addEventListener(
   "message",
@@ -11,11 +12,10 @@ self.addEventListener(
     const { id, input, settings } = event.data;
     let reply: HtmlWorkerReply;
     try {
-      reply = {
-        id,
-        ok: true,
-        output: await formatHtml(input, settings),
-      };
+      const output = await formatHtml(input, settings);
+      reply = formatterOutputWithinLimit(output)
+        ? { id, ok: true, output }
+        : { id, ok: false, issue: { code: "Unknown" } };
     } catch (error) {
       const issue =
         error instanceof HtmlInputError

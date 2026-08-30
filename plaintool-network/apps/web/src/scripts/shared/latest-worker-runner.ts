@@ -17,6 +17,7 @@ type LatestWorkerRunnerOptions<P, R, C> = {
   replyId: (reply: R) => number;
   onReply: (reply: R, context: C) => void;
   onFailure: (context: C | undefined) => void;
+  timeoutMs?: number;
 };
 
 export type LatestWorkerRunner<C> = {
@@ -31,35 +32,49 @@ export function createLatestWorkerRunner<P, R, C>(
   let worker: WorkerLike;
   let generation = 0;
   let active: { id: number; context: C } | undefined;
+  let watchdog: ReturnType<typeof setTimeout> | undefined;
   let disposed = false;
 
-  const attachWorker = (): WorkerLike => {
+  const clearWatchdog = () => {
+    if (watchdog !== undefined) globalThis.clearTimeout(watchdog);
+    watchdog = undefined;
+  };
+
+  function failWorker(target: WorkerLike): void {
+    if (worker !== target || disposed) return;
+    const context = active?.context;
+    clearWatchdog();
+    generation += 1;
+    active = undefined;
+    target.terminate();
+    worker = attachWorker();
+    options.onFailure(context);
+  }
+
+  function attachWorker(): WorkerLike {
     const next = options.createWorker();
     next.addEventListener("message", ((event: MessageEvent<R>) => {
-      if (!active || options.replyId(event.data) !== active.id || disposed)
-        return;
-      const context = active.context;
-      active = undefined;
-      options.onReply(event.data, context);
+      try {
+        if (!active || options.replyId(event.data) !== active.id || disposed)
+          return;
+        const context = active.context;
+        active = undefined;
+        clearWatchdog();
+        options.onReply(event.data, context);
+      } catch {
+        failWorker(next);
+      }
     }) as EventListener);
-    const fail = () => {
-      if (worker !== next || disposed) return;
-      const context = active?.context;
-      generation += 1;
-      active = undefined;
-      next.terminate();
-      worker = attachWorker();
-      options.onFailure(context);
-    };
-    next.addEventListener("error", fail);
-    next.addEventListener("messageerror", fail);
+    next.addEventListener("error", () => failWorker(next));
+    next.addEventListener("messageerror", () => failWorker(next));
     return next;
-  };
+  }
 
   worker = attachWorker();
 
   const cancel = (): boolean => {
     const hadActiveWork = Boolean(active);
+    clearWatchdog();
     generation += 1;
     active = undefined;
     if (hadActiveWork) {
@@ -79,6 +94,11 @@ export function createLatestWorkerRunner<P, R, C>(
         .then(({ payload, transfer }) => {
           if (disposed || active?.id !== id) return;
           worker.postMessage(payload, transfer ?? []);
+          if (options.timeoutMs !== undefined) {
+            watchdog = globalThis.setTimeout(() => {
+              if (!disposed && active?.id === id) failWorker(worker);
+            }, options.timeoutMs);
+          }
         })
         .catch(() => {
           if (disposed || active?.id !== id) return;
@@ -92,6 +112,7 @@ export function createLatestWorkerRunner<P, R, C>(
     dispose() {
       if (disposed) return;
       disposed = true;
+      clearWatchdog();
       generation += 1;
       active = undefined;
       worker.terminate();

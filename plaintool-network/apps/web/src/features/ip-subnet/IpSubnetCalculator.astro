@@ -1,4 +1,5 @@
 ---
+import { IPV4_SUBNET_INPUT_MAX_LENGTH } from "@plaintool/ip-subnet-core";
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import type { IpSubnetComponentProps } from "./contract";
@@ -47,7 +48,7 @@ const binaryRows = [
         autocomplete="off"
         autocapitalize="off"
         spellcheck="false"
-        maxlength="64"
+        maxlength={IPV4_SUBNET_INPUT_MAX_LENGTH}
         placeholder={copy.inputPlaceholder}
         aria-describedby="ip-subnet-hint ip-subnet-status"
       />

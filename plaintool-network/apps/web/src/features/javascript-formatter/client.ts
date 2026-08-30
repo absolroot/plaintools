@@ -1,4 +1,5 @@
 import { fill } from "../../lib/template";
+import { FORMATTER_WORKER_TIMEOUT_MS } from "../../scripts/shared/formatter-resource-policy";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
 import {
   copyText,
@@ -182,6 +183,7 @@ function init(root: HTMLElement): void {
       renderAuthority();
       setStatus(copy.common.processingFailed, "error");
     },
+    timeoutMs: FORMATTER_WORKER_TIMEOUT_MS,
   });
 
   const invalidatePending = () => {

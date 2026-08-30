@@ -25,6 +25,7 @@
     "verify": "npm run test && npm run check && node scripts/build-site.mjs --target preview && npm run qa:network -- --target preview",
     "ui:check": "node scripts/check-ui-detail.mjs",
     "qa:test": "python -m unittest discover -s scripts -p \"test_*.py\"",
+    "qa:security": "python scripts/qa-security.py",
     "ui:qa": "python scripts/qa-redesign.py",
     "ui:qa:full": "python scripts/qa-redesign.py --full",
     "qa:network": "node scripts/qa-network.mjs",

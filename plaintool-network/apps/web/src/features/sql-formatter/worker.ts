@@ -4,12 +4,16 @@ import {
   type SqlIssueCode,
 } from "@plaintool/sql-formatter-core";
 import type { SqlWorkerReply, SqlWorkerRequest } from "./contract";
+import { formatterOutputWithinLimit } from "../../scripts/shared/formatter-resource-policy";
 
 self.addEventListener("message", (event: MessageEvent<SqlWorkerRequest>) => {
   const { id, input, settings } = event.data;
   let reply: SqlWorkerReply;
   try {
-    reply = { id, ok: true, output: formatSql(input, settings) };
+    const output = formatSql(input, settings);
+    reply = formatterOutputWithinLimit(output)
+      ? { id, ok: true, output }
+      : { id, ok: false, issue: { code: "Unknown" } };
   } catch (error) {
     const issue =
       error instanceof SqlFormatError

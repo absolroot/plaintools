@@ -20,11 +20,13 @@ export default defineConfig({
   trailingSlash: "always",
   build: {
     format: "directory",
+    inlineStylesheets: "never",
   },
   vite: {
     build: {
+      assetsInlineLimit: 0,
       cssCodeSplit: true,
-      sourcemap: true,
+      sourcemap: false,
     },
   },
 });

@@ -73,4 +73,61 @@ describe("createLatestWorkerRunner", () => {
     expect(workers).toHaveLength(2);
     expect(failures).toEqual(["active"]);
   });
+
+  it("fails closed and recreates the worker after a malformed reply", () => {
+    const workers: FakeWorker[] = [];
+    const failures: string[] = [];
+    const runner = createLatestWorkerRunner<
+      { id: number },
+      { id: number },
+      string
+    >({
+      createWorker: () => {
+        const worker = new FakeWorker();
+        workers.push(worker);
+        return worker as unknown as Worker;
+      },
+      prepare: (id) => ({ payload: { id } }),
+      replyId: (reply) => reply.id,
+      onReply: () => undefined,
+      onFailure: (context) => failures.push(context ?? "none"),
+    });
+    runner.submit("active");
+    workers[0]!.emit("message", undefined);
+    expect(workers[0]!.terminate).toHaveBeenCalledOnce();
+    expect(workers).toHaveLength(2);
+    expect(failures).toEqual(["active"]);
+  });
+
+  it("terminates timed-out work and reports the active context", async () => {
+    vi.useFakeTimers();
+    try {
+      const workers: FakeWorker[] = [];
+      const failures: string[] = [];
+      const runner = createLatestWorkerRunner<
+        { id: number },
+        { id: number },
+        string
+      >({
+        createWorker: () => {
+          const worker = new FakeWorker();
+          workers.push(worker);
+          return worker as unknown as Worker;
+        },
+        prepare: (id) => ({ payload: { id } }),
+        replyId: (reply) => reply.id,
+        onReply: () => undefined,
+        onFailure: (context) => failures.push(context ?? "none"),
+        timeoutMs: 50,
+      });
+      runner.submit("slow");
+      await Promise.resolve();
+      await vi.advanceTimersByTimeAsync(50);
+      expect(workers[0]!.terminate).toHaveBeenCalledOnce();
+      expect(workers).toHaveLength(2);
+      expect(failures).toEqual(["slow"]);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });

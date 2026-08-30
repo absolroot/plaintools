@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import {
   legalPages,
@@ -40,6 +40,30 @@ const publicTools = indexableTools.map((tool) => tool.slug);
 const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
 const robots = await readFile(join(dist, "robots.txt"), "utf8");
 const llms = await readFile(join(dist, "llms.txt"), "utf8");
+const headers = await readFile(join(dist, "_headers"), "utf8");
+const builtAssets = await readdir(join(dist, "_astro"));
+
+const requiredSecurityHeaders = [
+  "X-Content-Type-Options: nosniff",
+  "Referrer-Policy: strict-origin-when-cross-origin",
+  "Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  "Strict-Transport-Security: max-age=31536000",
+  "X-Frame-Options: DENY",
+  "Cross-Origin-Opener-Policy: same-origin",
+  "Cross-Origin-Resource-Policy: same-origin",
+  "Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'",
+];
+for (const header of requiredSecurityHeaders) {
+  if (!headers.includes(header)) {
+    throw new Error(`Static deployment is missing security header: ${header}`);
+  }
+}
+const sourceMaps = builtAssets.filter((asset) => asset.endsWith(".map"));
+if (sourceMaps.length) {
+  throw new Error(
+    `Static deployment exposes JavaScript source maps: ${sourceMaps.join(", ")}`,
+  );
+}
 
 function requireMatch(value, pattern, message) {
   const match = value.match(pattern);
@@ -96,6 +120,36 @@ function structuredDataNodes(documents) {
   );
 }
 
+function verifyStaticContentPolicy(html, route) {
+  const metaPolicy =
+    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
+  if (
+    !html.includes(
+      `<meta http-equiv="Content-Security-Policy" content="${metaPolicy}">`,
+    )
+  ) {
+    throw new Error(
+      `${route} is missing the host-independent CSP meta policy.`,
+    );
+  }
+
+  const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gu)];
+  for (const [, attributes, body] of scripts) {
+    if (/\bsrc=(?:"[^"]*"|'[^']*')/u.test(attributes)) continue;
+    const type = /\btype=(?:"([^"]*)"|'([^']*)')/u.exec(attributes);
+    const value = type?.[1] ?? type?.[2] ?? "";
+    if (value === "application/json" || value === "application/ld+json") {
+      continue;
+    }
+    if (body.trim()) {
+      throw new Error(`${route} contains executable inline JavaScript.`);
+    }
+  }
+  if (/<style\b/iu.test(html) || /\sstyle=(?:"[^"]*"|'[^']*')/iu.test(html)) {
+    throw new Error(`${route} contains inline CSS blocked by the static CSP.`);
+  }
+}
+
 function nodeTypes(node) {
   return Array.isArray(node["@type"]) ? node["@type"] : [node["@type"]];
 }
@@ -137,6 +191,7 @@ function verifyMetadata(
   requiredSchema,
   route,
 ) {
+  verifyStaticContentPolicy(html, route);
   const canonical = canonicalUrl(html);
   const expectedCanonical = expectedUrl(locale, page);
   if (canonical !== expectedCanonical)
@@ -303,6 +358,9 @@ for (const legalPage of legalPages) {
 }
 
 const notFound = await readFile(join(dist, "404.html"), "utf8");
+verifyStaticContentPolicy(notFound, "404");
+const rootIndex = await readFile(join(dist, "index.html"), "utf8");
+verifyStaticContentPolicy(rootIndex, "root index");
 if (
   metaContent(notFound, "name", "robots") !==
   (target === "production" ? "noindex,follow" : "noindex,nofollow")

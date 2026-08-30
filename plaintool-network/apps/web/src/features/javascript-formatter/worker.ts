@@ -7,6 +7,7 @@ import type {
   JavaScriptWorkerReply,
   JavaScriptWorkerRequest,
 } from "./contract";
+import { formatterOutputWithinLimit } from "../../scripts/shared/formatter-resource-policy";
 
 self.addEventListener(
   "message",
@@ -20,7 +21,9 @@ self.addEventListener(
           ? { mode, ...settings.format }
           : { mode, preserveComments: settings.preserveComments },
       );
-      reply = { id, ok: true, output };
+      reply = formatterOutputWithinLimit(output)
+        ? { id, ok: true, output }
+        : { id, ok: false, issue: { code: "Unknown" } };
     } catch (error) {
       const issue =
         error instanceof JavaScriptInputError

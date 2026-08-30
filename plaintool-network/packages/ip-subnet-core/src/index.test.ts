@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { IpSubnetError, calculateIpv4Subnet, classifyIpv4 } from "./index";
+import {
+  IPV4_SUBNET_INPUT_MAX_LENGTH,
+  IpSubnetError,
+  calculateIpv4Subnet,
+  classifyIpv4,
+} from "./index";
 
 describe("IPv4 subnet calculation", () => {
   it("calculates the complete /0 range without signed 32-bit overflow", () => {
@@ -113,6 +118,30 @@ describe("IPv4 input errors", () => {
 
   it("uses a typed domain error", () => {
     expect(() => calculateIpv4Subnet("1.2.3.4")).toThrowError(IpSubnetError);
+  });
+
+  it.each([
+    "0x7f.0.0.1/8",
+    "+127.0.0.1/8",
+    "127.0.0.1e0/8",
+    "１２７.０.０.１/８",
+    "127.0.0.1/8\u0000",
+    "127.0.0.1/8\u202e",
+    "127.0.0.1/8\n8.8.8.8/32",
+    "127.0.0.1\u00a0255.0.0.0",
+    "127.0.0.1\n255.0.0.0",
+  ])("rejects ambiguous or control-bearing input %j", (input) => {
+    expect(() => calculateIpv4Subnet(input)).toThrowError(IpSubnetError);
+  });
+
+  it("rejects oversized input before parsing it", () => {
+    const input = "1".repeat(IPV4_SUBNET_INPUT_MAX_LENGTH + 1);
+    expect(() => calculateIpv4Subnet(input)).toThrowError(
+      expect.objectContaining({ code: "invalid-format" }),
+    );
+    expect(() => classifyIpv4(input)).toThrowError(
+      expect.objectContaining({ code: "invalid-format" }),
+    );
   });
 });
 

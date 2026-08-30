@@ -4,6 +4,7 @@ import {
   type CssIssueCode,
 } from "@plaintool/css-formatter-core";
 import type { CssWorkerReply, CssWorkerRequest } from "./contract";
+import { formatterOutputWithinLimit } from "../../scripts/shared/formatter-resource-policy";
 
 self.addEventListener(
   "message",
@@ -12,7 +13,9 @@ self.addEventListener(
     let reply: CssWorkerReply;
     try {
       const output = await formatCss(input, settings);
-      reply = { id, ok: true, operation, output };
+      reply = formatterOutputWithinLimit(output)
+        ? { id, ok: true, operation, output }
+        : { id, ok: false, operation, issue: { code: "Unknown" } };
     } catch (error) {
       const issue =
         error instanceof CssInputError

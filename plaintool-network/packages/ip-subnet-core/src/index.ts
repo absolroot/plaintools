@@ -85,6 +85,14 @@ interface ClassificationRange {
 }
 
 const IPV4_MAX = 2 ** 32 - 1;
+export const IPV4_SUBNET_INPUT_MAX_LENGTH = 64;
+
+function trimBoundedInput(input: string): string {
+  if (input.length > IPV4_SUBNET_INPUT_MAX_LENGTH) {
+    throw new IpSubnetError("invalid-format");
+  }
+  return input.trim();
+}
 
 function parseAddress(input: string, mask = false): ParsedAddress {
   const parts = input.split(".");
@@ -145,7 +153,7 @@ function parseInput(input: string): {
   address: ParsedAddress;
   prefixLength: number;
 } {
-  const trimmed = input.trim();
+  const trimmed = trimBoundedInput(input);
   if (!trimmed) throw new IpSubnetError("empty-input");
 
   let addressPart: string;
@@ -156,7 +164,7 @@ function parseInput(input: string): {
     if (parts.length !== 2) throw new IpSubnetError("invalid-format");
     [addressPart, maskPart] = parts;
   } else {
-    const parts = trimmed.split(/\s+/u);
+    const parts = trimmed.split(/ +/u);
     if (parts.length === 1) throw new IpSubnetError("missing-prefix");
     if (parts.length !== 2) throw new IpSubnetError("invalid-format");
     [addressPart, maskPart] = parts;
@@ -209,7 +217,7 @@ function contains(value: number, network: number, prefix: number): boolean {
 }
 
 export function classifyIpv4(input: string): Ipv4Classification {
-  const address = parseAddress(input.trim());
+  const address = parseAddress(trimBoundedInput(input));
   const match = CLASSIFICATION_RANGES.find((candidate) =>
     contains(address.value, candidate.network, candidate.prefix),
   );

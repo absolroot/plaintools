@@ -1,4 +1,5 @@
 import { fill } from "../../lib/template";
+import { FORMATTER_WORKER_TIMEOUT_MS } from "../../scripts/shared/formatter-resource-policy";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
 import {
   copyText,
@@ -135,6 +136,7 @@ function init(root: HTMLElement): void {
       renderAuthority();
       setStatus(copy.common.processingFailed, "error");
     },
+    timeoutMs: FORMATTER_WORKER_TIMEOUT_MS,
   });
 
   const invalidatePending = () => {
@@ -264,9 +266,7 @@ function init(root: HTMLElement): void {
     }
   });
   [indentControl, printWidthControl].forEach((control) =>
-    control.addEventListener("change", () => {
-      if (input.value) run(selectedOperation);
-    }),
+    control.addEventListener("change", inputChanged),
   );
   copyButton.addEventListener("click", async () => {
     const snapshot = authority.snapshot;

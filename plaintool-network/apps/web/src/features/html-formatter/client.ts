@@ -1,4 +1,5 @@
 import { fill } from "../../lib/template";
+import { FORMATTER_WORKER_TIMEOUT_MS } from "../../scripts/shared/formatter-resource-policy";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
 import {
   copyText,
@@ -128,6 +129,7 @@ function init(root: HTMLElement): void {
       renderAuthority();
       setStatus(copy.common.processingFailed, "error");
     },
+    timeoutMs: FORMATTER_WORKER_TIMEOUT_MS,
   });
 
   const run = (focusError = false) => {
@@ -156,6 +158,7 @@ function init(root: HTMLElement): void {
   };
 
   const inputChanged = () => {
+    fileRevision += 1;
     invalidatePending();
     authority.changeInput(input.value);
     renderAuthority();
@@ -187,6 +190,7 @@ function init(root: HTMLElement): void {
     .querySelector<HTMLButtonElement>("[data-sample]")!
     .addEventListener("click", () => {
       if (!authority.loadSample(copy.feature.sampleInput)) return;
+      fileRevision += 1;
       input.value = authority.snapshot.input;
       renderAuthority();
       setStatus(copy.common.ready);
@@ -225,7 +229,18 @@ function init(root: HTMLElement): void {
       input.value = contents;
       authority.changeInput(contents);
       renderAuthority();
-      run();
+      const inputBytes = bytes();
+      if (inputBytes > MAX_BYTES) {
+        const latest = authority.beginRequest();
+        authority.fail(latest);
+        renderAuthority();
+        setStatus(copy.feature.tooLarge, "error");
+      } else if (inputBytes > AUTO_BYTES) {
+        setStatus(copy.feature.manualRequired);
+      } else {
+        setStatus(copy.common.ready);
+        timer = window.setTimeout(() => run(), 140);
+      }
     } catch {
       if (revision === fileRevision) {
         authority.fail(authorityRevision);
@@ -237,9 +252,7 @@ function init(root: HTMLElement): void {
     }
   });
   [indentControl, printWidthControl].forEach((control) =>
-    control.addEventListener("change", () => {
-      if (input.value) run();
-    }),
+    control.addEventListener("change", inputChanged),
   );
   copyButton.addEventListener("click", async () => {
     const snapshot = authority.snapshot;

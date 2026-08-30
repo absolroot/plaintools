@@ -75,7 +75,7 @@ logic, and registries own cross-route inventory. Do not move tool behavior back
 into generic `components/`, rebuild route lists in scripts, or add a universal
 controller merely to reduce line count.
 
-The build output is `apps/web/dist/` and can be deployed directly to Cloudflare Pages or GitHub Pages on a custom root domain.
+The build output is `apps/web/dist/`. Cloudflare Pages applies the committed `_headers` policy directly. Any other production host must be configured to send the same CSP, HSTS, frame, MIME, referrer, permissions, and cross-origin headers; GitHub Pages alone does not apply `_headers` and is not a complete production deployment target.
 
 ## Production gate
 
