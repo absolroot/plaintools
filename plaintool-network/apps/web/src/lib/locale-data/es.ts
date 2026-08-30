@@ -568,7 +568,7 @@ const bundle: LocaleBundle = {
     caseConverter: {
       title: "Conversor de mayúsculas y minúsculas",
       description:
-        "Convierte texto a mayúsculas, minúsculas, formato oración o iniciales de palabra sin subirlo a un servidor.",
+        "Convierte texto a mayúsculas, minúsculas, estilo oración o palabras con inicial mayúscula sin subirlo a un servidor.",
       inputLabel: "Texto",
       outputLabel: "Texto convertido",
       placeholder: "Escribe o pega el texto aquí…",
@@ -685,11 +685,11 @@ const bundle: LocaleBundle = {
     "case-converter": {
       name: "Conversor de mayúsculas y minúsculas",
       summary:
-        "Convierte texto a mayúsculas, minúsculas, formato oración o iniciales de palabra.",
+        "Convierte texto a mayúsculas, minúsculas, estilo oración o palabras con inicial mayúscula.",
       searchTerms: [
         "mayúsculas",
         "minúsculas",
-        "formato oración",
+        "mayúscula inicial de oración",
         "capitalizar",
         "texto",
       ],

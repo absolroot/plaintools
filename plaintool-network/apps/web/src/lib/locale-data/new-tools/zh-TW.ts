@@ -206,7 +206,7 @@ const seed = {
     "ai-watermark-remover": {
       title: "AI浮水印與隱藏字元移除工具",
       description:
-        "尋找並移除從GPT、Claude、PDF或網頁複製時可能夾帶的實際隱藏Unicode字元。此工具不會判斷內容是否由AI撰寫。",
+        "尋找並移除從 GPT、Claude、PDF 或網頁複製時可能夾帶的隱藏 Unicode 字元。此工具不會判斷內容是否由 AI 撰寫。",
       guide:
         "貼上文字後，先檢查清理結果，再查看移除的確切字元名稱、數量和U+碼位。可能影響文字塑形的高風險選項預設為關閉。",
       terms: [
@@ -219,8 +219,7 @@ const seed = {
     },
     "url-encode": {
       title: "URL編碼工具",
-      description:
-        "依正確的瀏覽器標準，對文字、查詢值或完整URI進行百分比編碼。",
+      description: "依 Web 標準的百分比編碼規則處理文字、查詢值或完整 URI。",
       guide:
         "單一查詢值請選URL元件；如要保留URL分隔符號，請選完整URI。只有表單格式資料才應啟用加號空格。",
       terms: ["URL編碼", "百分比編碼", "encodeURIComponent", "查詢字串"],
@@ -228,17 +227,18 @@ const seed = {
     "url-decode": {
       title: "URL解碼工具",
       description:
-        "解碼經百分比編碼的URL和查詢值，並可選擇限制次數的多層解碼。",
+        "解碼經百分比編碼的 URL 與查詢值；如有巢狀編碼，可限制重複解碼次數。",
       guide:
         "貼上已編碼的值並選擇範圍。只有確定來源含有巢狀編碼時，才使用重複解碼。",
       terms: ["URL解碼", "百分比解碼", "decodeURIComponent", "查詢字串"],
     },
     "hash-generator": {
       title: "雜湊產生器",
-      description: "在本機計算文字或檔案的SHA-256、SHA-512、SHA-1與MD5校驗值。",
+      description:
+        "在本機計算文字或檔案的 SHA-256、SHA-512、SHA-1 與 MD5 雜湊值。",
       guide:
         "輸入文字或選擇檔案後，精確比對所需演算法的結果。雜湊可用來確認資料是否相同，但本身不是加密，也無法安全儲存密碼。",
-      terms: ["SHA-256", "SHA-512", "MD5", "校驗值", "檔案雜湊"],
+      terms: ["SHA-256", "SHA-512", "MD5", "雜湊值", "檔案雜湊"],
     },
     "jwt-decoder": {
       title: "JWT解碼器",

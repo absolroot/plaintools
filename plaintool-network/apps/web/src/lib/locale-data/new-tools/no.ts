@@ -202,7 +202,7 @@ const seed = {
       "Fant ingen Markdown-tabell med en skilletegnrad.",
       "Markdown-tabellen er ugyldig.",
       "Inndataene er ikke gyldig JSON.",
-      "JSON må være en matrise med objekter.",
+      "JSON må være en liste med objekter.",
       "En CSV-overskrift er tom.",
       "CSV-overskrifter må være unike.",
     ],
@@ -225,7 +225,7 @@ const seed = {
     "url-encode": {
       title: "URL-koder",
       description:
-        "Prosentkod tekst, spørringsverdier eller fullstendige URI-er etter riktig nettleserstandard.",
+        "Prosentkoder tekst, spørringsverdier eller fullstendige URI-er etter standardreglene for nettet.",
       guide:
         "Velg URL-komponent for én enkelt spørringsverdi eller fullstendig URI for å bevare URL-skilletegn. Bruk plusstegn bare for skjemadata.",
       terms: [
@@ -310,24 +310,24 @@ const seed = {
     "json-to-csv": {
       title: "JSON til CSV-konverterer",
       description:
-        "Konverter en matrise med JSON-objekter til CSV med en stabil samling av objektnøkler.",
+        "Konverterer en liste med JSON-objekter til CSV og bruker alle objektnøkler som kolonner.",
       guide:
-        "Bruk en matrise med objekter på øverste nivå. Nøstede verdier bevares som kompakte JSON-strenger, så kontroller hvordan målregnearket håndterer dem.",
-      inputLabel: "JSON-matrise",
+        "Bruk en liste med objekter på øverste nivå. Nøstede verdier bevares som kompakte JSON-strenger, så kontroller hvordan målregnearket håndterer dem.",
+      inputLabel: "JSON-liste",
       outputLabel: "CSV-resultat",
       inputPlaceholder: '[{"navn":"Ari","poeng":92}]',
-      terms: ["JSON til CSV", "JSON-matrise til CSV", "datakonverterer"],
+      terms: ["JSON til CSV", "JSON-liste til CSV", "datakonverterer"],
     },
     "csv-to-json": {
       title: "CSV til JSON-konverterer",
       description:
-        "Konverter CSV til en matrise med JSON-objekter ved å bruke første rad som feltnavn.",
+        "Konverter CSV til en liste med JSON-objekter ved å bruke første rad som feltnavn.",
       guide:
         "Sørg for at hver overskrift er utfylt og unik. Kontroller skilletegngjenkjenningen før du konverterer data med komma, anførselstegn eller flerlinjede celler.",
       inputLabel: "CSV-inndata",
-      outputLabel: "JSON-matrise",
+      outputLabel: "JSON-liste",
       inputPlaceholder: "navn,poeng\nAri,92",
-      terms: ["CSV til JSON", "CSV-parser", "JSON-matrise"],
+      terms: ["CSV til JSON", "CSV-parser", "JSON-liste"],
     },
     "html-to-markdown": {
       title: "HTML til Markdown-konverterer",

@@ -19,7 +19,7 @@ const daBundle = {
       "Indsæt Base64-tekst eller åbn en fil. Standard Base64, Base64URL, manglende fyldning og Data URI-input håndteres lokalt.",
     encodeHeading: "Kod tekst eller filer som Base64 online.",
     encodeSubheading:
-      "Indtast tekst eller åbn en fil. Konverter UTF-8-tekst- og binærfiler til standard Base64 eller Base64URL uden at uploade dem.",
+      "Indtast tekst eller åbn en fil. Konverter UTF-8-tekst og binære filer til standard Base64 eller Base64URL uden at uploade dem.",
     decode: "Dekod",
     encode: "Kod",
     inputLabel: "Base64 input",

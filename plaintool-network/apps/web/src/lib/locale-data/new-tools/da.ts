@@ -226,7 +226,7 @@ const seed = {
     "url-encode": {
       title: "URL-koder",
       description:
-        "Procentkoder tekst, forespørgselsværdier eller komplette URI'er efter den korrekte browserstandard.",
+        "Procentkoder tekst, forespørgselsværdier eller komplette URI'er efter webstandardens regler.",
       guide:
         "Vælg URL-komponent til en enkelt forespørgselsværdi eller komplet URI for at bevare URL-separatorer. Aktivér kun plustegn til mellemrum i formulardata.",
       terms: [
@@ -268,7 +268,7 @@ const seed = {
     "qr-code-generator": {
       title: "QR-kodegenerator",
       description:
-        "Opretter en standardkompatibel statisk QR-kode til tekst eller en URL og downloader den som PNG eller SVG.",
+        "Opretter en standardkompatibel statisk QR-kode til tekst eller en URL, som kan downloades som PNG eller SVG.",
       guide:
         "Indtast det præcise indhold, bevar en frizone på fire moduler for pålidelig scanning, og øg fejlkorrektionen, hvis koden kan blive delvist dækket.",
       terms: ["QR-kodegenerator", "QR PNG", "QR SVG", "statisk QR"],

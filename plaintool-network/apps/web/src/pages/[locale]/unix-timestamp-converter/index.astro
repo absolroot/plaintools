@@ -12,7 +12,6 @@ interface Props {
 }
 const { locale } = Astro.props as Props;
 const t = timeCopy[locale];
-const category = "time" as const;
 ---
 
 <PreviewToolPage
@@ -20,7 +19,6 @@ const category = "time" as const;
   page="unix-timestamp-converter"
   title={t.title}
   description={t.description}
-  category={category}
   guideTitle={t.guideTitle}
   guideBody={t.guideBody}
   faqs={t.faqs}

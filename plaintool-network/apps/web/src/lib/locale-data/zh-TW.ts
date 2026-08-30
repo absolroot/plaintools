@@ -7,7 +7,7 @@ const bundle: LocaleBundle = {
     languageName: "繁體中文",
     metaTitle: "Base64 編碼與解碼 — 快速、隱私的線上工具",
     metaDescription:
-      "線上解碼 Base64 文字或檔案，也能將文字或檔案編碼為 Base64。支援 Base64URL、缺少填補字元、Data URI 與舊式字元編碼。",
+      "線上解碼 Base64 文字或檔案，也能將文字或檔案編碼為 Base64。支援 Base64URL、缺少的填充字元、Data URI 與舊式字元編碼。",
     decodeMetaTitle: "Base64 解碼器（文字與檔案）| AbsolTools",
     encodeMetaTitle: "Base64 編碼器（文字與檔案）| AbsolTools",
     skipToContent: "跳到主要內容",
@@ -16,7 +16,7 @@ const bundle: LocaleBundle = {
     modeLabel: "轉換模式",
     heading: "線上解碼 Base64",
     subheading:
-      "貼上 Base64 文字或開啟檔案。標準 Base64、Base64URL、缺少填補字元及 Data URI 都會在瀏覽器內處理。",
+      "貼上 Base64 文字或開啟檔案。標準 Base64、Base64URL、缺少的填充字元及 Data URI 都會在瀏覽器內處理。",
     encodeHeading: "線上將文字或檔案編碼為 Base64",
     encodeSubheading:
       "輸入文字或開啟檔案。不需上傳，即可將 UTF-8 文字與二進位檔案轉為標準 Base64 或 Base64URL。",

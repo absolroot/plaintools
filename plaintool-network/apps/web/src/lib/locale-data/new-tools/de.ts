@@ -217,9 +217,9 @@ const seed = {
   },
   pages: {
     "ai-watermark-remover": {
-      title: "KI-Wasserzeichen- und Zeichenentferner",
+      title: "Entferner für KI-Wasserzeichen und unsichtbare Zeichen",
       description:
-        "Findet und entfernt tatsächlich unsichtbare Unicode-Artefakte, die häufig aus GPT, Claude, PDF-Dateien oder Webseiten kopiert werden. Dieses Werkzeug erkennt nicht, ob ein Text von einer KI stammt.",
+        "Findet und entfernt unsichtbare Unicode-Zeichen, die beim Kopieren aus GPT, Claude, PDF-Dateien oder Webseiten übernommen werden können. Dieses Tool erkennt nicht, ob ein Text von einer KI stammt.",
       guide:
         "Fügen Sie den Text ein und prüfen Sie zuerst das bereinigte Ergebnis. Kontrollieren Sie danach die genauen Zeichennamen, Anzahlen und U+-Codepunkte. Optionen, die die Schriftdarstellung verändern können, sind standardmäßig deaktiviert.",
       terms: [
@@ -233,7 +233,7 @@ const seed = {
     "url-encode": {
       title: "URL-Encoder",
       description:
-        "Kodiert Text, Abfragewerte oder vollständige URIs nach dem korrekten Browserstandard mit Prozentzeichen.",
+        "Kodiert Text, Abfragewerte oder vollständige URIs nach den üblichen Webregeln prozentual.",
       guide:
         "Wählen Sie für einen einzelnen Abfragewert die URL-Komponente oder für den Erhalt der URL-Trennzeichen die vollständige URI. Verwenden Sie Pluszeichen für Leerzeichen nur bei Formulardaten.",
       terms: [
@@ -246,7 +246,7 @@ const seed = {
     "url-decode": {
       title: "URL-Decoder",
       description:
-        "Dekodiert prozentkodierte URLs und Abfragewerte, bei Bedarf in mehreren begrenzten Durchläufen.",
+        "Dekodiert prozentkodierte URLs und Abfragewerte; verschachtelte Kodierungen lassen sich mit begrenzter Durchlaufzahl verarbeiten.",
       guide:
         "Fügen Sie den kodierten Wert ein, wählen Sie seinen Umfang und verwenden Sie wiederholtes Dekodieren nur, wenn die Quelle bekanntermaßen verschachtelt kodiert ist.",
       terms: [
@@ -275,7 +275,7 @@ const seed = {
     "qr-code-generator": {
       title: "QR-Code-Generator",
       description:
-        "Erstellt einen standardkonformen statischen QR-Code für Text oder eine URL und lädt ihn als PNG oder SVG herunter.",
+        "Erstellt einen standardkonformen statischen QR-Code für Text oder eine URL, der als PNG oder SVG heruntergeladen werden kann.",
       guide:
         "Geben Sie den exakten Inhalt ein, behalten Sie für zuverlässiges Scannen eine Ruhezone von vier Modulen bei und erhöhen Sie die Fehlerkorrektur, wenn der Code teilweise verdeckt werden könnte.",
       terms: ["QR Code erstellen", "QR PNG", "QR SVG", "statischer QR Code"],

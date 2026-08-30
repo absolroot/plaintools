@@ -593,7 +593,7 @@ const bundle: LocaleBundle = {
         "نص",
         "ملف",
         "بيانات ثنائية",
-        "ليس فك تشفير",
+        "تحويل Base64",
       ],
     },
     "base64-encode": {
@@ -606,7 +606,7 @@ const bundle: LocaleBundle = {
         "نص",
         "ملف",
         "بيانات ثنائية",
-        "ليس تشفيرًا",
+        "التحويل إلى Base64",
       ],
     },
     "word-counter": {

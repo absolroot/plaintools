@@ -19,7 +19,7 @@ const noBundle = {
       "Lim inn Base64-tekst eller åpne en fil. Standard Base64, Base64URL, manglende utfylling og Data URI-inndata håndteres lokalt.",
     encodeHeading: "Krypter tekst eller filer som Base64 på nettet.",
     encodeSubheading:
-      "Skriv inn tekst eller åpne en fil. Konverter UTF-8-tekst- og binærfiler til standard Base64 eller Base64URL uten å laste dem opp.",
+      "Skriv inn tekst eller åpne en fil. Konverter UTF-8-tekst og binærfiler til standard Base64 eller Base64URL uten å laste dem opp.",
     decode: "Dekode",
     encode: "Koding",
     inputLabel: "Base64 input",

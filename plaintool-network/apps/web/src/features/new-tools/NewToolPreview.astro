@@ -22,7 +22,6 @@ import IpSubnetCalculator from "../ip-subnet/IpSubnetCalculator.astro";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
 import { localizedPath, type Locale } from "../../lib/site";
-import type { ToolCategory } from "../../lib/tool-catalog";
 
 interface Props {
   locale: Locale;
@@ -33,27 +32,6 @@ const { locale, page } = Astro.props;
 const bundle = localeBundles[locale];
 const content = bundle.tools[page];
 const technicalDirection = localeMetadata[locale].technicalDirection;
-
-const categories = {
-  "ai-watermark-remover": "text",
-  "url-encode": "encoding",
-  "url-decode": "encoding",
-  "hash-generator": "encoding",
-  "jwt-decoder": "encoding",
-  "qr-code-generator": "encoding",
-  "qr-code-scanner": "encoding",
-  "csv-to-markdown": "converter",
-  "markdown-to-csv": "converter",
-  "json-to-csv": "converter",
-  "csv-to-json": "converter",
-  "html-to-markdown": "converter",
-  "markdown-to-html": "converter",
-  "html-formatter": "data",
-  "css-formatter": "data",
-  "javascript-formatter": "data",
-  "sql-formatter": "data",
-  "ip-subnet-calculator": "data",
-} as const satisfies Record<NewToolId, ToolCategory>;
 
 const featureStylesheets = {
   "ai-watermark-remover": aiTextCleanerStylesheet,
@@ -104,7 +82,6 @@ const dataModeLabels = Object.fromEntries(
   page={page}
   title={content.title}
   description={content.description}
-  category={categories[page]}
   guideTitle={content.guideTitle}
   guideBody={content.guideBody}
   safetyTitle={content.safetyTitle}

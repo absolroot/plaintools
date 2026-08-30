@@ -15,7 +15,6 @@ interface Props {
 
 const { locale } = Astro.props as Props;
 const t = textCompareCopy[locale];
-const category = "text" as const;
 ---
 
 <PreviewToolPage
@@ -23,7 +22,6 @@ const category = "text" as const;
   page="text-compare"
   title={t.title}
   description={t.description}
-  category={category}
   guideTitle={t.guideTitle}
   guideBody={t.guideBody}
   faqs={t.faqs}

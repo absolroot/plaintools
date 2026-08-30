@@ -230,7 +230,7 @@ const seed = {
     "url-encode": {
       title: "Codificatore URL",
       description:
-        "Applica la codifica percentuale a testo, valori di query o URI completi secondo lo standard corretto del browser.",
+        "Applica la codifica percentuale standard del Web a testo, valori di query o URI completi.",
       guide:
         "Scegli componente URL per un singolo valore di query oppure URI completo per conservare i separatori dell’indirizzo. Usa il segno più per gli spazi solo nei dati dei moduli.",
       terms: [
@@ -277,7 +277,7 @@ const seed = {
     "qr-code-generator": {
       title: "Generatore di codici QR",
       description:
-        "Crea un codice QR statico conforme agli standard per un testo o un URL e lo scarica in formato PNG o SVG.",
+        "Crea un codice QR statico conforme agli standard per un testo o un URL, scaricabile in formato PNG o SVG.",
       guide:
         "Inserisci il contenuto esatto, mantieni una zona libera di quattro moduli per una lettura affidabile e aumenta la correzione degli errori se il codice potrebbe essere parzialmente coperto.",
       terms: ["generatore codice QR", "QR PNG", "QR SVG", "QR statico"],

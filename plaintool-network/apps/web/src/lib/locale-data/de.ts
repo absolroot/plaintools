@@ -551,7 +551,7 @@ export const deBundle: LocaleBundle = {
     caseConverter: {
       title: "Groß-/Kleinschreibung ändern",
       description:
-        "Text ohne Upload in Großbuchstaben, Kleinbuchstaben, Satzschreibweise oder Wörter mit Großbuchstaben umwandeln.",
+        "Text ohne Upload in Großbuchstaben, Kleinbuchstaben, Satzschreibweise oder Wörter mit großem Anfangsbuchstaben umwandeln.",
       inputLabel: "Text",
       outputLabel: "Umgewandelter Text",
       placeholder: "Text eingeben oder einfügen …",
@@ -597,7 +597,7 @@ export const deBundle: LocaleBundle = {
       summary: "Base64-Text oder -Dateien online decodieren.",
       searchTerms: [
         "decodieren",
-        "Base64 entschlüsseln",
+        "Base64 dekodieren",
         "Base64URL",
         "Data-URI",
         "Text",

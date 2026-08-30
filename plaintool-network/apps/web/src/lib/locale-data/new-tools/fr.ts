@@ -222,7 +222,7 @@ const seed = {
     "ai-watermark-remover": {
       title: "Suppresseur de filigranes IA et de caractères invisibles",
       description:
-        "Détecte et supprime les artefacts Unicode réellement invisibles souvent copiés depuis GPT, Claude, des PDF ou des pages web. Cet outil ne détermine pas si un texte a été écrit par une IA.",
+        "Détecte et supprime les caractères Unicode invisibles qui peuvent être ajoutés lors d’une copie depuis GPT, Claude, un PDF ou une page web. Cet outil ne détermine pas si un texte a été écrit par une IA.",
       guide:
         "Collez le texte et examinez d’abord le résultat nettoyé, puis vérifiez le nom exact, le nombre et le point de code U+ de chaque caractère retiré. Les options susceptibles de modifier l’écriture sont désactivées par défaut.",
       terms: [
@@ -236,7 +236,7 @@ const seed = {
     "url-encode": {
       title: "Encodeur d’URL",
       description:
-        "Applique l’encodage par pourcentage à du texte, des valeurs de requête ou des URI complètes selon la norme du navigateur.",
+        "Applique l’encodage en pourcentage standard à du texte, des valeurs de requête ou des URI complètes.",
       guide:
         "Choisissez composant d’URL pour une seule valeur de requête, ou URI complète pour conserver les séparateurs de l’adresse. N’utilisez le signe plus pour les espaces que dans les données de formulaire.",
       terms: [
@@ -249,7 +249,7 @@ const seed = {
     "url-decode": {
       title: "Décodeur d’URL",
       description:
-        "Décode les URL et valeurs de requête encodées par pourcentage, avec un mode multipasse limité facultatif.",
+        "Décode les URL et les valeurs de requête encodées en pourcentage, y compris les encodages imbriqués avec un nombre de passages limité.",
       guide:
         "Collez la valeur encodée, choisissez sa portée et n’utilisez le décodage répété que si vous savez que la source contient plusieurs niveaux d’encodage.",
       terms: [
@@ -260,9 +260,9 @@ const seed = {
       ],
     },
     "hash-generator": {
-      title: "Générateur de condensats",
+      title: "Générateur de hash",
       description:
-        "Calcule localement les sommes de contrôle SHA-256, SHA-512, SHA-1 et MD5 de textes ou de fichiers.",
+        "Calcule localement les empreintes SHA-256, SHA-512, SHA-1 et MD5 de textes ou de fichiers.",
       guide:
         "Saisissez du texte ou choisissez un fichier, puis comparez exactement l’algorithme requis. Les condensats servent à vérifier l’identité des données ; ils ne les chiffrent pas et ne sécurisent pas à eux seuls les mots de passe.",
       terms: [
@@ -374,7 +374,7 @@ const seed = {
     "markdown-to-html": {
       title: "Convertisseur Markdown vers HTML",
       description:
-        "Restitue le Markdown en HTML avec les tableaux GFM, listes, liens et blocs de code délimités courants.",
+        "Convertit du Markdown en HTML avec les tableaux GFM, les listes, les liens et les blocs de code.",
       guide:
         "Ne convertissez que le Markdown que vous comptez utiliser, puis assainissez de nouveau le HTML avant d’insérer une sortie non fiable dans une page web.",
       inputLabel: "Entrée Markdown",

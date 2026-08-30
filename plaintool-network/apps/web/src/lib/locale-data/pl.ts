@@ -9,7 +9,7 @@ const plBundle = {
     metaDescription:
       "Odkoduj Base64 na tekst lub pliki oraz koduj tekst lub pliki online. Obsługuje Base64URL, brakujące wypełnienie, Data URI oraz starsze kodowania znaków.",
     decodeMetaTitle: "Dekoder Base64 dla tekstu i plików | AbsolTools",
-    encodeMetaTitle: "Base64 Koder do Tekstu i Plików | AbsolTools",
+    encodeMetaTitle: "Koder Base64 dla tekstu i plików | AbsolTools",
     skipToContent: "Przejdź do treści",
     languageNavLabel: "Język",
     legalNavLabel: "Prawny i kontakt",
@@ -19,7 +19,7 @@ const plBundle = {
       "Wklej tekst Base64 lub otwórz plik. Standardowe wejścia Base64, Base64URL, brakujące dopełnienie i wejścia Data URI są obsługiwane lokalnie.",
     encodeHeading: "Koduj tekst lub pliki jako Base64 online.",
     encodeSubheading:
-      "Wprowadź tekst lub otwórz plik. Konwertuj pliki tekstowe i binarne UTF-8 na standardowe Base64 lub Base64URL bez ich przesyłania.",
+      "Wprowadź tekst lub otwórz plik. Konwertuj tekst UTF-8 i pliki binarne na standardowe Base64 lub Base64URL bez ich przesyłania.",
     decode: "Odszyfrować",
     encode: "Koduj",
     inputLabel: "Base64 wejście",
