@@ -150,7 +150,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "csv-to-markdown",
     featureId: "data-converter",
     slug: "csv-to-markdown",
-    category: "data",
+    category: "converter",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
@@ -160,7 +160,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "markdown-to-csv",
     featureId: "data-converter",
     slug: "markdown-to-csv",
-    category: "data",
+    category: "converter",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
@@ -170,7 +170,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "json-to-csv",
     featureId: "data-converter",
     slug: "json-to-csv",
-    category: "data",
+    category: "converter",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
@@ -180,7 +180,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "csv-to-json",
     featureId: "data-converter",
     slug: "csv-to-json",
-    category: "data",
+    category: "converter",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
@@ -190,7 +190,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "html-to-markdown",
     featureId: "data-converter",
     slug: "html-to-markdown",
-    category: "data",
+    category: "converter",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",
@@ -200,7 +200,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "markdown-to-html",
     featureId: "data-converter",
     slug: "markdown-to-html",
-    category: "data",
+    category: "converter",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/data-converter.json",

@@ -704,6 +704,7 @@ const svBundle = {
     categories: {
       encoding: "Kodning",
       text: "Text",
+      converter: "Konverterare",
       data: "Data",
       time: "Tid",
     },
@@ -711,6 +712,7 @@ const svBundle = {
     catalogAria: "Verktygskatalog",
     useLightTheme: "Använd ljust tema",
     useDarkTheme: "Använd mörkt tema",
+    relatedTools: "Relaterade verktyg",
   },
 } satisfies LocaleBundle;
 

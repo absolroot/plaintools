@@ -709,6 +709,7 @@ export const deBundle: LocaleBundle = {
     categories: {
       encoding: "Codieren und Decodieren",
       text: "Text",
+      converter: "Konverter",
       data: "Daten",
       time: "Zeit",
     },
@@ -716,6 +717,7 @@ export const deBundle: LocaleBundle = {
     catalogAria: "Werkzeugverzeichnis",
     useLightTheme: "Helles Design verwenden",
     useDarkTheme: "Dunkles Design verwenden",
+    relatedTools: "Ähnliche Tools",
   },
 };
 

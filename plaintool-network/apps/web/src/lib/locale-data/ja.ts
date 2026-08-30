@@ -679,6 +679,7 @@ const bundle: LocaleBundle = {
     categories: {
       encoding: "エンコード・デコード",
       text: "文字列",
+      converter: "変換",
       data: "データ",
       time: "日時",
     },
@@ -686,6 +687,7 @@ const bundle: LocaleBundle = {
     catalogAria: "ツール一覧",
     useLightTheme: "ライトテーマを使用",
     useDarkTheme: "ダークテーマを使用",
+    relatedTools: "関連ツール",
   },
 };
 

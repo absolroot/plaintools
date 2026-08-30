@@ -694,6 +694,7 @@ const bundle: LocaleBundle = {
     categories: {
       encoding: "الترميز وفك الترميز",
       text: "النصوص",
+      converter: "المحوّلات",
       data: "البيانات",
       time: "الوقت",
     },
@@ -701,6 +702,7 @@ const bundle: LocaleBundle = {
     catalogAria: "دليل الأدوات",
     useLightTheme: "استخدام السمة الفاتحة",
     useDarkTheme: "استخدام السمة الداكنة",
+    relatedTools: "أدوات ذات صلة",
   },
 };
 

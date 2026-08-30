@@ -12,10 +12,12 @@ import {
   siteConfig,
   type ContentPage,
   type Locale,
+  type ToolPage,
 } from "../lib/site";
 import type { StructuredData } from "../lib/seo";
 import UiIcon from "../components/UiIcon.astro";
 import LanguageFlag from "../components/LanguageFlag.astro";
+import RelatedTools from "../components/RelatedTools.astro";
 
 interface Props {
   locale: Locale;
@@ -252,6 +254,11 @@ const integrationActive = Boolean(
 
     <main id="main">
       <slot />
+      {
+        currentTool && page && (
+          <RelatedTools locale={locale} currentPage={page as ToolPage} />
+        )
+      }
     </main>
 
     <footer class="site-footer">

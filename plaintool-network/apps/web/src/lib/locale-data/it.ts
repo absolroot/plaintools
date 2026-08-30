@@ -700,6 +700,7 @@ export const itBundle: LocaleBundle = {
     categories: {
       encoding: "Codifica e decodifica",
       text: "Testo",
+      converter: "Convertitori",
       data: "Dati",
       time: "Tempo",
     },
@@ -707,6 +708,7 @@ export const itBundle: LocaleBundle = {
     catalogAria: "Elenco degli strumenti",
     useLightTheme: "Usa il tema chiaro",
     useDarkTheme: "Usa il tema scuro",
+    relatedTools: "Strumenti correlati",
   },
 };
 

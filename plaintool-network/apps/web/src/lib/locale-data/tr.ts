@@ -702,6 +702,7 @@ const bundle: LocaleBundle = {
     categories: {
       encoding: "Kodlama ve kod çözme",
       text: "Metin",
+      converter: "Dönüştürücüler",
       data: "Veri",
       time: "Zaman",
     },
@@ -709,6 +710,7 @@ const bundle: LocaleBundle = {
     catalogAria: "Araç dizini",
     useLightTheme: "Açık temayı kullan",
     useDarkTheme: "Koyu temayı kullan",
+    relatedTools: "İlgili araçlar",
   },
 };
 

@@ -5,6 +5,7 @@ import ToolMark from "../../components/ToolMark.astro";
 import {
   networkCopy,
   toolCatalog,
+  toolCardName,
   toolPath,
   type ToolCategory,
 } from "../../lib/tool-catalog";
@@ -23,7 +24,13 @@ export function getStaticPaths() {
 const { locale } = Astro.props;
 const n = networkCopy[locale];
 const statusLabels = { preview: n.research, reserve: n.reserve } as const;
-const categories: ToolCategory[] = ["encoding", "text", "data", "time"];
+const categories: ToolCategory[] = [
+  "encoding",
+  "text",
+  "converter",
+  "data",
+  "time",
+];
 const directoryCategoriesId = "tool-directory-categories";
 const toolsForCategory = (category: ToolCategory) => {
   const tools = toolCatalog.filter((tool) => tool.category === category);
@@ -78,7 +85,7 @@ const publicItems = toolCatalog
               <div class="tool-directory-grid">
                 {tools.map((tool) => {
                   const href = toolPath(locale, tool);
-                  const nameLines = tool.name[locale].split(" - ");
+                  const nameLines = toolCardName(tool, locale).split(" - ");
                   return href ? (
                     <a
                       class:list={["tool-directory-card", `is-${tool.status}`]}

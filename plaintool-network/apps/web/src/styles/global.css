@@ -414,7 +414,6 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   place-items: center;
   transition:
     color 120ms ease,
-    background-color 120ms ease,
     transform 80ms ease;
 }
 .theme-toggle[data-current-theme="light"] [data-theme-icon="dark"],
@@ -423,7 +422,8 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
 }
 .theme-toggle:hover [data-theme-icon],
 .theme-toggle:focus-visible [data-theme-icon] {
-  background: var(--tint);
+  color: var(--ink-strong);
+  background: transparent;
 }
 .theme-toggle:active [data-theme-icon] {
   transform: scale(0.88);
@@ -1158,6 +1158,87 @@ a.tool-directory-card:focus-visible {
   font-size: 10px;
   font-weight: 500;
 }
+.related-tools {
+  width: var(--page);
+  margin: 0 auto;
+  padding: 0 0 var(--space-16);
+}
+.related-tools-header {
+  min-height: 64px;
+  padding: var(--space-4) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+.related-tools-header h2 {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+.related-tools-header a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.related-tools-header a:hover {
+  color: var(--ink);
+}
+.related-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+}
+.related-tool-link {
+  min-width: 0;
+  min-height: 72px;
+  padding: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--ink);
+  background: var(--base);
+  box-shadow: 0 0 0 1px var(--hairline);
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+.related-tool-link > span:not(.tool-mark) {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+}
+.related-tool-link > .ui-icon {
+  flex: 0 0 auto;
+  color: var(--muted);
+  transition:
+    color 120ms ease,
+    transform 120ms ease;
+}
+.related-tool-link:hover {
+  background: var(--tint);
+}
+.related-tool-link:hover > .ui-icon {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+[dir="rtl"] .related-tool-link > .ui-icon,
+[dir="rtl"] .related-tools-header .ui-icon {
+  transform: rotate(180deg);
+}
+[dir="rtl"] .related-tool-link:hover > .ui-icon {
+  transform: rotate(180deg) translateX(2px);
+}
 .legal-page {
   width: min(840px, calc(100% - 48px));
   margin: 0 auto;
@@ -1279,7 +1360,8 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 1000px) {
-  .tool-directory-grid {
+  .tool-directory-grid,
+  .related-tools-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1483,7 +1565,8 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 560px) {
-  .tool-directory-grid {
+  .tool-directory-grid,
+  .related-tools-grid {
     grid-template-columns: 1fr;
   }
   .tool-directory-card {

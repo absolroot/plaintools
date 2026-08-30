@@ -713,6 +713,7 @@ export const frBundle: LocaleBundle = {
     categories: {
       encoding: "Encodage et décodage",
       text: "Texte",
+      converter: "Convertisseurs",
       data: "Données",
       time: "Temps",
     },
@@ -720,6 +721,7 @@ export const frBundle: LocaleBundle = {
     catalogAria: "Répertoire des outils",
     useLightTheme: "Utiliser le thème clair",
     useDarkTheme: "Utiliser le thème sombre",
+    relatedTools: "Outils associés",
   },
 };
 

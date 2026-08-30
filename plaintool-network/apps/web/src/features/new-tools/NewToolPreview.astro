@@ -43,12 +43,12 @@ const categories = {
   "jwt-decoder": "encoding",
   "qr-code-generator": "encoding",
   "qr-code-scanner": "encoding",
-  "csv-to-markdown": "data",
-  "markdown-to-csv": "data",
-  "json-to-csv": "data",
-  "csv-to-json": "data",
-  "html-to-markdown": "data",
-  "markdown-to-html": "data",
+  "csv-to-markdown": "converter",
+  "markdown-to-csv": "converter",
+  "json-to-csv": "converter",
+  "csv-to-json": "converter",
+  "html-to-markdown": "converter",
+  "markdown-to-html": "converter",
   "html-formatter": "data",
   "css-formatter": "data",
   "javascript-formatter": "data",
@@ -164,17 +164,30 @@ const dataFeature = dataMode ? bundle.tools[dataMode].feature : undefined;
   }
   {
     page === "qr-code-generator" && (
-      <QrGenerator copy={bundle.tools[page].feature} textDirection="auto" />
+      <QrGenerator
+        locale={locale}
+        copy={bundle.tools[page].feature}
+        generatorLabel={bundle.catalog["qr-code-generator"].name}
+        scannerLabel={bundle.catalog["qr-code-scanner"].name}
+        textDirection="auto"
+      />
     )
   }
   {
     page === "qr-code-scanner" && (
-      <QrScanner copy={bundle.tools[page].feature} resultDirection="auto" />
+      <QrScanner
+        locale={locale}
+        copy={bundle.tools[page].feature}
+        generatorLabel={bundle.catalog["qr-code-generator"].name}
+        scannerLabel={bundle.catalog["qr-code-scanner"].name}
+        resultDirection="auto"
+      />
     )
   }
   {
     dataMode && dataFeature && (
       <DataConverter
+        locale={locale}
         mode={dataMode}
         copy={dataFeature}
         textDirection={technicalDirection}

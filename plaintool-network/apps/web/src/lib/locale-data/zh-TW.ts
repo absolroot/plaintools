@@ -647,6 +647,7 @@ const bundle: LocaleBundle = {
     categories: {
       encoding: "編碼與解碼",
       text: "文字",
+      converter: "轉換工具",
       data: "資料",
       time: "時間",
     },
@@ -654,6 +655,7 @@ const bundle: LocaleBundle = {
     catalogAria: "工具目錄",
     useLightTheme: "使用淺色主題",
     useDarkTheme: "使用深色主題",
+    relatedTools: "相關工具",
   },
 };
 

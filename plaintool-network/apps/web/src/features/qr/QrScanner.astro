@@ -1,14 +1,25 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
+import { localizedPath, type Locale } from "../../lib/site";
 import type { QrScannerCopy } from "./contract";
 
 interface Props {
+  locale: Locale;
   copy: QrScannerCopy;
+  generatorLabel: string;
+  scannerLabel: string;
   resultDirection?: "auto" | "ltr" | "rtl";
 }
 
-const { copy, resultDirection = "ltr" } = Astro.props;
+const {
+  locale,
+  copy,
+  generatorLabel,
+  scannerLabel,
+  resultDirection = "ltr",
+} = Astro.props;
 ---
 
 <section
@@ -16,6 +27,25 @@ const { copy, resultDirection = "ltr" } = Astro.props;
   data-qr-scanner
   aria-label={copy.accessibleLabel}
 >
+  <div class="converter-topbar">
+    <ToolModeSwitch
+      label={`${generatorLabel} / ${scannerLabel}`}
+      items={[
+        {
+          mode: "generator",
+          label: generatorLabel,
+          active: false,
+          href: localizedPath(locale, "qr-code-generator"),
+        },
+        {
+          mode: "scanner",
+          label: scannerLabel,
+          active: true,
+          href: localizedPath(locale, "qr-code-scanner"),
+        },
+      ]}
+    />
+  </div>
   <div class="qr-scanner-workspace">
     <section class="qr-upload-pane" data-drop-zone>
       <div class="pane-heading">

@@ -1,0 +1,41 @@
+---
+interface ModeItem {
+  mode: string;
+  label: string;
+  active: boolean;
+  href?: string;
+}
+
+interface Props {
+  label: string;
+  items: ModeItem[];
+}
+
+const { label, items } = Astro.props;
+---
+
+<div class="mode-switch" role="group" aria-label={label}>
+  {
+    items.map((item) =>
+      item.href ? (
+        <a
+          class:list={["mode-button", { "is-active": item.active }]}
+          href={item.href}
+          data-mode={item.mode}
+          aria-current={item.active ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ) : (
+        <button
+          class:list={["mode-button", { "is-active": item.active }]}
+          type="button"
+          data-mode={item.mode}
+          aria-pressed={item.active}
+        >
+          {item.label}
+        </button>
+      ),
+    )
+  }
+</div>

@@ -1,16 +1,38 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import UiIcon from "../../components/UiIcon.astro";
 import type { DataConversionMode } from "@plaintool/data-conversion-core";
+import { localizedPath, type Locale } from "../../lib/site";
 import type { DataConverterCopy } from "./contract";
 
 interface Props {
+  locale: Locale;
   mode: DataConversionMode;
   copy: DataConverterCopy;
   textDirection?: "ltr";
 }
 
-const { mode, copy, textDirection = "ltr" } = Astro.props;
+const { locale, mode, copy, textDirection = "ltr" } = Astro.props;
+const modePairs: Record<
+  DataConversionMode,
+  readonly [DataConversionMode, DataConversionMode]
+> = {
+  "csv-to-markdown": ["csv-to-markdown", "markdown-to-csv"],
+  "markdown-to-csv": ["csv-to-markdown", "markdown-to-csv"],
+  "json-to-csv": ["json-to-csv", "csv-to-json"],
+  "csv-to-json": ["json-to-csv", "csv-to-json"],
+  "html-to-markdown": ["html-to-markdown", "markdown-to-html"],
+  "markdown-to-html": ["html-to-markdown", "markdown-to-html"],
+};
+const modeLabels: Record<DataConversionMode, string> = {
+  "csv-to-markdown": "CSV → Markdown",
+  "markdown-to-csv": "Markdown → CSV",
+  "json-to-csv": "JSON → CSV",
+  "csv-to-json": "CSV → JSON",
+  "html-to-markdown": "HTML → Markdown",
+  "markdown-to-html": "Markdown → HTML",
+};
 const csvInput = mode === "csv-to-markdown" || mode === "csv-to-json";
 const csvOutput = mode === "markdown-to-csv" || mode === "json-to-csv";
 const accepts = csvInput
@@ -28,6 +50,17 @@ const accepts = csvInput
   data-mode={mode}
   aria-label={copy.ariaLabel}
 >
+  <div class="converter-topbar">
+    <ToolModeSwitch
+      label={copy.ariaLabel}
+      items={modePairs[mode].map((targetMode) => ({
+        mode: targetMode,
+        label: modeLabels[targetMode],
+        active: targetMode === mode,
+        href: localizedPath(locale, targetMode),
+      }))}
+    />
+  </div>
   {
     (csvInput || csvOutput) && (
       <div class="converter-topbar data-options">

@@ -704,6 +704,7 @@ const daBundle = {
     categories: {
       encoding: "Kodning",
       text: "Tekst",
+      converter: "Konvertering",
       data: "Data",
       time: "Tid",
     },
@@ -711,6 +712,7 @@ const daBundle = {
     catalogAria: "Værktøjsmappe",
     useLightTheme: "Brug lyst tema",
     useDarkTheme: "Brug mørkt tema",
+    relatedTools: "Relaterede værktøjer",
   },
 } satisfies LocaleBundle;
 

@@ -700,6 +700,7 @@ export const ptBRBundle: LocaleBundle = {
     categories: {
       encoding: "Codificação e decodificação",
       text: "Texto",
+      converter: "Conversores",
       data: "Dados",
       time: "Tempo",
     },
@@ -707,6 +708,7 @@ export const ptBRBundle: LocaleBundle = {
     catalogAria: "Diretório de ferramentas",
     useLightTheme: "Usar tema claro",
     useDarkTheme: "Usar tema escuro",
+    relatedTools: "Ferramentas relacionadas",
   },
 };
 

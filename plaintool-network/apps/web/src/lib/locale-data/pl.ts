@@ -707,6 +707,7 @@ const plBundle = {
     categories: {
       encoding: "Kodowanie",
       text: "Tekst",
+      converter: "Konwertery",
       data: "Dane",
       time: "Czas",
     },
@@ -714,6 +715,7 @@ const plBundle = {
     catalogAria: "Katalog narzędzi",
     useLightTheme: "Użyj jasnego motywu",
     useDarkTheme: "Użyj ciemnego motywu",
+    relatedTools: "Powiązane narzędzia",
   },
 } satisfies LocaleBundle;
 

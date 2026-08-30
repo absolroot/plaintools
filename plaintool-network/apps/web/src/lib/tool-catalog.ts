@@ -3,7 +3,7 @@ import { locales, type Locale } from "./site";
 import { toolRegistry } from "./tool-registry.js";
 
 export type ToolStatus = "available" | "preview" | "reserve";
-export type ToolCategory = "encoding" | "text" | "data" | "time";
+export type ToolCategory = "encoding" | "text" | "converter" | "data" | "time";
 
 type LocalizedText = Record<Locale, string>;
 type LocalizedSearchTerms = Record<Locale, readonly string[]>;
@@ -49,7 +49,17 @@ export type NetworkCopy = {
   catalogAria: string;
   useLightTheme: string;
   useDarkTheme: string;
+  relatedTools: string;
 };
+
+const converterCardNames = {
+  "csv-to-markdown": "CSV → Markdown",
+  "markdown-to-csv": "Markdown → CSV",
+  "json-to-csv": "JSON → CSV",
+  "csv-to-json": "CSV → JSON",
+  "html-to-markdown": "HTML → Markdown",
+  "markdown-to-html": "Markdown → HTML",
+} as const satisfies Partial<Record<RegisteredToolId, string>>;
 
 const toolMarks: Record<RegisteredToolId, string> = {
   "base64-decode": "B64",
@@ -107,4 +117,11 @@ export function toolPath(
   tool: ToolCatalogItem,
 ): string | undefined {
   return tool.slug ? `/${locale}/${tool.slug}/` : undefined;
+}
+
+export function toolCardName(tool: ToolCatalogItem, locale: Locale): string {
+  return (
+    converterCardNames[tool.id as keyof typeof converterCardNames] ??
+    tool.name[locale]
+  );
 }

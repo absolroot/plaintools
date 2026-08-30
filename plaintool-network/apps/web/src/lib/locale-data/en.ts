@@ -717,6 +717,7 @@ const bundle: LocaleBundle = {
     categories: {
       encoding: "Encoding & decoding",
       text: "Text",
+      converter: "Converters",
       data: "Data",
       time: "Time",
     },
@@ -724,6 +725,7 @@ const bundle: LocaleBundle = {
     catalogAria: "Tool directory",
     useLightTheme: "Use light theme",
     useDarkTheme: "Use dark theme",
+    relatedTools: "Related tools",
   },
 };
 

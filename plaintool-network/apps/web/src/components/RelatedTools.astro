@@ -1,0 +1,37 @@
+---
+import { getRelatedTools } from "../lib/related-tools";
+import { localizedPath, type Locale, type ToolPage } from "../lib/site";
+import { networkCopy, toolCardName, toolPath } from "../lib/tool-catalog";
+import ToolMark from "./ToolMark.astro";
+import UiIcon from "./UiIcon.astro";
+
+interface Props {
+  locale: Locale;
+  currentPage: ToolPage;
+}
+
+const { locale, currentPage } = Astro.props;
+const copy = networkCopy[locale];
+const tools = getRelatedTools(currentPage);
+---
+
+<section class="related-tools" aria-labelledby="related-tools-heading">
+  <header class="related-tools-header">
+    <h2 id="related-tools-heading">{copy.relatedTools}</h2>
+    <a href={localizedPath(locale)}>
+      <span>{copy.allTools}</span>
+      <UiIcon name="arrow-right" size={14} />
+    </a>
+  </header>
+  <nav class="related-tools-grid" aria-label={copy.relatedTools}>
+    {
+      tools.map((tool) => (
+        <a class="related-tool-link" href={toolPath(locale, tool)}>
+          <ToolMark toolId={tool.id} mark={tool.mark} />
+          <span>{toolCardName(tool, locale)}</span>
+          <UiIcon name="chevron-right" size={14} />
+        </a>
+      ))
+    }
+  </nav>
+</section>

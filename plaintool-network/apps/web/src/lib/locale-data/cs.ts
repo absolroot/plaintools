@@ -703,6 +703,7 @@ const csBundle = {
     categories: {
       encoding: "Kódování",
       text: "Text",
+      converter: "Převodníky",
       data: "Data",
       time: "Čas",
     },
@@ -710,6 +711,7 @@ const csBundle = {
     catalogAria: "Adresář nástrojů",
     useLightTheme: "Použít světlé téma",
     useDarkTheme: "Použít tmavé téma",
+    relatedTools: "Související nástroje",
   },
 } satisfies LocaleBundle;
 

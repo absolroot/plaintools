@@ -43,7 +43,11 @@ for (const tool of registeredTools) {
     errors.push(
       `${tool.slug} cannot enter a production build while its publication state is ${tool.publication}.`,
     );
-  if (!new Set(["encoding", "text", "data", "time"]).has(tool.category))
+  if (
+    !new Set(["encoding", "text", "converter", "data", "time"]).has(
+      tool.category,
+    )
+  )
     errors.push(`Invalid category for ${tool.slug}: ${tool.category}`);
   if (
     !Array.isArray(tool.structuredData) ||

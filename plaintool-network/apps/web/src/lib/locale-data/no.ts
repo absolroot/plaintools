@@ -705,6 +705,7 @@ const noBundle = {
     categories: {
       encoding: "Koding",
       text: "Tekst",
+      converter: "Konvertering",
       data: "Data",
       time: "Tid",
     },
@@ -712,6 +713,7 @@ const noBundle = {
     catalogAria: "Verktøykatalog",
     useLightTheme: "Bruk lyst tema",
     useDarkTheme: "Bruk mørkt tema",
+    relatedTools: "Relaterte verktøy",
   },
 } satisfies LocaleBundle;
 

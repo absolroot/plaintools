@@ -707,6 +707,7 @@ export const nlBundle: LocaleBundle = {
     categories: {
       encoding: "Encoderen en decoderen",
       text: "Tekst",
+      converter: "Converters",
       data: "Gegevens",
       time: "Tijd",
     },
@@ -714,6 +715,7 @@ export const nlBundle: LocaleBundle = {
     catalogAria: "Tooloverzicht",
     useLightTheme: "Licht thema gebruiken",
     useDarkTheme: "Donker thema gebruiken",
+    relatedTools: "Gerelateerde tools",
   },
 };
 

@@ -700,6 +700,7 @@ const bundle: LocaleBundle = {
     categories: {
       encoding: "인코딩/디코딩",
       text: "텍스트",
+      converter: "변환기",
       data: "데이터",
       time: "시간",
     },
@@ -707,6 +708,7 @@ const bundle: LocaleBundle = {
     catalogAria: "도구 디렉터리",
     useLightTheme: "라이트 테마 사용",
     useDarkTheme: "다크 테마 사용",
+    relatedTools: "다른 도구 바로가기",
   },
 };
 
