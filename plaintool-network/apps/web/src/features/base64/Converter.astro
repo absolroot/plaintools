@@ -17,6 +17,8 @@ const c = commonToolCopy[locale];
 const clientCopy = {
   decodeMetaTitle: t.decodeMetaTitle,
   encodeMetaTitle: t.encodeMetaTitle,
+  decodeHeaderLabel: t.decodeHeaderLabel,
+  encodeHeaderLabel: t.encodeHeaderLabel,
   heading: t.heading,
   subheading: t.subheading,
   encodeHeading: t.encodeHeading,
@@ -47,6 +49,8 @@ const clientCopy = {
   detected: t.detected,
   binaryOutput: t.binaryOutput,
   executableWarning: t.executableWarning,
+  recursive: t.recursive,
+  recursiveApplied: t.recursiveApplied,
   errors: t.errors,
   repairs: t.repairs,
 } satisfies Base64ClientCopy;
@@ -184,6 +188,15 @@ const clientCopy = {
           checked
         />
         <span>{t.autoRepair}</span></label
+      >
+      <label class="check-row decode-only"
+        ><input
+          name="recursive"
+          type="checkbox"
+          data-option="recursive"
+          checked
+        />
+        <span>{t.recursive}</span></label
       >
       <label class="check-row decode-only"
         ><input
