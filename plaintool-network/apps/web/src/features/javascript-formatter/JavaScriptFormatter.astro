@@ -1,0 +1,186 @@
+---
+import UiIcon from "../../components/UiIcon.astro";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import type { JavaScriptFormatterComponentProps } from "./contract";
+import { createJavaScriptFormatterClientCopy } from "./copy";
+import "./styles.css";
+
+type Props = JavaScriptFormatterComponentProps;
+
+const { copy, commonCopy, initialMode = "format" } = Astro.props;
+const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
+---
+
+<section
+  class="converter javascript-formatter"
+  data-javascript-formatter
+  data-mode={initialMode}
+  aria-label={copy.ariaLabel}
+>
+  <div class="converter-topbar javascript-formatter-topbar">
+    <div class="javascript-primary-controls">
+      <div class="mode-switch" role="group" aria-label={copy.modeLabel}>
+        <button
+          class:list={[
+            "mode-button",
+            { "is-active": initialMode === "format" },
+          ]}
+          type="button"
+          data-mode-button="format"
+          aria-pressed={initialMode === "format"}>{copy.formatMode}</button
+        >
+        <button
+          class:list={[
+            "mode-button",
+            { "is-active": initialMode === "minify" },
+          ]}
+          type="button"
+          data-mode-button="minify"
+          aria-pressed={initialMode === "minify"}>{copy.minifyMode}</button
+        >
+      </div>
+      <button
+        class="primary-button"
+        type="button"
+        data-run
+        aria-keyshortcuts="Control+Enter Meta+Enter"
+        >{initialMode === "format" ? copy.runFormat : copy.runMinify}</button
+      >
+    </div>
+    <details class="javascript-options">
+      <summary>{copy.optionsLabel}</summary>
+      <div class="javascript-option-panel">
+        <div
+          class="javascript-option-fields"
+          data-format-options
+          hidden={initialMode !== "format"}
+        >
+          <label>
+            <span>{copy.indentationLabel}</span>
+            <select data-indent disabled={initialMode !== "format"}>
+              <option value="2">{copy.twoSpaces}</option>
+              <option value="4">{copy.fourSpaces}</option>
+              <option value="tab">{copy.tabs}</option>
+            </select>
+          </label>
+          <label>
+            <span>{copy.printWidthLabel}</span>
+            <input
+              data-print-width
+              type="number"
+              min="40"
+              max="240"
+              value="80"
+              disabled={initialMode !== "format"}
+            />
+          </label>
+          <label class="javascript-check-row">
+            <input
+              data-semi
+              type="checkbox"
+              checked
+              disabled={initialMode !== "format"}
+            />
+            <span>{copy.semicolonsLabel}</span>
+          </label>
+          <label class="javascript-check-row">
+            <input
+              data-single-quote
+              type="checkbox"
+              disabled={initialMode !== "format"}
+            />
+            <span>{copy.singleQuoteLabel}</span>
+          </label>
+        </div>
+        <div
+          class="javascript-option-fields"
+          data-minify-options
+          hidden={initialMode !== "minify"}
+        >
+          <label class="javascript-check-row">
+            <input
+              data-preserve-comments
+              type="checkbox"
+              disabled={initialMode !== "minify"}
+            />
+            <span>{copy.preserveCommentsLabel}</span>
+          </label>
+        </div>
+      </div>
+    </details>
+  </div>
+  <div class="converter-grid">
+    <section class="editor-pane">
+      <div class="pane-heading">
+        <label for="javascript-formatter-input">{copy.inputLabel}</label>
+        <div class="pane-actions">
+          <button class="text-button" type="button" data-sample>
+            {copy.loadSample}
+          </button>
+          <button class="text-button" type="button" data-open-file>
+            <UiIcon name="folder-open" size={14} />{copy.openFile}
+          </button>
+          <input
+            data-file
+            type="file"
+            accept="text/javascript,application/javascript,.js,.mjs,.cjs"
+            hidden
+          />
+          <button class="text-button" type="button" data-clear>
+            <UiIcon name="x" size={14} />{commonCopy.clear}
+          </button>
+        </div>
+      </div>
+      <textarea
+        id="javascript-formatter-input"
+        data-input
+        dir="ltr"
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="off"
+        placeholder={copy.inputPlaceholder}></textarea>
+    </section>
+    <section class="editor-pane output-pane">
+      <div class="pane-heading">
+        <label for="javascript-formatter-output">{copy.outputLabel}</label>
+        <div class="pane-actions">
+          <button class="text-button" type="button" data-copy disabled>
+            <UiIcon name="copy" size={14} />{commonCopy.copy}
+          </button>
+          <button class="text-button" type="button" data-download disabled>
+            <UiIcon name="download" size={14} />{commonCopy.download}
+          </button>
+        </div>
+      </div>
+      <textarea
+        id="javascript-formatter-output"
+        data-output
+        dir="ltr"
+        readonly
+        spellcheck="false"
+        placeholder={copy.outputPlaceholder}></textarea>
+      <p class="javascript-stale-notice" data-stale-notice hidden>
+        {copy.outdated}
+      </p>
+    </section>
+  </div>
+  <p class="javascript-scope-notice" role="note">{copy.scopeNotice}</p>
+  <ConverterStatus status={commonCopy.ready} />
+  <div class="privacy-note">
+    <span class="privacy-icon" aria-hidden="true">
+      <UiIcon name="shield" size={14} />
+    </span>
+    <div>
+      <strong>{commonCopy.localTitle}</strong><p>{commonCopy.localBody}</p>
+    </div>
+  </div>
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>

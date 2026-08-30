@@ -1,0 +1,13 @@
+{
+  "name": "@plaintool/javascript-formatter-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "prettier": "3.9.6",
+    "terser": "5.51.2"
+  }
+}
