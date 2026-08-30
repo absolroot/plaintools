@@ -701,6 +701,7 @@ export const itBundle: LocaleBundle = {
       encoding: "Codifica e decodifica",
       text: "Testo",
       converter: "Convertitori",
+      image: "Immagini",
       data: "Dati",
       time: "Tempo",
     },

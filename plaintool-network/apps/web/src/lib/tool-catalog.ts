@@ -3,7 +3,13 @@ import { locales, type Locale } from "./site";
 import { toolRegistry } from "./tool-registry.js";
 
 export type ToolStatus = "available" | "preview" | "reserve";
-export type ToolCategory = "encoding" | "text" | "converter" | "data" | "time";
+export type ToolCategory =
+  | "encoding"
+  | "text"
+  | "converter"
+  | "image"
+  | "data"
+  | "time";
 
 type LocalizedText = Record<Locale, string>;
 type LocalizedSearchTerms = Record<Locale, readonly string[]>;
@@ -87,6 +93,7 @@ const toolMarks: Record<RegisteredToolId, string> = {
   "javascript-formatter": "JS",
   "sql-formatter": "SQL",
   "ip-subnet-calculator": "IP",
+  "background-remover": "BG",
 };
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {

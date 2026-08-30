@@ -680,6 +680,7 @@ const bundle: LocaleBundle = {
       encoding: "エンコード・デコード",
       text: "文字列",
       converter: "変換",
+      image: "画像",
       data: "データ",
       time: "日時",
     },

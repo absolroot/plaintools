@@ -1,0 +1,2 @@
+plaintool-network/apps/web/public/models/**/*.onnx binary
+plaintool-network/apps/web/public/models/**/*.bin binary

@@ -706,6 +706,7 @@ const noBundle = {
       encoding: "Koding",
       text: "Tekst",
       converter: "Konvertering",
+      image: "Bilder",
       data: "Data",
       time: "Tid",
     },

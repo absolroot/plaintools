@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("ja");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("ja"),
+  background: backgroundRemover.copy,
   ui: {
     clear: "クリア",
     copy: "コピー",
@@ -212,6 +216,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "AIウォーターマーク・非表示文字除去",
       description:

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "models": {
+    "fast": {
+      "name": "U2NetP",
+      "upstream": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx",
+      "bytes": 4574861,
+      "sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+      "md5": "8e83ca70e441ab06c318d82300c84806",
+      "parts": [
+        {
+          "path": "u2netp.onnx",
+          "bytes": 4574861,
+          "sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8"
+        }
+      ]
+    },
+    "quality": {
+      "name": "Silueta",
+      "upstream": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/silueta.onnx",
+      "bytes": 44173029,
+      "sha256": "75da6c8d2f8096ec743d071951be73b4a8bc7b3e51d9a6625d63644f90ffeedb",
+      "md5": "55e59e0d8062d2f5d013f4725ee84782",
+      "parts": [
+        {
+          "path": "silueta.onnx.part1.bin",
+          "bytes": 22086515,
+          "sha256": "ab84d10ba33469c797d9655de7342bd7396d35f22e79873aa10a003bc3e3bd38"
+        },
+        {
+          "path": "silueta.onnx.part2.bin",
+          "bytes": 22086514,
+          "sha256": "031c923e8ce7a1f092d408426fe51ccd136e81b31857e3dc3019ce5313aa0fbc"
+        }
+      ]
+    }
+  }
+}

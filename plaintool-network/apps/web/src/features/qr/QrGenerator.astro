@@ -1,6 +1,6 @@
 ---
-import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import IconButton from "../../components/IconButton.astro";
 import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import { localizedPath, type Locale } from "../../lib/site";
 import type { QrGeneratorCopy } from "./contract";
@@ -50,9 +50,7 @@ const {
     <section class="editor-pane qr-input-pane">
       <div class="pane-heading">
         <label for="qr-generator-input">{copy.inputLabel}</label>
-        <button class="text-button" type="button" data-clear>
-          <UiIcon name="x" size={14} />{copy.clear}
-        </button>
+        <IconButton variant="text" icon="x" data-clear>{copy.clear}</IconButton>
       </div>
       <textarea
         id="qr-generator-input"
@@ -74,22 +72,22 @@ const {
         <p data-preview-placeholder>{copy.previewPlaceholder}</p>
       </div>
       <div class="qr-downloads">
-        <button
-          class="secondary-button"
-          type="button"
+        <IconButton
+          variant="secondary"
+          icon="download"
           data-download-png
           disabled
         >
-          <UiIcon name="download" size={14} />{copy.downloadPng}
-        </button>
-        <button
-          class="secondary-button"
-          type="button"
+          {copy.downloadPng}
+        </IconButton>
+        <IconButton
+          variant="secondary"
+          icon="download"
           data-download-svg
           disabled
         >
-          <UiIcon name="download" size={14} />{copy.downloadSvg}
-        </button>
+          {copy.downloadSvg}
+        </IconButton>
       </div>
     </section>
   </div>

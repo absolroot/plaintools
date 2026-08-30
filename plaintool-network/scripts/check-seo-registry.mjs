@@ -44,7 +44,7 @@ for (const tool of registeredTools) {
       `${tool.slug} cannot enter a production build while its publication state is ${tool.publication}.`,
     );
   if (
-    !new Set(["encoding", "text", "converter", "data", "time"]).has(
+    !new Set(["encoding", "text", "converter", "image", "data", "time"]).has(
       tool.category,
     )
   )

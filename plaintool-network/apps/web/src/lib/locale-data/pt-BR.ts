@@ -701,6 +701,7 @@ export const ptBRBundle: LocaleBundle = {
       encoding: "Codificação e decodificação",
       text: "Texto",
       converter: "Conversores",
+      image: "Imagens",
       data: "Dados",
       time: "Tempo",
     },

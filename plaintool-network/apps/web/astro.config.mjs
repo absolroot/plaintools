@@ -24,6 +24,7 @@ export default defineConfig({
   },
   vite: {
     optimizeDeps: {
+      exclude: ["onnxruntime-web"],
       include: [
         "@plaintool/html-formatter-core",
         "@plaintool/css-formatter-core",

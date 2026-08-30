@@ -702,6 +702,7 @@ const bundle: LocaleBundle = {
       encoding: "Kodlama ve kod çözme",
       text: "Metin",
       converter: "Dönüştürücüler",
+      image: "Görseller",
       data: "Veri",
       time: "Zaman",
     },

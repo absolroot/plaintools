@@ -1,0 +1,141 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import IconButton from "../../components/IconButton.astro";
+import type { BackgroundRemoverCopy } from "./contract";
+
+interface Props {
+  copy: BackgroundRemoverCopy;
+}
+
+const { copy } = Astro.props;
+---
+
+<section
+  class="converter background-remover"
+  data-background-remover
+  aria-label={copy.accessibleLabel}
+>
+  <div class="background-workspace" data-drop-zone>
+    <section class="background-pane background-original-pane">
+      <div class="background-pane-heading">
+        <span>{copy.originalLabel}</span>
+        <IconButton variant="text" icon="folder-open" data-new-image hidden
+          >{copy.newImage}</IconButton
+        >
+      </div>
+      <div class="background-stage" data-original-stage>
+        <canvas data-original-canvas hidden></canvas>
+        <div class="background-upload-prompt" data-upload-prompt>
+          <IconButton
+            variant="primary"
+            icon="folder-open"
+            iconSize={16}
+            data-open-file>{copy.chooseImage}</IconButton
+          >
+          <p>{copy.dropHint}</p>
+          <small>{copy.supportedImageTypes}</small>
+        </div>
+      </div>
+      <input
+        data-file-input
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+        hidden
+      />
+    </section>
+
+    <section class="background-pane background-result-pane">
+      <div class="background-pane-heading"><span>{copy.resultLabel}</span></div>
+      <div class="background-stage is-checkerboard" data-result-stage>
+        <canvas data-result-canvas hidden></canvas>
+        <p class="background-result-placeholder" data-result-placeholder>
+          {copy.resultPlaceholder}
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <details class="background-options" open>
+    <summary>{copy.optionsLabel}</summary>
+    <div class="background-option-grid">
+      <fieldset>
+        <legend>{copy.modelLabel}</legend>
+        <label>
+          <input type="radio" name="background-model" value="fast" checked />
+          <span
+            ><strong>{copy.modelOptions.fast}</strong><small
+              >U2NetP · {copy.modelHints.fast}</small
+            ></span
+          >
+        </label>
+        <label>
+          <input type="radio" name="background-model" value="quality" />
+          <span
+            ><strong>{copy.modelOptions.quality}</strong><small
+              >Silueta · {copy.modelHints.quality}</small
+            ></span
+          >
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>{copy.backgroundLabel}</legend>
+        <label
+          ><input
+            type="radio"
+            name="background-mode"
+            value="transparent"
+            checked
+          />{copy.backgroundOptions.transparent}</label
+        >
+        <label
+          ><input type="radio" name="background-mode" value="white" />{
+            copy.backgroundOptions.white
+          }</label
+        >
+        <label
+          ><input type="radio" name="background-mode" value="color" />{
+            copy.backgroundOptions.color
+          }</label
+        >
+        <label class="background-color-control">
+          <span>{copy.colorLabel}</span><input
+            type="color"
+            value="#d8e5f0"
+            data-background-color
+            disabled
+          />
+        </label>
+      </fieldset>
+    </div>
+  </details>
+
+  <div class="background-progress" data-progress-wrap hidden>
+    <progress data-progress max="100"></progress>
+    <span data-progress-label></span>
+  </div>
+  <ConverterStatus status={copy.ready}>
+    <div class="primary-actions background-actions">
+      <button class="primary-button" type="button" data-remove disabled>
+        <span data-remove-label>{copy.removeBackground}</span>
+      </button>
+      <IconButton
+        variant="secondary"
+        icon="download"
+        iconSize={15}
+        data-download
+        disabled>{copy.downloadPng}</IconButton
+      >
+    </div>
+  </ConverterStatus>
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(copy).replace(/</gu, "\\u003c")}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

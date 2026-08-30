@@ -705,6 +705,7 @@ const daBundle = {
       encoding: "Kodning",
       text: "Tekst",
       converter: "Konvertering",
+      image: "Billeder",
       data: "Data",
       time: "Tid",
     },

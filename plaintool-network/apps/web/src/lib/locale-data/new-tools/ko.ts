@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("ko");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("ko"),
+  background: backgroundRemover.copy,
   ui: {
     clear: "지우기",
     copy: "복사",
@@ -209,6 +213,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "AI 워터마크 제거기 - GPT·Claude 숨은 문자 정리",
       description:

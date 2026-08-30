@@ -41,6 +41,10 @@ const iconUrl = new URL(
   "../apps/web/src/components/UiIcon.astro",
   import.meta.url,
 );
+const iconButtonUrl = new URL(
+  "../apps/web/src/components/IconButton.astro",
+  import.meta.url,
+);
 const statusUrl = new URL(
   "../apps/web/src/components/ConverterStatus.astro",
   import.meta.url,
@@ -75,6 +79,7 @@ const [
   processingNote,
   tooltip,
   icon,
+  iconButton,
   statusComponent,
   toolDom,
   timeConverter,
@@ -93,6 +98,7 @@ const [
   readFile(processingNoteUrl, "utf8"),
   readFile(tooltipUrl, "utf8"),
   readFile(iconUrl, "utf8"),
+  readFile(iconButtonUrl, "utf8"),
   readFile(statusUrl, "utf8"),
   readFile(toolDomUrl, "utf8"),
   readFile(timeConverterUrl, "utf8"),
@@ -360,12 +366,28 @@ expectSource(
   tooltipScript.includes("closeAll(root)"),
   "Opening one shared Tooltip must close the others.",
 );
-for (const name of ["chevron-right", "folder-open", "x", "copy", "download"]) {
+expectSource(
+  converter.includes('name="chevron-right"'),
+  "Keep the chevron-right action icon on the converter surface.",
+);
+for (const name of ["folder-open", "x", "copy", "download"]) {
   expectSource(
-    converter.includes(`name="${name}"`),
+    converter.includes(`icon="${name}"`),
     `Keep the ${name} action icon on the converter surface.`,
   );
 }
+expectSource(
+  iconButton.includes(
+    'class:list={[`${variant}-button`, "icon-button", className]}',
+  ),
+  "Shared icon buttons must retain the existing button variants.",
+);
+expectSource(
+  iconButton.includes("display: inline-flex") &&
+    iconButton.includes("align-items: center") &&
+    iconButton.includes("icon-button-label"),
+  "Shared icon buttons must keep the icon and label on one centered row.",
+);
 expectSource(
   processingNote.includes('name="shield"'),
   "Keep the shield icon in the shared local-processing note.",

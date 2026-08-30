@@ -702,6 +702,7 @@ const bundle: LocaleBundle = {
       encoding: "인코딩/디코딩",
       text: "텍스트",
       converter: "변환기",
+      image: "이미지",
       data: "데이터",
       time: "시간",
     },

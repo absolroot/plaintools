@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("ar");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("ar"),
+  background: backgroundRemover.copy,
   ui: {
     clear: "مسح",
     copy: "نسخ",
@@ -206,6 +210,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "مزيل العلامة المائية للذكاء الاصطناعي والمحارف المخفية",
       description:

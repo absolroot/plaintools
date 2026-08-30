@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import UiIcon from "./UiIcon.astro";
+import type { IconName } from "./ui-icon";
+
+type ButtonVariant = "primary" | "secondary" | "text";
+
+type Props = Omit<HTMLAttributes<"button">, "class"> & {
+  icon: IconName;
+  iconSize?: number;
+  variant: ButtonVariant;
+  class?: string;
+};
+
+const {
+  icon,
+  iconSize = 14,
+  variant,
+  class: className,
+  type = "button",
+  ...attributes
+} = Astro.props;
+---
+
+<button
+  {...attributes}
+  type={type}
+  class:list={[`${variant}-button`, "icon-button", className]}
+>
+  <UiIcon name={icon} size={iconSize} />
+  <span class="icon-button-label"><slot /></span>
+</button>
+
+<style>
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+  }
+
+  .icon-button-label {
+    display: block;
+    line-height: 1;
+    white-space: nowrap;
+  }
+</style>

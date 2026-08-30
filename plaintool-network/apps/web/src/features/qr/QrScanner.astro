@@ -1,6 +1,6 @@
 ---
-import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import IconButton from "../../components/IconButton.astro";
 import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import { localizedPath, type Locale } from "../../lib/site";
 import type { QrScannerCopy } from "./contract";
@@ -50,14 +50,12 @@ const {
     <section class="qr-upload-pane" data-drop-zone>
       <div class="pane-heading">
         <span>{copy.uploadLabel}</span>
-        <button class="text-button" type="button" data-clear>
-          <UiIcon name="x" size={14} />{copy.clear}
-        </button>
+        <IconButton variant="text" icon="x" data-clear>{copy.clear}</IconButton>
       </div>
       <div class="qr-upload-body">
-        <button class="secondary-button" type="button" data-open-file>
-          <UiIcon name="folder-open" size={14} />{copy.chooseImage}
-        </button>
+        <IconButton variant="secondary" icon="folder-open" data-open-file
+          >{copy.chooseImage}</IconButton
+        >
         <input
           data-file-input
           type="file"
@@ -94,9 +92,9 @@ const {
         <span class="qr-url-badge" data-url-badge hidden
           >{copy.urlDetected}</span
         >
-        <button class="text-button" type="button" data-copy disabled>
-          <UiIcon name="copy" size={14} />{copy.copy}
-        </button>
+        <IconButton variant="text" icon="copy" data-copy disabled
+          >{copy.copy}</IconButton
+        >
       </div>
     </div>
     <textarea

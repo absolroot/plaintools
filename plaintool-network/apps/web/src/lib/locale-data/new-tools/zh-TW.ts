@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("zh-TW");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("zh-TW"),
+  background: backgroundRemover.copy,
   ui: {
     clear: "清除",
     copy: "複製",
@@ -203,6 +207,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "AI浮水印與隱藏字元移除工具",
       description:

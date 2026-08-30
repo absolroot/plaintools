@@ -53,6 +53,27 @@ The SQL formatter includes [nearley](https://nearley.js.org/), version 2.20.1.
 Copyright (c) 2014, 2015, 2016, 2017, 2018, 2019 Kartik Chandra, Tim Radvan.
 It is distributed under the MIT License terms reproduced above.
 
+## ONNX Runtime Web
+
+The image background remover bundles
+[ONNX Runtime Web](https://github.com/microsoft/onnxruntime), version 1.29.0.
+Copyright (c) Microsoft Corporation. It is distributed under the MIT License
+terms reproduced above.
+
+## U²-Net model artifacts
+
+The image background remover serves pinned copies of the U2NetP and Silueta
+ONNX model artifacts from the
+[rembg model release](https://github.com/danielgatis/rembg/releases/tag/v0.0.0).
+Their exact upstream URLs, byte sizes, and checksums are published in
+`/models/background-remover/v1/manifest.json`.
+
+The U²-Net project source is Copyright (c) 2020 Xuebin Qin and is licensed
+under Apache License 2.0. The complete license is deployed at
+`/licenses/u2net-apache-2.0.txt`. The rembg source repository is MIT
+licensed; that source-code license is not presented here as a separate license
+grant for the model weights.
+
 ## Terser
 
 The JavaScript minifier bundles [Terser](https://terser.org/), version 5.51.2.

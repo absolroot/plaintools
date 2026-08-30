@@ -21,6 +21,7 @@ import type { CssFormatterCopy } from "../../features/css-formatter/contract";
 import type { JavaScriptFormatterCopy } from "../../features/javascript-formatter/contract";
 import type { SqlFormatterCopy } from "../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../features/ip-subnet/contract";
+import type { BackgroundRemoverCopy } from "../../features/background-remover/contract";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -30,6 +31,7 @@ export type NewToolId =
   | "jwt-decoder"
   | "qr-code-generator"
   | "qr-code-scanner"
+  | "background-remover"
   | "csv-to-markdown"
   | "markdown-to-csv"
   | "json-to-csv"
@@ -70,6 +72,7 @@ export type NewToolsCopy = {
   "jwt-decoder": ToolPageCopy<JwtDecoderCopy>;
   "qr-code-generator": ToolPageCopy<QrGeneratorCopy>;
   "qr-code-scanner": ToolPageCopy<QrScannerCopy>;
+  "background-remover": ToolPageCopy<BackgroundRemoverCopy>;
   "csv-to-markdown": ToolPageCopy<DataConverterCopy>;
   "markdown-to-csv": ToolPageCopy<DataConverterCopy>;
   "json-to-csv": ToolPageCopy<DataConverterCopy>;

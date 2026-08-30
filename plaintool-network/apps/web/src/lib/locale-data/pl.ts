@@ -708,6 +708,7 @@ const plBundle = {
       encoding: "Kodowanie",
       text: "Tekst",
       converter: "Konwertery",
+      image: "Obrazy",
       data: "Dane",
       time: "Czas",
     },

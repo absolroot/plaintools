@@ -10,3 +10,6 @@
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+/models/background-remover/v1/*
+  Cache-Control: public, max-age=31536000, immutable

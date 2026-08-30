@@ -20,6 +20,7 @@ NEW_TOOL_ROUTES = (
     "javascript-formatter",
     "sql-formatter",
     "ip-subnet-calculator",
+    "background-remover",
 )
 
 NEW_TOOL_FEATURES = {
@@ -41,6 +42,12 @@ NEW_TOOL_FEATURES = {
     "javascript-formatter": "source-formatter",
     "sql-formatter": "source-formatter",
     "ip-subnet-calculator": "ip-subnet",
+    "background-remover": "background-remover",
+}
+
+NEW_TOOL_PUBLICATIONS = {
+    slug: "preview" if slug == "background-remover" else "indexable"
+    for slug in NEW_TOOL_ROUTES
 }
 
 TECHNICAL_DIRECTION_SELECTORS = {
@@ -75,9 +82,11 @@ def validate_new_tool_inventory(inventory: RouteInventory) -> None:
             failures.append(
                 f"{slug} uses feature {tool.feature_id}, expected {expected_feature}"
             )
-        if tool.publication != "indexable":
+        expected_publication = NEW_TOOL_PUBLICATIONS[slug]
+        if tool.publication != expected_publication:
             failures.append(
-                f"{slug} publication is {tool.publication}, expected indexable"
+                f"{slug} publication is {tool.publication}, "
+                f"expected {expected_publication}"
             )
     if failures:
         raise RuntimeError("New browser QA inventory is invalid: " + "; ".join(failures))

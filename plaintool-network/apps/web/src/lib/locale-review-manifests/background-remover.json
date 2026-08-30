@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "featureId": "background-remover",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/lib/locale-data/new-tools/background-remover.ts",
+    "apps/web/src/lib/locale-data/new-tools/factory.ts",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/features/background-remover/contract.ts",
+    "apps/web/src/features/background-remover/BackgroundRemover.astro",
+    "apps/web/src/pages/[locale]/background-remover/index.astro"
+  ],
+  "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyFingerprint": "sha256:362d2a058a934dabc19470c2cde2356c953b30318ff0f51504357584d3b2dbfa",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "en-background-remover-native-copy",
+        "en-u2net-onnx-terms"
+      ]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ko-background-remover-native-copy",
+        "ko-u2net-onnx-terms"
+      ]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "es-background-remover-native-copy",
+        "es-u2net-onnx-terms"
+      ]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "de-background-remover-native-copy",
+        "de-u2net-onnx-terms"
+      ]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ja-background-remover-native-copy",
+        "ja-u2net-onnx-terms"
+      ]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "fr-background-remover-native-copy",
+        "fr-u2net-onnx-terms"
+      ]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pt-br-background-remover-native-copy",
+        "pt-br-u2net-onnx-terms"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "it-background-remover-native-copy",
+        "it-u2net-onnx-terms"
+      ]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "nl-background-remover-native-copy",
+        "nl-u2net-onnx-terms"
+      ]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "sv-background-remover-native-copy",
+        "sv-u2net-onnx-terms"
+      ]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "cs-background-remover-native-copy",
+        "cs-u2net-onnx-terms"
+      ]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "pl-background-remover-native-copy",
+        "pl-u2net-onnx-terms"
+      ]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "da-background-remover-native-copy",
+        "da-u2net-onnx-terms"
+      ]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "no-background-remover-native-copy",
+        "no-u2net-onnx-terms"
+      ]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "ar-background-remover-native-copy",
+        "ar-u2net-onnx-terms"
+      ]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "zh-tw-background-remover-native-copy",
+        "zh-tw-u2net-onnx-terms"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-30",
+      "referenceIds": [
+        "tr-background-remover-native-copy",
+        "tr-u2net-onnx-terms"
+      ]
+    }
+  }
+}

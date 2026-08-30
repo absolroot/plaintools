@@ -19,6 +19,8 @@ import JavaScriptFormatter from "../javascript-formatter/JavaScriptFormatter.ast
 import SqlFormatter from "../sql-formatter/SqlFormatter.astro";
 import sqlFormatterStylesheet from "../sql-formatter/styles.css?url";
 import IpSubnetCalculator from "../ip-subnet/IpSubnetCalculator.astro";
+import BackgroundRemover from "../background-remover/BackgroundRemover.astro";
+import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
 import { localizedPath, type Locale } from "../../lib/site";
@@ -43,6 +45,7 @@ const categories = {
   "jwt-decoder": "encoding",
   "qr-code-generator": "encoding",
   "qr-code-scanner": "encoding",
+  "background-remover": "image",
   "csv-to-markdown": "converter",
   "markdown-to-csv": "converter",
   "json-to-csv": "converter",
@@ -64,6 +67,7 @@ const featureStylesheets = {
   "jwt-decoder": undefined,
   "qr-code-generator": qrStylesheet,
   "qr-code-scanner": qrStylesheet,
+  "background-remover": backgroundRemoverStylesheet,
   "csv-to-markdown": dataConverterStylesheet,
   "markdown-to-csv": dataConverterStylesheet,
   "json-to-csv": dataConverterStylesheet,
@@ -185,6 +189,11 @@ const dataModeLabels = Object.fromEntries(
         scannerLabel={bundle.catalog["qr-code-scanner"].name}
         resultDirection="auto"
       />
+    )
+  }
+  {
+    page === "background-remover" && (
+      <BackgroundRemover copy={bundle.tools[page].feature} />
     )
   }
   {

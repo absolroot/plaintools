@@ -1,7 +1,8 @@
 ---
-import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import IconButton from "../../components/IconButton.astro";
 import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import UiIcon from "../../components/UiIcon.astro";
 import { commonToolCopy } from "../../lib/common-tool-i18n";
 import type { Locale } from "../../lib/site";
 import type { Base64ClientCopy } from "./contract";
@@ -86,13 +87,14 @@ const clientCopy = {
       <div class="pane-heading">
         <label for="codec-input" data-input-label>{t.inputLabel}</label>
         <div class="pane-actions">
-          <button class="text-button file-button" type="button" data-open-file
-            ><UiIcon name="folder-open" size={14} />{t.openFile}</button
+          <IconButton
+            variant="text"
+            icon="folder-open"
+            class="file-button"
+            data-open-file>{t.openFile}</IconButton
           >
           <input id="codec-file" data-file-input type="file" hidden />
-          <button class="text-button" type="button" data-clear
-            ><UiIcon name="x" size={14} />{c.clear}</button
-          >
+          <IconButton variant="text" icon="x" data-clear>{c.clear}</IconButton>
         </div>
       </div>
       <textarea
@@ -110,11 +112,11 @@ const clientCopy = {
       <div class="pane-heading">
         <label for="codec-output" data-output-label>{t.outputLabel}</label>
         <div class="pane-actions">
-          <button class="text-button" type="button" data-copy disabled
-            ><UiIcon name="copy" size={14} />{c.copy}</button
+          <IconButton variant="text" icon="copy" data-copy disabled
+            >{c.copy}</IconButton
           >
-          <button class="text-button" type="button" data-download disabled
-            ><UiIcon name="download" size={14} />{c.download}</button
+          <IconButton variant="text" icon="download" data-download disabled
+            >{c.download}</IconButton
           >
         </div>
       </div>
