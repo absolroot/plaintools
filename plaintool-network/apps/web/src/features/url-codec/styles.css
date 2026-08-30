@@ -27,7 +27,7 @@
   border: 0;
   color: var(--ink);
   background: var(--control);
-  box-shadow: 0 0 0 1px var(--line);
+  box-shadow: 0 0 0 1px var(--control-line);
 }
 
 .url-check-row {
