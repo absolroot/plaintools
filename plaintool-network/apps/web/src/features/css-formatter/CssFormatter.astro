@@ -1,6 +1,7 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import FormatterOptions from "../../components/FormatterOptions.astro";
 import Tooltip from "../../components/Tooltip.astro";
 import type { ToolHelpCopy } from "../../lib/locale-data/tool-help";
 import type { ToolCommonCopy } from "../common-copy-contract";
@@ -22,51 +23,6 @@ const clientCopy = createCssFormatterClientCopy(copy, commonCopy);
   data-css-formatter
   aria-label={copy.ariaLabel}
 >
-  <div class="converter-topbar css-formatter-topbar">
-    <div class="primary-actions" role="group" aria-label={copy.modeLabel}>
-      <button
-        class="primary-button"
-        type="button"
-        data-mode="format"
-        aria-pressed="true"
-        aria-keyshortcuts="Control+Enter Meta+Enter">{copy.format}</button
-      >
-    </div>
-    <details class="css-options">
-      <summary>{copy.optionsLabel}</summary>
-      <div class="css-option-fields">
-        <label>
-          <span>{copy.indentationLabel}</span>
-          <select data-indent>
-            <option value="2">{copy.twoSpaces}</option>
-            <option value="4">{copy.fourSpaces}</option>
-            <option value="tab">{copy.tabs}</option>
-          </select>
-        </label>
-        <div class="css-option-field">
-          <Tooltip
-            id="css-print-width-help"
-            triggerLabel={help.triggerLabel}
-            variant="label"
-            mobileAlign="end"
-          >
-            <label slot="target" for="css-print-width"
-              >{copy.printWidthLabel}</label
-            >
-            {help.formatter.printWidth}
-          </Tooltip>
-          <input
-            id="css-print-width"
-            data-print-width
-            type="number"
-            min="40"
-            max="240"
-            value="80"
-          />
-        </div>
-      </div>
-    </details>
-  </div>
   <div class="converter-grid">
     <section class="editor-pane">
       <div class="pane-heading">
@@ -115,8 +71,49 @@ const clientCopy = createCssFormatterClientCopy(copy, commonCopy);
       </p>
     </section>
   </div>
+  <ConverterStatus status={commonCopy.ready}>
+    <button
+      class="secondary-button formatter-manual-run"
+      type="button"
+      data-manual-run
+      aria-keyshortcuts="Control+Enter Meta+Enter"
+      hidden>{copy.format}</button
+    >
+  </ConverterStatus>
+  <FormatterOptions label={copy.optionsLabel}>
+    <div class="formatter-options-grid">
+      <div class="formatter-option-field">
+        <label for="css-indent">{copy.indentationLabel}</label>
+        <select id="css-indent" data-indent>
+          <option value="2">{copy.twoSpaces}</option>
+          <option value="4">{copy.fourSpaces}</option>
+          <option value="tab">{copy.tabs}</option>
+        </select>
+      </div>
+      <div class="formatter-option-field">
+        <Tooltip
+          id="css-print-width-help"
+          triggerLabel={help.triggerLabel}
+          variant="label"
+          mobileAlign="end"
+        >
+          <label slot="target" for="css-print-width"
+            >{copy.printWidthLabel}</label
+          >
+          {help.formatter.printWidth}
+        </Tooltip>
+        <input
+          id="css-print-width"
+          data-print-width
+          type="number"
+          min="40"
+          max="240"
+          value="80"
+        />
+      </div>
+    </div>
+  </FormatterOptions>
   <p class="css-scope-notice" role="note">{copy.scopeNotice}</p>
-  <ConverterStatus status={commonCopy.ready} />
   <div class="privacy-note">
     <span class="privacy-icon" aria-hidden="true">
       <UiIcon name="shield" size={14} />

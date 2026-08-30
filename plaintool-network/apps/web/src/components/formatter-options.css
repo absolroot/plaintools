@@ -1,0 +1,131 @@
+.formatter-options {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.formatter-options summary {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink);
+  background: var(--base);
+  cursor: pointer;
+  list-style: none;
+}
+
+.formatter-options summary::-webkit-details-marker {
+  display: none;
+}
+
+.formatter-options summary:hover {
+  background: var(--control);
+}
+
+.formatter-options summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.formatter-options-chevron {
+  transition: transform 160ms ease;
+}
+
+.formatter-options[open] .formatter-options-chevron {
+  transform: rotate(90deg);
+}
+
+html[dir="rtl"] .formatter-options-chevron {
+  transform: rotate(180deg);
+}
+
+html[dir="rtl"] .formatter-options[open] .formatter-options-chevron {
+  transform: rotate(90deg);
+}
+
+.formatter-options-body {
+  padding: var(--space-4);
+  background: var(--recessed);
+  border-top: 1px solid var(--line);
+}
+
+.formatter-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: var(--space-4);
+}
+
+.formatter-options-grid[hidden] {
+  display: none;
+}
+
+.formatter-option-field {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.formatter-option-field > label,
+.formatter-option-field > span,
+.formatter-option-field > .tooltip--label {
+  min-width: 0;
+}
+
+.formatter-option-field select,
+.formatter-option-field input[type="number"] {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 0;
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+
+.formatter-check-row {
+  min-width: 0;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.formatter-check-row input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.formatter-check-row > .tooltip--label {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.formatter-manual-run[hidden] {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .formatter-options summary,
+  .formatter-option-field select,
+  .formatter-option-field input[type="number"],
+  .formatter-check-row {
+    min-height: 44px;
+  }
+
+  .formatter-options-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .formatter-manual-run {
+    width: 100%;
+    min-height: 44px;
+  }
+}

@@ -57,6 +57,8 @@ function init(root: HTMLElement): void {
   const output = root.querySelector<HTMLTextAreaElement>("[data-output]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const staleNotice = root.querySelector<HTMLElement>("[data-stale-notice]")!;
+  const manualRunButton =
+    root.querySelector<HTMLButtonElement>("[data-manual-run]")!;
   const copyButton = root.querySelector<HTMLButtonElement>("[data-copy]")!;
   const downloadButton =
     root.querySelector<HTMLButtonElement>("[data-download]")!;
@@ -76,6 +78,9 @@ function init(root: HTMLElement): void {
     message: string,
     state: "idle" | "working" | "success" | "error" = "idle",
   ) => setToolStatus(root, status, message, state);
+  const setManualRunVisible = (visible: boolean) => {
+    manualRunButton.hidden = !visible;
+  };
   const workingIndicator = createDeferredIndicator(() =>
     setStatus(copy.common.working, "working"),
   );
@@ -164,6 +169,7 @@ function init(root: HTMLElement): void {
   const run = (focusError = false) => {
     window.clearTimeout(timer);
     workingIndicator.cancel();
+    setManualRunVisible(false);
     if (!input.value) {
       authority.clear();
       renderAuthority();
@@ -191,15 +197,23 @@ function init(root: HTMLElement): void {
     invalidatePending();
     authority.changeInput(input.value);
     renderAuthority();
-    if (!input.value) return setStatus(copy.common.ready);
+    if (!input.value) {
+      setManualRunVisible(false);
+      return setStatus(copy.common.ready);
+    }
     const inputBytes = bytes();
     if (inputBytes > MAX_BYTES) {
+      setManualRunVisible(false);
       const revision = authority.beginRequest();
       authority.fail(revision);
       renderAuthority();
       return setStatus(copy.feature.tooLarge, "error");
     }
-    if (inputBytes > AUTO_BYTES) return setStatus(copy.feature.manualRequired);
+    if (inputBytes > AUTO_BYTES) {
+      setManualRunVisible(true);
+      return setStatus(copy.feature.manualRequired);
+    }
+    setManualRunVisible(false);
     setStatus(
       authority.snapshot.stale ? copy.feature.outdated : copy.common.ready,
     );
@@ -213,9 +227,7 @@ function init(root: HTMLElement): void {
       run(true);
     }
   });
-  root
-    .querySelector<HTMLButtonElement>("[data-format]")!
-    .addEventListener("click", () => run(true));
+  manualRunButton.addEventListener("click", () => run(true));
   root
     .querySelector<HTMLButtonElement>("[data-sample]")!
     .addEventListener("click", () => {
@@ -237,6 +249,7 @@ function init(root: HTMLElement): void {
     input.value = fileInput.value = "";
     authority.clear();
     renderAuthority();
+    setManualRunVisible(false);
     setStatus(copy.common.ready);
     input.focus();
   });
@@ -249,6 +262,7 @@ function init(root: HTMLElement): void {
     const authorityRevision = authority.beginRequest();
     renderAuthority();
     if (file.size > MAX_BYTES) {
+      setManualRunVisible(false);
       authority.fail(authorityRevision);
       renderAuthority();
       fileInput.value = "";
@@ -262,13 +276,16 @@ function init(root: HTMLElement): void {
       renderAuthority();
       const inputBytes = bytes();
       if (inputBytes > MAX_BYTES) {
+        setManualRunVisible(false);
         const latest = authority.beginRequest();
         authority.fail(latest);
         renderAuthority();
         setStatus(copy.feature.tooLarge, "error");
       } else if (inputBytes > AUTO_BYTES) {
+        setManualRunVisible(true);
         setStatus(copy.feature.manualRequired);
       } else {
+        setManualRunVisible(false);
         setStatus(copy.common.ready);
         timer = window.setTimeout(() => run(), 140);
       }
