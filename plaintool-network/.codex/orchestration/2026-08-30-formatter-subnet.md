@@ -36,8 +36,8 @@ Feature branches may change only their assigned `packages/*-core`, feature-owned
 
 | Phase | Branch | Planned worktree | Owner | Owned scope | Base | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| A | `agent/formatter-html-pilot` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-html-pilot` | `/root/html_pilot` | JSON audit plus HTML core/feature/focused tests | `f4f6efb` | started after common research |
-| C | `agent/ip-subnet` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-ip-subnet` | `/root/ip_subnet` | IPv4 subnet core/feature/focused tests | `f4f6efb` | started after common research |
+| A | `agent/formatter-html-pilot` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-html-pilot` | `/root/html_pilot` | JSON audit plus HTML core/feature/focused tests | `f4f6efb` | integrated as `41c4a2d`; focused 15 tests and type check passed |
+| C | `agent/ip-subnet` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-ip-subnet` | `/root/ip_subnet` | IPv4 subnet core/feature/focused tests | `f4f6efb` | complete at `58e619b`; held for ordered integration |
 | B | `agent/formatter-css` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-css` | CSS agent | CSS core/feature/focused tests | pilot integration tip | blocked on pilot |
 | B | `agent/formatter-javascript` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-javascript` | JavaScript agent | JavaScript core/feature/focused tests | pilot integration tip | blocked on pilot |
 | B | `agent/formatter-sql` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-formatter-sql` | SQL agent | SQL core/feature/focused tests | pilot integration tip | blocked on pilot |
@@ -77,6 +77,15 @@ Common research completed before delegation. It includes direct 1440x1000 and 39
 
 - The provided worktree helper stopped after creating the HTML pilot because Windows PowerShell promoted Git's normal `Preparing worktree` stderr message to a terminating error under `$ErrorActionPreference = "Stop"`. Git state was inspected before recovery; only the missing subnet worktree was then added directly. No created worktree was removed or recreated.
 
+## HTML pilot integration decision
+
+- Reviewed every changed path and `git diff --check`; the branch stayed inside its owned package/feature/JSON-audit scope.
+- Accepted a format-only Prettier HTML implementation in a module Worker. It treats the input as source text only and does not preview, sanitize, insert, or execute markup.
+- Accepted the feature-owned revision authority: edited input may preserve a visibly stale result, but immediately disables copy/download; Clear, errors, and newer replies invalidate prior authority.
+- Accepted the narrow JSON follow-up: selected operation persists across input/file changes, indentation is enabled only for format, and format/minify downloads use distinct filenames.
+- The pilot intentionally does not format embedded CSS/JavaScript and makes no semantic-preservation claim for whitespace-sensitive HTML. Those limits must remain explicit in localized page copy.
+- Integrated commit: `41c4a2d`. The exact Prettier workspace dependency was installed and the updated lockfile is owned by root.
+
 ## Next action
 
-Wait for the HTML pilot and subnet commits while root prepares integration review criteria. Review the HTML pilot first and do not start CSS/JavaScript/SQL branches until its integration tip and lessons are fixed.
+Commit the pilot lockfile/ledger reconciliation, record that commit as the Phase B base, then start CSS, JavaScript, and SQL feature branches. Integrate their commits in that order before the completed subnet commit.
