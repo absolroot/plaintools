@@ -35,12 +35,12 @@ Each feature report must record:
 
 ## Branch tree
 
-| Branch | Planned worktree | Owner | Scope | Owned deliverables | Status |
-| --- | --- | --- | --- | --- | --- |
-| `agent/review-text` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-text` | `/root/review_text` | word counter, text compare, case converter, AI text cleaner | `word-counter.md`, `text-compare.md`, `case-converter.md`, `ai-text-cleaner.md` | integrated as `984b491` from `4285b27` |
-| `agent/review-codec-security` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-codec-security` | `/root/review_codec_security` | Base64, URL codec, hash, JWT, QR | `base64-codec.md`, `url-codec.md`, `hash-generator.md`, `jwt-decoder.md`, `qr-code.md` | integrated as `61f82a6` from `e06eb00` |
-| `agent/review-data-source` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-data-source` | `/root/review_data_source` | JSON, structured converters, HTML/CSS/JS/SQL formatters | `json-formatter.md`, `data-converters.md`, `html-formatter.md`, `css-formatter.md`, `javascript-formatter.md`, `sql-formatter.md` | integrated as `d8685e9` from `34dcf77` |
-| root | integration worktree | `/root` | timestamp, subnet, cross-tool UX, integration, fixes, browser QA | `unix-timestamp-converter.md`, `ip-subnet-calculator.md`, `README.md`, `summary.md` | reports complete; final gates pending |
+| Branch                        | Planned worktree                                                          | Owner                         | Scope                                                            | Owned deliverables                                                                                                                | Status                                     |
+| ----------------------------- | ------------------------------------------------------------------------- | ----------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| `agent/review-text`           | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-text`           | `/root/review_text`           | word counter, text compare, case converter, AI text cleaner      | `word-counter.md`, `text-compare.md`, `case-converter.md`, `ai-text-cleaner.md`                                                   | integrated as `984b491` from `4285b27`     |
+| `agent/review-codec-security` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-codec-security` | `/root/review_codec_security` | Base64, URL codec, hash, JWT, QR                                 | `base64-codec.md`, `url-codec.md`, `hash-generator.md`, `jwt-decoder.md`, `qr-code.md`                                            | integrated as `61f82a6` from `e06eb00`     |
+| `agent/review-data-source`    | `C:\Users\super\.herdr\worktrees\plain-tools\agent-review-data-source`    | `/root/review_data_source`    | JSON, structured converters, HTML/CSS/JS/SQL formatters          | `json-formatter.md`, `data-converters.md`, `html-formatter.md`, `css-formatter.md`, `javascript-formatter.md`, `sql-formatter.md` | integrated as `d8685e9` from `34dcf77`     |
+| root                          | integration worktree                                                      | `/root`                       | timestamp, subnet, cross-tool UX, integration, fixes, browser QA | `unix-timestamp-converter.md`, `ip-subnet-calculator.md`, `README.md`, `summary.md`                                               | complete; representative browser QA passed |
 
 ## Forbidden paths for review agents
 
@@ -71,7 +71,7 @@ Each feature report must record:
 - Codec/security reports: `61f82a6` (source branch `e06eb00`).
 - Case Converter locale-aware fix: `7e59906`; Turkish upper/lower/sentence/
   capitalize-words coverage added.
-- Root reports and indexes: staged for the final audit documentation commit.
+- Root reports and indexes: `8aede52`; Markdown normalization: `0bf02e3`.
 
 ## Verification and blockers
 
@@ -79,15 +79,24 @@ Each feature report must record:
 - Passed after fix: Case Converter `1 file / 13 tests`.
 - Review branch evidence: text cores `4 files / 46 tests`, codec/security
   `6 files / 41 tests`, data/formatter `13 files / 112 tests`.
-- Root `tsc -p tsconfig.json` passed as the first half of `npm run type:check`.
-- Full Astro check is currently blocked by five `help` prop omissions in the
-  separately modified `NewToolPreview.astro`; no Case Converter diagnostic was
-  reported. Do not repair that other session's in-progress ownership here.
+- Passed on the current integration surface: `npm test` (`38 files / 337 tests`).
+- Passed: `npm run check`, including locale review, SEO, UI detail, Astro/
+  TypeScript (`220 files`, zero diagnostics), ESLint, and Prettier.
+- Passed: `npm run build` (`546` static pages) and preview network QA.
+- Passed in local Chromium: Korean Base64 decode (`Hello 한국어`), Turkish
+  locale-aware uppercase (`i ı` -> `İ I`), and Arabic RTL mobile rendering;
+  all representative routes returned 200 with no horizontal overflow.
+- The repository-wide Chromium suite stops in `base64_feature.py` because its
+  legacy alignment probe still requires `.breadcrumbs`, which the current page
+  no longer renders. This is recorded as shared QA selector drift, not a product
+  pass; the shared QA file overlaps another session's active changes and was not
+  overwritten here.
 - In-app browser connection failed because the execution metadata required by
-  the browser runtime was unavailable. Repository Chromium QA remains the
-  fallback final surface gate.
+  the browser runtime was unavailable; local Playwright supplied the surface
+  evidence above.
 - Current Node is `22.12.0`, below the repository's `>=22.19 <23` requirement;
-  focused test results are regression evidence, not a formal release gate.
+  current passing gates must still be repeated under the required Node version
+  before a formal release claim.
 
 ## Remaining P0 queue
 

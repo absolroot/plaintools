@@ -92,10 +92,17 @@ AbsolTools의 가장 설득력 있는 강점은 기능 수가 아니다. 입력�
 - 병렬 리뷰에서 읽기 전용 기준으로 실행한 집중 테스트: text cores
   `4 files / 46 tests`, codec/security `6 files / 41 tests`, data/formatter
   `13 files / 112 tests` 통과.
-- root TypeScript 단계는 통과했다. 전체 Astro check는 감사와 겹쳐 진행 중인
-  `NewToolPreview.astro`의 새 required `help` prop 누락 5건으로 실패했다.
-- 인앱 브라우저 연결은 실행 메타데이터 문제로 사용할 수 없었다. 저장소의
-  Chromium QA는 별도 로컬 서버에서 최종 재시도하며, 실패 시 원인을 이 문서와
-  오케스트레이션 원장에 기록한다.
+- 현재 통합 표면에서 `npm test`는 `38 files / 337 tests`, `npm run check`는
+  locale review·SEO·UI detail·Astro/TypeScript·ESLint·Prettier를 모두 통과했다.
+- `npm run build`도 `546`개 정적 페이지와 preview network QA까지 통과했다.
+- 로컬 Chromium 대표 검증에서 한국어 Base64 decode, 터키어 locale-aware uppercase,
+  아랍어 RTL 모바일 route를 실제 조작했다. 세 route 모두 HTTP 200, 가로 overflow
+  없음, 결과는 각각 `Hello 한국어`, `İ I`, RTL converter 표시로 확인됐다.
+- 저장소 전체 Chromium 스위트는 제품 오류가 아니라, 현재 템플릿에서 제거된
+  `.breadcrumbs`를 `scripts/qa/base64_feature.py`가 여전히 필수로 조회해 중단됐다.
+  해당 QA 파일도 다른 세션에서 수정 중이므로 이번 감사에서는 덮어쓰지 않고
+  selector contract 갱신 항목으로 남겼다.
+- 인앱 브라우저 연결은 실행 메타데이터 문제로 사용할 수 없어 위 로컬 Playwright
+  검증으로 대체했다.
 - 실행 Node는 `v22.12.0`으로 저장소 요구 버전 `>=22.19 <23`보다 낮다. 따라서
-  위 집중 테스트는 유효한 회귀 신호지만 정식 전체 release gate 통과 주장은 아니다.
+  모든 현재 검사는 통과했지만 요구 버전 Node에서의 정식 release gate 재실행은 남아 있다.
