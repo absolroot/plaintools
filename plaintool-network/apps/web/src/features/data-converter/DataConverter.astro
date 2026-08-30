@@ -17,8 +17,14 @@ interface Props {
   textDirection?: "ltr";
 }
 
-const { locale, mode, modeLabels, copy, help, textDirection = "ltr" } =
-  Astro.props;
+const {
+  locale,
+  mode,
+  modeLabels,
+  copy,
+  help,
+  textDirection = "ltr",
+} = Astro.props;
 const modePairs: Record<
   DataConversionMode,
   readonly [DataConversionMode, DataConversionMode]
