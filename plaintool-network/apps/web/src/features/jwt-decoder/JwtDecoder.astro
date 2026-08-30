@@ -43,6 +43,9 @@ const { copy, commonCopy, textDirection = "ltr" } = Astro.props;
       autocomplete="off"
       placeholder={copy.inputPlaceholder}></textarea>
   </section>
+  <p class="jwt-result-verification" data-result-verification hidden>
+    <UiIcon name="shield" size={14} />{copy.noVerificationTitle}
+  </p>
   <div class="jwt-results">
     <section class="jwt-result-pane">
       <div class="pane-heading">

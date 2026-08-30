@@ -98,7 +98,7 @@ export const defaultOptions: CodecOptions = {
   charset: "utf-8",
   strict: false,
   lineByLine: false,
-  recursive: true,
+  recursive: false,
   autoRepair: true,
   lenientRepair: false,
   outputView: "text",

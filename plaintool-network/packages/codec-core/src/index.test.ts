@@ -42,7 +42,7 @@ describe("codec core", () => {
   it("decodes nested Base64 layers when recursive decoding is enabled", () => {
     const inner = encodeText("nested value", defaultOptions).text;
     const outer = encodeText(inner, defaultOptions).text;
-    const result = decodeText(outer, defaultOptions);
+    const result = decodeText(outer, { ...defaultOptions, recursive: true });
 
     expect(result.text).toBe("nested value");
     expect(result.decodePasses).toBe(2);
@@ -56,10 +56,10 @@ describe("codec core", () => {
     expect(result.decodePasses).toBe(1);
   });
 
-  it("leaves nested Base64 visible when recursive decoding is disabled", () => {
+  it("leaves nested Base64 visible by default", () => {
     const inner = encodeText("nested value", defaultOptions).text;
     const outer = encodeText(inner, defaultOptions).text;
-    const result = decodeText(outer, { ...defaultOptions, recursive: false });
+    const result = decodeText(outer, defaultOptions);
 
     expect(result.text).toBe(inner);
     expect(result.decodePasses).toBe(1);

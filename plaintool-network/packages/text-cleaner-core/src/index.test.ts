@@ -4,18 +4,32 @@ import { cleanHiddenUnicode } from "./index";
 describe("cleanHiddenUnicode", () => {
   it("removes default hidden artifacts and reports exact code points", () => {
     const result = cleanHiddenUnicode(
-      "Alpha\u200BBeta\u2060Gamma\u00ad!\u202E\nNext\uFEFF\u2063",
+      "Alpha\u200BBeta\u2060Gamma\u00ad!\nNext\uFEFF\u2063",
     );
 
     expect(result.cleanedText).toBe("AlphaBetaGamma!\nNext");
-    expect(result.totalRemoved).toBe(6);
+    expect(result.totalRemoved).toBe(5);
     expect(result.removed.map((item) => item.codePointLabel)).toEqual([
       "U+200B",
       "U+2060",
       "U+00AD",
-      "U+202E",
       "U+FEFF",
       "U+2063",
+    ]);
+  });
+
+  it("preserves bidi controls by default and removes them only on request", () => {
+    const source = "A\u061C\u200EB\u202EC\u2067D\u2069";
+
+    expect(cleanHiddenUnicode(source).cleanedText).toBe(source);
+    const reviewed = cleanHiddenUnicode(source, { removeBidiControls: true });
+    expect(reviewed.cleanedText).toBe("ABCD");
+    expect(reviewed.removed.map((item) => item.kind)).toEqual([
+      "bidi-control",
+      "bidi-control",
+      "bidi-control",
+      "bidi-control",
+      "bidi-control",
     ]);
   });
 

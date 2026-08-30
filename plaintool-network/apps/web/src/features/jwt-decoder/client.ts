@@ -45,6 +45,9 @@ function init(root: HTMLElement): void {
   const signatureSize = root.querySelector<HTMLElement>(
     "[data-signature-size]",
   )!;
+  const resultVerification = root.querySelector<HTMLElement>(
+    "[data-result-verification]",
+  )!;
   const timestamps = root.querySelector<HTMLUListElement>("[data-timestamps]")!;
   const copyButtons = [
     ...root.querySelectorAll<HTMLButtonElement>("[data-copy-target]"),
@@ -66,6 +69,7 @@ function init(root: HTMLElement): void {
   const markStale = (stale: boolean) =>
     root.classList.toggle("has-stale-result", stale);
   const render = (result?: DecodedJwt) => {
+    resultVerification.hidden = !result;
     outputs.header.value = result?.headerText ?? "";
     outputs.payload.value = result?.payloadText ?? "";
     outputs.signature.textContent = result?.signature.hex ?? "";
@@ -200,6 +204,9 @@ function init(root: HTMLElement): void {
   downloadButton.addEventListener("click", () => {
     if (!committed || downloadButton.disabled) return;
     const text = [
+      copy.feature.noVerificationTitle,
+      copy.feature.noVerificationBody,
+      "",
       copy.feature.headerLabel,
       committed.headerText,
       "",

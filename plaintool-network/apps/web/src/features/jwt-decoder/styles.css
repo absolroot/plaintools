@@ -33,6 +33,23 @@
   min-height: 132px;
 }
 
+.jwt-result-verification {
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--warning);
+  background: var(--warning-tint);
+  border-top: 1px solid color-mix(in oklch, var(--warning), transparent 75%);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.jwt-result-verification[hidden] {
+  display: none;
+}
+
 .jwt-results {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

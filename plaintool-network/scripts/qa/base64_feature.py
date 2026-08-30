@@ -142,6 +142,9 @@ def run_base64_desktop(desktop, report: dict) -> None:
     report["base64_decode_example"] = desktop.locator("#codec-input").get_attribute("placeholder")
     if "SGVsbG8sIFBsYWluVG9vbCE=" not in report["base64_decode_example"]:
         report["ui_detail_failures"].append(f"Base64 decode input lacks a usable example: {report['base64_decode_example']}")
+    report["recursive_decode_default"] = desktop.locator('[data-option="recursive"]').is_checked()
+    if report["recursive_decode_default"]:
+        report["ui_detail_failures"].append("Recursive Base64 decoding must be explicit opt-in.")
 
     desktop.locator("#codec-input").fill("SGVsbG8g7ZWc6rWt7Ja0")
     desktop.locator("#codec-output").wait_for(state="visible")
