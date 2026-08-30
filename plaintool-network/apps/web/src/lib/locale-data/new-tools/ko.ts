@@ -237,7 +237,7 @@ const seed = {
         "원문을 붙여넣고 정제된 텍스트를 먼저 확인한 뒤, 제거한 문자 이름·개수·U+ 코드 포인트를 검토하세요. 문자 모양을 바꿀 수 있는 고급 옵션은 기본으로 꺼져 있습니다.",
       terms: [
         "AI 워터마크 제거기",
-        "GPT 작성 확인기",
+        "숨은 유니코드 제거",
         "클로드 숨은 문자",
         "Gemini 숨은 문자",
         "제로폭 공백 제거",
@@ -247,7 +247,7 @@ const seed = {
     "url-encode": {
       title: "URL 인코더",
       description:
-        "텍스트, 쿼리 값 또는 전체 URI를 브라우저 표준에 맞게 퍼센트 인코딩합니다.",
+        "텍스트, 쿼리 값 또는 전체 URI를 표준 웹 규칙에 따라 퍼센트 인코딩합니다.",
       guide:
         "쿼리 값 하나는 URL 구성 요소를, 구분자를 보존할 전체 주소는 전체 URI를 선택하세요. + 공백은 폼 데이터일 때만 사용하세요.",
       terms: [
@@ -308,7 +308,7 @@ const seed = {
       ],
     },
     "csv-to-markdown": {
-      title: "CSV to Markdown 변환기",
+      title: "CSV → Markdown 변환기",
       description:
         "CSV 행을 구분자 자동 감지와 셀 이스케이프가 적용된 Markdown 표로 바꿉니다.",
       guide:
@@ -319,7 +319,7 @@ const seed = {
       terms: ["CSV to Markdown", "마크다운 표", "CSV 변환"],
     },
     "markdown-to-csv": {
-      title: "Markdown to CSV 변환기",
+      title: "Markdown → CSV 변환기",
       description:
         "Markdown 표를 스프레드시트와 데이터 도구에서 쓰기 좋은 CSV로 바꿉니다.",
       guide:
@@ -330,7 +330,7 @@ const seed = {
       terms: ["Markdown to CSV", "표 CSV 변환", "마크다운 변환"],
     },
     "json-to-csv": {
-      title: "JSON to CSV 변환기",
+      title: "JSON → CSV 변환기",
       description:
         "JSON 객체 배열의 키를 모아 일정한 열을 가진 CSV로 변환합니다.",
       guide:
@@ -341,7 +341,7 @@ const seed = {
       terms: ["JSON to CSV", "JSON 배열 CSV", "데이터 변환"],
     },
     "csv-to-json": {
-      title: "CSV to JSON 변환기",
+      title: "CSV → JSON 변환기",
       description:
         "CSV 첫 행을 필드 이름으로 사용해 JSON 객체 배열로 변환합니다.",
       guide:
@@ -352,7 +352,7 @@ const seed = {
       terms: ["CSV to JSON", "CSV 파서", "JSON 배열"],
     },
     "html-to-markdown": {
-      title: "HTML to Markdown 변환기",
+      title: "HTML → Markdown 변환기",
       description:
         "제목, 링크, 목록, 코드, 표가 포함된 HTML 구조를 읽기 쉬운 Markdown으로 바꿉니다.",
       guide:
@@ -363,7 +363,7 @@ const seed = {
       terms: ["HTML to Markdown", "HTML 변환", "마크다운 변환"],
     },
     "markdown-to-html": {
-      title: "Markdown to HTML 변환기",
+      title: "Markdown → HTML 변환기",
       description:
         "GFM 표, 목록, 링크, 코드 블록을 포함한 Markdown을 HTML로 렌더링합니다.",
       guide:

@@ -234,7 +234,7 @@ const seed = {
     "url-encode": {
       title: "Koder URL",
       description:
-        "Koduje procentowo tekst, wartości zapytania lub pełne URI zgodnie z właściwym standardem przeglądarkowym.",
+        "Koduje procentowo tekst, wartości zapytania lub pełne URI zgodnie ze standardowymi regułami sieci Web.",
       guide:
         "Wybierz składnik URL dla pojedynczej wartości zapytania albo pełny URI, aby zachować separatory URL. Znaku plus jako spacji używaj tylko w danych formularza.",
       terms: [
@@ -319,7 +319,7 @@ const seed = {
     "json-to-csv": {
       title: "Konwerter JSON na CSV",
       description:
-        "Konwertuje tablicę obiektów JSON na CSV ze stabilną sumą kluczy wszystkich obiektów.",
+        "Konwertuje tablicę obiektów JSON na CSV, używając wszystkich kluczy jako kolumn.",
       guide:
         "Użyj tablicy obiektów na najwyższym poziomie. Zagnieżdżone wartości pozostają zwartymi ciągami JSON, więc sprawdź, jak obsłuży je docelowy arkusz.",
       inputLabel: "Tablica JSON",

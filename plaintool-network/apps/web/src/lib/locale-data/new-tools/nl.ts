@@ -226,7 +226,7 @@ const seed = {
     "url-encode": {
       title: "URL-encoder",
       description:
-        "Codeert tekst, querywaarden of volledige URI’s met percent-codering volgens de juiste browserstandaard.",
+        "Codeert tekst, querywaarden of volledige URI’s volgens de standaardregels voor percentcodering op het web.",
       guide:
         "Kies URL-component voor één querywaarde of volledige URI om de scheidingstekens van de URL te behouden. Gebruik plustekens voor spaties alleen bij formuliergegevens.",
       terms: [
@@ -268,7 +268,7 @@ const seed = {
     "qr-code-generator": {
       title: "QR-codegenerator",
       description:
-        "Maakt een statische QR-code volgens de standaard voor tekst of een URL en downloadt deze als PNG of SVG.",
+        "Maakt een statische QR-code volgens de standaard voor tekst of een URL, die als PNG of SVG kan worden gedownload.",
       guide:
         "Voer de exacte inhoud in, behoud een vrije zone van vier modules voor betrouwbaar scannen en verhoog de foutcorrectie als de code deels bedekt kan raken.",
       terms: ["QR code maken", "QR PNG", "QR SVG", "statische QR code"],

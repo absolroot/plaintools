@@ -598,7 +598,7 @@ export const nlBundle: LocaleBundle = {
       summary: "Decodeer Base64-tekst of -bestanden online.",
       searchTerms: [
         "decoderen",
-        "Base64 ontcijferen",
+        "Base64 decoderen",
         "Base64URL",
         "data-URI",
         "tekst",

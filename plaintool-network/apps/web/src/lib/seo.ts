@@ -24,7 +24,6 @@ export function breadcrumbSchema(options: {
   locale: Locale;
   page: ContentPage;
   homeLabel: string;
-  categoryLabel?: string;
   itemLabel: string;
 }): StructuredData {
   const items: StructuredData[] = [
@@ -35,12 +34,6 @@ export function breadcrumbSchema(options: {
       item: absoluteUrl(localizedPath(options.locale)),
     },
   ];
-  if (options.categoryLabel)
-    items.push({
-      "@type": "ListItem",
-      position: 2,
-      name: options.categoryLabel,
-    });
   items.push({
     "@type": "ListItem",
     position: items.length + 1,
@@ -66,7 +59,6 @@ export function webApplicationSchema(options: {
     url,
     mainEntityOfPage: { "@id": `${url}#webpage` },
     applicationCategory: "UtilitiesApplication",
-    applicationSubCategory: "DeveloperApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript",
     inLanguage: options.locale,

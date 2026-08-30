@@ -231,7 +231,7 @@ const seed = {
     "url-encode": {
       title: "Kodér URL",
       description:
-        "Procentně zakóduje text, hodnoty dotazu nebo celé URI podle správného standardu prohlížeče.",
+        "Procentně kóduje text, hodnoty dotazu nebo celé URI podle standardních pravidel webu.",
       guide:
         "Pro jednu hodnotu dotazu zvolte součást URL, nebo celé URI, chcete-li zachovat oddělovače URL. Plus pro mezery zapínejte pouze pro formulářová data.",
       terms: [

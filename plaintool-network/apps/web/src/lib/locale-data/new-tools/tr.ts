@@ -227,7 +227,7 @@ const seed = {
     "url-encode": {
       title: "URL kodlayıcı",
       description:
-        "Metni, sorgu değerlerini veya tam URI'leri doğru tarayıcı standardıyla yüzde kodlamasına dönüştürür.",
+        "Metni, sorgu değerlerini veya tam URI'leri standart web kurallarına göre yüzde kodlar.",
       guide:
         "Tek bir sorgu değeri için URL bileşenini, URL ayırıcılarını korumak için tam URI'yi seçin. Artı işaretli boşlukları yalnızca form türü verilerde etkinleştirin.",
       terms: [
@@ -274,7 +274,7 @@ const seed = {
     "qr-code-generator": {
       title: "QR kodu oluşturucu",
       description:
-        "Metin veya URL için standartlara uygun statik bir QR kodu oluşturur ve PNG ya da SVG olarak indirir.",
+        "Metin veya URL için standartlara uygun, PNG ya da SVG olarak indirilebilen statik bir QR kodu oluşturur.",
       guide:
         "Tam içeriği girin, güvenilir tarama için dört modüllük sessiz bölgeyi koruyun ve kod kısmen kapanabilecekse hata düzeltme düzeyini yükseltin.",
       terms: ["QR kodu oluşturucu", "QR PNG", "QR SVG", "statik QR"],

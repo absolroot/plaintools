@@ -679,7 +679,7 @@ const bundle: LocaleBundle = {
     allTools: "전체 도구",
     directoryMetaTitle: "AbsolTools | 필요한 순간, 바로 쓰는 도구",
     directoryMetaDescription:
-      "텍스트·데이터·코드를 브라우저에서 변환, 정리, 인코딩, 디코딩, 비교하세요. 도구의 입력값과 결과는 서버로 업로드되지 않습니다.",
+      "변환·정리·비교·인코딩처럼 자주 필요한 작업을 브라우저에서 처리하세요. 도구의 입력값과 결과는 서버로 업로드되지 않습니다.",
     directoryTitle: "자주 쓰이는 도구를 더 깔끔하고 편리하게 만듭니다",
     directoryIntro:
       "즐겨찾기에 사이트를 추가하면 다음에 바로 접속하실 수 있어요.",

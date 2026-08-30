@@ -232,7 +232,7 @@ const seed = {
     "url-encode": {
       title: "Codificador de URL",
       description:
-        "Aplica codificação percentual a textos, valores de consulta ou URIs completas conforme o padrão correto do navegador.",
+        "Aplica a codificação percentual padrão da Web a textos, valores de consulta ou URIs completas.",
       guide:
         "Escolha componente da URL para um único valor de consulta ou URI completa para preservar os separadores do endereço. Use o sinal de mais para espaços somente em dados de formulário.",
       terms: [
@@ -322,24 +322,24 @@ const seed = {
     "json-to-csv": {
       title: "Conversor de JSON para CSV",
       description:
-        "Converte uma matriz de objetos JSON em CSV usando uma união estável das chaves dos objetos.",
+        "Converte um array de objetos JSON em CSV, usando todas as chaves como colunas.",
       guide:
-        "Use uma matriz de objetos no nível superior. Valores aninhados são preservados como strings JSON compactas; confira como a planilha de destino deve tratá-los.",
+        "Use um array de objetos no nível superior. Valores aninhados são preservados como strings JSON compactas; confira como a planilha de destino deve tratá-los.",
       inputLabel: "Matriz JSON",
       outputLabel: "Saída CSV",
       inputPlaceholder: '[{"nome":"Ana","pontuação":92}]',
-      terms: ["JSON para CSV", "matriz JSON para CSV", "conversor de dados"],
+      terms: ["JSON para CSV", "array JSON para CSV", "conversor de dados"],
     },
     "csv-to-json": {
       title: "Conversor de CSV para JSON",
       description:
-        "Converte CSV em uma matriz de objetos JSON usando a primeira linha como nomes dos campos.",
+        "Converte CSV em um array de objetos JSON usando a primeira linha como nomes dos campos.",
       guide:
         "Todos os cabeçalhos devem estar preenchidos e ser exclusivos. Confira a detecção do delimitador antes de converter dados com vírgulas, aspas ou células com várias linhas.",
       inputLabel: "Entrada CSV",
-      outputLabel: "Matriz JSON",
+      outputLabel: "Array JSON",
       inputPlaceholder: "nome,pontuação\nAna,92",
-      terms: ["CSV para JSON", "analisador CSV", "matriz JSON"],
+      terms: ["CSV para JSON", "analisador CSV", "array JSON"],
     },
     "html-to-markdown": {
       title: "Conversor de HTML para Markdown",
@@ -355,7 +355,7 @@ const seed = {
     "markdown-to-html": {
       title: "Conversor de Markdown para HTML",
       description:
-        "Renderiza Markdown como HTML com tabelas GFM, listas, links e blocos de código cercados comuns.",
+        "Converte Markdown em HTML com tabelas GFM, listas, links e blocos de código.",
       guide:
         "Converta apenas o Markdown que pretende usar e higienize o HTML novamente antes de inserir uma saída não confiável em uma página da web.",
       inputLabel: "Entrada Markdown",

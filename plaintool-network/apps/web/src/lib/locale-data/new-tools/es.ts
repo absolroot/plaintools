@@ -221,7 +221,7 @@ const seed = {
     "ai-watermark-remover": {
       title: "Eliminador de marcas de agua de IA y caracteres ocultos",
       description:
-        "Encuentra y elimina artefactos Unicode realmente ocultos que suelen copiarse desde GPT, Claude, archivos PDF o páginas web. Esta herramienta no detecta si un texto fue escrito por IA.",
+        "Encuentra y elimina caracteres Unicode invisibles que pueden copiarse desde GPT, Claude, archivos PDF o páginas web. Esta herramienta no detecta si un texto fue escrito por IA.",
       guide:
         "Pega el texto y revisa primero el resultado depurado; después comprueba los nombres exactos, las cantidades y los puntos de código U+ eliminados. Las opciones que pueden alterar la escritura están desactivadas de forma predeterminada.",
       terms: [
@@ -235,7 +235,7 @@ const seed = {
     "url-encode": {
       title: "Codificador de URL",
       description:
-        "Codifica mediante porcentajes texto, valores de consulta o URI completas conforme al estándar del navegador.",
+        "Aplica la codificación porcentual estándar a texto, valores de consulta o URI completas.",
       guide:
         "Elige componente de URL para un único valor de consulta o URI completa para conservar los separadores de la dirección. Usa el signo más para los espacios solo en datos de formulario.",
       terms: [
@@ -248,7 +248,7 @@ const seed = {
     "url-decode": {
       title: "Decodificador de URL",
       description:
-        "Decodifica URL y valores de consulta con codificación porcentual, con un modo opcional de varias pasadas limitadas.",
+        "Decodifica URL y valores de consulta codificados por porcentaje; también admite codificación anidada con un límite de pasadas.",
       guide:
         "Pega el valor codificado, elige su ámbito y usa la decodificación repetida solo si sabes que el origen contiene codificación anidada.",
       terms: [
@@ -331,24 +331,24 @@ const seed = {
     "json-to-csv": {
       title: "Conversor de JSON a CSV",
       description:
-        "Convierte una matriz de objetos JSON en un CSV con una unión estable de las claves de los objetos.",
+        "Convierte un array de objetos JSON en CSV y usa todas las claves como columnas.",
       guide:
-        "Usa una matriz de objetos como valor de nivel superior. Los valores anidados se conservan como cadenas JSON compactas; comprueba cómo debe tratarlos la hoja de cálculo de destino.",
+        "Usa un array de objetos como valor de nivel superior. Los valores anidados se conservan como cadenas JSON compactas; comprueba cómo debe tratarlos la hoja de cálculo de destino.",
       inputLabel: "Matriz JSON",
       outputLabel: "Salida CSV",
       inputPlaceholder: '[{"nombre":"Ana","puntuación":92}]',
-      terms: ["JSON a CSV", "matriz JSON a CSV", "conversor de datos"],
+      terms: ["JSON a CSV", "array JSON a CSV", "conversor de datos"],
     },
     "csv-to-json": {
       title: "Conversor de CSV a JSON",
       description:
-        "Convierte un CSV en una matriz de objetos JSON usando la primera fila como nombres de campo.",
+        "Convierte un CSV en un array de objetos JSON usando la primera fila como nombres de campo.",
       guide:
         "Asegúrate de que todas las cabeceras tengan contenido y sean únicas. Revisa la detección del delimitador antes de convertir datos con comas, comillas o celdas multilínea.",
       inputLabel: "Entrada CSV",
-      outputLabel: "Matriz JSON",
+      outputLabel: "Array JSON",
       inputPlaceholder: "nombre,puntuación\nAna,92",
-      terms: ["CSV a JSON", "analizador CSV", "matriz JSON"],
+      terms: ["CSV a JSON", "analizador CSV", "array JSON"],
     },
     "html-to-markdown": {
       title: "Conversor de HTML a Markdown",
@@ -364,7 +364,7 @@ const seed = {
     "markdown-to-html": {
       title: "Conversor de Markdown a HTML",
       description:
-        "Renderiza Markdown como HTML con tablas GFM, listas, enlaces y bloques de código delimitados habituales.",
+        "Convierte Markdown en HTML con tablas GFM, listas, enlaces y bloques de código.",
       guide:
         "Convierte solo el Markdown que pretendas usar y vuelve a sanear el HTML antes de insertar resultados no fiables en una página web.",
       inputLabel: "Entrada Markdown",

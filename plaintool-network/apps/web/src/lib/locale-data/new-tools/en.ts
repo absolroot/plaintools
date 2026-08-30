@@ -211,7 +211,7 @@ const seed = {
     "ai-watermark-remover": {
       title: "AI watermark & hidden character remover",
       description:
-        "Find and remove literal hidden Unicode artifacts often copied from GPT, Claude, PDFs, or web pages. This tool does not detect AI authorship.",
+        "Find and remove hidden Unicode characters commonly introduced when copying text from GPT, Claude, PDFs, or web pages. This tool does not detect AI authorship.",
       guide:
         "Paste text and review the cleaned result first, then inspect the exact character names, counts, and U+ code points. Risky script-shaping options stay off by default.",
       terms: [
@@ -225,7 +225,7 @@ const seed = {
     "url-encode": {
       title: "URL encoder",
       description:
-        "Percent-encode text, query values, or complete URIs with the correct browser standard.",
+        "Percent-encode text, query values, or complete URIs using standard web encoding rules.",
       guide:
         "Choose URL component for a single query value or complete URI to preserve URL separators. Enable plus signs only for form-style data.",
       terms: [
@@ -238,7 +238,7 @@ const seed = {
     "url-decode": {
       title: "URL decoder",
       description:
-        "Decode percent-encoded URLs and query values, with an optional bounded multi-pass mode.",
+        "Decode percent-encoded URLs and query values, with an optional limit for nested encoding.",
       guide:
         "Paste the encoded value, choose its scope, and use repeated decoding only when the source is known to contain nested encoding.",
       terms: [
@@ -305,7 +305,7 @@ const seed = {
     "json-to-csv": {
       title: "JSON to CSV converter",
       description:
-        "Convert an array of JSON objects into CSV with a stable union of object keys.",
+        "Convert an array of JSON objects to CSV, using every object key as a column.",
       guide:
         "Use a top-level array of objects. Nested values are preserved as compact JSON strings, so check how the destination spreadsheet should handle them.",
       inputLabel: "JSON array",

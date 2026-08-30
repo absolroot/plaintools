@@ -2,11 +2,7 @@
 import FaqSection from "./FaqSection.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import ToolPromise from "./ToolPromise.astro";
-import {
-  networkCopy,
-  toolCatalog,
-  type ToolCategory,
-} from "../lib/tool-catalog";
+import { networkCopy, toolCatalog } from "../lib/tool-catalog";
 import { previewCopy } from "../lib/tool-i18n";
 import { type Locale, type ToolPage } from "../lib/site";
 import { breadcrumbSchema, faqSchema, webApplicationSchema } from "../lib/seo";
@@ -15,7 +11,6 @@ interface Props {
   page: ToolPage;
   title: string;
   description: string;
-  category: ToolCategory;
   guideTitle: string;
   guideBody: string;
   safetyTitle?: string;
@@ -28,7 +23,6 @@ const {
   page,
   title,
   description,
-  category,
   guideTitle,
   guideBody,
   safetyTitle,
@@ -45,7 +39,6 @@ const structuredData = [
     locale,
     page,
     homeLabel: n.allTools,
-    categoryLabel: n.categories[category],
     itemLabel: title,
   }),
   webApplicationSchema({

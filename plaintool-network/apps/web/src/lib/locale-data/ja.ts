@@ -586,7 +586,7 @@ const bundle: LocaleBundle = {
       summary: "Base64 の文字列やファイルをオンラインでデコードします。",
       searchTerms: [
         "デコード",
-        "復号ではない",
+        "Base64 変換",
         "Base64URL",
         "Data URI",
         "文字列",

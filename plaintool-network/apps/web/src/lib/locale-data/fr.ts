@@ -552,7 +552,7 @@ export const frBundle: LocaleBundle = {
     caseConverter: {
       title: "Convertisseur de casse",
       description:
-        "Convertissez du texte en majuscules, minuscules, casse de phrase ou initiales en majuscule, sans téléversement.",
+        "Convertissez du texte en majuscules, minuscules, casse de phrase ou avec une majuscule initiale à chaque mot, sans téléversement.",
       inputLabel: "Texte",
       outputLabel: "Texte converti",
       placeholder: "Saisissez ou collez du texte ici…",
@@ -599,7 +599,7 @@ export const frBundle: LocaleBundle = {
       summary: "Décodez du texte ou des fichiers Base64 en ligne.",
       searchTerms: [
         "décoder",
-        "déchiffrer Base64",
+        "décodage Base64",
         "Base64URL",
         "URI de données",
         "texte",

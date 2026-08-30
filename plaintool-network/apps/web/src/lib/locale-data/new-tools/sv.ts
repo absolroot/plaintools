@@ -232,7 +232,7 @@ const seed = {
     "url-encode": {
       title: "URL-kodare",
       description:
-        "Procentkodar text, frågevärden eller fullständiga URI:er enligt rätt webbläsarstandard.",
+        "Procentkodar text, frågevärden eller fullständiga URI:er enligt webbens standardregler.",
       guide:
         "Välj URL-komponent för ett enskilt frågevärde eller fullständig URI för att bevara URL-avgränsare. Aktivera plustecken endast för data i formulärformat.",
       terms: [
@@ -266,7 +266,7 @@ const seed = {
     "jwt-decoder": {
       title: "JWT-avkodare",
       description:
-        "Avkodar JWT-huvud, nyttolast, signaturbyte och tidsstämpelanspråk utan att ladda upp token.",
+        "Avkodar JWT-huvud, nyttolast, signaturens byte och tidsstämpelanspråk utan att ladda upp token.",
       guide:
         "Granska avkodad JSON och tidsstämplar, men verifiera signaturer och anspråk i systemet som äger signeringsnyckeln. Avkodning i sig skapar inget förtroende.",
       terms: ["JWT-avkodare", "JSON Web Token", "JWT-nyttolast", "JWT-huvud"],
@@ -274,7 +274,7 @@ const seed = {
     "qr-code-generator": {
       title: "QR-kodsgenerator",
       description:
-        "Skapar en standardkompatibel statisk QR-kod för text eller en URL och laddar ner den som PNG eller SVG.",
+        "Skapar en standardkompatibel statisk QR-kod för text eller en URL som kan laddas ner som PNG eller SVG.",
       guide:
         "Ange exakt innehåll, behåll en friyta på fyra moduler för tillförlitlig skanning och höj felkorrigeringen om koden kan bli delvis skymd.",
       terms: ["QR-kodsgenerator", "QR PNG", "QR SVG", "statisk QR"],

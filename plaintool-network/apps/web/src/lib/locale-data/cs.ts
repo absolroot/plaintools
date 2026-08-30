@@ -19,7 +19,7 @@ const csBundle = {
       "Vložte text Base64 nebo otevřete soubor. Standardní vstupy Base64, Base64URL, chybějící vycpávka a Data URI jsou zpracovávány lokálně.",
     encodeHeading: "Kódujte text nebo soubory online jako Base64.",
     encodeSubheading:
-      "Zadejte text nebo otevřete soubor. Převádějte textové a binární soubory UTF-8 na standardní Base64 nebo Base64URL, aniž byste je nahrávali.",
+      "Zadejte text nebo otevřete soubor. Převádějte text v UTF-8 a binární soubory na standardní Base64 nebo Base64URL, aniž byste je nahrávali.",
     decode: "Dekódovat",
     encode: "Kódovat",
     inputLabel: "Base64 vstup",
