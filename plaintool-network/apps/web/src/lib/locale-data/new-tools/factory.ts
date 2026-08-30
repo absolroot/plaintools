@@ -122,6 +122,7 @@ export type FormatterSubnetLocaleSeed = {
 };
 
 export type NewToolLocaleSeed = {
+  mobileDescriptions?: Partial<Record<NewToolId, string>>;
   ui: {
     clear: string;
     copy: string;
@@ -332,6 +333,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     return {
       title: source.title,
       description: source.description,
+      mobileDescription: seed.mobileDescriptions?.[id] ?? source.description,
       guideTitle: fill(ui.guideTitle, { name: source.title }),
       guideBody: source.guide,
       safetyTitle: ui.safetyTitle,
@@ -850,7 +852,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       id,
       {
         name: tools[id].title,
-        summary: tools[id].description,
+        summary: tools[id].mobileDescription,
         searchTerms: pageSeed(id).terms,
       },
     ]),

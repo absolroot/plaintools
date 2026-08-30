@@ -640,8 +640,7 @@ const bundle: LocaleBundle = {
     },
     "json-formatter": {
       name: "JSON 포매터",
-      summary:
-        "JSON을 보기 좋게 정리하고, 오류를 검사하거나 한 줄로 압축합니다.",
+      summary: "JSON 오류를 검사하고 정리·압축합니다.",
       searchTerms: [
         "JSON 정리",
         "JSON 검사",
@@ -670,8 +669,7 @@ const bundle: LocaleBundle = {
     },
     "case-converter": {
       name: "대소문자 변환기",
-      summary:
-        "텍스트를 대문자, 소문자, 문장형 또는 단어 첫 글자 대문자로 바꿉니다.",
+      summary: "텍스트의 대소문자 형식을 변환합니다.",
       searchTerms: ["대문자", "소문자", "문장형", "단어 첫 글자", "텍스트"],
     },
     ...newToolCatalog,

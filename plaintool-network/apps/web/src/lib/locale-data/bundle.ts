@@ -54,6 +54,7 @@ export type LegacyNewToolId = Exclude<NewToolId, FormatterSubnetToolId>;
 export type ToolPageCopy<T> = {
   title: string;
   description: string;
+  mobileDescription: string;
   guideTitle: string;
   guideBody: string;
   safetyTitle: string;

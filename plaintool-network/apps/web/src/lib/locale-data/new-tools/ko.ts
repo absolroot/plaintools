@@ -3,6 +3,26 @@ import { formatterSubnetFor } from "./formatter-subnet";
 
 const seed = {
   formatterSubnet: formatterSubnetFor("ko"),
+  mobileDescriptions: {
+    "ai-watermark-remover": "텍스트의 숨은 유니코드 문자를 찾아 제거합니다.",
+    "url-encode": "텍스트와 URL을 퍼센트 인코딩합니다.",
+    "url-decode": "퍼센트 인코딩된 URL을 디코딩합니다.",
+    "hash-generator": "텍스트·파일의 해시 체크섬을 계산합니다.",
+    "jwt-decoder": "JWT 헤더와 페이로드를 디코딩합니다.",
+    "qr-code-generator": "텍스트나 URL로 QR 코드를 만듭니다.",
+    "qr-code-scanner": "이미지·카메라에서 QR 코드를 읽습니다.",
+    "csv-to-markdown": "CSV를 Markdown 표로 변환합니다.",
+    "markdown-to-csv": "Markdown 표를 CSV로 변환합니다.",
+    "json-to-csv": "JSON 객체 배열을 CSV로 변환합니다.",
+    "csv-to-json": "CSV를 JSON 객체 배열로 변환합니다.",
+    "html-to-markdown": "HTML을 읽기 쉬운 Markdown으로 변환합니다.",
+    "markdown-to-html": "Markdown을 HTML로 변환합니다.",
+    "html-formatter": "HTML 소스를 보기 좋게 정리합니다.",
+    "css-formatter": "CSS 소스를 보기 좋게 정리합니다.",
+    "javascript-formatter": "JavaScript를 정리하거나 경량화합니다.",
+    "sql-formatter": "SQL을 선택한 방언에 맞게 정리합니다.",
+    "ip-subnet-calculator": "IPv4 네트워크 범위와 주소를 계산합니다.",
+  },
   ui: {
     clear: "지우기",
     copy: "복사",

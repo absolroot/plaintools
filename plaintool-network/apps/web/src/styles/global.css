@@ -561,6 +561,9 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   font-size: 14px;
   line-height: 1.5;
 }
+.hero-subheading-mobile {
+  display: none;
+}
 .tool-promise {
   margin: 0;
   padding: var(--space-2) var(--space-3);
@@ -1108,11 +1111,10 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
 }
 .tool-directory-card {
   min-width: 0;
-  min-height: 132px;
+  min-height: 72px;
   padding: var(--space-4);
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: var(--space-3);
+  display: flex;
+  align-items: center;
   color: var(--ink);
   background: var(--base);
   box-shadow: 0 0 0 1px var(--hairline);
@@ -1135,6 +1137,7 @@ a.tool-directory-card:focus-visible {
   background: color-mix(in oklch, var(--base), var(--recessed) 35%);
 }
 .tool-directory-card-heading {
+  width: 100%;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -1169,12 +1172,6 @@ a.tool-directory-card:focus-visible {
 }
 .tool-directory-card-heading h3 > span {
   display: block;
-}
-.tool-directory-copy p {
-  margin: var(--space-1) 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
 }
 .directory-status {
   margin-inline-start: auto;
@@ -1499,6 +1496,12 @@ a.tool-directory-card:focus-visible {
   .tool-intro h1 {
     font-size: 20px;
   }
+  .hero-subheading-desktop {
+    display: none;
+  }
+  .hero-subheading-mobile {
+    display: block;
+  }
   .directory-header h1 {
     font-size: 26px;
   }
@@ -1652,9 +1655,6 @@ a.tool-directory-card:focus-visible {
   .tool-directory-grid,
   .related-tools-grid {
     grid-template-columns: 1fr;
-  }
-  .tool-directory-card {
-    min-height: 124px;
   }
 }
 

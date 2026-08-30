@@ -51,7 +51,7 @@ function initConverter(root: HTMLElement): void {
   const pageHeading = document.querySelector<HTMLElement>(
     "[data-mode-heading]",
   );
-  const pageSubheading = document.querySelector<HTMLElement>(
+  const pageSubheadings = document.querySelectorAll<HTMLElement>(
     "[data-mode-subheading]",
   );
   const input = query<HTMLTextAreaElement>("[data-input]");
@@ -146,7 +146,13 @@ function initConverter(root: HTMLElement): void {
       headerContext.ariaLabel = headerLabel;
       headerContextLabel.textContent = headerLabel;
     }
-    if (pageSubheading) pageSubheading.textContent = definition.description;
+    pageSubheadings.forEach((subheading) => {
+      const mobileDescription =
+        mode === "decode"
+          ? subheading.dataset.decodeDescription
+          : subheading.dataset.encodeDescription;
+      subheading.textContent = mobileDescription || definition.description;
+    });
     const { guideTitle, guideIntro, guideSteps, faqs } = definition;
     const guideTitleNode =
       document.querySelector<HTMLElement>("[data-guide-title]");

@@ -3,7 +3,7 @@ import AdSlot from "../../components/AdSlot.astro";
 import FaqSection from "../../components/FaqSection.astro";
 import ToolPromise from "../../components/ToolPromise.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { networkCopy } from "../../lib/tool-catalog";
+import { networkCopy, toolCatalog } from "../../lib/tool-catalog";
 import { siteConfig, type Locale } from "../../lib/site";
 import {
   breadcrumbSchema,
@@ -32,6 +32,14 @@ const {
   slug: page,
   metaTitle,
 } = definition[mode];
+const mobileDescriptions = {
+  decode:
+    toolCatalog.find((tool) => tool.id === "base64-decode")?.summary[locale] ??
+    definition.decode.description,
+  encode:
+    toolCatalog.find((tool) => tool.id === "base64-encode")?.summary[locale] ??
+    definition.encode.description,
+};
 const integrationsEnabled = Boolean(
   siteConfig.integrations.adsensePublisherId &&
     siteConfig.integrations.googleCmpEnabled,
@@ -69,10 +77,17 @@ const faqJsonLd = JSON.stringify({
   <section class="tool-intro">
     <div class="tool-intro-copy">
       <h1 data-mode-heading>{heading}</h1><p
-        class="hero-subheading"
+        class="hero-subheading hero-subheading-desktop"
         data-mode-subheading
       >
         {subheading}
+      </p><p
+        class="hero-subheading hero-subheading-mobile"
+        data-mode-subheading
+        data-decode-description={mobileDescriptions.decode}
+        data-encode-description={mobileDescriptions.encode}
+      >
+        {mobileDescriptions[mode]}
       </p>
       <ToolPromise locale={locale} />
     </div>
