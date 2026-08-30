@@ -3,6 +3,28 @@ from .config import BASE_URL
 
 def run_hash_desktop(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/en/hash-generator/", wait_until="networkidle")
+    layout = page.evaluate("""
+      () => {
+        const input = document.querySelector('.hash-input-pane').getBoundingClientRect();
+        const output = document.querySelector('.hash-output-pane').getBoundingClientRect();
+        return {
+          gap: Math.round((output.top - input.bottom) * 100) / 100,
+          input_left: Math.round(input.left * 100) / 100,
+          input_right: Math.round(input.right * 100) / 100,
+          output_left: Math.round(output.left * 100) / 100,
+          output_right: Math.round(output.right * 100) / 100,
+        };
+      }
+    """)
+    report["hash_generator_layout"] = layout
+    if (
+        abs(layout["gap"] - 12) > 1
+        or abs(layout["input_left"] - layout["output_left"]) > 1
+        or abs(layout["input_right"] - layout["output_right"]) > 1
+    ):
+        report["ui_detail_failures"].append(
+            f"Hash input and output panes are not separated on one desktop axis: {layout}"
+        )
     page.locator("[data-hash-generator] [data-input]").fill("abc")
     expected = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
     page.wait_for_function(

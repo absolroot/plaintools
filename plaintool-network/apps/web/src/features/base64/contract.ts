@@ -72,6 +72,8 @@ export type Base64ModeCopy = Pick<
   Base64ClientCopy,
   | "decodeMetaTitle"
   | "encodeMetaTitle"
+  | "decodeHeaderLabel"
+  | "encodeHeaderLabel"
   | "heading"
   | "subheading"
   | "encodeHeading"
