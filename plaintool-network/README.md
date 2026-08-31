@@ -21,6 +21,7 @@ npm run dev
 npm test
 npm run check
 npm run build
+npm run ui:qa:affected
 npm run ui:qa
 ```
 
@@ -42,10 +43,30 @@ headers described below.
 ESLint, and Prettier checks. Use `npm run format` only when intentionally
 applying formatter changes. `npm run verify` combines the source tests, static
 checks, and preview build; browser QA remains explicit because it starts a real
-local site and captures desktop and mobile surfaces. The default `npm run ui:qa`
-uses the representative `en`, `ko`, `de`, `ar`, and `zh-TW` layout-risk matrix;
-run `npm run ui:qa:full` when a release needs every published locale traversed.
-The build and locale/SEO gates continue to verify all locale routes on every run.
+local site and captures rendered surfaces.
+
+Use `npm run ui:qa:affected` during normal feature work. It reads the Git diff,
+runs behavior checks only for changed features, and limits the route matrix to
+their routes in English. Shared UI changes expand deliberately to one route per
+feature across the `en`, `ko`, `de`, `ar`, and `zh-TW` layout-risk locales.
+Changes limited to tests, scripts, docs, or repository configuration skip
+Playwright. To include committed branch work, run
+`python scripts/qa-redesign.py --affected --changed-from <git-ref>` directly;
+this avoids npm treating the option as npm configuration on Windows.
+
+The default `npm run ui:qa` retains the broader representative compatibility
+gate. Run `npm run ui:qa:full` only for a release or an intentional full browser
+audit. The build and locale/SEO gates continue to verify all locale routes on
+every run.
+
+Manual focused examples:
+
+```powershell
+python scripts/qa-redesign.py --feature background-remover
+python scripts/qa-redesign.py --feature background-remover --locale en,ar
+python scripts/qa-redesign.py --feature background-remover --surface mobile
+python scripts/qa-redesign.py --feature data-converter --routes representative
+```
 
 The generated site includes 17 complete locale route families: `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`. On the first visit to `/`, the root document chooses the closest supported `navigator.languages` value and falls back to `/en/`; it does not use IP lookup, storage, or a third-party request. Explicit locale routes are never replaced. Legacy `/{locale}/tools/` routes redirect to the locale directory.
 

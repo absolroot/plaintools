@@ -51,4 +51,4 @@ Read [references/integration-checklist.md](references/integration-checklist.md) 
 
 Integrate one branch at a time into the root branch, resolve contracts deliberately, then run focused tests. After all branches are present, wire routes, registry/catalog entries, 17-locale copy, SEO/FAQ schema, RTL and technical-input direction, and shared QA from the root branch.
 
-Finish with the repository's full unit, type, lint, formatting, build, network, desktop, and mobile browser gates. Verify the actual tool surface and at least one meaningful round trip per feature family before reporting completion.
+Finish with the repository's full unit, type, lint, formatting, build, and network gates. Use `python scripts/qa-redesign.py --affected --changed-from <base>` for the final desktop/mobile browser pass so only changed feature behavior and risk-representative shared surfaces are rendered. Verify the actual tool surface and at least one meaningful round trip per changed feature family before reporting completion. Reserve `npm run ui:qa:full` for a release, publication promotion, locale-inventory change, or an explicitly requested full audit.

@@ -191,14 +191,22 @@ Use Node.js 22.19.x and npm 11.
 npm test
 npm run check
 npm run build
+npm run ui:qa:affected
 npm run ui:qa
 npm run ui:qa:full
 ```
 
-`ui:qa` exercises every tool at desktop and mobile sizes across a representative
-locale matrix (`en`, `ko`, `de`, `ar`, and `zh-TW`). `ui:qa:full` expands the same
-browser checks to every published locale; static locale, route, and metadata gates
-remain exhaustive in both workflows.
+`ui:qa:affected` is the normal feature-development browser gate. It maps changed
+feature, package, route, and locale files to focused behavior checks and rendered
+routes. Feature-local changes default to English; shared UI changes use one route
+per feature across the representative locale matrix (`en`, `ko`, `de`, `ar`, and
+`zh-TW`). Non-browser changes do not start Playwright.
+
+`ui:qa` retains the broad compatibility pass over every tool at desktop and
+mobile sizes across the representative locale matrix. `ui:qa:full` expands the
+same browser checks to every published locale and is reserved for releases and
+intentional full audits. Static locale, route, and metadata gates remain
+exhaustive in every workflow.
 
 `npm run check` is non-mutating and includes SEO registry, locale review,
 UI detail, TypeScript/Astro, ESLint, and Prettier checks. `npm run build` creates

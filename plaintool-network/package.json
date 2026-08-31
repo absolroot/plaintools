@@ -30,6 +30,7 @@
     "qa:pdf": "python scripts/qa-pdf-toolkit.py",
     "ui:qa": "python scripts/qa-redesign.py",
     "ui:qa:generators": "python scripts/qa-generator.py",
+    "ui:qa:affected": "python scripts/qa-redesign.py --affected",
     "ui:qa:full": "python scripts/qa-redesign.py --full",
     "browser:install": "agent-browser install",
     "browser:doctor": "agent-browser doctor --json",

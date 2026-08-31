@@ -123,11 +123,21 @@ def run_route_matrix(
     report: dict,
     inventory: RouteInventory,
     feature_coverage,
+    *,
+    surfaces: tuple[str, ...] = ("desktop", "mobile"),
+    run_surface_probe: bool = True,
 ) -> None:
     routes = inventory.routes
     faq_routes = inventory.faq_routes
-    report["route_matrix"] = {"desktop": {}, "mobile": {}}
-    for surface, page, width in (("desktop", desktop, 1440), ("mobile", mobile, 390)):
+    pages = {
+        "desktop": (desktop, 1440),
+        "mobile": (mobile, 390),
+    }
+    report["route_matrix"] = {surface: {} for surface in surfaces}
+    for surface in surfaces:
+        page, width = pages[surface]
+        if page is None:
+            raise RuntimeError(f"Browser QA surface {surface} has no Playwright page.")
         for locale in inventory.locales:
             for route in routes:
                 path = f"/{locale}/{route}"
@@ -438,22 +448,26 @@ def run_route_matrix(
                     if small:
                         report["ui_detail_failures"].append(f"mobile {path} has undersized tool controls: {small}")
 
-    probe_feature = next(
-        feature_id
-        for feature_id, coverage in feature_coverage.items()
-        if coverage.surface_probe
-    )
-    probe_tool = next(tool for tool in inventory.tools if tool.feature_id == probe_feature)
-    probe_locale = "ko" if "ko" in inventory.locales else inventory.locales[0]
-    desktop.goto(
-        f"{BASE_URL}/{probe_locale}/{probe_tool.slug}/",
-        wait_until="networkidle",
-    )
-    report["square_surface_radii"] = desktop.evaluate("""
-      () => Object.fromEntries([
-        ['converter', '.converter'], ['mode', '.mode-switch'], ['primary', '.primary-button'],
-        ['language', '.language-menu summary'], ['directory', '.tool-directory-grid']
-      ].map(([name, selector]) => [name, document.querySelector(selector) ? getComputedStyle(document.querySelector(selector)).borderRadius : null]))
-    """)
-    if any(value not in (None, "0px") for value in report["square_surface_radii"].values()):
-        report["ui_detail_failures"].append(f"Tool surfaces regained rounded corners: {report['square_surface_radii']}")
+    if run_surface_probe:
+        probe_feature = next(
+            feature_id
+            for feature_id, coverage in feature_coverage.items()
+            if coverage.surface_probe
+        )
+        probe_tool = next(
+            tool for tool in inventory.tools if tool.feature_id == probe_feature
+        )
+        probe_locale = "ko" if "ko" in inventory.locales else inventory.locales[0]
+        probe_page = desktop or mobile
+        probe_page.goto(
+            f"{BASE_URL}/{probe_locale}/{probe_tool.slug}/",
+            wait_until="networkidle",
+        )
+        report["square_surface_radii"] = probe_page.evaluate("""
+          () => Object.fromEntries([
+            ['converter', '.converter'], ['mode', '.mode-switch'], ['primary', '.primary-button'],
+            ['language', '.language-menu summary'], ['directory', '.tool-directory-grid']
+          ].map(([name, selector]) => [name, document.querySelector(selector) ? getComputedStyle(document.querySelector(selector)).borderRadius : null]))
+        """)
+        if any(value not in (None, "0px") for value in report["square_surface_radii"].values()):
+            report["ui_detail_failures"].append(f"Tool surfaces regained rounded corners: {report['square_surface_radii']}")
