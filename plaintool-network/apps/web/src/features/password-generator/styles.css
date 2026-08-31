@@ -1,0 +1,328 @@
+.password-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 1px;
+  background: var(--line);
+}
+
+.password-result-pane,
+.password-options {
+  min-width: 0;
+  background: var(--base);
+}
+
+.password-result-pane {
+  display: grid;
+  align-content: start;
+}
+
+.password-result-pane .pane-heading > span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.password-result-pane .pane-actions {
+  flex-wrap: wrap;
+}
+
+.password-result-pane .text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.password-result {
+  width: calc(100% - var(--space-8));
+  min-width: 0;
+  height: 68px;
+  margin: var(--space-4);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-control);
+  outline: 0;
+  color: var(--ink);
+  background: var(--recessed);
+  box-shadow: inset 0 0 0 1px var(--control-line);
+  font-family: var(--code-font);
+  font-size: clamp(16px, 2vw, 22px);
+  letter-spacing: 0.025em;
+  text-align: start;
+  unicode-bidi: isolate;
+}
+
+.password-result:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px var(--brand),
+    0 0 0 2px color-mix(in oklch, var(--brand), transparent 75%);
+}
+
+.password-result-summary {
+  padding: 0 var(--space-4) var(--space-4);
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.password-strength-copy {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: 12px;
+}
+
+.password-strength-copy span {
+  color: var(--muted);
+}
+
+.password-strength-copy strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.password-strength {
+  min-width: 120px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+}
+
+.password-strength span {
+  height: 4px;
+  background: var(--line);
+}
+
+.password-strength[data-level="limited"] span:nth-child(-n + 1),
+.password-strength[data-level="moderate"] span:nth-child(-n + 2),
+.password-strength[data-level="strong"] span:nth-child(-n + 3),
+.password-strength[data-level="veryStrong"] span:nth-child(-n + 4) {
+  background: var(--brand);
+}
+
+.password-result-summary p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.password-result-summary output {
+  color: var(--muted);
+  font-family: var(--code-font);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.password-options {
+  padding-bottom: var(--space-4);
+}
+
+.password-options-heading {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.password-options-heading h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.password-length-field {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.password-length-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.password-length-heading label,
+.password-character-options legend {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.password-length-heading input {
+  width: 72px;
+  height: 36px;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+  font-family: var(--code-font);
+  text-align: end;
+}
+
+.password-length-heading input[aria-invalid="true"] {
+  box-shadow: 0 0 0 1px var(--danger);
+}
+
+.password-length-field > input[type="range"] {
+  width: 100%;
+  min-height: 24px;
+  margin: 0;
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+
+.password-character-options {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-4);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.password-character-options[aria-invalid="true"] {
+  box-shadow: inset 3px 0 0 var(--danger);
+}
+
+.password-character-options legend {
+  padding: 0;
+}
+
+.password-character-grid {
+  margin-top: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.password-character-grid label,
+.password-ambiguous-option {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.password-character-grid label {
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  background: var(--control);
+  box-shadow: inset 0 0 0 1px var(--control-line);
+}
+
+.password-character-grid input,
+.password-ambiguous-option input {
+  flex: 0 0 auto;
+  margin: 0;
+  accent-color: var(--brand);
+}
+
+.password-ambiguous-option {
+  padding: var(--space-4);
+  align-items: flex-start;
+}
+
+.password-ambiguous-option input {
+  margin-top: 2px;
+}
+
+.password-ambiguous-option span {
+  display: grid;
+  gap: 2px;
+}
+
+.password-ambiguous-option strong {
+  font-weight: 600;
+}
+
+.password-ambiguous-option small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@media (max-width: 680px) {
+  .password-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .password-result {
+    width: calc(100% - var(--space-6));
+    height: 64px;
+    margin: var(--space-3);
+    padding-inline: var(--space-3);
+    font-size: 16px;
+  }
+
+  .password-result-pane .text-button,
+  .password-length-heading input,
+  .password-length-field > input[type="range"],
+  .password-character-grid label,
+  .password-ambiguous-option {
+    min-height: 44px;
+  }
+
+  .password-result-summary {
+    padding-inline: var(--space-3);
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .password-strength {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .password-result-summary p {
+    grid-row: 3;
+  }
+
+  .password-result-summary output {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .password-options-heading,
+  .password-length-field,
+  .password-character-options,
+  .password-ambiguous-option {
+    padding-inline: var(--space-3);
+  }
+}
+
+@media (max-width: 420px) {
+  .password-result-pane .pane-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: var(--space-2);
+  }
+
+  .password-result-pane .pane-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .password-result-summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .password-result-summary output {
+    grid-column: 1;
+    grid-row: 4;
+    white-space: normal;
+  }
+
+  .password-character-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
