@@ -41,7 +41,7 @@
     "apps/web/src/pages/[locale]/sql-formatter/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:1c5d21ed4bceae5a8d066c83b116c73a3433ec1c0661743b1adb24baaff2ab22",
+  "copyFingerprint": "sha256:1fd2aec48d86f29c664d0b8527048db3543f526ed265f30e367e69ef3496dd73",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",
