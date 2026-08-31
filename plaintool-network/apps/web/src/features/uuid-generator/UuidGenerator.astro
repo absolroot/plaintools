@@ -1,0 +1,222 @@
+---
+import {
+  uuidNamespaceKinds,
+  uuidOutputFormats,
+  uuidVersions,
+} from "@plaintool/uuid-core";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { ToolCommonCopy } from "../common-copy-contract";
+import { createUuidGeneratorClientCopy } from "./copy";
+import type { UuidGeneratorCopy } from "./contract";
+import "./styles.css";
+
+interface Props {
+  copy: UuidGeneratorCopy;
+  commonCopy: ToolCommonCopy;
+}
+
+const { copy, commonCopy } = Astro.props;
+const clientCopy = createUuidGeneratorClientCopy(copy, commonCopy);
+const quickCounts = [1, 10, 100, 1_000] as const;
+const letterCases = ["lower", "upper"] as const;
+---
+
+<section
+  class="converter uuid-generator"
+  data-uuid-generator
+  data-version="v4"
+  aria-label={copy.ariaLabel}
+>
+  <div class="uuid-version-bar">
+    <span class="uuid-control-label" id="uuid-version-label"
+      >{copy.versionLabel}</span
+    >
+    <div
+      class="uuid-version-switch"
+      role="group"
+      aria-labelledby="uuid-version-label"
+    >
+      {
+        uuidVersions.map((version) => (
+          <button
+            class:list={[
+              "uuid-version-button",
+              { "is-active": version === "v4" },
+            ]}
+            type="button"
+            data-version-button={version}
+            aria-pressed={version === "v4" ? "true" : "false"}
+          >
+            <strong>{version}</strong>
+            <small>{copy.versionNames[version]}</small>
+          </button>
+        ))
+      }
+    </div>
+    <p class="uuid-version-hint" data-version-hint>
+      {copy.versionHints.v4}
+    </p>
+  </div>
+
+  <div class="uuid-workspace">
+    <section class="uuid-settings" aria-label={copy.versionLabel}>
+      <div class="uuid-name-controls" data-name-controls hidden>
+        <label class="uuid-field">
+          <span>{copy.nameLabel}</span>
+          <input
+            type="text"
+            data-name
+            dir="auto"
+            autocomplete="off"
+            placeholder={copy.namePlaceholder}
+            disabled
+          />
+        </label>
+        <label class="uuid-field">
+          <span>{copy.namespaceLabel}</span>
+          <select data-namespace disabled>
+            {
+              uuidNamespaceKinds.map((kind) => (
+                <option value={kind}>{copy.namespaceNames[kind]}</option>
+              ))
+            }
+          </select>
+        </label>
+        <label class="uuid-field" data-custom-namespace-field hidden>
+          <span>{copy.customNamespaceLabel}</span>
+          <input
+            type="text"
+            data-custom-namespace
+            dir="ltr"
+            spellcheck="false"
+            autocomplete="off"
+            autocapitalize="off"
+            placeholder={copy.customNamespacePlaceholder}
+            disabled
+          />
+        </label>
+      </div>
+
+      <div class="uuid-quantity-controls" data-quantity-controls>
+        <label class="uuid-field">
+          <span>{copy.quantityLabel}</span>
+          <input
+            type="number"
+            data-count
+            inputmode="numeric"
+            min="1"
+            max="1000"
+            step="1"
+            value="1"
+          />
+        </label>
+        <div class="uuid-quick-counts" aria-label={copy.quantityHint}>
+          {
+            quickCounts.map((count) => (
+              <button
+                class:list={[
+                  "uuid-choice-button",
+                  { "is-active": count === 1 },
+                ]}
+                type="button"
+                data-quick-count={count}
+                aria-pressed={count === 1 ? "true" : "false"}
+              >
+                {count === 1_000 ? "1K" : count}
+              </button>
+            ))
+          }
+        </div>
+        <p class="uuid-control-hint">{copy.quantityHint}</p>
+      </div>
+
+      <fieldset class="uuid-choice-fieldset">
+        <legend>{copy.formatLabel}</legend>
+        <div class="uuid-format-choices">
+          {
+            uuidOutputFormats.map((format) => (
+              <button
+                class:list={[
+                  "uuid-choice-button",
+                  { "is-active": format === "canonical" },
+                ]}
+                type="button"
+                data-format={format}
+                aria-pressed={format === "canonical" ? "true" : "false"}
+              >
+                {copy.formatNames[format]}
+              </button>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <fieldset class="uuid-choice-fieldset">
+        <legend>{copy.letterCaseLabel}</legend>
+        <div class="uuid-case-choices">
+          {
+            letterCases.map((letterCase) => (
+              <button
+                class:list={[
+                  "uuid-choice-button",
+                  { "is-active": letterCase === "lower" },
+                ]}
+                type="button"
+                data-letter-case={letterCase}
+                aria-pressed={letterCase === "lower" ? "true" : "false"}
+              >
+                {copy.letterCaseNames[letterCase]}
+              </button>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <button
+        class="primary-button uuid-generate-button"
+        type="button"
+        data-generate
+      >
+        {copy.generate}
+      </button>
+    </section>
+
+    <section
+      class="uuid-results"
+      data-results
+      aria-labelledby="uuid-result-title"
+    >
+      <div class="uuid-result-heading">
+        <div>
+          <h2 id="uuid-result-title">{copy.resultTitle}</h2>
+          <p data-result-count hidden></p>
+        </div>
+        <div class="uuid-result-actions">
+          <button class="text-button" type="button" data-copy-all disabled>
+            <UiIcon name="copy" size={14} />{copy.copyAll}
+          </button>
+          <button class="text-button" type="button" data-download disabled>
+            <UiIcon name="download" size={14} />{commonCopy.download}
+          </button>
+          <button class="text-button" type="button" data-clear>
+            <UiIcon name="x" size={14} />{commonCopy.clear}
+          </button>
+        </div>
+      </div>
+      <p class="uuid-result-empty" data-result-empty>{copy.resultEmpty}</p>
+      <ol class="uuid-result-list" data-result-list hidden></ol>
+    </section>
+  </div>
+
+  <ConverterStatus status={commonCopy.ready} statusId="uuid-generator-status" />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>

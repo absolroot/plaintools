@@ -34,6 +34,7 @@ export type CalculatorToolId =
   | "lcm-calculator"
   | "percentage-calculator"
   | "bmi-calculator";
+import type { UuidGeneratorCopy } from "../../features/uuid-generator/contract";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -59,7 +60,8 @@ export type NewToolId =
   | "dday-calculator"
   | "age-calculator"
   | "time-zone-converter"
-  | CalculatorToolId;
+  | CalculatorToolId
+  | "uuid-generator";
 
 export type FormatterSubnetToolId =
   | "html-formatter"
@@ -76,6 +78,7 @@ export type LegacyNewToolId = Exclude<
   | "age-calculator"
   | "time-zone-converter"
   | CalculatorToolId
+  | "uuid-generator"
 >;
 
 export type ToolPageCopy<T> = {
@@ -119,6 +122,7 @@ export type NewToolsCopy = {
   "lcm-calculator": ToolPageCopy<MathCalculatorCopy>;
   "percentage-calculator": ToolPageCopy<PercentageCalculatorCopy>;
   "bmi-calculator": ToolPageCopy<BmiCalculatorCopy>;
+  "uuid-generator": ToolPageCopy<UuidGeneratorCopy>;
 };
 
 export type LocaleBundle = {

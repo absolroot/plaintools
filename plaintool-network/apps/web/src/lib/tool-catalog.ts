@@ -5,6 +5,7 @@ import {
   parseImageConversionMode,
   type ImageConverterToolId,
 } from "../features/image-converter/formats";
+import type { GeneratorToolId } from "./locale-data/generator-tools";
 
 export type ToolStatus = "available" | "preview" | "reserve";
 export type ToolCategory =
@@ -115,6 +116,7 @@ const toolMarks = {
   "url-encode": "%",
   "url-decode": "%",
   "hash-generator": "#",
+  "uuid-generator": "UUID",
   "jwt-decoder": "JWT",
   "qr-code-generator": "QR",
   "qr-code-scanner": "QR",
@@ -140,8 +142,16 @@ const toolMarks = {
   "age-calculator": "AGE",
 } as const;
 
+const generatorToolMarks = {
+  "barcode-generator": "BAR",
+  "password-generator": "PW",
+} as const satisfies Record<GeneratorToolId, string>;
+
 export type BaseRegisteredToolId = keyof typeof toolMarks;
-export type RegisteredToolId = BaseRegisteredToolId | ImageConverterToolId;
+export type RegisteredToolId =
+  | BaseRegisteredToolId
+  | ImageConverterToolId
+  | GeneratorToolId;
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
   return Object.fromEntries(
@@ -155,6 +165,7 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   category: tool.category as ToolCategory,
   status: tool.publication === "indexable" ? "available" : "preview",
   mark:
+    generatorToolMarks[tool.id as GeneratorToolId] ??
     toolMarks[tool.id as keyof typeof toolMarks] ??
     tool.id.slice(0, tool.id.indexOf("-to-")).toUpperCase(),
   name: localize(

@@ -4,6 +4,7 @@ import { backgroundRemoverFor } from "./background-remover";
 import { dateCalculatorFor } from "./date-calculator";
 import { timeZoneConverterFor } from "./time-zone-converter";
 import { calculatorSuiteFor } from "./calculator-suite";
+import { uuidGeneratorFor } from "./uuid-generator";
 
 const backgroundRemover = backgroundRemoverFor("tr");
 
@@ -13,6 +14,7 @@ const seed = {
   dateCalculator: dateCalculatorFor("tr"),
   timeZoneConverter: timeZoneConverterFor("tr"),
   calculatorSuite: calculatorSuiteFor("tr"),
+  uuidGenerator: uuidGeneratorFor("tr"),
   ui: {
     clear: "Temizle",
     copy: "Kopyala",

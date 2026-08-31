@@ -20,6 +20,10 @@ import {
   imageConverterLocales,
   type ImageConverterLocale,
 } from "../../features/image-converter/i18n";
+import {
+  generatorToolLocales,
+  type GeneratorToolLocale,
+} from "./generator-tools";
 
 const baseLocaleBundles = {
   en,
@@ -51,10 +55,12 @@ export const localeBundles = Object.fromEntries(
       catalog: {
         ...bundle.catalog,
         ...imageConverterLocales[locale as ImageConverterLocale].catalog,
+        ...generatorToolLocales[locale as LocaleBundleId].catalog,
       },
       tools: {
         ...bundle.tools,
         ...imageConverterLocales[locale as ImageConverterLocale].tools,
+        ...generatorToolLocales[locale as LocaleBundleId].tools,
       },
       help: toolHelpCopy[locale as LocaleBundleId],
     },
@@ -62,9 +68,11 @@ export const localeBundles = Object.fromEntries(
 ) as {
   [Key in LocaleBundleId]: (typeof baseLocaleBundles)[Key] & {
     catalog: (typeof baseLocaleBundles)[Key]["catalog"] &
-      (typeof imageConverterLocales)[Key]["catalog"];
+      (typeof imageConverterLocales)[Key]["catalog"] &
+      GeneratorToolLocale["catalog"];
     tools: (typeof baseLocaleBundles)[Key]["tools"] &
-      (typeof imageConverterLocales)[Key]["tools"];
+      (typeof imageConverterLocales)[Key]["tools"] &
+      GeneratorToolLocale["tools"];
     help: ToolHelpCopy;
   };
 };

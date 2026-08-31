@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "featureId": "barcode-generator",
+  "enforcement": "new-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/lib/locale-data/index.ts",
+    "apps/web/src/lib/locale-data/generator-tools.ts",
+    "apps/web/src/features/barcode-generator/contract.ts",
+    "apps/web/src/features/barcode-generator/BarcodeGenerator.astro",
+    "apps/web/src/features/barcode-generator/client.ts",
+    "apps/web/src/features/new-tools/GeneratorToolPage.astro",
+    "apps/web/src/pages/[locale]/barcode-generator/index.astro"
+  ],
+  "copyFingerprint": "sha256:eb3be63e142660a7ebec1389c8dca65822fbb08cbfc00cccbbcc9f831b435a21",
+  "locales": {
+    "en": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "en-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "ko": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "ko-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "es": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "es-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "de": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "de-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "ja": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "ja-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "fr": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "fr-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "pt-BR": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "pt-br-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "it": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "it-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "nl": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "nl-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "sv": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "sv-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "cs": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "cs-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "pl": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "pl-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "da": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "da-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "no": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "no-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "ar": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "ar-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "zh-TW": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "zh-tw-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    },
+    "tr": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "tr-barcode-generator-preview-copy",
+        "gs1-jsbarcode-reference"
+      ]
+    }
+  }
+}

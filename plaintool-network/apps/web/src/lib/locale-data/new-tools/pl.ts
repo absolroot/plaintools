@@ -4,6 +4,7 @@ import { backgroundRemoverFor } from "./background-remover";
 import { dateCalculatorFor } from "./date-calculator";
 import { timeZoneConverterFor } from "./time-zone-converter";
 import { calculatorSuiteFor } from "./calculator-suite";
+import { uuidGeneratorFor } from "./uuid-generator";
 
 const backgroundRemover = backgroundRemoverFor("pl");
 
@@ -13,6 +14,7 @@ const seed = {
   dateCalculator: dateCalculatorFor("pl"),
   timeZoneConverter: timeZoneConverterFor("pl"),
   calculatorSuite: calculatorSuiteFor("pl"),
+  uuidGenerator: uuidGeneratorFor("pl"),
   ui: {
     clear: "Wyczyść",
     copy: "Kopiuj",

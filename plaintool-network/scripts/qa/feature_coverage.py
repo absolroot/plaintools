@@ -51,6 +51,12 @@ from .calculator_feature import (
     run_bmi_calculator_desktop,
     run_bmi_calculator_mobile,
 )
+from .generator_feature import (
+    run_barcode_generator_desktop,
+    run_barcode_generator_mobile,
+    run_password_generator_desktop,
+    run_password_generator_mobile,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -241,6 +247,18 @@ FEATURE_COVERAGE = {
         desktop=run_bmi_calculator_desktop,
         mobile=run_bmi_calculator_mobile,
         focus_targets=(("input", '[data-bmi-calculator] [data-field="weightKilograms"]'),),
+        exercise_faq=True,
+    ),
+    "barcode-generator": FeatureCoverage(
+        desktop=run_barcode_generator_desktop,
+        mobile=run_barcode_generator_mobile,
+        focus_targets=(("input", "[data-barcode-generator] [data-value]"),),
+        exercise_faq=True,
+    ),
+    "password-generator": FeatureCoverage(
+        desktop=run_password_generator_desktop,
+        mobile=run_password_generator_mobile,
+        focus_targets=(("output", "[data-password-generator] [data-result]"),),
         exercise_faq=True,
     ),
 }

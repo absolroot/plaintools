@@ -142,6 +142,16 @@ export const toolRegistry = /** @type {const} */ ([
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
+    id: "uuid-generator",
+    featureId: "uuid-generator",
+    slug: "uuid-generator",
+    category: "generator",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/uuid-generator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
     id: "jwt-decoder",
     featureId: "jwt-decoder",
     slug: "jwt-decoder",
@@ -382,6 +392,26 @@ export const toolRegistry = /** @type {const} */ ([
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   ...imageConverterRegistry,
+  {
+    id: "barcode-generator",
+    featureId: "barcode-generator",
+    slug: "barcode-generator",
+    category: "generator",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/barcode-generator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "password-generator",
+    featureId: "password-generator",
+    slug: "password-generator",
+    category: "generator",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/password-generator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);

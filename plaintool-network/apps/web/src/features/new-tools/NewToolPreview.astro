@@ -23,6 +23,7 @@ import BackgroundRemover from "../background-remover/BackgroundRemover.astro";
 import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
 import DateCalculator from "../date-calculator/DateCalculator.astro";
 import dateCalculatorStylesheet from "../date-calculator/styles.css?url";
+import UuidGenerator from "../uuid-generator/UuidGenerator.astro";
 import type { DateCalculatorMode } from "../date-calculator/contract";
 import TimeZoneConverter from "../time-zone-converter/TimeZoneConverter.astro";
 import timeZoneConverterStylesheet from "../time-zone-converter/styles.css?url";
@@ -75,6 +76,7 @@ const featureStylesheets = {
   "lcm-calculator": mathCalculatorStylesheet,
   "percentage-calculator": percentageCalculatorStylesheet,
   "bmi-calculator": bmiCalculatorStylesheet,
+  "uuid-generator": undefined,
 } as const satisfies Record<NewToolId, string | undefined>;
 
 const dateCalculatorModes = {
@@ -312,6 +314,14 @@ const dataModeLabels = Object.fromEntries(
     page === "bmi-calculator" && (
       <BmiCalculator
         locale={locale}
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+      />
+    )
+  }
+  {
+    page === "uuid-generator" && (
+      <UuidGenerator
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
       />

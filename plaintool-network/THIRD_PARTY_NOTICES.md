@@ -39,6 +39,12 @@ and plugin artifacts include additional third-party software. The complete
 vendor-supplied notice is deployed verbatim at
 `/licenses/prettier-3.9.6.txt`.
 
+## uuid
+
+The UUID generator bundles [uuid](https://github.com/uuidjs/uuid), version
+14.0.2. Copyright (c) 2010-2020 Robert Kieffer and other contributors. It is
+distributed under the MIT License terms reproduced above.
+
 ## sql-formatter
 
 The SQL formatter bundles [sql-formatter](https://github.com/sql-formatter-org/sql-formatter),
@@ -52,6 +58,14 @@ above.
 The SQL formatter includes [nearley](https://nearley.js.org/), version 2.20.1.
 Copyright (c) 2014, 2015, 2016, 2017, 2018, 2019 Kartik Chandra, Tim Radvan.
 It is distributed under the MIT License terms reproduced above.
+
+## JsBarcode
+
+The browser-local barcode generator bundles
+[JsBarcode](https://github.com/lindell/JsBarcode), version 3.12.3. Copyright
+Johan Lindell and contributors. It is distributed under the MIT License terms
+reproduced above. Barcode values are passed only to the bundled browser code;
+they are not sent to the JsBarcode project or an external rendering service.
 
 ## ONNX Runtime Web
 

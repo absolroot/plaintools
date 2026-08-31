@@ -4,6 +4,7 @@ import { backgroundRemoverFor } from "./background-remover";
 import { dateCalculatorFor } from "./date-calculator";
 import { timeZoneConverterFor } from "./time-zone-converter";
 import { calculatorSuiteFor } from "./calculator-suite";
+import { uuidGeneratorFor } from "./uuid-generator";
 
 const backgroundRemover = backgroundRemoverFor("zh-TW");
 
@@ -13,6 +14,7 @@ const seed = {
   dateCalculator: dateCalculatorFor("zh-TW"),
   timeZoneConverter: timeZoneConverterFor("zh-TW"),
   calculatorSuite: calculatorSuiteFor("zh-TW"),
+  uuidGenerator: uuidGeneratorFor("zh-TW"),
   ui: {
     clear: "清除",
     copy: "複製",

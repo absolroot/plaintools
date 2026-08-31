@@ -7,12 +7,14 @@ import { localeBundles, localeMetadata } from ".";
 import type { NewToolId } from "./bundle";
 import { imageConversionModes } from "../../features/image-converter/formats";
 import type { RegisteredToolId } from "../tool-catalog";
+import type { GeneratorToolId } from "./generator-tools";
 
 const newToolIds: NewToolId[] = [
   "ai-watermark-remover",
   "url-encode",
   "url-decode",
   "hash-generator",
+  "uuid-generator",
   "jwt-decoder",
   "qr-code-generator",
   "qr-code-scanner",
@@ -37,6 +39,10 @@ const newToolIds: NewToolId[] = [
   "lcm-calculator",
   "percentage-calculator",
   "bmi-calculator",
+];
+const generatorToolIds: GeneratorToolId[] = [
+  "barcode-generator",
+  "password-generator",
 ];
 
 describe("locale bundles", () => {
@@ -140,6 +146,7 @@ describe("locale bundles", () => {
       const completeToolIds = [
         ...newToolIds,
         ...imageConversionModes.map(({ id }) => id),
+        ...generatorToolIds,
       ];
       expect(Object.keys(bundle.tools), locale).toEqual(completeToolIds);
       for (const toolId of completeToolIds) {

@@ -13,6 +13,7 @@ import type { JavaScriptFormatterCopy } from "../../../features/javascript-forma
 import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../../features/background-remover/contract";
+import type { UuidGeneratorCopy } from "../../../features/uuid-generator/contract";
 import type {
   DateCalculatorLocaleSeed,
   DateCalculatorPageId,
@@ -30,6 +31,7 @@ import type {
   ToolPageCopy,
 } from "../bundle";
 import type { LocaleCatalogToolCopy } from "../../tool-catalog";
+import type { UuidGeneratorLocaleSeed } from "./uuid-generator";
 
 type PageSeed = {
   title: string;
@@ -384,6 +386,7 @@ export type NewToolLocaleSeed = {
   dateCalculator: DateCalculatorLocaleSeed;
   timeZoneConverter: TimeZoneConverterLocaleSeed;
   calculatorSuite: CalculatorSuiteLocaleSeed;
+  uuidGenerator: UuidGeneratorLocaleSeed;
 };
 
 export type NewToolLocale = {
@@ -403,6 +406,8 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const pageSeed = (id: NewToolId): PageSeed =>
     id === "time-zone-converter"
       ? seed.timeZoneConverter.page
+      : id === "uuid-generator"
+        ? seed.uuidGenerator.page
       : id === "date-calculator" ||
           id === "dday-calculator" ||
           id === "age-calculator"
@@ -988,6 +993,11 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "url-encode": page("url-encode", urlFeature("url-encode")),
     "url-decode": page("url-decode", urlFeature("url-decode")),
     "hash-generator": page("hash-generator", hash),
+    "uuid-generator": page("uuid-generator", {
+      ...seed.uuidGenerator.feature,
+      ariaLabel: pageSeed("uuid-generator").title,
+      outdated: ui.outdated,
+    } satisfies UuidGeneratorCopy),
     "jwt-decoder": page("jwt-decoder", jwt),
     "qr-code-generator": page("qr-code-generator", qrGenerator),
     "qr-code-scanner": page("qr-code-scanner", qrScanner),

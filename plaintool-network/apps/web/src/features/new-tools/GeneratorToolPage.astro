@@ -1,0 +1,46 @@
+---
+import PreviewToolPage from "../../components/PreviewToolPage.astro";
+import BarcodeGenerator from "../barcode-generator/BarcodeGenerator.astro";
+import PasswordGenerator from "../password-generator/PasswordGenerator.astro";
+import { generatorToolLocales } from "../../lib/locale-data/generator-tools";
+import { localeBundles } from "../../lib/locale-data";
+import type { GeneratorToolId } from "../../lib/locale-data/generator-tools";
+import type { Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+  page: GeneratorToolId;
+}
+
+const { locale, page } = Astro.props;
+const content = generatorToolLocales[locale].tools[page];
+const commonCopy = localeBundles[locale].common;
+---
+
+<PreviewToolPage
+  locale={locale}
+  page={page}
+  title={content.title}
+  description={content.description}
+  guideTitle={content.guideTitle}
+  guideBody={content.guideBody}
+  safetyTitle={content.safetyTitle}
+  safetyBody={content.safetyBody}
+  faqs={content.faqs}
+>
+  {
+    page === "barcode-generator" && (
+      <BarcodeGenerator
+        copy={generatorToolLocales[locale].tools["barcode-generator"].feature}
+      />
+    )
+  }
+  {
+    page === "password-generator" && (
+      <PasswordGenerator
+        copy={generatorToolLocales[locale].tools["password-generator"].feature}
+        commonCopy={commonCopy}
+      />
+    )
+  }
+</PreviewToolPage>

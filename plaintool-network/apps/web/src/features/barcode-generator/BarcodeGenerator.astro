@@ -1,0 +1,208 @@
+---
+import { barcodeFormats, defaultBarcodeOptions } from "@plaintool/barcode-core";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { BarcodeGeneratorCopy } from "./contract";
+import "./styles.css";
+
+interface Props {
+  copy: BarcodeGeneratorCopy;
+}
+
+const { copy } = Astro.props;
+const moduleWidths = ["1", "2", "3", "4"] as const;
+const heights = ["40", "80", "120", "160"] as const;
+const margins = ["0", "10", "20", "30"] as const;
+const initiallyHidden = { hidden: true } as Record<string, boolean>;
+---
+
+<section
+  class="converter barcode-generator"
+  data-barcode-generator
+  aria-label={copy.ariaLabel}
+>
+  <div class="barcode-workspace">
+    <section class="barcode-controls" aria-label={copy.ariaLabel}>
+      <div class="barcode-primary-fields">
+        <label class="barcode-field" for="barcode-format">
+          <span>{copy.formatLabel}</span>
+          <select
+            id="barcode-format"
+            data-format
+            dir="ltr"
+            aria-describedby="barcode-format-hint barcode-generator-status"
+          >
+            {
+              barcodeFormats.map((format) => (
+                <option value={format} selected={format === "code128"}>
+                  {copy.formatOptions[format].label}
+                </option>
+              ))
+            }
+          </select>
+        </label>
+
+        <label class="barcode-field" for="barcode-value">
+          <span>{copy.valueLabel}</span>
+          <span class="barcode-input-row">
+            <input
+              id="barcode-value"
+              data-value
+              type="text"
+              dir="ltr"
+              maxlength="80"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="off"
+              placeholder={copy.formatOptions.code128.example}
+              aria-describedby="barcode-format-hint barcode-generator-status"
+            />
+            <button class="text-button" type="button" data-clear>
+              <UiIcon name="x" size={14} />{copy.clear}
+            </button>
+          </span>
+        </label>
+        <p
+          id="barcode-format-hint"
+          class="barcode-format-hint"
+          data-format-hint
+        >
+          {copy.formatOptions.code128.hint}
+        </p>
+      </div>
+
+      <details class="barcode-options">
+        <summary>
+          <UiIcon name="chevron-right" class="barcode-options-chevron" />
+          <span>{copy.appearanceTitle}</span>
+        </summary>
+        <div class="barcode-options-body">
+          <div class="barcode-option-grid">
+            <label class="barcode-field" for="barcode-module-width">
+              <span>{copy.moduleWidthLabel}</span>
+              <select id="barcode-module-width" data-module-width dir="ltr">
+                {
+                  moduleWidths.map((value) => (
+                    <option value={value} selected={value === "2"}>
+                      {copy.moduleWidthOptions[value]}
+                    </option>
+                  ))
+                }
+              </select>
+            </label>
+            <label class="barcode-field" for="barcode-height">
+              <span>{copy.heightLabel}</span>
+              <select id="barcode-height" data-height dir="ltr">
+                {
+                  heights.map((value) => (
+                    <option value={value} selected={value === "80"}>
+                      {copy.heightOptions[value]}
+                    </option>
+                  ))
+                }
+              </select>
+            </label>
+            <label class="barcode-field" for="barcode-margin">
+              <span>{copy.marginLabel}</span>
+              <select id="barcode-margin" data-margin dir="ltr">
+                {
+                  margins.map((value) => (
+                    <option value={value} selected={value === "10"}>
+                      {copy.marginOptions[value]}
+                    </option>
+                  ))
+                }
+              </select>
+            </label>
+          </div>
+
+          <label class="barcode-check-option">
+            <input type="checkbox" data-display-value checked />
+            <span>{copy.showText}</span>
+          </label>
+
+          <div class="barcode-color-grid">
+            <label class="barcode-color-field" for="barcode-foreground">
+              <span>{copy.foreground}</span>
+              <span class="barcode-color-control">
+                <input
+                  id="barcode-foreground"
+                  data-line-color
+                  type="color"
+                  value={defaultBarcodeOptions.lineColor}
+                />
+                <output data-line-color-value dir="ltr"
+                  >{defaultBarcodeOptions.lineColor}</output
+                >
+              </span>
+            </label>
+            <label class="barcode-color-field" for="barcode-background">
+              <span>{copy.background}</span>
+              <span class="barcode-color-control">
+                <input
+                  id="barcode-background"
+                  data-background
+                  type="color"
+                  value={defaultBarcodeOptions.background}
+                />
+                <output data-background-value dir="ltr"
+                  >{defaultBarcodeOptions.background}</output
+                >
+              </span>
+            </label>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section
+      class="barcode-preview-pane"
+      aria-labelledby="barcode-preview-heading"
+    >
+      <div class="pane-heading">
+        <h2 id="barcode-preview-heading">{copy.previewLabel}</h2>
+      </div>
+      <div class="barcode-preview" data-preview>
+        <svg
+          data-svg
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label={copy.previewLabel}
+          {...initiallyHidden}></svg>
+        <canvas data-canvas hidden></canvas>
+        <p data-preview-placeholder>{copy.previewPlaceholder}</p>
+      </div>
+      <div class="barcode-downloads">
+        <button
+          class="secondary-button"
+          type="button"
+          data-download-png
+          disabled
+        >
+          <UiIcon name="download" size={14} />{copy.downloadPng}
+        </button>
+        <button
+          class="secondary-button"
+          type="button"
+          data-download-svg
+          disabled
+        >
+          <UiIcon name="download" size={14} />{copy.downloadSvg}
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <ConverterStatus status={copy.ready} statusId="barcode-generator-status" />
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(copy).replace(/</gu, "\\u003c")}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

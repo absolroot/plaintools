@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "featureId": "uuid-generator",
+  "enforcement": "new-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/locale-data/new-tools/factory.ts",
+    "apps/web/src/lib/locale-data/new-tools/uuid-generator.ts",
+    "apps/web/src/features/uuid-generator/contract.ts",
+    "apps/web/src/features/uuid-generator/UuidGenerator.astro",
+    "apps/web/src/features/uuid-generator/client.ts",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/components/PreviewToolPage.astro",
+    "apps/web/src/pages/[locale]/uuid-generator/index.astro"
+  ],
+  "copyFingerprint": "sha256:28c9a62f831e5298321f3d59cc515caa6070e0d6106a9348f37db8a2c1d57b55",
+  "locales": {
+    "en": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["en-rfc9562-terms", "en-uuid-generator-ui-review"]
+    },
+    "ko": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ko-rfc9562-terms", "ko-uuid-generator-ui-review"]
+    },
+    "es": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["es-rfc9562-terms", "es-uuid-generator-ui-review"]
+    },
+    "de": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["de-rfc9562-terms", "de-uuid-generator-ui-review"]
+    },
+    "ja": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ja-rfc9562-terms", "ja-uuid-generator-ui-review"]
+    },
+    "fr": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["fr-rfc9562-terms", "fr-uuid-generator-ui-review"]
+    },
+    "pt-BR": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["pt-br-rfc9562-terms", "pt-br-uuid-generator-ui-review"]
+    },
+    "it": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["it-rfc9562-terms", "it-uuid-generator-ui-review"]
+    },
+    "nl": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["nl-rfc9562-terms", "nl-uuid-generator-ui-review"]
+    },
+    "sv": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["sv-rfc9562-terms", "sv-uuid-generator-ui-review"]
+    },
+    "cs": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["cs-rfc9562-terms", "cs-uuid-generator-ui-review"]
+    },
+    "pl": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["pl-rfc9562-terms", "pl-uuid-generator-ui-review"]
+    },
+    "da": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["da-rfc9562-terms", "da-uuid-generator-ui-review"]
+    },
+    "no": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["no-rfc9562-terms", "no-uuid-generator-ui-review"]
+    },
+    "ar": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ar-rfc9562-terms", "ar-uuid-generator-ui-review"]
+    },
+    "zh-TW": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["zh-tw-rfc9562-terms", "zh-tw-uuid-generator-ui-review"]
+    },
+    "tr": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["tr-rfc9562-terms", "tr-uuid-generator-ui-review"]
+    }
+  }
+}

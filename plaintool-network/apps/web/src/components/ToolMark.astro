@@ -12,6 +12,8 @@ const iconIds = new Set([
   "ai-watermark-remover",
   "qr-code-generator",
   "qr-code-scanner",
+  "barcode-generator",
+  "password-generator",
   "ip-subnet-calculator",
   "background-remover",
 ]);
@@ -65,6 +67,18 @@ const iconIds = new Set([
             <path d="M7 3H5a2 2 0 0 0-2 2v2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" />
             <rect x="7" y="7" width="4" height="4" rx=".5" />
             <path d="M15 7h2v2h-2zM7 15h2v2H7zM13 13h4v4h-4z" />
+          </>
+        )}
+        {toolId === "barcode-generator" && (
+          <>
+            <path d="M4 5v14M7 5v14M10 5v14M14 5v14M17 5v14M20 5v14" />
+            <path d="M4 5h3M17 19h3" />
+          </>
+        )}
+        {toolId === "password-generator" && (
+          <>
+            <circle cx="8" cy="12" r="4" />
+            <path d="M12 12h8M16 12v3M19 12v2" />
           </>
         )}
         {toolId === "ip-subnet-calculator" && (
