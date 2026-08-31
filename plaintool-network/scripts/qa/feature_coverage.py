@@ -57,6 +57,7 @@ from .generator_feature import (
     run_password_generator_desktop,
     run_password_generator_mobile,
 )
+from .pdf_toolkit_feature import run_pdf_toolkit_desktop, run_pdf_toolkit_mobile
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -259,6 +260,12 @@ FEATURE_COVERAGE = {
         desktop=run_password_generator_desktop,
         mobile=run_password_generator_mobile,
         focus_targets=(("output", "[data-password-generator] [data-result]"),),
+        exercise_faq=True,
+    ),
+    "pdf-toolkit": FeatureCoverage(
+        desktop=run_pdf_toolkit_desktop,
+        mobile=run_pdf_toolkit_mobile,
+        focus_targets=(("input", "[data-pdf-toolkit] [data-open-files]"),),
         exercise_faq=True,
     ),
 }

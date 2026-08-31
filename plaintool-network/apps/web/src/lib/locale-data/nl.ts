@@ -709,6 +709,7 @@ export const nlBundle: LocaleBundle = {
       text: "Tekst",
       converter: "Converters",
       image: "Afbeeldingen",
+      pdf: "PDF",
       data: "Gegevens",
       calculator: "Rekenmachines",
       time: "Tijd",

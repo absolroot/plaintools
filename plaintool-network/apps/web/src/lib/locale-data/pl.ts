@@ -709,6 +709,7 @@ const plBundle = {
       text: "Tekst",
       converter: "Konwertery",
       image: "Obrazy",
+      pdf: "PDF",
       data: "Dane",
       calculator: "Kalkulatory",
       time: "Czas",

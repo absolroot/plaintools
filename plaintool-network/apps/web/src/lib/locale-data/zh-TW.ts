@@ -651,6 +651,7 @@ const bundle: LocaleBundle = {
       text: "文字",
       converter: "轉換工具",
       image: "圖片",
+      pdf: "PDF",
       data: "資料",
       calculator: "計算器",
       time: "時間",

@@ -31,6 +31,7 @@
     "@plaintool/math-calculator-core": "*",
     "@plaintool/percentage-calculator-core": "*",
     "@plaintool/password-core": "*",
+    "@plaintool/pdf-core": "*",
     "@plaintool/qr-core": "*",
     "@plaintool/sql-formatter-core": "*",
     "@plaintool/text-case-core": "*",
@@ -42,10 +43,13 @@
     "@plaintool/uuid-core": "*",
     "astro": "^7.2.9",
     "elheif": "^0.1.0",
+    "fflate": "0.8.3",
     "flag-icons": "7.5.0",
     "gifenc": "^1.0.3",
     "jsbarcode": "3.12.3",
-    "onnxruntime-web": "1.29.0"
+    "onnxruntime-web": "1.29.0",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "6.3.289"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4"

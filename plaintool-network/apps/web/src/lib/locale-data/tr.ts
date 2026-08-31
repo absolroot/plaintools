@@ -705,6 +705,7 @@ const bundle: LocaleBundle = {
       text: "Metin",
       converter: "Dönüştürücüler",
       image: "Görseller",
+      pdf: "PDF",
       data: "Veri",
       calculator: "Hesaplayıcılar",
       time: "Zaman",

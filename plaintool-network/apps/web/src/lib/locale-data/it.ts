@@ -702,6 +702,7 @@ export const itBundle: LocaleBundle = {
       text: "Testo",
       converter: "Convertitori",
       image: "Immagini",
+      pdf: "PDF",
       data: "Dati",
       calculator: "Calcolatori",
       time: "Tempo",

@@ -50,6 +50,7 @@ for (const tool of registeredTools) {
       "text",
       "converter",
       "image",
+      "pdf",
       "data",
       "calculator",
       "time",

@@ -24,6 +24,10 @@ import {
   generatorToolLocales,
   type GeneratorToolLocale,
 } from "./generator-tools";
+import {
+  pdfToolkitLocales,
+  type PdfToolkitLocale,
+} from "../../features/pdf-toolkit/i18n";
 
 const baseLocaleBundles = {
   en,
@@ -54,11 +58,13 @@ export const localeBundles = Object.fromEntries(
       ...bundle,
       catalog: {
         ...bundle.catalog,
+        ...pdfToolkitLocales[locale as PdfToolkitLocale].catalog,
         ...imageConverterLocales[locale as ImageConverterLocale].catalog,
         ...generatorToolLocales[locale as LocaleBundleId].catalog,
       },
       tools: {
         ...bundle.tools,
+        ...pdfToolkitLocales[locale as PdfToolkitLocale].tools,
         ...imageConverterLocales[locale as ImageConverterLocale].tools,
         ...generatorToolLocales[locale as LocaleBundleId].tools,
       },
@@ -69,10 +75,12 @@ export const localeBundles = Object.fromEntries(
   [Key in LocaleBundleId]: (typeof baseLocaleBundles)[Key] & {
     catalog: (typeof baseLocaleBundles)[Key]["catalog"] &
       (typeof imageConverterLocales)[Key]["catalog"] &
-      GeneratorToolLocale["catalog"];
+      GeneratorToolLocale["catalog"] &
+      (typeof pdfToolkitLocales)[Key]["catalog"];
     tools: (typeof baseLocaleBundles)[Key]["tools"] &
       (typeof imageConverterLocales)[Key]["tools"] &
-      GeneratorToolLocale["tools"];
+      GeneratorToolLocale["tools"] &
+      (typeof pdfToolkitLocales)[Key]["tools"];
     help: ToolHelpCopy;
   };
 };

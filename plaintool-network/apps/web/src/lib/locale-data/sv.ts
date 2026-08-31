@@ -706,6 +706,7 @@ const svBundle = {
       text: "Text",
       converter: "Konverterare",
       image: "Bilder",
+      pdf: "PDF",
       data: "Data",
       calculator: "Kalkylatorer",
       time: "Tid",

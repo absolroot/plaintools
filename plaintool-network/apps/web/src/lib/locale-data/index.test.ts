@@ -6,6 +6,7 @@ import { toolRegistry } from "../tool-registry.js";
 import { localeBundles, localeMetadata } from ".";
 import type { NewToolId } from "./bundle";
 import { imageConversionModes } from "../../features/image-converter/formats";
+import { pdfToolIds } from "../../features/pdf-toolkit/modes";
 import type { RegisteredToolId } from "../tool-catalog";
 import type { GeneratorToolId } from "./generator-tools";
 
@@ -145,6 +146,7 @@ describe("locale bundles", () => {
       const bundle = localeBundles[locale];
       const completeToolIds = [
         ...newToolIds,
+        ...pdfToolIds,
         ...imageConversionModes.map(({ id }) => id),
         ...generatorToolIds,
       ];

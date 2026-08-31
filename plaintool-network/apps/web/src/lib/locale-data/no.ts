@@ -707,6 +707,7 @@ const noBundle = {
       text: "Tekst",
       converter: "Konvertering",
       image: "Bilder",
+      pdf: "PDF",
       data: "Data",
       calculator: "Kalkulatorer",
       time: "Tid",

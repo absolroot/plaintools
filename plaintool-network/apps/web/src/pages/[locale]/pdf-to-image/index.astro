@@ -1,0 +1,12 @@
+---
+import PdfToolkitPage from "../../../features/pdf-toolkit/PdfToolkitPage.astro";
+import { locales, type Locale } from "../../../lib/site";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<PdfToolkitPage locale={locale} page="pdf-to-image" />

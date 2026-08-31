@@ -696,6 +696,7 @@ const bundle: LocaleBundle = {
       text: "النصوص",
       converter: "المحوّلات",
       image: "الصور",
+      pdf: "PDF",
       data: "البيانات",
       calculator: "الآلات الحاسبة",
       time: "الوقت",

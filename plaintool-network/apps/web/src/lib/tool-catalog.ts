@@ -14,6 +14,7 @@ export type ToolCategory =
   | "text"
   | "converter"
   | "image"
+  | "pdf"
   | "data"
   | "calculator"
   | "time";
@@ -140,6 +141,11 @@ const toolMarks = {
   "date-calculator": "D±",
   "dday-calculator": "D",
   "age-calculator": "AGE",
+  "compress-pdf": "PDF",
+  "merge-pdf": "PDF",
+  "split-pdf": "PDF",
+  "pdf-to-image": "PDF",
+  "image-to-pdf": "PDF",
 } as const;
 
 const generatorToolMarks = {
@@ -147,11 +153,21 @@ const generatorToolMarks = {
   "password-generator": "PW",
 } as const satisfies Record<GeneratorToolId, string>;
 
-export type BaseRegisteredToolId = keyof typeof toolMarks;
+export type PdfToolkitToolId =
+  | "compress-pdf"
+  | "merge-pdf"
+  | "split-pdf"
+  | "pdf-to-image"
+  | "image-to-pdf";
+export type BaseRegisteredToolId = Exclude<
+  keyof typeof toolMarks,
+  PdfToolkitToolId
+>;
 export type RegisteredToolId =
   | BaseRegisteredToolId
   | ImageConverterToolId
-  | GeneratorToolId;
+  | GeneratorToolId
+  | PdfToolkitToolId;
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
   return Object.fromEntries(

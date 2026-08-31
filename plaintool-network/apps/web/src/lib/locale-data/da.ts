@@ -706,6 +706,7 @@ const daBundle = {
       text: "Tekst",
       converter: "Konvertering",
       image: "Billeder",
+      pdf: "PDF",
       data: "Data",
       calculator: "Beregnere",
       time: "Tid",

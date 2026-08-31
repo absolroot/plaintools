@@ -716,6 +716,7 @@ export const frBundle: LocaleBundle = {
       text: "Texte",
       converter: "Convertisseurs",
       image: "Images",
+      pdf: "PDF",
       data: "Données",
       calculator: "Calculatrices",
       time: "Temps",

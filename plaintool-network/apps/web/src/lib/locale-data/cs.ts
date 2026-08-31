@@ -705,6 +705,7 @@ const csBundle = {
       text: "Text",
       converter: "Převodníky",
       image: "Obrázky",
+      pdf: "PDF",
       data: "Data",
       calculator: "Kalkulačky",
       time: "Čas",

@@ -719,6 +719,7 @@ const bundle: LocaleBundle = {
       text: "Text",
       converter: "Converters",
       image: "Images",
+      pdf: "PDF",
       data: "Data",
       calculator: "Calculators",
       time: "Time",

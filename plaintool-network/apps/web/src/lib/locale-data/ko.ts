@@ -701,6 +701,7 @@ const bundle: LocaleBundle = {
       text: "텍스트",
       converter: "변환기",
       image: "이미지",
+      pdf: "PDF",
       data: "데이터",
       calculator: "계산기",
       time: "시간",

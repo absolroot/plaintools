@@ -702,6 +702,7 @@ export const ptBRBundle: LocaleBundle = {
       text: "Texto",
       converter: "Conversores",
       image: "Imagens",
+      pdf: "PDF",
       data: "Dados",
       calculator: "Calculadoras",
       time: "Tempo",

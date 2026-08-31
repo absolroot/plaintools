@@ -30,6 +30,25 @@ const imageConverterRegistry = imageFormats.flatMap((source) =>
     })),
 );
 
+const pdfToolSlugs = /** @type {const} */ ([
+  "compress-pdf",
+  "merge-pdf",
+  "split-pdf",
+  "pdf-to-image",
+  "image-to-pdf",
+]);
+
+const pdfToolkitRegistry = pdfToolSlugs.map((slug) => ({
+  id: slug,
+  featureId: "pdf-toolkit",
+  slug,
+  category: "pdf",
+  publication: "preview",
+  localeReviewManifest:
+    "apps/web/src/lib/locale-review-manifests/pdf-toolkit.json",
+  structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+}));
+
 export const toolRegistry = /** @type {const} */ ([
   {
     id: "base64-decode",
@@ -391,6 +410,7 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/time-zone-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  ...pdfToolkitRegistry,
   ...imageConverterRegistry,
   {
     id: "barcode-generator",

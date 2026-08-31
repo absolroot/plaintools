@@ -17,6 +17,7 @@ const pairedTools: Partial<Record<ToolPage, ToolPage>> = {
 };
 
 const toolFamilies: ToolPage[][] = [
+  ["compress-pdf", "merge-pdf", "split-pdf", "pdf-to-image", "image-to-pdf"],
   ["base64-decode", "base64-encode", "url-encode", "url-decode"],
   ["qr-code-generator", "qr-code-scanner"],
   [

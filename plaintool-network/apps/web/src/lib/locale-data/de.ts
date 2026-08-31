@@ -711,6 +711,7 @@ export const deBundle: LocaleBundle = {
       text: "Text",
       converter: "Konverter",
       image: "Bilder",
+      pdf: "PDF",
       data: "Daten",
       calculator: "Rechner",
       time: "Zeit",

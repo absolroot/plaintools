@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "featureId": "pdf-toolkit",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/tool-catalog.ts",
+    "apps/web/src/features/pdf-toolkit/contract.ts",
+    "apps/web/src/features/pdf-toolkit/modes.ts",
+    "apps/web/src/features/pdf-toolkit/i18n.ts",
+    "apps/web/src/features/pdf-toolkit/i18n.generated.ts",
+    "apps/web/src/features/pdf-toolkit/PdfToolkit.astro",
+    "apps/web/src/features/pdf-toolkit/PdfToolkitPage.astro",
+    "apps/web/src/features/pdf-toolkit/client.ts"
+  ],
+  "copyFingerprint": "sha256:8d437b364dac94b7976fd5fbbdc94fb30e9fd24214982e443e3fdda04e2cc259",
+  "locales": {
+    "en": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "en-pdfjs-rendering-reference",
+        "en-pdflib-document-reference"
+      ]
+    },
+    "ko": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ko-pdf-tool-terms", "ko-browser-local-privacy-copy"]
+    },
+    "es": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["es-pdf-tool-terms", "es-browser-local-privacy-copy"]
+    },
+    "de": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["de-pdf-tool-terms", "de-browser-local-privacy-copy"]
+    },
+    "ja": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ja-pdf-tool-terms", "ja-browser-local-privacy-copy"]
+    },
+    "fr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["fr-pdf-tool-terms", "fr-browser-local-privacy-copy"]
+    },
+    "pt-BR": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "pt-BR-pdf-tool-terms",
+        "pt-BR-browser-local-privacy-copy"
+      ]
+    },
+    "it": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["it-pdf-tool-terms", "it-browser-local-privacy-copy"]
+    },
+    "nl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["nl-pdf-tool-terms", "nl-browser-local-privacy-copy"]
+    },
+    "sv": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["sv-pdf-tool-terms", "sv-browser-local-privacy-copy"]
+    },
+    "cs": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["cs-pdf-tool-terms", "cs-browser-local-privacy-copy"]
+    },
+    "pl": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["pl-pdf-tool-terms", "pl-browser-local-privacy-copy"]
+    },
+    "da": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["da-pdf-tool-terms", "da-browser-local-privacy-copy"]
+    },
+    "no": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["no-pdf-tool-terms", "no-browser-local-privacy-copy"]
+    },
+    "ar": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ar-pdf-tool-terms", "ar-browser-local-privacy-copy"]
+    },
+    "zh-TW": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": [
+        "zh-TW-pdf-tool-terms",
+        "zh-TW-browser-local-privacy-copy"
+      ]
+    },
+    "tr": {
+      "status": "reference-backed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["tr-pdf-tool-terms", "tr-browser-local-privacy-copy"]
+    }
+  }
+}
