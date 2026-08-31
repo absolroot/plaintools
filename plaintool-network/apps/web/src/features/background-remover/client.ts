@@ -25,6 +25,7 @@ import { modelManifest } from "./model-manifest";
 type DecodedImage = ImageBitmap | HTMLImageElement;
 type ConsentIntent = "single" | "compare";
 type WorkerKind = "standard" | "precision";
+type BackgroundRunMode = BackgroundModelId | "compare";
 type ModelResult = {
   model: BackgroundModelId;
   mask: Uint8ClampedArray;
@@ -90,8 +91,6 @@ function init(root: HTMLElement): void {
   const removeButtonLabel = root.querySelector<HTMLElement>(
     "[data-remove-label]",
   )!;
-  const compareButton =
-    root.querySelector<HTMLButtonElement>("[data-compare]")!;
   const trimButton = root.querySelector<HTMLButtonElement>("[data-trim]")!;
   const trimButtonLabel = root.querySelector<HTMLElement>("[data-trim-label]")!;
   const downloadButton =
@@ -157,7 +156,7 @@ function init(root: HTMLElement): void {
   let rejectActive: ((reason: Error) => void) | undefined;
   let precisionApproved = false;
   let precisionSupported = false;
-  let previousModel: BackgroundModelId = "fast";
+  let previousModel: BackgroundRunMode = "fast";
   let consentIntent: ConsentIntent | undefined;
   let comparisonMode = false;
   let selectedResultModel: BackgroundModelId | undefined;
@@ -168,19 +167,25 @@ function init(root: HTMLElement): void {
     state: "idle" | "working" | "success" | "error" = "idle",
   ) => setToolStatus(root, status, message, state);
 
-  const selectedModel = (): BackgroundModelId =>
+  const selectedRunMode = (): BackgroundRunMode =>
     root.querySelector<HTMLInputElement>(
       'input[name="background-model"]:checked',
-    )!.value as BackgroundModelId;
+    )!.value as BackgroundRunMode;
   const selectedBackground = (): BackgroundMode =>
     root.querySelector<HTMLInputElement>(
       'input[name="background-mode"]:checked',
     )!.value as BackgroundMode;
 
+  function updateRemoveButtonLabel(): void {
+    removeButtonLabel.textContent =
+      selectedRunMode() === "compare"
+        ? copy.compareModels
+        : copy.removeBackground;
+  }
+
   function setBusy(busy: boolean, comparisonRun = false): void {
     root.classList.toggle("is-comparing", busy && comparisonRun);
     removeButton.disabled = busy || !sourcePixels;
-    compareButton.disabled = busy || !sourcePixels;
     trimButton.disabled = busy || !selectedResultModel;
     downloadButton.disabled = busy || !selectedResultModel;
     modelInputs.forEach((input) => {
@@ -189,11 +194,13 @@ function init(root: HTMLElement): void {
     });
     if (busy) removeButton.setAttribute("aria-busy", "true");
     else removeButton.removeAttribute("aria-busy");
-    removeButtonLabel.textContent = busy
-      ? comparisonRun
+    if (busy) {
+      removeButtonLabel.textContent = comparisonRun
         ? copy.comparingModels
-        : copy.processingImage
-      : copy.removeBackground;
+        : copy.processingImage;
+    } else {
+      updateRemoveButtonLabel();
+    }
   }
 
   function stopWorker(): void {
@@ -509,13 +516,13 @@ function init(root: HTMLElement): void {
     });
   }
 
-  async function runSingle(): Promise<void> {
+  async function runSingle(model: BackgroundModelId): Promise<void> {
     if (!sourcePixels) return;
     const taskRevision = ++revision;
     clearResults();
     setBusy(true);
     try {
-      const result = await runInference(selectedModel(), taskRevision);
+      const result = await runInference(model, taskRevision);
       if (taskRevision !== revision) return;
       results.set(result.model, result);
       selectedResultModel = result.model;
@@ -695,8 +702,12 @@ function init(root: HTMLElement): void {
     fileInput.value = "";
     if (file) void selectFile(file);
   });
-  removeButton.addEventListener("click", () => void runSingle());
-  compareButton.addEventListener("click", () => {
+  removeButton.addEventListener("click", () => {
+    const runMode = selectedRunMode();
+    if (runMode !== "compare") {
+      void runSingle(runMode);
+      return;
+    }
     if (precisionSupported && !precisionApproved) showConsent("compare");
     else void runComparison(precisionSupported && precisionApproved);
   });
@@ -749,9 +760,9 @@ function init(root: HTMLElement): void {
   });
 
   function modelSelectionChanged(): void {
+    updateRemoveButtonLabel();
     if (!sourcePixels) return;
     revision += 1;
-    stopWorker();
     clearResults();
     hideProgress();
     setBusy(false);
@@ -801,7 +812,7 @@ function init(root: HTMLElement): void {
 
   modelInputs.forEach((input) =>
     input.addEventListener("change", () => {
-      const nextModel = input.value as BackgroundModelId;
+      const nextModel = input.value as BackgroundRunMode;
       if (nextModel === "precision" && !precisionApproved) {
         input.checked = false;
         root.querySelector<HTMLInputElement>(

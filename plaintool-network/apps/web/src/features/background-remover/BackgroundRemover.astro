@@ -48,7 +48,12 @@ const modelIds = ["fast", "portrait", "quality", "precision"] as const;
     </section>
 
     <section class="background-pane background-result-pane">
-      <div class="background-pane-heading"><span>{copy.resultLabel}</span></div>
+      <div class="background-pane-heading">
+        <span>{copy.resultLabel}</span>
+        <IconButton variant="text" icon="image" data-trim disabled hidden>
+          <span data-trim-label>{copy.trimImage}</span>
+        </IconButton>
+      </div>
       <div class="background-stage is-checkerboard" data-result-stage>
         <canvas data-result-canvas hidden></canvas>
         <p class="background-result-placeholder" data-result-placeholder>
@@ -145,6 +150,14 @@ const modelIds = ["fast", "portrait", "quality", "precision"] as const;
         >
           {copy.precisionUnavailable}
         </p>
+        <label class="background-model-option">
+          <input type="radio" name="background-model" value="compare" />
+          <span
+            ><strong>{copy.compareModels}</strong><small
+              >{copy.comparisonSelected}</small
+            ></span
+          >
+        </label>
       </fieldset>
       <fieldset>
         <legend>{copy.backgroundLabel}</legend>
@@ -186,12 +199,6 @@ const modelIds = ["fast", "portrait", "quality", "precision"] as const;
     <div class="primary-actions background-actions">
       <button class="primary-button" type="button" data-remove disabled>
         <span data-remove-label>{copy.removeBackground}</span>
-      </button>
-      <button class="secondary-button" type="button" data-compare disabled>
-        {copy.compareModels}
-      </button>
-      <button class="secondary-button" type="button" data-trim disabled hidden>
-        <span data-trim-label>{copy.trimImage}</span>
       </button>
       <IconButton
         variant="secondary"

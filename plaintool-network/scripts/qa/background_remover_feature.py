@@ -70,6 +70,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
           const portrait = options.querySelector('input[name="background-model"][value="portrait"]');
           const quality = options.querySelector('input[name="background-model"][value="quality"]');
           const precision = options.querySelector('input[name="background-model"][value="precision"]');
+          const compare = options.querySelector('input[name="background-model"][value="compare"]');
           const root = document.querySelector('[data-background-remover]');
           return {
             open: options.open,
@@ -77,6 +78,8 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             portraitVisible: portrait.getBoundingClientRect().height > 0,
             qualityVisible: quality.getBoundingClientRect().height > 0,
             precisionVisible: precision.getBoundingClientRect().height > 0,
+            compareVisible: compare.getBoundingClientRect().height > 0,
+            modelOptionCount: options.querySelectorAll('input[name="background-model"]').length,
             precisionSupport: root.dataset.precisionSupport,
             precisionDisabled: precision.disabled,
             unavailableVisible: !root.querySelector('[data-precision-unavailable]').hidden,
@@ -89,7 +92,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
     )
     options_visible = all(
         options_default[key]
-        for key in ("open", "fastVisible", "portraitVisible", "qualityVisible", "precisionVisible")
+        for key in ("open", "fastVisible", "portraitVisible", "qualityVisible", "precisionVisible", "compareVisible")
     )
     precision_support_consistent = (
         options_default["precisionSupport"] == "supported"
@@ -102,6 +105,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
     )
     if (
         not options_visible
+        or options_default["modelOptionCount"] != 5
         or not precision_support_consistent
         or options_default["modelLegend"] != "AI model"
         or options_default["technicalNamesVisible"]
@@ -423,7 +427,17 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         )
 
     resources_before_comparison = len(requested_resources)
-    page.locator("[data-compare]").click()
+    page.locator('input[name="background-model"][value="compare"]').check()
+    compare_selection = page.evaluate(
+        """
+        () => ({
+          selected: document.querySelector('input[name="background-model"]:checked').value,
+          primaryLabel: document.querySelector('[data-remove-label]').textContent.trim(),
+          separateCompareButton: Boolean(document.querySelector('[data-compare]'))
+        })
+        """
+    )
+    page.locator("[data-remove]").click()
     comparison_consent = None
     if options_default["precisionSupport"] == "supported":
         comparison_consent = page.evaluate(
@@ -467,6 +481,9 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
     )
     if (
         not comparison_state["visible"]
+        or compare_selection["selected"] != "compare"
+        or compare_selection["primaryLabel"] != "Compare models"
+        or compare_selection["separateCompareButton"]
         or comparison_state["columns"] != 2
         or comparison_state["cardCount"] != 4
         or comparison_state["successModels"] != ["fast", "portrait", "quality"]
@@ -487,7 +504,8 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
     ):
         report["ui_detail_failures"].append(
             "Background remover comparison did not preserve the sequential three-model fallback: "
-            f"state={comparison_state}, consent={comparison_consent}"
+            f"selection={compare_selection}, state={comparison_state}, "
+            f"consent={comparison_consent}"
         )
 
     before_trim = page.locator("[data-result-canvas]").evaluate(
@@ -503,7 +521,9 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         """
         () => ({
           label: document.querySelector('[data-trim-label]').textContent.trim(),
-          selected: document.querySelector('[data-comparison-card][aria-pressed="true"]')?.dataset.comparisonCard
+          selected: document.querySelector('[data-comparison-card][aria-pressed="true"]')?.dataset.comparisonCard,
+          inResultHeading: Boolean(document.querySelector('.background-result-pane .background-pane-heading [data-trim]')),
+          checkerboardPadding: getComputedStyle(document.querySelector('[data-result-stage]')).padding
         })
         """
     )
@@ -516,6 +536,8 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         or after_trim == before_trim
         or trim_state["label"] != "Restore original size"
         or trim_state["selected"] != "fast"
+        or not trim_state["inResultHeading"]
+        or trim_state["checkerboardPadding"] != "0px"
         or comparison_filename != "qa-subject-background-removed-fast-trimmed.png"
         or len(requested_resources) != resources_before_comparison
     ):
@@ -524,6 +546,14 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             f"before={before_trim}, after={after_trim}, state={trim_state}, "
             f"filename={comparison_filename}"
         )
+
+    page.locator(
+        ".background-result-pane .background-pane-heading"
+    ).scroll_into_view_if_needed()
+    page.screenshot(
+        path=str(QA_DIR / "background-remover-trimmed-desktop-en.png"),
+        full_page=False,
+    )
 
     page.set_viewport_size({"width": 390, "height": 844})
     comparison_mobile_state = page.evaluate(
