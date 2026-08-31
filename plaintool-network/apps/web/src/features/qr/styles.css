@@ -79,6 +79,10 @@
   border-top: 1px solid var(--line);
 }
 
+.qr-camera-actions {
+  background: var(--base);
+}
+
 .qr-downloads .secondary-button {
   display: inline-flex;
   align-items: center;
