@@ -31,6 +31,7 @@ If a locale migration is concurrent, wait for its commit before steps 4-6. Do no
 
 - Focused unit tests after each integration.
 - `npm test`, `npm run check`, and preview build/network QA.
-- Desktop and mobile browser behavior, including RTL pages and LTR technical inputs.
+- `npm run ui:qa:affected -- --changed-from <base>` for desktop/mobile browser behavior. Feature changes stay focused; shared UI changes automatically include the layout-risk locale matrix, RTL pages, and LTR technical inputs.
+- `npm run ui:qa:full` only for releases, publication promotion, locale-inventory changes, or an explicitly requested full audit.
 - Console errors, cross-origin requests, copy/download, clear/newer-input authority, and local-only claims.
 - Update the run ledger with final commit, gates, known limitations, and whether preview publication remains intentional.

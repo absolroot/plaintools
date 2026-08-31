@@ -27,6 +27,7 @@
     "qa:test": "python -m unittest discover -s scripts -p \"test_*.py\"",
     "qa:security": "python scripts/qa-security.py",
     "ui:qa": "python scripts/qa-redesign.py",
+    "ui:qa:affected": "python scripts/qa-redesign.py --affected",
     "ui:qa:full": "python scripts/qa-redesign.py --full",
     "qa:network": "node scripts/qa-network.mjs",
     "locale:check": "node scripts/check-locale-reviews.mjs && node scripts/test-locale-review-gate.mjs",
