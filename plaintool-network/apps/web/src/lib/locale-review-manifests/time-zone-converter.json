@@ -37,7 +37,7 @@
     "apps/web/src/pages/[locale]/time-zone-converter/index.astro",
     "packages/time-core/src/index.ts"
   ],
-  "copyFingerprint": "sha256:1a5ed5c8f0a2ef58c9d89d9dc146838a23ac183cb31ab13ac31570da4f9ae842",
+  "copyFingerprint": "sha256:0f04164a38fa584103d7bdb57e009d0c80f8277e8bed919e3bbc701ffe35b6bc",
   "locales": {
     "en": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["en-timeanddate-time-zone-converter", "en-world-time-buddy-world-clock"] },
     "ko": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["ko-existing-time-zone-copy", "ko-cldr-time-zone-names"] },

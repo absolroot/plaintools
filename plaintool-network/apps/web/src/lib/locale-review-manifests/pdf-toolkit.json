@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "pdf-toolkit",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -34,7 +34,7 @@
     "apps/web/src/features/pdf-toolkit/PdfToolkitPage.astro",
     "apps/web/src/features/pdf-toolkit/client.ts"
   ],
-  "copyFingerprint": "sha256:8d437b364dac94b7976fd5fbbdc94fb30e9fd24214982e443e3fdda04e2cc259",
+  "copyFingerprint": "sha256:04216a9d5fa5fbc66928b515fb26bc00dc783967cd3b6c8ddf089d77db333a99",
   "locales": {
     "en": {
       "status": "reference-backed",

@@ -43,7 +43,7 @@ const pdfToolkitRegistry = pdfToolSlugs.map((slug) => ({
   featureId: "pdf-toolkit",
   slug,
   category: "pdf",
-  publication: "preview",
+  publication: "indexable",
   localeReviewManifest:
     "apps/web/src/lib/locale-review-manifests/pdf-toolkit.json",
   structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -321,6 +321,16 @@ export const toolRegistry = /** @type {const} */ ([
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
+    id: "image-upscaler",
+    featureId: "image-upscaler",
+    slug: "image-upscaler",
+    category: "image",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/image-upscaler.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
     id: "fraction-calculator",
     featureId: "math-calculator",
     slug: "fraction-calculator",
@@ -368,16 +378,6 @@ export const toolRegistry = /** @type {const} */ ([
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/bmi-calculator.json",
-    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
-  },
-  {
-    id: "image-upscaler",
-    featureId: "image-upscaler",
-    slug: "image-upscaler",
-    category: "image",
-    publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/image-upscaler.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
