@@ -492,7 +492,7 @@ const texts: Record<ImageConverterLocale, ImageLocaleText> = {
     "{from}에서 {to}로 변환",
     "{from} 이미지를 {to}로 브라우저에서 변환합니다. 포맷에 맞는 고품질 설정으로 눈에 보이는 품질을 지키면서 불필요한 용량 증가를 줄입니다.",
     {
-      ariaLabel: "이미지 포맷 변환기",
+      ariaLabel: "이미지 포맷 변환",
       sourceFormat: "원본",
       targetFormat: "변환 형식",
       swapFormats: "포맷 서로 바꾸기",

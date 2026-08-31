@@ -26,6 +26,7 @@ export interface ToolCatalogItem {
   category: ToolCategory;
   status: ToolStatus;
   name: LocalizedText;
+  subtitle?: LocalizedText;
   summary: LocalizedText;
   searchTerms: LocalizedSearchTerms;
 }
@@ -79,6 +80,26 @@ const imageFormatCardNames = {
   heic: "HEIC",
   avif: "AVIF",
 } as const;
+
+const backgroundRemoverCardSubtitle = {
+  en: "AI model",
+  ko: "AI 모델",
+  es: "Modelo de IA",
+  de: "KI-Modell",
+  ja: "AIモデル",
+  fr: "Modèle d’IA",
+  "pt-BR": "Modelo de IA",
+  it: "Modello di IA",
+  nl: "AI-model",
+  sv: "AI-modell",
+  cs: "Model AI",
+  pl: "Model AI",
+  da: "AI-model",
+  no: "KI-modell",
+  ar: "نموذج ذكاء اصطناعي",
+  "zh-TW": "AI 模型",
+  tr: "Yapay zekâ modeli",
+} as const satisfies LocalizedText;
 
 const toolMarks = {
   "base64-decode": "B64",
@@ -135,6 +156,10 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
         tool.id
       ]!.name,
   ),
+  subtitle:
+    tool.id === "background-remover"
+      ? backgroundRemoverCardSubtitle
+      : undefined,
   summary: localize(
     (locale) =>
       (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[

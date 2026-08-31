@@ -268,6 +268,10 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
         "formatOrder": format_order,
         "swapAfterTarget": all(format_boxes)
         and format_boxes[0]["x"] < format_boxes[1]["x"] < format_boxes[2]["x"],
+        "formatControlsAligned": all(format_boxes)
+        and max(box["y"] for box in format_boxes)
+        - min(box["y"] for box in format_boxes)
+        <= 1,
         "qualityVisible": root.locator("[data-quality]").is_visible(),
         "qualityEnabled": root.locator("[data-quality]").is_enabled(),
         "qualityChevron": quality_options.locator(".image-options-chevron").count(),
@@ -282,6 +286,7 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
         or affordances["swapIcon"] != 1
         or affordances["formatOrder"] != ["source", "target", "swap"]
         or not affordances["swapAfterTarget"]
+        or not affordances["formatControlsAligned"]
         or not affordances["qualityVisible"]
         or not affordances["qualityEnabled"]
         or affordances["qualityChevron"] != 0

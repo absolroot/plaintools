@@ -23,7 +23,7 @@ const {
   tool,
   locale,
   displayName,
-  subtitle,
+  subtitle = tool.subtitle?.[locale],
   mark = tool.mark,
   markId = tool.id,
   searchable = true,
