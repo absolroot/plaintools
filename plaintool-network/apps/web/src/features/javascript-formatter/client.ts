@@ -106,9 +106,9 @@ function init(root: HTMLElement): void {
     const usesFormatOptions = javascriptModeUsesFormatOptions(mode);
     root.dataset.mode = mode;
     root
-      .querySelectorAll<HTMLButtonElement>("[data-mode-button]")
+      .querySelectorAll<HTMLButtonElement>("[data-mode]")
       .forEach((button) => {
-        const selected = button.dataset.modeButton === mode;
+        const selected = button.dataset.mode === mode;
         button.classList.toggle("is-active", selected);
         button.setAttribute("aria-pressed", String(selected));
       });
@@ -281,19 +281,17 @@ function init(root: HTMLElement): void {
       run(true);
     }
   });
-  root
-    .querySelectorAll<HTMLButtonElement>("[data-mode-button]")
-    .forEach((button) =>
-      button.addEventListener("click", () => {
-        const mode = button.dataset.modeButton;
-        if (mode !== "format" && mode !== "minify") return;
-        if (mode === authority.snapshot.mode) return;
-        invalidatePending();
-        authority.changeMode(mode);
-        syncModeUi();
-        scheduleCurrent();
-      }),
-    );
+  root.querySelectorAll<HTMLButtonElement>("[data-mode]").forEach((button) =>
+    button.addEventListener("click", () => {
+      const mode = button.dataset.mode;
+      if (mode !== "format" && mode !== "minify") return;
+      if (mode === authority.snapshot.mode) return;
+      invalidatePending();
+      authority.changeMode(mode);
+      syncModeUi();
+      scheduleCurrent();
+    }),
+  );
   manualRunButton.addEventListener("click", () => run(true));
   root
     .querySelector<HTMLButtonElement>("[data-sample]")!

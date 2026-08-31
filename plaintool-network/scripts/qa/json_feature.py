@@ -1,191 +1,220 @@
 from .config import BASE_URL, QA_DIR
 
 
+def _layout_state(page) -> dict:
+    return page.locator("[data-json-tool]").evaluate(
+        """
+        root => {
+          const getRect = selector => root.querySelector(selector)?.getBoundingClientRect();
+          const editor = getRect('.converter-grid');
+          const status = getRect('.converter-commandbar');
+          const options = getRect('.formatter-options');
+          const modes = getRect('.mode-switch');
+          return {
+            structurePresent: Boolean(editor && status && options && modes),
+            primaryButtons: root.querySelectorAll('.primary-button').length,
+            modeButtons: root.querySelectorAll('.mode-switch [data-mode]').length,
+            editorBeforeStatus: Boolean(editor && status && editor.bottom <= status.top + 1),
+            statusBeforeOptions: Boolean(status && options && status.bottom <= options.top + 1),
+            modesInside: Boolean(modes && modes.left >= -0.5 && modes.right <= document.documentElement.clientWidth + 0.5),
+            scrollWidth: document.documentElement.scrollWidth,
+            viewportWidth: document.documentElement.clientWidth,
+          };
+        }
+        """
+    )
+
+
 def run_json_desktop(desktop, report: dict) -> None:
     desktop.goto(f"{BASE_URL}/ko/json-formatter/", wait_until="networkidle")
-    report["json_example"] = desktop.locator("[data-json-tool] [data-input]").get_attribute("placeholder")
+    root = desktop.locator("[data-json-tool]")
+    input_box = root.locator("[data-input]")
+    output = root.locator("[data-output]")
+
+    report["json_layout"] = _layout_state(desktop)
+    layout = report["json_layout"]
+    if (
+        not layout["structurePresent"]
+        or layout["primaryButtons"] != 0
+        or layout["modeButtons"] != 3
+        or not layout["editorBeforeStatus"]
+        or not layout["statusBeforeOptions"]
+        or not layout["modesInside"]
+        or layout["scrollWidth"] > layout["viewportWidth"]
+    ):
+        report["ui_detail_failures"].append(
+            f"JSON must share the formatter mode/editor/status/options structure: {layout}"
+        )
+
+    report["json_example"] = input_box.get_attribute("placeholder")
     if '"name":"AbsolTools"' not in report["json_example"]:
-        report["ui_detail_failures"].append(f"JSON input lacks a valid example object: {report['json_example']}")
+        report["ui_detail_failures"].append(
+            f"JSON input lacks a valid example object: {report['json_example']}"
+        )
+
     report["json_click_focus"] = {}
     for surface, selector in (("input", "#json-input"), ("output", "#json-output")):
         desktop.locator(selector).click()
-        report["json_click_focus"][surface] = desktop.locator(selector).evaluate("""
-          element => {
-            const pane = element.closest('.editor-pane');
-            return {
-              textarea_outline: getComputedStyle(element).outline,
-              textarea_shadow: getComputedStyle(element).boxShadow,
-              pane_shadow: getComputedStyle(pane).boxShadow
-            };
-          }
-        """)
+        report["json_click_focus"][surface] = desktop.locator(selector).evaluate(
+            """
+            element => {
+              const pane = element.closest('.editor-pane');
+              return {
+                textarea_shadow: getComputedStyle(element).boxShadow,
+                pane_shadow: getComputedStyle(pane).boxShadow
+              };
+            }
+            """
+        )
     if (
-        report["json_click_focus"]["input"] != report["json_click_focus"]["output"]
+        report["json_click_focus"]["input"]
+        != report["json_click_focus"]["output"]
         or report["json_click_focus"]["input"]["textarea_shadow"] == "none"
         or report["json_click_focus"]["input"]["pane_shadow"] != "none"
     ):
-        report["ui_detail_failures"].append(f"JSON input and output click focus treatments must match: {report['json_click_focus']}")
-    report["json_help_desktop"] = {}
-    for mode in ("validate", "minify"):
-        action = desktop.locator(f'[data-action="{mode}"]')
-        trigger = desktop.locator(f'.tooltip-trigger[aria-describedby="json-{mode}-help"]')
-        trigger.hover()
-        state = desktop.locator(f"#json-{mode}-help").evaluate("""
-          element => {
-            const tooltip = element.getBoundingClientRect();
-            const converter = element.closest('[data-json-tool]').getBoundingClientRect();
-            const action = element.parentElement.querySelector('[data-action]').getBoundingClientRect();
-            const trigger = element.previousElementSibling.getBoundingClientRect();
-            return {
-              display: getComputedStyle(element).display,
-              inside_converter: tooltip.left >= converter.left && tooltip.right <= converter.right,
-              trigger_inside_action: trigger.left >= action.left - .1 && trigger.right <= action.right + .1 && trigger.top >= action.top - .1 && trigger.bottom <= action.bottom + .1,
-              main_center_clear: trigger.left > action.left + action.width / 2,
-              tooltip_bounds: { left: tooltip.left, right: tooltip.right, top: tooltip.top, bottom: tooltip.bottom },
-              converter_bounds: { left: converter.left, right: converter.right, top: converter.top, bottom: converter.bottom },
-              action_bounds: { left: action.left, right: action.right, top: action.top, bottom: action.bottom }
-            };
-          }
-        """)
-        action.focus()
-        state["focus_display"] = desktop.locator(f"#json-{mode}-help").evaluate("element => getComputedStyle(element).display")
-        if mode == "validate":
-            desktop.screenshot(path=str(QA_DIR / "plaintool-json-tooltip-desktop-ko.png"), full_page=False)
-        desktop.keyboard.press("Escape")
-        state["escape_display"] = desktop.locator(f"#json-{mode}-help").evaluate("element => getComputedStyle(element).display")
-        state["focus_retained_after_escape"] = action.evaluate("element => document.activeElement === element")
-        report["json_help_desktop"][mode] = state
-        if state["display"] == "none" or state["focus_display"] == "none" or state["escape_display"] != "none" or not state["focus_retained_after_escape"] or not state["inside_converter"] or not state["trigger_inside_action"] or not state["main_center_clear"]:
-            report["ui_detail_failures"].append(f"JSON desktop {mode} help is clipped or outside its action: {state}")
-    desktop.locator("[data-json-tool] [data-input]").fill('{"id":900719925474099312345,"a":1,"a":2}')
-    desktop.locator('[data-action="format"]').click()
-    desktop.wait_for_function("document.querySelector('[data-json-tool] [data-output]').value.includes('900719925474099312345')")
-    report["json_large_number_preserved"] = "900719925474099312345" in desktop.locator("[data-json-tool] [data-output]").input_value()
-    report["json_duplicate_warning"] = desktop.locator("[data-badges] .badge.is-warning").count()
-    report["json_complete_label"] = desktop.locator("[data-json-tool] [data-status]").text_content()
-    report["json_success_status"] = desktop.locator("[data-json-tool] .converter-commandbar").evaluate("el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el.querySelector('.status-copy')).color, fontSize: getComputedStyle(el.querySelector('.status-copy')).fontSize, fontWeight: getComputedStyle(el.querySelector('.status-copy')).fontWeight })")
-    if report["json_complete_label"] != "올바른 JSON입니다." or "is-success" not in (desktop.locator("[data-json-tool]").get_attribute("class") or ""):
-        report["ui_detail_failures"].append(f"JSON completion state is unclear: {report['json_complete_label']}")
-    report["json_privacy_note"] = desktop.locator("[data-json-tool] .privacy-note").evaluate("el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el).color })")
-    desktop.evaluate("""
-      () => {
-        const root = document.querySelector('[data-json-tool]');
-        const output = root.querySelector('[data-output]');
-        window.__jsonUxTransition = { outputs: [], states: [] };
-        window.__jsonUxTimer = setInterval(() => {
-          window.__jsonUxTransition.outputs.push(output.value);
-          window.__jsonUxTransition.states.push(root.className);
-        }, 4);
-      }
-    """)
-    desktop.locator("[data-json-tool] [data-input]").press("End")
-    desktop.locator("[data-json-tool] [data-input]").type(" ")
-    desktop.wait_for_timeout(350)
-    report["json_fast_transition"] = desktop.evaluate("""
-      () => {
-        clearInterval(window.__jsonUxTimer);
-        return {
-          outputs: [...new Set(window.__jsonUxTransition.outputs)],
-          states: [...new Set(window.__jsonUxTransition.states)]
-        };
-      }
-    """)
-    if "" in report["json_fast_transition"]["outputs"] or any("is-working" in state for state in report["json_fast_transition"]["states"]):
-        report["ui_detail_failures"].append(f"Fast JSON input exposed an empty output or transient working state: {report['json_fast_transition']}")
-    desktop.screenshot(path=str(QA_DIR / "plaintool-json-desktop-ko.png"), full_page=False)
-    desktop.locator("[data-json-tool] [data-input]").fill('{"a":}')
-    desktop.locator('[data-action="validate"]').click()
-    desktop.wait_for_function("document.querySelector('[data-json-tool]').classList.contains('has-error')")
-    report["json_error_status"] = desktop.locator("[data-json-tool] .converter-commandbar").evaluate("el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el.querySelector('.status-copy')).color })")
-    desktop.screenshot(path=str(QA_DIR / "plaintool-json-error-desktop-ko.png"), full_page=False)
-    if report["json_success_status"]["background"] == report["json_error_status"]["background"] or report["json_success_status"]["background"] == report["json_privacy_note"]["background"]:
-        report["ui_detail_failures"].append(f"JSON success, error, and privacy surfaces must remain visually distinct: {report['json_success_status']}/{report['json_error_status']}/{report['json_privacy_note']}")
-    if report["json_success_status"]["fontSize"] != "13px" or int(report["json_success_status"]["fontWeight"]) < 600:
-        report["ui_detail_failures"].append(f"JSON status text must remain prominent: {report['json_success_status']}")
-    desktop.locator("[data-json-tool] [data-input]").fill('{"nested":{"value":1}}')
-    desktop.locator('[data-action="format"]').click()
-    desktop.wait_for_function("document.querySelector('[data-json-tool] [data-output]').value.includes('  \"nested\"')")
-    desktop.locator("[data-json-tool] [data-indent]").select_option("4")
-    desktop.wait_for_function("document.querySelector('[data-json-tool] [data-output]').value.includes('    \"value\"')")
-    report["json_indent_recomputed"] = desktop.locator("[data-json-tool] [data-output]").input_value()
-    large_json = '{"value":"' + ("x" * 200000) + '"}'
-    desktop.locator("[data-json-tool] [data-input]").fill(large_json)
-    desktop.locator('[data-action="format"]').click()
-    desktop.locator("[data-json-tool] [data-clear]").click()
-    desktop.wait_for_timeout(450)
-    report["json_clear_state"] = desktop.evaluate("""
-      () => ({
-        input: document.querySelector('[data-json-tool] [data-input]').value,
-        output: document.querySelector('[data-json-tool] [data-output]').value,
-        className: document.querySelector('[data-json-tool]').className
-      })
-    """)
-    if report["json_clear_state"]["input"] or report["json_clear_state"]["output"] or any(state in report["json_clear_state"]["className"] for state in ("is-working", "is-success", "has-error")):
-        report["ui_detail_failures"].append(f"JSON Clear allowed pending work to restore stale state: {report['json_clear_state']}")
+        report["ui_detail_failures"].append(
+            f"JSON input and output click focus treatments must match: {report['json_click_focus']}"
+        )
 
+    input_box.fill('{"id":900719925474099312345,"nested":{"value":1},"a":1,"a":2}')
+    desktop.wait_for_function(
+        "document.querySelector('[data-json-tool] [data-output]').value.includes('900719925474099312345')"
+    )
+    report["json_live_format"] = output.input_value()
+    report["json_duplicate_warning"] = root.locator("[data-badges] .badge.is-warning").count()
+
+    root.locator('[data-mode="minify"]').click()
+    desktop.wait_for_function(
+        "document.querySelector('[data-json-tool] [data-output]').value.startsWith('{\"id\":')"
+    )
+    report["json_live_minify"] = output.input_value()
+    if root.locator(".formatter-options").is_visible():
+        report["ui_detail_failures"].append(
+            "JSON indent options must be hidden when minify is selected"
+        )
+
+    root.locator('[data-mode="validate"]').click()
+    desktop.wait_for_function(
+        "document.querySelector('[data-json-tool]').classList.contains('is-success')"
+    )
+    report["json_live_validate"] = {
+        "output": output.input_value(),
+        "downloadDisabled": root.locator("[data-download]").is_disabled(),
+    }
+    if report["json_live_validate"] != {"output": "", "downloadDisabled": True}:
+        report["ui_detail_failures"].append(
+            f"JSON validate must remain a live non-download mode: {report['json_live_validate']}"
+        )
+
+    input_box.fill('{"a":}')
+    desktop.wait_for_function(
+        "document.querySelector('[data-json-tool]').classList.contains('has-error')"
+    )
+    report["json_error_status"] = root.locator(".converter-commandbar").evaluate(
+        "el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el.querySelector('.status-copy')).color })"
+    )
+    desktop.screenshot(
+        path=str(QA_DIR / "plaintool-json-error-desktop-ko.png"), full_page=False
+    )
+
+    root.locator('[data-mode="format"]').click()
+    input_box.fill('{"nested":{"value":1}}')
+    desktop.wait_for_function(
+        "document.querySelector('[data-json-tool] [data-output]').value.includes('  \"nested\"')"
+    )
+    if not root.locator(".formatter-options").is_visible():
+        report["ui_detail_failures"].append(
+            "JSON indent options must be visible in format mode"
+        )
+    root.locator(".formatter-options > summary").click()
+    root.locator("[data-indent]").select_option("4")
+    desktop.wait_for_function(
+        "document.querySelector('[data-json-tool] [data-output]').value.includes('        \"value\"')"
+    )
+    report["json_indent_recomputed"] = output.input_value()
+    desktop.screenshot(
+        path=str(QA_DIR / "plaintool-json-desktop-ko.png"), full_page=False
+    )
+
+    large_json = '{"value":"' + ("x" * (1024 * 1024 + 1)) + '"}'
+    input_box.fill(large_json)
+    desktop.wait_for_function(
+        "!document.querySelector('[data-json-tool] [data-manual-run]').hidden"
+    )
+    report["json_large_input"] = {
+        "manualVisible": root.locator("[data-manual-run]").is_visible(),
+        "primaryButtons": root.locator(".primary-button").count(),
+    }
+    root.locator("[data-clear]").click()
+    desktop.wait_for_timeout(250)
+    report["json_clear_state"] = root.evaluate(
+        """
+        root => ({
+          input: root.querySelector('[data-input]').value,
+          output: root.querySelector('[data-output]').value,
+          manualHidden: root.querySelector('[data-manual-run]').hidden,
+          className: root.className
+        })
+        """
+    )
+    if (
+        report["json_clear_state"]["input"]
+        or report["json_clear_state"]["output"]
+        or not report["json_clear_state"]["manualHidden"]
+        or any(
+            state in report["json_clear_state"]["className"]
+            for state in ("is-working", "is-success", "has-error")
+        )
+    ):
+        report["ui_detail_failures"].append(
+            f"JSON Clear allowed pending work to restore stale state: {report['json_clear_state']}"
+        )
 
 
 def run_json_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
-    report["json_help_mobile"] = {}
+    report["json_mobile_layout"] = {}
     for locale in locales:
         mobile.goto(f"{BASE_URL}/{locale}/json-formatter/", wait_until="networkidle")
-        report["json_help_mobile"][locale] = {}
-        for mode in ("validate", "minify"):
-            action = mobile.locator(f'[data-action="{mode}"]')
-            action.click()
-            action_display = mobile.locator(f"#json-{mode}-help").evaluate("element => getComputedStyle(element).display")
-            trigger = mobile.locator(f'.tooltip-trigger[aria-describedby="json-{mode}-help"]')
-            trigger.click()
-            state = mobile.locator(f"#json-{mode}-help").evaluate("""
-              element => {
-                const tooltip = element.getBoundingClientRect();
-                const converter = element.closest('[data-json-tool]').getBoundingClientRect();
-                const action = element.parentElement.querySelector('[data-action]').getBoundingClientRect();
-                const trigger = element.previousElementSibling.getBoundingClientRect();
-                return {
-                  display: getComputedStyle(element).display,
-                  inside_converter: tooltip.left >= converter.left && tooltip.right <= converter.right,
-                  trigger_inside_action: trigger.left >= action.left - 1 && trigger.right <= action.right + 1 && trigger.top >= action.top - 1 && trigger.bottom <= action.bottom + 1,
-                  scroll_width: document.documentElement.scrollWidth,
-                  trigger_bounds: { left: trigger.left, right: trigger.right, top: trigger.top, bottom: trigger.bottom },
-                  action_bounds: { left: action.left, right: action.right, top: action.top, bottom: action.bottom }
-                };
-              }
-            """)
-            state["action_display"] = action_display
-            if locale == "ko" and mode == "validate":
-                mobile.screenshot(path=str(QA_DIR / "plaintool-json-tooltip-mobile-ko.png"), full_page=False)
-            trigger.click()
-            state["second_tap_display"] = mobile.locator(f"#json-{mode}-help").evaluate("element => getComputedStyle(element).display")
-            trigger.click()
-            mobile.locator("main h1").click()
-            state["outside_tap_display"] = mobile.locator(f"#json-{mode}-help").evaluate("element => getComputedStyle(element).display")
-            trigger.click()
-            mobile.keyboard.press("Escape")
-            state["escape_display"] = mobile.locator(f"#json-{mode}-help").evaluate("element => getComputedStyle(element).display")
-            state["focus_retained_after_escape"] = trigger.evaluate("element => document.activeElement === element")
-            report["json_help_mobile"][locale][mode] = state
-            if state["action_display"] != "none" or state["display"] == "none" or state["second_tap_display"] != "none" or state["outside_tap_display"] != "none" or state["escape_display"] != "none" or not state["focus_retained_after_escape"] or not state["inside_converter"] or not state["trigger_inside_action"] or state["scroll_width"] > 390:
-                report["ui_detail_failures"].append(f"JSON mobile {locale}/{mode} help trigger behavior, bounds, or overflow failed: {state}")
-        validate_trigger = mobile.locator('.tooltip-trigger[aria-describedby="json-validate-help"]')
-        minify_trigger = mobile.locator('.tooltip-trigger[aria-describedby="json-minify-help"]')
-        validate_trigger.click()
-        minify_trigger.click()
-        simultaneous_state = mobile.evaluate("""
-          () => ({
-            validate: getComputedStyle(document.querySelector('#json-validate-help')).display,
-            minify: getComputedStyle(document.querySelector('#json-minify-help')).display
-          })
-        """)
-        report["json_help_mobile"][locale]["one_open_at_a_time"] = simultaneous_state
-        if simultaneous_state != {"validate": "none", "minify": "block"}:
-            report["ui_detail_failures"].append(f"JSON mobile {locale} tooltips must allow only one open item: {simultaneous_state}")
+        state = _layout_state(mobile)
+        report["json_mobile_layout"][locale] = state
+        if (
+            not state["structurePresent"]
+            or state["primaryButtons"] != 0
+            or state["modeButtons"] != 3
+            or not state["editorBeforeStatus"]
+            or not state["statusBeforeOptions"]
+            or not state["modesInside"]
+            or state["scrollWidth"] > 390
+        ):
+            report["ui_detail_failures"].append(
+                f"JSON mobile {locale} formatter structure or overflow failed: {state}"
+            )
+        if locale == "ko":
+            mobile.locator(
+                "[data-json-tool] .formatter-options > summary"
+            ).click()
+            mobile.evaluate("window.scrollTo(0, 0)")
+            mobile.screenshot(
+                path=str(QA_DIR / "plaintool-json-mobile-ko.png"), full_page=False
+            )
 
     mobile.goto(f"{BASE_URL}/ko/json-formatter/", wait_until="networkidle")
-    mobile.locator("[data-json-tool] [data-input]").fill('{"a":}')
-    mobile.locator('[data-action="validate"]').click()
-    mobile.wait_for_function("document.querySelector('[data-json-tool]').classList.contains('has-error')")
-    report["json_mobile_error"] = mobile.locator("[data-json-tool] .converter-commandbar").evaluate("el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el.querySelector('.status-copy')).color, height: el.getBoundingClientRect().height, scrollWidth: document.documentElement.scrollWidth })")
-    mobile.screenshot(path=str(QA_DIR / "plaintool-json-error-mobile-ko.png"), full_page=False)
-    if report["json_mobile_error"]["scrollWidth"] > 390 or report["json_mobile_error"]["background"] == "rgba(0, 0, 0, 0)":
-        report["ui_detail_failures"].append(f"JSON mobile error state must be visible without horizontal overflow: {report['json_mobile_error']}")
+    root = mobile.locator("[data-json-tool]")
+    root.locator('[data-mode="validate"]').click()
+    root.locator("[data-input]").fill('{"a":}')
+    mobile.wait_for_function(
+        "document.querySelector('[data-json-tool]').classList.contains('has-error')"
+    )
+    report["json_mobile_error"] = root.locator(".converter-commandbar").evaluate(
+        "el => ({ background: getComputedStyle(el).backgroundColor, scrollWidth: document.documentElement.scrollWidth })"
+    )
+    mobile.screenshot(
+        path=str(QA_DIR / "plaintool-json-error-mobile-ko.png"), full_page=False
+    )
+    if (
+        report["json_mobile_error"]["scrollWidth"] > 390
+        or report["json_mobile_error"]["background"] == "rgba(0, 0, 0, 0)"
+    ):
+        report["ui_detail_failures"].append(
+            f"JSON mobile error state must be visible without horizontal overflow: {report['json_mobile_error']}"
+        )

@@ -49,7 +49,7 @@ def run_source_formatter_desktop(page, report: dict, _inventory) -> None:
     expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
         re.compile(r"const add =")
     )
-    page.locator("[data-mode-button='minify']").click()
+    page.locator("[data-javascript-formatter] [data-mode='minify']").click()
     expect(page.locator("[data-javascript-formatter] [data-output]")).to_have_value(
         re.compile(r"const add=")
     )

@@ -1,8 +1,10 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import FormatterOptions from "../../components/FormatterOptions.astro";
 import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
-import Tooltip from "../../components/Tooltip.astro";
+import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
+import { localeBundles } from "../../lib/locale-data";
 import { previewCopy } from "../../lib/tool-i18n";
 import { toolExamples } from "../../lib/tool-examples";
 import type { Locale } from "../../lib/site";
@@ -14,6 +16,7 @@ interface Props {
 const { locale } = Astro.props;
 const c = previewCopy[locale].common;
 const t = jsonCopy[locale];
+const siteCopy = localeBundles[locale].site;
 const examples = toolExamples[locale];
 const clientCopy = {
   ready: c.ready,
@@ -32,46 +35,15 @@ const clientCopy = {
 ---
 
 <section class="converter" data-json-tool aria-label={t.title}>
-  <div class="converter-topbar action-topbar">
-    <div class="primary-actions">
-      <button
-        class="primary-button"
-        type="button"
-        data-action="format"
-        aria-keyshortcuts="Control+Enter Meta+Enter">{t.format}</button
-      >
-      <Tooltip id="json-validate-help" triggerLabel={t.validateHelpLabel}>
-        <button
-          slot="target"
-          class="secondary-button"
-          type="button"
-          data-action="validate"
-          aria-describedby="json-validate-help">{t.validate}</button
-        >
-        {t.validateHelp}
-      </Tooltip>
-      <Tooltip
-        id="json-minify-help"
-        triggerLabel={t.minifyHelpLabel}
-        mobileAlign="end"
-      >
-        <button
-          slot="target"
-          class="secondary-button"
-          type="button"
-          data-action="minify"
-          aria-describedby="json-minify-help">{t.minify}</button
-        >
-        {t.minifyHelp}
-      </Tooltip>
-    </div>
-    <label class="inline-field"
-      ><span>{t.indent}</span><select name="indent" data-indent
-        ><option value="2">{t.twoSpaces}</option><option value="4"
-          >{t.fourSpaces}</option
-        ><option value="tab">{t.tabs}</option></select
-      ></label
-    >
+  <div class="converter-topbar">
+    <ToolModeSwitch
+      label={t.title}
+      items={[
+        { mode: "format", label: t.format, active: true },
+        { mode: "validate", label: t.validate, active: false },
+        { mode: "minify", label: t.minify, active: false },
+      ]}
+    />
   </div>
   <div class="converter-grid">
     <section class="editor-pane">
@@ -115,7 +87,27 @@ const clientCopy = {
         placeholder={t.outputPlaceholder}></textarea>
     </section>
   </div>
-  <ConverterStatus status={c.ready} badges />
+  <ConverterStatus status={c.ready} badges>
+    <button
+      class="secondary-button formatter-manual-run"
+      type="button"
+      data-manual-run
+      aria-keyshortcuts="Control+Enter Meta+Enter"
+      hidden>{t.format}</button
+    >
+  </ConverterStatus>
+  <FormatterOptions label={siteCopy.options}>
+    <div class="formatter-options-grid">
+      <div class="formatter-option-field">
+        <label for="json-indent">{t.indent}</label>
+        <select id="json-indent" name="indent" data-indent>
+          <option value="2">{t.twoSpaces}</option>
+          <option value="4">{t.fourSpaces}</option>
+          <option value="tab">{t.tabs}</option>
+        </select>
+      </div>
+    </div>
+  </FormatterOptions>
   <LocalProcessingNote locale={locale} />
   <script
     is:inline

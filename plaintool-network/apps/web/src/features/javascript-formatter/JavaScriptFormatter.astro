@@ -3,6 +3,7 @@ import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import FormatterOptions from "../../components/FormatterOptions.astro";
 import Tooltip from "../../components/Tooltip.astro";
+import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import type { JavaScriptFormatterComponentProps } from "./contract";
 import { createJavaScriptFormatterClientCopy } from "./copy";
 import "./styles.css";
@@ -19,21 +20,22 @@ const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
   data-mode={initialMode}
   aria-label={copy.ariaLabel}
 >
-  <div class="converter-topbar javascript-formatter-topbar">
-    <div class="mode-switch" role="group" aria-label={copy.modeLabel}>
-      <button
-        class:list={["mode-button", { "is-active": initialMode === "format" }]}
-        type="button"
-        data-mode-button="format"
-        aria-pressed={initialMode === "format"}>{copy.formatMode}</button
-      >
-      <button
-        class:list={["mode-button", { "is-active": initialMode === "minify" }]}
-        type="button"
-        data-mode-button="minify"
-        aria-pressed={initialMode === "minify"}>{copy.minifyMode}</button
-      >
-    </div>
+  <div class="converter-topbar">
+    <ToolModeSwitch
+      label={copy.modeLabel}
+      items={[
+        {
+          mode: "format",
+          label: copy.formatMode,
+          active: initialMode === "format",
+        },
+        {
+          mode: "minify",
+          label: copy.minifyMode,
+          active: initialMode === "minify",
+        },
+      ]}
+    />
   </div>
   <div class="converter-grid">
     <section class="editor-pane">

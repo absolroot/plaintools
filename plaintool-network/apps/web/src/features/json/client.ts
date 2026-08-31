@@ -37,6 +37,10 @@ function init(root: HTMLElement): void {
   const output = root.querySelector<HTMLTextAreaElement>("[data-output]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const badges = root.querySelector<HTMLElement>("[data-badges]")!;
+  const manualRunButton =
+    root.querySelector<HTMLButtonElement>("[data-manual-run]")!;
+  const optionsPanel =
+    root.querySelector<HTMLDetailsElement>(".formatter-options")!;
   const copyButton = root.querySelector<HTMLButtonElement>("[data-copy]")!;
   const downloadButton =
     root.querySelector<HTMLButtonElement>("[data-download]")!;
@@ -45,7 +49,7 @@ function init(root: HTMLElement): void {
   const copy = readClientCopy<JsonClientCopy>(root);
   let timer = 0;
   let revision = 0;
-  let selectedOperation: JsonOperation = "validate";
+  let selectedOperation: JsonOperation = "format";
   let committedResult: JsonCommittedResult = { kind: "none" };
   const bytes = () =>
     exceedsUtf8ByteLimit(input.value, MAX_BYTES)
@@ -55,6 +59,9 @@ function init(root: HTMLElement): void {
     message: string,
     state: "idle" | "working" | "success" | "error" = "idle",
   ) => setToolStatus(root, status, message, state);
+  const setManualRunVisible = (visible: boolean) => {
+    manualRunButton.hidden = !visible;
+  };
   const invalidateResult = () => {
     committedResult = { kind: "none" };
     output.value = "";
@@ -69,14 +76,16 @@ function init(root: HTMLElement): void {
   const selectOperation = (operation: JsonOperation) => {
     selectedOperation = operation;
     root
-      .querySelectorAll<HTMLButtonElement>("[data-action]")
-      .forEach((button) =>
-        button.setAttribute(
-          "aria-pressed",
-          String(button.dataset.action === operation),
-        ),
-      );
-    indentControl.disabled = !jsonOperationUsesIndent(operation);
+      .querySelectorAll<HTMLButtonElement>("[data-mode]")
+      .forEach((button) => {
+        const selected = button.dataset.mode === operation;
+        button.classList.toggle("is-active", selected);
+        button.setAttribute("aria-pressed", String(selected));
+        if (selected) manualRunButton.textContent = button.textContent?.trim();
+      });
+    const usesIndent = jsonOperationUsesIndent(operation);
+    indentControl.disabled = !usesIndent;
+    optionsPanel.hidden = !usesIndent;
   };
   selectOperation(selectedOperation);
   const restoreSettledStatus = () =>
@@ -148,7 +157,9 @@ function init(root: HTMLElement): void {
           badge(fill(copy.duplicate, issueValues(issue)), true),
         );
       }
-      copyButton.disabled = downloadButton.disabled = !output.value;
+      copyButton.disabled = !output.value;
+      downloadButton.disabled =
+        !output.value || context.operation === "validate";
     },
     onFailure: () => {
       workingIndicator.end();
@@ -165,6 +176,7 @@ function init(root: HTMLElement): void {
   const run = (operation: JsonOperation, focusError = false) => {
     window.clearTimeout(timer);
     workingIndicator.cancel();
+    setManualRunVisible(false);
     if (bytes() > MAX_BYTES) {
       invalidateResult();
       return setStatus(copy.tooLarge, "error");
@@ -175,51 +187,59 @@ function init(root: HTMLElement): void {
     revision += 1;
     runner.submit({ operation, focusError });
   };
-  root.querySelectorAll<HTMLButtonElement>("[data-action]").forEach((button) =>
-    button.addEventListener("click", () => {
-      const operation = button.dataset.action as JsonOperation;
-      selectOperation(operation);
-      run(operation, true);
-    }),
-  );
-  root
-    .querySelector<HTMLButtonElement>("[data-open-file]")!
-    .addEventListener("click", () => fileInput.click());
-  input.addEventListener("input", () => {
+  const scheduleSelectedOperation = () => {
     window.clearTimeout(timer);
     cancelPendingWork();
     if (!input.value) {
+      setManualRunVisible(false);
       invalidateResult();
       return setStatus(copy.ready);
     }
-    if (bytes() > MAX_BYTES) {
+    const inputBytes = bytes();
+    if (inputBytes > MAX_BYTES) {
+      setManualRunVisible(false);
       invalidateResult();
       return setStatus(copy.tooLarge, "error");
     }
-    if (bytes() > AUTO_BYTES) {
+    if (inputBytes > AUTO_BYTES) {
+      setManualRunVisible(true);
       invalidateResult();
       return setStatus(copy.manualRequired);
     }
+    setManualRunVisible(false);
     if (root.classList.contains("has-error")) restoreSettledStatus();
     markResultPending();
     setStatus(copy.ready);
     timer = window.setTimeout(() => run(selectedOperation), 120);
-  });
+  };
+  root.querySelectorAll<HTMLButtonElement>("[data-mode]").forEach((button) =>
+    button.addEventListener("click", () => {
+      const operation = button.dataset.mode as JsonOperation;
+      if (operation === selectedOperation) return;
+      selectOperation(operation);
+      scheduleSelectedOperation();
+    }),
+  );
+  manualRunButton.addEventListener("click", () => run(selectedOperation, true));
+  root
+    .querySelector<HTMLButtonElement>("[data-open-file]")!
+    .addEventListener("click", () => fileInput.click());
+  input.addEventListener("input", scheduleSelectedOperation);
   input.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
       event.preventDefault();
-      selectOperation("format");
-      run("format", true);
+      run(selectedOperation, true);
     }
   });
   indentControl.addEventListener("change", () => {
-    if (selectedOperation === "format" && input.value) run("format");
+    if (selectedOperation === "format") scheduleSelectedOperation();
   });
   root.querySelector("[data-clear]")?.addEventListener("click", () => {
     window.clearTimeout(timer);
     cancelPendingWork();
     input.value = fileInput.value = "";
     invalidateResult();
+    setManualRunVisible(false);
     setStatus(copy.ready);
     input.focus();
   });
@@ -238,7 +258,7 @@ function init(root: HTMLElement): void {
       const contents = await file.text();
       if (loadRevision !== revision) return;
       input.value = contents;
-      run(selectedOperation);
+      scheduleSelectedOperation();
     } catch {
       if (loadRevision === revision) setStatus(copy.processingFailed, "error");
     } finally {
