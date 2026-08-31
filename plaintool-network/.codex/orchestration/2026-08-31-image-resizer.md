@@ -38,15 +38,17 @@ The implementation may adopt interaction patterns, but no competitor wording or 
 
 ## Current status
 
-- Final integration base: `c90dcf7` (`Publish PDF toolkit and image upscaler`).
-- Final integration branch: `integration/img-resizer-release-20260831`.
-- Integrated commits: `7a2cc2b` (owned implementation), `2664c07` (shared preview wiring), `129ce3e` (rendered UI checkpoint), and `bcaa50b` (missing UUID browser-suite coverage found during integration).
+- Final sanitized integration base: `6c88bfa` (`Publish PDF toolkit and image upscaler`).
+- Final integration branch: `integration/img-resizer-sanitized-final-20260831`.
+- Integrated commits: `4af74f7` (owned implementation), `efe4a31` (shared preview wiring), `9c1c432` (rendered UI checkpoint), and `1b3bfe7` (missing UUID browser-suite coverage found during integration).
+- The rejected pre-sanitization push changed no remote refs. The protected secret-bearing commit is not an ancestor of this branch; `git cherry -v origin/main HEAD` lists only the five image-resizer release commits as new.
 - Shared conflicts were resolved on the latest main by retaining PDF, image upscaler, calculators, generators, UUID, time-zone, and image-resizer entries; 27 locale fingerprints were regenerated once for the combined tree.
 - Full unit suite: 61 files, 548 tests passed.
 - Gates passed: locale (27 features / 17 locales), SEO (87 tools / 17 locales), UI detail, Python QA tests, type check, ESLint, preview build, and preview network QA.
 - Preview build: 1,600 static pages built successfully.
-- Rendered feature QA: exact 4,000 × 3,000 to 1,920 × 1,440 download, linked dimensions, percentage mode, stale-result invalidation, no-enlarge cap, local-only request capture, all 17 locale routes, Arabic mobile RTL/touch sizing, and the Korean homepage card passed with zero feature failures.
+- Rendered preview-bundle QA: exact 4,000 × 3,000 to 1,920 × 1,440 download, linked dimensions, percentage mode, stale-result invalidation, no-enlarge cap, local-only request capture, all 17 locale routes, Arabic mobile RTL/touch sizing, and the Korean homepage card passed with zero feature failures.
 - The repository-wide Playwright sweep passed preflight after UUID coverage was added but did not finish within a three-minute timebox; the focused image-resizer browser suite completed independently with no console, page, network, locale, or layout failures.
 - `build:production` is intentionally blocked only by Image resizer while it remains `preview/noindex`; promotion review is still required.
-- Repository-wide Prettier check remains blocked by the existing Windows line-ending baseline (492 files); all earlier `npm run check` phases passed.
+- Project-scoped Chrome DevTools QA was unavailable (`ECONNREFUSED 127.0.0.1:10692`), so the repository's focused Playwright surface was used as the required browser fallback.
+- Repository-wide Prettier check remains blocked by the existing Windows line-ending baseline (493 files in a fresh worktree); all earlier `npm run check` phases passed.
 - Publication remains intentionally `preview/noindex` pending native-language promotion review.
