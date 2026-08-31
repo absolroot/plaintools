@@ -66,9 +66,20 @@ def main() -> None:
         route_states = {}
         for route, expected_mode in expected_modes.items():
             desktop.goto(f"{BASE_URL}/ko/{route}/", wait_until="networkidle")
+            if route == "date-calculator":
+                desktop.locator('[data-field="base"]').fill("2025-01-31")
+                desktop.locator("[data-calculate]").click()
             state = desktop.evaluate(
                 """
                 () => {
+                  const resolveBackground = (variable) => {
+                    const probe = document.createElement('span');
+                    probe.style.background = `var(${variable})`;
+                    document.body.append(probe);
+                    const value = getComputedStyle(probe).backgroundColor;
+                    probe.remove();
+                    return value;
+                  };
                   const intro = document.querySelector('.tool-intro')
                     .getBoundingClientRect();
                   const shell = document.querySelector('.tool-shell')
@@ -89,6 +100,19 @@ def main() -> None:
                     ).length,
                     amountOrder: [...document.querySelectorAll('[data-amount]')]
                       .map((input) => input.dataset.amount),
+                    backgrounds: {
+                      base: resolveBackground('--base'),
+                      elevated: resolveBackground('--elevated'),
+                      workspace: getComputedStyle(document.querySelector(
+                        '.date-calculator-workspace',
+                      )).backgroundColor,
+                      results: getComputedStyle(document.querySelector(
+                        '.date-calculator-results',
+                      )).backgroundColor,
+                      commandbar: getComputedStyle(document.querySelector(
+                        '.converter-commandbar',
+                      )).backgroundColor,
+                    },
                     clientWidth: document.documentElement.clientWidth,
                     scrollWidth: document.documentElement.scrollWidth,
                     axes: [
@@ -103,6 +127,12 @@ def main() -> None:
                 }
                 """
             )
+            if route == "date-calculator":
+                desktop.locator('[data-field="base"]').fill("")
+                desktop.locator("[data-calculate]").click()
+                state["errorCommandbarBackground"] = desktop.locator(
+                    ".converter-commandbar"
+                ).evaluate("element => getComputedStyle(element).backgroundColor")
             route_states[route] = state
             left_axes = state["axes"][:3]
             right_axes = state["axes"][3:]
@@ -112,6 +142,19 @@ def main() -> None:
                 or (
                     route == "date-calculator"
                     and state["amountOrder"] != ["days", "weeks", "months", "years"]
+                )
+                or (
+                    route == "date-calculator"
+                    and (
+                        state["backgrounds"]["workspace"]
+                        != state["backgrounds"]["base"]
+                        or state["backgrounds"]["results"]
+                        != state["backgrounds"]["base"]
+                        or state["backgrounds"]["commandbar"]
+                        != state["backgrounds"]["elevated"]
+                        or state["errorCommandbarBackground"]
+                        != state["backgrounds"]["elevated"]
+                    )
                 )
                 or state["scrollWidth"] != state["clientWidth"]
                 or max(left_axes) - min(left_axes) > 1

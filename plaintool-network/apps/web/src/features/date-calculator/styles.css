@@ -3,7 +3,7 @@
   display: grid;
   gap: var(--space-4);
   border-bottom: 1px solid var(--line);
-  background: var(--input-surface);
+  background: var(--base);
 }
 
 .date-mode-panel {
@@ -109,7 +109,12 @@
 }
 
 .date-calculator-results {
-  background: var(--output-surface);
+  background: var(--base);
+}
+
+.date-calculator.converter.is-success .converter-commandbar,
+.date-calculator.converter.has-error .converter-commandbar {
+  background: var(--elevated);
 }
 
 .date-result-heading {
@@ -142,7 +147,7 @@
   padding: var(--space-3) var(--space-4);
   display: grid;
   gap: var(--space-1);
-  background: var(--output-surface);
+  background: var(--base);
 }
 
 .date-result-grid > .date-result-wide {
