@@ -1,4 +1,3 @@
-import base64
 from io import BytesIO
 from pathlib import Path
 import tempfile
@@ -68,26 +67,17 @@ def _convert(page, source: str, target: str, payload: bytes) -> bytes:
     )
     root.locator("[data-run]").click()
     try:
-        page.wait_for_function(
-            "!document.querySelector('[data-image-converter] [data-download]').disabled",
-            timeout=60000,
+        root.locator("[data-download]:not([disabled])").wait_for(
+            state="visible", timeout=60000
         )
     except Exception as error:
         status = root.locator("[data-status]").inner_text()
         raise AssertionError(
             f"{source}-to-{target} did not produce a download: {status!r}"
         ) from error
-    encoded = root.locator("[data-output-preview]").evaluate(
-        """async image => {
-          const bytes = new Uint8Array(await (await fetch(image.src)).arrayBuffer());
-          let binary = '';
-          for (let offset = 0; offset < bytes.length; offset += 0x8000) {
-            binary += String.fromCharCode(...bytes.subarray(offset, offset + 0x8000));
-          }
-          return btoa(binary);
-        }"""
-    )
-    result = base64.b64decode(encoded)
+    with page.expect_download(timeout=10000) as download_info:
+        root.locator("[data-download]").click()
+    result = Path(download_info.value.path()).read_bytes()
     detected = _detected_format(result)
     if detected != target:
         raise AssertionError(
@@ -131,9 +121,8 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
         {"name": "alpha.png", "mimeType": "image/png", "buffer": png}
     )
     root.locator("[data-run]").click()
-    page.wait_for_function(
-        "!document.querySelector('[data-image-converter] [data-download]').disabled",
-        timeout=60000,
+    root.locator("[data-download]:not([disabled])").wait_for(
+        state="visible", timeout=60000
     )
     warning = root.locator("[data-warnings]").inner_text()
     if "white" not in warning.lower():
@@ -220,9 +209,8 @@ def run_image_converter_mobile(page, report: dict, _inventory) -> None:
         {"name": "mobile.png", "mimeType": "image/png", "buffer": png}
     )
     root.locator("[data-run]").click()
-    page.wait_for_function(
-        "!document.querySelector('[data-image-converter] [data-download]').disabled",
-        timeout=60000,
+    root.locator("[data-download]:not([disabled])").wait_for(
+        state="visible", timeout=60000
     )
     if page.evaluate("document.documentElement.scrollWidth") > 390:
         report["ui_detail_failures"].append(
