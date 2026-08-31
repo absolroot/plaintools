@@ -2,6 +2,7 @@ import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
 import { backgroundRemoverFor } from "./background-remover";
 import { dateCalculatorFor } from "./date-calculator";
+import { uuidGeneratorFor } from "./uuid-generator";
 
 const backgroundRemover = backgroundRemoverFor("en");
 
@@ -9,6 +10,7 @@ const seed = {
   formatterSubnet: formatterSubnetFor("en"),
   background: backgroundRemover.copy,
   dateCalculator: dateCalculatorFor("en"),
+  uuidGenerator: uuidGeneratorFor("en"),
   ui: {
     clear: "Clear",
     copy: "Copy",

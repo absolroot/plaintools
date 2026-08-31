@@ -14,6 +14,7 @@ const newToolIds: NewToolId[] = [
   "url-encode",
   "url-decode",
   "hash-generator",
+  "uuid-generator",
   "jwt-decoder",
   "qr-code-generator",
   "qr-code-scanner",

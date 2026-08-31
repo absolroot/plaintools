@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "featureId": "image-converter",
+  "featureId": "uuid-generator",
   "enforcement": "new-feature",
   "sourceLocale": "en",
   "publicLocales": [
@@ -26,102 +26,102 @@
   "copyFiles": [
     "apps/web/src/lib/tool-registry.js",
     "apps/web/src/lib/tool-catalog.ts",
-    "apps/web/src/features/image-converter/i18n.ts",
-    "apps/web/src/features/image-converter/contract.ts",
-    "apps/web/src/features/image-converter/formats.ts",
-    "apps/web/src/features/image-converter/ImageConverter.astro",
-    "apps/web/src/features/image-converter/ImageConverterPage.astro",
-    "apps/web/src/features/image-converter/client.ts",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/locale-data/new-tools/factory.ts",
+    "apps/web/src/lib/locale-data/new-tools/uuid-generator.ts",
+    "apps/web/src/features/uuid-generator/contract.ts",
+    "apps/web/src/features/uuid-generator/UuidGenerator.astro",
+    "apps/web/src/features/uuid-generator/client.ts",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
     "apps/web/src/components/PreviewToolPage.astro",
-    "apps/web/src/components/ConverterStatus.astro",
-    "apps/web/src/components/LocalProcessingNote.astro"
+    "apps/web/src/pages/[locale]/uuid-generator/index.astro"
   ],
-  "copyFingerprint": "sha256:1193965f085d84c5042f0e81dd1689ed562d48bb144689d1bd93e1a9ecaacb1d",
+  "copyFingerprint": "sha256:28c9a62f831e5298321f3d59cc515caa6070e0d6106a9348f37db8a2c1d57b55",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["en-mdn-image-guide", "en-image-format-reference"]
+      "referenceIds": ["en-rfc9562-terms", "en-uuid-generator-ui-review"]
     },
     "ko": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["ko-mdn-image-guide", "ko-image-format-reference"]
+      "referenceIds": ["ko-rfc9562-terms", "ko-uuid-generator-ui-review"]
     },
     "es": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["es-mdn-image-guide", "es-image-format-reference"]
+      "referenceIds": ["es-rfc9562-terms", "es-uuid-generator-ui-review"]
     },
     "de": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["de-mdn-image-guide", "de-image-format-reference"]
+      "referenceIds": ["de-rfc9562-terms", "de-uuid-generator-ui-review"]
     },
     "ja": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["ja-mdn-image-guide", "ja-image-format-reference"]
+      "referenceIds": ["ja-rfc9562-terms", "ja-uuid-generator-ui-review"]
     },
     "fr": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["fr-mdn-image-guide", "fr-image-format-reference"]
+      "referenceIds": ["fr-rfc9562-terms", "fr-uuid-generator-ui-review"]
     },
     "pt-BR": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["pt-BR-mdn-image-guide", "pt-BR-image-format-reference"]
+      "referenceIds": ["pt-br-rfc9562-terms", "pt-br-uuid-generator-ui-review"]
     },
     "it": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["it-mdn-image-guide", "it-image-format-reference"]
+      "referenceIds": ["it-rfc9562-terms", "it-uuid-generator-ui-review"]
     },
     "nl": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["nl-mdn-image-guide", "nl-image-format-reference"]
+      "referenceIds": ["nl-rfc9562-terms", "nl-uuid-generator-ui-review"]
     },
     "sv": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["sv-mdn-image-guide", "sv-image-format-reference"]
+      "referenceIds": ["sv-rfc9562-terms", "sv-uuid-generator-ui-review"]
     },
     "cs": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["cs-mdn-image-guide", "cs-image-format-reference"]
+      "referenceIds": ["cs-rfc9562-terms", "cs-uuid-generator-ui-review"]
     },
     "pl": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["pl-mdn-image-guide", "pl-image-format-reference"]
+      "referenceIds": ["pl-rfc9562-terms", "pl-uuid-generator-ui-review"]
     },
     "da": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["da-mdn-image-guide", "da-image-format-reference"]
+      "referenceIds": ["da-rfc9562-terms", "da-uuid-generator-ui-review"]
     },
     "no": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["no-mdn-image-guide", "no-image-format-reference"]
+      "referenceIds": ["no-rfc9562-terms", "no-uuid-generator-ui-review"]
     },
     "ar": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["ar-mdn-image-guide", "ar-image-format-reference"]
+      "referenceIds": ["ar-rfc9562-terms", "ar-uuid-generator-ui-review"]
     },
     "zh-TW": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["zh-TW-mdn-image-guide", "zh-TW-image-format-reference"]
+      "referenceIds": ["zh-tw-rfc9562-terms", "zh-tw-uuid-generator-ui-review"]
     },
     "tr": {
       "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
-      "referenceIds": ["tr-mdn-image-guide", "tr-image-format-reference"]
+      "referenceIds": ["tr-rfc9562-terms", "tr-uuid-generator-ui-review"]
     }
   }
 }

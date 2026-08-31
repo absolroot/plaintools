@@ -13,6 +13,7 @@ import type { JavaScriptFormatterCopy } from "../../../features/javascript-forma
 import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../../features/background-remover/contract";
+import type { UuidGeneratorCopy } from "../../../features/uuid-generator/contract";
 import type {
   DateCalculatorLocaleSeed,
   DateCalculatorPageId,
@@ -25,6 +26,7 @@ import type {
   ToolPageCopy,
 } from "../bundle";
 import type { LocaleCatalogToolCopy } from "../../tool-catalog";
+import type { UuidGeneratorLocaleSeed } from "./uuid-generator";
 
 type PageSeed = {
   title: string;
@@ -377,6 +379,7 @@ export type NewToolLocaleSeed = {
   pages: Record<LegacyNewToolId, PageSeed>;
   formatterSubnet: FormatterSubnetLocaleSeed;
   dateCalculator: DateCalculatorLocaleSeed;
+  uuidGenerator: UuidGeneratorLocaleSeed;
 };
 
 export type NewToolLocale = {
@@ -394,13 +397,15 @@ function fill(value: string, replacements: Record<string, string>): string {
 export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const { ui } = seed;
   const pageSeed = (id: NewToolId): PageSeed =>
-    id === "date-calculator" ||
-    id === "dday-calculator" ||
-    id === "age-calculator"
-      ? seed.dateCalculator.pages[id as DateCalculatorPageId]
-      : id in seed.pages
-        ? seed.pages[id as LegacyNewToolId]
-        : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
+    id === "uuid-generator"
+      ? seed.uuidGenerator.page
+      : id === "date-calculator" ||
+          id === "dday-calculator" ||
+          id === "age-calculator"
+        ? seed.dateCalculator.pages[id as DateCalculatorPageId]
+        : id in seed.pages
+          ? seed.pages[id as LegacyNewToolId]
+          : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
     const source = pageSeed(id);
     return {
@@ -973,6 +978,11 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "url-encode": page("url-encode", urlFeature("url-encode")),
     "url-decode": page("url-decode", urlFeature("url-decode")),
     "hash-generator": page("hash-generator", hash),
+    "uuid-generator": page("uuid-generator", {
+      ...seed.uuidGenerator.feature,
+      ariaLabel: pageSeed("uuid-generator").title,
+      outdated: ui.outdated,
+    } satisfies UuidGeneratorCopy),
     "jwt-decoder": page("jwt-decoder", jwt),
     "qr-code-generator": page("qr-code-generator", qrGenerator),
     "qr-code-scanner": page("qr-code-scanner", qrScanner),

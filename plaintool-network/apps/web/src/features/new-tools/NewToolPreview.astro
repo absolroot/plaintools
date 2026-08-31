@@ -23,6 +23,7 @@ import BackgroundRemover from "../background-remover/BackgroundRemover.astro";
 import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
 import DateCalculator from "../date-calculator/DateCalculator.astro";
 import dateCalculatorStylesheet from "../date-calculator/styles.css?url";
+import UuidGenerator from "../uuid-generator/UuidGenerator.astro";
 import type { DateCalculatorMode } from "../date-calculator/contract";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
@@ -60,6 +61,7 @@ const featureStylesheets = {
   "date-calculator": dateCalculatorStylesheet,
   "dday-calculator": dateCalculatorStylesheet,
   "age-calculator": dateCalculatorStylesheet,
+  "uuid-generator": undefined,
 } as const satisfies Record<NewToolId, string | undefined>;
 
 const dateCalculatorModes = {
@@ -238,6 +240,14 @@ const dataModeLabels = Object.fromEntries(
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
         initialMode={dateCalculatorModes[page]}
+      />
+    )
+  }
+  {
+    page === "uuid-generator" && (
+      <UuidGenerator
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
       />
     )
   }

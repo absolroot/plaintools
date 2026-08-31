@@ -114,6 +114,7 @@ const toolMarks = {
   "url-encode": "%",
   "url-decode": "%",
   "hash-generator": "#",
+  "uuid-generator": "UUID",
   "jwt-decoder": "JWT",
   "qr-code-generator": "QR",
   "qr-code-scanner": "QR",

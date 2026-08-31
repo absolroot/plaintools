@@ -49,10 +49,10 @@ result authority.
 | Milestone | State | Evidence / next action |
 | --- | --- | --- |
 | Branch and boundary | complete | clean `uuid` branch at base commit |
-| Standards and UI research | in progress | inspect EMN178 source and comparable surfaces |
-| Core implementation | pending | add version vectors and bulk tests |
-| Feature UI | pending | implement focused workspace and state authority |
-| Registry, route, locales, SEO | pending | wire preview route after copy review |
-| Focused QA | pending | unit, type, source, desktop/mobile behavior |
+| Standards and UI research | complete | RFC 9562, uuid 14.0.2, EMN178, CreateUUID, UUIDTools, and ZeroTools reviewed; no EMN178 code copied because its repository does not license reuse |
+| Core implementation | complete | commit `e58af4a`; 10 focused tests cover versions, vectors, validation, format, uniqueness, and randomized v1 node behavior |
+| Feature UI | complete | commit `cbd64a1`; six-version workspace, deterministic inputs, 1-1,000 bulk, format/case, stale-result authority, copy/download/clear |
+| Registry, route, locales, SEO | in progress | 17 locale bundles and preview route complete; shared fingerprint refresh waits for latest-main integration |
+| Focused QA | in progress | type check and focused lint pass; dedicated desktop/mobile/RTL/local-route Playwright QA added |
 | Main reconciliation | pending | merge current `main` into branch before final gates |
 | Final commit | pending | record commit and verification evidence |

@@ -36,6 +36,7 @@
     "@plaintool/text-metrics-core": "*",
     "@plaintool/time-core": "*",
     "@plaintool/url-core": "*",
+    "@plaintool/uuid-core": "*",
     "astro": "^7.2.9",
     "elheif": "^0.1.0",
     "flag-icons": "7.5.0",

@@ -142,6 +142,16 @@ export const toolRegistry = /** @type {const} */ ([
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
+    id: "uuid-generator",
+    featureId: "uuid-generator",
+    slug: "uuid-generator",
+    category: "generator",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/uuid-generator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
     id: "jwt-decoder",
     featureId: "jwt-decoder",
     slug: "jwt-decoder",
