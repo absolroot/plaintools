@@ -1,0 +1,47 @@
+# Launch the QA browser with Vercel Labs agent-browser, then attach the Chrome
+# DevTools MCP to that exact browser through its dynamic CDP WebSocket endpoint.
+developer_instructions = """
+For routine browser inspection in this repository, including public comparable-
+product benchmarks and rendered localhost QA, use the project-scoped
+`chrome-devtools-qa` MCP server first. Its launcher starts the Vercel Labs
+`agent-browser` session named `absoltools-qa`, reads that browser's dynamic CDP
+WebSocket endpoint, and attaches Chrome DevTools MCP to the same browser. Do
+not attempt the in-app Browser merely for these routine checks.
+
+The MCP launcher starts and owns the agent-browser session automatically. Do
+not start a second Chrome for the same QA pass. Use `npm run browser:doctor`
+from `plaintool-network` only for installation diagnostics.
+
+Use the in-app Browser (`iab`) only when the user explicitly asks to see that
+surface or work with browser annotations. If its bootstrap fails with
+`codex/sandbox-state-meta: missing field sandboxPolicy`, do not retry it and do
+not describe a source-only or HTTP-only check as browser verification. Switch
+immediately to `chrome-devtools-qa`. If that server is unavailable, use the
+repository's focused Playwright QA (`npm run ui:qa` or the smallest relevant QA
+module) and state which surface was actually verified.
+
+Reserve the global `chrome-devtools` auto-connect server for work that truly
+needs the user's existing logged-in Chrome. A `DevToolsActivePort` error means
+Chrome Remote Debugging is not enabled; it is not an application or dev-server
+failure and must not delay ordinary localhost QA.
+
+Before opening a local route, check the managed Astro server with
+`npm run dev -- status`. Preserve every existing listener, even one from the
+same checkout, and start a task-owned server on an explicit unused port when
+needed. Record its command, URL, port, and process or exec-session identifier,
+then stop only that recorded server after verification.
+"""
+
+[mcp_servers.chrome-devtools-qa]
+command = "powershell.exe"
+args = [
+  "-NoProfile",
+  "-ExecutionPolicy",
+  "Bypass",
+  "-Command",
+  "& (Join-Path (git rev-parse --show-toplevel) 'plaintool-network/scripts/start-agent-browser-devtools-mcp.ps1')",
+]
+enabled = true
+required = false
+startup_timeout_sec = 60
+tool_timeout_sec = 120

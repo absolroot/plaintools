@@ -1,0 +1,12 @@
+{
+  "$schema": "https://agent-browser.dev/schema.json",
+  "session": "absoltools-qa",
+  "headed": false,
+  "hideScrollbars": false,
+  "contentBoundaries": true,
+  "maxOutput": 50000,
+  "screenshotFormat": "jpeg",
+  "screenshotQuality": 85,
+  "idleTimeout": "1h",
+  "noAutoDialog": true
+}

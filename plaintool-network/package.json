@@ -29,6 +29,8 @@
     "qa:formatter": "python scripts/qa-formatter-consistency.py",
     "ui:qa": "python scripts/qa-redesign.py",
     "ui:qa:full": "python scripts/qa-redesign.py --full",
+    "browser:install": "agent-browser install",
+    "browser:doctor": "agent-browser doctor --json",
     "qa:network": "node scripts/qa-network.mjs",
     "locale:check": "node scripts/check-locale-reviews.mjs && node scripts/test-locale-review-gate.mjs",
     "locale:check:production": "node scripts/check-locale-reviews.mjs --production && node scripts/test-locale-review-gate.mjs",
