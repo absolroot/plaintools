@@ -38,7 +38,7 @@
     "apps/web/src/pages/[locale]/dday-calculator/index.astro",
     "apps/web/src/pages/[locale]/age-calculator/index.astro"
   ],
-  "copyFingerprint": "sha256:97236735de39f04643ba28f26ee9187e9943bae285ec72118a98117ada524266",
+  "copyFingerprint": "sha256:daa3f4452070a8eef1a652ffc50ddc6b04e7c12e84a0c2a2ba358b9a0872c0a8",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",
