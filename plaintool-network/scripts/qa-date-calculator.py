@@ -87,6 +87,8 @@ def main() -> None:
                     currentCount: document.querySelectorAll(
                       '[data-mode-button][aria-current="page"]',
                     ).length,
+                    amountOrder: [...document.querySelectorAll('[data-amount]')]
+                      .map((input) => input.dataset.amount),
                     clientWidth: document.documentElement.clientWidth,
                     scrollWidth: document.documentElement.scrollWidth,
                     axes: [
@@ -107,6 +109,10 @@ def main() -> None:
             if (
                 state["mode"] != expected_mode
                 or state["currentCount"] != 1
+                or (
+                    route == "date-calculator"
+                    and state["amountOrder"] != ["days", "weeks", "months", "years"]
+                )
                 or state["scrollWidth"] != state["clientWidth"]
                 or max(left_axes) - min(left_axes) > 1
                 or max(right_axes) - min(right_axes) > 1
