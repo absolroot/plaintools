@@ -38,5 +38,15 @@ The implementation may adopt interaction patterns, but no competitor wording or 
 
 ## Current status
 
-- Research and branch boundary complete.
-- Implementation in progress.
+- Feature commits: `ee8c555` (owned implementation) and `86c3a8d` (shared preview wiring).
+- Latest integration base: `adcbd61` (`Add time zone converter and world clock`).
+- Integration commits: `b1d22be` and `b9698d`; locale conflicts were resolved by retaining both new tools and regenerating the shared fingerprints once.
+- Focused integration tests: 29 passed after each cherry-pick.
+- Full unit suite: 49 files, 418 tests passed.
+- Gates passed: locale (19 features / 17 locales), SEO (73 tools / 17 locales), UI detail, Python QA tests, type check, ESLint, and preview network QA.
+- Preview build: 1,362 static pages built successfully.
+- Rendered feature QA: desktop resize/download/stale-state/no-enlarge, Arabic mobile RTL/touch sizing, local-only request capture, all 17 locale routes, and the Korean homepage card passed with zero feature failures.
+- The full Playwright sweep stopped in the pre-existing Background remover model-preparation check before reaching this tool; the focused Image resizer browser suite passed independently.
+- `build:production` remains intentionally blocked while Image resizer and Time zone converter are `preview/noindex`; promotion review is still required.
+- Repository-wide Prettier check remains blocked by the existing Windows line-ending baseline (384 files); all other `npm run check` phases passed.
+- Publication remains intentionally `preview/noindex` pending native-language promotion review.
