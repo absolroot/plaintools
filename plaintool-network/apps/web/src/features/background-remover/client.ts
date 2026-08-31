@@ -1,4 +1,8 @@
-import { readClientCopy, setToolStatus } from "../../scripts/shared/tool-dom";
+import {
+  downloadBlob,
+  readClientCopy,
+  setToolStatus,
+} from "../../scripts/shared/tool-dom";
 import type {
   BackgroundMode,
   BackgroundModelId,
@@ -148,6 +152,8 @@ function init(root: HTMLElement): void {
     mask = undefined;
     maskWidth = 0;
     maskHeight = 0;
+    resultCanvas.width = 0;
+    resultCanvas.height = 0;
     resultCanvas.hidden = true;
     resultPlaceholder.hidden = false;
     downloadButton.disabled = true;
@@ -226,7 +232,7 @@ function init(root: HTMLElement): void {
 
   function ensureWorker(model: BackgroundModelId): Worker {
     if (worker) return worker;
-    worker =
+    const nextWorker =
       model === "precision"
         ? new Worker(new URL("./precision-worker.ts", import.meta.url), {
             type: "module",
@@ -234,9 +240,11 @@ function init(root: HTMLElement): void {
         : new Worker(new URL("./worker.ts", import.meta.url), {
             type: "module",
           });
-    worker.addEventListener(
+    worker = nextWorker;
+    nextWorker.addEventListener(
       "message",
       (event: MessageEvent<BackgroundWorkerResponse>) => {
+        if (worker !== nextWorker) return;
         const message = event.data;
         if (
           message.requestId !== activeRequest ||
@@ -280,15 +288,15 @@ function init(root: HTMLElement): void {
         setStatus(copy.completed, "success");
       },
     );
-    worker.addEventListener("error", () => {
-      if (!activeRequest) return;
+    nextWorker.addEventListener("error", () => {
+      if (worker !== nextWorker || !activeRequest) return;
       setRemoveBusy(false);
       removeButton.disabled = false;
       hideProgress();
       stopWorker();
       setStatus(copy.modelFailed, "error");
     });
-    return worker;
+    return nextWorker;
   }
 
   async function selectFile(file: File): Promise<void> {
@@ -416,17 +424,15 @@ function init(root: HTMLElement): void {
   removeButton.addEventListener("click", run);
   downloadButton.addEventListener("click", () => {
     if (!mask) return;
+    const downloadRevision = revision;
+    const downloadName = resultFileName(sourceName);
     resultCanvas.toBlob((blob) => {
+      if (downloadRevision !== revision || !mask) return;
       if (!blob) {
         setStatus(copy.downloadFailed, "error");
         return;
       }
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = resultFileName(sourceName);
-      link.click();
-      URL.revokeObjectURL(url);
+      downloadBlob(blob, downloadName);
     }, "image/png");
   });
 

@@ -254,7 +254,6 @@ const clientCopy = {
           name="recursive"
           type="checkbox"
           data-option="recursive"
-          checked
         />
         <Tooltip
           id="base64-recursive-help"
@@ -344,7 +343,7 @@ const clientCopy = {
     is:inline
     type="application/json"
     data-tool-copy
-    set:html={JSON.stringify(clientCopy)}
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
   />
 </section>
 

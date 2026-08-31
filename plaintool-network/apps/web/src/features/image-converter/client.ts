@@ -201,7 +201,8 @@ function initImageConverter(root: HTMLElement): void {
     try {
       input = await selectedFile.arrayBuffer();
     } catch {
-      if (runRevision === revision) setStatus(copy.decodeFailed, "error");
+      if (runRevision !== revision) return;
+      setStatus(copy.decodeFailed, "error");
       runButton.disabled = false;
       return;
     }

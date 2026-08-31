@@ -11,13 +11,10 @@ import {
   productionIntegrationDefaults,
   resolveDeploymentConfig,
 } from "../apps/web/src/lib/deployment-config.js";
+import { parseQaNetworkTarget } from "./qa-network-args.mjs";
 
 const args = process.argv.slice(2);
-const targetIndex = args.indexOf("--target");
-const target = targetIndex >= 0 ? args[targetIndex + 1] : "preview";
-if (target !== "preview" && target !== "production") {
-  throw new Error("qa-network requires --target preview|production.");
-}
+const target = parseQaNetworkTarget(args);
 
 const config = resolveDeploymentConfig(
   target === "production"
@@ -162,7 +159,7 @@ for (const [component, budget] of Object.entries(formatterWorkerBudgets)) {
 const requiredSecurityHeaders = [
   "X-Content-Type-Options: nosniff",
   "Referrer-Policy: strict-origin-when-cross-origin",
-  "Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  "Permissions-Policy: camera=(self), microphone=(), geolocation=(), payment=(), usb=()",
   "Strict-Transport-Security: max-age=31536000",
   "X-Frame-Options: DENY",
   "Cross-Origin-Opener-Policy: same-origin",

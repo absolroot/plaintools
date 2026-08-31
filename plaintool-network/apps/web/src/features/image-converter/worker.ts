@@ -23,6 +23,7 @@ import {
   validatePixelBudget,
   type PixelImage,
 } from "./codec-core";
+import { classifyNativeDecodeFailure } from "./decode-policy";
 import { imageFormatMime, type ImageFormat } from "./formats";
 import type {
   ImageConverterWorkerReply,
@@ -46,16 +47,19 @@ async function nativeDecode(
     new Blob([input], { type: imageFormatMime[source] }),
     { imageOrientation: "from-image" },
   );
-  validatePixelBudget(bitmap.width, bitmap.height);
-  const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
-  const context = canvas.getContext("2d", {
-    alpha: true,
-    willReadFrequently: true,
-  });
-  if (!context) throw new Error("decode-failed");
-  context.drawImage(bitmap, 0, 0);
-  bitmap.close();
-  return context.getImageData(0, 0, canvas.width, canvas.height);
+  try {
+    validatePixelBudget(bitmap.width, bitmap.height);
+    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+    const context = canvas.getContext("2d", {
+      alpha: true,
+      willReadFrequently: true,
+    });
+    if (!context) throw new Error("decode-failed");
+    context.drawImage(bitmap, 0, 0);
+    return context.getImageData(0, 0, canvas.width, canvas.height);
+  } finally {
+    bitmap.close();
+  }
 }
 
 async function decode(
@@ -70,7 +74,11 @@ async function decode(
 
   try {
     return await nativeDecode(input, source);
-  } catch {
+  } catch (error) {
+    const policy = classifyNativeDecodeFailure(source, error);
+    if (policy === "pixel-budget") throw error;
+    if (policy === "decode-failed") throw new Error("decode-failed");
+
     let decoded: ImageData | null;
     switch (source) {
       case "png":

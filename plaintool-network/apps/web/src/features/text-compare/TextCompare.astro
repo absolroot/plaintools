@@ -134,7 +134,7 @@ const clientCopy = {
     is:inline
     type="application/json"
     data-client-copy
-    set:html={JSON.stringify(clientCopy)}
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
   />
 </section>
 

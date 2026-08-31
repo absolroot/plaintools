@@ -6,6 +6,14 @@ from .new_tools_contract import NEW_TOOL_ROUTES, TECHNICAL_DIRECTION_SELECTORS
 from .registry import RouteInventory
 
 
+def _focus_with_keyboard(page, locator) -> None:
+    locator.focus()
+    page.keyboard.press("Shift+Tab")
+    page.keyboard.press("Tab")
+    if not locator.evaluate("element => document.activeElement === element"):
+        raise AssertionError("Keyboard focus did not return to the expected target.")
+
+
 def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
     report["mobile"] = inspect_view(mobile, "/ko/base64-decode/", "cloudflare-detail-mobile-ko.png")
     report["mobile_output_top"] = mobile.locator(".output-pane").bounding_box()["y"]
@@ -333,8 +341,9 @@ def run_route_matrix(
                         page.evaluate("theme => { document.documentElement.dataset.theme = theme; }", theme)
                         focus_states = {}
                         for focus_surface, selector in coverage.focus_targets:
-                            page.locator(selector).click()
-                            focus_states[focus_surface] = page.locator(selector).evaluate("""
+                            focus_target = page.locator(selector)
+                            _focus_with_keyboard(page, focus_target)
+                            focus_states[focus_surface] = focus_target.evaluate("""
                               element => {
                                 const style = getComputedStyle(element);
                                 const pane = element.closest('.editor-pane');

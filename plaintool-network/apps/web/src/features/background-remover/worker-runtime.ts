@@ -6,7 +6,8 @@ import type {
   BackgroundWorkerResponse,
   RemoveRequest,
 } from "./contract";
-import { joinByteParts, normalizeMask } from "./image";
+import { normalizeMask } from "./image";
+import { readVerifiedModelPart } from "./model-integrity";
 import { modelManifest } from "./model-manifest";
 
 type OrtApi = typeof import("onnxruntime-web");
@@ -24,25 +25,27 @@ export function startBackgroundWorker(ort: OrtApi): void {
   }
 
   async function fetchPart(
-    path: string,
+    part: (typeof modelManifest)[BackgroundModelId]["parts"][number],
+    destination: Uint8Array<ArrayBuffer>,
     requestId: number,
     completed: number,
     total: number,
-  ): Promise<Uint8Array> {
-    const response = await fetch(path, { credentials: "same-origin" });
-    if (!response.ok) throw new Error("model-fetch");
-    if (!response.body) return new Uint8Array(await response.arrayBuffer());
-    const reader = response.body.getReader();
-    const chunks: Uint8Array[] = [];
-    let loaded = completed;
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      chunks.push(value);
-      loaded += value.byteLength;
-      post({ kind: "progress", requestId, phase: "download", loaded, total });
-    }
-    return joinByteParts(chunks);
+  ): Promise<void> {
+    const response = await fetch(part.path, { credentials: "same-origin" });
+    await readVerifiedModelPart(
+      response,
+      destination,
+      completed,
+      part,
+      (partLoaded) =>
+        post({
+          kind: "progress",
+          requestId,
+          phase: "download",
+          loaded: completed + partLoaded,
+          total,
+        }),
+    );
   }
 
   async function loadModel(
@@ -56,7 +59,7 @@ export function startBackgroundWorker(ort: OrtApi): void {
       sessionModel = undefined;
     }
     const manifest = modelManifest[model];
-    const parts: Uint8Array[] = [];
+    const modelBytes = new Uint8Array(manifest.bytes);
     let completed = 0;
     post({
       kind: "progress",
@@ -65,13 +68,11 @@ export function startBackgroundWorker(ort: OrtApi): void {
       loaded: 0,
       total: manifest.bytes,
     });
-    for (const path of manifest.parts) {
-      const part = await fetchPart(path, requestId, completed, manifest.bytes);
-      parts.push(part);
-      completed += part.byteLength;
+    for (const part of manifest.parts) {
+      await fetchPart(part, modelBytes, requestId, completed, manifest.bytes);
+      completed += part.bytes;
     }
-    const modelBytes = joinByteParts(parts);
-    if (modelBytes.byteLength !== manifest.bytes) throw new Error("model-size");
+    if (completed !== manifest.bytes) throw new Error("model-size");
     post({ kind: "progress", requestId, phase: "model" });
     session = await ort.InferenceSession.create(modelBytes, {
       executionProviders: [manifest.executionProvider],
