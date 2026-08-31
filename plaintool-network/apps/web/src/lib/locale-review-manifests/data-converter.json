@@ -38,7 +38,7 @@
     "apps/web/src/pages/[locale]/markdown-to-html/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:1e7081f8b06ed367c28b307f241057a4eb3baa6aa52635310aad522f23081240",
+  "copyFingerprint": "sha256:fb3aa7533a77c154f70ae2494fa4f7ea672700c25bde3eb98d8c2830f659fa7e",
   "locales": {
     "en": {
       "status": "reference-backed",
