@@ -46,3 +46,13 @@
 - Focused core/rendering tests: 29 passed after the viewBox regression test was added. Integrated Python QA contract tests: 18 passed.
 - Integration and locale wiring: complete; final production gates and latest-main integration remain.
 - Final action: refresh `main`, inspect `git cherry -v main feature/barcode-password-generators-20260831`, apply only new commits in order, resolve shared integration once, run the full test and production/rendered checks, create the integration checkpoint, then push once.
+
+## Final main integration
+
+- Authoritative integration base: fetched `origin/main` at `60193f4`. A separate local-only Time Zone Converter commit was preserved but excluded because its preview publication state intentionally fails the production gate.
+- `git cherry -v origin/main feature/barcode-password-generators-20260831` identified six new commits; all six were cherry-picked individually in order.
+- Shared fingerprint conflicts were resolved from the current `origin/main` side, then all affected fingerprints were recalculated once against the combined source tree.
+- Node 22.19 verification: 51 Vitest files and 437 tests passed; 18 Python QA contract tests passed; TypeScript/Astro reported zero diagnostics; ESLint passed.
+- Production build: deployment validation, locale/SEO/UI gates, 1,362 static pages, sitemap/crawler/JSON-LD/license checks, route isolation, and production network QA passed using the repository's public `.env.example` configuration.
+- Final browser server: command `npm run dev -- 127.0.0.1 4338`, URL `http://127.0.0.1:4338`, port `4338`, PID `90156`; stopped after verification.
+- Final Playwright Chromium QA: 17 locales, 34 generator routes, and 34 homepage cards passed; desktop generation, check-digit validation, stale-state invalidation, Arabic RTL at 390 px, 44 px controls, console/page errors, overflow, and conversion-network leakage all passed.

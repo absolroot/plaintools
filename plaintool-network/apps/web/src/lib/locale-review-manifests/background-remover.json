@@ -35,7 +35,7 @@
     "apps/web/src/pages/[locale]/background-remover/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:37555a11d5b9490f5a0d0594f2565e92b8cd1056f187249664cedeff55552055",
+  "copyFingerprint": "sha256:53bd4135da4e74e5ee0ab89e9aa113f93c44743052c42d648157d028089817b5",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",

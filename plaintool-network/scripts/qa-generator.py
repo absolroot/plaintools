@@ -12,6 +12,58 @@ from qa.generator_feature import (
     run_password_generator_mobile,
 )
 from qa.preflight import verify_server
+from qa.registry import load_route_inventory
+
+
+def verify_generator_routes_and_cards(page, report: dict) -> None:
+    inventory = load_route_inventory()
+    slugs = ("barcode-generator", "password-generator")
+    route_checks = 0
+    card_checks = 0
+
+    for locale in inventory.locales:
+        expected_dir = "rtl" if locale == "ar" else "ltr"
+        for slug in slugs:
+            response = page.goto(
+                f"{BASE_URL}/{locale}/{slug}/", wait_until="domcontentloaded"
+            )
+            state = page.evaluate(
+                """
+                () => ({
+                  h1_count: document.querySelectorAll('main h1').length,
+                  html_dir: document.documentElement.dir,
+                  robots: document.querySelector('meta[name="robots"]')?.content || '',
+                  canonical_path: new URL(document.querySelector('link[rel="canonical"]').href).pathname
+                })
+                """
+            )
+            expected_path = f"/{locale}/{slug}/"
+            if (
+                response is None
+                or not response.ok
+                or state["h1_count"] != 1
+                or state["html_dir"] != expected_dir
+                or state["canonical_path"] != expected_path
+            ):
+                report["ui_detail_failures"].append(
+                    f"Generator locale route is incomplete at {expected_path}: {state}"
+                )
+            route_checks += 1
+
+        page.goto(f"{BASE_URL}/{locale}/", wait_until="domcontentloaded")
+        for slug in slugs:
+            cards = page.locator(f'a[href="/{locale}/{slug}/"]')
+            if cards.count() != 1 or not cards.first.is_visible():
+                report["ui_detail_failures"].append(
+                    f"Homepage card is missing for /{locale}/{slug}/."
+                )
+            card_checks += 1
+
+    report["generator_route_matrix"] = {
+        "locales": len(inventory.locales),
+        "routes_checked": route_checks,
+        "homepage_cards_checked": card_checks,
+    }
 
 
 def main() -> None:
@@ -36,6 +88,7 @@ def main() -> None:
             attach_external_request_collector(desktop, report, "desktop")
             run_barcode_generator_desktop(desktop, report, None)
             run_password_generator_desktop(desktop, report, None)
+            verify_generator_routes_and_cards(desktop, report)
 
             mobile = browser.new_page(
                 viewport={"width": 390, "height": 844},
