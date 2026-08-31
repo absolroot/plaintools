@@ -18,13 +18,17 @@ describe("content registry", () => {
   });
 
   it("derives public and preview routes from publication state", () => {
+    const registryByPublication: ReadonlyArray<{
+      slug: string;
+      publication: "indexable" | "preview";
+    }> = toolRegistry;
     expect(publicToolPages).toEqual(
-      toolRegistry
+      registryByPublication
         .filter((tool) => tool.publication === "indexable")
         .map((tool) => tool.slug),
     );
     expect(previewPages).toEqual(
-      toolRegistry
+      registryByPublication
         .filter((tool) => tool.publication === "preview")
         .map((tool) => tool.slug),
     );

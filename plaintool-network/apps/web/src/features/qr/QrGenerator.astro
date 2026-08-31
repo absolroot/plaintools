@@ -1,6 +1,7 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import IconButton from "../../components/IconButton.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
 import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import { localizedPath, type Locale } from "../../lib/site";
 import type { QrGeneratorCopy } from "./contract";
@@ -124,6 +125,7 @@ const {
       {copy.generate}
     </button>
   </ConverterStatus>
+  <LocalProcessingNote locale={locale} />
 
   <script
     is:inline

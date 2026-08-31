@@ -1,13 +1,16 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import IconButton from "../../components/IconButton.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import type { Locale } from "../../lib/site";
 import type { BackgroundRemoverCopy } from "./contract";
 
 interface Props {
+  locale: Locale;
   copy: BackgroundRemoverCopy;
 }
 
-const { copy } = Astro.props;
+const { locale, copy } = Astro.props;
 ---
 
 <section
@@ -157,6 +160,7 @@ const { copy } = Astro.props;
       >
     </div>
   </ConverterStatus>
+  <LocalProcessingNote locale={locale} />
 
   <script
     is:inline

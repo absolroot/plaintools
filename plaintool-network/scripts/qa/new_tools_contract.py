@@ -45,10 +45,7 @@ NEW_TOOL_FEATURES = {
     "background-remover": "background-remover",
 }
 
-NEW_TOOL_PUBLICATIONS = {
-    slug: "preview" if slug == "background-remover" else "indexable"
-    for slug in NEW_TOOL_ROUTES
-}
+NEW_TOOL_PUBLICATIONS = {slug: "indexable" for slug in NEW_TOOL_ROUTES}
 
 TECHNICAL_DIRECTION_SELECTORS = {
     "url-encode": ("[data-url-codec] [data-input]", "[data-url-codec] [data-output]"),

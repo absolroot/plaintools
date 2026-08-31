@@ -33,7 +33,7 @@
     "apps/web/src/pages/[locale]/ai-watermark-remover/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:3ec9bc1698e9eb83497ed730e821526304a129d3bde3144c18936d7734197316",
+  "copyFingerprint": "sha256:42672a421f971dba6a6b5030e0dfc463ceec1ec2cc99b17f8f28e70267a3c6bd",
   "locales": {
     "en": {
       "status": "reference-backed",

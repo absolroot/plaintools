@@ -53,9 +53,9 @@ class NewToolsContractTests(unittest.TestCase):
             validate_new_tool_inventory(
                 _inventory(publication_overrides={"hash-generator": "preview"})
             )
-        with self.assertRaisesRegex(RuntimeError, "expected preview"):
+        with self.assertRaisesRegex(RuntimeError, "expected indexable"):
             validate_new_tool_inventory(
-                _inventory(publication_overrides={"background-remover": "indexable"})
+                _inventory(publication_overrides={"background-remover": "preview"})
             )
 
 

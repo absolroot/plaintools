@@ -120,6 +120,7 @@ const dataModeLabels = Object.fromEntries(
   {
     page === "ai-watermark-remover" && (
       <AiTextCleaner
+        locale={locale}
         copy={bundle.tools[page].feature}
         textDirection={direction}
       />
@@ -193,7 +194,7 @@ const dataModeLabels = Object.fromEntries(
   }
   {
     page === "background-remover" && (
-      <BackgroundRemover copy={bundle.tools[page].feature} />
+      <BackgroundRemover locale={locale} copy={bundle.tools[page].feature} />
     )
   }
   {

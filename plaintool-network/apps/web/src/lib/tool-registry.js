@@ -261,7 +261,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "background-remover",
     slug: "background-remover",
     category: "image",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/background-remover.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],

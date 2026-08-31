@@ -410,6 +410,8 @@ for (const locale of locales) {
       tool.structuredData,
       routeName,
     );
+    if (!html.includes('class="privacy-note"'))
+      throw new Error(`${routeName} is missing the local-processing notice.`);
     if (
       tool.publication === "preview" &&
       sitemap.includes(`/${locale}/${route}/`)

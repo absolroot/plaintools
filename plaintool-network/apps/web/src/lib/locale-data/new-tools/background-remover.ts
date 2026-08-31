@@ -61,7 +61,7 @@ const packs = {
     page: {
       title: "Image background remover",
       description:
-        "Remove an image background locally in your browser and download a transparent or solid-color PNG.",
+        "AI detects the subject and removes the background automatically, ready to download as a transparent or solid-color PNG.",
       guide:
         "Choose a PNG, JPEG, or WebP image, select the model that fits your subject, then remove the background. Clear subject boundaries and contrasting backgrounds usually produce the cleanest cutout.",
       terms: [
@@ -122,7 +122,7 @@ const packs = {
     page: {
       title: "이미지 배경 제거",
       description:
-        "이미지를 업로드하지 않고 브라우저에서 배경을 제거해 투명 또는 단색 PNG로 저장합니다.",
+        "AI가 피사체를 자동으로 인식해 배경을 제거하고 투명 또는 단색 PNG로 저장합니다.",
       guide:
         "PNG, JPEG 또는 WebP 이미지를 선택하고 피사체에 맞는 모델을 고른 뒤 배경 제거를 실행하세요. 피사체 윤곽과 배경의 대비가 뚜렷할수록 결과가 깔끔합니다.",
       terms: [
@@ -184,7 +184,7 @@ const packs = {
     page: {
       title: "Eliminador de fondo de imágenes",
       description:
-        "Quita el fondo de una imagen en tu navegador y descarga un PNG transparente o con color sólido.",
+        "La IA detecta el sujeto y elimina el fondo automáticamente para descargarlo como PNG transparente o de color sólido.",
       guide:
         "Elige una imagen PNG, JPEG o WebP, selecciona el modelo adecuado para el sujeto y quita el fondo. Los sujetos bien definidos y con buen contraste suelen dar mejores resultados.",
       terms: [
@@ -247,7 +247,7 @@ const packs = {
     page: {
       title: "Bildhintergrund entfernen",
       description:
-        "Entferne Bildhintergründe lokal im Browser und lade ein transparentes oder einfarbiges PNG herunter.",
+        "KI erkennt das Motiv und entfernt den Hintergrund automatisch – zum Download als transparentes oder einfarbiges PNG.",
       guide:
         "Wähle ein PNG-, JPEG- oder WebP-Bild, danach ein passendes Modell für dein Motiv, und starte die Freistellung. Klare Motivkanten und deutlicher Kontrast liefern meist das sauberste Ergebnis.",
       terms: [
@@ -308,7 +308,7 @@ const packs = {
     page: {
       title: "画像背景リムーバー",
       description:
-        "画像をアップロードせずブラウザ内で背景を削除し、透明または単色のPNGとして保存します。",
+        "AIが被写体を自動検出して背景を削除し、透明または単色のPNGで保存します。",
       guide:
         "PNG、JPEG、WebP画像を選び、被写体に合うモデルを指定して背景を削除します。被写体の輪郭と背景のコントラストが明確なほどきれいに切り抜けます。",
       terms: ["背景削除", "画像切り抜き", "透過PNG", "写真背景", "U2Net"],
@@ -364,7 +364,7 @@ const packs = {
     page: {
       title: "Suppresseur d’arrière-plan d’image",
       description:
-        "Supprimez localement l’arrière-plan d’une image et téléchargez un PNG transparent ou uni.",
+        "L’IA détecte le sujet et supprime automatiquement l’arrière-plan pour produire un PNG transparent ou uni.",
       guide:
         "Choisissez une image PNG, JPEG ou WebP, sélectionnez le modèle adapté au sujet, puis supprimez l’arrière-plan. Des contours nets et un bon contraste donnent généralement le meilleur détourage.",
       terms: [
@@ -425,7 +425,7 @@ const packs = {
     page: {
       title: "Removedor de fundo de imagem",
       description:
-        "Remova o fundo de uma imagem no navegador e baixe um PNG transparente ou com cor sólida.",
+        "A IA identifica o elemento principal e remove o fundo automaticamente para gerar um PNG transparente ou com cor sólida.",
       guide:
         "Escolha uma imagem PNG, JPEG ou WebP, selecione o modelo adequado ao objeto e remova o fundo. Objetos bem definidos e com bom contraste costumam produzir o melhor recorte.",
       terms: [
@@ -486,7 +486,7 @@ const packs = {
     page: {
       title: "Rimozione sfondo immagine",
       description:
-        "Rimuovi lo sfondo nel browser e scarica un PNG trasparente o con colore uniforme.",
+        "L’IA rileva il soggetto e rimuove automaticamente lo sfondo per creare un PNG trasparente o a tinta unita.",
       guide:
         "Scegli un’immagine PNG, JPEG o WebP, seleziona il modello adatto al soggetto e rimuovi lo sfondo. Contorni netti e buon contrasto producono in genere il ritaglio migliore.",
       terms: [
@@ -549,7 +549,7 @@ const packs = {
     page: {
       title: "Afbeeldingsachtergrond verwijderen",
       description:
-        "Verwijder lokaal in je browser een afbeeldingsachtergrond en download een transparante of effen PNG.",
+        "AI herkent het onderwerp en verwijdert de achtergrond automatisch voor een transparante of effen PNG.",
       guide:
         "Kies een PNG-, JPEG- of WebP-afbeelding, selecteer het model dat bij het onderwerp past en verwijder de achtergrond. Duidelijke randen en goed contrast geven meestal het beste resultaat.",
       terms: [
@@ -610,7 +610,7 @@ const packs = {
     page: {
       title: "Ta bort bildbakgrund",
       description:
-        "Ta bort en bildbakgrund lokalt i webbläsaren och hämta en transparent eller enfärgad PNG.",
+        "AI känner igen motivet och tar bort bakgrunden automatiskt för en transparent eller enfärgad PNG.",
       guide:
         "Välj en PNG-, JPEG- eller WebP-bild, välj modellen som passar motivet och ta bort bakgrunden. Tydliga motivkanter och god kontrast ger oftast bäst resultat.",
       terms: [
@@ -671,7 +671,7 @@ const packs = {
     page: {
       title: "Odstranění pozadí obrázku",
       description:
-        "Odstraňte pozadí obrázku přímo v prohlížeči a stáhněte průhledné nebo jednobarevné PNG.",
+        "AI rozpozná hlavní objekt a automaticky odstraní pozadí. Výsledek stáhnete jako průhledné nebo jednobarevné PNG.",
       guide:
         "Vyberte obrázek PNG, JPEG nebo WebP, zvolte model vhodný pro daný objekt a odstraňte pozadí. Nejlépe fungují jasné obrysy a kontrastní pozadí.",
       terms: [
@@ -732,7 +732,7 @@ const packs = {
     page: {
       title: "Usuwanie tła obrazu",
       description:
-        "Usuń tło obrazu lokalnie w przeglądarce i pobierz przezroczysty lub jednokolorowy plik PNG.",
+        "AI rozpoznaje główny obiekt i automatycznie usuwa tło. Wynik pobierzesz jako przezroczysty lub jednokolorowy plik PNG.",
       guide:
         "Wybierz obraz PNG, JPEG lub WebP, ustaw model odpowiedni do obiektu i usuń tło. Wyraźne krawędzie oraz kontrastowe tło zwykle dają najlepszy wynik.",
       terms: [
@@ -793,7 +793,7 @@ const packs = {
     page: {
       title: "Fjern billedbaggrund",
       description:
-        "Fjern en billedbaggrund lokalt i browseren, og hent en gennemsigtig eller ensfarvet PNG.",
+        "AI genkender motivet og fjerner automatisk baggrunden, så du kan hente en gennemsigtig eller ensfarvet PNG.",
       guide:
         "Vælg et PNG-, JPEG- eller WebP-billede, vælg modellen der passer til motivet, og fjern baggrunden. Tydelige kanter og god kontrast giver normalt det bedste resultat.",
       terms: [
@@ -854,7 +854,7 @@ const packs = {
     page: {
       title: "Fjern bildebakgrunn",
       description:
-        "Fjern en bildebakgrunn lokalt i nettleseren og last ned en gjennomsiktig eller ensfarget PNG.",
+        "KI gjenkjenner motivet og fjerner bakgrunnen automatisk, slik at du kan laste ned en gjennomsiktig eller ensfarget PNG.",
       guide:
         "Velg et PNG-, JPEG- eller WebP-bilde, velg modellen som passer motivet, og fjern bakgrunnen. Tydelige kanter og god kontrast gir vanligvis best resultat.",
       terms: [
@@ -914,7 +914,7 @@ const packs = {
     page: {
       title: "مزيل خلفية الصور",
       description:
-        "أزل خلفية الصورة داخل المتصفح ونزّل ملف PNG شفافًا أو بلون ثابت.",
+        "يتعرّف الذكاء الاصطناعي على العنصر ويزيل الخلفية تلقائيًا، ثم يتيح تنزيلها بصيغة PNG شفافة أو بخلفية بلون ثابت.",
       guide:
         "اختر صورة PNG أو JPEG أو WebP، ثم اختر النموذج المناسب للعنصر وأزل الخلفية. تعطي الحواف الواضحة والتباين الجيد أفضل نتيجة عادةً.",
       terms: [
@@ -972,7 +972,8 @@ const packs = {
     },
     page: {
       title: "圖片背景移除工具",
-      description: "不需上傳圖片，直接在瀏覽器中去背並下載透明或純色 PNG。",
+      description:
+        "AI 會自動辨識主體並移除背景，產生透明或純色背景的 PNG 供你下載。",
       guide:
         "選擇 PNG、JPEG 或 WebP 圖片，指定適合主體的模型後移除背景。主體輪廓清楚且與背景對比明顯時，通常能得到較乾淨的結果。",
       terms: ["圖片去背", "移除背景", "透明 PNG", "照片去背", "U2Net"],
@@ -1027,7 +1028,7 @@ const packs = {
     page: {
       title: "Resim arka planı kaldırma",
       description:
-        "Resim arka planını tarayıcıda yerel olarak kaldırın ve şeffaf veya düz renkli PNG indirin.",
+        "Yapay zekâ nesneyi algılar ve arka planı otomatik olarak kaldırır; sonucu şeffaf veya düz renkli PNG olarak indirebilirsiniz.",
       guide:
         "PNG, JPEG veya WebP resmi seçin, nesneye uygun modeli belirleyin ve arka planı kaldırın. Net nesne kenarları ve güçlü kontrast genellikle en iyi sonucu verir.",
       terms: [

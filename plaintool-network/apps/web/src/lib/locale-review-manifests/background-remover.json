@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "background-remover",
-  "enforcement": "preview-feature",
+  "enforcement": "new-feature",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -35,139 +35,139 @@
     "apps/web/src/pages/[locale]/background-remover/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:73e43d725f33c2b789210017b27f90ac949a55e189047f67bfbd99068f8e2f02",
+  "copyFingerprint": "sha256:1363d8a8e706d73457608b2f4afc97297dbf3df1abf2ca791248d24c6412d61b",
   "locales": {
     "en": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "en-background-remover-native-copy",
         "en-u2net-onnx-terms"
       ]
     },
     "ko": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "ko-background-remover-native-copy",
         "ko-u2net-onnx-terms"
       ]
     },
     "es": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "es-background-remover-native-copy",
         "es-u2net-onnx-terms"
       ]
     },
     "de": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "de-background-remover-native-copy",
         "de-u2net-onnx-terms"
       ]
     },
     "ja": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "ja-background-remover-native-copy",
         "ja-u2net-onnx-terms"
       ]
     },
     "fr": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "fr-background-remover-native-copy",
         "fr-u2net-onnx-terms"
       ]
     },
     "pt-BR": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "pt-br-background-remover-native-copy",
         "pt-br-u2net-onnx-terms"
       ]
     },
     "it": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "it-background-remover-native-copy",
         "it-u2net-onnx-terms"
       ]
     },
     "nl": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "nl-background-remover-native-copy",
         "nl-u2net-onnx-terms"
       ]
     },
     "sv": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "sv-background-remover-native-copy",
         "sv-u2net-onnx-terms"
       ]
     },
     "cs": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "cs-background-remover-native-copy",
         "cs-u2net-onnx-terms"
       ]
     },
     "pl": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "pl-background-remover-native-copy",
         "pl-u2net-onnx-terms"
       ]
     },
     "da": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "da-background-remover-native-copy",
         "da-u2net-onnx-terms"
       ]
     },
     "no": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "no-background-remover-native-copy",
         "no-u2net-onnx-terms"
       ]
     },
     "ar": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "ar-background-remover-native-copy",
         "ar-u2net-onnx-terms"
       ]
     },
     "zh-TW": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "zh-tw-background-remover-native-copy",
         "zh-tw-u2net-onnx-terms"
       ]
     },
     "tr": {
-      "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "tr-background-remover-native-copy",
         "tr-u2net-onnx-terms"
