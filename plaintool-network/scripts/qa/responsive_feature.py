@@ -396,6 +396,38 @@ def run_route_matrix(
                                 f"{surface} {path} FAQ chevron did not expose its open state: {faq_open_state}."
                             )
                 if surface == "mobile":
+                    surface_boundaries = page.evaluate("""
+                      () => {
+                        const converter = document.querySelector('.converter');
+                        if (!converter) return { count: 0, missing: [] };
+                        const visible = (element) => {
+                          const bounds = element.getBoundingClientRect();
+                          const style = getComputedStyle(element);
+                          return bounds.width > 1 && bounds.height > 1 &&
+                            style.display !== 'none' && style.visibility !== 'hidden';
+                        };
+                        const hasSideBoundary = (element) => {
+                          const style = getComputedStyle(element);
+                          return parseFloat(style.borderInlineStartWidth) > 0 ||
+                            parseFloat(style.borderInlineEndWidth) > 0 ||
+                            style.boxShadow !== 'none';
+                        };
+                        const surfaces = [...converter.children]
+                          .filter((element) => element.tagName !== 'SCRIPT' && visible(element));
+                        const missing = surfaces.filter((element) => {
+                          if (hasSideBoundary(element)) return false;
+                          const children = [...element.children].filter(visible);
+                          return children.length === 0 || !children.every(hasSideBoundary);
+                        }).map((element) => element.className || element.tagName.toLowerCase());
+                        return { count: surfaces.length, missing };
+                      }
+                    """)
+                    entry["mobile_surface_boundaries"] = surface_boundaries
+                    if surface_boundaries["missing"]:
+                        report["ui_detail_failures"].append(
+                            f"mobile {path} has open-sided primary surfaces: "
+                            f"{surface_boundaries['missing']}"
+                        )
                     controls = page.locator(".converter button:visible, .converter summary:visible, .converter select:visible, a.tool-directory-card:visible")
                     small = []
                     for index in range(controls.count()):

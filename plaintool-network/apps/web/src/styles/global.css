@@ -1640,6 +1640,31 @@ a.tool-directory-card:focus-visible {
   .converter-grid > .converter-commandbar {
     box-shadow: 0 0 0 1px var(--line);
   }
+  .converter
+    > :is(
+      .metric-groups,
+      .time-workspace,
+      .time-results,
+      .case-mode-bar,
+      .jwt-verification-warning,
+      .jwt-results,
+      .jwt-details,
+      .qr-workspace,
+      .qr-scanner-workspace,
+      .qr-options,
+      .ip-subnet-input-surface,
+      .ip-subnet-results,
+      .background-workspace,
+      .date-calculator-workspace,
+      .date-calculator-results,
+      .image-options,
+      .html-scope-notice,
+      .css-scope-notice,
+      .javascript-scope-notice,
+      .sql-scope-notice
+    ) {
+    box-shadow: 0 0 0 1px var(--control-line);
+  }
   .converter-grid {
     gap: var(--space-3);
     background: transparent;
