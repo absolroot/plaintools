@@ -44,6 +44,9 @@ const robots = await readFile(join(dist, "robots.txt"), "utf8");
 const llms = await readFile(join(dist, "llms.txt"), "utf8");
 const headers = await readFile(join(dist, "_headers"), "utf8");
 const redirects = await readFile(join(dist, "_redirects"), "utf8");
+const googleConsentInit = config.integrations.ga4MeasurementId
+  ? await readFile(join(dist, "google-consent-init.js"), "utf8")
+  : "";
 const faviconPng = await readFile(join(dist, "favicon.png"));
 const thirdPartyNotices = await readFile(
   join(dist, "third-party-notices.txt"),
@@ -190,7 +193,7 @@ const requiredSecurityHeaders = [
   "X-Frame-Options: DENY",
   "Cross-Origin-Opener-Policy: same-origin",
   "Cross-Origin-Resource-Policy: same-origin",
-  "Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'",
+  "Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com",
 ];
 if (
   faviconPng.length < 24 ||
@@ -203,6 +206,24 @@ if (
 for (const header of requiredSecurityHeaders) {
   if (!headers.includes(header)) {
     throw new Error(`Static deployment is missing security header: ${header}`);
+  }
+}
+if (config.integrations.ga4MeasurementId) {
+  for (const marker of [
+    'globalThis.gtag("consent", "default"',
+    'analytics_storage: "denied"',
+    'analytics_storage: "granted"',
+    'ad_storage: "denied"',
+    'ad_user_data: "denied"',
+    'ad_personalization: "denied"',
+    '"GB"',
+    '"CH"',
+  ]) {
+    if (!googleConsentInit.includes(marker)) {
+      throw new Error(
+        `The deployed Google consent bootstrap is missing ${marker}.`,
+      );
+    }
   }
 }
 const sourceMaps = builtAssets.filter((asset) => asset.endsWith(".map"));
@@ -267,9 +288,14 @@ function structuredDataNodes(documents) {
   );
 }
 
-function verifyStaticContentPolicy(html, route) {
-  const metaPolicy =
-    "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
+function verifyStaticContentPolicy(
+  html,
+  route,
+  integrationActive = config.integrations.active,
+) {
+  const metaPolicy = integrationActive
+    ? "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.gstatic.com; worker-src 'self' blob:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net; frame-src 'self' https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'none'"
+    : "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
   if (
     !html.includes(
       `<meta http-equiv="Content-Security-Policy" content="${metaPolicy}">`,
@@ -406,16 +432,44 @@ function verifyMetadata(
     "consent.cookiebot.com",
     "consentcdn.cookiebot.com",
     'id="Cookiebot"',
-    "googletagmanager.com/gtag/js",
-    "/ga4-init.js",
-    'name="google-adsense-account"',
-    "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
   ]) {
     if (html.includes(forbiddenMarker)) {
       throw new Error(
-        `${route} ships disabled consent, analytics, or advertising code: ${forbiddenMarker}.`,
+        `${route} ships the removed Cookiebot integration: ${forbiddenMarker}.`,
       );
     }
+  }
+  if (config.integrations.ga4MeasurementId) {
+    for (const marker of [
+      "/google-consent-init.js",
+      `data-measurement-id="${config.integrations.ga4MeasurementId}"`,
+      `gtag/js?id=${config.integrations.ga4MeasurementId}`,
+    ]) {
+      if (!html.includes(marker))
+        throw new Error(`${route} is missing GA4 marker ${marker}.`);
+    }
+  } else if (
+    html.includes("googletagmanager.com/gtag/js") ||
+    html.includes("/google-consent-init.js")
+  ) {
+    throw new Error(`${route} ships GA4 code while analytics is disabled.`);
+  }
+  if (config.integrations.adsensePublisherId) {
+    for (const marker of [
+      `name="google-adsense-account" content="${config.integrations.adsensePublisherId}"`,
+      `adsbygoogle.js?client=${config.integrations.adsensePublisherId}`,
+      'crossorigin="anonymous"',
+    ]) {
+      if (!html.includes(marker))
+        throw new Error(`${route} is missing AdSense/CMP marker ${marker}.`);
+    }
+  } else if (
+    html.includes('name="google-adsense-account"') ||
+    html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+  ) {
+    throw new Error(
+      `${route} ships AdSense code while advertising is disabled.`,
+    );
   }
 }
 
@@ -451,13 +505,16 @@ for (const locale of locales) {
       tool.structuredData,
       routeName,
     );
-    const toolPromiseCount = (html.match(/class="tool-promise"/gu) ?? []).length;
+    const toolPromiseCount = (html.match(/class="tool-promise"/gu) ?? [])
+      .length;
     if (toolPromiseCount !== 1)
       throw new Error(
         `${routeName} must render one top tool promise; found ${toolPromiseCount}.`,
       );
     if (html.includes('class="privacy-note"'))
-      throw new Error(`${routeName} duplicates the top local-processing notice.`);
+      throw new Error(
+        `${routeName} duplicates the top local-processing notice.`,
+      );
     if (
       tool.publication === "preview" &&
       sitemap.includes(`/${locale}/${route}/`)
@@ -543,7 +600,7 @@ const notFound = await readFile(join(dist, "404.html"), "utf8");
 verifyStaticContentPolicy(notFound, "404");
 verifyFaviconLink(notFound, "404");
 const rootIndex = await readFile(join(dist, "index.html"), "utf8");
-verifyStaticContentPolicy(rootIndex, "root index");
+verifyStaticContentPolicy(rootIndex, "root index", false);
 verifyFaviconLink(rootIndex, "root index");
 const rootIndexForScriptingBrowsers = rootIndex.replace(
   /<noscript\b[^>]*>[\s\S]*?<\/noscript>/giu,

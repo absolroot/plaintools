@@ -14,10 +14,12 @@ There is no server conversion, upload endpoint, database, account system,
 service worker, or tool-data persistence.
 
 The only application-owned localStorage entry is `plaintool.theme`, with the
-value `light` or `dark`. No analytics, advertising, or consent-management code
-is currently shipped. Tool input, filenames, output, raw errors, and
-payload-derived values remain prohibited from future integrations. Do not
-persist tool state or results.
+value `light` or `dark`. Production loads GA4 and the AdSense publisher code.
+Google Privacy & messaging provides the planned CMP surface; Consent Mode v2
+defaults analytics and advertising storage to denied in the EEA, UK, and
+Switzerland. Tool input, filenames, output, raw errors, and payload-derived
+values remain prohibited from integrations. Do not persist tool state or
+results.
 
 ## Source ownership
 
@@ -150,8 +152,10 @@ and valid deployment configuration exist. Environment variables alone must not
 turn on GA4, AdSense, or a CMP. Production fails closed when required operator,
 host, legal, origin, locale, or integration facts are absent.
 
-Cookiebot is not part of the current build. AdSense and Google's CMP must be
-implemented and reviewed together before either capability is enabled.
+Cookiebot is not part of the build. Google Privacy & messaging is delivered by
+the AdSense publisher code. Its European regulations message and Consent Mode
+integration must also be published in the AdSense dashboard; source code alone
+cannot prove that account-side state.
 
 The default build uses the preview target. Do not set the production origin to
 `https://absoltools.com` until ownership and host control are verified.

@@ -131,7 +131,7 @@ describe("deployment configuration", () => {
         PUBLIC_ADSENSE_PUBLISHER_ID: "ca-pub-1234567890",
       },
       "production",
-      { ...implementedIntegrationCapabilities, adsense: false },
+      { googleCmp: false, ga4: false, adsense: false },
     );
 
     expect(config.productionReady).toBe(false);
@@ -144,6 +144,26 @@ describe("deployment configuration", () => {
     expect(
       config.issues.filter((issue) => issue.code === "unsupported-capability"),
     ).toHaveLength(3);
+  });
+
+  it("requires the AdSense publisher code for Google Privacy & messaging", () => {
+    const config = resolveDeploymentConfig(
+      {
+        ...completeEnvironment,
+        PUBLIC_GOOGLE_CMP_ENABLED: "true",
+        PUBLIC_GA4_MEASUREMENT_ID: "G-ABC123",
+      },
+      "production",
+      implementedIntegrationCapabilities,
+    );
+
+    expect(config.productionReady).toBe(false);
+    expect(config.issues).toContainEqual(
+      expect.objectContaining({
+        code: "required",
+        key: "PUBLIC_ADSENSE_PUBLISHER_ID",
+      }),
+    );
   });
 
   it("enables integrations only when configuration and implementation capabilities agree", () => {

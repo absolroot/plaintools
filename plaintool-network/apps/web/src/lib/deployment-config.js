@@ -21,14 +21,19 @@
  */
 
 export const implementedIntegrationCapabilities = /** @type {const} */ ({
-  googleCmp: false,
-  ga4: false,
-  adsense: false,
+  googleCmp: true,
+  ga4: true,
+  adsense: true,
 });
 
-// Optional third-party integrations remain off until AdSense and Google's CMP
-// are implemented and reviewed together.
-export const productionIntegrationDefaults = /** @type {const} */ ({});
+// These identifiers are public deployment configuration, not credentials.
+// Source defaults prevent production rebuilds from silently dropping the
+// Google tag or the AdSense code used for site review and Google CMP delivery.
+export const productionIntegrationDefaults = /** @type {const} */ ({
+  PUBLIC_ADSENSE_PUBLISHER_ID: "ca-pub-5862324369257695",
+  PUBLIC_GA4_MEASUREMENT_ID: "G-0NCP26Q60K",
+  PUBLIC_GOOGLE_CMP_ENABLED: "true",
+});
 
 const requiredProductionKeys = /** @type {const} */ ([
   "PUBLIC_SITE_ORIGIN",
@@ -224,6 +229,14 @@ export function resolveDeploymentConfig(env, target, capabilities) {
         "This build does not contain a verified Google CMP capability.",
       );
     }
+    if (cmpConfigured && !adsenseConfigured) {
+      addIssue(
+        issues,
+        "required",
+        "PUBLIC_ADSENSE_PUBLISHER_ID",
+        "Google Privacy & messaging requires the AdSense publisher code.",
+      );
+    }
     if (
       ga4Configured &&
       !/^G-[A-Z0-9]+$/u.test(values.PUBLIC_GA4_MEASUREMENT_ID)
@@ -267,7 +280,7 @@ export function resolveDeploymentConfig(env, target, capabilities) {
         issues,
         "missing-consent",
         "PUBLIC_GOOGLE_CMP_ENABLED",
-        "Google analytics or ads require PUBLIC_GOOGLE_CMP_ENABLED=true and a verified consent flow.",
+        "Google analytics or ads require PUBLIC_GOOGLE_CMP_ENABLED=true and the Google Privacy & messaging consent flow.",
       );
     }
   }

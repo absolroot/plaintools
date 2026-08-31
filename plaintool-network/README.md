@@ -61,7 +61,7 @@ The generated site includes 17 complete locale route families: `en`, `ko`, `es`,
 - Unix seconds/milliseconds and strict ISO local date-time conversion with IANA zones and explicit DST disambiguation
 - Localized directory with `available`, `preview`, and `reserve` states
 - Preview routes are linked and functional but forced `noindex`, excluded from the sitemap, and rejected by the production build
-- Third-party consent, analytics, and advertising integrations remain disabled until AdSense and Google's CMP are implemented and reviewed together
+- Production GA4 with regional Consent Mode v2 defaults, plus the AdSense publisher code used for site review and Google Privacy & messaging
 
 ## Repository map
 
@@ -93,9 +93,9 @@ The build output is `apps/web/dist/`. Cloudflare Pages applies the committed `_h
 
 ## Production gate
 
-Copy `.env.example` to `.env` and complete the operator and canonical-origin fields. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. AdSense, GA4, and consent-management code are currently unimplemented and disabled. AdSense and Google's CMP will be implemented and reviewed together before either is enabled.
+Copy `.env.example` to `.env` and complete the operator and canonical-origin fields. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. Production enables GA4 and the AdSense publisher code from reviewed public identifiers. In AdSense, publish the European regulations message and enable its Consent Mode integration; the repository cannot publish that account-side configuration.
 
-Do not send input text, output text, file names, file bytes, error details, or hashes derived from them to analytics. The default source configuration ships no third-party consent, analytics, or advertising tags. Preview builds and invalid production configurations keep all optional integrations disabled.
+Do not send input text, output text, file names, file bytes, error details, or hashes derived from them to analytics. Consent Mode v2 defaults analytics and advertising storage to denied in the EEA, UK, and Switzerland. Outside those regions GA4 analytics storage is granted, while advertising storage remains denied until a later reviewed policy change. Preview builds and invalid production configurations keep all optional integrations disabled.
 
 ## Localization and localized SEO
 

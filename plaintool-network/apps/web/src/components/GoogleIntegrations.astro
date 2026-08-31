@@ -1,0 +1,29 @@
+---
+import { siteConfig } from "../lib/site";
+
+const { adsensePublisherId, ga4MeasurementId, googleCmpEnabled } =
+  siteConfig.integrations;
+const googleTagSource = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4MeasurementId)}`;
+const adsenseSource = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(adsensePublisherId)}`;
+---
+
+{
+  ga4MeasurementId && (
+    <>
+      <script
+        is:inline
+        src="/google-consent-init.js"
+        data-measurement-id={ga4MeasurementId}
+      />
+      <script is:inline src={googleTagSource} async />
+    </>
+  )
+}
+{
+  googleCmpEnabled && adsensePublisherId && (
+    <>
+      <meta name="google-adsense-account" content={adsensePublisherId} />
+      <script is:inline async src={adsenseSource} crossorigin="anonymous" />
+    </>
+  )
+}
