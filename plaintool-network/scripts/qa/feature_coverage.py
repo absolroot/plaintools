@@ -253,7 +253,12 @@ FEATURE_COVERAGE = {
     "percentage-calculator": FeatureCoverage(
         desktop=run_percentage_calculator_desktop,
         mobile=run_percentage_calculator_mobile,
-        focus_targets=(("input", '[data-percentage-calculator] [data-field="percent"]'),),
+        focus_targets=(
+            (
+                "input",
+                '[data-percentage-calculator] [data-mode-panel]:not([hidden]) [data-field="percent"]',
+            ),
+        ),
         exercise_faq=True,
     ),
     "bmi-calculator": FeatureCoverage(

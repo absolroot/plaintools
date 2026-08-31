@@ -30,6 +30,23 @@ def run_case_converter_desktop(desktop, report: dict) -> None:
               this.inner.addEventListener(type, listener, options);
             }
 
+            removeEventListener(type, listener, options) {
+              if (this.failureMode) {
+                const listeners = this.listeners.get(type) || [];
+                this.listeners.set(type, listeners.filter((item) => item !== listener));
+                return;
+              }
+              if (this.delayMode && type === 'message') {
+                const wrapped = this.listeners.get(listener);
+                if (wrapped) {
+                  this.inner.removeEventListener(type, wrapped, options);
+                  this.listeners.delete(listener);
+                }
+                return;
+              }
+              this.inner.removeEventListener(type, listener, options);
+            }
+
             postMessage(payload, transfer) {
               if (this.failureMode) {
                 setTimeout(() => {

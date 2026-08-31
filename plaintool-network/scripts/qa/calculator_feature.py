@@ -22,7 +22,7 @@ def run_math_calculator_desktop(page, report: dict, _inventory) -> None:
         baseBackground: getComputedStyle(document.querySelector('.math-calculator')).backgroundColor,
       };
     }""")
-    page.locator('a[href="/en/lcm-calculator/"]').click()
+    page.locator('a.mode-button[href="/en/lcm-calculator/"]').click()
     page.locator('[data-field="lcm"]').fill("6, 8, 9")
     page.locator("[data-calculate]").click()
     state = page.evaluate("""() => ({
@@ -97,12 +97,20 @@ def run_math_calculator_mobile(page, report: dict, _inventory) -> None:
 
 def run_percentage_calculator_desktop(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/en/percentage-calculator/", wait_until="networkidle")
-    page.locator('[data-field="percent"]').fill("15")
-    page.locator('[data-field="base"]').fill("240")
+    page.locator(
+        '[data-mode-panel]:not([hidden]) [data-field="percent"]'
+    ).fill("15")
+    page.locator('[data-mode-panel]:not([hidden]) [data-field="base"]').fill(
+        "240"
+    )
     page.locator("[data-calculate]").click()
     page.locator('[data-mode-button="percentage-change"]').click()
-    page.locator('[data-field="oldValue"]').fill("80")
-    page.locator('[data-field="newValue"]').fill("100")
+    page.locator(
+        '[data-mode-panel]:not([hidden]) [data-field="oldValue"]'
+    ).fill("80")
+    page.locator(
+        '[data-mode-panel]:not([hidden]) [data-field="newValue"]'
+    ).fill("100")
     page.locator("[data-calculate]").click()
     state = page.evaluate("""() => ({
       value: document.querySelector('[data-result-value]').textContent,
@@ -118,8 +126,12 @@ def run_percentage_calculator_desktop(page, report: dict, _inventory) -> None:
 
 def run_percentage_calculator_mobile(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/ar/percentage-calculator/", wait_until="networkidle")
-    page.locator('[data-field="percent"]').fill("25")
-    page.locator('[data-field="base"]').fill("80")
+    page.locator(
+        '[data-mode-panel]:not([hidden]) [data-field="percent"]'
+    ).fill("25")
+    page.locator('[data-mode-panel]:not([hidden]) [data-field="base"]').fill(
+        "80"
+    )
     page.locator("[data-calculate]").click()
     state = page.evaluate("""() => ({ width: document.documentElement.scrollWidth, result: document.querySelector('[data-result-value]').textContent, inputs: [...document.querySelectorAll('[data-percentage-calculator] input')].map(e => getComputedStyle(e).direction) })""")
     if state["width"] > 390 or "20" not in state["result"] or any(direction != "ltr" for direction in state["inputs"]):
