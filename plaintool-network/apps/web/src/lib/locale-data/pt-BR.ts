@@ -698,6 +698,7 @@ export const ptBRBundle: LocaleBundle = {
     encodingCategory: "Codificação e decodificação",
     categories: {
       encoding: "Codificação e decodificação",
+      generator: "Geradores",
       text: "Texto",
       converter: "Conversores",
       image: "Imagens",

@@ -701,6 +701,7 @@ const bundle: LocaleBundle = {
     encodingCategory: "Kodlama ve kod çözme",
     categories: {
       encoding: "Kodlama ve kod çözme",
+      generator: "Oluşturucular",
       text: "Metin",
       converter: "Dönüştürücüler",
       image: "Görseller",

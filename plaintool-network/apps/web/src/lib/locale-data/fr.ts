@@ -712,6 +712,7 @@ export const frBundle: LocaleBundle = {
     encodingCategory: "Encodage et décodage",
     categories: {
       encoding: "Encodage et décodage",
+      generator: "Générateurs",
       text: "Texte",
       converter: "Convertisseurs",
       image: "Images",

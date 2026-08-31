@@ -702,6 +702,7 @@ const svBundle = {
     encodingCategory: "Kodning och avkodning",
     categories: {
       encoding: "Kodning",
+      generator: "Generatorer",
       text: "Text",
       converter: "Konverterare",
       image: "Bilder",

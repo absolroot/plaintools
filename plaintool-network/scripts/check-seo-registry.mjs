@@ -44,9 +44,15 @@ for (const tool of registeredTools) {
       `${tool.slug} cannot enter a production build while its publication state is ${tool.publication}.`,
     );
   if (
-    !new Set(["encoding", "text", "converter", "image", "data", "time"]).has(
-      tool.category,
-    )
+    !new Set([
+      "encoding",
+      "generator",
+      "text",
+      "converter",
+      "image",
+      "data",
+      "time",
+    ]).has(tool.category)
   )
     errors.push(`Invalid category for ${tool.slug}: ${tool.category}`);
   if (

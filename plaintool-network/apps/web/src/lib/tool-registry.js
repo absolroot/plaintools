@@ -135,7 +135,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "hash-generator",
     featureId: "hash-generator",
     slug: "hash-generator",
-    category: "encoding",
+    category: "generator",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/hash-generator.json",
@@ -155,7 +155,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "qr-code-generator",
     featureId: "qr-code",
     slug: "qr-code-generator",
-    category: "encoding",
+    category: "generator",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/qr-code.json",
@@ -165,7 +165,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "qr-code-scanner",
     featureId: "qr-code",
     slug: "qr-code-scanner",
-    category: "encoding",
+    category: "generator",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/qr-code.json",

@@ -721,6 +721,7 @@ const bundle: LocaleBundle = {
     encodingCategory: "Codificación y decodificación",
     categories: {
       encoding: "Codificación y decodificación",
+      generator: "Generadores",
       text: "Texto",
       converter: "Convertidores",
       image: "Imágenes",

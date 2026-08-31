@@ -6,6 +6,7 @@ import type { ImageConverterToolId } from "../features/image-converter/formats";
 export type ToolStatus = "available" | "preview" | "reserve";
 export type ToolCategory =
   | "encoding"
+  | "generator"
   | "text"
   | "converter"
   | "image"

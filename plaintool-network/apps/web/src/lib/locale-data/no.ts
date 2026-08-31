@@ -703,6 +703,7 @@ const noBundle = {
     encodingCategory: "Koding og dekoding",
     categories: {
       encoding: "Koding",
+      generator: "Generatorer",
       text: "Tekst",
       converter: "Konvertering",
       image: "Bilder",

@@ -705,6 +705,7 @@ const plBundle = {
     encodingCategory: "Kodowanie i dekodowanie",
     categories: {
       encoding: "Kodowanie",
+      generator: "Generatory",
       text: "Tekst",
       converter: "Konwertery",
       image: "Obrazy",

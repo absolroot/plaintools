@@ -647,6 +647,7 @@ const bundle: LocaleBundle = {
     encodingCategory: "編碼與解碼",
     categories: {
       encoding: "編碼與解碼",
+      generator: "產生器",
       text: "文字",
       converter: "轉換工具",
       image: "圖片",

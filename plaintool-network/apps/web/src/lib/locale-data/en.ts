@@ -715,6 +715,7 @@ const bundle: LocaleBundle = {
     encodingCategory: "Encoding & decoding",
     categories: {
       encoding: "Encoding & decoding",
+      generator: "Generators",
       text: "Text",
       converter: "Converters",
       image: "Images",

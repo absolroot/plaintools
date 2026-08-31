@@ -701,6 +701,7 @@ const csBundle = {
     encodingCategory: "Kódování a dekódování",
     categories: {
       encoding: "Kódování",
+      generator: "Generátory",
       text: "Text",
       converter: "Převodníky",
       image: "Obrázky",

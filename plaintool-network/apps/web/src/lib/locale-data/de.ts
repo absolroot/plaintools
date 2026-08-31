@@ -707,6 +707,7 @@ export const deBundle: LocaleBundle = {
     encodingCategory: "Codieren und Decodieren",
     categories: {
       encoding: "Codieren und Decodieren",
+      generator: "Generatoren",
       text: "Text",
       converter: "Konverter",
       image: "Bilder",

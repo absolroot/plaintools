@@ -702,6 +702,7 @@ const daBundle = {
     encodingCategory: "Kodning og afkodning",
     categories: {
       encoding: "Kodning",
+      generator: "Generatorer",
       text: "Tekst",
       converter: "Konvertering",
       image: "Billeder",

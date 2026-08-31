@@ -680,7 +680,7 @@ const bundle: LocaleBundle = {
     directoryMetaTitle: "AbsolTools | 필요한 순간, 바로 쓰는 도구",
     directoryMetaDescription:
       "변환·정리·비교·인코딩처럼 자주 필요한 작업을 브라우저에서 처리하세요. 도구의 입력값과 결과는 서버로 업로드되지 않습니다.",
-    directoryTitle: "자주 쓰이는 도구를 더 깔끔하고 편리하게 만듭니다",
+    directoryTitle: "자주 쓰이는 도구들을 더 편리하게",
     directoryIntro:
       "즐겨찾기에 사이트를 추가하면 다음에 바로 접속하실 수 있어요.",
     toolPromise:
@@ -697,6 +697,7 @@ const bundle: LocaleBundle = {
     encodingCategory: "인코딩/디코딩",
     categories: {
       encoding: "인코딩/디코딩",
+      generator: "생성기",
       text: "텍스트",
       converter: "변환기",
       image: "이미지",

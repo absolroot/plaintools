@@ -692,6 +692,7 @@ const bundle: LocaleBundle = {
     encodingCategory: "الترميز وفك الترميز",
     categories: {
       encoding: "الترميز وفك الترميز",
+      generator: "مولدات",
       text: "النصوص",
       converter: "المحوّلات",
       image: "الصور",

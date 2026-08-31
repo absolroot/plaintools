@@ -705,6 +705,7 @@ export const nlBundle: LocaleBundle = {
     encodingCategory: "Encoderen en decoderen",
     categories: {
       encoding: "Encoderen en decoderen",
+      generator: "Generatoren",
       text: "Tekst",
       converter: "Converters",
       image: "Afbeeldingen",
