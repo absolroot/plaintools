@@ -30,6 +30,7 @@ import type {
   ImageConverterWorkerRequest,
   ImageQualityProfile,
 } from "./contract";
+import { IMAGE_CODEC_RUNTIME_REVISION } from "./contract";
 
 declare const self: DedicatedWorkerGlobalScope;
 
@@ -224,6 +225,7 @@ self.addEventListener(
         id: request.id,
         ok: false,
         error: "invalid-image",
+        runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
       } satisfies ImageConverterWorkerReply);
       return;
     }
@@ -233,6 +235,7 @@ self.addEventListener(
         ok: false,
         error: "wrong-format",
         detected,
+        runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
       } satisfies ImageConverterWorkerReply);
       return;
     }
@@ -249,6 +252,7 @@ self.addEventListener(
         height: image.height,
         transparencyFlattened: result.transparencyFlattened,
         firstFrameOnly: request.source === "gif",
+        runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
       };
       self.postMessage(reply, [output]);
     } catch (error) {
@@ -262,6 +266,7 @@ self.addEventListener(
             : code === "decode-failed"
               ? "decode-failed"
               : "encode-failed",
+        runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
       };
       self.postMessage(reply);
     }

@@ -1,6 +1,8 @@
 import type { CommonToolCopy } from "../../lib/common-tool-i18n";
 import type { ImageFormat } from "./formats";
 
+export const IMAGE_CODEC_RUNTIME_REVISION = "csp-worker-v2";
+
 export type ImageQualityProfile = "compact" | "balanced" | "maximum";
 
 export type ImageConverterCopy = {
@@ -66,10 +68,12 @@ export type ImageConverterWorkerReply =
       height: number;
       transparencyFlattened: boolean;
       firstFrameOnly: boolean;
+      runtimeRevision: typeof IMAGE_CODEC_RUNTIME_REVISION;
     }
   | {
       id: number;
       ok: false;
       error: ImageConverterWorkerError;
       detected?: ImageFormat;
+      runtimeRevision: typeof IMAGE_CODEC_RUNTIME_REVISION;
     };
