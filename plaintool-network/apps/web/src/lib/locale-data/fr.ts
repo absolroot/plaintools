@@ -717,6 +717,7 @@ export const frBundle: LocaleBundle = {
       converter: "Convertisseurs",
       image: "Images",
       data: "Données",
+      calculator: "Calculatrices",
       time: "Temps",
     },
     footerNote: "Les fonctions les plus utilisées, plus faciles à utiliser.",

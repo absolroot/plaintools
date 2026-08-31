@@ -703,6 +703,7 @@ export const ptBRBundle: LocaleBundle = {
       converter: "Conversores",
       image: "Imagens",
       data: "Dados",
+      calculator: "Calculadoras",
       time: "Tempo",
     },
     footerNote: "Recursos populares, mais fáceis de usar.",

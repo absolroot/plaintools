@@ -19,6 +19,10 @@ import type {
 } from "./date-calculator";
 import type { TimeZoneConverterLocaleSeed } from "./time-zone-converter";
 import type {
+  CalculatorPageId,
+  CalculatorSuiteLocaleSeed,
+} from "./calculator-suite";
+import type {
   FormatterSubnetToolId,
   LegacyNewToolId,
   NewToolId,
@@ -379,6 +383,7 @@ export type NewToolLocaleSeed = {
   formatterSubnet: FormatterSubnetLocaleSeed;
   dateCalculator: DateCalculatorLocaleSeed;
   timeZoneConverter: TimeZoneConverterLocaleSeed;
+  calculatorSuite: CalculatorSuiteLocaleSeed;
 };
 
 export type NewToolLocale = {
@@ -402,9 +407,15 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
           id === "dday-calculator" ||
           id === "age-calculator"
         ? seed.dateCalculator.pages[id as DateCalculatorPageId]
-        : id in seed.pages
-          ? seed.pages[id as LegacyNewToolId]
-          : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
+        : id === "fraction-calculator" ||
+            id === "factor-calculator" ||
+            id === "lcm-calculator" ||
+            id === "percentage-calculator" ||
+            id === "bmi-calculator"
+          ? seed.calculatorSuite.pages[id as CalculatorPageId]
+          : id in seed.pages
+            ? seed.pages[id as LegacyNewToolId]
+            : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
     const source = pageSeed(id);
     return {
@@ -1014,15 +1025,40 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       "time-zone-converter",
       seed.timeZoneConverter.feature,
     ),
+    "fraction-calculator": page(
+      "fraction-calculator",
+      seed.calculatorSuite.math,
+    ),
+    "factor-calculator": page("factor-calculator", seed.calculatorSuite.math),
+    "lcm-calculator": page("lcm-calculator", seed.calculatorSuite.math),
+    "percentage-calculator": page(
+      "percentage-calculator",
+      seed.calculatorSuite.percentage,
+    ),
+    "bmi-calculator": page("bmi-calculator", seed.calculatorSuite.bmi),
   };
 
+  const catalogToolIds = [
+    ...Object.keys(tools).filter(
+      (id) =>
+        id !== "date-calculator" &&
+        id !== "dday-calculator" &&
+        id !== "age-calculator",
+    ),
+    "date-calculator",
+    "dday-calculator",
+    "age-calculator",
+  ] as NewToolId[];
   const catalog = Object.fromEntries(
-    (Object.keys(tools) as NewToolId[]).map((id) => [
+    catalogToolIds.map((id) => [
       id,
       {
         name: tools[id].title,
         summary: tools[id].mobileDescription,
-        searchTerms: pageSeed(id).terms,
+        searchTerms:
+          id === "date-calculator"
+            ? [...pageSeed(id).terms, "Date Calculator"]
+            : pageSeed(id).terms,
       },
     ]),
   ) as Record<NewToolId, LocaleCatalogToolCopy>;

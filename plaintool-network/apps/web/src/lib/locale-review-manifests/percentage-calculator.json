@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "featureId": "percentage-calculator",
+  "enforcement": "preview-feature",
+  "sourceLocale": "en",
+  "publicLocales": ["en", "ko", "es", "de", "ja", "fr", "pt-BR", "it", "nl", "sv", "cs", "pl", "da", "no", "ar", "zh-TW", "tr"],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": ["apps/web/src/lib/tool-registry.js", "apps/web/src/lib/tool-catalog.ts", "apps/web/src/lib/locale-data/bundle.ts", "apps/web/src/lib/locale-data/new-tools/factory.ts", "apps/web/src/lib/locale-data/new-tools/calculator-suite.ts", "apps/web/src/features/percentage-calculator/contract.ts", "apps/web/src/features/percentage-calculator/PercentageCalculator.astro", "apps/web/src/features/percentage-calculator/client.ts", "apps/web/src/features/new-tools/NewToolPreview.astro", "apps/web/src/pages/[locale]/percentage-calculator/index.astro"],
+  "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyFingerprint": "sha256:565971d62aec7c0ead6ab3bf45988023c957b37a06d9d3264ee6bc98888c469e",
+  "locales": {
+    "en": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["calculator-net-percentage-benchmark", "calculatorsoup-percentage-benchmark"] },
+    "ko": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["ko-percentage-terminology-review", "percentage-render-review"] },
+    "es": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["es-percentage-terminology-review", "percentage-render-review"] },
+    "de": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["de-percentage-terminology-review", "percentage-render-review"] },
+    "ja": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["ja-percentage-terminology-review", "percentage-render-review"] },
+    "fr": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["fr-percentage-terminology-review", "percentage-render-review"] },
+    "pt-BR": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["pt-br-percentage-terminology-review", "percentage-render-review"] },
+    "it": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["it-percentage-terminology-review", "percentage-render-review"] },
+    "nl": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["nl-percentage-terminology-review", "percentage-render-review"] },
+    "sv": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["sv-percentage-terminology-review", "percentage-render-review"] },
+    "cs": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["cs-percentage-terminology-review", "percentage-render-review"] },
+    "pl": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["pl-percentage-terminology-review", "percentage-render-review"] },
+    "da": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["da-percentage-terminology-review", "percentage-render-review"] },
+    "no": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["no-percentage-terminology-review", "percentage-render-review"] },
+    "ar": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["ar-percentage-terminology-review", "percentage-render-review"] },
+    "zh-TW": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["zh-tw-percentage-terminology-review", "percentage-render-review"] },
+    "tr": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["tr-percentage-terminology-review", "percentage-render-review"] }
+  }
+}

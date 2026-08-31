@@ -712,6 +712,7 @@ export const deBundle: LocaleBundle = {
       converter: "Konverter",
       image: "Bilder",
       data: "Daten",
+      calculator: "Rechner",
       time: "Zeit",
     },
     footerNote: "Beliebte Funktionen, einfacher zu nutzen.",

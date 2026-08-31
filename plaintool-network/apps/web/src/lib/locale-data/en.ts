@@ -720,6 +720,7 @@ const bundle: LocaleBundle = {
       converter: "Converters",
       image: "Images",
       data: "Data",
+      calculator: "Calculators",
       time: "Time",
     },
     footerNote: "Popular features, made easier to use.",

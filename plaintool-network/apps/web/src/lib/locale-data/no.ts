@@ -708,6 +708,7 @@ const noBundle = {
       converter: "Konvertering",
       image: "Bilder",
       data: "Data",
+      calculator: "Kalkulatorer",
       time: "Tid",
     },
     footerNote: "Mye brukte funksjoner, enklere å bruke.",

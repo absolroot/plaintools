@@ -710,6 +710,7 @@ const plBundle = {
       converter: "Konwertery",
       image: "Obrazy",
       data: "Dane",
+      calculator: "Kalkulatory",
       time: "Czas",
     },
     footerNote: "Popularne funkcje, wygodniejsze w użyciu.",

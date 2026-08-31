@@ -38,9 +38,9 @@ Feature branches own only their listed `packages/*-core`, feature folders, and f
 
 | Branch | Planned worktree | Owner | Owned scope | Status |
 | --- | --- | --- | --- | --- |
-| `agent/calculator-fraction-factor-lcm` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-calculator-fraction-factor-lcm` | `/root/fraction_factor_lcm` | `packages/math-calculator-core/**`, `apps/web/src/features/math-calculator/**` | planned |
-| `agent/calculator-percentage` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-calculator-percentage` | `/root/percentage` | `packages/percentage-calculator-core/**`, `apps/web/src/features/percentage-calculator/**` | planned |
-| `agent/calculator-bmi` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-calculator-bmi` | `/root/bmi` | `packages/bmi-calculator-core/**`, `apps/web/src/features/bmi-calculator/**` | planned |
+| `agent/calculator-fraction-factor-lcm` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-calculator-fraction-factor-lcm` | `/root/fraction_factor_lcm` | `packages/math-calculator-core/**`, `apps/web/src/features/math-calculator/**` | integrated as `d8a4f76` |
+| `agent/calculator-percentage` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-calculator-percentage` | `/root/percentage` | `packages/percentage-calculator-core/**`, `apps/web/src/features/percentage-calculator/**` | integrated as `bd9855f` |
+| `agent/calculator-bmi` | `C:\Users\super\.herdr\worktrees\plain-tools\agent-calculator-bmi` | `/root/bmi` | `packages/bmi-calculator-core/**`, `apps/web/src/features/bmi-calculator/**` | integrated as `4720eb6` |
 
 ## Benchmark decisions
 
@@ -61,4 +61,8 @@ Feature branches own only their listed `packages/*-core`, feature folders, and f
 
 ## Final evidence
 
-- Pending.
+- `npm test`: 477 tests passed.
+- `npm run type:check`: passed with zero Astro diagnostics.
+- `npm run locale:check`: passed for 20 features and 17 public locales.
+- `npm run build`: preview build, registry/SEO/UI/network checks passed; 1,413 static pages built.
+- Production promotion remains intentionally blocked: the three new calculators are `preview`/`noindex` until their locale-review manifests are promoted. No main merge or push has been attempted.

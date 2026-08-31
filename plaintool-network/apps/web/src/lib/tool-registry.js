@@ -292,10 +292,60 @@ export const toolRegistry = /** @type {const} */ ([
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
+    id: "fraction-calculator",
+    featureId: "math-calculator",
+    slug: "fraction-calculator",
+    category: "calculator",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/math-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "factor-calculator",
+    featureId: "math-calculator",
+    slug: "factor-calculator",
+    category: "calculator",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/math-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "lcm-calculator",
+    featureId: "math-calculator",
+    slug: "lcm-calculator",
+    category: "calculator",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/math-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "percentage-calculator",
+    featureId: "percentage-calculator",
+    slug: "percentage-calculator",
+    category: "calculator",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/percentage-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "bmi-calculator",
+    featureId: "bmi-calculator",
+    slug: "bmi-calculator",
+    category: "calculator",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/bmi-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
     id: "date-calculator",
     featureId: "date-calculator",
     slug: "date-calculator",
-    category: "time",
+    category: "calculator",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/date-calculator.json",
@@ -305,7 +355,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "dday-calculator",
     featureId: "date-calculator",
     slug: "dday-calculator",
-    category: "time",
+    category: "calculator",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/date-calculator.json",
@@ -315,7 +365,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "age-calculator",
     featureId: "date-calculator",
     slug: "age-calculator",
-    category: "time",
+    category: "calculator",
     publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/date-calculator.json",

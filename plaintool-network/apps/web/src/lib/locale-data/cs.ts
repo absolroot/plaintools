@@ -706,6 +706,7 @@ const csBundle = {
       converter: "Převodníky",
       image: "Obrázky",
       data: "Data",
+      calculator: "Kalkulačky",
       time: "Čas",
     },
     footerNote: "Oblíbené funkce, jednodušší na používání.",

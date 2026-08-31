@@ -3,6 +3,7 @@ import { formatterSubnetFor } from "./formatter-subnet";
 import { backgroundRemoverFor } from "./background-remover";
 import { dateCalculatorFor } from "./date-calculator";
 import { timeZoneConverterFor } from "./time-zone-converter";
+import { calculatorSuiteFor } from "./calculator-suite";
 
 const backgroundRemover = backgroundRemoverFor("da");
 
@@ -11,6 +12,7 @@ const seed = {
   background: backgroundRemover.copy,
   dateCalculator: dateCalculatorFor("da"),
   timeZoneConverter: timeZoneConverterFor("da"),
+  calculatorSuite: calculatorSuiteFor("da"),
   ui: {
     clear: "Ryd",
     copy: "Kopiér",

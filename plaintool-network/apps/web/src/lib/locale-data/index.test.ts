@@ -32,6 +32,11 @@ const newToolIds: NewToolId[] = [
   "dday-calculator",
   "age-calculator",
   "time-zone-converter",
+  "fraction-calculator",
+  "factor-calculator",
+  "lcm-calculator",
+  "percentage-calculator",
+  "bmi-calculator",
 ];
 
 describe("locale bundles", () => {

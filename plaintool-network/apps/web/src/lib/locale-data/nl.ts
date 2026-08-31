@@ -710,6 +710,7 @@ export const nlBundle: LocaleBundle = {
       converter: "Converters",
       image: "Afbeeldingen",
       data: "Gegevens",
+      calculator: "Rekenmachines",
       time: "Tijd",
     },
     footerNote: "Veelgebruikte functies, makkelijker in gebruik.",

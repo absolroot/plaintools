@@ -3,6 +3,7 @@ import { formatterSubnetFor } from "./formatter-subnet";
 import { backgroundRemoverFor } from "./background-remover";
 import { dateCalculatorFor } from "./date-calculator";
 import { timeZoneConverterFor } from "./time-zone-converter";
+import { calculatorSuiteFor } from "./calculator-suite";
 
 const backgroundRemover = backgroundRemoverFor("zh-TW");
 
@@ -11,6 +12,7 @@ const seed = {
   background: backgroundRemover.copy,
   dateCalculator: dateCalculatorFor("zh-TW"),
   timeZoneConverter: timeZoneConverterFor("zh-TW"),
+  calculatorSuite: calculatorSuiteFor("zh-TW"),
   ui: {
     clear: "清除",
     copy: "複製",

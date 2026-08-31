@@ -43,6 +43,14 @@ from .image_converter_feature import (
     run_image_converter_desktop,
     run_image_converter_mobile,
 )
+from .calculator_feature import (
+    run_math_calculator_desktop,
+    run_math_calculator_mobile,
+    run_percentage_calculator_desktop,
+    run_percentage_calculator_mobile,
+    run_bmi_calculator_desktop,
+    run_bmi_calculator_mobile,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -215,6 +223,24 @@ FEATURE_COVERAGE = {
         desktop=run_image_converter_desktop,
         mobile=run_image_converter_mobile,
         focus_targets=(("input", "[data-image-converter] [data-source-format]"),),
+        exercise_faq=True,
+    ),
+    "math-calculator": FeatureCoverage(
+        desktop=run_math_calculator_desktop,
+        mobile=run_math_calculator_mobile,
+        focus_targets=(("input", "[data-math-calculator] [data-calculate]"),),
+        exercise_faq=True,
+    ),
+    "percentage-calculator": FeatureCoverage(
+        desktop=run_percentage_calculator_desktop,
+        mobile=run_percentage_calculator_mobile,
+        focus_targets=(("input", '[data-percentage-calculator] [data-field="percent"]'),),
+        exercise_faq=True,
+    ),
+    "bmi-calculator": FeatureCoverage(
+        desktop=run_bmi_calculator_desktop,
+        mobile=run_bmi_calculator_mobile,
+        focus_targets=(("input", '[data-bmi-calculator] [data-field="weightKilograms"]'),),
         exercise_faq=True,
     ),
 }

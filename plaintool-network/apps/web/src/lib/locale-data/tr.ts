@@ -706,6 +706,7 @@ const bundle: LocaleBundle = {
       converter: "Dönüştürücüler",
       image: "Görseller",
       data: "Veri",
+      calculator: "Hesaplayıcılar",
       time: "Zaman",
     },
     footerNote: "Sık kullanılan özellikler, daha kolay kullanım.",

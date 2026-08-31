@@ -24,6 +24,16 @@ import type { IpSubnetCopy } from "../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../features/background-remover/contract";
 import type { DateCalculatorCopy } from "../../features/date-calculator/contract";
 import type { TimeZoneConverterCopy } from "../../features/time-zone-converter/contract";
+import type { MathCalculatorCopy } from "../../features/math-calculator/contract";
+import type { PercentageCalculatorCopy } from "../../features/percentage-calculator/contract";
+import type { BmiCalculatorCopy } from "../../features/bmi-calculator/contract";
+
+export type CalculatorToolId =
+  | "fraction-calculator"
+  | "factor-calculator"
+  | "lcm-calculator"
+  | "percentage-calculator"
+  | "bmi-calculator";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -48,7 +58,8 @@ export type NewToolId =
   | "date-calculator"
   | "dday-calculator"
   | "age-calculator"
-  | "time-zone-converter";
+  | "time-zone-converter"
+  | CalculatorToolId;
 
 export type FormatterSubnetToolId =
   | "html-formatter"
@@ -64,6 +75,7 @@ export type LegacyNewToolId = Exclude<
   | "dday-calculator"
   | "age-calculator"
   | "time-zone-converter"
+  | CalculatorToolId
 >;
 
 export type ToolPageCopy<T> = {
@@ -102,6 +114,11 @@ export type NewToolsCopy = {
   "dday-calculator": ToolPageCopy<DateCalculatorCopy>;
   "age-calculator": ToolPageCopy<DateCalculatorCopy>;
   "time-zone-converter": ToolPageCopy<TimeZoneConverterCopy>;
+  "fraction-calculator": ToolPageCopy<MathCalculatorCopy>;
+  "factor-calculator": ToolPageCopy<MathCalculatorCopy>;
+  "lcm-calculator": ToolPageCopy<MathCalculatorCopy>;
+  "percentage-calculator": ToolPageCopy<PercentageCalculatorCopy>;
+  "bmi-calculator": ToolPageCopy<BmiCalculatorCopy>;
 };
 
 export type LocaleBundle = {

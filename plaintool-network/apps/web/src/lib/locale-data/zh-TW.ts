@@ -652,6 +652,7 @@ const bundle: LocaleBundle = {
       converter: "轉換工具",
       image: "圖片",
       data: "資料",
+      calculator: "計算器",
       time: "時間",
     },
     footerNote: "常用功能，使用起來更方便。",

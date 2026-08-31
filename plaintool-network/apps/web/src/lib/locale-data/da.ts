@@ -707,6 +707,7 @@ const daBundle = {
       converter: "Konvertering",
       image: "Billeder",
       data: "Data",
+      calculator: "Beregnere",
       time: "Tid",
     },
     footerNote: "Populære funktioner, nemmere at bruge.",

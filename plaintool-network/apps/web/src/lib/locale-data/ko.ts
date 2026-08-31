@@ -702,6 +702,7 @@ const bundle: LocaleBundle = {
       converter: "변환기",
       image: "이미지",
       data: "데이터",
+      calculator: "계산기",
       time: "시간",
     },
     footerNote: "많이 사용되는 기능을 보다 편하게",

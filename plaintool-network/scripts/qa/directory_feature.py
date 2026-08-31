@@ -126,6 +126,7 @@ def run_directory_desktop(
         "image",
         "text",
         "encoding",
+        "calculator",
         "time",
         "converter",
         "image-converter",

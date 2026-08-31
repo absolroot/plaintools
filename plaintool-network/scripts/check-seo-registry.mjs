@@ -51,6 +51,7 @@ for (const tool of registeredTools) {
       "converter",
       "image",
       "data",
+      "calculator",
       "time",
     ]).has(tool.category)
   )

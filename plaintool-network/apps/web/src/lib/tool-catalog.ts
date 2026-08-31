@@ -14,6 +14,7 @@ export type ToolCategory =
   | "converter"
   | "image"
   | "data"
+  | "calculator"
   | "time";
 
 type LocalizedText = Record<Locale, string>;
@@ -129,6 +130,11 @@ const toolMarks = {
   "sql-formatter": "SQL",
   "ip-subnet-calculator": "IP",
   "background-remover": "BG",
+  "fraction-calculator": "½",
+  "factor-calculator": "×",
+  "lcm-calculator": "LCM",
+  "percentage-calculator": "%",
+  "bmi-calculator": "BMI",
   "date-calculator": "D±",
   "dday-calculator": "D",
   "age-calculator": "AGE",

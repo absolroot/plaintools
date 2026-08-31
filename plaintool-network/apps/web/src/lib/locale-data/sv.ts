@@ -707,6 +707,7 @@ const svBundle = {
       converter: "Konverterare",
       image: "Bilder",
       data: "Data",
+      calculator: "Kalkylatorer",
       time: "Tid",
     },
     footerNote: "Vanliga funktioner, enklare att använda.",

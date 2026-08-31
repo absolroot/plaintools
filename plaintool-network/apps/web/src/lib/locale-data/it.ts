@@ -703,6 +703,7 @@ export const itBundle: LocaleBundle = {
       converter: "Convertitori",
       image: "Immagini",
       data: "Dati",
+      calculator: "Calcolatori",
       time: "Tempo",
     },
     footerNote: "Le funzioni più usate, più facili da usare.",

@@ -726,6 +726,7 @@ const bundle: LocaleBundle = {
       converter: "Convertidores",
       image: "Imágenes",
       data: "Datos",
+      calculator: "Calculadoras",
       time: "Tiempo",
     },
     footerNote: "Funciones populares, más fáciles de usar.",
