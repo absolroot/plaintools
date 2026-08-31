@@ -8,6 +8,7 @@ const SHARED_ASSEMBLY_FILES = new Set([
   "apps/web/src/lib/locale-data/bundle.ts",
   "apps/web/src/lib/locale-data/index.ts",
   "apps/web/src/lib/locale-data/new-tools/factory.ts",
+  "apps/web/src/layouts/SiteLayout.astro",
 ]);
 
 // Older copy predates feature-local locale modules. Keep those two authored

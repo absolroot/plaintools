@@ -38,6 +38,7 @@ try {
     "apps/web/src/lib/locale-data/new-tools/image-resizer.ts":
       "image resizer copy v1\n",
     "apps/web/src/features/image-resizer/copy.ts": "image resizer facade v1\n",
+    "apps/web/src/layouts/SiteLayout.astro": "shared site layout v1\n",
   };
   for (const [file, source] of Object.entries(sources)) {
     const path = join(fixtureRoot, ...file.split("/"));
@@ -52,6 +53,7 @@ try {
       "apps/web/src/lib/locale-data/bundle.ts",
       "apps/web/src/lib/locale-data/new-tools/image-resizer.ts",
       "apps/web/src/features/image-resizer/copy.ts",
+      "apps/web/src/layouts/SiteLayout.astro",
     ],
     copyDirectories: ["apps/web/src/lib/locale-data"],
   };
@@ -67,12 +69,17 @@ try {
     "unrelated tool copy changed\n",
     "utf8",
   );
+  await writeFile(
+    join(fixtureRoot, "apps/web/src/layouts/SiteLayout.astro"),
+    "shared site layout v2\n",
+    "utf8",
+  );
   const unrelatedChange = await fingerprintManifest(fixtureRoot, manifest, [
     "en",
   ]);
   if (unrelatedChange !== baseline) {
     throw new Error(
-      "Unrelated registry or tool copy changed the image-resizer fingerprint.",
+      "Shared infrastructure or unrelated tool copy changed the image-resizer fingerprint.",
     );
   }
 
@@ -95,5 +102,5 @@ try {
 }
 
 console.log(
-  "Locale review self-test passed: stale fingerprints and missing manifests are rejected; unrelated registry changes are isolated and feature-owned copy changes are detected.",
+  "Locale review self-test passed: stale fingerprints and missing manifests are rejected; shared infrastructure and unrelated registry changes are isolated, while feature-owned copy changes are detected.",
 );
