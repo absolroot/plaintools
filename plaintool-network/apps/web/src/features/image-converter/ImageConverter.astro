@@ -1,0 +1,175 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { CommonToolCopy } from "../../lib/common-tool-i18n";
+import { localizedPath, type Locale } from "../../lib/site";
+import type { ImageConverterCopy } from "./contract";
+import {
+  imageFormats,
+  type ImageConversionMode,
+  type ImageFormat,
+} from "./formats";
+
+interface Props {
+  locale: Locale;
+  mode: ImageConversionMode;
+  copy: ImageConverterCopy;
+  common: CommonToolCopy;
+  formatNames: Record<ImageFormat, string>;
+}
+
+const { locale, mode, copy, common, formatNames } = Astro.props;
+const combinedCopy = { ...common, ...copy };
+const swapHref = localizedPath(locale, `${mode.target}-to-${mode.source}`);
+const adjustableQuality = ["jpg", "gif", "webp", "avif"].includes(mode.target);
+const losslessTarget = mode.target === "png" || mode.target === "bmp";
+---
+
+<section
+  class="converter image-converter"
+  data-image-converter
+  data-locale={locale}
+  data-source={mode.source}
+  data-target={mode.target}
+  aria-label={copy.ariaLabel}
+>
+  <div class="converter-topbar image-format-bar">
+    <label>
+      <span>{copy.sourceFormat}</span>
+      <select data-source-format aria-label={copy.sourceFormat}>
+        {
+          imageFormats.map((format) => (
+            <option value={format} selected={format === mode.source}>
+              {formatNames[format]}
+            </option>
+          ))
+        }
+      </select>
+    </label>
+    <a
+      class="format-swap"
+      href={swapHref}
+      aria-label={copy.swapFormats}
+      title={copy.swapFormats}
+    >
+      <UiIcon name="arrow-right" size={16} />
+    </a>
+    <label>
+      <span>{copy.targetFormat}</span>
+      <select data-target-format aria-label={copy.targetFormat}>
+        {
+          imageFormats.map((format) => (
+            <option
+              value={format}
+              selected={format === mode.target}
+              disabled={format === mode.source}
+            >
+              {formatNames[format]}
+            </option>
+          ))
+        }
+      </select>
+    </label>
+  </div>
+
+  <div class="image-workspace" data-drop-zone>
+    <section class="image-pane image-input-pane">
+      <div class="pane-heading">
+        <span>{copy.inputImage}</span>
+        <div class="pane-actions">
+          <button class="text-button" type="button" data-open-file>
+            <UiIcon name="folder-open" size={14} />
+            <span data-open-label>{copy.chooseImage}</span>
+          </button>
+          <button class="text-button" type="button" data-clear disabled>
+            <UiIcon name="x" size={14} />{common.clear}
+          </button>
+        </div>
+      </div>
+      <button class="image-drop-target" type="button" data-drop-target>
+        <span class="image-placeholder" data-input-placeholder>
+          <UiIcon name="image" size={28} />
+          <strong>{copy.dropImage}</strong>
+          <small>{formatNames[mode.source]}</small>
+        </span>
+        <img data-input-preview alt="" hidden />
+      </button>
+      <input
+        data-file
+        type="file"
+        accept=".bmp,.png,.jpg,.jpeg,.gif,.webp,.heic,.heif,.avif,image/bmp,image/png,image/jpeg,image/gif,image/webp,image/heic,image/heif,image/avif"
+        hidden
+      />
+      <dl class="image-facts" data-input-facts hidden>
+        <div><dt>{copy.selected}</dt><dd data-file-name></dd></div>
+        <div><dt>{copy.inputSize}</dt><dd data-input-size></dd></div>
+      </dl>
+    </section>
+
+    <section class="image-pane image-output-pane">
+      <div class="pane-heading">
+        <span>{copy.outputImage}</span>
+        <button class="text-button" type="button" data-download disabled>
+          <UiIcon name="download" size={14} />{common.download}
+        </button>
+      </div>
+      <div class="image-result-stage">
+        <span class="image-placeholder" data-output-placeholder>
+          <UiIcon name="image" size={28} />
+          <strong>{copy.resultEmpty}</strong>
+          <small>{formatNames[mode.target]}</small>
+        </span>
+        <img data-output-preview alt="" hidden />
+      </div>
+      <dl class="image-facts" data-output-facts hidden>
+        <div><dt>{copy.dimensions}</dt><dd data-dimensions></dd></div>
+        <div><dt>{copy.outputSize}</dt><dd data-output-size></dd></div>
+        <div>
+          <dt data-size-result-label>{copy.saved}</dt><dd data-size-result></dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+
+  <ConverterStatus status={common.ready}>
+    <div class="image-warning-list" data-warnings></div>
+    <button class="primary-button" type="button" data-run disabled>
+      {copy.convert}
+    </button>
+  </ConverterStatus>
+
+  <details class="image-options">
+    <summary>{copy.quality}</summary>
+    <div class="image-options-body">
+      {
+        adjustableQuality ? (
+          <label>
+            <span>{copy.quality}</span>
+            <select data-quality>
+              <option value="compact">{copy.compact}</option>
+              <option value="balanced" selected>
+                {copy.balanced}
+              </option>
+              <option value="maximum">{copy.maximum}</option>
+            </select>
+          </label>
+        ) : (
+          <p>{losslessTarget ? copy.lossless : copy.fixedProfile}</p>
+        )
+      }
+    </div>
+  </details>
+
+  <LocalProcessingNote locale={locale} />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(combinedCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

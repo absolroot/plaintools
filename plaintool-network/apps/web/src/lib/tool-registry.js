@@ -5,6 +5,31 @@
  * site.ts. The SEO registry gate then requires a localized directory entry, a
  * route, and complete rendered metadata before builds can pass.
  */
+const imageFormats = /** @type {const} */ ([
+  "bmp",
+  "png",
+  "jpg",
+  "gif",
+  "webp",
+  "heic",
+  "avif",
+]);
+
+const imageConverterRegistry = imageFormats.flatMap((source) =>
+  imageFormats
+    .filter((target) => target !== source)
+    .map((target) => ({
+      id: `${source}-to-${target}`,
+      featureId: "image-converter",
+      slug: `${source}-to-${target}`,
+      category: "converter",
+      publication: "indexable",
+      localeReviewManifest:
+        "apps/web/src/lib/locale-review-manifests/image-converter.json",
+      structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+    })),
+);
+
 export const toolRegistry = /** @type {const} */ ([
   {
     id: "base64-decode",
@@ -276,6 +301,7 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/date-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  ...imageConverterRegistry,
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);

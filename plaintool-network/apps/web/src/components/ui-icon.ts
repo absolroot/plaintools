@@ -8,6 +8,7 @@ export type IconName =
   | "download"
   | "folder-open"
   | "grid"
+  | "image"
   | "help-circle"
   | "languages"
   | "moon"

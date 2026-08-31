@@ -1,0 +1,264 @@
+.image-format-bar {
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.image-format-bar label {
+  min-width: 180px;
+  display: grid;
+  grid-template-columns: auto minmax(92px, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.image-format-bar select,
+.image-options select {
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+
+.format-swap {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: var(--recessed);
+  box-shadow: 0 0 0 1px var(--line);
+  text-decoration: none;
+  transition:
+    color 120ms ease,
+    transform 120ms ease;
+}
+
+.format-swap:hover {
+  color: var(--ink-strong);
+  transform: translateX(2px);
+}
+
+[dir="rtl"] .format-swap .ui-icon {
+  transform: rotate(180deg);
+}
+
+.image-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+
+.image-pane {
+  min-width: 0;
+  background: var(--base);
+}
+
+.image-input-pane {
+  background: var(--input-surface);
+}
+
+.image-output-pane {
+  background: var(--output-surface);
+}
+
+.image-drop-target,
+.image-result-stage {
+  width: 100%;
+  min-height: 330px;
+  padding: var(--space-4);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 0;
+  color: var(--muted);
+  background:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.image-drop-target {
+  cursor: pointer;
+}
+
+.image-converter.is-dragging .image-drop-target {
+  position: relative;
+  z-index: 2;
+  box-shadow: inset 0 0 0 2px var(--brand);
+}
+
+.image-placeholder {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.image-placeholder strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.image-placeholder small {
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.image-pane img {
+  display: block;
+  max-width: 100%;
+  max-height: 298px;
+  object-fit: contain;
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 8px 28px var(--shadow-layer);
+  animation: image-result-in 180ms ease-out both;
+}
+
+.image-facts {
+  min-height: 58px;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  border-top: 1px solid var(--line);
+  background: var(--elevated);
+}
+
+.image-input-pane .image-facts {
+  grid-template-columns: minmax(0, 2fr) minmax(90px, 1fr);
+}
+
+.image-facts div {
+  min-width: 0;
+}
+
+.image-facts dt {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.image-facts dd {
+  margin: 2px 0 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.image-converter > .converter-commandbar {
+  border-top: 1px solid var(--line);
+}
+
+.image-warning-list:empty {
+  display: none;
+}
+
+.image-options {
+  border-top: 1px solid var(--line);
+  background: var(--base);
+}
+
+.image-options summary {
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.image-options-body {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.image-options-body label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.image-options-body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@keyframes image-result-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 680px) {
+  .image-format-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  .image-format-bar label {
+    min-width: 0;
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .image-format-bar select,
+  .image-options select,
+  .format-swap {
+    height: 44px;
+  }
+
+  .format-swap {
+    width: 44px;
+    align-self: end;
+  }
+
+  .image-workspace {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    background: transparent;
+  }
+
+  .image-pane {
+    box-shadow: 0 0 0 1px var(--control-line);
+  }
+
+  .image-drop-target,
+  .image-result-stage {
+    min-height: 180px;
+  }
+
+  .image-pane img {
+    max-height: 148px;
+  }
+
+  .image-facts {
+    min-height: 64px;
+  }
+
+  .image-options summary {
+    min-height: 52px;
+  }
+}

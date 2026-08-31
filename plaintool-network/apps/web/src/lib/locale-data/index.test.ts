@@ -5,6 +5,8 @@ import { locales } from "../site";
 import { toolRegistry } from "../tool-registry.js";
 import { localeBundles, localeMetadata } from ".";
 import type { NewToolId } from "./bundle";
+import { imageConversionModes } from "../../features/image-converter/formats";
+import type { RegisteredToolId } from "../tool-catalog";
 
 const newToolIds: NewToolId[] = [
   "ai-watermark-remover",
@@ -64,7 +66,7 @@ describe("locale bundles", () => {
   it("owns an independent complete surface for every locale", () => {
     const bundles = locales.map((locale) => localeBundles[locale]);
     const english = new Map(flattenCopy(localeBundles.en));
-    const toolIds = toolRegistry.map((tool) => tool.id);
+    const toolIds = toolRegistry.map((tool) => tool.id) as RegisteredToolId[];
 
     expect(new Set(bundles).size).toBe(locales.length);
     for (const locale of locales) {
@@ -127,8 +129,12 @@ describe("locale bundles", () => {
   it("provides complete page, FAQ, feature, and catalog copy for new tools", () => {
     for (const locale of locales) {
       const bundle = localeBundles[locale];
-      expect(Object.keys(bundle.tools), locale).toEqual(newToolIds);
-      for (const toolId of newToolIds) {
+      const completeToolIds = [
+        ...newToolIds,
+        ...imageConversionModes.map(({ id }) => id),
+      ];
+      expect(Object.keys(bundle.tools), locale).toEqual(completeToolIds);
+      for (const toolId of completeToolIds) {
         const tool = bundle.tools[toolId];
         expect(tool.title.trim(), `${locale}:${toolId}:title`).not.toBe("");
         expect(

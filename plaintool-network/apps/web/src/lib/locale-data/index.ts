@@ -16,6 +16,10 @@ import sv from "./sv";
 import tr from "./tr";
 import zhTW from "./zh-TW";
 import { toolHelpCopy, type ToolHelpCopy } from "./tool-help";
+import {
+  imageConverterLocales,
+  type ImageConverterLocale,
+} from "../../features/image-converter/i18n";
 
 const baseLocaleBundles = {
   en,
@@ -44,11 +48,23 @@ export const localeBundles = Object.fromEntries(
     locale,
     {
       ...bundle,
+      catalog: {
+        ...bundle.catalog,
+        ...imageConverterLocales[locale as ImageConverterLocale].catalog,
+      },
+      tools: {
+        ...bundle.tools,
+        ...imageConverterLocales[locale as ImageConverterLocale].tools,
+      },
       help: toolHelpCopy[locale as LocaleBundleId],
     },
   ]),
 ) as {
   [Key in LocaleBundleId]: (typeof baseLocaleBundles)[Key] & {
+    catalog: (typeof baseLocaleBundles)[Key]["catalog"] &
+      (typeof imageConverterLocales)[Key]["catalog"];
+    tools: (typeof baseLocaleBundles)[Key]["tools"] &
+      (typeof imageConverterLocales)[Key]["tools"];
     help: ToolHelpCopy;
   };
 };
