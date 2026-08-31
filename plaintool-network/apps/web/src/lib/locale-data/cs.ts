@@ -687,7 +687,7 @@ const csBundle = {
     directoryIntro:
       "Přidejte si tento web do záložek, abyste se sem příště dostali rovnou.",
     toolPromise:
-      "AbsolTools dělá běžně používané online nástroje přesnější a snadněji použitelné. Přidejte si web do záložek.",
+      "AbsolTools dělá běžně používané online nástroje přesnější a snadněji použitelné. Každá úloha se zpracovává pouze ve vašem prohlížeči, bez samostatného ukládání nebo odesílání na server. Přidejte si web do záložek.",
     directorySearchLabel: "Hledat nástroje",
     directorySearchPlaceholder:
       "Hledat podle jména, popisu nebo klíčového slova",

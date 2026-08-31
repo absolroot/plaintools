@@ -106,7 +106,7 @@ const contentSecurityPolicy =
         />
       )
     }
-    <meta name="theme-color" content="#fbfbfb" data-theme-color />
+    <meta name="theme-color" content="#fafafa" data-theme-color />
     <script is:inline src="/theme-init.js"></script>
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
     <link rel="license" href="/third-party-notices.txt" />
@@ -308,7 +308,7 @@ const contentSecurityPolicy =
         const dark =
           document.documentElement.dataset.theme === "dark" ||
           (!document.documentElement.dataset.theme && systemDark.matches);
-        if (themeColor) themeColor.content = dark ? "#191a1d" : "#fbfbfb";
+        if (themeColor) themeColor.content = dark ? "#202124" : "#fafafa";
         if (themeToggle) {
           themeToggle.dataset.currentTheme = dark ? "dark" : "light";
           themeToggle.ariaLabel = dark

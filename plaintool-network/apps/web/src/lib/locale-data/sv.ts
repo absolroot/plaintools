@@ -689,7 +689,7 @@ const svBundle = {
     directoryIntro:
       "Lägg till webbplatsen som bokmärke så kan du gå direkt hit nästa gång.",
     toolPromise:
-      "AbsolTools gör vanliga onlineverktyg mer exakta och enklare att använda. Lägg till webbplatsen i dina bokmärken.",
+      "AbsolTools gör vanliga onlineverktyg mer exakta och enklare att använda. Varje uppgift behandlas endast i din webbläsare, utan att sparas separat eller skickas till en server. Lägg till webbplatsen i dina bokmärken.",
     directorySearchLabel: "Sökverktyg",
     directorySearchPlaceholder: "Sök efter namn, beskrivning eller nyckelord",
     directorySearchClear: "Rensa sökning",

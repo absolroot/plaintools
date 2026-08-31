@@ -39,10 +39,6 @@ const previewToolPageUrl = new URL(
   "../apps/web/src/components/PreviewToolPage.astro",
   import.meta.url,
 );
-const processingNoteUrl = new URL(
-  "../apps/web/src/components/LocalProcessingNote.astro",
-  import.meta.url,
-);
 const tooltipUrl = new URL(
   "../apps/web/src/components/Tooltip.astro",
   import.meta.url,
@@ -95,7 +91,6 @@ const [
   jsonFormatter,
   sourceFormatters,
   previewToolPage,
-  processingNote,
   tooltip,
   icon,
   iconButton,
@@ -122,7 +117,6 @@ const [
     ]),
   ),
   readFile(previewToolPageUrl, "utf8"),
-  readFile(processingNoteUrl, "utf8"),
   readFile(tooltipUrl, "utf8"),
   readFile(iconUrl, "utf8"),
   readFile(iconButtonUrl, "utf8"),
@@ -192,8 +186,8 @@ expectDeclaration(
 );
 expectDeclaration(".editor-pane textarea", "min-height", "264px");
 expectDeclaration(":root", "--focus-ring", "var(--focus)");
-expectDeclaration(":root", "--canvas", "#fff");
-expectDeclaration(":root", "--footer-bg", "oklch(98.75% 0 0)");
+expectDeclaration(":root", "--canvas", "#fafafa");
+expectDeclaration(":root", "--footer-bg", "#f7f7f8");
 expectDeclaration(':root[data-theme="dark"]', "--footer-bg", "var(--base)");
 expectDeclaration(".site-footer", "background", "var(--footer-bg)");
 expectDeclaration(":focus-visible", "outline", "2px solid var(--focus-ring)");
@@ -296,13 +290,14 @@ expectSource(
   "Do not duplicate the local-processing message in the converter toolbar.",
 );
 expectSource(
-  (converter.match(/<LocalProcessingNote locale=\{locale\}/g) ?? []).length ===
-    1,
-  "Render the shared local-processing note exactly once.",
+  !converter.includes("LocalProcessingNote"),
+  "Keep local-processing assurance in the top tool promise, not the converter.",
 );
 expectSource(
-  (processingNote.match(/class="privacy-note"/g) ?? []).length === 1,
-  "The shared component must render one authoritative privacy note.",
+  (page.match(/<ToolPromise locale=\{locale\}/g) ?? []).length === 1 &&
+    (previewToolPage.match(/<ToolPromise locale=\{locale\}/g) ?? []).length ===
+      1,
+  "Render one authoritative tool promise at the top of every tool page.",
 );
 expectSource(
   (page.match(/<FaqSection\b/g) ?? []).length === 1,
@@ -457,10 +452,6 @@ expectSource(
     iconButton.includes("align-items: center") &&
     iconButton.includes("icon-button-label"),
   "Shared icon buttons must keep the icon and label on one centered row.",
-);
-expectSource(
-  processingNote.includes('name="shield"'),
-  "Keep the shield icon in the shared local-processing note.",
 );
 expectSource(
   icon.includes('aria-hidden="true"'),

@@ -685,7 +685,7 @@ export const ptBRBundle: LocaleBundle = {
     directoryIntro:
       "Adicione este site aos favoritos para acessá-lo diretamente na próxima vez.",
     toolPromise:
-      "O AbsolTools torna as ferramentas online mais usadas mais precisas e fáceis de usar. Adicione este site aos favoritos.",
+      "O AbsolTools torna as ferramentas online mais usadas mais precisas e fáceis de usar. Cada tarefa é processada somente no seu navegador, sem ser armazenada separadamente nem enviada a um servidor. Adicione este site aos favoritos.",
     directorySearchLabel: "Pesquisar ferramentas",
     directorySearchPlaceholder: "Pesquise por nome, descrição ou palavra-chave",
     directorySearchClear: "Limpar pesquisa",

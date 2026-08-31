@@ -1,6 +1,5 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
 import UiIcon from "../../components/UiIcon.astro";
 import type { CommonToolCopy } from "../../lib/common-tool-i18n";
 import { localizedPath, type Locale } from "../../lib/site";
@@ -171,7 +170,6 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
     </div>
   </details>
 
-  <LocalProcessingNote locale={locale} />
   <script
     is:inline
     type="application/json"

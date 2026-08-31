@@ -1,7 +1,6 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
 import type { Locale } from "../../lib/site";
 import type { AiTextCleanerCopy } from "./contract";
 
@@ -11,7 +10,7 @@ interface Props {
   textDirection?: "auto" | "ltr" | "rtl";
 }
 
-const { locale, copy, textDirection = "auto" } = Astro.props;
+const { copy, textDirection = "auto" } = Astro.props;
 ---
 
 <section
@@ -113,7 +112,6 @@ const { locale, copy, textDirection = "auto" } = Astro.props;
   <ConverterStatus status={copy.ready}>
     <button class="primary-button" type="button" data-run>{copy.run}</button>
   </ConverterStatus>
-  <LocalProcessingNote locale={locale} />
 
   <script
     is:inline

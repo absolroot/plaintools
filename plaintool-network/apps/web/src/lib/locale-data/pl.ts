@@ -690,7 +690,7 @@ const plBundle = {
     directoryIntro:
       "Dodaj tę stronę do zakładek, aby następnym razem od razu do niej wrócić.",
     toolPromise:
-      "AbsolTools sprawia, że często używane narzędzia online są dokładniejsze i łatwiejsze w obsłudze. Dodaj tę stronę do zakładek.",
+      "AbsolTools sprawia, że często używane narzędzia online są dokładniejsze i łatwiejsze w obsłudze. Każde zadanie jest przetwarzane wyłącznie w twojej przeglądarce, bez osobnego zapisywania ani wysyłania na serwer. Dodaj tę stronę do zakładek.",
     directorySearchLabel: "Szukaj narzędzi",
     directorySearchPlaceholder:
       "Wyszukaj według nazwy, opisu lub słowa kluczowego",

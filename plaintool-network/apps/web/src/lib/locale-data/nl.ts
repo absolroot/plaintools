@@ -692,7 +692,7 @@ export const nlBundle: LocaleBundle = {
     directoryIntro:
       "Voeg deze site toe aan je bladwijzers, zodat je er de volgende keer direct naartoe kunt.",
     toolPromise:
-      "AbsolTools maakt veelgebruikte online tools nauwkeuriger en gebruiksvriendelijker. Voeg deze site toe aan je bladwijzers.",
+      "AbsolTools maakt veelgebruikte online tools nauwkeuriger en gebruiksvriendelijker. Elke taak wordt uitsluitend in je browser verwerkt, zonder apart te worden opgeslagen of naar een server te worden verzonden. Voeg deze site toe aan je bladwijzers.",
     directorySearchLabel: "Tools zoeken",
     directorySearchPlaceholder: "Zoek op naam, beschrijving of trefwoord",
     directorySearchClear: "Zoekopdracht wissen",

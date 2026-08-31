@@ -18,22 +18,6 @@ def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
     report["mobile"] = inspect_view(mobile, "/ko/base64-decode/", "cloudflare-detail-mobile-ko.png")
     report["mobile_output_top"] = mobile.locator(".output-pane").bounding_box()["y"]
     report["mobile_header_height"] = mobile.locator(".site-header").bounding_box()["height"]
-    report["mobile_options_alignment"] = mobile.evaluate("""
-      () => {
-        const left = (selector) => document.querySelector(selector).getBoundingClientRect().left;
-        return {
-          options_icon: left('.options-chevron'),
-          options_text: left('.options summary span'),
-          privacy_icon: left('.privacy-icon'),
-          privacy_text: left('.privacy-note > div:last-child')
-        };
-      }
-    """)
-    mobile_option_alignment = report["mobile_options_alignment"]
-    if abs(mobile_option_alignment["options_icon"] - mobile_option_alignment["privacy_icon"]) > 1:
-        report["ui_detail_failures"].append(f"Mobile options and privacy icons do not share an axis: {mobile_option_alignment}")
-    if abs(mobile_option_alignment["options_text"] - mobile_option_alignment["privacy_text"]) > 1:
-        report["ui_detail_failures"].append(f"Mobile options and privacy copy do not share an axis: {mobile_option_alignment}")
     report["mobile_workspace_spacing"] = mobile.evaluate("""
       () => {
         const box = (selector) => document.querySelector(selector).getBoundingClientRect();

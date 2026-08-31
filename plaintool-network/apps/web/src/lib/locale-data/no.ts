@@ -690,7 +690,7 @@ const noBundle = {
     directoryIntro:
       "Legg nettstedet til i bokmerkene, så kan du gå rett hit neste gang.",
     toolPromise:
-      "AbsolTools gjør ofte brukte nettverktøy mer presise og enklere å bruke. Legg nettstedet til i bokmerkene.",
+      "AbsolTools gjør ofte brukte nettverktøy mer presise og enklere å bruke. Hver oppgave behandles bare i nettleseren din, uten å bli lagret separat eller sendt til en server. Legg nettstedet til i bokmerkene.",
     directorySearchLabel: "Søk etter verktøy",
     directorySearchPlaceholder: "Søk etter navn, beskrivelse eller nøkkelord",
     directorySearchClear: "Tøm søk",

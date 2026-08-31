@@ -702,7 +702,7 @@ const bundle: LocaleBundle = {
     directoryTitle: "We make the tools you use often cleaner and easier to use",
     directoryIntro: "Bookmark this site to come straight back next time.",
     toolPromise:
-      "AbsolTools makes commonly used online tools more accurate and easier to use. Bookmark this site for easy access.",
+      "AbsolTools makes commonly used online tools more accurate and easier to use. Every task happens only in your browser, without being stored separately or sent to a server. Bookmark this site for easy access.",
     directorySearchLabel: "Search tools",
     directorySearchPlaceholder: "Search by name, description, or keyword",
     directorySearchClear: "Clear search",

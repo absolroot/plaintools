@@ -1,7 +1,6 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
 import { previewCopy } from "../../lib/tool-i18n";
 import type { Locale } from "../../lib/site";
 import type { TextCompareClientCopy } from "./contract";
@@ -129,7 +128,6 @@ const clientCopy = {
     </div>
   </section>
 
-  <LocalProcessingNote locale={locale} />
   <script
     is:inline
     type="application/json"

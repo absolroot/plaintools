@@ -707,7 +707,7 @@ const bundle: LocaleBundle = {
     directoryIntro:
       "Añade este sitio a tus favoritos para volver aquí directamente la próxima vez.",
     toolPromise:
-      "AbsolTools hace que las herramientas en línea más utilizadas sean más precisas y fáciles de usar. Añade este sitio a tus favoritos.",
+      "AbsolTools hace que las herramientas en línea más utilizadas sean más precisas y fáciles de usar. Cada tarea se procesa únicamente en tu navegador, sin guardarse por separado ni enviarse a un servidor. Añade este sitio a tus favoritos.",
     directorySearchLabel: "Buscar herramientas",
     directorySearchPlaceholder: "Busca por nombre, descripción o palabra clave",
     directorySearchClear: "Borrar búsqueda",

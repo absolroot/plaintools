@@ -85,21 +85,15 @@ def run_base64_desktop(desktop, report: dict) -> None:
           },
           header_context_count: document.querySelectorAll('[data-header-context]').length,
           workspace_assurance_count: document.querySelectorAll('.workspace-assurance').length,
-          privacy_note_count: document.querySelectorAll('.privacy-note').length
+          privacy_note_count: document.querySelectorAll('.privacy-note').length,
+          tool_promise_count: document.querySelectorAll('.tool-promise').length
         };
       }
     """)
 
-    report["options_alignment"] = desktop.evaluate("""
+    report["action_icon_count"] = desktop.evaluate("""
       () => {
-        const left = (selector) => document.querySelector(selector).getBoundingClientRect().left;
-        return {
-          options_icon: left('.options-chevron'),
-          options_text: left('.options summary span'),
-          privacy_icon: left('.privacy-icon'),
-          privacy_text: left('.privacy-note > div:last-child'),
-          action_icon_count: document.querySelectorAll('.pane-actions .ui-icon').length
-        };
+        return document.querySelectorAll('.pane-actions .ui-icon').length;
       }
     """)
 
@@ -119,15 +113,16 @@ def run_base64_desktop(desktop, report: dict) -> None:
         )
     if alignment["header_context_count"] != 1:
         report["ui_detail_failures"].append("Header location context must render exactly once.")
-    if alignment["workspace_assurance_count"] != 0 or alignment["privacy_note_count"] != 1:
-        report["ui_detail_failures"].append("Local-processing assurance is duplicated or missing.")
-    option_alignment = report["options_alignment"]
-    if abs(option_alignment["options_icon"] - option_alignment["privacy_icon"]) > 1:
-        report["ui_detail_failures"].append(f"Options and privacy icons do not share an axis: {option_alignment}")
-    if abs(option_alignment["options_text"] - option_alignment["privacy_text"]) > 1:
-        report["ui_detail_failures"].append(f"Options and privacy copy do not share an axis: {option_alignment}")
-    if option_alignment["action_icon_count"] != 4:
-        report["ui_detail_failures"].append(f"Expected four pane action icons: {option_alignment}")
+    if (
+        alignment["workspace_assurance_count"] != 0
+        or alignment["privacy_note_count"] != 0
+        or alignment["tool_promise_count"] != 1
+    ):
+        report["ui_detail_failures"].append("Top tool promise is duplicated or missing.")
+    if report["action_icon_count"] != 4:
+        report["ui_detail_failures"].append(
+            f"Expected four pane action icons: {report['action_icon_count']}"
+        )
 
     desktop.locator(".options summary").click()
     desktop.wait_for_timeout(150)

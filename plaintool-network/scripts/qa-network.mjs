@@ -451,8 +451,13 @@ for (const locale of locales) {
       tool.structuredData,
       routeName,
     );
-    if (!html.includes('class="privacy-note"'))
-      throw new Error(`${routeName} is missing the local-processing notice.`);
+    const toolPromiseCount = (html.match(/class="tool-promise"/gu) ?? []).length;
+    if (toolPromiseCount !== 1)
+      throw new Error(
+        `${routeName} must render one top tool promise; found ${toolPromiseCount}.`,
+      );
+    if (html.includes('class="privacy-note"'))
+      throw new Error(`${routeName} duplicates the top local-processing notice.`);
     if (
       tool.publication === "preview" &&
       sitemap.includes(`/${locale}/${route}/`)

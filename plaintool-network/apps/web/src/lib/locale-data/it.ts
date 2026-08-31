@@ -685,7 +685,7 @@ export const itBundle: LocaleBundle = {
     directoryIntro:
       "Aggiungi questo sito ai preferiti per tornarci subito la prossima volta.",
     toolPromise:
-      "AbsolTools rende gli strumenti online più usati più precisi e facili da usare. Aggiungi questo sito ai preferiti.",
+      "AbsolTools rende gli strumenti online più usati più precisi e facili da usare. Ogni operazione viene elaborata esclusivamente nel tuo browser, senza essere salvata separatamente né inviata a un server. Aggiungi questo sito ai preferiti.",
     directorySearchLabel: "Cerca strumenti",
     directorySearchPlaceholder: "Cerca per nome, descrizione o parola chiave",
     directorySearchClear: "Cancella ricerca",

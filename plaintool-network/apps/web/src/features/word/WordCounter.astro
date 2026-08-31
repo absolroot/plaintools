@@ -1,7 +1,6 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
 import { previewCopy } from "../../lib/tool-i18n";
 import { toolExamples } from "../../lib/tool-examples";
 import type { Locale } from "../../lib/site";
@@ -80,7 +79,6 @@ const clientCopy = {
       placeholder={examples.wordInput}></textarea>
   </section>
   <ConverterStatus status={c.ready} />
-  <LocalProcessingNote locale={locale} />
   <script
     is:inline
     type="application/json"

@@ -1,7 +1,6 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
 import Tooltip from "../../components/Tooltip.astro";
 import { localeBundles } from "../../lib/locale-data";
 import { previewCopy } from "../../lib/tool-i18n";
@@ -281,7 +280,6 @@ const offsetOptions = [
     }
   </div>
   <ConverterStatus status={c.ready} statusId="time-status" badges />
-  <LocalProcessingNote locale={locale} />
   <script
     is:inline
     type="application/json"

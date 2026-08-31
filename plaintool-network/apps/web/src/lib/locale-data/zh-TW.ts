@@ -634,7 +634,7 @@ const bundle: LocaleBundle = {
     directoryTitle: "我們讓常用工具更簡潔、更好用",
     directoryIntro: "將本站加入書籤，下次就能直接開啟。",
     toolPromise:
-      "AbsolTools 讓常用的線上工具更精準、更容易使用。將本站加入書籤，方便下次使用。",
+      "AbsolTools 讓常用的線上工具更精準、更容易使用。所有處理只會在您的瀏覽器內進行，不會另行儲存或傳送到伺服器。將本站加入書籤，方便下次使用。",
     directorySearchLabel: "搜尋工具",
     directorySearchPlaceholder: "依名稱、說明或關鍵字搜尋",
     directorySearchClear: "清除搜尋",

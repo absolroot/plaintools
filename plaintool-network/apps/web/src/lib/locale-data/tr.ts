@@ -688,7 +688,7 @@ const bundle: LocaleBundle = {
     directoryIntro:
       "Bu siteyi yer imlerinize ekleyin; böylece bir sonraki sefer doğrudan erişebilirsiniz.",
     toolPromise:
-      "AbsolTools, sık kullanılan çevrim içi araçları daha doğru ve kullanışlı hâle getirir. Siteyi yer imlerinize ekleyin.",
+      "AbsolTools, sık kullanılan çevrim içi araçları daha doğru ve kullanışlı hâle getirir. Her işlem yalnızca tarayıcınızda gerçekleşir; ayrıca kaydedilmez veya bir sunucuya gönderilmez. Siteyi yer imlerinize ekleyin.",
     directorySearchLabel: "Araçlarda ara",
     directorySearchPlaceholder: "Ad, açıklama veya anahtar kelimeyle ara",
     directorySearchClear: "Aramayı temizle",

@@ -664,7 +664,7 @@ const bundle: LocaleBundle = {
     directoryIntro:
       "このサイトをブックマークしておけば、次回すぐにアクセスできます。",
     toolPromise:
-      "AbsolToolsは、オンラインでよく使われるツールを、より正確で使いやすいものにします。このサイトをブックマークに追加してください。",
+      "AbsolToolsは、オンラインでよく使われるツールを、より正確で使いやすいものにします。すべての処理はブラウザー内だけで行われ、別途保存されたりサーバーへ送信されたりすることはありません。必要なときにすぐ使えるよう、このサイトをブックマークに追加してください。",
     directorySearchLabel: "ツールを検索",
     directorySearchPlaceholder: "名前、説明、キーワードで検索",
     directorySearchClear: "検索をクリア",

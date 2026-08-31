@@ -689,7 +689,7 @@ const daBundle = {
     directoryIntro:
       "Føj siden til dine bogmærker, så du kan gå direkte hertil næste gang.",
     toolPromise:
-      "AbsolTools gør ofte brugte onlineværktøjer mere præcise og nemmere at bruge. Føj siden til dine bogmærker.",
+      "AbsolTools gør ofte brugte onlineværktøjer mere præcise og nemmere at bruge. Hver opgave behandles kun i din browser uden at blive gemt separat eller sendt til en server. Føj siden til dine bogmærker.",
     directorySearchLabel: "Søg efter værktøjer",
     directorySearchPlaceholder: "Søg efter navn, beskrivelse eller nøgleord",
     directorySearchClear: "Ryd søgning",

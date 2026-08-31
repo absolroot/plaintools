@@ -684,7 +684,7 @@ const bundle: LocaleBundle = {
     directoryIntro:
       "즐겨찾기에 사이트를 추가하면 다음에 바로 접속하실 수 있어요.",
     toolPromise:
-      "AbsolTools는 자주 쓰이는 온라인 도구를 더 정확하고 편리하게 만듭니다. 즐겨찾기에 사이트를 추가하세요.",
+      "AbsolTools는 자주 쓰는 온라인 도구를 더 정확하고 편리하게 만듭니다. 모든 작업은 브라우저 안에서만 이루어져 별도로 저장하거나 서버에 전송하지 않습니다. 즐겨찾기에 추가해 필요할 때 바로 사용하세요.",
     directorySearchLabel: "도구 검색",
     directorySearchPlaceholder: "이름, 설명 또는 키워드로 검색",
     directorySearchClear: "검색어 지우기",
