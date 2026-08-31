@@ -19,6 +19,9 @@ def run_date_calculator_desktop(desktop, report: dict, _inventory) -> None:
     ).text_content()
 
     desktop.locator('[data-mode-button="math"]').click()
+    desktop.wait_for_function(
+        "document.querySelector('[data-field=\"base\"]')?.value !== ''"
+    )
     desktop.locator('[data-field="base"]').fill("2025-01-31")
     desktop.locator('[data-amount="months"]').fill("1")
     desktop.locator('[data-amount="days"]').fill("0")

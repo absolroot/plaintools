@@ -67,6 +67,9 @@ def main() -> None:
         for route, expected_mode in expected_modes.items():
             desktop.goto(f"{BASE_URL}/ko/{route}/", wait_until="networkidle")
             if route == "date-calculator":
+                desktop.wait_for_function(
+                    "document.querySelector('[data-field=\"base\"]')?.value !== ''"
+                )
                 desktop.locator('[data-field="base"]').fill("2025-01-31")
                 desktop.locator("[data-calculate]").click()
             state = desktop.evaluate(
