@@ -13,6 +13,9 @@
   "featureCategoryOverrides": {
     "image-converter": "image"
   },
+  "initiallyVisibleToolCounts": {
+    "image": 3
+  },
   "pinnedToolOrder": {
     "image": ["background-remover", "image-resizer", "image-upscaler"],
     "pdf": [],

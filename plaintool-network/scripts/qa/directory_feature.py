@@ -171,18 +171,57 @@ def run_directory_desktop(
             f"Home directory card order failed: {report['home_directory_card_order']}"
         )
 
+    image_more = image_section.locator("[data-directory-search-more]")
+    image_more_summary = image_more.locator("summary")
+    report["image_converter_progressive_directory"] = {
+        "groupCount": image_more.count(),
+        "remainingCards": image_more.locator(
+            "[data-directory-search-card]"
+        ).count(),
+        "initiallyOpen": image_more.get_attribute("open") is not None,
+        "summaryHeight": image_more_summary.bounding_box()["height"],
+        "summaryCount": image_more_summary.locator(
+            ".image-converter-more-count"
+        ).text_content().strip(),
+    }
+    image_more_summary.click()
+    report["image_converter_progressive_directory"]["opensOnClick"] = (
+        image_more.get_attribute("open") is not None
+    )
+    image_more_summary.click()
+    if report["image_converter_progressive_directory"] != {
+        "groupCount": 1,
+        "remainingCards": 42,
+        "initiallyOpen": False,
+        "summaryHeight": 48,
+        "summaryCount": "42",
+        "opensOnClick": True,
+    }:
+        report["ui_detail_failures"].append(
+            "Image converter progressive directory failed: "
+            f"{report['image_converter_progressive_directory']}"
+        )
+
     search_input.fill("HEIC에서 AVIF")
     image_search_state = _search_state(desktop)
-    report["image_converter_directory_search"] = image_search_state
+    report["image_converter_directory_search"] = {
+        "state": image_search_state,
+        "moreOpen": image_more.get_attribute("open") is not None,
+    }
     if (
         len(image_search_state["visibleCards"]) != 1
         or image_search_state["visibleCards"][0]["href"]
         != "/ko/heic-to-avif/"
+        or not report["image_converter_directory_search"]["moreOpen"]
     ):
         report["ui_detail_failures"].append(
             f"Image converter directory search failed: {report['image_converter_directory_search']}"
         )
     search_clear.click()
+    if image_more.get_attribute("open") is not None:
+        report["ui_detail_failures"].append(
+            "Image converter directory did not restore its collapsed state after search."
+        )
 
     search_cases = {
         "name": ("JSON 정리", 1, "/ko/json-formatter/"),

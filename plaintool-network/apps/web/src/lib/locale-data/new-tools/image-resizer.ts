@@ -81,7 +81,7 @@ const packs = {
   },
   ko: {
     copy: {
-      ariaLabel: "이미지 크기 조절기",
+      ariaLabel: "이미지 크기 조절",
       chooseImage: "이미지 선택",
       replaceImage: "이미지 바꾸기",
       dropImage: "이미지를 여기에 놓으세요",
@@ -127,7 +127,7 @@ const packs = {
       preventedEnlarge: "결과를 원본 크기 이내로 제한했습니다.",
     },
     page: {
-      title: "이미지 크기 조절기",
+      title: "이미지 크기 조절",
       description:
         "이미지를 업로드하지 않고 픽셀이나 비율로 크기를 바꾸고, 가로세로 비율과 출력 형식·품질을 조정합니다.",
       mobileDescription: "기기에서 이미지 크기를 픽셀이나 비율로 조절합니다.",

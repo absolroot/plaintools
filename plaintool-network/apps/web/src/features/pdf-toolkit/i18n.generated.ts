@@ -121,9 +121,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Comprimir PDF",
         description:
-          "Reduce un PDF localmente con una opción que preserva el documento o ajusta las preconfiguraciones de calidad de imagen.",
+          "Reduce el tamaño de un PDF y elige si quieres conservar las funciones del documento.",
         guide:
-          "Elige un PDF, compara las tres preconfiguraciones y comprime. Preservar documento mantiene el contenido seleccionable pero puede ahorrar poco; las otras preconfiguraciones reconstruyen cada página como imagen para reducciones mayores en archivos escaneados o con muchas imágenes.",
+          "Elige un PDF y un nivel de compresión, y descarga el resultado. Usa Conservar documento si necesitas mantener el texto seleccionable y los enlaces.",
         faqQuestion:
           "¿La compresión mantendrá el texto y los enlaces seleccionables?",
         faqAnswer:
@@ -137,9 +137,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Combinar PDF",
         description:
-          "Ordena varios archivos PDF y combina sus páginas en un solo PDF en tu navegador.",
+          "Combina varios PDF en un solo archivo en el orden que elijas.",
         guide:
-          "Agrega dos o más PDF, arrástralos para ordenarlos o usa los botones de mover, luego combínalos. La salida sigue el orden de archivos mostrado en la lista.",
+          "Añade al menos dos PDF, ordénalos como prefieras y descarga el archivo combinado.",
         faqQuestion: "¿Puedo cambiar el orden de las páginas dentro de un PDF?",
         faqAnswer:
           "Esta primera versión ordena archivos completos. Divide o reorganiza el PDF de origen primero cuando las páginas individuales necesiten un orden diferente.",
@@ -148,9 +148,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "Dividir PDF",
         description:
-          "Extraer páginas seleccionadas en un solo PDF o dividir un PDF en archivos separados por tamaño o rangos personalizados.",
+          "Extrae las páginas que quieras o divide un PDF en varios archivos.",
         guide:
-          "Elija Extraer páginas para un nuevo PDF, o Dividir documento para varios resultados. Use una expresión de páginas como 1, 3-5; múltiples resultados se agrupan en un solo ZIP.",
+          "Elige un PDF y extrae páginas o divídelo por número de páginas o rangos. Los resultados múltiples se descargan en un ZIP.",
         faqQuestion: "¿La división reduce la calidad de las páginas?",
         faqAnswer:
           "No se utiliza rasterización para la división. Las páginas existentes del PDF se copian en nuevos archivos, aunque las funciones avanzadas de todo el documento pueden no trasladarse.",
@@ -163,9 +163,9 @@ export const generatedPdfLocaleTexts = {
       "pdf-to-image": {
         title: "PDF a Imagen",
         description:
-          "Renderizar páginas seleccionadas de PDF como imágenes JPG o PNG con controles prácticos de resolución y calidad.",
+          "Convierte las páginas seleccionadas de un PDF en imágenes JPG o PNG.",
         guide:
-          "Elija un PDF, seleccione páginas, formato y resolución, luego convierta. Una página se descarga directamente; varias páginas se recopilan en un ZIP con nombres de archivo numerados.",
+          "Elige un PDF y las páginas, el formato de imagen y la resolución. Varias páginas se descargan en un ZIP.",
         faqQuestion: "¿Debería elegir JPG o PNG?",
         faqAnswer:
           "JPG suele ser más pequeño para fotos y escaneos. PNG es sin pérdida y a menudo mejor para diagramas, texto nítido o transparencia, pero puede ser mucho más grande.",
@@ -174,9 +174,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Imagen a PDF",
         description:
-          "Organiza imágenes JPG, PNG o WebP y colócalas en un solo PDF con controles de tamaño de página, orientación y márgenes.",
+          "Combina imágenes JPG, PNG o WebP en un PDF en el orden que elijas.",
         guide:
-          "Agrega imágenes, arrástralas o muévelas en orden, luego elige ajustar, A4 o páginas Letter. Las páginas fijas reducen el tamaño de las imágenes para que quepan sin recortarlas ni ampliarlas.",
+          "Añade y ordena las imágenes, elige el diseño de página y crea el PDF para descargarlo.",
         faqQuestion: "¿Mis imágenes se recortan o se amplían?",
         faqAnswer:
           "No. Las imágenes se centran y solo se reducen cuando es necesario. El modo ajustar utiliza las proporciones propias de cada imagen para la página del PDF.",
@@ -306,9 +306,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "PDF komprimieren",
         description:
-          "Reduzieren Sie ein PDF lokal mit einer dokumenterhaltenden Option oder klar abgestuften Bildqualitätsvorgaben.",
+          "Verkleinern Sie eine PDF und wählen Sie, ob Dokumentfunktionen erhalten bleiben sollen.",
         guide:
-          "Wählen Sie ein PDF, vergleichen Sie die drei Vorgaben und komprimieren Sie. Dokument beibehalten erhält auswählbare Inhalte, kann aber wenig einsparen; die anderen Vorgaben erstellen jede Seite als Bild neu für größere Reduzierungen bei gescannten oder bildlastigen Dateien.",
+          "Wählen Sie eine PDF und eine Komprimierungsstufe und laden Sie das Ergebnis herunter. Nutzen Sie Dokument beibehalten, wenn auswählbarer Text und Links wichtig sind.",
         faqQuestion:
           "Bleiben auswählbarer Text und Links bei der Kompression erhalten?",
         faqAnswer:
@@ -322,9 +322,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "PDF zusammenführen",
         description:
-          "Ordne mehrere PDF Dateien und kombiniere ihre Seiten in einem PDF in deinem Browser.",
+          "Führen Sie mehrere PDFs in der gewünschten Reihenfolge zu einer Datei zusammen.",
         guide:
-          "Füge zwei oder mehr PDFs hinzu, ziehe sie in die gewünschte Reihenfolge oder benutze die Schaltflächen zum Verschieben, dann zusammenführen. Die Ausgabe folgt der in der Liste gezeigten Dateireihenfolge.",
+          "Fügen Sie mindestens zwei PDFs hinzu, ordnen Sie sie wie gewünscht an und laden Sie die zusammengeführte Datei herunter.",
         faqQuestion:
           "Kann ich die Seitenreihenfolge innerhalb eines PDF ändern?",
         faqAnswer:
@@ -338,9 +338,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "PDF teilen",
         description:
-          "Ausgewählte Seiten in eine PDF extrahieren oder eine PDF nach Größe oder benutzerdefinierten Bereichen in separate Dateien aufteilen.",
+          "Extrahieren Sie ausgewählte Seiten oder teilen Sie eine PDF in mehrere Dateien.",
         guide:
-          "Wählen Sie Seiten extrahieren für eine neue PDF oder Dokument teilen für mehrere Ausgaben. Verwenden Sie einen Seitenausdruck wie 1, 3-5; mehrere Ergebnisse werden in eine ZIP gebündelt.",
+          "Wählen Sie eine PDF und extrahieren Sie Seiten oder teilen Sie sie nach Seitenzahl oder Bereichen. Mehrere Ergebnisse werden als ZIP heruntergeladen.",
         faqQuestion: "Führt das Teilen zu Qualitätsverlusten bei den Seiten?",
         faqAnswer:
           "Für das Teilen wird keine Rasterisierung verwendet. Bestehende PDF-Seiten werden in neue Dateien kopiert, obwohl erweiterte dokumentweite Funktionen möglicherweise nicht übernommen werden.",
@@ -349,9 +349,9 @@ export const generatedPdfLocaleTexts = {
       "pdf-to-image": {
         title: "PDF zu Bild",
         description:
-          "Ausgewählte PDF-Seiten als JPG- oder PNG-Bilder mit praktischer Auflösung und Qualitätskontrolle rendern.",
+          "Wandeln Sie ausgewählte PDF-Seiten in JPG- oder PNG-Bilder um.",
         guide:
-          "Wählen Sie ein PDF, wählen Sie Seiten, Format und Auflösung, und konvertieren Sie dann. Eine Seite wird direkt heruntergeladen; mehrere Seiten werden in einer ZIP mit nummerierten Dateinamen gesammelt.",
+          "Wählen Sie eine PDF sowie Seiten, Bildformat und Auflösung. Mehrere Seiten werden als ZIP heruntergeladen.",
         faqQuestion: "Soll ich JPG oder PNG wählen?",
         faqAnswer:
           "JPG ist normalerweise kleiner für Fotos und Scans. PNG ist verlustfrei und oft besser für Diagramme, scharfen Text oder Transparenz, kann aber deutlich größer sein.",
@@ -360,9 +360,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Bild zu PDF",
         description:
-          "Ordne JPG-, PNG- oder WebP-Bilder an und füge sie zu einer PDF mit Seitenformat-, Ausrichtungs- und Randkontrollen zusammen.",
+          "Führen Sie JPG-, PNG- oder WebP-Bilder in der gewünschten Reihenfolge zu einer PDF zusammen.",
         guide:
-          "Füge Bilder hinzu, ziehe oder verschiebe sie in die gewünschte Reihenfolge und wähle dann anpassen, A4 oder Letter Seiten. Feste Seiten skalieren Bilder herunter, um sie einzupassen, ohne sie zu beschneiden oder zu vergrößern.",
+          "Fügen Sie Bilder hinzu, ordnen Sie sie an, wählen Sie das Seitenlayout und erstellen Sie die PDF zum Herunterladen.",
         faqQuestion: "Werden meine Bilder beschnitten oder vergrößert?",
         faqAnswer:
           "Nein. Bilder sind zentriert und werden nur bei Bedarf verkleinert. Der Anpassungsmodus verwendet die eigenen Proportionen jedes Bildes für die PDF-Seite.",
@@ -491,9 +491,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "PDF を圧縮する",
         description:
-          "ドキュメント保持オプションまたは分かりやすい画質プリセットで、PDF をローカルに軽量化します。",
+          "文書機能を残すか選びながら、PDF のファイルサイズを小さくします。",
         guide:
-          "PDF を選択し、3つのプリセットを比較して圧縮します。ドキュメントを保持は選択可能な内容を保持しますが、節約量は少ない場合があります。他のプリセットは各ページを画像として再構築するため、スキャンしたファイルや画像が多いファイルで大幅に縮小できます。",
+          "PDF と圧縮設定を選び、結果をダウンロードします。テキスト選択やリンクが必要な場合は、文書を保持する設定を使ってください。",
         faqQuestion: "圧縮で選択可能なテキストやリンクは保持されますか？",
         faqAnswer:
           "ドキュメントを保持はページ内容を保持します。バランスと小サイズモードではページが画像に変換されるため、選択、検索、リンク、フォーム、注釈、レイヤー、アクセシビリティ構造は削除されます。",
@@ -505,10 +505,9 @@ export const generatedPdfLocaleTexts = {
       },
       "merge-pdf": {
         title: "PDF を結合",
-        description:
-          "複数の PDF ファイルを順序付けして、ブラウザで 1 つの PDF にページをまとめます。",
+        description: "複数の PDF を好きな順番で 1 つのファイルにまとめます。",
         guide:
-          "2 つ以上の PDF を追加し、順序をドラッグするか、移動ボタンを使用してから結合します。出力はリストに表示されているファイルの順序に従います。",
+          "PDF を 2 つ以上追加し、希望の順番に並べてから結合したファイルをダウンロードします。",
         faqQuestion: "1 つの PDF 内でページの順序を変更できますか？",
         faqAnswer:
           "この最初のバージョンでは、ファイル全体の順序を付けます。個別のページで異なる順序が必要な場合は、最初にソース PDF を分割または並べ替えてください。",
@@ -517,9 +516,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "PDFを分割",
         description:
-          "選択したページを1つのPDFに抽出するか、PDFをサイズやカスタム範囲ごとに別々のファイルに分割します。",
+          "必要なページを抽出するか、PDF を複数のファイルに分割します。",
         guide:
-          "1つの新しいPDF用には「ページを抽出」を選択し、複数の出力が必要な場合は「ドキュメントの分割」を選択します。ページ式（例：1, 3-5）を使用してください。複数の結果は1つのZIPにまとめられます。",
+          "PDF を選び、ページを抽出するか、ページ数または範囲で分割します。複数の結果は ZIP でダウンロードされます。",
         faqQuestion: "分割するとページの品質は低下しますか？",
         faqAnswer:
           "分割ではラスタライズは使用されません。既存のPDFページは新しいファイルにコピーされます。ただし、高度なドキュメント全体の機能は継承されない場合があります。",
@@ -527,10 +526,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "PDF を画像に変換",
-        description:
-          "選択した PDF のページを、実用的な解像度と画質で JPG または PNG 画像としてレンダリングします。",
+        description: "選択した PDF ページを JPG または PNG 画像に変換します。",
         guide:
-          "PDF を選択し、ページ、フォーマット、解像度を選んでから変換します。1ページの場合は直接ダウンロードされます。複数ページの場合は、番号付きファイル名で ZIP にまとめられます。",
+          "PDF と必要なページ、画像形式、解像度を選んで変換します。複数ページは ZIP でダウンロードされます。",
         faqQuestion: "JPG と PNG のどちらを選ぶべきですか？",
         faqAnswer:
           "写真やスキャンには通常 JPG の方が小さくなります。PNG は可逆圧縮で、図、鮮明なテキスト、透過部分に適していますが、サイズが非常に大きくなることがあります。",
@@ -543,9 +541,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "画像を PDF に変換",
         description:
-          "JPG、PNG、または WebP 画像を整理して、ページサイズ、向き、余白の設定ができる 1 つの PDF に配置します。",
+          "JPG、PNG、WebP 画像を好きな順番で 1 つの PDF にまとめます。",
         guide:
-          "画像を追加し、ドラッグまたは移動して順番を決め、フィット、A4、または Letter ページを選択します。固定ページは、切り取りや拡大をせずに収まるように画像を縮小します。",
+          "画像を追加して順番を整え、ページレイアウトを選んで PDF を作成・ダウンロードします。",
         faqQuestion: "画像は切り取られたり拡大されたりしますか？",
         faqAnswer:
           "いいえ。画像は中央に配置され、必要な場合のみ縮小されます。フィットモードでは、各画像の比率を使って PDF ページに合わせます。",
@@ -673,9 +671,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Compresser PDF",
         description:
-          "Réduire un PDF localement avec une option de préservation du document ou nettoyer les paramètres de qualité d'image.",
+          "Réduisez la taille d’un PDF en choisissant de conserver ou non les fonctions du document.",
         guide:
-          "Choisissez un PDF, comparez les trois préréglages et compressez. Préserver le document conserve le contenu sélectionnable mais peut peu économiser ; les autres préréglages reconstruisent chaque page comme une image pour des réductions plus importantes sur les fichiers scannés ou riches en images.",
+          "Choisissez un PDF et un niveau de compression, puis téléchargez le résultat. Utilisez Préserver le document si le texte sélectionnable et les liens sont importants.",
         faqQuestion:
           "La compression conserve-t-elle le texte et les liens sélectionnables ?",
         faqAnswer:
@@ -689,9 +687,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Fusionner PDF",
         description:
-          "Organisez plusieurs fichiers PDF et combinez leurs pages en un seul PDF dans votre navigateur.",
+          "Fusionnez plusieurs PDF en un seul fichier dans l’ordre de votre choix.",
         guide:
-          "Ajoutez deux PDF ou plus, faites-les glisser pour les ordonner ou utilisez les boutons de déplacement, puis fusionnez. Le résultat suit l'ordre des fichiers affiché dans la liste.",
+          "Ajoutez au moins deux PDF, placez-les dans l’ordre souhaité, puis téléchargez le fichier fusionné.",
         faqQuestion:
           "Puis-je changer l'ordre des pages à l'intérieur d'un PDF ?",
         faqAnswer:
@@ -701,9 +699,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "Diviser PDF",
         description:
-          "Extraire les pages sélectionnées dans un PDF ou diviser un PDF en fichiers séparés par taille ou par plages personnalisées.",
+          "Extrayez les pages voulues ou divisez un PDF en plusieurs fichiers.",
         guide:
-          "Choisissez Extraire des pages pour un nouveau PDF, ou Diviser le document pour plusieurs résultats. Utilisez une expression de pages telle que 1, 3-5 ; plusieurs résultats sont regroupés dans un ZIP.",
+          "Choisissez un PDF, puis extrayez des pages ou divisez-le par nombre de pages ou par plages. Plusieurs résultats sont téléchargés dans un ZIP.",
         faqQuestion: "La division réduit-elle la qualité des pages ?",
         faqAnswer:
           "Aucune rasterisation n'est utilisée pour la division. Les pages existantes d'un PDF sont copiées dans de nouveaux fichiers, bien que les fonctionnalités avancées sur l'ensemble du document puissent ne pas être conservées.",
@@ -716,9 +714,9 @@ export const generatedPdfLocaleTexts = {
       "pdf-to-image": {
         title: "PDF en image",
         description:
-          "Rendre les pages sélectionnées de PDF en images JPG ou PNG avec des contrôles pratiques de résolution et de qualité.",
+          "Convertissez les pages sélectionnées d’un PDF en images JPG ou PNG.",
         guide:
-          "Choisissez un PDF, sélectionnez les pages, le format et la résolution, puis convertissez. Une page est téléchargée directement ; plusieurs pages sont regroupées dans un ZIP avec des noms de fichiers numérotés.",
+          "Choisissez un PDF ainsi que les pages, le format d’image et la résolution. Plusieurs pages sont téléchargées dans un ZIP.",
         faqQuestion: "Dois-je choisir JPG ou PNG ?",
         faqAnswer:
           "JPG est généralement plus petit pour les photos et les scans. PNG est sans perte et souvent meilleur pour les diagrammes, le texte net ou la transparence, mais peut être beaucoup plus volumineux.",
@@ -727,9 +725,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Image en PDF",
         description:
-          "Organisez les images JPG, PNG ou WebP et placez-les dans un seul PDF avec des contrôles de taille de page, d'orientation et de marge.",
+          "Réunissez des images JPG, PNG ou WebP dans un PDF, dans l’ordre de votre choix.",
         guide:
-          "Ajoutez des images, faites-les glisser ou déplacez-les dans l'ordre, puis choisissez ajuster, A4 ou Letter pour les pages. Les pages fixes réduisent les images pour les faire tenir sans les recadrer ni les agrandir.",
+          "Ajoutez et ordonnez les images, choisissez la mise en page, puis créez et téléchargez le PDF.",
         faqQuestion: "Mes images sont-elles recadrées ou agrandies ?",
         faqAnswer:
           "Non. Les images sont centrées et réduites uniquement si nécessaire. Le mode Ajuster utilise les proportions propres à chaque image pour la page PDF.",
@@ -856,9 +854,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Comprimir PDF",
         description:
-          "Reduza um PDF localmente com uma opção que preserve o documento ou pressione as configurações predefinidas de qualidade de imagem.",
+          "Reduza o tamanho de um PDF e escolha se deseja preservar os recursos do documento.",
         guide:
-          "Escolha um PDF, compare as três predefinições e comprima. Preservar documento mantém o conteúdo selecionável, mas pode salvar pouco; as outras predefinições recriam cada página como uma imagem para reduções maiores em arquivos digitalizados ou com muitas imagens.",
+          "Escolha um PDF e um nível de compressão e baixe o resultado. Use Preservar documento se precisar manter texto selecionável e links.",
         faqQuestion: "A compressão manterá o texto e os links selecionáveis?",
         faqAnswer:
           "Preservar documento mantém o conteúdo da página. Os modos equilibrado e menor transformam as páginas em imagens, então a seleção, pesquisa, links, formulários, anotações, camadas e estrutura de acessibilidade são removidos.",
@@ -871,9 +869,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Mesclar PDF",
         description:
-          "Organize vários arquivos PDF e combine suas páginas em um PDF no seu navegador.",
+          "Junte vários PDFs em um único arquivo na ordem que você escolher.",
         guide:
-          "Adicione dois ou mais PDFs, arraste-os para ordenar ou use os botões de mover, depois mescle. O resultado segue a ordem de arquivos mostrada na lista.",
+          "Adicione pelo menos dois PDFs, organize-os como preferir e baixe o arquivo mesclado.",
         faqQuestion: "Posso mudar a ordem das páginas dentro de um PDF?",
         faqAnswer:
           "Esta primeira versão organiza arquivos completos. Divida ou reorganize o PDF de origem primeiro quando páginas individuais precisarem de uma ordem diferente.",
@@ -882,9 +880,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "Dividir PDF",
         description:
-          "Extrair páginas selecionadas em um PDF ou dividir um PDF em arquivos separados por tamanho ou intervalos personalizados.",
+          "Extraia as páginas desejadas ou divida um PDF em vários arquivos.",
         guide:
-          "Escolha Extrair páginas para um novo PDF, ou Dividir documento para várias saídas. Use uma expressão de página como 1, 3-5; múltiplos resultados são agrupados em um único ZIP.",
+          "Escolha um PDF e extraia páginas ou divida-o por quantidade de páginas ou intervalos. Vários resultados são baixados em um ZIP.",
         faqQuestion: "Dividir reduz a qualidade das páginas?",
         faqAnswer:
           "Nenhuma rasterização é usada para divisão. As páginas existentes do PDF são copiadas para novos arquivos, embora recursos avançados de todo o documento possam não ser mantidos.",
@@ -897,9 +895,9 @@ export const generatedPdfLocaleTexts = {
       "pdf-to-image": {
         title: "PDF para Imagem",
         description:
-          "Renderizar páginas selecionadas do PDF como imagens JPG ou PNG com controles práticos de resolução e qualidade.",
+          "Converta as páginas selecionadas de um PDF em imagens JPG ou PNG.",
         guide:
-          "Escolha um PDF, selecione páginas, formato e resolução, e então converta. Uma página é baixada diretamente; várias páginas são coletadas em um ZIP com nomes de arquivos numerados.",
+          "Escolha um PDF, as páginas, o formato de imagem e a resolução. Várias páginas são baixadas em um ZIP.",
         faqQuestion: "Devo escolher JPG ou PNG?",
         faqAnswer:
           "JPG geralmente é menor para fotos e digitalizações. PNG é sem perda e muitas vezes melhor para diagramas, texto nítido ou transparência, mas pode ser muito maior.",
@@ -908,9 +906,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Imagem para PDF",
         description:
-          "Organize imagens JPG, PNG ou WebP e coloque-as em um único PDF com controle de tamanho de página, orientação e margens.",
+          "Junte imagens JPG, PNG ou WebP em um PDF na ordem que você escolher.",
         guide:
-          "Adicione imagens, arraste ou mova-as para ordenar, depois escolha ajustar, A4 ou Letter. Páginas fixas reduzem o tamanho das imagens para caber, sem cortar ou ampliar.",
+          "Adicione e organize as imagens, escolha o layout da página e crie o PDF para baixar.",
         faqQuestion: "Minhas imagens são cortadas ou ampliadas?",
         faqAnswer:
           "Não. As imagens são centralizadas e reduzidas apenas quando necessário. O modo ajustar usa as proporções próprias de cada imagem para a página do PDF.",
@@ -1038,9 +1036,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Comprimi PDF",
         description:
-          "Riduci un PDF localmente con un'opzione che preserva il documento o usa preset di qualità dell'immagine minore.",
+          "Riduci le dimensioni di un PDF scegliendo se mantenere le funzioni del documento.",
         guide:
-          "Scegli un PDF, confronta i tre preset e comprimi. 'Preserva documento' mantiene il contenuto selezionabile ma potrebbe salvare poco; gli altri preset ricostruiscono ogni pagina come immagine per riduzioni maggiori su file scansionati o ricchi di immagini.",
+          "Scegli un PDF e un livello di compressione, quindi scarica il risultato. Usa Conserva documento se vuoi mantenere testo selezionabile e link.",
         faqQuestion:
           "La compressione manterrà il testo e i link selezionabili?",
         faqAnswer:
@@ -1054,9 +1052,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Unisci PDF",
         description:
-          "Ordina diversi file PDF e combina le loro pagine in un unico PDF nel tuo browser.",
+          "Unisci più PDF in un solo file nell’ordine che preferisci.",
         guide:
-          "Aggiungi due o più PDF, trascinali nell'ordine desiderato o usa i pulsanti di spostamento, poi unisci. L'output segue l'ordine dei file mostrato nella lista.",
+          "Aggiungi almeno due PDF, disponili nell’ordine desiderato e scarica il file unito.",
         faqQuestion:
           "Posso cambiare l'ordine delle pagine all'interno di un PDF?",
         faqAnswer:
@@ -1066,9 +1064,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "Dividi PDF",
         description:
-          "Estrai le pagine selezionate in un unico PDF o dividi un PDF in file separati in base alla dimensione o a intervalli personalizzati.",
+          "Estrai le pagine che ti servono o dividi un PDF in più file.",
         guide:
-          "Scegli Estrai pagine per un nuovo PDF, o Dividi documento per più output. Usa un'espressione per le pagine come 1, 3-5; i risultati multipli vengono raggruppati in un unico ZIP.",
+          "Scegli un PDF, quindi estrai le pagine o dividilo per numero di pagine o intervalli. Più risultati vengono scaricati in uno ZIP.",
         faqQuestion: "La divisione riduce la qualità delle pagine?",
         faqAnswer:
           "Non viene utilizzata rasterizzazione per la divisione. Le pagine esistenti del PDF vengono copiate nei nuovi file, anche se alcune funzionalità avanzate del documento potrebbero non essere trasferite.",
@@ -1081,9 +1079,9 @@ export const generatedPdfLocaleTexts = {
       "pdf-to-image": {
         title: "PDF in immagine",
         description:
-          "Rendi le pagine selezionate di PDF come immagini JPG o PNG con controllo pratico di risoluzione e qualità.",
+          "Converti le pagine selezionate di un PDF in immagini JPG o PNG.",
         guide:
-          "Scegli un PDF, seleziona pagine, formato e risoluzione, quindi converti. Una pagina viene scaricata direttamente; più pagine vengono raccolte in un ZIP con nomi di file numerati.",
+          "Scegli un PDF, le pagine, il formato immagine e la risoluzione. Più pagine vengono scaricate in uno ZIP.",
         faqQuestion: "Dovrei scegliere JPG o PNG?",
         faqAnswer:
           "JPG è di solito più piccolo per foto e scansioni. PNG è senza perdita e spesso migliore per diagrammi, testo nitido o trasparenza, ma può essere molto più grande.",
@@ -1092,9 +1090,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Immagine in PDF",
         description:
-          "Organizza immagini JPG, PNG o WebP e inseriscile in un unico PDF con controllo delle dimensioni delle pagine, dell'orientamento e dei margini.",
+          "Unisci immagini JPG, PNG o WebP in un PDF nell’ordine che preferisci.",
         guide:
-          "Aggiungi immagini, trascinale o spostale nell'ordine desiderato, quindi scegli adatta, A4 o Letter come pagine. Le pagine fisse ridimensionano le immagini per adattarle senza ritagliarle o ingrandirle.",
+          "Aggiungi e ordina le immagini, scegli il layout della pagina, quindi crea e scarica il PDF.",
         faqQuestion: "Le mie immagini vengono ritagliate o ingrandite?",
         faqAnswer:
           "No. Le immagini sono centrate e ridotte solo quando necessario. La modalità adatta usa le proporzioni proprie di ciascuna immagine per la pagina PDF.",
@@ -1222,9 +1220,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Comprimeer PDF",
         description:
-          "Verminder een PDF lokaal met een document-behoudende optie of verwijder vooraf ingestelde beeldkwaliteit.",
+          "Maak een PDF kleiner en kies of documentfuncties behouden moeten blijven.",
         guide:
-          "Kies een PDF, vergelijk de drie vooraf ingestelde opties, en comprimeer. Document behouden houdt selecteerbare inhoud, maar kan weinig besparen; de andere vooraf ingestelde opties bouwen elke pagina opnieuw als afbeelding voor grotere reducties bij gescande of beeldrijke bestanden.",
+          "Kies een PDF en een compressieniveau en download het resultaat. Gebruik Document behouden als selecteerbare tekst en links belangrijk zijn.",
         faqQuestion: "Zal compressie selecteerbare tekst en links behouden?",
         faqAnswer:
           "Document behouden houdt paginainhoud vast. Gebalanceerde en kleinere modi zetten pagina’s om in afbeeldingen, waardoor selectie, zoeken, links, formulieren, annotaties, lagen en toegankelijkheidsstructuur worden verwijderd.",
@@ -1237,9 +1235,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Voeg PDF samen",
         description:
-          "Rangschik meerdere PDF bestanden en combineer hun pagina's tot één PDF in je browser.",
+          "Voeg meerdere PDF’s in de gewenste volgorde samen tot één bestand.",
         guide:
-          "Voeg twee of meer PDFs toe, sleep ze in de gewenste volgorde of gebruik de verplaatsknoppen, en voeg ze dan samen. De uitvoer volgt de bestandsvolgorde zoals weergegeven in de lijst.",
+          "Voeg minstens twee PDF’s toe, zet ze in de gewenste volgorde en download het samengevoegde bestand.",
         faqQuestion: "Kan ik de pagina volgorde binnen één PDF veranderen?",
         faqAnswer:
           "Deze eerste versie rangschikt hele bestanden. Splits of herschik de bron PDF eerst als individuele pagina's een andere volgorde nodig hebben.",
@@ -1248,9 +1246,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "Split PDF",
         description:
-          "Selecteer pagina's om in één PDF te extraheren of verdeel een PDF in afzonderlijke bestanden op grootte of aangepaste bereiken.",
+          "Haal de gewenste pagina’s uit een PDF of splits deze in meerdere bestanden.",
         guide:
-          "Kies Pagina's extraheren voor één nieuwe PDF, of Document splitsen voor meerdere uitvoerbestanden. Gebruik een pagina-expressie zoals 1, 3-5; meerdere resultaten worden gebundeld in één ZIP.",
+          "Kies een PDF en haal pagina’s eruit of splits deze op aantal pagina’s of bereiken. Meerdere resultaten worden als ZIP gedownload.",
         faqQuestion: "Vermindert splitsen de pagina kwaliteit?",
         faqAnswer:
           "Voor splitsen wordt geen rasterisatie gebruikt. Bestaande PDF-pagina's worden in nieuwe bestanden gekopieerd, hoewel geavanceerde document-brede functies mogelijk niet worden overgenomen.",
@@ -1259,9 +1257,9 @@ export const generatedPdfLocaleTexts = {
       "pdf-to-image": {
         title: "PDF naar Afbeelding",
         description:
-          "Geef geselecteerde PDF pagina's weer als JPG of PNG afbeeldingen met praktische resolutie- en kwaliteitsinstellingen.",
+          "Zet geselecteerde PDF-pagina’s om in JPG- of PNG-afbeeldingen.",
         guide:
-          "Kies een PDF, selecteer pagina's, formaat en resolutie en converteer vervolgens. Eén pagina wordt direct gedownload; meerdere pagina's worden verzameld in een ZIP met genummerde bestandsnamen.",
+          "Kies een PDF en de gewenste pagina’s, het afbeeldingsformaat en de resolutie. Meerdere pagina’s worden als ZIP gedownload.",
         faqQuestion: "Moet ik JPG of PNG kiezen?",
         faqAnswer:
           "JPG is meestal kleiner voor foto's en scans. PNG is verliesvrij en vaak beter voor diagrammen, scherpe tekst of transparantie, maar kan veel groter zijn.",
@@ -1270,9 +1268,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Afbeelding naar PDF",
         description:
-          "Rangschik JPG-, PNG- of WebP-afbeeldingen en plaats ze in één PDF met beheersing van paginagrootte, oriëntatie en marges.",
+          "Voeg JPG-, PNG- of WebP-afbeeldingen in de gewenste volgorde samen tot één PDF.",
         guide:
-          "Voeg afbeeldingen toe, sleep of verplaats ze in de gewenste volgorde, en kies vervolgens fit, A4 of Letter pagina's. Vaste pagina's schalen afbeeldingen omlaag om ze te laten passen zonder bij te snijden of te vergroten.",
+          "Voeg afbeeldingen toe, zet ze in de juiste volgorde, kies de pagina-indeling en maak de PDF om te downloaden.",
         faqQuestion: "Worden mijn afbeeldingen bijgesneden of vergroot?",
         faqAnswer:
           "Nee. Afbeeldingen worden gecentreerd en alleen verkleind indien nodig. Fit-modus gebruikt de eigen verhoudingen van elke afbeelding voor de PDF-pagina.",
@@ -1398,9 +1396,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Komprimera PDF",
         description:
-          "Minska en PDF lokalt med ett dokumentbevarande alternativ eller förinställningar för tydlig bildkvalitet.",
+          "Minska storleken på en PDF och välj om dokumentfunktionerna ska bevaras.",
         guide:
-          "Välj en PDF, jämför de tre förinställningarna och komprimera. Bevara dokumentet behåller valbart innehåll men kan spara lite; de andra förinställningarna bygger om varje sida som en bild för större reduktioner på skannade eller bildtunga filer.",
+          "Välj en PDF och en komprimeringsnivå och ladda sedan ner resultatet. Använd Bevara dokument om markerbar text och länkar är viktiga.",
         faqQuestion: "Kommer komprimering att behålla valbar text och länkar?",
         faqAnswer:
           "Bevara-dokumentet behåller sidinnehållet. Balanserade och mindre läge förvandlar sidor till bilder, så urval, sökning, länkar, formulär, anteckningar, lager och tillgänglighetsstruktur tas bort.",
@@ -1409,9 +1407,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Slå ihop PDF",
         description:
-          "Ordna flera PDF filer och kombinera deras sidor till en PDF i din webbläsare.",
+          "Slå ihop flera PDF-filer till en fil i den ordning du väljer.",
         guide:
-          "Lägg till två eller fler PDFs, dra dem i ordning eller använd flyttaknappen, och slå sedan ihop. Resultatet följer filordningen som visas i listan.",
+          "Lägg till minst två PDF-filer, ordna dem som du vill och ladda ner den sammanslagna filen.",
         faqQuestion: "Kan jag ändra sidordningen i en PDF?",
         faqAnswer:
           "Den första versionen ordnar hela filer. Dela eller omarrangera käll-PDF först när enskilda sidor behöver en annan ordning.",
@@ -1419,10 +1417,9 @@ export const generatedPdfLocaleTexts = {
       },
       "split-pdf": {
         title: "Dela PDF",
-        description:
-          "Extrahera valda sidor till en PDF eller dela upp en PDF i separata filer efter storlek eller egna intervall.",
+        description: "Hämta ut valda sidor eller dela en PDF i flera filer.",
         guide:
-          "Välj Extrahera sidor för en ny PDF, eller Dela dokument för flera utdata. Använd ett siduttryck som 1, 3-5; flera resultat packas tillsammans i en ZIP.",
+          "Välj en PDF och hämta ut sidor eller dela den efter antal sidor eller intervall. Flera resultat laddas ner som en ZIP-fil.",
         faqQuestion: "Minskar delningen sidkvaliteten?",
         faqAnswer:
           "Ingen rasterisering används vid delning. Befintliga PDF-sidor kopieras till nya filer, även om avancerade dokumentomfattande funktioner kanske inte följs med.",
@@ -1430,10 +1427,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "PDF till bild",
-        description:
-          "Rendera valda PDF sidor som JPG eller PNG bilder med praktiska upplösnings- och kvalitetsjusteringar.",
+        description: "Konvertera valda PDF-sidor till JPG- eller PNG-bilder.",
         guide:
-          "Välj en PDF, välj sidor, format och upplösning, och konvertera sedan. En sida laddas ner direkt; flera sidor samlas i en ZIP med numrerade filnamn.",
+          "Välj en PDF samt önskade sidor, bildformat och upplösning. Flera sidor laddas ner som en ZIP-fil.",
         faqQuestion: "Ska jag välja JPG eller PNG?",
         faqAnswer:
           "JPG är vanligtvis mindre för foton och skanningar. PNG är förlustfritt och ofta bättre för diagram, skarp text eller transparens, men kan vara mycket större.",
@@ -1442,9 +1438,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Bild till PDF",
         description:
-          "Ordna JPG, PNG eller WebP bilder och placera dem i en PDF med kontroll över sidstorlek, orientering och marginaler.",
+          "Samla JPG-, PNG- eller WebP-bilder i en PDF i den ordning du väljer.",
         guide:
-          "Lägg till bilder, dra eller flytta dem i ordning, och välj sedan passa, A4 eller Letter sidor. Fast sida skalar ner bilder för att passa utan att beskära eller förstora dem.",
+          "Lägg till och ordna bilderna, välj sidlayout och skapa PDF-filen för nedladdning.",
         faqQuestion: "Är mina bilder beskurna eller förstora?",
         faqAnswer:
           "Nej. Bilderna centreras och skalas endast ner vid behov. Passa-läget använder varje bilds egna proportioner för PDF sidan.",
@@ -1572,9 +1568,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Komprimovat PDF",
         description:
-          "Snižte velikost PDF lokálně pomocí možnosti zachování dokumentu nebo vymazáním přednastavených kvalit obrázků.",
+          "Zmenšete PDF a zvolte, zda se mají zachovat funkce dokumentu.",
         guide:
-          "Vyberte PDF, porovnejte tři přednastavení a komprimujte. Zachování dokumentu uchovává vybíratelný obsah, ale může ušetřit málo; ostatní přednastavení převedou každou stránku na obrázek pro větší zmenšení u skenovaných nebo obrázky bohatých souborů.",
+          "Vyberte PDF a úroveň komprese a stáhněte výsledek. Pokud potřebujete zachovat označitelný text a odkazy, použijte Zachovat dokument.",
         faqQuestion: "Zachová komprese vybíratelný text a odkazy?",
         faqAnswer:
           "Zachování dokumentu uchovává obsah stránek. Režimy vyvážený a menší převádějí stránky na obrázky, takže výběr, vyhledávání, odkazy, formuláře, poznámky, vrstvy a struktura přístupnosti jsou odstraněny.",
@@ -1587,9 +1583,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Sloučit PDF",
         description:
-          "Seřaďte několik souborů PDF a spojte jejich stránky do jednoho PDF ve svém prohlížeči.",
+          "Spojte několik PDF do jednoho souboru v pořadí, které si zvolíte.",
         guide:
-          "Přidejte dva nebo více PDF, přetáhněte je do požadovaného pořadí nebo použijte tlačítka pro přesun, a poté sloučte. Výstup odpovídá pořadí souborů zobrazenému v seznamu.",
+          "Přidejte alespoň dva soubory PDF, uspořádejte je podle potřeby a stáhněte sloučený soubor.",
         faqQuestion: "Mohu změnit pořadí stránek uvnitř jednoho PDF?",
         faqAnswer:
           "Tato první verze řadí celé soubory. Nejprve rozdělte nebo přeuspořádejte zdrojové PDF, pokud mají mít jednotlivé stránky jiné pořadí.",
@@ -1598,9 +1594,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "Rozdělit PDF",
         description:
-          "Extrahujte vybrané stránky do jednoho PDF nebo rozdělte PDF do samostatných souborů podle velikosti nebo vlastních rozsahů.",
+          "Vyjměte vybrané stránky nebo rozdělte PDF do několika souborů.",
         guide:
-          "Zvolte Extrahovat stránky pro jeden nový PDF nebo Rozdělit dokument pro několik výstupů. Použijte výraz stránek, například 1, 3-5; více výsledků je spojeno do jednoho ZIP.",
+          "Vyberte PDF a vyjměte stránky nebo je rozdělte podle počtu stránek či rozsahů. Více výsledků se stáhne jako ZIP.",
         faqQuestion: "Snížení kvality stránek při dělení?",
         faqAnswer:
           "Při dělení není použita rastrizace. Existující stránky PDF jsou zkopírovány do nových souborů, i když se pokročilé funkce dokumentu nemusí přenést.",
@@ -1612,10 +1608,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "PDF na obraz",
-        description:
-          "Vykreslete vybrané stránky PDF jako obrázky JPG nebo PNG s praktickým nastavením rozlišení a kvality.",
+        description: "Převeďte vybrané stránky PDF na obrázky JPG nebo PNG.",
         guide:
-          "Vyberte PDF, stránky, formát a rozlišení a poté převádějte. Jedna stránka se stáhne přímo; několik stránek je shromažďováno do ZIP se číslovanými názvy souborů.",
+          "Vyberte PDF, požadované stránky, formát obrázku a rozlišení. Více stránek se stáhne jako ZIP.",
         faqQuestion: "Mám zvolit JPG nebo PNG?",
         faqAnswer:
           "JPG je obvykle menší u fotografií a skenů. PNG je bezztrátový a často lepší pro diagramy, ostrý text nebo průhlednost, ale může být mnohem větší.",
@@ -1624,9 +1619,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Obrázek do PDF",
         description:
-          "Uspořádejte JPG, PNG nebo WebP obrázky a vložte je do jednoho PDF s možnostmi nastavení velikosti stránky, orientace a okrajů.",
+          "Spojte obrázky JPG, PNG nebo WebP do jednoho PDF v pořadí, které si zvolíte.",
         guide:
-          "Přidejte obrázky, přetahujte je nebo měňte jejich pořadí, poté vyberte přizpůsobení, A4 nebo Letter stránky. Fixní stránky zmenší obrázky tak, aby se vešly, aniž by se ořezávaly nebo zvětšovaly.",
+          "Přidejte a seřaďte obrázky, zvolte rozvržení stránky a vytvořte PDF ke stažení.",
         faqQuestion: "Jsou moje obrázky ořezané nebo zvětšené?",
         faqAnswer:
           "Ne. Obrázky jsou vycentrovány a zmenšeny pouze v případě potřeby. Režim přizpůsobení používá vlastní proporce každého obrázku pro stránku PDF.",
@@ -1755,9 +1750,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Skompresuj PDF",
         description:
-          "Zmniejsz rozmiar PDF lokalnie, używając opcji zachowującej dokument lub usuń ustawienia jakości obrazu.",
+          "Zmniejsz plik PDF i wybierz, czy zachować funkcje dokumentu.",
         guide:
-          "Wybierz PDF, porównaj trzy ustawienia wstępne i skompresuj. Zachowaj dokument utrzymuje wybieralną zawartość, ale może zaoszczędzić niewiele miejsca; pozostałe ustawienia wstępne przekształcają każdą stronę w obraz, co pozwala na większe zmniejszenie rozmiaru w przypadku plików skanowanych lub bogatych w obrazy.",
+          "Wybierz PDF i poziom kompresji, a następnie pobierz wynik. Użyj opcji Zachowaj dokument, jeśli ważny jest tekst do zaznaczania i linki.",
         faqQuestion: "Czy kompresja zachowa wybieralny tekst i linki?",
         faqAnswer:
           "Zachowaj dokument utrzymuje zawartość strony. Tryby Zbalansowany i Mniejszy zamieniają strony w obrazy, więc wybieranie, wyszukiwanie, linki, formularze, adnotacje, warstwy i struktura dostępności są usuwane.",
@@ -1769,10 +1764,9 @@ export const generatedPdfLocaleTexts = {
       },
       "merge-pdf": {
         title: "Połącz PDF",
-        description:
-          "Zamów kilka plików PDF i połącz ich strony w jeden PDF w przeglądarce.",
+        description: "Połącz kilka plików PDF w jeden w wybranej kolejności.",
         guide:
-          "Dodaj dwa lub więcej PDF, przeciągnij je w odpowiedniej kolejności lub użyj przycisków przesuwania, a następnie połącz. Wynik będzie zgodny z kolejnością plików pokazanych na liście.",
+          "Dodaj co najmniej dwa pliki PDF, ułóż je w odpowiedniej kolejności i pobierz połączony plik.",
         faqQuestion: "Czy mogę zmienić kolejność stron w jednym PDF?",
         faqAnswer:
           "Ta pierwsza wersja porządkuje całe pliki. Najpierw podziel lub przemieść źródłowy PDF, jeśli poszczególne strony muszą mieć inną kolejność.",
@@ -1781,9 +1775,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "Podziel PDF",
         description:
-          "Wyodrębnij wybrane strony do jednego PDF lub podziel PDF na osobne pliki według rozmiaru lub niestandardowych zakresów.",
+          "Wyodrębnij wybrane strony lub podziel PDF na kilka plików.",
         guide:
-          "Wybierz Wyodrębnij strony dla jednego nowego PDF, lub Podziel dokument dla kilku wyników. Użyj wyrażenia stronic, np. 1, 3-5; wiele wyników jest pakowane do jednego ZIP.",
+          "Wybierz PDF i wyodrębnij strony albo podziel go według liczby stron lub zakresów. Kilka wyników zostanie pobranych jako ZIP.",
         faqQuestion: "Czy dzielenie zmniejsza jakość stron?",
         faqAnswer:
           "Do dzielenia nie używa się rasteryzacji. Istniejące strony PDF są kopiowane do nowych plików, choć zaawansowane funkcje dokumentu mogą nie zostać zachowane.",
@@ -1791,10 +1785,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "PDF na obraz",
-        description:
-          "Renderuj wybrane strony PDF jako obrazy JPG lub PNG z praktyczną kontrolą rozdzielczości i jakości.",
+        description: "Konwertuj wybrane strony PDF na obrazy JPG lub PNG.",
         guide:
-          "Wybierz PDF, zaznacz strony, format i rozdzielczość, a następnie konwertuj. Jedna strona pobierana jest bezpośrednio; kilka stron zbieranych jest do pliku ZIP z numerowanymi nazwami.",
+          "Wybierz PDF, strony, format obrazu i rozdzielczość. Kilka stron zostanie pobranych jako ZIP.",
         faqQuestion: "Czy powinienem wybrać JPG czy PNG?",
         faqAnswer:
           "JPG jest zazwyczaj mniejszy dla zdjęć i skanów. PNG jest bezstratny i często lepszy dla diagramów, ostrego tekstu lub przezroczystości, ale może być znacznie większy.",
@@ -1803,9 +1796,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Obraz do PDF",
         description:
-          "Ułóż JPG, PNG lub WebP obrazy i umieść je w jednym PDF z kontrolką rozmiaru strony, orientacji i marginesów.",
+          "Połącz obrazy JPG, PNG lub WebP w jeden PDF w wybranej kolejności.",
         guide:
-          "Dodaj obrazy, przeciągnij lub przesuń je w kolejności, a następnie wybierz dopasowanie, A4 lub Letter strony. Strony stałe skalują obrazy do dopasowania bez ich przycinania czy powiększania.",
+          "Dodaj i uporządkuj obrazy, wybierz układ strony, a następnie utwórz i pobierz PDF.",
         faqQuestion: "Czy moje zdjęcia są przycięte czy powiększone?",
         faqAnswer:
           "Nie. Obrazy są centrowane i skalowane tylko wtedy, gdy jest to potrzebne. Tryb dopasowania wykorzystuje własne proporcje każdego obrazu dla PDF strony.",
@@ -1931,9 +1924,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Komprimer PDF",
         description:
-          "Reducer en PDF lokalt med en dokument-bevarende mulighed eller ryd billedkvalitetspresets.",
+          "Gør en PDF mindre, og vælg, om dokumentfunktionerne skal bevares.",
         guide:
-          "Vælg en PDF, sammenlign de tre presets, og komprimer. Bevar dokument bevarer valgt indhold, men kan kun give lidt besparelse; de andre presets bygger hver side som et billede for større reduktioner på scannede eller billede-tunge filer.",
+          "Vælg en PDF og et komprimeringsniveau, og download resultatet. Brug Bevar dokument, hvis markerbar tekst og links er vigtige.",
         faqQuestion: "Vil komprimering bevare valgbar tekst og links?",
         faqAnswer:
           "Bevar dokument bevarer sideindhold. Balanseret og mindre tilstande omdanner sider til billeder, så valg, søgning, links, formularer, annotationer, lag og tilgængelighedsstruktur fjernes.",
@@ -1946,9 +1939,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Sammenflet PDF",
         description:
-          "Bestil flere PDF filer og kombiner deres sider til én PDF i din browser.",
+          "Sammenflet flere PDF-filer til én fil i den rækkefølge, du vælger.",
         guide:
-          "Tilføj to eller flere PDFs, træk dem i rækkefølge eller brug flyt-knapperne, og sammenflet derefter. Outputtet følger filrækkefølgen vist på listen.",
+          "Tilføj mindst to PDF-filer, arranger dem som ønsket, og download den sammenflettede fil.",
         faqQuestion: "Kan jeg ændre siderekkefølgen inde i én PDF?",
         faqAnswer:
           "Denne første version ordner hele filer. Del eller rearranger kildens PDF først, når individuelle sider skal have en anden rækkefølge.",
@@ -1956,10 +1949,9 @@ export const generatedPdfLocaleTexts = {
       },
       "split-pdf": {
         title: "Opdel PDF",
-        description:
-          "Udtræk valgte sider til én PDF eller del en PDF op i separate filer efter størrelse eller brugerdefinerede intervaller.",
+        description: "Udtræk valgte sider, eller opdel en PDF i flere filer.",
         guide:
-          "Vælg Udtræk sider for én ny PDF, eller Opdel dokument til flere output. Brug et sideudtryk såsom 1, 3-5; flere resultater samles i én ZIP.",
+          "Vælg en PDF, og udtræk sider eller opdel den efter sidetal eller intervaller. Flere resultater downloades som en ZIP-fil.",
         faqQuestion: "Reducerer opdeling sidekvaliteten?",
         faqAnswer:
           "Der bruges ingen rasterisering ved opdeling. Eksisterende PDF-sider kopieres til nye filer, selvom avancerede funktioner på dokumentniveau muligvis ikke overføres.",
@@ -1967,10 +1959,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "PDF til billede",
-        description:
-          "Gengiv valgte PDF sider som JPG eller PNG billeder med praktisk opløsning og kvalitetskontrol.",
+        description: "Konvertér valgte PDF-sider til JPG- eller PNG-billeder.",
         guide:
-          "Vælg en PDF, vælg sider, format og opløsning, og konverter derefter. Én side downloades direkte; flere sider samles i en ZIP med nummererede filnavne.",
+          "Vælg en PDF samt de ønskede sider, billedformat og opløsning. Flere sider downloades som en ZIP-fil.",
         faqQuestion: "Skal jeg vælge JPG eller PNG?",
         faqAnswer:
           "JPG er normalt mindre for fotos og scanninger. PNG er tabsfri og ofte bedre til diagrammer, skarp tekst eller gennemsigtighed, men kan være meget større.",
@@ -1979,9 +1970,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Billede til PDF",
         description:
-          "Arranger JPG, PNG eller WebP billeder og placer dem i én PDF med kontrol over sidestørrelse, orientering og margener.",
+          "Saml JPG-, PNG- eller WebP-billeder i én PDF i den rækkefølge, du vælger.",
         guide:
-          "Tilføj billeder, træk eller flyt dem i rækkefølge, og vælg derefter tilpas, A4 eller Letter sider. Fast side skalerer billeder ned for at passe uden at beskære eller forstørre dem.",
+          "Tilføj og arranger billederne, vælg sidelayout, og opret PDF-filen til download.",
         faqQuestion: "Bliver mine billeder beskåret eller forstørret?",
         faqAnswer:
           "Nej. Billederne er centrerede og skaleres kun ned, når det er nødvendigt. Tilpas-tilstand bruger hvert billedes egne proportioner til PDF-siden.",
@@ -2107,9 +2098,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Komprimer PDF",
         description:
-          "Reduser en PDF lokalt med et dokumentbevarende alternativ eller fjern bildekvalitetspresets.",
+          "Gjør en PDF mindre, og velg om dokumentfunksjonene skal beholdes.",
         guide:
-          "Velg en PDF, sammenlign de tre presetsene, og komprimer. Bevar dokument beholder valgbart innhold, men kan gi liten besparelse; de andre presetsene bygger hver side på nytt som et bilde for større reduksjoner på skannede eller bilde-tunge filer.",
+          "Velg en PDF og et komprimeringsnivå, og last ned resultatet. Bruk Bevar dokument hvis markerbar tekst og lenker er viktige.",
         faqQuestion: "Vil komprimering bevare valgbart tekst og lenker?",
         faqAnswer:
           "Bevar dokument beholder sideinnhold. Balansert og mindre moduser gjør sider om til bilder, så valg, søk, lenker, skjemaer, merknader, lag og tilgjengelighetsstruktur fjernes.",
@@ -2122,9 +2113,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "Slå sammen PDF",
         description:
-          "Bestill flere PDF-filer og kombiner sidene deres til én PDF i nettleseren din.",
+          "Slå sammen flere PDF-filer til én fil i den rekkefølgen du velger.",
         guide:
-          "Legg til to eller flere PDF-er, dra dem i rekkefølge eller bruk flytteknappene, og slå dem deretter sammen. Output følger filrekkefølgen som vises i listen.",
+          "Legg til minst to PDF-filer, ordne dem som ønsket, og last ned den sammenslåtte filen.",
         faqQuestion: "Kan jeg endre sideordren inne i en PDF?",
         faqAnswer:
           "Denne første versjonen ordner hele filer. Del eller omorganiser kildens PDF først når individuelle sider trenger en annen rekkefølge.",
@@ -2132,10 +2123,9 @@ export const generatedPdfLocaleTexts = {
       },
       "split-pdf": {
         title: "Del PDF",
-        description:
-          "Ekstraher valgte sider til én PDF eller del en PDF i separate filer etter størrelse eller egendefinerte intervaller.",
+        description: "Hent ut valgte sider, eller del en PDF i flere filer.",
         guide:
-          "Velg Ekstraher sider for én ny PDF, eller Del dokument for flere utdata. Bruk et sideuttrykk som 1, 3-5; flere resultater pakkes i én ZIP.",
+          "Velg en PDF, og hent ut sider eller del den etter antall sider eller intervaller. Flere resultater lastes ned som en ZIP-fil.",
         faqQuestion: "Reduserer deling sidens kvalitet?",
         faqAnswer:
           "Ingen rasterisering brukes ved deling. Eksisterende PDF-sider kopieres til nye filer, selv om avanserte dokumentomfattende funksjoner kanskje ikke videreføres.",
@@ -2143,10 +2133,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "PDF til bilde",
-        description:
-          "Gjengi valgte PDF sider som JPG eller PNG bilder med praktisk oppløsning og kvalitetskontroller.",
+        description: "Konverter valgte PDF-sider til JPG- eller PNG-bilder.",
         guide:
-          "Velg en PDF, velg sider, format og oppløsning, og konverter deretter. Én side lastes ned direkte; flere sider samles i en ZIP med nummererte filnavn.",
+          "Velg en PDF samt ønskede sider, bildeformat og oppløsning. Flere sider lastes ned som en ZIP-fil.",
         faqQuestion: "Skal jeg velge JPG eller PNG?",
         faqAnswer:
           "JPG er vanligvis mindre for bilder og skanninger. PNG er tapsfri og ofte bedre for diagrammer, skarp tekst eller gjennomsiktighet, men kan være mye større.",
@@ -2155,9 +2144,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Bilde til PDF",
         description:
-          "Ordne JPG, PNG eller WebP bilder og plasser dem i én PDF med kontroll over sidestørrelse, orientering og marger.",
+          "Samle JPG-, PNG- eller WebP-bilder i én PDF i den rekkefølgen du velger.",
         guide:
-          "Legg til bilder, dra eller flytt dem i ønsket rekkefølge, og velg deretter tilpass, A4 eller Letter sider. Faste sider skalerer bilder ned for å passe uten å beskjære eller forstørre dem.",
+          "Legg til og ordne bildene, velg sideoppsett, og opprett PDF-filen for nedlasting.",
         faqQuestion: "Blir bildene mine beskjært eller forstørret?",
         faqAnswer:
           "Nei. Bilder er sentrert og skaleres ned kun når det er nødvendig. Tilpass-modus bruker hvert bildeforholds egne proporsjoner for PDF-siden.",
@@ -2281,9 +2270,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "ضغط PDF",
         description:
-          "قلل حجم PDF محليًا باستخدام خيار يحافظ على المستند أو إعدادات واضحة لجودة الصورة.",
+          "قلّل حجم ملف PDF واختر ما إذا كنت تريد الحفاظ على خصائص المستند.",
         guide:
-          "اختر PDF، وقارن بين الإعدادات الثلاثة، واضغط الملف. خيار الحفاظ على المستند يحتفظ بالمحتوى القابل للتحديد ولكنه قد يوفر القليل؛ الإعدادات الأخرى تعيد إنشاء كل صفحة كصورة لتحقيق تقليل أكبر للملفات الممسوحة ضوئيًا أو الثقيلة بالصور.",
+          "اختر ملف PDF ومستوى الضغط، ثم نزّل النتيجة. استخدم خيار الحفاظ على المستند إذا كان تحديد النص والروابط مهمًا لك.",
         faqQuestion: "هل ستحتفظ عملية الضغط بالنصوص والروابط القابلة للاختيار؟",
         faqAnswer:
           "خيار الحفاظ على المستند يحتفظ بمحتوى الصفحة. الوضع المتوازن والوضع الأصغر يحول الصفحات إلى صور، لذا يتم إزالة التحديد، البحث، الروابط، النماذج، التعليقات، الطبقات، وبنية الوصول.",
@@ -2291,10 +2280,9 @@ export const generatedPdfLocaleTexts = {
       },
       "merge-pdf": {
         title: "دمج PDF",
-        description:
-          "قم بترتيب عدة ملفات PDF ودمج صفحاتها في PDF واحد في متصفحك.",
+        description: "ادمج عدة ملفات PDF في ملف واحد بالترتيب الذي تختاره.",
         guide:
-          "أضف اثنين أو أكثر من PDF، اسحبها لترتيبها أو استخدم أزرار التحريك، ثم دمج. الناتج يتبع ترتيب الملفات المعروض في القائمة.",
+          "أضف ملفي PDF على الأقل، ورتّبهما كما تريد، ثم نزّل الملف المدمج.",
         faqQuestion: "هل يمكنني تغيير ترتيب الصفحات داخل PDF واحد؟",
         faqAnswer:
           "هذا الإصدار الأول يرتب الملفات بالكامل. قم بتقسيم أو إعادة ترتيب PDF المصدر أولاً عندما تحتاج الصفحات الفردية إلى ترتيب مختلف.",
@@ -2303,9 +2291,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "تقسيم PDF",
         description:
-          "استخراج الصفحات المحددة إلى PDF واحد أو تقسيم PDF إلى ملفات منفصلة حسب الحجم أو النطاقات المخصصة.",
+          "استخرج الصفحات التي تريدها أو قسّم ملف PDF إلى عدة ملفات.",
         guide:
-          "اختر استخراج الصفحات لإنشاء PDF جديد واحد، أو تقسيم المستند لعدة مخرجات. استخدم تعبير الصفحة مثل 1, 3-5؛ تُجمع النتائج المتعددة في ZIP واحد.",
+          "اختر ملف PDF، ثم استخرج الصفحات أو قسّمه حسب عدد الصفحات أو النطاقات. تُنزّل النتائج المتعددة في ملف ZIP.",
         faqQuestion: "هل يقلل التقسيم من جودة الصفحات؟",
         faqAnswer:
           "لا يتم استخدام الترصيع (Rasterization) أثناء التقسيم. تُنسخ صفحات PDF الحالية إلى ملفات جديدة، على الرغم من أن الميزات المتقدمة على مستوى المستند قد لا تنتقل.",
@@ -2313,9 +2301,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "تحويل PDF إلى صورة",
-        description: "عرض صفحات PDF المختارة كصور JPG أو PNG بدقة وجودة عملية.",
+        description: "حوّل صفحات PDF المحددة إلى صور JPG أو PNG.",
         guide:
-          "اختر PDF، وحدد الصفحات، التنسيق والدقة، ثم قم بالتحويل. يتم تحميل صفحة واحدة مباشرة؛ أما عدة صفحات فهي تُجمع في ZIP بأسماء ملفات مرقمة.",
+          "اختر ملف PDF والصفحات المطلوبة وتنسيق الصورة ودقتها. تُنزّل الصفحات المتعددة في ملف ZIP.",
         faqQuestion: "هل يجب أن أختار JPG أم PNG؟",
         faqAnswer:
           "عادةً ما يكون JPG أصغر للصور الفوتوغرافية أو المسح الضوئي. PNG بدون فقد، وغالبًا أفضل للرسوم البيانية، النصوص الحادة، أو الشفافية، لكنه قد يكون أكبر بكثير.",
@@ -2324,9 +2312,8 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "صورة إلى PDF",
         description:
-          "رتب صور JPG أو PNG أو WebP وضعها في PDF واحد مع التحكم بحجم الصفحة وتوجهها وهوامشها.",
-        guide:
-          "أضف الصور، واسحبها أو حركها بالترتيب، ثم اختر الملاءمة، A4، أو صفحات Letter. الصفحات الثابتة تقلل حجم الصور لتناسبها دون قص أو تكبير.",
+          "اجمع صور JPG أو PNG أو WebP في ملف PDF واحد بالترتيب الذي تختاره.",
+        guide: "أضف الصور ورتّبها، واختر تخطيط الصفحة، ثم أنشئ ملف PDF ونزّله.",
         faqQuestion: "هل يتم قص أو تكبير صوري؟",
         faqAnswer:
           "لا. الصور تكون في المنتصف وتتم تصغيرها فقط عند الحاجة. وضع الملاءمة يستخدم نسب الصورة الأصلية لصفحة PDF.",
@@ -2443,10 +2430,9 @@ export const generatedPdfLocaleTexts = {
     pages: {
       "compress-pdf": {
         title: "壓縮 PDF",
-        description:
-          "使用保留文件功能或清除影像品質預設來在本地減少 PDF 的大小。",
+        description: "縮小 PDF 檔案，並選擇是否保留文件功能。",
         guide:
-          "選擇一個 PDF，比較三種預設選項，然後壓縮。保留文件可保留可選取的內容，但可能減少有限；其他預設選項會將每頁重建為影像，以對掃描或含大量影像的檔案達到更大幅度的減少。",
+          "選擇 PDF 與壓縮程度後下載結果。若需要保留可選取的文字與連結，請使用保留文件。",
         faqQuestion: "壓縮會保留可選取的文字和連結嗎？",
         faqAnswer:
           "保留文件會保留頁面內容。平衡模式和小尺寸模式會將頁面轉為影像，因此選取、搜尋、連結、表單、註解、圖層和可存取性結構都會被移除。",
@@ -2454,10 +2440,8 @@ export const generatedPdfLocaleTexts = {
       },
       "merge-pdf": {
         title: "合併 PDF",
-        description:
-          "在瀏覽器中對多個 PDF 文件進行排序並將其頁面合併成一個 PDF。",
-        guide:
-          "添加兩個或更多 PDF，拖動它們以排列順序或使用移動按鈕，然後合併。輸出將按照列表中顯示的文件順序。",
+        description: "依照你選擇的順序，將多個 PDF 合併成一個檔案。",
+        guide: "加入至少兩個 PDF，排成想要的順序，再合併並下載結果。",
         faqQuestion: "我可以改變單個 PDF 中的頁面順序嗎？",
         faqAnswer:
           "此第一版本是對整個文件進行排序。當單個頁面需要不同順序時，請先分割或重新排列源 PDF。",
@@ -2465,10 +2449,8 @@ export const generatedPdfLocaleTexts = {
       },
       "split-pdf": {
         title: "分割 PDF",
-        description:
-          "將選取的頁面提取成一個 PDF，或按大小或自訂範圍將 PDF 分割成獨立檔案。",
-        guide:
-          "選擇「提取頁面」以生成一個新的 PDF，或選擇「拆分文件」以獲得多個輸出。使用頁面表達式，例如 1, 3-5；多個結果會打包成一個 ZIP。",
+        description: "擷取需要的頁面，或將一個 PDF 分割成多個檔案。",
+        guide: "選擇 PDF，擷取頁面或依頁數、範圍分割。多個結果會以 ZIP 下載。",
         faqQuestion: "分割是否會降低頁面品質？",
         faqAnswer:
           "分割過程不使用光柵化。現有的 PDF 頁面會被複製到新檔案中，但進階的整份文件功能可能無法保留。",
@@ -2476,10 +2458,9 @@ export const generatedPdfLocaleTexts = {
       },
       "pdf-to-image": {
         title: "PDF 轉圖片",
-        description:
-          "將選定的 PDF 頁面渲染為 JPG 或 PNG 圖片，並提供實用的解析度和品質控制。",
+        description: "將選取的 PDF 頁面轉換成 JPG 或 PNG 圖片。",
         guide:
-          "選擇一個 PDF，選取頁面、格式和解析度，然後轉換。一頁會直接下載；多頁將收集到一個帶編號檔名的 ZIP 中。",
+          "選擇 PDF、需要的頁面、圖片格式與解析度。多頁結果會以 ZIP 下載。",
         faqQuestion: "我應該選 JPG 還是 PNG？",
         faqAnswer:
           "JPG 通常對照片和掃描件較小。PNG 是無損的，通常對圖表、清晰文字或透明背景更好，但檔案可能會大很多。",
@@ -2487,10 +2468,8 @@ export const generatedPdfLocaleTexts = {
       },
       "image-to-pdf": {
         title: "圖像轉 PDF",
-        description:
-          "排列 JPG、PNG 或 WebP 圖像，並將它們放入一個 PDF，可控制頁面大小、方向和邊距。",
-        guide:
-          "新增圖像，拖曳或移動它們以調整順序，然後選擇適應、A4 或 Letter 頁面。固定頁面會縮小圖像以適應，而不裁剪或放大它們。",
+        description: "依照你選擇的順序，將 JPG、PNG 或 WebP 圖片合成一個 PDF。",
+        guide: "加入並排列圖片，選擇頁面配置，再建立並下載 PDF。",
         faqQuestion: "我的圖像會被裁剪或放大嗎？",
         faqAnswer:
           "不。圖像會置中，僅在需要時縮小。適應模式使用每個圖像自身比例來填充 PDF 頁面。",
@@ -2617,9 +2596,9 @@ export const generatedPdfLocaleTexts = {
       "compress-pdf": {
         title: "Sıkıştır PDF",
         description:
-          "Yerel olarak bir PDF küçültün; belge koruma seçeneği veya net görüntü kalitesi ön ayarları ile kullanın.",
+          "Bir PDF dosyasını küçültün ve belge özelliklerinin korunup korunmayacağını seçin.",
         guide:
-          "Bir PDF seçin, üç ön ayarı karşılaştırın ve sıkıştırın. Belgeyi korumak, seçilebilir içeriği korur ancak çok az tasarruf edebilir; diğer ön ayarlar, taranan veya görüntü ağırlıklı dosyalarda daha büyük küçümlemeler için her sayfayı bir görüntü olarak yeniden oluşturur.",
+          "Bir PDF ve sıkıştırma düzeyi seçip sonucu indirin. Seçilebilir metin ve bağlantılar önemliyse Belgeyi koru seçeneğini kullanın.",
         faqQuestion: "Sıkıştırma metin ve bağlantıları seçebilir mi koruyacak?",
         faqAnswer:
           "Preserve belgesi sayfa içeriğini korur. Dengeli ve daha küçük modlar sayfaları görse dönüştürür, böylece seçim, arama, bağlantılar, formlar, açıklamalar, katmanlar ve erişilebilirlik yapısı kaldırılır.",
@@ -2632,9 +2611,9 @@ export const generatedPdfLocaleTexts = {
       "merge-pdf": {
         title: "PDF birleştir",
         description:
-          "Birkaç PDF dosyasını sıralayın ve sayfalarını tarayıcınızda tek bir PDF dosyasında birleştirin.",
+          "Birden fazla PDF dosyasını seçtiğiniz sırayla tek dosyada birleştirin.",
         guide:
-          "İki veya daha fazla PDF ekleyin, sıralamak için sürükleyin veya taşımayı kullanın düğmeleri ardından birleştirin. Çıktı, listedeki dosya sırasını takip eder.",
+          "En az iki PDF ekleyin, istediğiniz sıraya koyun ve birleştirilen dosyayı indirin.",
         faqQuestion: "Bir PDF içindeki sayfa sırasını değiştirebilir miyim?",
         faqAnswer:
           "Bu ilk sürüm tüm dosyaları sıralar. Bireysel sayfalar farklı bir sıraya ihtiyaç duyduğunda önce kaynak PDF dosyasını bölün veya yeniden düzenleyin.",
@@ -2643,9 +2622,9 @@ export const generatedPdfLocaleTexts = {
       "split-pdf": {
         title: "PDFi böl",
         description:
-          "Seçili sayfaları tek bir PDF dosyasına çıkarın veya bir PDF dosyasını boyut veya özel aralıklarla ayrı dosyalara ayırın.",
+          "İstediğiniz sayfaları çıkarın veya bir PDF’yi birden fazla dosyaya bölün.",
         guide:
-          "Tek bir yeni PDF için Sayfaları çıkar seçin veya birden fazla çıktı için Belgeyi böl seçin. 1, 3-5 gibi bir sayfa ifadesi kullanın; birden fazla sonuç tek bir ZIP içine paketlenir.",
+          "Bir PDF seçin; sayfaları çıkarın veya sayfa sayısına ya da aralıklara göre bölün. Birden fazla sonuç ZIP olarak indirilir.",
         faqQuestion: "Bölme sayfa kalitesini düşürür mü?",
         faqAnswer:
           "Bölme sırasında rasterleştirme kullanılmaz. Mevcut PDF sayfaları yeni dosyalara kopyalanır, ancak gelişmiş belge genel özellikleri aktarılmayabilir.",
@@ -2654,9 +2633,9 @@ export const generatedPdfLocaleTexts = {
       "pdf-to-image": {
         title: "PDF'yi Görüntüye çevir",
         description:
-          "Seçili PDF sayfalarını pratik çözünürlük ve kalite kontrolleri ile JPG veya PNG görüntüleri olarak oluşturun.",
+          "Seçili PDF sayfalarını JPG veya PNG görüntülerine dönüştürün.",
         guide:
-          "Bir PDF seçin, sayfaları, formatı ve çözünürlüğü seçin, sonra dönüştürün. Tek sayfa doğrudan indirilir; birden fazla sayfa numaralandırılmış dosya adlarıyla bir ZIP içine toplanır.",
+          "Bir PDF ile istediğiniz sayfaları, görüntü biçimini ve çözünürlüğü seçin. Birden fazla sayfa ZIP olarak indirilir.",
         faqQuestion: "JPG mi yoksa PNG mi seçmeliyim?",
         faqAnswer:
           "JPG genellikle fotoğraflar ve taramalar için daha küçüktür. PNG kayıpsızdır ve genellikle diyagramlar, keskin metin veya şeffaflık için daha iyidir, ancak çok daha büyük olabilir.",
@@ -2669,9 +2648,9 @@ export const generatedPdfLocaleTexts = {
       "image-to-pdf": {
         title: "Görüntüyü PDF'ye dönüştür",
         description:
-          "JPG, PNG veya WebP görüntülerini düzenleyin ve bunları sayfa boyutu, yönlendirme ve kenar boşluğu kontrolleri ile tek bir PDF dosyasına yerleştirin.",
+          "JPG, PNG veya WebP görüntülerini seçtiğiniz sırayla tek bir PDF’de birleştirin.",
         guide:
-          "Görüntüleri ekleyin, sürükleyin veya sıraya koyun, ardından sığdır, A4 veya Letter sayfalarını seçin. Sabit sayfalar, görüntüleri kırpmadan veya büyütmeden sığacak şekilde ölçekler.",
+          "Görüntüleri ekleyip sıralayın, sayfa düzenini seçin ve PDF’yi oluşturup indirin.",
         faqQuestion: "Görüntülerim kırpılıyor ya da büyütülüyor mu?",
         faqAnswer:
           "Hayır. Görüntüler merkezlenir ve yalnızca gerektiğinde küçültülür. Sığdırma modu, PDF sayfası için her görüntünün kendi oranlarını kullanır.",

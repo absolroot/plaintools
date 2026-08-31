@@ -173,9 +173,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       "compress-pdf": {
         title: "Compress PDF",
         description:
-          "Reduce a PDF locally with a document-preserving option or clear image-quality presets.",
+          "Make a PDF smaller while choosing whether to preserve document features.",
         guide:
-          "Choose a PDF, compare the three presets, and compress. Preserve document keeps selectable content but may save little; the other presets rebuild each page as an image for larger reductions on scanned or image-heavy files.",
+          "Choose a PDF and a compression setting, then download the result. Use Preserve document when selectable text and links matter.",
         faqQuestion: "Will compression keep selectable text and links?",
         faqAnswer:
           "Preserve document keeps page content. Balanced and smaller modes turn pages into images, so selection, search, links, forms, annotations, layers, and accessibility structure are removed.",
@@ -184,9 +184,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       "merge-pdf": {
         title: "Merge PDF",
         description:
-          "Order several PDF files and combine their pages into one PDF in your browser.",
+          "Combine multiple PDFs into one file in the order you choose.",
         guide:
-          "Add two or more PDFs, drag them into order or use the move buttons, then merge. The output follows the file order shown in the list.",
+          "Add at least two PDFs, arrange them in the order you want, then merge and download the result.",
         faqQuestion: "Can I change the page order inside one PDF?",
         faqAnswer:
           "This first version orders whole files. Split or rearrange the source PDF first when individual pages need a different order.",
@@ -195,9 +195,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       "split-pdf": {
         title: "Split PDF",
         description:
-          "Extract selected pages into one PDF or divide a PDF into separate files by size or custom ranges.",
+          "Extract selected pages or divide one PDF into several files.",
         guide:
-          "Choose Extract pages for one new PDF, or Split document for several outputs. Use a page expression such as 1, 3-5; multiple results are bundled into one ZIP.",
+          "Choose a PDF, then extract selected pages or split it by page count or custom ranges. Multiple files download as a ZIP.",
         faqQuestion: "Does splitting reduce page quality?",
         faqAnswer:
           "No rasterization is used for splitting. Existing PDF pages are copied into new files, although advanced document-wide features may not carry over.",
@@ -205,10 +205,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       },
       "pdf-to-image": {
         title: "PDF to Image",
-        description:
-          "Render selected PDF pages as JPG or PNG images with practical resolution and quality controls.",
+        description: "Convert selected PDF pages to JPG or PNG images.",
         guide:
-          "Choose a PDF, select pages, format, and resolution, then convert. One page downloads directly; several pages are collected into a ZIP with numbered filenames.",
+          "Choose a PDF and the pages, image format, and resolution you want. Convert one page for a direct download or several pages as a ZIP.",
         faqQuestion: "Should I choose JPG or PNG?",
         faqAnswer:
           "JPG is usually smaller for photos and scans. PNG is lossless and often better for diagrams, sharp text, or transparency, but can be much larger.",
@@ -217,9 +216,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       "image-to-pdf": {
         title: "Image to PDF",
         description:
-          "Arrange JPG, PNG, or WebP images and place them into one PDF with page size, orientation, and margin controls.",
+          "Combine JPG, PNG, or WebP images into one PDF in the order you choose.",
         guide:
-          "Add images, drag or move them into order, then choose fit, A4, or Letter pages. Fixed pages scale images down to fit without cropping or enlarging them.",
+          "Add and arrange your images, choose the page layout, then create and download the PDF.",
         faqQuestion: "Are my images cropped or enlarged?",
         faqAnswer:
           "No. Images are centered and scaled down only when needed. Fit mode uses each image's own proportions for the PDF page.",
@@ -335,10 +334,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
     pages: {
       "compress-pdf": {
         title: "PDF 압축",
-        description:
-          "문서 기능을 유지하거나 명확한 화질 설정을 선택해 PDF 용량을 브라우저에서 줄입니다.",
+        description: "PDF 용량을 줄이고 문서 기능 유지 여부를 선택합니다.",
         guide:
-          "PDF를 선택하고 세 가지 설정을 비교해 압축하세요. 문서 기능 유지는 용량이 거의 줄지 않을 수 있고, 다른 두 설정은 스캔·이미지 중심 문서의 각 페이지를 이미지로 다시 만듭니다.",
+          "PDF와 압축 설정을 선택한 뒤 결과를 다운로드하세요. 텍스트 선택과 링크가 중요하면 문서 기능 유지를 사용하세요.",
         faqQuestion: "압축 후에도 텍스트 선택과 링크가 유지되나요?",
         faqAnswer:
           "문서 기능 유지에서는 페이지 내용을 유지합니다. 균형과 더 작은 파일은 페이지를 이미지로 바꾸므로 선택·검색, 링크, 양식, 주석, 레이어, 접근성 구조가 제거됩니다.",
@@ -346,10 +344,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       },
       "merge-pdf": {
         title: "PDF 병합",
-        description:
-          "여러 PDF의 순서를 정하고 모든 페이지를 하나의 PDF로 합칩니다.",
+        description: "여러 PDF를 원하는 순서대로 하나의 파일로 합칩니다.",
         guide:
-          "PDF를 두 개 이상 추가하고 끌기 또는 이동 버튼으로 순서를 정한 뒤 병합하세요. 결과는 목록에 보이는 파일 순서를 따릅니다.",
+          "PDF를 두 개 이상 추가하고 원하는 순서로 정렬한 뒤 병합 결과를 다운로드하세요.",
         faqQuestion: "PDF 안쪽의 개별 페이지 순서도 바꿀 수 있나요?",
         faqAnswer:
           "첫 버전은 파일 전체의 순서를 바꿉니다. 개별 페이지 순서가 필요하면 원본 PDF를 먼저 분할해 다시 병합하세요.",
@@ -357,10 +354,9 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       },
       "split-pdf": {
         title: "PDF 분할",
-        description:
-          "선택한 페이지를 하나의 PDF로 추출하거나 범위별 여러 파일로 나눕니다.",
+        description: "원하는 페이지를 추출하거나 PDF를 여러 파일로 나눕니다.",
         guide:
-          "하나의 새 PDF가 필요하면 페이지 추출을, 여러 결과가 필요하면 문서 분할을 선택하세요. 1, 3-5처럼 입력할 수 있으며 여러 결과는 ZIP으로 묶입니다.",
+          "PDF를 선택하고 페이지를 추출하거나 페이지 수 또는 범위별로 나누세요. 결과가 여러 개면 ZIP으로 다운로드됩니다.",
         faqQuestion: "분할하면 페이지 화질이 낮아지나요?",
         faqAnswer:
           "분할에는 이미지 변환을 사용하지 않고 기존 PDF 페이지를 새 파일로 복사합니다. 다만 일부 문서 전체 기능은 이어지지 않을 수 있습니다.",
@@ -370,7 +366,7 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
         title: "PDF 이미지 변환",
         description: "선택한 PDF 페이지를 JPG 또는 PNG 이미지로 변환합니다.",
         guide:
-          "PDF와 페이지, 형식, 해상도를 선택해 변환하세요. 한 페이지는 바로 다운로드하고 여러 페이지는 번호가 붙은 파일로 ZIP에 묶습니다.",
+          "PDF에서 원하는 페이지와 이미지 형식, 해상도를 선택해 변환하세요. 여러 페이지는 ZIP으로 다운로드됩니다.",
         faqQuestion: "JPG와 PNG 중 무엇을 선택해야 하나요?",
         faqAnswer:
           "사진과 스캔은 보통 JPG가 더 작습니다. 도표나 선명한 글자는 PNG가 유리할 수 있지만 파일이 훨씬 커질 수 있습니다.",
@@ -378,9 +374,10 @@ const texts: Record<PdfToolkitLocale, PdfLocaleText> = {
       },
       "image-to-pdf": {
         title: "이미지 PDF 변환",
-        description: "JPG, PNG, WebP 이미지 순서를 정해 하나의 PDF로 만듭니다.",
+        description:
+          "JPG, PNG, WebP 이미지를 원하는 순서대로 하나의 PDF로 만듭니다.",
         guide:
-          "이미지를 추가하고 순서를 정한 뒤 이미지 맞춤, A4 또는 Letter를 선택하세요. 고정 페이지에서는 자르거나 확대하지 않고 필요할 때만 축소합니다.",
+          "이미지를 추가해 순서를 정하고 페이지 배치를 선택한 뒤 PDF를 만들어 다운로드하세요.",
         faqQuestion: "이미지가 잘리거나 확대되나요?",
         faqAnswer:
           "아니요. 이미지는 가운데 배치되고 필요할 때만 축소됩니다. 이미지 맞춤은 각 이미지 비율대로 PDF 페이지를 만듭니다.",

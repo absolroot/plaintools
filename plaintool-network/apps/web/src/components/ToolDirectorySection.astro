@@ -1,5 +1,6 @@
 ---
 import ToolDirectoryCard from "./ToolDirectoryCard.astro";
+import UiIcon from "./UiIcon.astro";
 import type { ToolCatalogItem, ToolCategory } from "../lib/tool-catalog";
 import type { Locale } from "../lib/site";
 
@@ -8,9 +9,23 @@ interface Props {
   title: string;
   tools: ToolCatalogItem[];
   locale: Locale;
+  initiallyVisibleToolCount?: number;
+  collapsedLabel?: string;
 }
 
-const { category, title, tools, locale } = Astro.props;
+const {
+  category,
+  title,
+  tools,
+  locale,
+  initiallyVisibleToolCount = tools.length,
+  collapsedLabel,
+} = Astro.props;
+const initiallyVisibleTools = tools.slice(0, initiallyVisibleToolCount);
+const collapsedTools = tools.slice(initiallyVisibleToolCount);
+if (collapsedTools.length > 0 && !collapsedLabel) {
+  throw new Error(`Missing collapsed tool label for ${category}.`);
+}
 ---
 
 <section
@@ -25,6 +40,32 @@ const { category, title, tools, locale } = Astro.props;
     </span>
   </div>
   <div class="tool-directory-grid">
-    {tools.map((tool) => <ToolDirectoryCard tool={tool} locale={locale} />)}
+    {
+      initiallyVisibleTools.map((tool) => (
+        <ToolDirectoryCard tool={tool} locale={locale} />
+      ))
+    }
   </div>
+  {
+    collapsedTools.length > 0 && (
+      <details class="image-converter-more" data-directory-search-more>
+        <summary>
+          <span>{collapsedLabel}</span>
+          <span class="image-converter-more-count" aria-hidden="true">
+            {String(collapsedTools.length).padStart(2, "0")}
+          </span>
+          <UiIcon
+            name="chevron-right"
+            size={16}
+            class="image-converter-more-icon"
+          />
+        </summary>
+        <div class="tool-directory-grid image-converter-more-grid">
+          {collapsedTools.map((tool) => (
+            <ToolDirectoryCard tool={tool} locale={locale} />
+          ))}
+        </div>
+      </details>
+    )
+  }
 </section>

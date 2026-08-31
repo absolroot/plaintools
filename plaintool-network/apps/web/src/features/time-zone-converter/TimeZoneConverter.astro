@@ -1,11 +1,20 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
 import { createTimeZoneConverterClientCopy } from "./copy";
 import type { TimeZoneConverterProps } from "./contract";
 
 const { locale, copy, commonCopy, popularZones } =
   Astro.props as TimeZoneConverterProps;
 const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
+const worldClockZones = new Set([
+  "Asia/Seoul",
+  "Asia/Tokyo",
+  "Asia/Singapore",
+  "Europe/London",
+  "America/New_York",
+  "Australia/Sydney",
+]);
 ---
 
 <section
@@ -14,9 +23,9 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
   data-locale={locale}
   aria-label={copy.ariaLabel}
 >
-  <div class="time-zone-input-surface">
-    <div class="time-zone-source-grid">
-      <label class="time-zone-field">
+  <section class="time-zone-input-surface" aria-label={copy.ariaLabel}>
+    <div class="time-zone-converter-grid">
+      <label class="time-zone-field time-zone-date-field">
         <span>{copy.sourceTime}</span>
         <input
           type="datetime-local"
@@ -31,6 +40,36 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
       <label class="time-zone-field">
         <span>{copy.sourceZone}</span>
         <select data-source-zone dir="ltr" aria-describedby="time-zone-status">
+          <option value="UTC">UTC</option>
+          {
+            popularZones.map(({ value, label }) => (
+              <option
+                value={value}
+                data-world-clock-zone={
+                  worldClockZones.has(value) ? true : undefined
+                }
+              >
+                {label}
+              </option>
+            ))
+          }
+        </select>
+      </label>
+
+      <button
+        class="time-zone-swap-button"
+        type="button"
+        data-swap-zones
+        aria-label={copy.convert}
+        title={copy.convert}
+      >
+        <UiIcon name="swap" size={18} />
+      </button>
+
+      <label class="time-zone-field">
+        <span>{copy.addZone}</span>
+        <select data-target-zone dir="ltr" aria-describedby="time-zone-status">
+          <option value="UTC">UTC</option>
           {
             popularZones.map(({ value, label }) => (
               <option value={value}>{label}</option>
@@ -53,60 +92,44 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
     </div>
 
     <div class="time-zone-source-actions">
-      <button class="secondary-button" type="button" data-now>{copy.now}</button
-      >
+      <button class="secondary-button" type="button" data-now>
+        {copy.now}
+      </button>
       <button class="primary-button" type="button" data-convert>
         {copy.convert}
       </button>
     </div>
-  </div>
+  </section>
+
+  <section class="time-zone-result" data-conversion-result hidden>
+    <div class="time-zone-result-label">
+      <span>{copy.converted}</span>
+      <strong data-conversion-zone dir="ltr"></strong>
+    </div>
+    <div class="time-zone-result-value">
+      <strong data-conversion-time dir="ltr"></strong>
+      <span data-conversion-date></span>
+    </div>
+    <div class="time-zone-result-meta">
+      <strong data-conversion-offset dir="ltr"></strong>
+      <span data-conversion-difference></span>
+    </div>
+  </section>
 
   <section class="world-clock-surface" aria-labelledby="world-clock-heading">
     <div class="world-clock-heading">
-      <div>
-        <h2 id="world-clock-heading">{copy.worldClock}</h2>
-        <span class="world-clock-live" data-live-indicator hidden>
-          <span aria-hidden="true"></span>{copy.live}
-        </span>
-      </div>
-      <label class="time-zone-filter">
-        <span class="visually-hidden">{copy.addZone}</span>
-        <input
-          id="time-zone-filter-input"
-          type="search"
-          list="time-zone-options"
-          data-zone-filter
-          dir="ltr"
-          autocomplete="off"
-          spellcheck="false"
-          placeholder={copy.zonePlaceholder}
-          aria-label={copy.addZone}
-        />
-      </label>
+      <h2 id="world-clock-heading">{copy.worldClock}</h2>
+      <span class="world-clock-live" data-live-indicator>
+        <span aria-hidden="true"></span>{copy.live}
+      </span>
     </div>
 
-    <datalist id="time-zone-options" data-time-zone-options>
-      {
-        popularZones.map(({ value, label }) => (
-          <option value={value} label={label} />
-        ))
-      }
-    </datalist>
-
     <div class="world-clock-list" data-world-clock-list role="list"></div>
-    <p class="world-clock-empty" data-world-clock-empty hidden>
-      {copy.emptyZones}
-    </p>
 
     <template data-zone-row-template>
       <article class="world-clock-row" role="listitem">
         <div class="world-clock-place">
-          <div class="world-clock-place-heading">
-            <strong data-zone-label></strong>
-            <span class="badge" data-source-badge hidden
-              >{copy.sourceBadge}</span
-            >
-          </div>
+          <strong data-zone-label></strong>
           <span data-zone-id dir="ltr"></span>
         </div>
         <div class="world-clock-time">
@@ -115,7 +138,6 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
         </div>
         <div class="world-clock-date">
           <strong data-zone-date></strong>
-          <span data-zone-difference></span>
         </div>
       </article>
     </template>

@@ -18,13 +18,12 @@ export type TimeZoneConverterLocaleSeed = {
 const locales = {
   en: {
     page: {
-      title: "Time Zone Converter & World Clock",
+      title: "Time Zone Converter",
       description:
-        "Convert a date and time across cities, or use the live world clock to compare local times, UTC offsets, and date changes at a glance.",
-      mobileDescription:
-        "Convert time zones and compare a live world clock across cities.",
+        "Convert a date and time between time zones, then check the current times in representative cities below.",
+      mobileDescription: "Convert a date and time between time zones.",
       guide:
-        "Choose the source date, time, and IANA time zone. Search or scan the full world-time list to check local times, then switch between 12-hour and 24-hour time. The selected date determines each location's daylight-saving offset.",
+        "Choose the source date, time, and time zone, then select the target time zone. Daylight-saving rules for the selected date are applied automatically. Switch between 12-hour and 24-hour time, and check current representative city times below.",
       terms: [
         "time zone converter",
         "timezone converter",
@@ -53,7 +52,7 @@ const locales = {
       ariaLabel: "Time zone converter and world clock",
       sourceTime: "Source date and time",
       sourceTimeHint:
-        "Use Now for a live world clock, or choose a time to plan ahead.",
+        "Use Now to fill in the current date and time, or choose any date and time.",
       sourceZone: "Source time zone",
       sourceZonePlaceholder: "City or IANA zone, such as Asia/Seoul",
       now: "Now",
@@ -62,7 +61,7 @@ const locales = {
       hour12: "12-hour",
       hour24: "24-hour",
       worldClock: "World clock",
-      addZone: "Search the world clock",
+      addZone: "Target time zone",
       zonePlaceholder: "Filter cities or time zones",
       add: "Add",
       removeZone: "Remove time zone",
@@ -85,13 +84,12 @@ const locales = {
   },
   ko: {
     page: {
-      title: "시간대 변환기 및 세계 시계",
+      title: "시간대 변환기",
       description:
-        "도시별 날짜와 시간을 변환하거나 실시간 세계 시계에서 현지 시각, UTC 오프셋, 날짜 변경을 한눈에 비교하세요.",
-      mobileDescription:
-        "시간대를 변환하고 여러 도시의 세계 시계를 비교하세요.",
+        "날짜와 시각을 시간대별로 변환하고, 아래에서 대표 도시의 현재 시각을 확인하세요.",
+      mobileDescription: "날짜와 시각을 다른 시간대로 변환합니다.",
       guide:
-        "기준 날짜·시각과 IANA 시간대를 선택하세요. 검색 가능한 전체 세계시간 목록에서 도시와 시간대를 찾아 현지 시각을 훑어보고, 12시간제와 24시간제를 전환할 수 있습니다. 선택한 날짜에 맞는 서머타임 규칙이 자동으로 적용됩니다.",
+        "기준 날짜·시각과 시간대를 선택한 뒤 대상 시간대를 고르세요. 선택한 날짜의 서머타임 규칙이 자동으로 적용됩니다. 12시간제와 24시간제를 전환하고 아래에서 대표 도시의 현재 시각을 확인할 수 있습니다.",
       terms: [
         "시간대 변환기",
         "타임존 변환",
@@ -120,7 +118,7 @@ const locales = {
       ariaLabel: "시간대 변환기 및 세계 시계",
       sourceTime: "기준 날짜 및 시각",
       sourceTimeHint:
-        "지금 버튼으로 실시간 세계 시계를 보거나 원하는 시각을 선택해 일정을 계획하세요.",
+        "지금 버튼으로 현재 날짜와 시각을 입력하거나 원하는 날짜와 시각을 선택하세요.",
       sourceZone: "기준 시간대",
       sourceZonePlaceholder: "도시 또는 IANA 시간대 (예: Asia/Seoul)",
       now: "지금",
@@ -129,7 +127,7 @@ const locales = {
       hour12: "12시간",
       hour24: "24시간",
       worldClock: "세계 시계",
-      addZone: "세계 시계 검색",
+      addZone: "대상 시간대",
       zonePlaceholder: "도시 또는 시간대 필터",
       add: "추가",
       removeZone: "시간대 삭제",
@@ -152,13 +150,12 @@ const locales = {
   },
   es: {
     page: {
-      title: "Conversor de zonas horarias y reloj mundial",
+      title: "Conversor de zonas horarias",
       description:
-        "Convierte una fecha y hora entre ciudades o compara horas locales, desfases UTC y cambios de día en un reloj mundial en vivo.",
-      mobileDescription:
-        "Convierte zonas horarias y compara un reloj mundial por ciudades.",
+        "Convierte una fecha y hora entre zonas horarias y consulta abajo la hora actual de ciudades representativas.",
+      mobileDescription: "Convierte una fecha y hora entre zonas horarias.",
       guide:
-        "Elige la fecha, la hora y la zona IANA de origen. Busca o recorre la lista completa del reloj mundial para consultar las horas locales y alterna entre el formato de 12 y 24 horas. Se aplican las reglas de horario de verano de la fecha elegida.",
+        "Elige la fecha, la hora y la zona de origen y, después, la zona de destino. Se aplican automáticamente las reglas de horario de verano de la fecha elegida. Alterna entre el formato de 12 y 24 horas y consulta abajo la hora actual de ciudades representativas.",
       terms: [
         "conversor de zonas horarias",
         "reloj mundial",
@@ -186,7 +183,7 @@ const locales = {
       ariaLabel: "Conversor de zonas horarias y reloj mundial",
       sourceTime: "Fecha y hora de origen",
       sourceTimeHint:
-        "Usa Ahora para el reloj en vivo o elige una hora para planificar.",
+        "Usa Ahora para completar la fecha y hora actuales, o elige la fecha y hora que quieras.",
       sourceZone: "Zona horaria de origen",
       sourceZonePlaceholder: "Ciudad o zona IANA, como Europe/Madrid",
       now: "Ahora",
@@ -195,7 +192,7 @@ const locales = {
       hour12: "12 horas",
       hour24: "24 horas",
       worldClock: "Reloj mundial",
-      addZone: "Buscar en el reloj mundial",
+      addZone: "Zona horaria de destino",
       zonePlaceholder: "Filtrar ciudades o zonas horarias",
       add: "Añadir",
       removeZone: "Quitar zona horaria",
@@ -218,13 +215,12 @@ const locales = {
   },
   de: {
     page: {
-      title: "Zeitzonenrechner & Weltzeituhr",
+      title: "Zeitzonenrechner",
       description:
-        "Rechnen Sie Datum und Uhrzeit zwischen Städten um oder vergleichen Sie Ortszeiten, UTC-Abstände und Datumswechsel in einer Live-Weltzeituhr.",
-      mobileDescription:
-        "Zeitzonen umrechnen und Städte in einer Weltzeituhr vergleichen.",
+        "Rechnen Sie Datum und Uhrzeit zwischen Zeitzonen um und prüfen Sie darunter die aktuelle Uhrzeit ausgewählter Städte.",
+      mobileDescription: "Datum und Uhrzeit zwischen Zeitzonen umrechnen.",
       guide:
-        "Wählen Sie Datum, Uhrzeit und IANA-Ausgangszone. Durchsuchen Sie die vollständige Weltzeitliste, um Ortszeiten zu überblicken, und wechseln Sie zwischen 12- und 24-Stunden-Anzeige. Für das gewählte Datum gelten automatisch die jeweiligen Sommerzeitregeln.",
+        "Wählen Sie Datum, Uhrzeit und Ausgangszeitzone und danach die Zielzeitzone. Die Sommerzeitregeln des gewählten Datums werden automatisch angewendet. Wechseln Sie zwischen 12- und 24-Stunden-Anzeige und prüfen Sie darunter die aktuelle Uhrzeit ausgewählter Städte.",
       terms: [
         "Zeitzonenrechner",
         "Weltzeituhr",
@@ -252,7 +248,7 @@ const locales = {
       ariaLabel: "Zeitzonenrechner und Weltzeituhr",
       sourceTime: "Ausgangsdatum und -zeit",
       sourceTimeHint:
-        "Mit Jetzt läuft die Weltzeituhr live; wählen Sie eine Zeit für die Planung.",
+        "Mit Jetzt übernehmen Sie das aktuelle Datum und die aktuelle Uhrzeit; alternativ wählen Sie Datum und Uhrzeit selbst.",
       sourceZone: "Ausgangszeitzone",
       sourceZonePlaceholder: "Stadt oder IANA-Zone, z. B. Europe/Berlin",
       now: "Jetzt",
@@ -261,7 +257,7 @@ const locales = {
       hour12: "12 Stunden",
       hour24: "24 Stunden",
       worldClock: "Weltzeituhr",
-      addZone: "Weltzeituhr durchsuchen",
+      addZone: "Zielzeitzone",
       zonePlaceholder: "Städte oder Zeitzonen filtern",
       add: "Hinzufügen",
       removeZone: "Zeitzone entfernen",
@@ -284,13 +280,12 @@ const locales = {
   },
   ja: {
     page: {
-      title: "タイムゾーン変換・世界時計",
+      title: "タイムゾーン変換",
       description:
-        "都市間で日時を変換し、ライブ世界時計で現地時刻、UTCオフセット、日付のずれを一覧比較できます。",
-      mobileDescription:
-        "タイムゾーンを変換し、都市ごとの世界時計を比較します。",
+        "日時をタイムゾーン間で変換し、下に表示される代表的な都市の現在時刻も確認できます。",
+      mobileDescription: "日時を別のタイムゾーンに変換します。",
       guide:
-        "基準の日時と IANA タイムゾーンを選択します。検索可能な世界時計の全リストから都市やタイムゾーンを探して各地の時刻を一覧し、12時間表示と24時間表示を切り替えられます。選択した日付に応じたサマータイム規則が自動的に適用されます。",
+        "基準の日時とタイムゾーンを選び、変換先のタイムゾーンを指定します。選択した日付のサマータイム規則が自動的に適用されます。12時間表示と24時間表示を切り替え、下で代表的な都市の現在時刻を確認できます。",
       terms: [
         "タイムゾーン変換",
         "世界時計",
@@ -318,7 +313,7 @@ const locales = {
       ariaLabel: "タイムゾーン変換と世界時計",
       sourceTime: "基準の日時",
       sourceTimeHint:
-        "「現在」でライブ表示するか、予定を立てる日時を選択します。",
+        "「現在」で現在の日付と時刻を入力するか、希望する日時を選択してください。",
       sourceZone: "基準タイムゾーン",
       sourceZonePlaceholder: "都市またはIANAゾーン（例：Asia/Tokyo）",
       now: "現在",
@@ -327,7 +322,7 @@ const locales = {
       hour12: "12時間",
       hour24: "24時間",
       worldClock: "世界時計",
-      addZone: "世界時計を検索",
+      addZone: "変換先タイムゾーン",
       zonePlaceholder: "都市またはタイムゾーンを絞り込む",
       add: "追加",
       removeZone: "タイムゾーンを削除",
@@ -350,13 +345,13 @@ const locales = {
   },
   fr: {
     page: {
-      title: "Convertisseur de fuseaux horaires et horloge mondiale",
+      title: "Convertisseur de fuseaux horaires",
       description:
-        "Convertissez une date et une heure entre plusieurs villes, ou comparez les heures locales, décalages UTC et changements de date sur une horloge mondiale en direct.",
+        "Convertissez une date et une heure entre fuseaux horaires, puis consultez ci-dessous l’heure actuelle de villes représentatives.",
       mobileDescription:
-        "Convertissez les fuseaux et comparez l'heure de plusieurs villes.",
+        "Convertissez une date et une heure entre fuseaux horaires.",
       guide:
-        "Choisissez la date, l'heure et le fuseau IANA de départ. Recherchez ou parcourez la liste complète de l'horloge mondiale pour consulter les heures locales, puis passez du format 12 h au format 24 h. Les règles d'heure d'été de la date choisie sont appliquées automatiquement.",
+        "Choisissez la date, l’heure et le fuseau de départ, puis le fuseau d’arrivée. Les règles d’heure d’été de la date choisie sont appliquées automatiquement. Passez du format 12 h au format 24 h et consultez ci-dessous l’heure actuelle de villes représentatives.",
       terms: [
         "convertisseur fuseau horaire",
         "horloge mondiale",
@@ -384,7 +379,7 @@ const locales = {
       ariaLabel: "Convertisseur de fuseaux horaires et horloge mondiale",
       sourceTime: "Date et heure de départ",
       sourceTimeHint:
-        "Utilisez Maintenant pour l'horloge en direct ou choisissez une heure à planifier.",
+        "Utilisez Maintenant pour renseigner la date et l’heure actuelles, ou choisissez la date et l’heure souhaitées.",
       sourceZone: "Fuseau de départ",
       sourceZonePlaceholder: "Ville ou fuseau IANA, par ex. Europe/Paris",
       now: "Maintenant",
@@ -393,7 +388,7 @@ const locales = {
       hour12: "12 heures",
       hour24: "24 heures",
       worldClock: "Horloge mondiale",
-      addZone: "Rechercher dans l'horloge mondiale",
+      addZone: "Fuseau horaire d’arrivée",
       zonePlaceholder: "Filtrer les villes ou fuseaux horaires",
       add: "Ajouter",
       removeZone: "Retirer le fuseau",
@@ -416,13 +411,12 @@ const locales = {
   },
   "pt-BR": {
     page: {
-      title: "Conversor de fuso horário e relógio mundial",
+      title: "Conversor de fuso horário",
       description:
-        "Converta data e hora entre cidades ou compare horários locais, offsets UTC e mudanças de data em um relógio mundial ao vivo.",
-      mobileDescription:
-        "Converta fusos e compare um relógio mundial entre cidades.",
+        "Converta data e hora entre fusos horários e confira abaixo o horário atual de cidades representativas.",
+      mobileDescription: "Converta data e hora entre fusos horários.",
       guide:
-        "Escolha a data, o horário e o fuso IANA de origem. Pesquise ou percorra a lista completa do relógio mundial para consultar os horários locais e alterne entre os formatos de 12 e 24 horas. As regras de horário de verão da data escolhida são aplicadas automaticamente.",
+        "Escolha a data, o horário e o fuso de origem e depois o fuso de destino. As regras de horário de verão da data escolhida são aplicadas automaticamente. Alterne entre os formatos de 12 e 24 horas e confira abaixo o horário atual de cidades representativas.",
       terms: [
         "conversor de fuso horário",
         "relógio mundial",
@@ -450,7 +444,7 @@ const locales = {
       ariaLabel: "Conversor de fuso horário e relógio mundial",
       sourceTime: "Data e hora de origem",
       sourceTimeHint:
-        "Use Agora para o relógio ao vivo ou escolha um horário para planejar.",
+        "Use Agora para preencher a data e a hora atuais ou escolha a data e a hora desejadas.",
       sourceZone: "Fuso horário de origem",
       sourceZonePlaceholder: "Cidade ou fuso IANA, como America/Sao_Paulo",
       now: "Agora",
@@ -459,7 +453,7 @@ const locales = {
       hour12: "12 horas",
       hour24: "24 horas",
       worldClock: "Relógio mundial",
-      addZone: "Pesquisar no relógio mundial",
+      addZone: "Fuso horário de destino",
       zonePlaceholder: "Filtrar cidades ou fusos horários",
       add: "Adicionar",
       removeZone: "Remover fuso horário",
@@ -482,13 +476,12 @@ const locales = {
   },
   it: {
     page: {
-      title: "Convertitore di fusi orari e orologio mondiale",
+      title: "Convertitore di fusi orari",
       description:
-        "Converti data e ora tra città oppure confronta orari locali, offset UTC e cambi di data in un orologio mondiale in tempo reale.",
-      mobileDescription:
-        "Converti i fusi orari e confronta l'ora nelle città del mondo.",
+        "Converti data e ora tra fusi orari e controlla sotto l’ora attuale di alcune città rappresentative.",
+      mobileDescription: "Converti data e ora tra fusi orari.",
       guide:
-        "Scegli data, ora e fuso IANA di partenza. Cerca o scorri l'elenco completo dell'orologio mondiale per consultare le ore locali e passa dal formato 12 al formato 24 ore. Vengono applicate le regole dell'ora legale della data scelta.",
+        "Scegli data, ora e fuso di partenza, quindi il fuso di destinazione. Le regole dell’ora legale della data scelta vengono applicate automaticamente. Passa dal formato 12 a quello 24 ore e controlla sotto l’ora attuale di alcune città rappresentative.",
       terms: [
         "convertitore fuso orario",
         "orologio mondiale",
@@ -516,7 +509,7 @@ const locales = {
       ariaLabel: "Convertitore di fusi orari e orologio mondiale",
       sourceTime: "Data e ora di partenza",
       sourceTimeHint:
-        "Usa Adesso per l'orologio in tempo reale o scegli un'ora da pianificare.",
+        "Usa Adesso per inserire la data e l’ora correnti oppure scegli la data e l’ora che preferisci.",
       sourceZone: "Fuso orario di partenza",
       sourceZonePlaceholder: "Città o fuso IANA, ad es. Europe/Rome",
       now: "Adesso",
@@ -525,7 +518,7 @@ const locales = {
       hour12: "12 ore",
       hour24: "24 ore",
       worldClock: "Orologio mondiale",
-      addZone: "Cerca nell'orologio mondiale",
+      addZone: "Fuso orario di destinazione",
       zonePlaceholder: "Filtra città o fusi orari",
       add: "Aggiungi",
       removeZone: "Rimuovi fuso orario",
@@ -548,13 +541,12 @@ const locales = {
   },
   nl: {
     page: {
-      title: "Tijdzoneconverter en wereldklok",
+      title: "Tijdzoneconverter",
       description:
-        "Zet datum en tijd om tussen steden of vergelijk lokale tijden, UTC-verschillen en datumwissels in een live wereldklok.",
-      mobileDescription:
-        "Zet tijdzones om en vergelijk steden in een wereldklok.",
+        "Zet een datum en tijd om tussen tijdzones en bekijk hieronder de huidige tijd in enkele representatieve steden.",
+      mobileDescription: "Zet een datum en tijd om tussen tijdzones.",
       guide:
-        "Kies de brondatum, tijd en IANA-tijdzone. Zoek of blader door de volledige wereldkloklijst om lokale tijden te bekijken en wissel tussen 12- en 24-uursnotatie. De zomertijdregels voor de gekozen datum worden automatisch toegepast.",
+        "Kies de brondatum, tijd en tijdzone en daarna de doeltijdzone. De zomertijdregels voor de gekozen datum worden automatisch toegepast. Wissel tussen 12- en 24-uursnotatie en bekijk hieronder de huidige tijd in enkele representatieve steden.",
       terms: [
         "tijdzone converter",
         "wereldklok",
@@ -582,7 +574,7 @@ const locales = {
       ariaLabel: "Tijdzoneconverter en wereldklok",
       sourceTime: "Brondatum en -tijd",
       sourceTimeHint:
-        "Gebruik Nu voor de live wereldklok of kies een tijd om vooruit te plannen.",
+        "Gebruik Nu om de huidige datum en tijd in te vullen, of kies zelf een datum en tijd.",
       sourceZone: "Brontijdzone",
       sourceZonePlaceholder: "Stad of IANA-zone, zoals Europe/Amsterdam",
       now: "Nu",
@@ -591,7 +583,7 @@ const locales = {
       hour12: "12 uur",
       hour24: "24 uur",
       worldClock: "Wereldklok",
-      addZone: "Wereldklok doorzoeken",
+      addZone: "Doeltijdzone",
       zonePlaceholder: "Steden of tijdzones filteren",
       add: "Toevoegen",
       removeZone: "Tijdzone verwijderen",
@@ -614,13 +606,12 @@ const locales = {
   },
   sv: {
     page: {
-      title: "Tidszonsomvandlare och världsklocka",
+      title: "Tidszonsomvandlare",
       description:
-        "Omvandla datum och tid mellan städer eller jämför lokala tider, UTC-skillnader och datumbyten i en världsklocka i realtid.",
-      mobileDescription:
-        "Omvandla tidszoner och jämför städer i en världsklocka.",
+        "Omvandla datum och tid mellan tidszoner och se aktuell tid i några representativa städer nedan.",
+      mobileDescription: "Omvandla datum och tid mellan tidszoner.",
       guide:
-        "Välj datum, tid och IANA-tidszon som utgångspunkt. Sök eller bläddra i hela världstidslistan för att se lokala tider och växla mellan 12- och 24-timmarsformat. Reglerna för sommartid på det valda datumet används automatiskt.",
+        "Välj datum, tid och tidszon som utgångspunkt och därefter tidszon för destinationen. Reglerna för sommartid på det valda datumet används automatiskt. Växla mellan 12- och 24-timmarsformat och se aktuell tid i några representativa städer nedan.",
       terms: [
         "tidszonsomvandlare",
         "världsklocka",
@@ -648,7 +639,7 @@ const locales = {
       ariaLabel: "Tidszonsomvandlare och världsklocka",
       sourceTime: "Datum och tid från",
       sourceTimeHint:
-        "Använd Nu för en levande världsklocka eller välj en tid att planera.",
+        "Använd Nu för att fylla i aktuellt datum och tid, eller välj önskat datum och tid.",
       sourceZone: "Tidszon från",
       sourceZonePlaceholder: "Stad eller IANA-zon, t.ex. Europe/Stockholm",
       now: "Nu",
@@ -657,7 +648,7 @@ const locales = {
       hour12: "12 timmar",
       hour24: "24 timmar",
       worldClock: "Världsklocka",
-      addZone: "Sök i världsklockan",
+      addZone: "Tidszon för destination",
       zonePlaceholder: "Filtrera städer eller tidszoner",
       add: "Lägg till",
       removeZone: "Ta bort tidszon",
@@ -680,13 +671,12 @@ const locales = {
   },
   cs: {
     page: {
-      title: "Převodník časových pásem a světové hodiny",
+      title: "Převodník časových pásem",
       description:
-        "Převádějte datum a čas mezi městy nebo porovnávejte místní časy, posuny UTC a změny data v živých světových hodinách.",
-      mobileDescription:
-        "Převádějte časová pásma a porovnávejte města ve světových hodinách.",
+        "Převádějte datum a čas mezi časovými pásmy a níže zkontrolujte aktuální čas ve vybraných městech.",
+      mobileDescription: "Převádějte datum a čas mezi časovými pásmy.",
       guide:
-        "Zvolte zdrojové datum, čas a pásmo IANA. V úplném prohledávatelném seznamu světových časů vyhledejte město nebo pásmo a procházejte místní časy; poté přepínejte mezi 12- a 24hodinovým formátem. Automaticky se použijí pravidla letního času pro vybrané datum.",
+        "Zvolte zdrojové datum, čas a časové pásmo a poté cílové pásmo. Pravidla letního času pro vybrané datum se použijí automaticky. Přepínejte mezi 12- a 24hodinovým formátem a níže zkontrolujte aktuální čas ve vybraných městech.",
       terms: [
         "převodník časových pásem",
         "světové hodiny",
@@ -714,7 +704,7 @@ const locales = {
       ariaLabel: "Převodník časových pásem a světové hodiny",
       sourceTime: "Zdrojové datum a čas",
       sourceTimeHint:
-        "Pro živé hodiny použijte Nyní, nebo zvolte čas pro plánování.",
+        "Pomocí Nyní vyplňte aktuální datum a čas, nebo zvolte požadované datum a čas.",
       sourceZone: "Zdrojové časové pásmo",
       sourceZonePlaceholder: "Město nebo pásmo IANA, např. Europe/Prague",
       now: "Nyní",
@@ -723,7 +713,7 @@ const locales = {
       hour12: "12 hodin",
       hour24: "24 hodin",
       worldClock: "Světové hodiny",
-      addZone: "Hledat ve světových hodinách",
+      addZone: "Cílové časové pásmo",
       zonePlaceholder: "Filtrovat města nebo časová pásma",
       add: "Přidat",
       removeZone: "Odebrat časové pásmo",
@@ -746,13 +736,12 @@ const locales = {
   },
   pl: {
     page: {
-      title: "Konwerter stref czasowych i zegar światowy",
+      title: "Konwerter stref czasowych",
       description:
-        "Przeliczaj datę i godzinę między miastami albo porównuj czas lokalny, przesunięcia UTC i zmiany daty na żywym zegarze światowym.",
-      mobileDescription:
-        "Przeliczaj strefy czasowe i porównuj miasta na zegarze światowym.",
+        "Przeliczaj datę i godzinę między strefami czasowymi, a poniżej sprawdzaj bieżący czas w wybranych miastach.",
+      mobileDescription: "Przeliczaj datę i godzinę między strefami czasowymi.",
       guide:
-        "Wybierz datę, godzinę i źródłową strefę IANA. Wyszukuj miasta i strefy na pełnej liście zegara światowego, aby przeglądać czasy lokalne, oraz przełączaj format 12- lub 24-godzinny. Reguły czasu letniego dla wybranej daty są stosowane automatycznie.",
+        "Wybierz datę, godzinę i źródłową strefę czasową, a następnie strefę docelową. Reguły czasu letniego dla wybranej daty są stosowane automatycznie. Przełączaj format 12- lub 24-godzinny i sprawdzaj poniżej bieżący czas w wybranych miastach.",
       terms: [
         "konwerter stref czasowych",
         "zegar światowy",
@@ -780,7 +769,7 @@ const locales = {
       ariaLabel: "Konwerter stref czasowych i zegar światowy",
       sourceTime: "Data i godzina źródłowa",
       sourceTimeHint:
-        "Użyj Teraz dla zegara na żywo albo wybierz godzinę do planowania.",
+        "Użyj Teraz, aby wstawić bieżącą datę i godzinę, albo wybierz dowolną datę i godzinę.",
       sourceZone: "Źródłowa strefa czasowa",
       sourceZonePlaceholder: "Miasto lub strefa IANA, np. Europe/Warsaw",
       now: "Teraz",
@@ -789,7 +778,7 @@ const locales = {
       hour12: "12 godzin",
       hour24: "24 godziny",
       worldClock: "Zegar światowy",
-      addZone: "Przeszukaj zegar światowy",
+      addZone: "Docelowa strefa czasowa",
       zonePlaceholder: "Filtruj miasta lub strefy czasowe",
       add: "Dodaj",
       removeZone: "Usuń strefę czasową",
@@ -812,12 +801,12 @@ const locales = {
   },
   da: {
     page: {
-      title: "Tidszoneomregner og verdensure",
+      title: "Tidszoneomregner",
       description:
-        "Omregn dato og klokkeslæt mellem byer, eller sammenlign lokale tider, UTC-forskelle og datoskift i et live-verdensure.",
-      mobileDescription: "Omregn tidszoner og sammenlign byer i et verdensure.",
+        "Omregn dato og klokkeslæt mellem tidszoner, og se den aktuelle tid i udvalgte byer nedenfor.",
+      mobileDescription: "Omregn dato og klokkeslæt mellem tidszoner.",
       guide:
-        "Vælg kildedato, klokkeslæt og IANA-tidszone. Søg eller gennemse hele verdensurlisten for at se lokale tider, og skift mellem 12- og 24-timers format. Reglerne for sommertid på den valgte dato anvendes automatisk.",
+        "Vælg kildedato, klokkeslæt og tidszone og derefter destinationstidszonen. Reglerne for sommertid på den valgte dato anvendes automatisk. Skift mellem 12- og 24-timers format, og se den aktuelle tid i udvalgte byer nedenfor.",
       terms: [
         "tidszone omregner",
         "verdensure",
@@ -845,7 +834,7 @@ const locales = {
       ariaLabel: "Tidszoneomregner og verdensure",
       sourceTime: "Kildedato og -tid",
       sourceTimeHint:
-        "Brug Nu til live-uret, eller vælg et tidspunkt til planlægning.",
+        "Brug Nu til at udfylde den aktuelle dato og tid, eller vælg den ønskede dato og tid.",
       sourceZone: "Kildetidszone",
       sourceZonePlaceholder: "By eller IANA-zone, f.eks. Europe/Copenhagen",
       now: "Nu",
@@ -854,7 +843,7 @@ const locales = {
       hour12: "12 timer",
       hour24: "24 timer",
       worldClock: "Verdensure",
-      addZone: "Søg i verdensuret",
+      addZone: "Destinationstidszone",
       zonePlaceholder: "Filtrer byer eller tidszoner",
       add: "Tilføj",
       removeZone: "Fjern tidszone",
@@ -877,13 +866,12 @@ const locales = {
   },
   no: {
     page: {
-      title: "Tidssonekonverterer og verdensur",
+      title: "Tidssonekonverterer",
       description:
-        "Konverter dato og klokkeslett mellom byer, eller sammenlign lokale tider, UTC-avvik og datoskifter i et levende verdensur.",
-      mobileDescription:
-        "Konverter tidssoner og sammenlign byer i et verdensur.",
+        "Konverter dato og klokkeslett mellom tidssoner, og se gjeldende tid i utvalgte byer nedenfor.",
+      mobileDescription: "Konverter dato og klokkeslett mellom tidssoner.",
       guide:
-        "Velg kildedato, klokkeslett og IANA-tidssone. Søk eller bla gjennom hele verdensurlisten for å se lokale tider, og bytt mellom 12- og 24-timersformat. Reglene for sommertid på valgt dato brukes automatisk.",
+        "Velg kildedato, klokkeslett og tidssone og deretter destinasjonstidssonen. Reglene for sommertid på valgt dato brukes automatisk. Bytt mellom 12- og 24-timersformat, og se gjeldende tid i utvalgte byer nedenfor.",
       terms: [
         "tidssone konverterer",
         "verdensur",
@@ -911,7 +899,7 @@ const locales = {
       ariaLabel: "Tidssonekonverterer og verdensur",
       sourceTime: "Kildedato og -tid",
       sourceTimeHint:
-        "Bruk Nå for et levende verdensur, eller velg et tidspunkt å planlegge.",
+        "Bruk Nå for å fylle inn gjeldende dato og klokkeslett, eller velg ønsket dato og klokkeslett.",
       sourceZone: "Kildetidssone",
       sourceZonePlaceholder: "By eller IANA-sone, f.eks. Europe/Oslo",
       now: "Nå",
@@ -920,7 +908,7 @@ const locales = {
       hour12: "12 timer",
       hour24: "24 timer",
       worldClock: "Verdensur",
-      addZone: "Søk i verdensuret",
+      addZone: "Destinasjonstidssone",
       zonePlaceholder: "Filtrer byer eller tidssoner",
       add: "Legg til",
       removeZone: "Fjern tidssone",
@@ -943,13 +931,12 @@ const locales = {
   },
   ar: {
     page: {
-      title: "محوّل المناطق الزمنية والساعة العالمية",
+      title: "محوّل المناطق الزمنية",
       description:
-        "حوّل التاريخ والوقت بين المدن أو قارن الأوقات المحلية وفروق UTC وتغيّر التاريخ في ساعة عالمية مباشرة.",
-      mobileDescription:
-        "حوّل المناطق الزمنية وقارن أوقات المدن في ساعة عالمية.",
+        "حوّل التاريخ والوقت بين المناطق الزمنية، ثم راجع أدناه الوقت الحالي في مدن مختارة.",
+      mobileDescription: "حوّل التاريخ والوقت بين المناطق الزمنية.",
       guide:
-        "اختر تاريخ المصدر ووقته ومنطقة IANA الزمنية. ابحث في القائمة الكاملة القابلة للبحث للساعة العالمية أو تصفحها للاطلاع على الأوقات المحلية، وبدّل بين تنسيقي 12 و24 ساعة. تُطبّق تلقائياً قواعد التوقيت الصيفي الخاصة بالتاريخ المحدد.",
+        "اختر تاريخ المصدر ووقته ومنطقته الزمنية، ثم اختر المنطقة الزمنية المستهدفة. تُطبّق تلقائيًا قواعد التوقيت الصيفي الخاصة بالتاريخ المحدد. بدّل بين تنسيقي 12 و24 ساعة، وراجع أدناه الوقت الحالي في مدن مختارة.",
       terms: [
         "محول المناطق الزمنية",
         "الساعة العالمية",
@@ -976,7 +963,8 @@ const locales = {
     feature: {
       ariaLabel: "محوّل المناطق الزمنية والساعة العالمية",
       sourceTime: "تاريخ ووقت المصدر",
-      sourceTimeHint: "استخدم الآن للساعة المباشرة أو اختر وقتاً للتخطيط.",
+      sourceTimeHint:
+        "استخدم «الآن» لملء التاريخ والوقت الحاليين، أو اختر التاريخ والوقت اللذين تريدهما.",
       sourceZone: "المنطقة الزمنية للمصدر",
       sourceZonePlaceholder: "مدينة أو منطقة IANA مثل Asia/Riyadh",
       now: "الآن",
@@ -985,7 +973,7 @@ const locales = {
       hour12: "12 ساعة",
       hour24: "24 ساعة",
       worldClock: "الساعة العالمية",
-      addZone: "البحث في الساعة العالمية",
+      addZone: "المنطقة الزمنية المستهدفة",
       zonePlaceholder: "تصفية المدن أو المناطق الزمنية",
       add: "إضافة",
       removeZone: "إزالة المنطقة الزمنية",
@@ -1008,12 +996,12 @@ const locales = {
   },
   "zh-TW": {
     page: {
-      title: "時區轉換器與世界時鐘",
+      title: "時區轉換器",
       description:
-        "轉換不同城市的日期與時間，或用即時世界時鐘比較當地時間、UTC 時差與跨日變化。",
-      mobileDescription: "轉換時區並比較多個城市的世界時鐘。",
+        "在不同時區之間轉換日期與時間，並在下方查看代表城市的目前時間。",
+      mobileDescription: "在不同時區之間轉換日期與時間。",
       guide:
-        "選擇來源日期、時間和 IANA 時區。在可搜尋的完整世界時間清單中尋找或瀏覽城市與時區，查看各地時間，並切換 12 小時制或 24 小時制。系統會自動套用所選日期的日光節約時間規則。",
+        "選擇來源日期、時間和時區，再選擇目標時區。系統會自動套用所選日期的日光節約時間規則。你可以切換 12 小時制或 24 小時制，並在下方查看代表城市的目前時間。",
       terms: [
         "時區轉換器",
         "世界時鐘",
@@ -1040,7 +1028,8 @@ const locales = {
     feature: {
       ariaLabel: "時區轉換器與世界時鐘",
       sourceTime: "來源日期與時間",
-      sourceTimeHint: "按「現在」查看即時世界時鐘，或選擇時間來規劃行程。",
+      sourceTimeHint:
+        "按「現在」填入目前日期與時間，或自行選擇想要的日期與時間。",
       sourceZone: "來源時區",
       sourceZonePlaceholder: "城市或 IANA 時區，例如 Asia/Taipei",
       now: "現在",
@@ -1049,7 +1038,7 @@ const locales = {
       hour12: "12 小時",
       hour24: "24 小時",
       worldClock: "世界時鐘",
-      addZone: "搜尋世界時鐘",
+      addZone: "目標時區",
       zonePlaceholder: "篩選城市或時區",
       add: "加入",
       removeZone: "移除時區",
@@ -1071,13 +1060,12 @@ const locales = {
   },
   tr: {
     page: {
-      title: "Saat dilimi dönüştürücü ve dünya saati",
+      title: "Saat dilimi dönüştürücü",
       description:
-        "Tarih ve saati şehirler arasında dönüştürün veya canlı dünya saatinde yerel saatleri, UTC farklarını ve tarih değişimlerini karşılaştırın.",
-      mobileDescription:
-        "Saat dilimlerini dönüştürün ve şehirleri dünya saatinde karşılaştırın.",
+        "Tarih ve saati saat dilimleri arasında dönüştürün, ardından aşağıda seçili şehirlerin güncel saatini kontrol edin.",
+      mobileDescription: "Tarih ve saati saat dilimleri arasında dönüştürün.",
       guide:
-        "Kaynak tarih, saat ve IANA saat dilimini seçin. Yerel saatleri incelemek için aranabilir tam dünya saati listesinde arama yapın veya listeye göz atın ve 12/24 saat biçimi arasında geçiş yapın. Seçilen tarihteki yaz saati kuralları otomatik uygulanır.",
+        "Kaynak tarih, saat ve saat dilimini, ardından hedef saat dilimini seçin. Seçilen tarihteki yaz saati kuralları otomatik uygulanır. 12 ve 24 saat biçimleri arasında geçiş yapın ve aşağıda seçili şehirlerin güncel saatini kontrol edin.",
       terms: [
         "saat dilimi dönüştürücü",
         "dünya saati",
@@ -1105,7 +1093,7 @@ const locales = {
       ariaLabel: "Saat dilimi dönüştürücü ve dünya saati",
       sourceTime: "Kaynak tarih ve saat",
       sourceTimeHint:
-        "Canlı dünya saati için Şimdi'yi kullanın veya planlanacak bir saat seçin.",
+        "Geçerli tarih ve saati doldurmak için Şimdi'yi kullanın veya istediğiniz tarih ve saati seçin.",
       sourceZone: "Kaynak saat dilimi",
       sourceZonePlaceholder: "Şehir veya IANA dilimi, ör. Europe/Istanbul",
       now: "Şimdi",
@@ -1114,7 +1102,7 @@ const locales = {
       hour12: "12 saat",
       hour24: "24 saat",
       worldClock: "Dünya saati",
-      addZone: "Dünya saatinde ara",
+      addZone: "Hedef saat dilimi",
       zonePlaceholder: "Şehirleri veya saat dilimlerini filtrele",
       add: "Ekle",
       removeZone: "Saat dilimini kaldır",

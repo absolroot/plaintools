@@ -6,10 +6,12 @@
   background: var(--input-surface);
 }
 
-.time-zone-source-grid {
+.time-zone-converter-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) auto;
-  align-items: start;
+  grid-template-columns:
+    minmax(210px, 1.25fr) minmax(180px, 1fr) 40px minmax(180px, 1fr)
+    minmax(120px, 0.65fr);
+  align-items: end;
   gap: var(--space-3);
 }
 
@@ -24,11 +26,10 @@
 }
 
 .time-zone-field input,
-.time-zone-field select,
-.time-zone-filter input {
+.time-zone-field select {
   min-width: 0;
   width: 100%;
-  height: 36px;
+  height: 40px;
   padding: 0 var(--space-3);
   border: 0;
   border-radius: var(--radius-control);
@@ -44,14 +45,39 @@
 }
 
 .time-zone-field small {
+  min-height: 17px;
   color: var(--muted);
   font-size: 11px;
   font-weight: 400;
   line-height: 1.45;
 }
 
+.time-zone-field:not(.time-zone-date-field)::after,
+.time-zone-format-field::after {
+  content: "";
+  min-height: 17px;
+}
+
+.time-zone-swap-button {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 25px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--base);
+  cursor: pointer;
+}
+
+.time-zone-swap-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .time-zone-format-switch {
-  height: 36px;
+  height: 40px;
   padding: 2px;
   display: grid;
   grid-template-columns: repeat(2, minmax(44px, 1fr));
@@ -81,6 +107,58 @@
   gap: var(--space-2);
 }
 
+.time-zone-result {
+  min-height: 116px;
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(220px, auto) minmax(
+      170px,
+      auto
+    );
+  align-items: center;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--base);
+}
+
+.time-zone-result[hidden] {
+  display: none;
+}
+
+.time-zone-result-label,
+.time-zone-result-value,
+.time-zone-result-meta {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.time-zone-result-label span,
+.time-zone-result-value span,
+.time-zone-result-meta span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.time-zone-result-label strong,
+.time-zone-result-meta strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--code-font);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.time-zone-result-value strong {
+  color: var(--ink-strong);
+  font-family: var(--code-font);
+  font-size: clamp(30px, 5vw, 46px);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
 .world-clock-surface {
   background: var(--base);
 }
@@ -93,12 +171,6 @@
   justify-content: space-between;
   gap: var(--space-4);
   border-bottom: 1px solid var(--line);
-}
-
-.world-clock-heading > div:first-child {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
 }
 
 .world-clock-heading h2 {
@@ -123,36 +195,25 @@
   background: currentColor;
 }
 
-.time-zone-filter {
-  min-width: min(100%, 360px);
-  display: block;
-}
-
 .world-clock-list {
   display: grid;
-  max-height: 640px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .world-clock-row {
   min-width: 0;
-  min-height: 76px;
+  min-height: 104px;
   padding: var(--space-3) var(--space-4);
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(120px, auto) minmax(
-      210px,
-      auto
-    );
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-2) var(--space-4);
   border-bottom: 1px solid var(--line);
   background: var(--base);
 }
 
-.world-clock-row.is-source {
-  background: var(--base);
+.world-clock-row:nth-child(odd) {
+  border-inline-end: 1px solid var(--line);
 }
 
 .world-clock-place,
@@ -163,14 +224,7 @@
   gap: 4px;
 }
 
-.world-clock-place-heading {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.world-clock-place-heading strong {
+.world-clock-place strong {
   overflow: hidden;
   color: var(--ink);
   text-overflow: ellipsis;
@@ -178,66 +232,65 @@
   font-size: 14px;
 }
 
-.world-clock-place > span,
-.world-clock-time span,
-.world-clock-date span {
+.world-clock-place span,
+.world-clock-time span {
+  overflow: hidden;
   color: var(--muted);
+  font-family: var(--code-font);
   font-size: 11px;
   line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.world-clock-place > span,
-.world-clock-time strong,
-.world-clock-time span {
-  font-family: var(--code-font);
+.world-clock-time {
+  text-align: end;
 }
 
 .world-clock-time strong {
   color: var(--ink-strong);
+  font-family: var(--code-font);
   font-size: 24px;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.035em;
   line-height: 1.1;
 }
 
-.world-clock-date strong {
-  color: var(--ink);
-  font-size: 13px;
-  font-weight: 600;
+.world-clock-date {
+  grid-column: 1 / -1;
 }
 
-.world-clock-empty {
-  margin: 0;
-  padding: var(--space-4);
+.world-clock-date strong {
   color: var(--muted);
   font-size: 12px;
+  font-weight: 500;
 }
 
-@media (max-width: 840px) {
-  .time-zone-source-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 1040px) {
+  .time-zone-converter-grid {
+    grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr) minmax(
+        120px,
+        0.6fr
+      );
   }
 
-  .time-zone-format-field {
-    grid-column: 1 / -1;
-  }
-
-  .world-clock-row {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-  }
-
-  .world-clock-place {
+  .time-zone-date-field {
     grid-column: 1 / -1;
   }
 }
 
-@media (max-width: 680px) {
-  .time-zone-source-grid {
+@media (max-width: 760px) {
+  .time-zone-converter-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .time-zone-format-field {
+  .time-zone-date-field {
     grid-column: auto;
+  }
+
+  .time-zone-field:not(.time-zone-date-field)::after,
+  .time-zone-format-field::after {
+    display: none;
   }
 
   .time-zone-field input,
@@ -245,8 +298,18 @@
   .time-zone-format-switch,
   .time-zone-source-actions .primary-button,
   .time-zone-source-actions .secondary-button,
-  .time-zone-filter input {
+  .time-zone-swap-button {
     min-height: 44px;
+  }
+
+  .time-zone-swap-button {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto;
+  }
+
+  .time-zone-swap-button svg {
+    transform: rotate(90deg);
   }
 
   .time-zone-format-switch {
@@ -266,26 +329,19 @@
     justify-content: center;
   }
 
-  .world-clock-heading {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .time-zone-filter {
-    min-width: 0;
-    width: 100%;
-  }
-
-  .world-clock-row {
+  .time-zone-result {
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--space-3);
   }
 
-  .world-clock-place {
+  .time-zone-result-label {
     grid-column: 1 / -1;
   }
 
-  .world-clock-date {
-    text-align: end;
+  .world-clock-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .world-clock-row:nth-child(odd) {
+    border-inline-end: 0;
   }
 }

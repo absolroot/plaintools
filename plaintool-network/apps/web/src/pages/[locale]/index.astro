@@ -4,6 +4,7 @@ import ToolDirectorySearch from "../../components/ToolDirectorySearch.astro";
 import ToolDirectorySection from "../../components/ToolDirectorySection.astro";
 import {
   homeDirectoryCategoryOrder,
+  homeDirectoryInitiallyVisibleToolCount,
   homeDirectoryToolsForCategory,
   homeDirectoryToolsInDisplayOrder,
   networkCopy,
@@ -57,6 +58,10 @@ const publicItems = homeDirectoryToolsInDisplayOrder
             title={n.categories[category]}
             tools={homeDirectoryToolsForCategory(category)}
             locale={locale}
+            initiallyVisibleToolCount={homeDirectoryInitiallyVisibleToolCount(
+              category,
+            )}
+            collapsedLabel={n.allTools}
           />
         ))
       }

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import directoryOrder from "./tool-directory-order.json";
 import {
   homeDirectoryCategoryOrder,
+  homeDirectoryInitiallyVisibleToolCount,
   homeDirectoryToolsForCategory,
   homeDirectoryToolsInDisplayOrder,
   toolCatalog,
@@ -94,5 +95,9 @@ describe("home tool directory order", () => {
         .filter((tool) => tool.featureId === "image-converter")
         .every((tool) => imageTools.indexOf(tool) > 2),
     ).toBe(true);
+    expect(homeDirectoryInitiallyVisibleToolCount("image")).toBe(3);
+    expect(
+      homeDirectoryInitiallyVisibleToolCount("calculator"),
+    ).toBeUndefined();
   });
 });

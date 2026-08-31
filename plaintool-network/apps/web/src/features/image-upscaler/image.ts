@@ -8,13 +8,16 @@ import type {
 export const MAX_FILE_BYTES = 10_000_000;
 export const MAX_OUTPUT_PIXELS = 16_777_216;
 export const MAX_OUTPUT_EDGE = 4096;
-export const CONSERVATIVE_MAX_INPUT_PIXELS = 262_144;
+// The model always produces a native 4x RGBA surface before an optional 2x
+// downsample. Bound that real allocation rather than rejecting ordinary images
+// at the old 512x512 threshold.
+export const MAX_NATIVE_INPUT_PIXELS = Math.floor(MAX_OUTPUT_PIXELS / 16);
 
 export function inputPixelLimit(
   _mode: UpscalerMode,
   _backend: UpscaleBackend,
 ): number {
-  return CONSERVATIVE_MAX_INPUT_PIXELS;
+  return MAX_NATIVE_INPUT_PIXELS;
 }
 
 export function validateOutputDimensions(

@@ -8,10 +8,11 @@ import {
 } from "./image";
 
 describe("image upscaler policies", () => {
-  it("uses the conservative browser-local input budget for both backends", () => {
-    expect(inputPixelLimit("fast", "webgpu")).toBe(262_144);
-    expect(inputPixelLimit("fast", "wasm")).toBe(262_144);
-    expect(inputPixelLimit("quality", "webgpu")).toBe(262_144);
+  it("accepts ordinary images while bounding the model's native 4x surface", () => {
+    expect(inputPixelLimit("fast", "webgpu")).toBe(1_048_576);
+    expect(inputPixelLimit("fast", "wasm")).toBe(1_048_576);
+    expect(inputPixelLimit("quality", "webgpu")).toBe(1_048_576);
+    expect(592 * 574).toBeLessThan(inputPixelLimit("fast", "wasm"));
   });
 
   it("enforces output edge and pixel limits", () => {

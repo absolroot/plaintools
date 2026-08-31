@@ -220,6 +220,8 @@ export const toolCatalog: ToolCatalogItem[] = [...registeredTools];
 const rawCategoryOrder = directoryOrder.categoryOrder as readonly string[];
 const rawFeatureCategoryOverrides =
   directoryOrder.featureCategoryOverrides as Readonly<Record<string, string>>;
+const rawInitiallyVisibleToolCounts =
+  directoryOrder.initiallyVisibleToolCounts as Readonly<Record<string, number>>;
 const rawPinnedToolOrder = directoryOrder.pinnedToolOrder as Readonly<
   Record<string, readonly string[]>
 >;
@@ -301,6 +303,36 @@ export function homeDirectoryToolsForCategory(
       if (rightIndex === undefined) return -1;
       return leftIndex - rightIndex;
     });
+}
+
+for (const [category, count] of Object.entries(rawInitiallyVisibleToolCounts)) {
+  if (!configuredCategories.has(category)) {
+    throw new Error(
+      `Unknown progressive home directory category: ${category}.`,
+    );
+  }
+  if (!Number.isInteger(count) || count < 1) {
+    throw new Error(
+      `Initial home directory tool count for ${category} must be a positive integer.`,
+    );
+  }
+  const categoryTools = homeDirectoryToolsForCategory(category as ToolCategory);
+  if (count >= categoryTools.length) {
+    throw new Error(
+      `Initial home directory tool count for ${category} must leave tools to expand.`,
+    );
+  }
+  if ((rawPinnedToolOrder[category]?.length ?? 0) < count) {
+    throw new Error(
+      `Initial home directory tools for ${category} must be explicitly pinned.`,
+    );
+  }
+}
+
+export function homeDirectoryInitiallyVisibleToolCount(
+  category: ToolCategory,
+): number | undefined {
+  return rawInitiallyVisibleToolCounts[category];
 }
 
 export const homeDirectoryToolsInDisplayOrder =
