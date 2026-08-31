@@ -262,6 +262,674 @@ const englishPages: Record<CalculatorPageId, Page> = {
   },
 };
 
+type MathPageId =
+  | "fraction-calculator"
+  | "factor-calculator"
+  | "lcm-calculator";
+
+const localizedMathPages: Record<
+  Exclude<Locale, "en">,
+  Record<MathPageId, Page>
+> = {
+  ko: {
+    "fraction-calculator": {
+      title: "분수 계산기",
+      description:
+        "분수를 더하고 빼고 곱하고 나눈 뒤 기약분수, 대분수, 소수와 계산 과정을 확인합니다.",
+      mobileDescription: "분수를 계산하고 기약분수 결과를 확인합니다.",
+      guide:
+        "부호가 있는 두 분수를 입력하고 연산을 선택한 다음 계산하세요. 정수 연산으로 정확한 값을 구한 뒤 필요하면 소수로도 표시합니다.",
+      terms: ["분수 계산기", "분수 덧셈", "대분수", "분수 약분"],
+    },
+    "factor-calculator": {
+      title: "약수 계산기",
+      description:
+        "정수의 양의 약수, 약수 쌍, 소인수분해와 소수·합성수 여부를 확인합니다.",
+      mobileDescription: "약수, 약수 쌍과 소인수분해를 구합니다.",
+      guide:
+        "양의 정수 하나를 입력하세요. 약수를 작은 순서대로 나열하고 소인수의 거듭제곱으로 나타냅니다.",
+      terms: ["약수 계산기", "약수", "약수 쌍", "소인수분해"],
+    },
+    "lcm-calculator": {
+      title: "최소공배수 계산기",
+      description: "두 개 이상 정수의 최소공배수와 최대공약수를 함께 구합니다.",
+      mobileDescription: "여러 정수의 최소공배수와 최대공약수를 구합니다.",
+      guide:
+        "정수를 공백이나 쉼표로 구분해 입력하세요. 음수는 절댓값을 사용하며, 입력에 0이 있으면 최소공배수는 0입니다.",
+      terms: [
+        "최소공배수 계산기",
+        "최소공배수",
+        "최대공약수 계산기",
+        "최대공약수",
+      ],
+    },
+  },
+  es: {
+    "fraction-calculator": {
+      title: "Calculadora de fracciones",
+      description:
+        "Suma, resta, multiplica o divide fracciones y consulta la fracción simplificada, el número mixto, el decimal y el procedimiento.",
+      mobileDescription:
+        "Calcula fracciones y obtén el resultado simplificado.",
+      guide:
+        "Introduce dos fracciones con signo, elige una operación y calcula. El resultado se mantiene exacto con aritmética de enteros antes de mostrar, si hace falta, su forma decimal.",
+      terms: [
+        "calculadora de fracciones",
+        "sumar fracciones",
+        "número mixto",
+        "simplificar fracciones",
+      ],
+    },
+    "factor-calculator": {
+      title: "Calculadora de divisores",
+      description:
+        "Obtén los divisores positivos, los pares de divisores, la factorización prima y la clasificación de un entero.",
+      mobileDescription: "Encuentra divisores, pares y la factorización prima.",
+      guide:
+        "Introduce un entero positivo. La calculadora ordena sus divisores y lo expresa como potencias de números primos.",
+      terms: [
+        "calculadora de divisores",
+        "divisores",
+        "pares de divisores",
+        "factorización prima",
+      ],
+    },
+    "lcm-calculator": {
+      title: "Calculadora de MCM",
+      description:
+        "Calcula el mínimo común múltiplo y el máximo común divisor de dos o más enteros.",
+      mobileDescription: "Calcula el MCM y el MCD de varios enteros.",
+      guide:
+        "Introduce los enteros separados por espacios o comas. Los valores negativos se toman en valor absoluto; si uno es cero, el MCM es cero.",
+      terms: [
+        "calculadora de MCM",
+        "mínimo común múltiplo",
+        "calculadora de MCD",
+        "máximo común divisor",
+      ],
+    },
+  },
+  de: {
+    "fraction-calculator": {
+      title: "Bruchrechner",
+      description:
+        "Addiere, subtrahiere, multipliziere oder dividiere Brüche und zeige gekürzten Bruch, gemischte Zahl, Dezimalwert und Rechenweg an.",
+      mobileDescription: "Berechne Brüche und zeige das gekürzte Ergebnis an.",
+      guide:
+        "Gib zwei Brüche mit Vorzeichen ein, wähle eine Rechenart und starte die Berechnung. Das Ergebnis bleibt durch Ganzzahlarithmetik exakt und kann zusätzlich dezimal angezeigt werden.",
+      terms: [
+        "Bruchrechner",
+        "Brüche addieren",
+        "gemischte Zahl",
+        "Bruch kürzen",
+      ],
+    },
+    "factor-calculator": {
+      title: "Teilerrechner",
+      description:
+        "Bestimme positive Teiler, Teilerpaare, Primfaktorzerlegung und die Einordnung einer ganzen Zahl.",
+      mobileDescription: "Bestimme Teiler, Teilerpaare und Primfaktoren.",
+      guide:
+        "Gib eine positive ganze Zahl ein. Der Rechner listet ihre Teiler der Reihe nach auf und stellt sie als Primzahlpotenzen dar.",
+      terms: ["Teilerrechner", "Teiler", "Teilerpaare", "Primfaktorzerlegung"],
+    },
+    "lcm-calculator": {
+      title: "KGV-Rechner",
+      description:
+        "Berechne das kleinste gemeinsame Vielfache und den größten gemeinsamen Teiler für zwei oder mehr ganze Zahlen.",
+      mobileDescription: "Berechne KGV und ggT mehrerer ganzer Zahlen.",
+      guide:
+        "Trenne die ganzen Zahlen durch Leerzeichen oder Kommas. Negative Zahlen werden als Beträge verwendet; bei einer Null ist das KGV null.",
+      terms: [
+        "KGV-Rechner",
+        "kleinstes gemeinsames Vielfaches",
+        "ggT-Rechner",
+        "größter gemeinsamer Teiler",
+      ],
+    },
+  },
+  ja: {
+    "fraction-calculator": {
+      title: "分数計算機",
+      description:
+        "分数の加減乗除を行い、既約分数、帯分数、小数、計算過程を確認できます。",
+      mobileDescription: "分数を計算し、約分した結果を表示します。",
+      guide:
+        "符号付きの分数を2つ入力し、演算を選んで計算します。整数演算で正確な値を求め、必要に応じて小数でも表示します。",
+      terms: ["分数計算機", "分数の足し算", "帯分数", "分数の約分"],
+    },
+    "factor-calculator": {
+      title: "約数計算機",
+      description:
+        "整数の正の約数、約数の組、素因数分解、素数・合成数の分類を表示します。",
+      mobileDescription: "約数、約数の組、素因数分解を求めます。",
+      guide:
+        "正の整数を1つ入力します。約数を小さい順に並べ、素数の累乗の積で表します。",
+      terms: ["約数計算機", "約数", "約数の組", "素因数分解"],
+    },
+    "lcm-calculator": {
+      title: "最小公倍数計算機",
+      description: "2つ以上の整数の最小公倍数と最大公約数を求めます。",
+      mobileDescription: "複数の整数の最小公倍数と最大公約数を求めます。",
+      guide:
+        "整数を空白またはコンマで区切って入力します。負の値は絶対値を使い、0が含まれる場合の最小公倍数は0です。",
+      terms: [
+        "最小公倍数計算機",
+        "最小公倍数",
+        "最大公約数計算機",
+        "最大公約数",
+      ],
+    },
+  },
+  fr: {
+    "fraction-calculator": {
+      title: "Calculatrice de fractions",
+      description:
+        "Additionnez, soustrayez, multipliez ou divisez des fractions et affichez la fraction réduite, le nombre mixte, la valeur décimale et le détail du calcul.",
+      mobileDescription:
+        "Calculez des fractions et obtenez le résultat réduit.",
+      guide:
+        "Saisissez deux fractions signées, choisissez une opération puis lancez le calcul. Le résultat reste exact grâce au calcul entier avant un éventuel affichage décimal.",
+      terms: [
+        "calculatrice de fractions",
+        "addition de fractions",
+        "nombre mixte",
+        "réduire une fraction",
+      ],
+    },
+    "factor-calculator": {
+      title: "Calculatrice de diviseurs",
+      description:
+        "Trouvez les diviseurs positifs, les couples de diviseurs, la décomposition en facteurs premiers et la nature d’un entier.",
+      mobileDescription:
+        "Trouvez les diviseurs, les couples et les facteurs premiers.",
+      guide:
+        "Saisissez un entier positif. La calculatrice classe ses diviseurs et l’écrit sous forme de puissances de nombres premiers.",
+      terms: [
+        "calculatrice de diviseurs",
+        "diviseurs",
+        "couples de diviseurs",
+        "facteurs premiers",
+      ],
+    },
+    "lcm-calculator": {
+      title: "Calculatrice de PPCM",
+      description:
+        "Calculez le plus petit commun multiple et le plus grand commun diviseur de deux entiers ou plus.",
+      mobileDescription: "Calculez le PPCM et le PGCD de plusieurs entiers.",
+      guide:
+        "Saisissez les entiers séparés par des espaces ou des virgules. Les valeurs négatives sont prises en valeur absolue ; si une valeur est nulle, le PPCM est nul.",
+      terms: [
+        "calculatrice de PPCM",
+        "plus petit commun multiple",
+        "calculatrice de PGCD",
+        "plus grand commun diviseur",
+      ],
+    },
+  },
+  "pt-BR": {
+    "fraction-calculator": {
+      title: "Calculadora de frações",
+      description:
+        "Some, subtraia, multiplique ou divida frações e veja a fração simplificada, o número misto, o decimal e as etapas do cálculo.",
+      mobileDescription: "Calcule frações e veja o resultado simplificado.",
+      guide:
+        "Digite duas frações com sinal, escolha uma operação e calcule. O resultado permanece exato com aritmética de inteiros antes da exibição decimal opcional.",
+      terms: [
+        "calculadora de frações",
+        "somar frações",
+        "número misto",
+        "simplificar fração",
+      ],
+    },
+    "factor-calculator": {
+      title: "Calculadora de divisores",
+      description:
+        "Liste os divisores positivos, os pares de divisores, a fatoração em primos e a classificação de um número inteiro.",
+      mobileDescription: "Encontre divisores, pares e a fatoração em primos.",
+      guide:
+        "Digite um número inteiro positivo. A calculadora organiza seus divisores e o expressa como potências de números primos.",
+      terms: [
+        "calculadora de divisores",
+        "divisores",
+        "pares de divisores",
+        "fatoração em primos",
+      ],
+    },
+    "lcm-calculator": {
+      title: "Calculadora de MMC",
+      description:
+        "Calcule o mínimo múltiplo comum e o máximo divisor comum de dois ou mais números inteiros.",
+      mobileDescription: "Calcule o MMC e o MDC de vários números inteiros.",
+      guide:
+        "Digite os números inteiros separados por espaços ou vírgulas. Valores negativos usam o módulo; se houver zero, o MMC será zero.",
+      terms: [
+        "calculadora de MMC",
+        "mínimo múltiplo comum",
+        "calculadora de MDC",
+        "máximo divisor comum",
+      ],
+    },
+  },
+  it: {
+    "fraction-calculator": {
+      title: "Calcolatore di frazioni",
+      description:
+        "Somma, sottrai, moltiplica o dividi frazioni e visualizza la frazione ridotta, il numero misto, il decimale e i passaggi.",
+      mobileDescription: "Calcola le frazioni e mostra il risultato ridotto.",
+      guide:
+        "Inserisci due frazioni con segno, scegli un’operazione e calcola. Il risultato resta esatto grazie all’aritmetica intera prima dell’eventuale visualizzazione decimale.",
+      terms: [
+        "calcolatore di frazioni",
+        "somma di frazioni",
+        "numero misto",
+        "ridurre una frazione",
+      ],
+    },
+    "factor-calculator": {
+      title: "Calcolatore dei divisori",
+      description:
+        "Trova i divisori positivi, le coppie di divisori, la scomposizione in fattori primi e la classificazione di un intero.",
+      mobileDescription: "Trova divisori, coppie e fattori primi.",
+      guide:
+        "Inserisci un intero positivo. Il calcolatore ordina i divisori e lo esprime come potenze di numeri primi.",
+      terms: [
+        "calcolatore dei divisori",
+        "divisori",
+        "coppie di divisori",
+        "fattori primi",
+      ],
+    },
+    "lcm-calculator": {
+      title: "Calcolatore del mcm",
+      description:
+        "Calcola il minimo comune multiplo e il massimo comune divisore di due o più numeri interi.",
+      mobileDescription: "Calcola mcm e MCD di più numeri interi.",
+      guide:
+        "Inserisci gli interi separati da spazi o virgole. I valori negativi vengono considerati in valore assoluto; se è presente zero, il mcm è zero.",
+      terms: [
+        "calcolatore mcm",
+        "minimo comune multiplo",
+        "calcolatore MCD",
+        "massimo comune divisore",
+      ],
+    },
+  },
+  nl: {
+    "fraction-calculator": {
+      title: "Breukencalculator",
+      description:
+        "Tel breuken op, trek ze af, vermenigvuldig of deel ze en bekijk de vereenvoudigde breuk, het gemengde getal, de decimale waarde en de uitwerking.",
+      mobileDescription:
+        "Bereken breuken en bekijk het vereenvoudigde resultaat.",
+      guide:
+        "Voer twee breuken met een teken in, kies een bewerking en bereken. Het resultaat blijft exact met gehele-getallenrekenen voordat eventueel een decimale waarde wordt getoond.",
+      terms: [
+        "breukencalculator",
+        "breuken optellen",
+        "gemengd getal",
+        "breuk vereenvoudigen",
+      ],
+    },
+    "factor-calculator": {
+      title: "Delercalculator",
+      description:
+        "Vind de positieve delers, delerparen, ontbinding in priemfactoren en classificatie van een geheel getal.",
+      mobileDescription: "Vind delers, delerparen en priemfactoren.",
+      guide:
+        "Voer één positief geheel getal in. De calculator rangschikt de delers en schrijft het getal als machten van priemgetallen.",
+      terms: [
+        "delercalculator",
+        "delers",
+        "delerparen",
+        "ontbinding in priemfactoren",
+      ],
+    },
+    "lcm-calculator": {
+      title: "KGV-calculator",
+      description:
+        "Bereken het kleinste gemene veelvoud en de grootste gemene deler van twee of meer gehele getallen.",
+      mobileDescription:
+        "Bereken het KGV en de GGD van meerdere gehele getallen.",
+      guide:
+        "Voer gehele getallen in, gescheiden door spaties of komma’s. Negatieve waarden worden als absolute waarden gebruikt; bij een nul is het KGV nul.",
+      terms: [
+        "KGV-calculator",
+        "kleinste gemene veelvoud",
+        "GGD-calculator",
+        "grootste gemene deler",
+      ],
+    },
+  },
+  sv: {
+    "fraction-calculator": {
+      title: "Bråkräknare",
+      description:
+        "Addera, subtrahera, multiplicera eller dividera bråk och visa förkortat bråk, blandad form, decimalform och uträkning.",
+      mobileDescription: "Räkna med bråk och visa det förkortade resultatet.",
+      guide:
+        "Ange två bråk med tecken, välj räknesätt och beräkna. Resultatet hålls exakt med heltalsaritmetik innan en valfri decimalform visas.",
+      terms: ["bråkräknare", "addera bråk", "blandad form", "förkorta bråk"],
+    },
+    "factor-calculator": {
+      title: "Delarräknare",
+      description:
+        "Hitta positiva delare, delarpar, primtalsfaktorisering och klassificering för ett heltal.",
+      mobileDescription: "Hitta delare, delarpar och primtalsfaktorisering.",
+      guide:
+        "Ange ett positivt heltal. Räknaren sorterar dess delare och skriver talet som potenser av primtal.",
+      terms: ["delarräknare", "delare", "delarpar", "primtalsfaktorisering"],
+    },
+    "lcm-calculator": {
+      title: "MGM-räknare",
+      description:
+        "Beräkna minsta gemensamma multipel och största gemensamma delare för två eller flera heltal.",
+      mobileDescription: "Beräkna MGM och SGD för flera heltal.",
+      guide:
+        "Ange heltal åtskilda med blanksteg eller kommatecken. Negativa värden behandlas som absolutvärden; om noll ingår är MGM noll.",
+      terms: [
+        "MGM-räknare",
+        "minsta gemensamma multipel",
+        "SGD-räknare",
+        "största gemensamma delare",
+      ],
+    },
+  },
+  cs: {
+    "fraction-calculator": {
+      title: "Kalkulačka zlomků",
+      description:
+        "Sčítejte, odčítejte, násobte nebo dělte zlomky a zobrazte zkrácený zlomek, smíšené číslo, desetinný výsledek i postup.",
+      mobileDescription: "Vypočítejte zlomky a zobrazte zkrácený výsledek.",
+      guide:
+        "Zadejte dva zlomky se znaménkem, zvolte operaci a spusťte výpočet. Výsledek zůstává díky celočíselné aritmetice přesný a volitelně se zobrazí desetinně.",
+      terms: [
+        "kalkulačka zlomků",
+        "sčítání zlomků",
+        "smíšené číslo",
+        "krácení zlomků",
+      ],
+    },
+    "factor-calculator": {
+      title: "Kalkulačka dělitelů",
+      description:
+        "Najděte kladné dělitele, dvojice dělitelů, rozklad na prvočinitele a zařazení celého čísla.",
+      mobileDescription: "Najděte dělitele, jejich dvojice a prvočinitele.",
+      guide:
+        "Zadejte jedno kladné celé číslo. Kalkulačka seřadí jeho dělitele a zapíše je jako mocniny prvočísel.",
+      terms: [
+        "kalkulačka dělitelů",
+        "dělitelé",
+        "dvojice dělitelů",
+        "rozklad na prvočinitele",
+      ],
+    },
+    "lcm-calculator": {
+      title: "Kalkulačka NSN",
+      description:
+        "Vypočítejte nejmenší společný násobek a největší společný dělitel dvou nebo více celých čísel.",
+      mobileDescription: "Vypočítejte NSN a NSD více celých čísel.",
+      guide:
+        "Zadejte celá čísla oddělená mezerami nebo čárkami. Záporné hodnoty se berou absolutně; pokud zadáte nulu, NSN je nula.",
+      terms: [
+        "kalkulačka NSN",
+        "nejmenší společný násobek",
+        "kalkulačka NSD",
+        "největší společný dělitel",
+      ],
+    },
+  },
+  pl: {
+    "fraction-calculator": {
+      title: "Kalkulator ułamków",
+      description:
+        "Dodawaj, odejmuj, mnóż lub dziel ułamki i zobacz ułamek skrócony, liczbę mieszaną, wartość dziesiętną oraz tok obliczeń.",
+      mobileDescription: "Oblicz ułamki i zobacz skrócony wynik.",
+      guide:
+        "Wpisz dwa ułamki ze znakiem, wybierz działanie i oblicz. Arytmetyka całkowita zachowuje dokładny wynik przed opcjonalnym zapisem dziesiętnym.",
+      terms: [
+        "kalkulator ułamków",
+        "dodawanie ułamków",
+        "liczba mieszana",
+        "skracanie ułamków",
+      ],
+    },
+    "factor-calculator": {
+      title: "Kalkulator dzielników",
+      description:
+        "Znajdź dodatnie dzielniki, pary dzielników, rozkład na czynniki pierwsze i klasyfikację liczby całkowitej.",
+      mobileDescription: "Znajdź dzielniki, ich pary i czynniki pierwsze.",
+      guide:
+        "Wpisz jedną dodatnią liczbę całkowitą. Kalkulator porządkuje jej dzielniki i zapisuje ją jako potęgi liczb pierwszych.",
+      terms: [
+        "kalkulator dzielników",
+        "dzielniki",
+        "pary dzielników",
+        "rozkład na czynniki pierwsze",
+      ],
+    },
+    "lcm-calculator": {
+      title: "Kalkulator NWW",
+      description:
+        "Oblicz najmniejszą wspólną wielokrotność i największy wspólny dzielnik dwóch lub większej liczby liczb całkowitych.",
+      mobileDescription: "Oblicz NWW i NWD kilku liczb całkowitych.",
+      guide:
+        "Wpisz liczby całkowite rozdzielone spacjami lub przecinkami. Wartości ujemne są zastępowane wartościami bezwzględnymi; jeśli występuje zero, NWW wynosi zero.",
+      terms: [
+        "kalkulator NWW",
+        "najmniejsza wspólna wielokrotność",
+        "kalkulator NWD",
+        "największy wspólny dzielnik",
+      ],
+    },
+  },
+  da: {
+    "fraction-calculator": {
+      title: "Brøkregner",
+      description:
+        "Læg brøker sammen, træk dem fra, gang eller divider dem, og se den forkortede brøk, det blandede tal, decimaltallet og udregningen.",
+      mobileDescription: "Beregn brøker, og se det forkortede resultat.",
+      guide:
+        "Indtast to brøker med fortegn, vælg en regneart, og beregn. Resultatet forbliver eksakt med heltalsregning, før en valgfri decimalvisning.",
+      terms: [
+        "brøkregner",
+        "lægge brøker sammen",
+        "blandet tal",
+        "forkorte brøker",
+      ],
+    },
+    "factor-calculator": {
+      title: "Divisorberegner",
+      description:
+        "Find positive divisorer, divisorpar, primtalsfaktorisering og klassifikation for et helt tal.",
+      mobileDescription: "Find divisorer, divisorpar og primtalsfaktorisering.",
+      guide:
+        "Indtast ét positivt heltal. Beregneren sorterer divisorerne og skriver tallet som potenser af primtal.",
+      terms: [
+        "divisorberegner",
+        "divisorer",
+        "divisorpar",
+        "primtalsfaktorisering",
+      ],
+    },
+    "lcm-calculator": {
+      title: "MFM-beregner",
+      description:
+        "Beregn mindste fælles multiplum og største fælles divisor for to eller flere heltal.",
+      mobileDescription: "Beregn MFM og SFD for flere heltal.",
+      guide:
+        "Indtast heltal adskilt af mellemrum eller kommaer. Negative værdier behandles som absolutte værdier; hvis nul indgår, er MFM nul.",
+      terms: [
+        "MFM-beregner",
+        "mindste fælles multiplum",
+        "SFD-beregner",
+        "største fælles divisor",
+      ],
+    },
+  },
+  no: {
+    "fraction-calculator": {
+      title: "Brøkkalkulator",
+      description:
+        "Legg sammen, trekk fra, multipliser eller divider brøker, og se forkortet brøk, blandet tall, desimaltall og utregning.",
+      mobileDescription: "Regn med brøker og se det forkortede resultatet.",
+      guide:
+        "Skriv inn to brøker med fortegn, velg en regneart og beregn. Resultatet holdes eksakt med heltallsregning før en valgfri desimalvisning.",
+      terms: [
+        "brøkkalkulator",
+        "legge sammen brøker",
+        "blandet tall",
+        "forkorte brøk",
+      ],
+    },
+    "factor-calculator": {
+      title: "Divisorkalkulator",
+      description:
+        "Finn positive divisorer, divisorpar, primtallsfaktorisering og klassifisering for et heltall.",
+      mobileDescription:
+        "Finn divisorer, divisorpar og primtallsfaktorisering.",
+      guide:
+        "Skriv inn ett positivt heltall. Kalkulatoren sorterer divisorene og skriver tallet som potenser av primtall.",
+      terms: [
+        "divisorkalkulator",
+        "divisorer",
+        "divisorpar",
+        "primtallsfaktorisering",
+      ],
+    },
+    "lcm-calculator": {
+      title: "MFM-kalkulator",
+      description:
+        "Beregn minste felles multiplum og største felles divisor for to eller flere heltall.",
+      mobileDescription: "Beregn MFM og SFD for flere heltall.",
+      guide:
+        "Skriv inn heltall atskilt med mellomrom eller komma. Negative verdier behandles som absolutte verdier; hvis null er med, er MFM null.",
+      terms: [
+        "MFM-kalkulator",
+        "minste felles multiplum",
+        "SFD-kalkulator",
+        "største felles divisor",
+      ],
+    },
+  },
+  ar: {
+    "fraction-calculator": {
+      title: "حاسبة الكسور",
+      description:
+        "اجمع الكسور أو اطرحها أو اضربها أو اقسمها، واعرض الكسر المختزل والعدد الكسري والقيمة العشرية وخطوات الحل.",
+      mobileDescription: "احسب الكسور واعرض النتيجة في أبسط صورة.",
+      guide:
+        "أدخل كسرين مع الإشارة، واختر العملية ثم احسب. تبقى النتيجة دقيقة باستخدام حساب الأعداد الصحيحة قبل العرض العشري الاختياري.",
+      terms: ["حاسبة الكسور", "جمع الكسور", "عدد كسري", "تبسيط الكسور"],
+    },
+    "factor-calculator": {
+      title: "حاسبة القواسم",
+      description:
+        "اعرض القواسم الموجبة وأزواج القواسم والتحليل إلى العوامل الأولية وتصنيف العدد الصحيح.",
+      mobileDescription: "أوجد القواسم وأزواجها والتحليل إلى العوامل الأولية.",
+      guide:
+        "أدخل عددًا صحيحًا موجبًا واحدًا. ترتب الحاسبة قواسمه وتكتبه في صورة قوى لعوامل أولية.",
+      terms: [
+        "حاسبة القواسم",
+        "القواسم",
+        "أزواج القواسم",
+        "التحليل إلى العوامل الأولية",
+      ],
+    },
+    "lcm-calculator": {
+      title: "حاسبة المضاعف المشترك الأصغر",
+      description:
+        "احسب المضاعف المشترك الأصغر والقاسم المشترك الأكبر لعددين صحيحين أو أكثر.",
+      mobileDescription: "احسب م.م.أ وق.م.أ لعدة أعداد صحيحة.",
+      guide:
+        "أدخل الأعداد الصحيحة مفصولة بمسافات أو فواصل. تُستخدم القيم المطلقة للأعداد السالبة، وإذا كان أحد المدخلات صفرًا فالمضاعف المشترك الأصغر يساوي صفرًا.",
+      terms: [
+        "حاسبة المضاعف المشترك الأصغر",
+        "المضاعف المشترك الأصغر",
+        "حاسبة القاسم المشترك الأكبر",
+        "القاسم المشترك الأكبر",
+      ],
+    },
+  },
+  "zh-TW": {
+    "fraction-calculator": {
+      title: "分數計算機",
+      description: "進行分數加減乘除，並查看最簡分數、帶分數、小數與計算過程。",
+      mobileDescription: "計算分數並查看化簡後的結果。",
+      guide:
+        "輸入兩個可帶正負號的分數，選擇運算後計算。先以整數運算保留精確結果，再視需要顯示小數。",
+      terms: ["分數計算機", "分數加法", "帶分數", "分數化簡"],
+    },
+    "factor-calculator": {
+      title: "因數計算機",
+      description: "列出整數的正因數、因數對、質因數分解，以及質數或合數分類。",
+      mobileDescription: "找出因數、因數對與質因數分解。",
+      guide: "輸入一個正整數。計算機會依序列出因數，並以質數冪次表示。",
+      terms: ["因數計算機", "因數", "因數對", "質因數分解"],
+    },
+    "lcm-calculator": {
+      title: "最小公倍數計算機",
+      description: "計算兩個以上整數的最小公倍數與最大公因數。",
+      mobileDescription: "計算多個整數的最小公倍數與最大公因數。",
+      guide:
+        "以空格或逗號分隔整數。負數會取絕對值；若輸入包含 0，最小公倍數為 0。",
+      terms: [
+        "最小公倍數計算機",
+        "最小公倍數",
+        "最大公因數計算機",
+        "最大公因數",
+      ],
+    },
+  },
+  tr: {
+    "fraction-calculator": {
+      title: "Kesir hesaplayıcı",
+      description:
+        "Kesirleri toplayın, çıkarın, çarpın veya bölün; sadeleştirilmiş kesri, tam sayılı kesri, ondalık değeri ve işlem adımlarını görün.",
+      mobileDescription:
+        "Kesirleri hesaplayın ve sadeleştirilmiş sonucu görün.",
+      guide:
+        "İşaretli iki kesir girin, işlemi seçin ve hesaplayın. Sonuç, isteğe bağlı ondalık gösterimden önce tam sayı aritmetiğiyle kesin tutulur.",
+      terms: [
+        "kesir hesaplayıcı",
+        "kesir toplama",
+        "tam sayılı kesir",
+        "kesir sadeleştirme",
+      ],
+    },
+    "factor-calculator": {
+      title: "Bölen hesaplayıcı",
+      description:
+        "Bir tam sayının pozitif bölenlerini, bölen çiftlerini, asal çarpanlara ayrılışını ve sınıflandırmasını bulun.",
+      mobileDescription:
+        "Bölenleri, bölen çiftlerini ve asal çarpanları bulun.",
+      guide:
+        "Bir pozitif tam sayı girin. Hesaplayıcı bölenleri sıralar ve sayıyı asal sayıların kuvvetleri olarak yazar.",
+      terms: [
+        "bölen hesaplayıcı",
+        "bölenler",
+        "bölen çiftleri",
+        "asal çarpanlara ayırma",
+      ],
+    },
+    "lcm-calculator": {
+      title: "EKOK hesaplayıcı",
+      description:
+        "İki veya daha fazla tam sayının en küçük ortak katını ve en büyük ortak bölenini hesaplayın.",
+      mobileDescription:
+        "Birden çok tam sayının EKOK ve EBOB değerini hesaplayın.",
+      guide:
+        "Tam sayıları boşluk veya virgülle ayırarak girin. Negatif değerlerin mutlak değeri kullanılır; girdilerden biri sıfırsa EKOK sıfırdır.",
+      terms: [
+        "EKOK hesaplayıcı",
+        "en küçük ortak kat",
+        "EBOB hesaplayıcı",
+        "en büyük ortak bölen",
+      ],
+    },
+  },
+};
+
 const localizedTitles: Record<Locale, Record<CalculatorPageId, string>> = {
   en: Object.fromEntries(
     Object.entries(englishPages).map(([id, page]) => [id, page.title]),
@@ -430,6 +1098,7 @@ const koreanMath: MathCalculatorCopy = {
     leastCommonMultiple: "최소공배수",
     greatestCommonFactor: "최대공약수",
     workingTitle: "소인수분해 과정",
+    zeroFactorization: "0은 소인수분해할 수 없습니다",
     calculated: "계산했습니다.",
   },
   errors: {
@@ -442,6 +1111,969 @@ const koreanMath: MathCalculatorCopy = {
     "too-few-values": "정수를 두 개 이상 입력하세요.",
     "too-many-values": "정수는 최대 12개까지 입력할 수 있습니다.",
   },
+};
+
+type MathTranslation = {
+  ariaLabel: string;
+  calculate: string;
+  calculated: string;
+  fraction: readonly string[];
+  factor: readonly string[];
+  lcm: readonly string[];
+  errors: readonly string[];
+};
+
+function localizedMathCopy(translation: MathTranslation): MathCalculatorCopy {
+  if (
+    translation.fraction.length !== 17 ||
+    translation.factor.length !== 10 ||
+    translation.lcm.length !== 7 ||
+    translation.errors.length !== 8
+  ) {
+    throw new Error("Incomplete localized math-calculator copy.");
+  }
+  const [
+    firstFraction,
+    secondFraction,
+    numerator,
+    denominator,
+    operation,
+    add,
+    subtract,
+    multiply,
+    divide,
+    fractionInputHint,
+    fractionResultTitle,
+    reducedFraction,
+    mixedNumber,
+    decimal,
+    fractionWorkingTitle,
+    expression,
+    reduction,
+  ] = translation.fraction;
+  const [
+    factorInputLabel,
+    factorInputHint,
+    factorResultTitle,
+    primeFactorization,
+    factors,
+    factorPairs,
+    classification,
+    unit,
+    prime,
+    composite,
+  ] = translation.factor;
+  const [
+    lcmInputLabel,
+    lcmInputHint,
+    lcmResultTitle,
+    leastCommonMultiple,
+    greatestCommonFactor,
+    lcmWorkingTitle,
+    zeroFactorization,
+  ] = translation.lcm;
+  const [
+    emptyInput,
+    invalidInteger,
+    integerTooLarge,
+    zeroDenominator,
+    divisionByZero,
+    positiveRequired,
+    tooFewValues,
+    tooManyValues,
+  ] = translation.errors;
+  return {
+    ariaLabel: translation.ariaLabel,
+    calculate: translation.calculate,
+    fraction: {
+      firstFraction,
+      secondFraction,
+      numerator,
+      denominator,
+      operation,
+      operations: { add, subtract, multiply, divide },
+      inputHint: fractionInputHint,
+      resultTitle: fractionResultTitle,
+      reducedFraction,
+      mixedNumber,
+      decimal,
+      workingTitle: fractionWorkingTitle,
+      expression,
+      reduction,
+      reductionTemplate: "{unreduced} ÷ {divisor} = {result}",
+      exactDecimal: "{value}",
+      approximateDecimal: "≈ {value}",
+      calculated: translation.calculated,
+    },
+    factor: {
+      inputLabel: factorInputLabel,
+      inputPlaceholder: "360",
+      inputHint: factorInputHint,
+      resultTitle: factorResultTitle,
+      primeFactorization,
+      factors,
+      factorPairs,
+      classification,
+      classifications: { unit, prime, composite },
+      unitFactorization: "1",
+      pairTemplate: "{left} × {right}",
+      calculated: translation.calculated,
+    },
+    lcm: {
+      inputLabel: lcmInputLabel,
+      inputPlaceholder: "12, 18, 30",
+      inputHint: lcmInputHint,
+      resultTitle: lcmResultTitle,
+      leastCommonMultiple,
+      greatestCommonFactor,
+      workingTitle: lcmWorkingTitle,
+      zeroFactorization,
+      unitFactorization: "1",
+      factorizationTemplate: "{value} → |{absoluteValue}| = {factorization}",
+      calculated: translation.calculated,
+    },
+    errors: {
+      "empty-input": emptyInput,
+      "invalid-integer": invalidInteger,
+      "integer-too-large": integerTooLarge,
+      "zero-denominator": zeroDenominator,
+      "division-by-zero": divisionByZero,
+      "positive-required": positiveRequired,
+      "too-few-values": tooFewValues,
+      "too-many-values": tooManyValues,
+    },
+  };
+}
+
+const localizedMath: Record<
+  Exclude<Locale, "en" | "ko">,
+  MathCalculatorCopy
+> = {
+  es: localizedMathCopy({
+    ariaLabel: "Calculadoras de fracciones, divisores y MCM",
+    calculate: "Calcular",
+    calculated: "Cálculo completado.",
+    fraction: [
+      "Primera fracción",
+      "Segunda fracción",
+      "Numerador",
+      "Denominador",
+      "Operación",
+      "Sumar",
+      "Restar",
+      "Multiplicar",
+      "Dividir",
+      "Usa números enteros con signo. El denominador no puede ser cero.",
+      "Resultado",
+      "Fracción simplificada",
+      "Número mixto",
+      "Decimal",
+      "Procedimiento",
+      "Expresión",
+      "Simplificación",
+    ],
+    factor: [
+      "Entero positivo",
+      "Introduce un entero positivo de hasta 12 dígitos.",
+      "Divisores",
+      "Factorización prima",
+      "Todos los divisores positivos",
+      "Pares de divisores",
+      "Clasificación",
+      "Ni primo ni compuesto",
+      "Primo",
+      "Compuesto",
+    ],
+    lcm: [
+      "Números enteros",
+      "Introduce entre 2 y 12 enteros con signo, separados por espacios o comas.",
+      "MCM y MCD",
+      "Mínimo común múltiplo",
+      "Máximo común divisor",
+      "Descomposición en factores primos",
+      "El 0 no tiene factorización prima",
+    ],
+    errors: [
+      "Introduce un valor.",
+      "Introduce solo números enteros.",
+      "El número introducido es demasiado grande.",
+      "El denominador no puede ser cero.",
+      "No se puede dividir una fracción entre cero.",
+      "Introduce un entero positivo.",
+      "Introduce al menos dos enteros.",
+      "Introduce como máximo 12 enteros.",
+    ],
+  }),
+  de: localizedMathCopy({
+    ariaLabel: "Bruch-, Teiler- und KGV-Rechner",
+    calculate: "Berechnen",
+    calculated: "Berechnung abgeschlossen.",
+    fraction: [
+      "Erster Bruch",
+      "Zweiter Bruch",
+      "Zähler",
+      "Nenner",
+      "Rechenart",
+      "Addieren",
+      "Subtrahieren",
+      "Multiplizieren",
+      "Dividieren",
+      "Verwende ganze Zahlen mit Vorzeichen. Ein Nenner darf nicht null sein.",
+      "Ergebnis",
+      "Gekürzter Bruch",
+      "Gemischte Zahl",
+      "Dezimalzahl",
+      "Rechenweg",
+      "Ausdruck",
+      "Kürzung",
+    ],
+    factor: [
+      "Positive ganze Zahl",
+      "Gib eine positive ganze Zahl mit höchstens 12 Stellen ein.",
+      "Teiler",
+      "Primfaktorzerlegung",
+      "Alle positiven Teiler",
+      "Teilerpaare",
+      "Einordnung",
+      "Weder Primzahl noch zusammengesetzt",
+      "Primzahl",
+      "Zusammengesetzte Zahl",
+    ],
+    lcm: [
+      "Ganze Zahlen",
+      "Gib 2 bis 12 ganze Zahlen mit Vorzeichen ein, getrennt durch Leerzeichen oder Kommas.",
+      "KGV und ggT",
+      "Kleinstes gemeinsames Vielfaches",
+      "Größter gemeinsamer Teiler",
+      "Primfaktorzerlegung",
+      "0 hat keine Primfaktorzerlegung",
+    ],
+    errors: [
+      "Gib einen Wert ein.",
+      "Gib nur ganze Zahlen ein.",
+      "Die eingegebene Zahl ist zu groß.",
+      "Ein Nenner darf nicht null sein.",
+      "Ein Bruch kann nicht durch null geteilt werden.",
+      "Gib eine positive ganze Zahl ein.",
+      "Gib mindestens zwei ganze Zahlen ein.",
+      "Gib höchstens 12 ganze Zahlen ein.",
+    ],
+  }),
+  ja: localizedMathCopy({
+    ariaLabel: "分数・約数・最小公倍数計算機",
+    calculate: "計算",
+    calculated: "計算しました。",
+    fraction: [
+      "1つ目の分数",
+      "2つ目の分数",
+      "分子",
+      "分母",
+      "演算",
+      "足す",
+      "引く",
+      "掛ける",
+      "割る",
+      "符号付き整数を入力してください。分母を0にはできません。",
+      "結果",
+      "既約分数",
+      "帯分数",
+      "小数",
+      "計算過程",
+      "式",
+      "約分",
+    ],
+    factor: [
+      "正の整数",
+      "12桁以内の正の整数を1つ入力してください。",
+      "約数",
+      "素因数分解",
+      "すべての正の約数",
+      "約数の組",
+      "分類",
+      "素数でも合成数でもない",
+      "素数",
+      "合成数",
+    ],
+    lcm: [
+      "整数",
+      "符号付き整数を2～12個、空白またはコンマで区切って入力してください。",
+      "最小公倍数と最大公約数",
+      "最小公倍数",
+      "最大公約数",
+      "素因数分解の過程",
+      "0は素因数分解できません",
+    ],
+    errors: [
+      "値を入力してください。",
+      "整数だけを入力してください。",
+      "入力した数が大きすぎます。",
+      "分母を0にはできません。",
+      "0で分数を割ることはできません。",
+      "正の整数を入力してください。",
+      "整数を2つ以上入力してください。",
+      "整数は12個以内で入力してください。",
+    ],
+  }),
+  fr: localizedMathCopy({
+    ariaLabel: "Calculatrices de fractions, diviseurs et PPCM",
+    calculate: "Calculer",
+    calculated: "Calcul terminé.",
+    fraction: [
+      "Première fraction",
+      "Deuxième fraction",
+      "Numérateur",
+      "Dénominateur",
+      "Opération",
+      "Additionner",
+      "Soustraire",
+      "Multiplier",
+      "Diviser",
+      "Utilisez des entiers signés. Le dénominateur ne peut pas être nul.",
+      "Résultat",
+      "Fraction réduite",
+      "Nombre mixte",
+      "Décimal",
+      "Détail du calcul",
+      "Expression",
+      "Réduction",
+    ],
+    factor: [
+      "Entier positif",
+      "Saisissez un entier positif de 12 chiffres au maximum.",
+      "Diviseurs",
+      "Décomposition en facteurs premiers",
+      "Tous les diviseurs positifs",
+      "Couples de diviseurs",
+      "Nature",
+      "Ni premier ni composé",
+      "Premier",
+      "Composé",
+    ],
+    lcm: [
+      "Entiers",
+      "Saisissez de 2 à 12 entiers signés, séparés par des espaces ou des virgules.",
+      "PPCM et PGCD",
+      "Plus petit commun multiple",
+      "Plus grand commun diviseur",
+      "Décomposition en facteurs premiers",
+      "0 n’a pas de décomposition en facteurs premiers",
+    ],
+    errors: [
+      "Saisissez une valeur.",
+      "Saisissez uniquement des entiers.",
+      "Le nombre saisi est trop grand.",
+      "Le dénominateur ne peut pas être nul.",
+      "Une fraction ne peut pas être divisée par zéro.",
+      "Saisissez un entier positif.",
+      "Saisissez au moins deux entiers.",
+      "Saisissez au maximum 12 entiers.",
+    ],
+  }),
+  "pt-BR": localizedMathCopy({
+    ariaLabel: "Calculadoras de frações, divisores e MMC",
+    calculate: "Calcular",
+    calculated: "Cálculo concluído.",
+    fraction: [
+      "Primeira fração",
+      "Segunda fração",
+      "Numerador",
+      "Denominador",
+      "Operação",
+      "Somar",
+      "Subtrair",
+      "Multiplicar",
+      "Dividir",
+      "Use números inteiros com sinal. O denominador não pode ser zero.",
+      "Resultado",
+      "Fração simplificada",
+      "Número misto",
+      "Decimal",
+      "Etapas do cálculo",
+      "Expressão",
+      "Simplificação",
+    ],
+    factor: [
+      "Número inteiro positivo",
+      "Digite um número inteiro positivo de até 12 dígitos.",
+      "Divisores",
+      "Fatoração em primos",
+      "Todos os divisores positivos",
+      "Pares de divisores",
+      "Classificação",
+      "Nem primo nem composto",
+      "Primo",
+      "Composto",
+    ],
+    lcm: [
+      "Números inteiros",
+      "Digite de 2 a 12 números inteiros com sinal, separados por espaços ou vírgulas.",
+      "MMC e MDC",
+      "Mínimo múltiplo comum",
+      "Máximo divisor comum",
+      "Fatoração em primos",
+      "0 não tem fatoração em primos",
+    ],
+    errors: [
+      "Digite um valor.",
+      "Digite apenas números inteiros.",
+      "O número digitado é grande demais.",
+      "O denominador não pode ser zero.",
+      "Uma fração não pode ser dividida por zero.",
+      "Digite um número inteiro positivo.",
+      "Digite pelo menos dois números inteiros.",
+      "Digite no máximo 12 números inteiros.",
+    ],
+  }),
+  it: localizedMathCopy({
+    ariaLabel: "Calcolatori di frazioni, divisori e mcm",
+    calculate: "Calcola",
+    calculated: "Calcolo completato.",
+    fraction: [
+      "Prima frazione",
+      "Seconda frazione",
+      "Numeratore",
+      "Denominatore",
+      "Operazione",
+      "Somma",
+      "Sottrai",
+      "Moltiplica",
+      "Dividi",
+      "Usa numeri interi con segno. Il denominatore non può essere zero.",
+      "Risultato",
+      "Frazione ridotta",
+      "Numero misto",
+      "Decimale",
+      "Passaggi",
+      "Espressione",
+      "Riduzione",
+    ],
+    factor: [
+      "Numero intero positivo",
+      "Inserisci un numero intero positivo di massimo 12 cifre.",
+      "Divisori",
+      "Scomposizione in fattori primi",
+      "Tutti i divisori positivi",
+      "Coppie di divisori",
+      "Classificazione",
+      "Né primo né composto",
+      "Primo",
+      "Composto",
+    ],
+    lcm: [
+      "Numeri interi",
+      "Inserisci da 2 a 12 numeri interi con segno, separati da spazi o virgole.",
+      "mcm e MCD",
+      "Minimo comune multiplo",
+      "Massimo comune divisore",
+      "Scomposizione in fattori primi",
+      "0 non ha una scomposizione in fattori primi",
+    ],
+    errors: [
+      "Inserisci un valore.",
+      "Inserisci solo numeri interi.",
+      "Il numero inserito è troppo grande.",
+      "Il denominatore non può essere zero.",
+      "Non è possibile dividere una frazione per zero.",
+      "Inserisci un numero intero positivo.",
+      "Inserisci almeno due numeri interi.",
+      "Inserisci non più di 12 numeri interi.",
+    ],
+  }),
+  nl: localizedMathCopy({
+    ariaLabel: "Breuken-, deler- en KGV-calculators",
+    calculate: "Berekenen",
+    calculated: "Berekening voltooid.",
+    fraction: [
+      "Eerste breuk",
+      "Tweede breuk",
+      "Teller",
+      "Noemer",
+      "Bewerking",
+      "Optellen",
+      "Aftrekken",
+      "Vermenigvuldigen",
+      "Delen",
+      "Gebruik gehele getallen met een teken. De noemer mag niet nul zijn.",
+      "Resultaat",
+      "Vereenvoudigde breuk",
+      "Gemengd getal",
+      "Decimaal",
+      "Uitwerking",
+      "Uitdrukking",
+      "Vereenvoudiging",
+    ],
+    factor: [
+      "Positief geheel getal",
+      "Voer één positief geheel getal van maximaal 12 cijfers in.",
+      "Delers",
+      "Ontbinding in priemfactoren",
+      "Alle positieve delers",
+      "Delerparen",
+      "Classificatie",
+      "Noch priem, noch samengesteld",
+      "Priemgetal",
+      "Samengesteld getal",
+    ],
+    lcm: [
+      "Gehele getallen",
+      "Voer 2 tot 12 gehele getallen met een teken in, gescheiden door spaties of komma’s.",
+      "KGV en GGD",
+      "Kleinste gemene veelvoud",
+      "Grootste gemene deler",
+      "Ontbinding in priemfactoren",
+      "0 heeft geen ontbinding in priemfactoren",
+    ],
+    errors: [
+      "Voer een waarde in.",
+      "Voer alleen gehele getallen in.",
+      "Het ingevoerde getal is te groot.",
+      "De noemer mag niet nul zijn.",
+      "Een breuk kan niet door nul worden gedeeld.",
+      "Voer een positief geheel getal in.",
+      "Voer ten minste twee gehele getallen in.",
+      "Voer maximaal 12 gehele getallen in.",
+    ],
+  }),
+  sv: localizedMathCopy({
+    ariaLabel: "Bråk-, delar- och MGM-räknare",
+    calculate: "Beräkna",
+    calculated: "Beräkningen är klar.",
+    fraction: [
+      "Första bråket",
+      "Andra bråket",
+      "Täljare",
+      "Nämnare",
+      "Räknesätt",
+      "Addera",
+      "Subtrahera",
+      "Multiplicera",
+      "Dividera",
+      "Använd heltal med tecken. Nämnaren får inte vara noll.",
+      "Resultat",
+      "Förkortat bråk",
+      "Blandad form",
+      "Decimalform",
+      "Uträkning",
+      "Uttryck",
+      "Förkortning",
+    ],
+    factor: [
+      "Positivt heltal",
+      "Ange ett positivt heltal med högst 12 siffror.",
+      "Delare",
+      "Primtalsfaktorisering",
+      "Alla positiva delare",
+      "Delarpar",
+      "Klassificering",
+      "Varken primtal eller sammansatt tal",
+      "Primtal",
+      "Sammansatt tal",
+    ],
+    lcm: [
+      "Heltal",
+      "Ange 2 till 12 heltal med tecken, åtskilda med blanksteg eller kommatecken.",
+      "MGM och SGD",
+      "Minsta gemensamma multipel",
+      "Största gemensamma delare",
+      "Primtalsfaktorisering",
+      "0 saknar primtalsfaktorisering",
+    ],
+    errors: [
+      "Ange ett värde.",
+      "Ange endast heltal.",
+      "Det angivna talet är för stort.",
+      "Nämnaren får inte vara noll.",
+      "Ett bråk kan inte divideras med noll.",
+      "Ange ett positivt heltal.",
+      "Ange minst två heltal.",
+      "Ange högst 12 heltal.",
+    ],
+  }),
+  cs: localizedMathCopy({
+    ariaLabel: "Kalkulačky zlomků, dělitelů a NSN",
+    calculate: "Vypočítat",
+    calculated: "Výpočet je hotový.",
+    fraction: [
+      "První zlomek",
+      "Druhý zlomek",
+      "Čitatel",
+      "Jmenovatel",
+      "Operace",
+      "Sečíst",
+      "Odečíst",
+      "Vynásobit",
+      "Vydělit",
+      "Použijte celá čísla se znaménkem. Jmenovatel nesmí být nula.",
+      "Výsledek",
+      "Zkrácený zlomek",
+      "Smíšené číslo",
+      "Desetinné číslo",
+      "Postup výpočtu",
+      "Výraz",
+      "Krácení",
+    ],
+    factor: [
+      "Kladné celé číslo",
+      "Zadejte jedno kladné celé číslo o nejvýše 12 číslicích.",
+      "Dělitelé",
+      "Rozklad na prvočinitele",
+      "Všichni kladní dělitelé",
+      "Dvojice dělitelů",
+      "Klasifikace",
+      "Ani prvočíslo, ani složené číslo",
+      "Prvočíslo",
+      "Složené číslo",
+    ],
+    lcm: [
+      "Celá čísla",
+      "Zadejte 2 až 12 celých čísel se znaménkem, oddělených mezerami nebo čárkami.",
+      "NSN a NSD",
+      "Nejmenší společný násobek",
+      "Největší společný dělitel",
+      "Rozklad na prvočinitele",
+      "Nula nemá rozklad na prvočinitele",
+    ],
+    errors: [
+      "Zadejte hodnotu.",
+      "Zadávejte pouze celá čísla.",
+      "Zadané číslo je příliš velké.",
+      "Jmenovatel nesmí být nula.",
+      "Zlomek nelze dělit nulou.",
+      "Zadejte kladné celé číslo.",
+      "Zadejte alespoň dvě celá čísla.",
+      "Zadejte nejvýše 12 celých čísel.",
+    ],
+  }),
+  pl: localizedMathCopy({
+    ariaLabel: "Kalkulatory ułamków, dzielników i NWW",
+    calculate: "Oblicz",
+    calculated: "Obliczenie zakończone.",
+    fraction: [
+      "Pierwszy ułamek",
+      "Drugi ułamek",
+      "Licznik",
+      "Mianownik",
+      "Działanie",
+      "Dodaj",
+      "Odejmij",
+      "Pomnóż",
+      "Podziel",
+      "Użyj liczb całkowitych ze znakiem. Mianownik nie może być zerem.",
+      "Wynik",
+      "Ułamek skrócony",
+      "Liczba mieszana",
+      "Zapis dziesiętny",
+      "Tok obliczeń",
+      "Wyrażenie",
+      "Skracanie",
+    ],
+    factor: [
+      "Dodatnia liczba całkowita",
+      "Wpisz dodatnią liczbę całkowitą mającą najwyżej 12 cyfr.",
+      "Dzielniki",
+      "Rozkład na czynniki pierwsze",
+      "Wszystkie dodatnie dzielniki",
+      "Pary dzielników",
+      "Klasyfikacja",
+      "Ani pierwsza, ani złożona",
+      "Liczba pierwsza",
+      "Liczba złożona",
+    ],
+    lcm: [
+      "Liczby całkowite",
+      "Wpisz od 2 do 12 liczb całkowitych ze znakiem, rozdzielonych spacjami lub przecinkami.",
+      "NWW i NWD",
+      "Najmniejsza wspólna wielokrotność",
+      "Największy wspólny dzielnik",
+      "Rozkład na czynniki pierwsze",
+      "Zero nie ma rozkładu na czynniki pierwsze",
+    ],
+    errors: [
+      "Wpisz wartość.",
+      "Wpisuj tylko liczby całkowite.",
+      "Wpisana liczba jest zbyt duża.",
+      "Mianownik nie może być zerem.",
+      "Nie można dzielić ułamka przez zero.",
+      "Wpisz dodatnią liczbę całkowitą.",
+      "Wpisz co najmniej dwie liczby całkowite.",
+      "Wpisz nie więcej niż 12 liczb całkowitych.",
+    ],
+  }),
+  da: localizedMathCopy({
+    ariaLabel: "Brøk-, divisor- og MFM-beregnere",
+    calculate: "Beregn",
+    calculated: "Beregningen er færdig.",
+    fraction: [
+      "Første brøk",
+      "Anden brøk",
+      "Tæller",
+      "Nævner",
+      "Regneart",
+      "Læg sammen",
+      "Træk fra",
+      "Gang",
+      "Divider",
+      "Brug heltal med fortegn. Nævneren må ikke være nul.",
+      "Resultat",
+      "Forkortet brøk",
+      "Blandet tal",
+      "Decimaltal",
+      "Udregning",
+      "Udtryk",
+      "Forkortning",
+    ],
+    factor: [
+      "Positivt heltal",
+      "Indtast ét positivt heltal med højst 12 cifre.",
+      "Divisorer",
+      "Primtalsfaktorisering",
+      "Alle positive divisorer",
+      "Divisorpar",
+      "Klassifikation",
+      "Hverken primtal eller sammensat tal",
+      "Primtal",
+      "Sammensat tal",
+    ],
+    lcm: [
+      "Heltal",
+      "Indtast 2 til 12 heltal med fortegn, adskilt af mellemrum eller kommaer.",
+      "MFM og SFD",
+      "Mindste fælles multiplum",
+      "Største fælles divisor",
+      "Primtalsfaktorisering",
+      "0 har ingen primtalsfaktorisering",
+    ],
+    errors: [
+      "Indtast en værdi.",
+      "Indtast kun heltal.",
+      "Det indtastede tal er for stort.",
+      "Nævneren må ikke være nul.",
+      "En brøk kan ikke divideres med nul.",
+      "Indtast et positivt heltal.",
+      "Indtast mindst to heltal.",
+      "Indtast højst 12 heltal.",
+    ],
+  }),
+  no: localizedMathCopy({
+    ariaLabel: "Brøk-, divisor- og MFM-kalkulatorer",
+    calculate: "Beregn",
+    calculated: "Beregningen er fullført.",
+    fraction: [
+      "Første brøk",
+      "Andre brøk",
+      "Teller",
+      "Nevner",
+      "Regneart",
+      "Legg sammen",
+      "Trekk fra",
+      "Multipliser",
+      "Divider",
+      "Bruk heltall med fortegn. Nevneren kan ikke være null.",
+      "Resultat",
+      "Forkortet brøk",
+      "Blandet tall",
+      "Desimaltall",
+      "Utregning",
+      "Uttrykk",
+      "Forkorting",
+    ],
+    factor: [
+      "Positivt heltall",
+      "Skriv inn ett positivt heltall med maksimalt 12 sifre.",
+      "Divisorer",
+      "Primtallsfaktorisering",
+      "Alle positive divisorer",
+      "Divisorpar",
+      "Klassifisering",
+      "Verken primtall eller sammensatt tall",
+      "Primtall",
+      "Sammensatt tall",
+    ],
+    lcm: [
+      "Heltall",
+      "Skriv inn 2 til 12 heltall med fortegn, atskilt med mellomrom eller komma.",
+      "MFM og SFD",
+      "Minste felles multiplum",
+      "Største felles divisor",
+      "Primtallsfaktorisering",
+      "0 har ingen primtallsfaktorisering",
+    ],
+    errors: [
+      "Skriv inn en verdi.",
+      "Skriv inn bare heltall.",
+      "Tallet du skrev inn, er for stort.",
+      "Nevneren kan ikke være null.",
+      "En brøk kan ikke deles på null.",
+      "Skriv inn et positivt heltall.",
+      "Skriv inn minst to heltall.",
+      "Skriv inn maksimalt 12 heltall.",
+    ],
+  }),
+  ar: localizedMathCopy({
+    ariaLabel: "حاسبات الكسور والقواسم والمضاعف المشترك الأصغر",
+    calculate: "احسب",
+    calculated: "اكتمل الحساب.",
+    fraction: [
+      "الكسر الأول",
+      "الكسر الثاني",
+      "البسط",
+      "المقام",
+      "العملية",
+      "جمع",
+      "طرح",
+      "ضرب",
+      "قسمة",
+      "استخدم أعدادًا صحيحة مع الإشارة. لا يمكن أن يكون المقام صفرًا.",
+      "النتيجة",
+      "الكسر المختزل",
+      "العدد الكسري",
+      "القيمة العشرية",
+      "خطوات الحل",
+      "التعبير",
+      "الاختزال",
+    ],
+    factor: [
+      "عدد صحيح موجب",
+      "أدخل عددًا صحيحًا موجبًا لا يزيد على 12 رقمًا.",
+      "القواسم",
+      "التحليل إلى العوامل الأولية",
+      "جميع القواسم الموجبة",
+      "أزواج القواسم",
+      "التصنيف",
+      "ليس أوليًا ولا مركبًا",
+      "عدد أولي",
+      "عدد مركب",
+    ],
+    lcm: [
+      "أعداد صحيحة",
+      "أدخل من 2 إلى 12 عددًا صحيحًا مع الإشارة، وافصل بينها بمسافات أو فواصل.",
+      "المضاعف المشترك الأصغر والقاسم المشترك الأكبر",
+      "المضاعف المشترك الأصغر",
+      "القاسم المشترك الأكبر",
+      "التحليل إلى العوامل الأولية",
+      "ليس للصفر تحليل إلى عوامل أولية",
+    ],
+    errors: [
+      "أدخل قيمة.",
+      "أدخل أعدادًا صحيحة فقط.",
+      "العدد المدخل كبير جدًا.",
+      "لا يمكن أن يكون المقام صفرًا.",
+      "لا يمكن قسمة كسر على صفر.",
+      "أدخل عددًا صحيحًا موجبًا.",
+      "أدخل عددين صحيحين على الأقل.",
+      "لا تدخل أكثر من 12 عددًا صحيحًا.",
+    ],
+  }),
+  "zh-TW": localizedMathCopy({
+    ariaLabel: "分數、因數與最小公倍數計算機",
+    calculate: "計算",
+    calculated: "計算完成。",
+    fraction: [
+      "第一個分數",
+      "第二個分數",
+      "分子",
+      "分母",
+      "運算",
+      "相加",
+      "相減",
+      "相乘",
+      "相除",
+      "請使用可帶正負號的整數。分母不能為 0。",
+      "結果",
+      "最簡分數",
+      "帶分數",
+      "小數",
+      "計算過程",
+      "算式",
+      "約分",
+    ],
+    factor: [
+      "正整數",
+      "請輸入一個最多 12 位數的正整數。",
+      "因數",
+      "質因數分解",
+      "所有正因數",
+      "因數對",
+      "分類",
+      "既非質數也非合數",
+      "質數",
+      "合數",
+    ],
+    lcm: [
+      "整數",
+      "請輸入 2 到 12 個可帶正負號的整數，並以空格或逗號分隔。",
+      "最小公倍數與最大公因數",
+      "最小公倍數",
+      "最大公因數",
+      "質因數分解過程",
+      "0 沒有質因數分解",
+    ],
+    errors: [
+      "請輸入數值。",
+      "只能輸入整數。",
+      "輸入的數字太大。",
+      "分母不能為 0。",
+      "分數不能除以 0。",
+      "請輸入正整數。",
+      "請至少輸入兩個整數。",
+      "最多只能輸入 12 個整數。",
+    ],
+  }),
+  tr: localizedMathCopy({
+    ariaLabel: "Kesir, bölen ve EKOK hesaplayıcıları",
+    calculate: "Hesapla",
+    calculated: "Hesaplama tamamlandı.",
+    fraction: [
+      "Birinci kesir",
+      "İkinci kesir",
+      "Pay",
+      "Payda",
+      "İşlem",
+      "Topla",
+      "Çıkar",
+      "Çarp",
+      "Böl",
+      "İşaretli tam sayılar kullanın. Payda sıfır olamaz.",
+      "Sonuç",
+      "Sadeleştirilmiş kesir",
+      "Tam sayılı kesir",
+      "Ondalık",
+      "İşlem adımları",
+      "İfade",
+      "Sadeleştirme",
+    ],
+    factor: [
+      "Pozitif tam sayı",
+      "En fazla 12 basamaklı bir pozitif tam sayı girin.",
+      "Bölenler",
+      "Asal çarpanlara ayırma",
+      "Tüm pozitif bölenler",
+      "Bölen çiftleri",
+      "Sınıflandırma",
+      "Ne asal ne bileşik",
+      "Asal",
+      "Bileşik",
+    ],
+    lcm: [
+      "Tam sayılar",
+      "Boşluk veya virgülle ayrılmış 2 ile 12 arasında işaretli tam sayı girin.",
+      "EKOK ve EBOB",
+      "En küçük ortak kat",
+      "En büyük ortak bölen",
+      "Asal çarpanlara ayırma",
+      "0 asal çarpanlara ayrılamaz",
+    ],
+    errors: [
+      "Bir değer girin.",
+      "Yalnızca tam sayı girin.",
+      "Girilen sayı çok büyük.",
+      "Payda sıfır olamaz.",
+      "Bir kesir sıfıra bölünemez.",
+      "Pozitif bir tam sayı girin.",
+      "En az iki tam sayı girin.",
+      "En fazla 12 tam sayı girin.",
+    ],
+  }),
 };
 
 const koreanPercentage: PercentageCalculatorCopy = {
@@ -533,11 +2165,13 @@ export function calculatorSuiteFor(locale: Locale): CalculatorSuiteLocaleSeed {
       id,
       locale === "en"
         ? page
-        : {
-            ...page,
-            title: titles[id as CalculatorPageId],
-            terms: [titles[id as CalculatorPageId], ...page.terms],
-          },
+        : Object.hasOwn(localizedMathPages[locale], id)
+          ? localizedMathPages[locale][id as MathPageId]
+          : {
+              ...page,
+              title: titles[id as CalculatorPageId],
+              terms: [titles[id as CalculatorPageId], ...page.terms],
+            },
     ]),
   ) as Record<CalculatorPageId, Page>;
   if (locale === "ko")
@@ -550,7 +2184,7 @@ export function calculatorSuiteFor(locale: Locale): CalculatorSuiteLocaleSeed {
   const suite = titles["fraction-calculator"];
   return {
     pages,
-    math: commonMath(suite),
+    math: locale === "en" ? commonMath(suite) : localizedMath[locale],
     percentage: commonPercentage(suite),
     bmi: commonBmi(suite),
   };

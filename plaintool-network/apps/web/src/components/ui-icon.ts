@@ -12,6 +12,7 @@ export type IconName =
   | "help-circle"
   | "languages"
   | "moon"
+  | "refresh"
   | "search"
   | "shield"
   | "swap"

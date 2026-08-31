@@ -8,28 +8,34 @@ import {
 import { readClientCopy, setToolStatus } from "../../scripts/shared/tool-dom";
 import type { TimeZoneConverterClientCopy } from "./contract";
 
-const MAX_TARGET_ZONES = 7;
 const DEFAULT_TARGETS = [
   "UTC",
   "America/New_York",
   "Europe/London",
   "Asia/Tokyo",
 ];
+const MODERN_ZONE_IDS = new Map([
+  ["America/Godthab", "America/Nuuk"],
+  ["Asia/Calcutta", "Asia/Kolkata"],
+  ["Asia/Katmandu", "Asia/Kathmandu"],
+  ["Europe/Kiev", "Europe/Kyiv"],
+  ["Pacific/Ponape", "Pacific/Pohnpei"],
+  ["Pacific/Truk", "Pacific/Chuuk"],
+]);
 
 function init(root: HTMLElement): void {
   if (root.dataset.initialized) return;
   root.dataset.initialized = "true";
 
-  const { feature: copy, common } =
-    readClientCopy<TimeZoneConverterClientCopy>(root);
+  const { feature: copy } = readClientCopy<TimeZoneConverterClientCopy>(root);
   const locale = root.dataset.locale ?? "en";
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const sourceTime =
     root.querySelector<HTMLInputElement>("[data-source-time]")!;
   const sourceZone =
-    root.querySelector<HTMLInputElement>("[data-source-zone]")!;
-  const addZone = root.querySelector<HTMLInputElement>("[data-add-zone]")!;
-  const addForm = root.querySelector<HTMLFormElement>("[data-add-zone-form]")!;
+    root.querySelector<HTMLSelectElement>("[data-source-zone]")!;
+  const zoneFilter =
+    root.querySelector<HTMLInputElement>("[data-zone-filter]")!;
   const optionList = root.querySelector<HTMLDataListElement>(
     "[data-time-zone-options]",
   )!;
@@ -96,24 +102,32 @@ function init(root: HTMLElement): void {
     if (city) zoneAliases.set(normalize(city), zone);
   };
 
-  Array.from(optionList.options).forEach(registerOption);
+  Array.from(sourceZone.options).forEach(registerOption);
   const supportedValuesOf = (
     Intl as typeof Intl & { supportedValuesOf?: (key: "timeZone") => string[] }
   ).supportedValuesOf;
   const supportedZones = [
-    "UTC",
-    ...(supportedValuesOf?.("timeZone") ?? DEFAULT_TARGETS),
+    ...new Set(
+      ["UTC", ...(supportedValuesOf?.("timeZone") ?? DEFAULT_TARGETS)].map(
+        (zone) => MODERN_ZONE_IDS.get(zone) ?? zone,
+      ),
+    ),
   ];
   const existingZones = new Set(
-    Array.from(optionList.options, ({ value }) => value),
+    Array.from(sourceZone.options, ({ value }) => value),
   );
   for (const zone of supportedZones) {
     if (existingZones.has(zone)) continue;
-    const option = document.createElement("option");
-    option.value = zone;
-    option.label = formatZoneName(zone);
-    optionList.append(option);
-    registerOption(option);
+    const selectOption = document.createElement("option");
+    selectOption.value = zone;
+    selectOption.textContent = formatZoneName(zone);
+    sourceZone.append(selectOption);
+    registerOption(selectOption);
+
+    const suggestion = document.createElement("option");
+    suggestion.value = zone;
+    suggestion.label = selectOption.textContent ?? zone;
+    optionList.append(suggestion);
   }
 
   const resolveZone = (value: string): string | undefined => {
@@ -166,12 +180,10 @@ function init(root: HTMLElement): void {
     const relativeDay = new Intl.RelativeTimeFormat(locale, {
       numeric: "auto",
     }).format(value.dayDifference, "day");
-    const hourMatch = /T(\d{2}):(\d{2})/u.exec(value.localDateTime);
-    const minutesInDay = hourMatch
-      ? Number(hourMatch[1]) * 60 + Number(hourMatch[2])
-      : 0;
-
     row.dataset.zone = value.timeZone;
+    row.dataset.searchText = normalize(
+      `${zoneLabels.get(value.timeZone) ?? formatZoneName(value.timeZone)} ${value.timeZone} ${offsetLabel(value.offset)}`,
+    );
     row.classList.toggle("is-source", isSource);
     row.querySelector<HTMLElement>("[data-zone-label]")!.textContent =
       zoneLabels.get(value.timeZone) ?? formatZoneName(value.timeZone);
@@ -185,22 +197,23 @@ function init(root: HTMLElement): void {
       isSource
         ? relativeDay
         : `${relativeDay} · ${formatDifference(value.offsetMinutes - sourceOffsetMinutes)}`;
-    row
-      .querySelector<HTMLElement>(".world-clock-dayline")!
-      .style.setProperty("--time-position", `${(minutesInDay / 1440) * 100}%`);
     row.querySelector<HTMLElement>("[data-source-badge]")!.hidden = !isSource;
-    const removeButton =
-      row.querySelector<HTMLButtonElement>("[data-remove-zone]")!;
-    removeButton.hidden = isSource;
-    removeButton.addEventListener("click", () => {
-      targetZones = targetZones.filter((zone) => zone !== value.timeZone);
-      refresh();
-    });
     row.setAttribute(
       "aria-label",
       `${zoneLabels.get(value.timeZone) ?? value.timeZone}, ${time}, ${date}, ${offsetLabel(value.offset)}`,
     );
     return row;
+  };
+
+  const filterRows = () => {
+    const query = normalize(zoneFilter.value);
+    let visible = 0;
+    clockList.querySelectorAll<HTMLElement>("[data-zone]").forEach((row) => {
+      const matches = !query || row.dataset.searchText?.includes(query);
+      row.hidden = !matches;
+      if (matches) visible += 1;
+    });
+    emptyMessage.hidden = visible > 0;
   };
 
   const render = (result: TimeZoneConversion) => {
@@ -212,7 +225,7 @@ function init(root: HTMLElement): void {
       ),
     ];
     clockList.replaceChildren(...rows);
-    emptyMessage.hidden = targetZones.length > 0;
+    filterRows();
     liveIndicator.hidden = !live;
     root.classList.add("is-success");
     root.classList.remove("has-error");
@@ -221,10 +234,12 @@ function init(root: HTMLElement): void {
   const clearError = () => {
     sourceTime.removeAttribute("aria-invalid");
     sourceZone.removeAttribute("aria-invalid");
-    addZone.removeAttribute("aria-invalid");
   };
 
-  const fail = (error: unknown, control: HTMLInputElement = sourceTime) => {
+  const fail = (
+    error: unknown,
+    control: HTMLInputElement | HTMLSelectElement = sourceTime,
+  ) => {
     const code = error instanceof TimeInputError ? error.code : "invalid";
     const message =
       code === "invalid-zone"
@@ -236,9 +251,6 @@ function init(root: HTMLElement): void {
             : copy.invalidTime;
     clearError();
     control.setAttribute("aria-invalid", "true");
-    clockList.replaceChildren();
-    emptyMessage.hidden = true;
-    lastResult = undefined;
     root.classList.remove("is-success");
     root.classList.add("has-error");
     setStatus(message, "error");
@@ -319,16 +331,8 @@ function init(root: HTMLElement): void {
     live = false;
     runManual();
   });
-  sourceZone.addEventListener("input", () => {
-    clearError();
-    clockList.replaceChildren();
-    lastResult = undefined;
-    setStatus(common.ready);
-  });
-  sourceZone.addEventListener("change", refresh);
-  sourceZone.addEventListener("keydown", (event) => {
-    if (event.key !== "Enter") return;
-    event.preventDefault();
+  sourceZone.addEventListener("change", () => {
+    targetZones = supportedZones.filter((zone) => zone !== sourceZone.value);
     refresh();
   });
   root
@@ -341,42 +345,18 @@ function init(root: HTMLElement): void {
       }),
     );
 
-  addForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    clearError();
-    const zone = resolveZone(addZone.value);
-    if (!zone) {
-      addZone.setAttribute("aria-invalid", "true");
-      setStatus(copy.invalidZone, "error");
-      return;
-    }
-    if (zone === sourceZoneValue() || targetZones.includes(zone)) {
-      addZone.setAttribute("aria-invalid", "true");
-      setStatus(copy.duplicateZone, "error");
-      return;
-    }
-    if (targetZones.length >= MAX_TARGET_ZONES) {
-      addZone.setAttribute("aria-invalid", "true");
-      setStatus(copy.maxZones, "error");
-      return;
-    }
-    targetZones.push(zone);
-    addZone.value = "";
-    refresh();
-  });
+  zoneFilter.addEventListener("input", filterRows);
 
   const detectedZone =
     Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   sourceZone.value = resolveZone(detectedZone) ?? "UTC";
-  targetZones = DEFAULT_TARGETS.filter(
-    (zone) => zone !== sourceZone.value,
-  ).slice(0, 3);
+  targetZones = supportedZones.filter((zone) => zone !== sourceZone.value);
   updateFormatButtons();
   runLive();
 
   window.setInterval(() => {
     if (live && !document.hidden) runLive();
-  }, 30_000);
+  }, 60_000);
 }
 
 document

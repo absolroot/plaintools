@@ -1,8 +1,8 @@
-import { createHash } from "node:crypto";
-import { access, readFile, readdir } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { locales, toolRegistry } from "../apps/web/src/lib/content-registry.js";
+import { fingerprintManifest } from "./locale-review-fingerprint.mjs";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestRoot = resolve(
@@ -16,37 +16,6 @@ const selfTest = process.env.LOCALE_REVIEW_SELF_TEST;
 
 async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));
-}
-
-async function fingerprint(files) {
-  const hash = createHash("sha256");
-  for (const file of files) {
-    hash.update(file.replaceAll("\\", "/"));
-    hash.update("\0");
-    const source = await readFile(resolve(projectRoot, file), "utf8");
-    hash.update(source.replace(/\r\n?/g, "\n"));
-    hash.update("\0");
-  }
-  return `sha256:${hash.digest("hex")}`;
-}
-
-async function filesInDirectory(relativeDirectory) {
-  const absoluteDirectory = resolve(projectRoot, relativeDirectory);
-  const files = [];
-  for (const entry of await readdir(absoluteDirectory, {
-    withFileTypes: true,
-  })) {
-    const relativePath = `${relativeDirectory}/${entry.name}`.replaceAll(
-      "\\",
-      "/",
-    );
-    if (entry.isDirectory()) {
-      files.push(...(await filesInDirectory(relativePath)));
-    } else if (entry.isFile()) {
-      files.push(relativePath);
-    }
-  }
-  return files.sort();
 }
 
 async function exportedLocales(file) {
@@ -169,19 +138,11 @@ for (const [featureId, manifestFile] of featureManifests) {
 
   let currentFingerprint;
   try {
-    const directoryFiles = (
-      await Promise.all(
-        (manifest.copyDirectories ?? []).map((directory) =>
-          filesInDirectory(directory),
-        ),
-      )
-    ).flat();
-    const fingerprintFiles = [
-      ...new Set([...manifest.copyFiles, ...directoryFiles]),
-    ].sort();
-    for (const file of fingerprintFiles)
-      await access(resolve(projectRoot, file));
-    currentFingerprint = await fingerprint(fingerprintFiles);
+    currentFingerprint = await fingerprintManifest(
+      projectRoot,
+      manifest,
+      locales,
+    );
   } catch (error) {
     errors.push(`${featureId} copy surface cannot be read: ${error.message}`);
     continue;

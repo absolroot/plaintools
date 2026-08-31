@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "image-resizer",
-  "enforcement": "preview-feature",
+  "enforcement": "existing-baseline",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -35,7 +35,7 @@
     "apps/web/src/pages/[locale]/image-resizer/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:026bae658b46c3ccd04eb8027e1c8271236bc3460994199f27f29759e12b9f61",
+  "copyFingerprint": "sha256:1940f629a18167eb45cb86dea9a023df2708fff22304dad7432741104a5eab1f",
   "locales": {
     "en": {
       "status": "reference-backed",

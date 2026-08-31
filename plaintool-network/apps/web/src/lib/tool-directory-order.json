@@ -1,0 +1,32 @@
+{
+  "categoryOrder": [
+    "image",
+    "pdf",
+    "text",
+    "generator",
+    "calculator",
+    "time",
+    "converter",
+    "encoding",
+    "data"
+  ],
+  "featureCategoryOverrides": {
+    "image-converter": "image"
+  },
+  "pinnedToolOrder": {
+    "image": ["background-remover", "image-resizer", "image-upscaler"],
+    "pdf": [],
+    "text": ["ai-watermark-remover"],
+    "generator": [],
+    "calculator": [
+      "date-calculator",
+      "dday-calculator",
+      "percentage-calculator",
+      "bmi-calculator"
+    ],
+    "time": [],
+    "converter": [],
+    "encoding": [],
+    "data": []
+  }
+}

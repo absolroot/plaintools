@@ -3,7 +3,7 @@
   display: grid;
   gap: var(--space-4);
   border-bottom: 1px solid var(--line);
-  background: var(--input-surface);
+  background: var(--base);
 }
 
 .math-mode-panel {
@@ -52,27 +52,26 @@
 .fraction-expression {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(128px, 0.55fr) minmax(0, 1fr);
+  grid-template-columns:
+    minmax(112px, 1fr) 56px minmax(112px, 1fr)
+    24px;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .fraction-input-group {
   min-width: 0;
-  margin: 0;
-  padding: var(--space-3);
   display: grid;
-  gap: var(--space-2);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-panel);
-  background: var(--base);
+  grid-template-rows: auto auto 2px auto;
+  gap: var(--space-1);
 }
 
-.fraction-input-group legend {
-  padding: 0 var(--space-1);
+.fraction-operand-label {
+  margin-bottom: var(--space-1);
   color: var(--muted);
   font-size: 11px;
   font-weight: 600;
+  text-align: center;
 }
 
 .fraction-input-group label,
@@ -86,19 +85,41 @@
 }
 
 .fraction-input-group input {
+  height: 44px;
   text-align: center;
+  font-size: 16px;
 }
 
 .fraction-rule {
-  width: calc(100% - var(--space-4));
-  height: 1px;
+  width: calc(100% - var(--space-2));
+  height: 2px;
   margin: 0 auto;
   background: var(--ink);
-  opacity: 0.48;
+  opacity: 0.72;
+}
+
+.fraction-operation {
+  align-self: center;
 }
 
 .fraction-operation select {
-  font-family: inherit;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  font-family: var(--code-font);
+  font-size: 22px;
+  font-weight: 650;
+  text-align: center;
+  text-align-last: center;
+  cursor: pointer;
+}
+
+.fraction-equals {
+  color: var(--muted);
+  font-family: var(--code-font);
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .math-actions {
@@ -116,7 +137,7 @@
 }
 
 .math-results {
-  background: var(--output-surface);
+  background: var(--base);
 }
 
 .math-results.is-revealed {
@@ -163,7 +184,7 @@
   padding: var(--space-4);
   display: grid;
   gap: var(--space-1);
-  background: var(--output-surface);
+  background: var(--base);
 }
 
 .math-result-primary dt,
@@ -206,7 +227,7 @@
   padding: var(--space-3) var(--space-4);
   display: grid;
   gap: var(--space-1);
-  background: var(--output-surface);
+  background: var(--base);
 }
 
 .math-result-details dd,
@@ -267,18 +288,15 @@
   }
 
   .fraction-expression {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-3);
+    grid-template-columns:
+      minmax(88px, 1fr) 48px minmax(88px, 1fr)
+      18px;
+    gap: var(--space-2);
   }
 
-  .fraction-operation {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-
-  .fraction-input-group:last-child {
-    grid-column: 2;
-    grid-row: 1;
+  .fraction-operation select {
+    width: 48px;
+    height: 48px;
   }
 
   .math-field input,

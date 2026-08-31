@@ -24,7 +24,7 @@ const locales = {
       mobileDescription:
         "Convert time zones and compare a live world clock across cities.",
       guide:
-        "Choose the source date, time, and IANA time zone. Add the cities or zones you want to compare, then switch between 12-hour and 24-hour time. The selected date determines each location's daylight-saving offset.",
+        "Choose the source date, time, and IANA time zone. Search or scan the full world-time list to check local times, then switch between 12-hour and 24-hour time. The selected date determines each location's daylight-saving offset.",
       terms: [
         "time zone converter",
         "timezone converter",
@@ -62,8 +62,8 @@ const locales = {
       hour12: "12-hour",
       hour24: "24-hour",
       worldClock: "World clock",
-      addZone: "Add a city or time zone",
-      zonePlaceholder: "Add city or time zone",
+      addZone: "Search the world clock",
+      zonePlaceholder: "Filter cities or time zones",
       add: "Add",
       removeZone: "Remove time zone",
       sourceBadge: "Source",
@@ -80,8 +80,7 @@ const locales = {
         "That local time is skipped by a daylight-saving change. Choose another time.",
       repeatedTime:
         "That local time occurs twice during a daylight-saving change. Choose a time before or after it.",
-      emptyZones:
-        "Add another city or time zone to compare it with the source.",
+      emptyZones: "No matching time zones.",
     },
   },
   ko: {
@@ -92,7 +91,7 @@ const locales = {
       mobileDescription:
         "시간대를 변환하고 여러 도시의 세계 시계를 비교하세요.",
       guide:
-        "기준 날짜·시각과 IANA 시간대를 선택한 뒤 비교할 도시나 시간대를 추가하세요. 12시간제와 24시간제를 바꿀 수 있으며, 선택한 날짜에 맞는 서머타임 규칙이 자동으로 적용됩니다.",
+        "기준 날짜·시각과 IANA 시간대를 선택하세요. 검색 가능한 전체 세계시간 목록에서 도시와 시간대를 찾아 현지 시각을 훑어보고, 12시간제와 24시간제를 전환할 수 있습니다. 선택한 날짜에 맞는 서머타임 규칙이 자동으로 적용됩니다.",
       terms: [
         "시간대 변환기",
         "타임존 변환",
@@ -130,8 +129,8 @@ const locales = {
       hour12: "12시간",
       hour24: "24시간",
       worldClock: "세계 시계",
-      addZone: "도시 또는 시간대 추가",
-      zonePlaceholder: "도시 또는 시간대 추가",
+      addZone: "세계 시계 검색",
+      zonePlaceholder: "도시 또는 시간대 필터",
       add: "추가",
       removeZone: "시간대 삭제",
       sourceBadge: "기준",
@@ -148,7 +147,7 @@ const locales = {
         "서머타임 전환으로 존재하지 않는 현지 시각입니다. 다른 시각을 선택하세요.",
       repeatedTime:
         "서머타임 전환으로 두 번 발생하는 현지 시각입니다. 전후 시각을 선택하세요.",
-      emptyZones: "다른 도시나 시간대를 추가해 기준 시각과 비교하세요.",
+      emptyZones: "일치하는 시간대가 없습니다.",
     },
   },
   es: {
@@ -159,7 +158,7 @@ const locales = {
       mobileDescription:
         "Convierte zonas horarias y compara un reloj mundial por ciudades.",
       guide:
-        "Elige la fecha, la hora y la zona IANA de origen. Añade las ciudades que quieras comparar y alterna entre el formato de 12 y 24 horas. Se aplican las reglas de horario de verano de la fecha elegida.",
+        "Elige la fecha, la hora y la zona IANA de origen. Busca o recorre la lista completa del reloj mundial para consultar las horas locales y alterna entre el formato de 12 y 24 horas. Se aplican las reglas de horario de verano de la fecha elegida.",
       terms: [
         "conversor de zonas horarias",
         "reloj mundial",
@@ -196,8 +195,8 @@ const locales = {
       hour12: "12 horas",
       hour24: "24 horas",
       worldClock: "Reloj mundial",
-      addZone: "Añadir ciudad o zona",
-      zonePlaceholder: "Añadir ciudad o zona",
+      addZone: "Buscar en el reloj mundial",
+      zonePlaceholder: "Filtrar ciudades o zonas horarias",
       add: "Añadir",
       removeZone: "Quitar zona horaria",
       sourceBadge: "Origen",
@@ -214,7 +213,7 @@ const locales = {
         "Esa hora local no existe por un cambio de horario de verano. Elige otra.",
       repeatedTime:
         "Esa hora local se repite por un cambio de horario de verano. Elige una hora anterior o posterior.",
-      emptyZones: "Añade otra ciudad o zona para compararla con el origen.",
+      emptyZones: "No hay zonas horarias coincidentes.",
     },
   },
   de: {
@@ -225,7 +224,7 @@ const locales = {
       mobileDescription:
         "Zeitzonen umrechnen und Städte in einer Weltzeituhr vergleichen.",
       guide:
-        "Wählen Sie Datum, Uhrzeit und IANA-Ausgangszone. Fügen Sie Vergleichsorte hinzu und wechseln Sie zwischen 12- und 24-Stunden-Anzeige. Für das gewählte Datum gelten automatisch die jeweiligen Sommerzeitregeln.",
+        "Wählen Sie Datum, Uhrzeit und IANA-Ausgangszone. Durchsuchen Sie die vollständige Weltzeitliste, um Ortszeiten zu überblicken, und wechseln Sie zwischen 12- und 24-Stunden-Anzeige. Für das gewählte Datum gelten automatisch die jeweiligen Sommerzeitregeln.",
       terms: [
         "Zeitzonenrechner",
         "Weltzeituhr",
@@ -262,8 +261,8 @@ const locales = {
       hour12: "12 Stunden",
       hour24: "24 Stunden",
       worldClock: "Weltzeituhr",
-      addZone: "Stadt oder Zeitzone hinzufügen",
-      zonePlaceholder: "Stadt oder Zeitzone hinzufügen",
+      addZone: "Weltzeituhr durchsuchen",
+      zonePlaceholder: "Städte oder Zeitzonen filtern",
       add: "Hinzufügen",
       removeZone: "Zeitzone entfernen",
       sourceBadge: "Ausgang",
@@ -280,8 +279,7 @@ const locales = {
         "Diese Ortszeit entfällt bei einer Zeitumstellung. Wählen Sie eine andere Zeit.",
       repeatedTime:
         "Diese Ortszeit tritt bei einer Zeitumstellung zweimal auf. Wählen Sie eine Zeit davor oder danach.",
-      emptyZones:
-        "Fügen Sie einen weiteren Ort oder eine Zeitzone zum Vergleich hinzu.",
+      emptyZones: "Keine passenden Zeitzonen gefunden.",
     },
   },
   ja: {
@@ -292,7 +290,7 @@ const locales = {
       mobileDescription:
         "タイムゾーンを変換し、都市ごとの世界時計を比較します。",
       guide:
-        "基準の日時とIANAタイムゾーンを選び、比較したい都市を追加します。12時間・24時間表示を切り替えられ、選択した日付の夏時間規則が自動で反映されます。",
+        "基準の日時と IANA タイムゾーンを選択します。検索可能な世界時計の全リストから都市やタイムゾーンを探して各地の時刻を一覧し、12時間表示と24時間表示を切り替えられます。選択した日付に応じたサマータイム規則が自動的に適用されます。",
       terms: [
         "タイムゾーン変換",
         "世界時計",
@@ -329,8 +327,8 @@ const locales = {
       hour12: "12時間",
       hour24: "24時間",
       worldClock: "世界時計",
-      addZone: "都市またはタイムゾーンを追加",
-      zonePlaceholder: "都市またはタイムゾーンを追加",
+      addZone: "世界時計を検索",
+      zonePlaceholder: "都市またはタイムゾーンを絞り込む",
       add: "追加",
       removeZone: "タイムゾーンを削除",
       sourceBadge: "基準",
@@ -347,7 +345,7 @@ const locales = {
         "夏時間への切り替えで存在しない現地時刻です。別の時刻を選んでください。",
       repeatedTime:
         "夏時間の切り替えで2回現れる現地時刻です。前後の時刻を選んでください。",
-      emptyZones: "別の都市またはタイムゾーンを追加して比較してください。",
+      emptyZones: "一致するタイムゾーンはありません。",
     },
   },
   fr: {
@@ -358,7 +356,7 @@ const locales = {
       mobileDescription:
         "Convertissez les fuseaux et comparez l'heure de plusieurs villes.",
       guide:
-        "Choisissez la date, l'heure et le fuseau IANA de départ. Ajoutez les villes à comparer et passez du format 12 h au format 24 h. Les règles d'heure d'été de la date choisie sont appliquées automatiquement.",
+        "Choisissez la date, l'heure et le fuseau IANA de départ. Recherchez ou parcourez la liste complète de l'horloge mondiale pour consulter les heures locales, puis passez du format 12 h au format 24 h. Les règles d'heure d'été de la date choisie sont appliquées automatiquement.",
       terms: [
         "convertisseur fuseau horaire",
         "horloge mondiale",
@@ -395,8 +393,8 @@ const locales = {
       hour12: "12 heures",
       hour24: "24 heures",
       worldClock: "Horloge mondiale",
-      addZone: "Ajouter une ville ou un fuseau",
-      zonePlaceholder: "Ajouter une ville ou un fuseau",
+      addZone: "Rechercher dans l'horloge mondiale",
+      zonePlaceholder: "Filtrer les villes ou fuseaux horaires",
       add: "Ajouter",
       removeZone: "Retirer le fuseau",
       sourceBadge: "Départ",
@@ -413,8 +411,7 @@ const locales = {
         "Cette heure locale est sautée lors d'un changement d'heure. Choisissez-en une autre.",
       repeatedTime:
         "Cette heure locale se produit deux fois lors d'un changement d'heure. Choisissez une heure avant ou après.",
-      emptyZones:
-        "Ajoutez une autre ville ou un autre fuseau pour le comparer au départ.",
+      emptyZones: "Aucun fuseau horaire ne correspond.",
     },
   },
   "pt-BR": {
@@ -425,7 +422,7 @@ const locales = {
       mobileDescription:
         "Converta fusos e compare um relógio mundial entre cidades.",
       guide:
-        "Escolha data, hora e fuso IANA de origem. Adicione as cidades que deseja comparar e alterne entre 12 e 24 horas. As regras de horário de verão da data escolhida são aplicadas automaticamente.",
+        "Escolha a data, o horário e o fuso IANA de origem. Pesquise ou percorra a lista completa do relógio mundial para consultar os horários locais e alterne entre os formatos de 12 e 24 horas. As regras de horário de verão da data escolhida são aplicadas automaticamente.",
       terms: [
         "conversor de fuso horário",
         "relógio mundial",
@@ -462,8 +459,8 @@ const locales = {
       hour12: "12 horas",
       hour24: "24 horas",
       worldClock: "Relógio mundial",
-      addZone: "Adicionar cidade ou fuso",
-      zonePlaceholder: "Adicionar cidade ou fuso",
+      addZone: "Pesquisar no relógio mundial",
+      zonePlaceholder: "Filtrar cidades ou fusos horários",
       add: "Adicionar",
       removeZone: "Remover fuso horário",
       sourceBadge: "Origem",
@@ -480,7 +477,7 @@ const locales = {
         "Esse horário local não existe por causa da mudança de horário de verão. Escolha outro.",
       repeatedTime:
         "Esse horário local ocorre duas vezes na mudança de horário de verão. Escolha um horário antes ou depois.",
-      emptyZones: "Adicione outra cidade ou fuso para comparar com a origem.",
+      emptyZones: "Nenhum fuso horário correspondente.",
     },
   },
   it: {
@@ -491,7 +488,7 @@ const locales = {
       mobileDescription:
         "Converti i fusi orari e confronta l'ora nelle città del mondo.",
       guide:
-        "Scegli data, ora e fuso IANA di partenza. Aggiungi le città da confrontare e passa dal formato 12 al formato 24 ore. Vengono applicate le regole dell'ora legale della data scelta.",
+        "Scegli data, ora e fuso IANA di partenza. Cerca o scorri l'elenco completo dell'orologio mondiale per consultare le ore locali e passa dal formato 12 al formato 24 ore. Vengono applicate le regole dell'ora legale della data scelta.",
       terms: [
         "convertitore fuso orario",
         "orologio mondiale",
@@ -528,8 +525,8 @@ const locales = {
       hour12: "12 ore",
       hour24: "24 ore",
       worldClock: "Orologio mondiale",
-      addZone: "Aggiungi città o fuso",
-      zonePlaceholder: "Aggiungi città o fuso",
+      addZone: "Cerca nell'orologio mondiale",
+      zonePlaceholder: "Filtra città o fusi orari",
       add: "Aggiungi",
       removeZone: "Rimuovi fuso orario",
       sourceBadge: "Partenza",
@@ -546,7 +543,7 @@ const locales = {
         "Quest'ora locale viene saltata nel cambio dell'ora legale. Scegline un'altra.",
       repeatedTime:
         "Quest'ora locale ricorre due volte nel cambio dell'ora legale. Scegli un'ora prima o dopo.",
-      emptyZones: "Aggiungi un'altra città o fuso da confrontare.",
+      emptyZones: "Nessun fuso orario corrispondente.",
     },
   },
   nl: {
@@ -557,7 +554,7 @@ const locales = {
       mobileDescription:
         "Zet tijdzones om en vergelijk steden in een wereldklok.",
       guide:
-        "Kies de brondatum, tijd en IANA-tijdzone. Voeg plaatsen toe en wissel tussen 12- en 24-uursnotatie. De zomertijdregels voor de gekozen datum worden automatisch toegepast.",
+        "Kies de brondatum, tijd en IANA-tijdzone. Zoek of blader door de volledige wereldkloklijst om lokale tijden te bekijken en wissel tussen 12- en 24-uursnotatie. De zomertijdregels voor de gekozen datum worden automatisch toegepast.",
       terms: [
         "tijdzone converter",
         "wereldklok",
@@ -594,8 +591,8 @@ const locales = {
       hour12: "12 uur",
       hour24: "24 uur",
       worldClock: "Wereldklok",
-      addZone: "Stad of tijdzone toevoegen",
-      zonePlaceholder: "Stad of tijdzone toevoegen",
+      addZone: "Wereldklok doorzoeken",
+      zonePlaceholder: "Steden of tijdzones filteren",
       add: "Toevoegen",
       removeZone: "Tijdzone verwijderen",
       sourceBadge: "Bron",
@@ -612,7 +609,7 @@ const locales = {
         "Deze lokale tijd wordt overgeslagen bij de zomertijdwissel. Kies een andere tijd.",
       repeatedTime:
         "Deze lokale tijd komt tweemaal voor bij de zomertijdwissel. Kies een tijd ervoor of erna.",
-      emptyZones: "Voeg een andere stad of tijdzone toe om te vergelijken.",
+      emptyZones: "Geen overeenkomende tijdzones.",
     },
   },
   sv: {
@@ -623,7 +620,7 @@ const locales = {
       mobileDescription:
         "Omvandla tidszoner och jämför städer i en världsklocka.",
       guide:
-        "Välj datum, tid och IANA-tidszon som utgångspunkt. Lägg till orter och växla mellan 12- och 24-timmarsformat. Reglerna för sommartid på det valda datumet används automatiskt.",
+        "Välj datum, tid och IANA-tidszon som utgångspunkt. Sök eller bläddra i hela världstidslistan för att se lokala tider och växla mellan 12- och 24-timmarsformat. Reglerna för sommartid på det valda datumet används automatiskt.",
       terms: [
         "tidszonsomvandlare",
         "världsklocka",
@@ -660,8 +657,8 @@ const locales = {
       hour12: "12 timmar",
       hour24: "24 timmar",
       worldClock: "Världsklocka",
-      addZone: "Lägg till stad eller tidszon",
-      zonePlaceholder: "Lägg till stad eller tidszon",
+      addZone: "Sök i världsklockan",
+      zonePlaceholder: "Filtrera städer eller tidszoner",
       add: "Lägg till",
       removeZone: "Ta bort tidszon",
       sourceBadge: "Utgång",
@@ -678,7 +675,7 @@ const locales = {
         "Den lokala tiden hoppas över vid en sommartidsändring. Välj en annan tid.",
       repeatedTime:
         "Den lokala tiden inträffar två gånger vid en sommartidsändring. Välj en tid före eller efter.",
-      emptyZones: "Lägg till en annan stad eller tidszon för jämförelse.",
+      emptyZones: "Inga matchande tidszoner.",
     },
   },
   cs: {
@@ -689,7 +686,7 @@ const locales = {
       mobileDescription:
         "Převádějte časová pásma a porovnávejte města ve světových hodinách.",
       guide:
-        "Zvolte zdrojové datum, čas a pásmo IANA. Přidejte místa k porovnání a přepínejte mezi 12- a 24hodinovým formátem. Automaticky se použijí pravidla letního času pro vybrané datum.",
+        "Zvolte zdrojové datum, čas a pásmo IANA. V úplném prohledávatelném seznamu světových časů vyhledejte město nebo pásmo a procházejte místní časy; poté přepínejte mezi 12- a 24hodinovým formátem. Automaticky se použijí pravidla letního času pro vybrané datum.",
       terms: [
         "převodník časových pásem",
         "světové hodiny",
@@ -726,8 +723,8 @@ const locales = {
       hour12: "12 hodin",
       hour24: "24 hodin",
       worldClock: "Světové hodiny",
-      addZone: "Přidat město nebo pásmo",
-      zonePlaceholder: "Přidat město nebo pásmo",
+      addZone: "Hledat ve světových hodinách",
+      zonePlaceholder: "Filtrovat města nebo časová pásma",
       add: "Přidat",
       removeZone: "Odebrat časové pásmo",
       sourceBadge: "Zdroj",
@@ -744,7 +741,7 @@ const locales = {
         "Tento místní čas je při změně na letní čas přeskočen. Zvolte jiný.",
       repeatedTime:
         "Tento místní čas nastává při změně času dvakrát. Zvolte čas před ním nebo po něm.",
-      emptyZones: "Přidejte další město nebo pásmo k porovnání.",
+      emptyZones: "Žádná odpovídající časová pásma.",
     },
   },
   pl: {
@@ -755,7 +752,7 @@ const locales = {
       mobileDescription:
         "Przeliczaj strefy czasowe i porównuj miasta na zegarze światowym.",
       guide:
-        "Wybierz datę, godzinę i źródłową strefę IANA. Dodaj miejsca do porównania i przełączaj format 12- lub 24-godzinny. Reguły czasu letniego dla wybranej daty są stosowane automatycznie.",
+        "Wybierz datę, godzinę i źródłową strefę IANA. Wyszukuj miasta i strefy na pełnej liście zegara światowego, aby przeglądać czasy lokalne, oraz przełączaj format 12- lub 24-godzinny. Reguły czasu letniego dla wybranej daty są stosowane automatycznie.",
       terms: [
         "konwerter stref czasowych",
         "zegar światowy",
@@ -792,8 +789,8 @@ const locales = {
       hour12: "12 godzin",
       hour24: "24 godziny",
       worldClock: "Zegar światowy",
-      addZone: "Dodaj miasto lub strefę",
-      zonePlaceholder: "Dodaj miasto lub strefę",
+      addZone: "Przeszukaj zegar światowy",
+      zonePlaceholder: "Filtruj miasta lub strefy czasowe",
       add: "Dodaj",
       removeZone: "Usuń strefę czasową",
       sourceBadge: "Źródło",
@@ -810,7 +807,7 @@ const locales = {
         "Ta godzina lokalna jest pomijana przy zmianie czasu. Wybierz inną.",
       repeatedTime:
         "Ta godzina lokalna występuje dwukrotnie przy zmianie czasu. Wybierz godzinę przed nią lub po niej.",
-      emptyZones: "Dodaj inne miasto lub strefę do porównania.",
+      emptyZones: "Brak pasujących stref czasowych.",
     },
   },
   da: {
@@ -820,7 +817,7 @@ const locales = {
         "Omregn dato og klokkeslæt mellem byer, eller sammenlign lokale tider, UTC-forskelle og datoskift i et live-verdensure.",
       mobileDescription: "Omregn tidszoner og sammenlign byer i et verdensure.",
       guide:
-        "Vælg kildedato, klokkeslæt og IANA-tidszone. Tilføj steder, og skift mellem 12- og 24-timers format. Reglerne for sommertid på den valgte dato anvendes automatisk.",
+        "Vælg kildedato, klokkeslæt og IANA-tidszone. Søg eller gennemse hele verdensurlisten for at se lokale tider, og skift mellem 12- og 24-timers format. Reglerne for sommertid på den valgte dato anvendes automatisk.",
       terms: [
         "tidszone omregner",
         "verdensure",
@@ -857,8 +854,8 @@ const locales = {
       hour12: "12 timer",
       hour24: "24 timer",
       worldClock: "Verdensure",
-      addZone: "Tilføj by eller tidszone",
-      zonePlaceholder: "Tilføj by eller tidszone",
+      addZone: "Søg i verdensuret",
+      zonePlaceholder: "Filtrer byer eller tidszoner",
       add: "Tilføj",
       removeZone: "Fjern tidszone",
       sourceBadge: "Kilde",
@@ -875,7 +872,7 @@ const locales = {
         "Denne lokale tid springes over ved skift til sommertid. Vælg en anden.",
       repeatedTime:
         "Denne lokale tid forekommer to gange ved tidsskift. Vælg en tid før eller efter.",
-      emptyZones: "Tilføj en anden by eller tidszone til sammenligning.",
+      emptyZones: "Ingen matchende tidszoner.",
     },
   },
   no: {
@@ -886,7 +883,7 @@ const locales = {
       mobileDescription:
         "Konverter tidssoner og sammenlign byer i et verdensur.",
       guide:
-        "Velg kildedato, klokkeslett og IANA-tidssone. Legg til steder og bytt mellom 12- og 24-timersformat. Reglene for sommertid på valgt dato brukes automatisk.",
+        "Velg kildedato, klokkeslett og IANA-tidssone. Søk eller bla gjennom hele verdensurlisten for å se lokale tider, og bytt mellom 12- og 24-timersformat. Reglene for sommertid på valgt dato brukes automatisk.",
       terms: [
         "tidssone konverterer",
         "verdensur",
@@ -923,8 +920,8 @@ const locales = {
       hour12: "12 timer",
       hour24: "24 timer",
       worldClock: "Verdensur",
-      addZone: "Legg til by eller tidssone",
-      zonePlaceholder: "Legg til by eller tidssone",
+      addZone: "Søk i verdensuret",
+      zonePlaceholder: "Filtrer byer eller tidssoner",
       add: "Legg til",
       removeZone: "Fjern tidssone",
       sourceBadge: "Kilde",
@@ -941,7 +938,7 @@ const locales = {
         "Denne lokale tiden hoppes over ved overgang til sommertid. Velg en annen.",
       repeatedTime:
         "Denne lokale tiden forekommer to ganger ved tidsskifte. Velg en tid før eller etter.",
-      emptyZones: "Legg til en annen by eller tidssone for sammenligning.",
+      emptyZones: "Ingen samsvarende tidssoner.",
     },
   },
   ar: {
@@ -952,7 +949,7 @@ const locales = {
       mobileDescription:
         "حوّل المناطق الزمنية وقارن أوقات المدن في ساعة عالمية.",
       guide:
-        "اختر تاريخ ووقت ومنطقة IANA للمصدر، ثم أضف المدن التي تريد مقارنتها وبدّل بين نظامي 12 و24 ساعة. تُطبّق قواعد التوقيت الصيفي الخاصة بالتاريخ المختار تلقائياً.",
+        "اختر تاريخ المصدر ووقته ومنطقة IANA الزمنية. ابحث في القائمة الكاملة القابلة للبحث للساعة العالمية أو تصفحها للاطلاع على الأوقات المحلية، وبدّل بين تنسيقي 12 و24 ساعة. تُطبّق تلقائياً قواعد التوقيت الصيفي الخاصة بالتاريخ المحدد.",
       terms: [
         "محول المناطق الزمنية",
         "الساعة العالمية",
@@ -988,8 +985,8 @@ const locales = {
       hour12: "12 ساعة",
       hour24: "24 ساعة",
       worldClock: "الساعة العالمية",
-      addZone: "إضافة مدينة أو منطقة",
-      zonePlaceholder: "أضف مدينة أو منطقة زمنية",
+      addZone: "البحث في الساعة العالمية",
+      zonePlaceholder: "تصفية المدن أو المناطق الزمنية",
       add: "إضافة",
       removeZone: "إزالة المنطقة الزمنية",
       sourceBadge: "المصدر",
@@ -1006,7 +1003,7 @@ const locales = {
         "هذا الوقت المحلي غير موجود بسبب انتقال التوقيت الصيفي. اختر وقتاً آخر.",
       repeatedTime:
         "يتكرر هذا الوقت المحلي مرتين عند انتقال التوقيت. اختر وقتاً قبله أو بعده.",
-      emptyZones: "أضف مدينة أو منطقة أخرى لمقارنتها بالمصدر.",
+      emptyZones: "لا توجد مناطق زمنية مطابقة.",
     },
   },
   "zh-TW": {
@@ -1016,7 +1013,7 @@ const locales = {
         "轉換不同城市的日期與時間，或用即時世界時鐘比較當地時間、UTC 時差與跨日變化。",
       mobileDescription: "轉換時區並比較多個城市的世界時鐘。",
       guide:
-        "選擇來源日期、時間與 IANA 時區，再加入要比較的城市。可切換 12 小時制與 24 小時制，並依所選日期自動套用各地日光節約時間規則。",
+        "選擇來源日期、時間和 IANA 時區。在可搜尋的完整世界時間清單中尋找或瀏覽城市與時區，查看各地時間，並切換 12 小時制或 24 小時制。系統會自動套用所選日期的日光節約時間規則。",
       terms: [
         "時區轉換器",
         "世界時鐘",
@@ -1052,8 +1049,8 @@ const locales = {
       hour12: "12 小時",
       hour24: "24 小時",
       worldClock: "世界時鐘",
-      addZone: "加入城市或時區",
-      zonePlaceholder: "加入城市或時區",
+      addZone: "搜尋世界時鐘",
+      zonePlaceholder: "篩選城市或時區",
       add: "加入",
       removeZone: "移除時區",
       sourceBadge: "來源",
@@ -1069,7 +1066,7 @@ const locales = {
       nonexistentTime: "此當地時間因日光節約時間切換而不存在，請選擇其他時間。",
       repeatedTime:
         "此當地時間在日光節約時間切換時會出現兩次，請選擇前後的其他時間。",
-      emptyZones: "加入其他城市或時區與來源時間比較。",
+      emptyZones: "找不到相符的時區。",
     },
   },
   tr: {
@@ -1080,7 +1077,7 @@ const locales = {
       mobileDescription:
         "Saat dilimlerini dönüştürün ve şehirleri dünya saatinde karşılaştırın.",
       guide:
-        "Kaynak tarih, saat ve IANA saat dilimini seçin. Karşılaştırılacak yerleri ekleyin ve 12/24 saat biçimi arasında geçiş yapın. Seçilen tarihteki yaz saati kuralları otomatik uygulanır.",
+        "Kaynak tarih, saat ve IANA saat dilimini seçin. Yerel saatleri incelemek için aranabilir tam dünya saati listesinde arama yapın veya listeye göz atın ve 12/24 saat biçimi arasında geçiş yapın. Seçilen tarihteki yaz saati kuralları otomatik uygulanır.",
       terms: [
         "saat dilimi dönüştürücü",
         "dünya saati",
@@ -1117,8 +1114,8 @@ const locales = {
       hour12: "12 saat",
       hour24: "24 saat",
       worldClock: "Dünya saati",
-      addZone: "Şehir veya saat dilimi ekle",
-      zonePlaceholder: "Şehir veya saat dilimi ekle",
+      addZone: "Dünya saatinde ara",
+      zonePlaceholder: "Şehirleri veya saat dilimlerini filtrele",
       add: "Ekle",
       removeZone: "Saat dilimini kaldır",
       sourceBadge: "Kaynak",
@@ -1136,8 +1133,7 @@ const locales = {
         "Bu yerel saat yaz saati geçişinde atlanıyor. Başka bir saat seçin.",
       repeatedTime:
         "Bu yerel saat yaz saati geçişinde iki kez yaşanıyor. Öncesinden veya sonrasından bir saat seçin.",
-      emptyZones:
-        "Kaynakla karşılaştırmak için başka bir şehir veya saat dilimi ekleyin.",
+      emptyZones: "Eşleşen saat dilimi yok.",
     },
   },
 } as const satisfies Record<Locale, TimeZoneConverterLocaleSeed>;

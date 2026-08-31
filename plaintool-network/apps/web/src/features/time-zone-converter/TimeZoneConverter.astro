@@ -1,6 +1,5 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import UiIcon from "../../components/UiIcon.astro";
 import { createTimeZoneConverterClientCopy } from "./copy";
 import type { TimeZoneConverterProps } from "./contract";
 
@@ -31,16 +30,13 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
 
       <label class="time-zone-field">
         <span>{copy.sourceZone}</span>
-        <input
-          type="text"
-          list="time-zone-options"
-          data-source-zone
-          dir="ltr"
-          autocomplete="off"
-          spellcheck="false"
-          placeholder={copy.sourceZonePlaceholder}
-          aria-describedby="time-zone-status"
-        />
+        <select data-source-zone dir="ltr" aria-describedby="time-zone-status">
+          {
+            popularZones.map(({ value, label }) => (
+              <option value={value}>{label}</option>
+            ))
+          }
+        </select>
       </label>
 
       <div class="time-zone-format-field">
@@ -73,21 +69,20 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
           <span aria-hidden="true"></span>{copy.live}
         </span>
       </div>
-      <form class="time-zone-add" data-add-zone-form>
+      <label class="time-zone-filter">
+        <span class="visually-hidden">{copy.addZone}</span>
         <input
-          id="time-zone-add-input"
-          type="text"
+          id="time-zone-filter-input"
+          type="search"
           list="time-zone-options"
-          data-add-zone
+          data-zone-filter
           dir="ltr"
           autocomplete="off"
           spellcheck="false"
           placeholder={copy.zonePlaceholder}
           aria-label={copy.addZone}
-          aria-describedby="time-zone-status"
         />
-        <button class="secondary-button" type="submit">{copy.add}</button>
-      </form>
+      </label>
     </div>
 
     <datalist id="time-zone-options" data-time-zone-options>
@@ -113,9 +108,6 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
             >
           </div>
           <span data-zone-id dir="ltr"></span>
-          <div class="world-clock-dayline" aria-hidden="true">
-            <span></span>
-          </div>
         </div>
         <div class="world-clock-time">
           <strong data-zone-time dir="ltr"></strong>
@@ -125,15 +117,6 @@ const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
           <strong data-zone-date></strong>
           <span data-zone-difference></span>
         </div>
-        <button
-          class="text-button world-clock-remove"
-          type="button"
-          data-remove-zone
-          aria-label={copy.removeZone}
-        >
-          <UiIcon name="x" size={16} />
-          <span>{copy.removeZone}</span>
-        </button>
       </article>
     </template>
   </section>

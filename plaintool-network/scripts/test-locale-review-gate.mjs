@@ -1,4 +1,8 @@
 import { spawnSync } from "node:child_process";
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
+import { fingerprintManifest } from "./locale-review-fingerprint.mjs";
 
 for (const [fixture, expected] of [
   ["fingerprint", "copy fingerprint changed"],
@@ -24,6 +28,72 @@ for (const [fixture, expected] of [
   }
 }
 
+const fixtureRoot = await mkdtemp(join(tmpdir(), "absoltools-locale-review-"));
+try {
+  const sources = {
+    "apps/web/src/lib/tool-registry.js": "image-resizer registry entry\n",
+    "apps/web/src/lib/locale-data/bundle.ts": "locale assembler\n",
+    "apps/web/src/lib/locale-data/new-tools/other-tool.ts":
+      "unrelated tool copy\n",
+    "apps/web/src/lib/locale-data/new-tools/image-resizer.ts":
+      "image resizer copy v1\n",
+    "apps/web/src/features/image-resizer/copy.ts": "image resizer facade v1\n",
+  };
+  for (const [file, source] of Object.entries(sources)) {
+    const path = join(fixtureRoot, ...file.split("/"));
+    await mkdir(dirname(path), { recursive: true });
+    await writeFile(path, source, "utf8");
+  }
+
+  const manifest = {
+    featureId: "image-resizer",
+    copyFiles: [
+      "apps/web/src/lib/tool-registry.js",
+      "apps/web/src/lib/locale-data/bundle.ts",
+      "apps/web/src/lib/locale-data/new-tools/image-resizer.ts",
+      "apps/web/src/features/image-resizer/copy.ts",
+    ],
+    copyDirectories: ["apps/web/src/lib/locale-data"],
+  };
+  const baseline = await fingerprintManifest(fixtureRoot, manifest, ["en"]);
+
+  await writeFile(
+    join(fixtureRoot, "apps/web/src/lib/tool-registry.js"),
+    "unrelated tool registry entry changed\n",
+    "utf8",
+  );
+  await writeFile(
+    join(fixtureRoot, "apps/web/src/lib/locale-data/new-tools/other-tool.ts"),
+    "unrelated tool copy changed\n",
+    "utf8",
+  );
+  const unrelatedChange = await fingerprintManifest(fixtureRoot, manifest, [
+    "en",
+  ]);
+  if (unrelatedChange !== baseline) {
+    throw new Error(
+      "Unrelated registry or tool copy changed the image-resizer fingerprint.",
+    );
+  }
+
+  await writeFile(
+    join(
+      fixtureRoot,
+      "apps/web/src/lib/locale-data/new-tools/image-resizer.ts",
+    ),
+    "image resizer copy v2\n",
+    "utf8",
+  );
+  const ownedChange = await fingerprintManifest(fixtureRoot, manifest, ["en"]);
+  if (ownedChange === baseline) {
+    throw new Error(
+      "Feature-owned copy change did not change the image-resizer fingerprint.",
+    );
+  }
+} finally {
+  await rm(fixtureRoot, { recursive: true, force: true });
+}
+
 console.log(
-  "Locale review self-test passed: stale fingerprints and missing manifests are rejected.",
+  "Locale review self-test passed: stale fingerprints and missing manifests are rejected; unrelated registry changes are isolated and feature-owned copy changes are detected.",
 );

@@ -36,7 +36,7 @@
     "apps/web/src/components/PreviewToolPage.astro",
     "apps/web/src/pages/[locale]/uuid-generator/index.astro"
   ],
-  "copyFingerprint": "sha256:440c24690df10990f1b957ca2ef0bdfa73573c0881ded857b256727c804d009c",
+  "copyFingerprint": "sha256:00a7c0eca46854fc7aa42644eaf51df72019dab0e5a474e7e24f98c6825bec84",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",

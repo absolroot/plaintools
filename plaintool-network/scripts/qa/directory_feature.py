@@ -82,8 +82,8 @@ def run_directory_desktop(
     report["footer_note_ko"] = desktop.locator(".footer-inner > div > p").text_content()
     expected_tool_count = len(inventory.tools)
     if (
-        report["tool_directory_cards"] != expected_tool_count + 1
-        or report["live_tool_links"] != expected_tool_count + 1
+        report["tool_directory_cards"] != expected_tool_count
+        or report["live_tool_links"] != expected_tool_count
     ):
         report["ui_detail_failures"].append(f"Directory card/link inventory changed unexpectedly: {report['tool_directory_cards']}/{report['live_tool_links']}")
     if any(item["columns"] != 4 for item in report["directory_desktop_columns"]):
@@ -115,8 +115,6 @@ def run_directory_desktop(
 
     search_input = desktop.locator("[data-directory-search-input]")
     search_clear = desktop.locator("[data-directory-search-clear]")
-    image_section = desktop.locator("[data-image-converter-directory]")
-    image_more = image_section.locator("[data-directory-search-more]")
     report["directory_category_order"] = desktop.locator(
         "[data-directory-search-category]"
     ).evaluate_all(
@@ -124,77 +122,67 @@ def run_directory_desktop(
     )
     expected_category_order = [
         "image",
+        "pdf",
         "text",
-        "encoding",
+        "generator",
         "calculator",
         "time",
         "converter",
-        "image-converter",
-        "generator",
+        "encoding",
         "data",
     ]
     if report["directory_category_order"] != expected_category_order:
         report["ui_detail_failures"].append(
             f"Directory category order is wrong: {report['directory_category_order']}"
         )
-    image_card_surfaces = image_section.locator(
-        ".tool-directory-card"
+    image_section = desktop.locator('[data-directory-category="image"]')
+    image_hrefs = image_section.locator("a.tool-directory-card").evaluate_all(
+        "elements => elements.map(element => element.getAttribute('href'))"
+    )
+    calculator_hrefs = desktop.locator(
+        '[data-directory-category="calculator"] a.tool-directory-card'
     ).evaluate_all(
-        "elements => elements.map(element => { const style = getComputedStyle(element); return `${style.backgroundColor}|${style.boxShadow}`; })"
+        "elements => elements.map(element => element.getAttribute('href'))"
     )
-    image_card_names = image_section.locator(
-        ".tool-directory-card h3"
-    ).all_text_contents()
-    report["image_converter_directory"] = {
-        "highlightedCards": image_section.locator(
-            ".tool-directory-card.is-featured"
+    report["home_directory_card_order"] = {
+        "imageCount": len(image_hrefs),
+        "imageFirst": image_hrefs[:3],
+        "calculatorFirst": calculator_hrefs[:4],
+        "separateImageConverterCategory": desktop.locator(
+            '[data-directory-category="image-converter"]'
         ).count(),
-        "popularCards": image_section.locator(
-            ".image-converter-featured-grid [data-directory-search-card]"
-        ).count(),
-        "remainingCards": image_more.locator("[data-directory-search-card]").count(),
-        "initiallyOpen": image_more.get_attribute("open") is not None,
-        "uniformSurface": len(set(image_card_surfaces)) == 1,
-        "symbolicNames": all("→" in name for name in image_card_names),
     }
-    image_more.locator("summary").click()
-    report["image_converter_directory"]["opensOnClick"] = (
-        image_more.get_attribute("open") is not None
-    )
-    image_more.locator("summary").click()
-    if report["image_converter_directory"] != {
-        "highlightedCards": 0,
-        "popularCards": 3,
-        "remainingCards": 39,
-        "initiallyOpen": False,
-        "uniformSurface": True,
-        "symbolicNames": True,
-        "opensOnClick": True,
+    if report["home_directory_card_order"] != {
+        "imageCount": 45,
+        "imageFirst": [
+            "/ko/background-remover/",
+            "/ko/image-resizer/",
+            "/ko/image-upscaler/",
+        ],
+        "calculatorFirst": [
+            "/ko/date-calculator/",
+            "/ko/dday-calculator/",
+            "/ko/percentage-calculator/",
+            "/ko/bmi-calculator/",
+        ],
+        "separateImageConverterCategory": 0,
     }:
         report["ui_detail_failures"].append(
-            f"Image converter progressive directory failed: {report['image_converter_directory']}"
+            f"Home directory card order failed: {report['home_directory_card_order']}"
         )
 
     search_input.fill("HEIC에서 AVIF")
     image_search_state = _search_state(desktop)
-    report["image_converter_directory_search"] = {
-        "state": image_search_state,
-        "moreOpen": image_more.get_attribute("open") is not None,
-    }
+    report["image_converter_directory_search"] = image_search_state
     if (
         len(image_search_state["visibleCards"]) != 1
         or image_search_state["visibleCards"][0]["href"]
         != "/ko/heic-to-avif/"
-        or not report["image_converter_directory_search"]["moreOpen"]
     ):
         report["ui_detail_failures"].append(
-            f"Collapsed image converter search did not reveal its result: {report['image_converter_directory_search']}"
+            f"Image converter directory search failed: {report['image_converter_directory_search']}"
         )
     search_clear.click()
-    if image_more.get_attribute("open") is not None:
-        report["ui_detail_failures"].append(
-            "Image converter directory did not restore its collapsed state after search."
-        )
 
     search_cases = {
         "name": ("JSON 정리", 1, "/ko/json-formatter/"),

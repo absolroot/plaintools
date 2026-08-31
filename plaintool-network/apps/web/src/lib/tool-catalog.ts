@@ -1,5 +1,6 @@
 import { localeBundles } from "./locale-data";
 import { locales, type Locale } from "./site";
+import directoryOrder from "./tool-directory-order.json";
 import { toolRegistry } from "./tool-registry.js";
 import {
   parseImageConversionMode,
@@ -24,6 +25,7 @@ type LocalizedSearchTerms = Record<Locale, readonly string[]>;
 
 export interface ToolCatalogItem {
   id: string;
+  featureId: string;
   slug?: string;
   mark: string;
   category: ToolCategory;
@@ -179,6 +181,7 @@ function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
 
 const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   id: tool.id,
+  featureId: tool.featureId,
   slug: tool.slug,
   category: tool.category as ToolCategory,
   status: tool.publication === "indexable" ? "available" : "preview",
@@ -213,6 +216,97 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
 }));
 
 export const toolCatalog: ToolCatalogItem[] = [...registeredTools];
+
+const rawCategoryOrder = directoryOrder.categoryOrder as readonly string[];
+const rawFeatureCategoryOverrides =
+  directoryOrder.featureCategoryOverrides as Readonly<Record<string, string>>;
+const rawPinnedToolOrder = directoryOrder.pinnedToolOrder as Readonly<
+  Record<string, readonly string[]>
+>;
+const registeredCategories = new Set(toolCatalog.map((tool) => tool.category));
+const registeredFeatures = new Set(toolCatalog.map((tool) => tool.featureId));
+const configuredCategories = new Set(rawCategoryOrder);
+
+if (configuredCategories.size !== rawCategoryOrder.length) {
+  throw new Error("Home directory category order contains duplicates.");
+}
+for (const category of registeredCategories) {
+  if (!configuredCategories.has(category)) {
+    throw new Error(`Home directory category order is missing ${category}.`);
+  }
+}
+for (const category of configuredCategories) {
+  if (!registeredCategories.has(category as ToolCategory)) {
+    throw new Error(`Unknown home directory category: ${category}.`);
+  }
+}
+for (const [featureId, category] of Object.entries(
+  rawFeatureCategoryOverrides,
+)) {
+  if (!registeredFeatures.has(featureId)) {
+    throw new Error(`Unknown home directory feature override: ${featureId}.`);
+  }
+  if (!configuredCategories.has(category)) {
+    throw new Error(
+      `Unknown home directory category override for ${featureId}: ${category}.`,
+    );
+  }
+}
+
+function homeCategoryForTool(tool: ToolCatalogItem): ToolCategory {
+  return (rawFeatureCategoryOverrides[tool.featureId] ??
+    tool.category) as ToolCategory;
+}
+
+for (const [category, toolIds] of Object.entries(rawPinnedToolOrder)) {
+  if (!configuredCategories.has(category)) {
+    throw new Error(`Unknown pinned-tool category: ${category}.`);
+  }
+  if (new Set(toolIds).size !== toolIds.length) {
+    throw new Error(`Pinned-tool order for ${category} contains duplicates.`);
+  }
+  for (const toolId of toolIds) {
+    const tool = toolCatalog.find((candidate) => candidate.id === toolId);
+    if (!tool) {
+      throw new Error(`Unknown pinned home directory tool: ${toolId}.`);
+    }
+    if (homeCategoryForTool(tool) !== category) {
+      throw new Error(
+        `Pinned home directory tool ${toolId} does not belong to ${category}.`,
+      );
+    }
+  }
+}
+
+export const homeDirectoryCategoryOrder = [
+  ...rawCategoryOrder,
+] as readonly ToolCategory[];
+
+export function homeDirectoryToolsForCategory(
+  category: ToolCategory,
+): ToolCatalogItem[] {
+  const pinIndex = new Map(
+    (rawPinnedToolOrder[category] ?? []).map((toolId, index) => [
+      toolId,
+      index,
+    ]),
+  );
+  return toolCatalog
+    .filter((tool) => homeCategoryForTool(tool) === category)
+    .toSorted((left, right) => {
+      const leftIndex = pinIndex.get(left.id);
+      const rightIndex = pinIndex.get(right.id);
+      if (leftIndex === undefined && rightIndex === undefined) return 0;
+      if (leftIndex === undefined) return 1;
+      if (rightIndex === undefined) return -1;
+      return leftIndex - rightIndex;
+    });
+}
+
+export const homeDirectoryToolsInDisplayOrder =
+  homeDirectoryCategoryOrder.flatMap((category) =>
+    homeDirectoryToolsForCategory(category),
+  );
 
 export const networkCopy = localize((locale) => localeBundles[locale].network);
 

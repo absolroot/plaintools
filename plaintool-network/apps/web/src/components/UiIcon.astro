@@ -136,6 +136,14 @@ const { name, size = 16, class: className = "" } = Astro.props;
     )
   }
   {
+    name === "refresh" && (
+      <>
+        <path d="M20 11a8 8 0 1 0-2.34 5.66" />
+        <path d="M20 4v7h-7" />
+      </>
+    )
+  }
+  {
     name === "search" && (
       <>
         <circle cx="11" cy="11" r="7" />

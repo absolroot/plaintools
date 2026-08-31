@@ -34,7 +34,7 @@
     "apps/web/src/features/new-tools/GeneratorToolPage.astro",
     "apps/web/src/pages/[locale]/barcode-generator/index.astro"
   ],
-  "copyFingerprint": "sha256:008f0610e1c4c1cd52fee9a442a499d5e2f7c06f7df889f1541e128551a30e59",
+  "copyFingerprint": "sha256:a5c1b209579164ffb0ba90d0018d1bf8364b49dfe7401ee9f55f326daeff480a",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",

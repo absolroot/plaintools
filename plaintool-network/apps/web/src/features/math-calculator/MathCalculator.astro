@@ -58,9 +58,11 @@ const fractionIntegerMaxLength = FRACTION_INTEGER_MAX_DIGITS + 1;
       data-mode-panel="fraction"
       hidden={initialMode !== "fraction"}
     >
-      <div class="fraction-expression">
-        <fieldset class="fraction-input-group">
-          <legend>{copy.fraction.firstFraction}</legend>
+      <div class="fraction-expression" aria-label={copy.fraction.operation}>
+        <div class="fraction-input-group">
+          <strong class="fraction-operand-label"
+            >{copy.fraction.firstFraction}</strong
+          >
           <label>
             <span>{copy.fraction.numerator}</span>
             <input
@@ -86,27 +88,32 @@ const fractionIntegerMaxLength = FRACTION_INTEGER_MAX_DIGITS + 1;
               aria-describedby="math-fraction-hint math-calculator-status"
             />
           </label>
-        </fieldset>
+        </div>
 
-        <label class="fraction-operation">
-          <span>{copy.fraction.operation}</span>
+        <label class="fraction-operation" title={copy.fraction.operation}>
+          <span class="visually-hidden">{copy.fraction.operation}</span>
           <select
             data-field="operation"
+            aria-label={copy.fraction.operation}
             aria-describedby="math-calculator-status"
           >
             {
               operations.map((operation) => (
-                <option value={operation}>
-                  {operationSymbols[operation]}{" "}
-                  {copy.fraction.operations[operation]}
+                <option
+                  value={operation}
+                  aria-label={`${operationSymbols[operation]} ${copy.fraction.operations[operation]}`}
+                >
+                  {operationSymbols[operation]}
                 </option>
               ))
             }
           </select>
         </label>
 
-        <fieldset class="fraction-input-group">
-          <legend>{copy.fraction.secondFraction}</legend>
+        <div class="fraction-input-group">
+          <strong class="fraction-operand-label"
+            >{copy.fraction.secondFraction}</strong
+          >
           <label>
             <span>{copy.fraction.numerator}</span>
             <input
@@ -132,7 +139,9 @@ const fractionIntegerMaxLength = FRACTION_INTEGER_MAX_DIGITS + 1;
               aria-describedby="math-fraction-hint math-calculator-status"
             />
           </label>
-        </fieldset>
+        </div>
+
+        <span class="fraction-equals" aria-hidden="true">=</span>
       </div>
       <small id="math-fraction-hint" class="math-input-hint"
         >{copy.fraction.inputHint}</small

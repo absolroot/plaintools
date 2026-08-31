@@ -33,7 +33,7 @@
     "apps/web/src/features/image-upscaler/ImageUpscaler.astro",
     "apps/web/src/pages/[locale]/image-upscaler/index.astro"
   ],
-  "copyFingerprint": "sha256:5e233c0162ddc036c6a58cfbec8e65dd4a06b84ed815a2058dcc03c2752de1dc",
+  "copyFingerprint": "sha256:fd297a1ab16f253fe71bbd6ae849c614017c84575c3d70bc050413c66ebffccb",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",

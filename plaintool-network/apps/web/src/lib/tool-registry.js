@@ -385,7 +385,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "image-resizer",
     slug: "image-resizer",
     category: "image",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/image-resizer.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
