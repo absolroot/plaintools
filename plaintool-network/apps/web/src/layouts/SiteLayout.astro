@@ -90,7 +90,7 @@ const integrationActive = Boolean(
     siteConfig.integrations.ga4MeasurementId,
 );
 const contentSecurityPolicy =
-  "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
+  "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
 ---
 
 <!doctype html>

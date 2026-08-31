@@ -98,6 +98,7 @@ function initImageConverter(root: HTMLElement): void {
   let resultBlob: Blob | undefined;
   let revision = 0;
   let worker: Worker | undefined;
+  let workerTimeout: number | undefined;
 
   const setStatus = (
     message: string,
@@ -117,10 +118,17 @@ function initImageConverter(root: HTMLElement): void {
     downloadButton.disabled = true;
     warnings.replaceChildren();
   };
-  const cancel = () => {
-    revision += 1;
+  const stopWorker = () => {
+    if (workerTimeout !== undefined) {
+      window.clearTimeout(workerTimeout);
+      workerTimeout = undefined;
+    }
     worker?.terminate();
     worker = undefined;
+  };
+  const cancel = () => {
+    revision += 1;
+    stopWorker();
   };
   const formatLabel = (format: ImageFormat) =>
     sourceSelect.querySelector<HTMLOptionElement>(`option[value="${format}"]`)
@@ -271,8 +279,7 @@ function initImageConverter(root: HTMLElement): void {
       "message",
       (event: MessageEvent<ImageConverterWorkerReply>) => {
         if (event.data.id !== revision || !selectedFile) return;
-        worker?.terminate();
-        worker = undefined;
+        stopWorker();
         runButton.disabled = false;
         if (!event.data.ok) {
           const messages = {
@@ -325,12 +332,17 @@ function initImageConverter(root: HTMLElement): void {
     );
     worker.addEventListener("error", () => {
       if (runRevision !== revision) return;
-      worker?.terminate();
-      worker = undefined;
+      stopWorker();
       runButton.disabled = false;
       setStatus(copy.encodeFailed, "error");
     });
     worker.postMessage(request, [input]);
+    workerTimeout = window.setTimeout(() => {
+      if (runRevision !== revision) return;
+      stopWorker();
+      runButton.disabled = false;
+      setStatus(copy.encodeFailed, "error");
+    }, 60_000);
   };
 
   const navigate = () => {

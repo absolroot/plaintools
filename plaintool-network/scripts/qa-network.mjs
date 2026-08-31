@@ -269,7 +269,7 @@ function structuredDataNodes(documents) {
 
 function verifyStaticContentPolicy(html, route) {
   const metaPolicy =
-    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
+    "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
   if (
     !html.includes(
       `<meta http-equiv="Content-Security-Policy" content="${metaPolicy}">`,
