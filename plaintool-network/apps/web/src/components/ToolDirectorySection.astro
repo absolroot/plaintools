@@ -1,18 +1,23 @@
 ---
 import ToolDirectoryCard from "./ToolDirectoryCard.astro";
-import type { ToolCatalogItem } from "../lib/tool-catalog";
+import type { ToolCatalogItem, ToolCategory } from "../lib/tool-catalog";
 import type { Locale } from "../lib/site";
 
 interface Props {
+  category: ToolCategory;
   title: string;
   tools: ToolCatalogItem[];
   locale: Locale;
 }
 
-const { title, tools, locale } = Astro.props;
+const { category, title, tools, locale } = Astro.props;
 ---
 
-<section class="directory-category" data-directory-search-category>
+<section
+  class="directory-category"
+  data-directory-search-category
+  data-directory-category={category}
+>
   <div class="directory-category-heading">
     <h2>{title}</h2>
     <span aria-hidden="true" data-directory-search-category-count>

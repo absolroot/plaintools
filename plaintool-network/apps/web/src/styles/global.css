@@ -1129,17 +1129,6 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
 .image-converter-featured-grid {
   position: relative;
 }
-.tool-directory-card.is-featured {
-  background: var(--tint);
-  box-shadow:
-    inset 3px 0 0 var(--brand),
-    0 0 0 1px var(--hairline);
-}
-html[dir="rtl"] .tool-directory-card.is-featured {
-  box-shadow:
-    inset -3px 0 0 var(--brand),
-    0 0 0 1px var(--hairline);
-}
 .image-converter-more {
   margin-top: 1px;
   background: var(--base);

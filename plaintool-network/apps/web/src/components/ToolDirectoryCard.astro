@@ -17,7 +17,6 @@ interface Props {
   mark?: string;
   markId?: string;
   searchable?: boolean;
-  featured?: boolean;
 }
 
 const {
@@ -28,7 +27,6 @@ const {
   mark = tool.mark,
   markId = tool.id,
   searchable = true,
-  featured = false,
 } = Astro.props;
 const href = toolPath(locale, tool);
 const nameLines = (displayName ?? toolCardName(tool, locale)).split(" - ");
@@ -42,11 +40,7 @@ const searchCorpus = searchable
 {
   href ? (
     <a
-      class:list={[
-        "tool-directory-card",
-        `is-${tool.status}`,
-        { "is-featured": featured },
-      ]}
+      class:list={["tool-directory-card", `is-${tool.status}`]}
       href={href}
       data-directory-search-card={searchable ? true : undefined}
       data-directory-search-corpus={searchCorpus}
@@ -81,11 +75,7 @@ const searchCorpus = searchable
     </a>
   ) : (
     <article
-      class:list={[
-        "tool-directory-card",
-        `is-${tool.status}`,
-        { "is-featured": featured },
-      ]}
+      class:list={["tool-directory-card", `is-${tool.status}`]}
       data-directory-search-card={searchable ? true : undefined}
       data-directory-search-corpus={searchCorpus}
     >

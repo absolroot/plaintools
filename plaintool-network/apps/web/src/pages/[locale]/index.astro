@@ -9,6 +9,7 @@ import { parseImageConversionMode } from "../../features/image-converter/formats
 import {
   networkCopy,
   toolCatalog,
+  toolCardName,
   type ToolCategory,
 } from "../../lib/tool-catalog";
 import {
@@ -25,16 +26,13 @@ export function getStaticPaths() {
 const { locale } = Astro.props;
 const n = networkCopy[locale];
 const categoriesBeforeImageConversion: ToolCategory[] = [
-  "encoding",
-  "generator",
+  "image",
   "text",
+  "encoding",
+  "time",
   "converter",
 ];
-const categoriesAfterImageConversion: ToolCategory[] = [
-  "image",
-  "data",
-  "time",
-];
+const categoriesAfterImageConversion: ToolCategory[] = ["generator", "data"];
 const directoryCategoriesId = "tool-directory-categories";
 const toolsForCategory = (category: ToolCategory) => {
   const tools = toolCatalog.filter(
@@ -100,6 +98,7 @@ const publicItems = toolCatalog
       {
         categoriesBeforeImageConversion.map((category) => (
           <ToolDirectorySection
+            category={category}
             title={n.categories[category]}
             tools={toolsForCategory(category)}
             locale={locale}
@@ -109,6 +108,7 @@ const publicItems = toolCatalog
       <section
         class="directory-category image-converter-directory"
         data-directory-search-category
+        data-directory-category="image-converter"
         data-image-converter-directory
       >
         <div class="directory-category-heading">
@@ -122,11 +122,10 @@ const publicItems = toolCatalog
             tool={primaryImageConverter}
             locale={locale}
             displayName={imageConverterTitle}
-            subtitle={primaryImageConverter.name[locale]}
+            subtitle={toolCardName(primaryImageConverter, locale)}
             mark="IMG"
             markId="image-converter"
             searchable={false}
-            featured
           />
           {
             popularImageConverters.map((tool) => (
@@ -158,6 +157,7 @@ const publicItems = toolCatalog
       {
         categoriesAfterImageConversion.map((category) => (
           <ToolDirectorySection
+            category={category}
             title={n.categories[category]}
             tools={toolsForCategory(category)}
             locale={locale}

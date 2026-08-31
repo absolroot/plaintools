@@ -1,7 +1,10 @@
 import { localeBundles } from "./locale-data";
 import { locales, type Locale } from "./site";
 import { toolRegistry } from "./tool-registry.js";
-import type { ImageConverterToolId } from "../features/image-converter/formats";
+import {
+  parseImageConversionMode,
+  type ImageConverterToolId,
+} from "../features/image-converter/formats";
 
 export type ToolStatus = "available" | "preview" | "reserve";
 export type ToolCategory =
@@ -66,6 +69,16 @@ const converterCardNames = {
   "html-to-markdown": "HTML → Markdown",
   "markdown-to-html": "Markdown → HTML",
 } as const satisfies Partial<Record<RegisteredToolId, string>>;
+
+const imageFormatCardNames = {
+  bmp: "BMP",
+  png: "PNG",
+  jpg: "JPG",
+  gif: "GIF",
+  webp: "WebP",
+  heic: "HEIC",
+  avif: "AVIF",
+} as const;
 
 const toolMarks = {
   "base64-decode": "B64",
@@ -148,6 +161,10 @@ export function toolPath(
 }
 
 export function toolCardName(tool: ToolCatalogItem, locale: Locale): string {
+  const imageConversionMode = parseImageConversionMode(tool.id);
+  if (imageConversionMode) {
+    return `${imageFormatCardNames[imageConversionMode.source]} → ${imageFormatCardNames[imageConversionMode.target]}`;
+  }
   return (
     converterCardNames[tool.id as keyof typeof converterCardNames] ??
     tool.name[locale]

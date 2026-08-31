@@ -117,13 +117,44 @@ def run_directory_desktop(
     search_clear = desktop.locator("[data-directory-search-clear]")
     image_section = desktop.locator("[data-image-converter-directory]")
     image_more = image_section.locator("[data-directory-search-more]")
+    report["directory_category_order"] = desktop.locator(
+        "[data-directory-search-category]"
+    ).evaluate_all(
+        "elements => elements.map(element => element.dataset.directoryCategory)"
+    )
+    expected_category_order = [
+        "image",
+        "text",
+        "encoding",
+        "time",
+        "converter",
+        "image-converter",
+        "generator",
+        "data",
+    ]
+    if report["directory_category_order"] != expected_category_order:
+        report["ui_detail_failures"].append(
+            f"Directory category order is wrong: {report['directory_category_order']}"
+        )
+    image_card_surfaces = image_section.locator(
+        ".tool-directory-card"
+    ).evaluate_all(
+        "elements => elements.map(element => { const style = getComputedStyle(element); return `${style.backgroundColor}|${style.boxShadow}`; })"
+    )
+    image_card_names = image_section.locator(
+        ".tool-directory-card h3"
+    ).all_text_contents()
     report["image_converter_directory"] = {
-        "leadCards": image_section.locator(".tool-directory-card.is-featured").count(),
+        "highlightedCards": image_section.locator(
+            ".tool-directory-card.is-featured"
+        ).count(),
         "popularCards": image_section.locator(
             ".image-converter-featured-grid [data-directory-search-card]"
         ).count(),
         "remainingCards": image_more.locator("[data-directory-search-card]").count(),
         "initiallyOpen": image_more.get_attribute("open") is not None,
+        "uniformSurface": len(set(image_card_surfaces)) == 1,
+        "symbolicNames": all("→" in name for name in image_card_names),
     }
     image_more.locator("summary").click()
     report["image_converter_directory"]["opensOnClick"] = (
@@ -131,10 +162,12 @@ def run_directory_desktop(
     )
     image_more.locator("summary").click()
     if report["image_converter_directory"] != {
-        "leadCards": 1,
+        "highlightedCards": 0,
         "popularCards": 3,
         "remainingCards": 39,
         "initiallyOpen": False,
+        "uniformSurface": True,
+        "symbolicNames": True,
         "opensOnClick": True,
     }:
         report["ui_detail_failures"].append(
