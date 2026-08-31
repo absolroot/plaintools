@@ -168,6 +168,12 @@ function init(root: HTMLElement): void {
   };
 
   input.addEventListener("input", schedule);
+  root.querySelector("[data-sample]")?.addEventListener("click", () => {
+    if (input.value) return;
+    input.value = mode === "encode" ? copy.samples.encode : copy.samples.decode;
+    schedule();
+    input.focus();
+  });
   [scope, formSpace, passLimit].forEach((control) =>
     control.addEventListener("change", () => {
       schedule();

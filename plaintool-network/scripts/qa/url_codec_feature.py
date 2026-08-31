@@ -30,6 +30,32 @@ def run_url_codec_desktop(page, report: dict, _inventory) -> None:
             )
 
     page.goto(f"{BASE_URL}/en/url-encode/", wait_until="networkidle")
+    options_state = page.evaluate(
+        """
+        () => ({
+          topbar_option_count: document.querySelectorAll(
+            '.url-codec-topbar [data-scope], .url-codec-topbar [data-form-space], .url-codec-topbar [data-recursive]'
+          ).length,
+          options_open: document.querySelector('[data-url-codec] .formatter-options').open,
+          scope_visible: document.querySelector('[data-scope]').checkVisibility()
+        })
+        """
+    )
+    if options_state != {
+        "topbar_option_count": 0,
+        "options_open": False,
+        "scope_visible": False,
+    }:
+        report["ui_detail_failures"].append(
+            f"URL options are not isolated in the collapsed options section: {options_state}"
+        )
+
+    page.locator("[data-url-codec] [data-sample]").click()
+    page.wait_for_function(
+        "document.querySelector('[data-url-codec] [data-input]').value === "
+        "'https://example.com/search?q=hello world&lang=en'"
+    )
+    page.locator("[data-url-codec] [data-clear]").click()
     sentinel = "https://example.com/a path?q=qa-url-sentinel"
     page.locator("[data-url-codec] [data-input]").fill(sentinel)
     page.wait_for_function(
@@ -66,6 +92,7 @@ def run_url_codec_desktop(page, report: dict, _inventory) -> None:
         "document.querySelector('[data-url-codec] [data-output]').value === 'hello world'"
     )
     pass_limit = page.locator("[data-url-codec] [data-pass-limit-control]")
+    page.locator("[data-url-codec] .formatter-options > summary").click()
     if pass_limit.is_visible():
         report["ui_detail_failures"].append(
             "URL decoder pass limit is visible before repeat decode is enabled."
@@ -80,6 +107,8 @@ def run_url_codec_desktop(page, report: dict, _inventory) -> None:
 
 def run_url_codec_mobile(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/ar/url-decode/", wait_until="networkidle")
+    page.locator("[data-url-codec] .formatter-options > summary").click()
+    page.locator("[data-url-codec] [data-recursive]").check()
     page.locator("[data-url-codec] [data-input]").fill(
         "%D9%85%D8%B1%D8%AD%D8%A8%D8%A7"
     )

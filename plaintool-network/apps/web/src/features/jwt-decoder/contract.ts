@@ -32,6 +32,7 @@ export interface JwtDecoderCopy {
 export interface JwtClientCopy {
   feature: JwtDecoderCopy;
   common: ToolCommonCopy;
+  sampleInput: string;
 }
 
 export type JwtWorkerRequest = { id: number; input: string };

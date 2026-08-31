@@ -34,10 +34,8 @@ function init(root: HTMLElement): void {
   const input = root.querySelector<HTMLTextAreaElement>("[data-input]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const outputs = {
-    header: root.querySelector<HTMLTextAreaElement>('[data-output="header"]')!,
-    payload: root.querySelector<HTMLTextAreaElement>(
-      '[data-output="payload"]',
-    )!,
+    header: root.querySelector<HTMLOutputElement>('[data-output="header"]')!,
+    payload: root.querySelector<HTMLOutputElement>('[data-output="payload"]')!,
     signature: root.querySelector<HTMLOutputElement>(
       '[data-output="signature"]',
     )!,
@@ -70,8 +68,8 @@ function init(root: HTMLElement): void {
     root.classList.toggle("has-stale-result", stale);
   const render = (result?: DecodedJwt) => {
     resultVerification.hidden = !result;
-    outputs.header.value = result?.headerText ?? "";
-    outputs.payload.value = result?.payloadText ?? "";
+    outputs.header.textContent = result?.headerText ?? "";
+    outputs.payload.textContent = result?.payloadText ?? "";
     outputs.signature.textContent = result?.signature.hex ?? "";
     signatureSize.textContent = result
       ? format(copy.feature.signatureBytes, {
@@ -169,6 +167,12 @@ function init(root: HTMLElement): void {
   };
 
   input.addEventListener("input", schedule);
+  root.querySelector("[data-sample]")?.addEventListener("click", () => {
+    if (input.value) return;
+    input.value = copy.sampleInput;
+    schedule();
+    input.focus();
+  });
   root.querySelector("[data-clear]")?.addEventListener("click", () => {
     cancelPending();
     input.value = "";

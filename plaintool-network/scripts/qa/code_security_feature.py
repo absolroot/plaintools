@@ -59,6 +59,12 @@ def run_hash_mobile(page, report: dict, _inventory) -> None:
 def run_jwt_desktop(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/en/jwt-decoder/", wait_until="networkidle")
     warning = page.locator("[data-jwt-decoder] .jwt-verification-warning")
+    page.locator("[data-jwt-decoder] [data-sample]").click()
+    page.wait_for_function(
+        "document.querySelector('[data-jwt-decoder] [data-output=\"payload\"]')"
+        ".textContent.includes('PlainTool Example')"
+    )
+    page.locator("[data-jwt-decoder] [data-clear]").click()
     token = (
         "eyJhbGciOiJub25lIn0."
         "eyJzdWIiOiIxMjMiLCJleHAiOjE4OTM0NTYwMDB9."
@@ -67,7 +73,7 @@ def run_jwt_desktop(page, report: dict, _inventory) -> None:
     before = warning.inner_text().strip()
     page.locator("[data-jwt-decoder] [data-input]").fill(token)
     page.wait_for_function(
-        "document.querySelector('[data-jwt-decoder] [data-output=\"payload\"]').value.includes('\"sub\": \"123\"')"
+        "document.querySelector('[data-jwt-decoder] [data-output=\"payload\"]').textContent.includes('\"sub\": \"123\"')"
     )
     after = warning.inner_text().strip()
     result_warning = page.locator("[data-result-verification]")
@@ -86,13 +92,19 @@ def run_jwt_desktop(page, report: dict, _inventory) -> None:
         () => ({
           input: getComputedStyle(document.querySelector('.jwt-input-pane')).backgroundColor,
           output: getComputedStyle(document.querySelector('.jwt-result-pane')).backgroundColor,
-          expected_output: getComputedStyle(document.querySelector('.jwt-decoder')).backgroundColor
+          expected_output: getComputedStyle(document.querySelector('.jwt-decoder')).backgroundColor,
+          output_tags: [...document.querySelectorAll('.jwt-result-pane [data-output]')]
+            .map((element) => element.tagName),
+          output_pointer_events: [...document.querySelectorAll('[data-jwt-decoder] [data-output]')]
+            .map((element) => getComputedStyle(element).pointerEvents)
         })
         """
     )
     if (
         surfaces["input"] == surfaces["output"]
         or surfaces["output"] != surfaces["expected_output"]
+        or surfaces["output_tags"] != ["OUTPUT", "OUTPUT"]
+        or any(value != "none" for value in surfaces["output_pointer_events"])
     ):
         report["ui_detail_failures"].append(
             f"JWT input/output emphasis is reversed or inconsistent: {surfaces}"

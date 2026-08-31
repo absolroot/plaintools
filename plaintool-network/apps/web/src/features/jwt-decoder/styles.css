@@ -29,7 +29,7 @@
   line-height: 1.5;
 }
 
-.jwt-input-pane {
+.jwt-decoder .jwt-input-pane {
   background: var(--output-surface);
 }
 
@@ -67,22 +67,27 @@
   background: var(--base);
 }
 
-.jwt-result-pane textarea {
+.jwt-result-pane output {
   width: 100%;
   min-height: 240px;
   padding: var(--space-4);
-  resize: vertical;
-  border: 0;
-  outline: 0;
+  display: block;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
   color: var(--ink);
   background: transparent;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
   font-family: var(--code-font);
   font-size: 12px;
   line-height: 1.6;
 }
 
-.jwt-result-pane textarea:focus-visible {
-  box-shadow: inset 0 0 0 1px var(--focus-ring);
+.jwt-result-pane .pane-heading > h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .jwt-details {
@@ -123,12 +128,14 @@
 .jwt-signature output {
   min-height: 44px;
   margin-top: var(--space-2);
-  padding: var(--space-3);
+  padding-block: var(--space-2);
   display: block;
   overflow-wrap: anywhere;
   color: var(--ink);
-  background: var(--recessed);
-  box-shadow: inset 0 0 0 1px var(--control-line);
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
   font-family: var(--code-font);
   font-size: 12px;
 }
@@ -190,7 +197,7 @@
     padding-inline: var(--space-3);
   }
 
-  .jwt-result-pane textarea {
+  .jwt-result-pane output {
     min-height: 180px;
     padding: var(--space-3);
   }

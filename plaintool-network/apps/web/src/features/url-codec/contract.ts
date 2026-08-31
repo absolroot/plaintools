@@ -36,6 +36,7 @@ export interface UrlCodecCopy {
 export interface UrlCodecClientCopy {
   feature: UrlCodecCopy;
   common: import("../common-copy-contract").ToolCommonCopy;
+  samples: Record<UrlCodecMode, string>;
 }
 
 export interface UrlCodecOptions {
