@@ -204,7 +204,7 @@ FEATURE_COVERAGE = {
     "image-converter": FeatureCoverage(
         desktop=run_image_converter_desktop,
         mobile=run_image_converter_mobile,
-        focus_targets=(("input", "[data-image-converter] [data-drop-target]"),),
+        focus_targets=(("input", "[data-image-converter] [data-source-format]"),),
         exercise_faq=True,
     ),
 }
