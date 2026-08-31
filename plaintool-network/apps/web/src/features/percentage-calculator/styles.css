@@ -1,0 +1,267 @@
+.percentage-mode-bar {
+  overflow-x: auto;
+}
+
+.percentage-mode-switch {
+  min-width: max-content;
+}
+
+.percentage-mode-switch .mode-button {
+  white-space: nowrap;
+}
+
+.percentage-workspace {
+  padding: var(--space-5) var(--space-4);
+  display: grid;
+  gap: var(--space-5);
+  border-bottom: 1px solid var(--line);
+  background: var(--input-surface);
+}
+
+.percentage-equation {
+  min-height: 112px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.percentage-phrase {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.percentage-phrase:empty {
+  display: none;
+}
+
+.percentage-term {
+  width: min(190px, 24vw);
+  min-width: 126px;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.percentage-field-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.percentage-input-shell {
+  min-width: 0;
+  height: 36px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  border-radius: var(--radius-control);
+  color: var(--muted);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+
+.percentage-input-shell:focus-within {
+  box-shadow: 0 0 0 1px var(--focus);
+}
+
+.percentage-input-shell:has(input[aria-invalid="true"]) {
+  box-shadow: 0 0 0 1px var(--danger);
+}
+
+.percentage-input-shell input {
+  min-width: 0;
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  outline: 0;
+  color: var(--ink);
+  background: transparent;
+  font-family: var(--code-font);
+  font-size: 15px;
+  text-align: end;
+}
+
+.percentage-input-shell > span {
+  padding-inline-end: var(--space-3);
+  font-family: var(--code-font);
+  font-size: 13px;
+}
+
+.percentage-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.percentage-actions .primary-button,
+.percentage-actions .secondary-button,
+.percentage-result-heading .text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.percentage-results {
+  background: var(--output-surface);
+  transform-origin: top center;
+  animation: percentage-result-in 160ms ease-out both;
+}
+
+.percentage-result-heading {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.percentage-result-heading h2,
+.percentage-working h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.percentage-result-main {
+  min-height: 144px;
+  padding: var(--space-5) var(--space-4);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.percentage-result-main > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.percentage-result-main output {
+  max-width: 100%;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  font-family: var(--code-font);
+  font-size: clamp(32px, 7vw, 54px);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  text-align: center;
+  unicode-bidi: isolate;
+}
+
+.percentage-result-main .percentage-direction {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.percentage-working {
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-4);
+  border-top: 1px solid var(--line);
+  background: var(--recessed);
+}
+
+.percentage-working h3 {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.percentage-working p {
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  font-family: var(--code-font);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: end;
+  unicode-bidi: isolate;
+}
+
+@keyframes percentage-result-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 680px) {
+  .percentage-workspace {
+    padding-block: var(--space-4);
+  }
+
+  .percentage-equation {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+
+  .percentage-phrase {
+    min-height: 0;
+    font-size: 12px;
+  }
+
+  .percentage-term {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .percentage-input-shell,
+  .percentage-input-shell input {
+    height: 44px;
+  }
+
+  .percentage-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .percentage-actions .primary-button,
+  .percentage-actions .secondary-button,
+  .percentage-result-heading .text-button {
+    min-height: 44px;
+  }
+
+  .percentage-result-main {
+    min-height: 128px;
+  }
+
+  .percentage-working {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+
+  .percentage-working p {
+    text-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .percentage-results {
+    animation: none;
+  }
+}

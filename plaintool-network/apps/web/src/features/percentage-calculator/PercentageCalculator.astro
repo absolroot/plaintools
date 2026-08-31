@@ -1,0 +1,173 @@
+---
+import type {
+  PercentageField,
+  PercentageMode,
+} from "@plaintool/percentage-calculator-core";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { PercentageCalculatorProps } from "./contract";
+import { createPercentageCalculatorClientCopy } from "./copy";
+import "./styles.css";
+
+const {
+  locale,
+  copy,
+  commonCopy,
+  initialMode = "percent-of",
+} = Astro.props as PercentageCalculatorProps;
+const clientCopy = createPercentageCalculatorClientCopy(copy, commonCopy);
+
+interface ModeDefinition {
+  mode: PercentageMode;
+  first: PercentageField;
+  second: PercentageField;
+  firstPercent: boolean;
+  secondPercent: boolean;
+}
+
+const modes = [
+  {
+    mode: "percent-of",
+    first: "percent",
+    second: "base",
+    firstPercent: true,
+    secondPercent: false,
+  },
+  {
+    mode: "what-percent",
+    first: "part",
+    second: "base",
+    firstPercent: false,
+    secondPercent: false,
+  },
+  {
+    mode: "whole-from-percent",
+    first: "part",
+    second: "percent",
+    firstPercent: false,
+    secondPercent: true,
+  },
+  {
+    mode: "percentage-change",
+    first: "oldValue",
+    second: "newValue",
+    firstPercent: false,
+    secondPercent: false,
+  },
+] as const satisfies readonly ModeDefinition[];
+---
+
+<section
+  class="converter percentage-calculator"
+  data-percentage-calculator
+  data-mode={initialMode}
+  data-locale={locale}
+  aria-label={copy.ariaLabel}
+>
+  <div class="converter-topbar percentage-mode-bar">
+    <div
+      class="mode-switch percentage-mode-switch"
+      role="group"
+      aria-label={copy.modeSelectorLabel}
+    >
+      {
+        modes.map(({ mode }) => (
+          <button
+            class:list={["mode-button", { "is-active": initialMode === mode }]}
+            type="button"
+            data-mode-button={mode}
+            aria-pressed={initialMode === mode ? "true" : "false"}
+          >
+            {copy.modes[mode]}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="percentage-workspace">
+    {
+      modes.map(({ mode, first, second, firstPercent, secondPercent }) => (
+        <div
+          class="percentage-equation"
+          id={`percentage-panel-${mode}`}
+          data-mode-panel={mode}
+          hidden={initialMode !== mode}
+        >
+          <span class="percentage-phrase">{copy.phrases[mode].start}</span>
+          <label class="percentage-term">
+            <span class="percentage-field-label">{copy.fields[first]}</span>
+            <span class="percentage-input-shell">
+              <input
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                dir="ltr"
+                data-field={first}
+                aria-describedby="percentage-calculator-status"
+              />
+              {firstPercent && <span aria-hidden="true">%</span>}
+            </span>
+          </label>
+          <span class="percentage-phrase">{copy.phrases[mode].between}</span>
+          <label class="percentage-term">
+            <span class="percentage-field-label">{copy.fields[second]}</span>
+            <span class="percentage-input-shell">
+              <input
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                dir="ltr"
+                data-field={second}
+                aria-describedby="percentage-calculator-status"
+              />
+              {secondPercent && <span aria-hidden="true">%</span>}
+            </span>
+          </label>
+          <span class="percentage-phrase">{copy.phrases[mode].end}</span>
+        </div>
+      ))
+    }
+
+    <div class="percentage-actions">
+      <button class="primary-button" type="button" data-calculate>
+        {copy.calculate}
+      </button>
+      <button class="secondary-button" type="button" data-clear>
+        <UiIcon name="x" size={14} />{commonCopy.clear}
+      </button>
+    </div>
+  </div>
+
+  <section class="percentage-results" data-results hidden aria-live="polite">
+    <div class="percentage-result-heading">
+      <h2>{copy.resultTitle}</h2>
+      <button class="text-button" type="button" data-copy disabled>
+        <UiIcon name="copy" size={14} />{commonCopy.copy}
+      </button>
+    </div>
+    <div class="percentage-result-main">
+      <p data-result-label></p>
+      <output data-result-value dir="ltr"></output>
+      <p class="percentage-direction" data-direction hidden></p>
+    </div>
+    <div class="percentage-working">
+      <h3>{copy.formulaLabel}</h3>
+      <p data-working dir="ltr"></p>
+    </div>
+  </section>
+
+  <ConverterStatus
+    status={commonCopy.ready}
+    statusId="percentage-calculator-status"
+  />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>
