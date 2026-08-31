@@ -9,7 +9,6 @@ import {
   homeDirectoryToolsForCategory,
   homeDirectoryToolsInDisplayOrder,
   networkCopy,
-  toolCardName,
 } from "../../lib/tool-catalog";
 import {
   absoluteUrl,
@@ -35,7 +34,7 @@ const imageConverterRepresentativeCard = {
   tool: imageConverterEntryTool,
   displayName:
     imageConverterLocales[locale].tools["png-to-webp"].feature.ariaLabel,
-  subtitle: toolCardName(imageConverterEntryTool, locale),
+  subtitle: "",
   mark: "IMG",
   markId: "image-converter",
 };

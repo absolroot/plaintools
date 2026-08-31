@@ -17,6 +17,7 @@ const iconIds = new Set([
   "ip-subnet-calculator",
   "background-remover",
   "image-upscaler",
+  "image-resizer",
   "compress-pdf",
   "merge-pdf",
   "split-pdf",
@@ -165,6 +166,14 @@ const iconIds = new Set([
             <path d="m14 10 6-6M15 4h5v5" />
           </>
         )}
+        {toolId === "image-resizer" && (
+          <>
+            <path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5" />
+            <rect x="7" y="7" width="10" height="10" />
+            <circle cx="10" cy="10" r=".75" fill="currentColor" stroke="none" />
+            <path d="m8 15 2.75-3 2 2 1.5-1.5L16 14.25" />
+          </>
+        )}
         {toolId === "compress-pdf" && (
           <>
             <path d="M5 2.5h9l5 5v14H5zM14 2.5v5h5" />
@@ -186,26 +195,32 @@ const iconIds = new Set([
         )}
         {toolId === "pdf-to-image" && (
           <>
-            <path d="M2.5 5h5l2.5 2.5V19H2.5zM7.5 5v2.5H10" />
+            <path d="M2.5 6.5h4.5l2.5 2.5v8.5h-7zM7 6.5V9h2.5" />
             <path d="M10.5 12h3M12 10.5l1.5 1.5-1.5 1.5" />
-            <rect x="14" y="6" width="8" height="12" rx="1" />
+            <rect x="14" y="8" width="8" height="8" />
             <circle
               cx="16.5"
-              cy="9"
+              cy="10.5"
               r=".75"
               fill="currentColor"
               stroke="none"
             />
-            <path d="m15 16 2.25-2.5 1.5 1.5 1.25-1.25 1 1.25" />
+            <path d="m15 14.5 2.25-2.25 1.5 1.25 1.25-1.25 1 1" />
           </>
         )}
         {toolId === "image-to-pdf" && (
           <>
-            <rect x="2" y="6" width="8" height="12" rx="1" />
-            <circle cx="4.5" cy="9" r=".75" fill="currentColor" stroke="none" />
-            <path d="m3 16 2.25-2.5 1.5 1.5L8 13.75 9 15" />
+            <rect x="2" y="8" width="8" height="8" />
+            <circle
+              cx="4.5"
+              cy="10.5"
+              r=".75"
+              fill="currentColor"
+              stroke="none"
+            />
+            <path d="m3 14.5 2.25-2.25 1.5 1.25L8 12.25l1 1" />
             <path d="M10.5 12h3M12 10.5l1.5 1.5-1.5 1.5" />
-            <path d="M14 5h5l2.5 2.5V19H14zM19 5v2.5h2.5" />
+            <path d="M14.5 6.5H19l2.5 2.5v8.5h-7zM19 6.5V9h2.5" />
           </>
         )}
       </svg>

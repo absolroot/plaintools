@@ -29,19 +29,45 @@ describe("home tool directory order", () => {
     expect(directoryOrder.categoryOrder).not.toContain("image-converter");
   });
 
-  it("pins the requested image and calculator cards", () => {
+  it("pins the requested image, generator, and calculator cards", () => {
     expect(directoryOrder.pinnedToolOrder.image.slice(0, 3)).toEqual([
       "background-remover",
       "image-resizer",
       "image-upscaler",
     ]);
     expect(directoryOrder.pinnedToolOrder.image[1]).toBe("image-resizer");
-    expect(directoryOrder.pinnedToolOrder.calculator.slice(0, 4)).toEqual([
+    expect(directoryOrder.pinnedToolOrder.generator.slice(0, 4)).toEqual([
+      "qr-code-generator",
+      "qr-code-scanner",
+      "barcode-generator",
+      "password-generator",
+    ]);
+    expect(directoryOrder.pinnedToolOrder.calculator.slice(0, 5)).toEqual([
       "date-calculator",
       "dday-calculator",
       "percentage-calculator",
       "bmi-calculator",
+      "age-calculator",
     ]);
+  });
+
+  it("keeps the generator top four and age calculator in exact display positions", () => {
+    expect(
+      homeDirectoryToolsForCategory("generator")
+        .slice(0, 4)
+        .map((tool) => tool.id),
+    ).toEqual([
+      "qr-code-generator",
+      "qr-code-scanner",
+      "barcode-generator",
+      "password-generator",
+    ]);
+
+    const calculatorIds = homeDirectoryToolsForCategory("calculator").map(
+      (tool) => tool.id,
+    );
+    expect(calculatorIds[4]).toBe("age-calculator");
+    expect(calculatorIds.indexOf("fraction-calculator")).toBeGreaterThan(4);
   });
 
   it("references only registered features, tools, and categories", () => {

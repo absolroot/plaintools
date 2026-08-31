@@ -20,12 +20,18 @@
     "image": ["background-remover", "image-resizer", "image-upscaler"],
     "pdf": [],
     "text": ["ai-watermark-remover"],
-    "generator": [],
+    "generator": [
+      "qr-code-generator",
+      "qr-code-scanner",
+      "barcode-generator",
+      "password-generator"
+    ],
     "calculator": [
       "date-calculator",
       "dday-calculator",
       "percentage-calculator",
-      "bmi-calculator"
+      "bmi-calculator",
+      "age-calculator"
     ],
     "time": [],
     "converter": [],

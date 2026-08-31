@@ -22,23 +22,23 @@ type LocalCopy = Omit<
 type LocalPack = { copy: LocalCopy; page: PageSeed };
 
 const supportedTypes: Record<Locale, string> = {
-  en: "PNG, JPEG, WebP · max 10 MB",
-  ko: "PNG, JPEG, WebP · 최대 10MB",
-  es: "PNG, JPEG, WebP · máx. 10 MB",
-  de: "PNG, JPEG, WebP · max. 10 MB",
-  ja: "PNG、JPEG、WebP・最大10 MB",
-  fr: "PNG, JPEG, WebP · 10 Mo max.",
-  "pt-BR": "PNG, JPEG, WebP · máx. 10 MB",
-  it: "PNG, JPEG, WebP · max 10 MB",
-  nl: "PNG, JPEG, WebP · max. 10 MB",
-  sv: "PNG, JPEG, WebP · max 10 MB",
-  cs: "PNG, JPEG, WebP · max. 10 MB",
-  pl: "PNG, JPEG, WebP · maks. 10 MB",
-  da: "PNG, JPEG, WebP · maks. 10 MB",
-  no: "PNG, JPEG, WebP · maks. 10 MB",
-  ar: "PNG وJPEG وWebP · الحد الأقصى 10 MB",
-  "zh-TW": "PNG、JPEG、WebP · 上限 10 MB",
-  tr: "PNG, JPEG, WebP · en fazla 10 MB",
+  en: "JPG/JPEG, PNG, WebP · max 10 MB",
+  ko: "JPG/JPEG, PNG, WebP · 최대 10MB",
+  es: "JPG/JPEG, PNG, WebP · máx. 10 MB",
+  de: "JPG/JPEG, PNG, WebP · max. 10 MB",
+  ja: "JPG/JPEG、PNG、WebP・最大10 MB",
+  fr: "JPG/JPEG, PNG, WebP · 10 Mo max.",
+  "pt-BR": "JPG/JPEG, PNG, WebP · máx. 10 MB",
+  it: "JPG/JPEG, PNG, WebP · max 10 MB",
+  nl: "JPG/JPEG, PNG, WebP · max. 10 MB",
+  sv: "JPG/JPEG, PNG, WebP · max 10 MB",
+  cs: "JPG/JPEG, PNG, WebP · max. 10 MB",
+  pl: "JPG/JPEG, PNG, WebP · maks. 10 MB",
+  da: "JPG/JPEG, PNG, WebP · maks. 10 MB",
+  no: "JPG/JPEG, PNG, WebP · maks. 10 MB",
+  ar: "JPG/JPEG وPNG وWebP · الحد الأقصى 10 MB",
+  "zh-TW": "JPG/JPEG、PNG、WebP · 上限 10 MB",
+  tr: "JPG/JPEG, PNG, WebP · en fazla 10 MB",
 };
 
 function pack(
@@ -105,7 +105,7 @@ const packs: Record<Locale, LocalPack> = {
         "This image is too large for the selected model on this browser.",
       outputTooLarge:
         "The selected scale would exceed the 4096 px or 16 megapixel output limit.",
-      invalidImage: "Choose a valid PNG, JPEG, or WebP image.",
+      invalidImage: "Choose a valid JPG/JPEG, PNG, or WebP image.",
       modelFailed:
         "The verified AI model could not be loaded. Check the connection and try again.",
       processingFailed:
@@ -115,9 +115,9 @@ const packs: Record<Locale, LocalPack> = {
         "Your upscaled result and comparison control will appear here.",
     },
     page: {
-      title: "Image Upscaler",
+      title: "Image Upscaler (Increase Resolution)",
       description:
-        "Upscale an image 2× or 4× with an AI model that runs locally in your browser, then compare and download the result.",
+        "Increase image resolution 2× or 4× with AI, then compare and download the result.",
       mobileDescription: "Increase image resolution 2× or 4× in your browser.",
       guide:
         "Choose one image, select Compact or WebGPU Quality mode and a 2× or 4× scale, then approve the one-time model download. Compare the result before saving it as PNG or JPEG.",
@@ -175,7 +175,7 @@ const packs: Record<Locale, LocalPack> = {
         "이 브라우저에서 선택한 모델로 처리하기에는 이미지가 너무 큽니다.",
       outputTooLarge:
         "선택한 배율은 결과 제한인 4096px 또는 1,600만 화소를 넘습니다.",
-      invalidImage: "올바른 PNG, JPEG 또는 WebP 이미지를 선택하세요.",
+      invalidImage: "올바른 JPG/JPEG, PNG 또는 WebP 이미지를 선택하세요.",
       modelFailed:
         "검증된 AI 모델을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
       processingFailed:
@@ -185,10 +185,10 @@ const packs: Record<Locale, LocalPack> = {
         "해상도를 높인 이미지와 비교 조절기가 여기에 표시됩니다.",
     },
     page: {
-      title: "이미지 업스케일러(해상도)",
+      title: "이미지 업스케일러 (해상도 높이기)",
       heading: "이미지 해상도 높이기",
       description:
-        "브라우저에서 실행되는 AI 모델로 이미지 해상도를 2배 또는 4배 높이고, 원본과 비교해 결과를 저장합니다.",
+        "AI로 이미지 해상도를 2배 또는 4배 높이고 결과를 비교해 저장하세요.",
       mobileDescription: "브라우저에서 이미지 해상도를 2배·4배 높입니다.",
       guide:
         "이미지 한 장을 선택하고 경량 또는 WebGPU 고화질 모델과 2배·4배 배율을 고르세요. 최초 모델 다운로드를 확인한 뒤 결과를 원본과 비교하고 PNG 또는 JPEG로 저장할 수 있습니다.",
@@ -246,7 +246,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "La imagen es demasiado grande para el modelo elegido en este navegador.",
       outputTooLarge: "La escala supera el límite de 4096 px o 16 megapíxeles.",
-      invalidImage: "Elige una imagen PNG, JPEG o WebP válida.",
+      invalidImage: "Elige una imagen JPG/JPEG, PNG o WebP válida.",
       modelFailed:
         "No se pudo cargar el modelo verificado. Comprueba la conexión e inténtalo de nuevo.",
       processingFailed:
@@ -256,9 +256,9 @@ const packs: Record<Locale, LocalPack> = {
         "El resultado ampliado y el comparador aparecerán aquí.",
     },
     page: {
-      title: "Ampliador de imágenes",
+      title: "Ampliador de imágenes (aumentar resolución)",
       description:
-        "Aumenta una imagen 2× o 4× con un modelo de IA local en el navegador, compara el resultado y descárgalo.",
+        "Aumenta la resolución de una imagen 2× o 4× con IA, compara el resultado y descárgalo.",
       mobileDescription:
         "Aumenta la resolución de imágenes 2× o 4× en el navegador.",
       guide:
@@ -318,7 +318,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "Das Bild ist für das gewählte Modell in diesem Browser zu groß.",
       outputTooLarge: "Die Skalierung überschreitet 4096 px oder 16 Megapixel.",
-      invalidImage: "Ein gültiges PNG-, JPEG- oder WebP-Bild auswählen.",
+      invalidImage: "Ein gültiges JPG-/JPEG-, PNG- oder WebP-Bild auswählen.",
       modelFailed:
         "Das geprüfte Modell konnte nicht geladen werden. Verbindung prüfen und erneut versuchen.",
       processingFailed:
@@ -328,9 +328,9 @@ const packs: Record<Locale, LocalPack> = {
         "Das hochskalierte Ergebnis und der Vergleich erscheinen hier.",
     },
     page: {
-      title: "Bild-Upscaler",
+      title: "Bild-Upscaler (Auflösung erhöhen)",
       description:
-        "Bilder mit einem lokal im Browser laufenden KI-Modell auf 2× oder 4× vergrößern, vergleichen und herunterladen.",
+        "Bildauflösung mit KI 2× oder 4× erhöhen, Ergebnis vergleichen und herunterladen.",
       mobileDescription: "Bildauflösung lokal im Browser 2× oder 4× erhöhen.",
       guide:
         "Bild auswählen, Kompakt- oder WebGPU-Qualitätsmodus und 2× oder 4× wählen. Einmaligen Modelldownload bestätigen, Ergebnis vergleichen und als PNG oder JPEG speichern.",
@@ -386,7 +386,7 @@ const packs: Record<Locale, LocalPack> = {
       fileTooLarge: "10 MB以下の画像を選択してください。",
       imageTooLarge: "このブラウザーの選択モデルでは画像が大きすぎます。",
       outputTooLarge: "選択した倍率は4096 pxまたは1600万画素の上限を超えます。",
-      invalidImage: "有効なPNG、JPEG、WebP画像を選択してください。",
+      invalidImage: "有効なJPG/JPEG、PNG、WebP画像を選択してください。",
       modelFailed:
         "検証済みモデルを読み込めませんでした。接続を確認して再試行してください。",
       processingFailed:
@@ -395,9 +395,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "高解像度の結果と比較スライダーがここに表示されます。",
     },
     page: {
-      title: "画像アップスケーラー",
+      title: "画像アップスケーラー（解像度を上げる）",
       description:
-        "画像をブラウザー内のAIモデルで2倍または4倍に高解像度化し、元画像と比較して保存できます。",
+        "AIで画像の解像度を2倍または4倍に上げ、元画像と比較して保存できます。",
       mobileDescription: "ブラウザーで画像の解像度を2倍・4倍にします。",
       guide:
         "画像を1枚選び、軽量またはWebGPU高画質モデルと2倍・4倍を指定します。初回モデル取得を確認し、比較後にPNGかJPEGで保存してください。",
@@ -455,7 +455,7 @@ const packs: Record<Locale, LocalPack> = {
         "L’image est trop grande pour le modèle choisi dans ce navigateur.",
       outputTooLarge:
         "Le facteur dépasse la limite de 4096 px ou 16 mégapixels.",
-      invalidImage: "Choisissez une image PNG, JPEG ou WebP valide.",
+      invalidImage: "Choisissez une image JPG/JPEG, PNG ou WebP valide.",
       modelFailed:
         "Le modèle vérifié n’a pas pu être chargé. Vérifiez la connexion et réessayez.",
       processingFailed:
@@ -466,9 +466,9 @@ const packs: Record<Locale, LocalPack> = {
         "Le résultat agrandi et le comparateur apparaîtront ici.",
     },
     page: {
-      title: "Agrandisseur d’image",
+      title: "Agrandisseur d’image (augmenter la résolution)",
       description:
-        "Agrandissez une image 2× ou 4× avec un modèle d’IA local dans le navigateur, comparez puis téléchargez le résultat.",
+        "Augmentez la résolution d’une image 2× ou 4× avec l’IA, comparez puis téléchargez le résultat.",
       mobileDescription:
         "Augmentez la résolution d’une image 2× ou 4× dans le navigateur.",
       guide:
@@ -528,7 +528,7 @@ const packs: Record<Locale, LocalPack> = {
         "A imagem é grande demais para o modelo escolhido neste navegador.",
       outputTooLarge:
         "A escala ultrapassa o limite de 4096 px ou 16 megapixels.",
-      invalidImage: "Escolha uma imagem PNG, JPEG ou WebP válida.",
+      invalidImage: "Escolha uma imagem JPG/JPEG, PNG ou WebP válida.",
       modelFailed:
         "Não foi possível carregar o modelo verificado. Confira a conexão e tente de novo.",
       processingFailed:
@@ -537,9 +537,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "O resultado ampliado e o comparador aparecerão aqui.",
     },
     page: {
-      title: "Ampliador de imagem",
+      title: "Ampliador de imagem (aumentar resolução)",
       description:
-        "Aumente uma imagem em 2× ou 4× com um modelo de IA local no navegador, compare e baixe o resultado.",
+        "Aumente a resolução de uma imagem em 2× ou 4× com IA, compare e baixe o resultado.",
       mobileDescription:
         "Aumente a resolução da imagem em 2× ou 4× no navegador.",
       guide:
@@ -597,7 +597,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "L’immagine è troppo grande per il modello scelto in questo browser.",
       outputTooLarge: "La scala supera il limite di 4096 px o 16 megapixel.",
-      invalidImage: "Scegli un’immagine PNG, JPEG o WebP valida.",
+      invalidImage: "Scegli un’immagine JPG/JPEG, PNG o WebP valida.",
       modelFailed:
         "Impossibile caricare il modello verificato. Controlla la connessione e riprova.",
       processingFailed:
@@ -607,9 +607,9 @@ const packs: Record<Locale, LocalPack> = {
         "Il risultato ingrandito e il confronto appariranno qui.",
     },
     page: {
-      title: "Upscaler di immagini",
+      title: "Upscaler di immagini (aumentare la risoluzione)",
       description:
-        "Aumenta un’immagine di 2× o 4× con un modello IA locale nel browser, confronta e scarica il risultato.",
+        "Aumenta la risoluzione di un’immagine di 2× o 4× con l’IA, confronta e scarica il risultato.",
       mobileDescription:
         "Aumenta la risoluzione dell’immagine 2× o 4× nel browser.",
       guide:
@@ -667,7 +667,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "De afbeelding is te groot voor het gekozen model in deze browser.",
       outputTooLarge: "De schaal overschrijdt 4096 px of 16 megapixels.",
-      invalidImage: "Kies een geldige PNG-, JPEG- of WebP-afbeelding.",
+      invalidImage: "Kies een geldige JPG-/JPEG-, PNG- of WebP-afbeelding.",
       modelFailed:
         "Het gecontroleerde model kon niet worden geladen. Controleer de verbinding en probeer opnieuw.",
       processingFailed:
@@ -677,9 +677,9 @@ const packs: Record<Locale, LocalPack> = {
         "Het vergrote resultaat en de vergelijking verschijnen hier.",
     },
     page: {
-      title: "Afbeeldingsvergroter",
+      title: "Afbeeldingsvergroter (resolutie verhogen)",
       description:
-        "Vergroot een afbeelding 2× of 4× met een lokaal AI-model in de browser, vergelijk en download het resultaat.",
+        "Verhoog de resolutie van een afbeelding 2× of 4× met AI, vergelijk en download het resultaat.",
       mobileDescription:
         "Verhoog de afbeeldingsresolutie 2× of 4× in de browser.",
       guide:
@@ -736,7 +736,7 @@ const packs: Record<Locale, LocalPack> = {
       fileTooLarge: "Välj en bild på högst 10 MB.",
       imageTooLarge: "Bilden är för stor för vald modell i denna webbläsare.",
       outputTooLarge: "Skalan överskrider 4096 px eller 16 megapixlar.",
-      invalidImage: "Välj en giltig PNG-, JPEG- eller WebP-bild.",
+      invalidImage: "Välj en giltig JPG-/JPEG-, PNG- eller WebP-bild.",
       modelFailed:
         "Den verifierade modellen kunde inte läsas in. Kontrollera anslutningen och försök igen.",
       processingFailed:
@@ -745,9 +745,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Den uppskalade bilden och jämförelsen visas här.",
     },
     page: {
-      title: "Bilduppskalare",
+      title: "Bilduppskalare (höj upplösningen)",
       description:
-        "Skala upp en bild 2× eller 4× med en lokal AI-modell i webbläsaren, jämför och hämta resultatet.",
+        "Höj bildupplösningen 2× eller 4× med AI, jämför och hämta resultatet.",
       mobileDescription: "Höj bildupplösningen 2× eller 4× i webbläsaren.",
       guide:
         "Välj en bild, Kompakt eller WebGPU Kvalitet och 2× eller 4×. Bekräfta engångshämtningen, jämför och spara som PNG eller JPEG.",
@@ -804,7 +804,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "Obrázek je pro zvolený model v tomto prohlížeči příliš velký.",
       outputTooLarge: "Měřítko překračuje limit 4096 px nebo 16 megapixelů.",
-      invalidImage: "Vyberte platný obrázek PNG, JPEG nebo WebP.",
+      invalidImage: "Vyberte platný obrázek JPG/JPEG, PNG nebo WebP.",
       modelFailed:
         "Ověřený model se nepodařilo načíst. Zkontrolujte připojení a zkuste to znovu.",
       processingFailed:
@@ -813,9 +813,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Zvětšený výsledek a porovnání se zobrazí zde.",
     },
     page: {
-      title: "Zvětšení obrázku",
+      title: "Zvětšení obrázku (vyšší rozlišení)",
       description:
-        "Zvětšete obrázek 2× či 4× pomocí místního modelu AI v prohlížeči, porovnejte a stáhněte výsledek.",
+        "Zvyšte rozlišení obrázku 2× nebo 4× pomocí AI, porovnejte a stáhněte výsledek.",
       mobileDescription: "Zvyšte rozlišení obrázku 2× nebo 4× v prohlížeči.",
       guide:
         "Vyberte obrázek, Kompaktní nebo WebGPU Kvalitní režim a 2× či 4×. Potvrďte jednorázové stažení, porovnejte a uložte PNG nebo JPEG.",
@@ -872,7 +872,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "Obraz jest za duży dla wybranego modelu w tej przeglądarce.",
       outputTooLarge: "Skala przekracza limit 4096 px lub 16 megapikseli.",
-      invalidImage: "Wybierz prawidłowy obraz PNG, JPEG lub WebP.",
+      invalidImage: "Wybierz prawidłowy obraz JPG/JPEG, PNG lub WebP.",
       modelFailed:
         "Nie udało się wczytać zweryfikowanego modelu. Sprawdź połączenie i spróbuj ponownie.",
       processingFailed:
@@ -881,9 +881,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Powiększony wynik i porównanie pojawią się tutaj.",
     },
     page: {
-      title: "Powiększanie obrazów",
+      title: "Powiększanie obrazów (zwiększ rozdzielczość)",
       description:
-        "Powiększ obraz 2× albo 4× lokalnym modelem AI w przeglądarce, porównaj i pobierz wynik.",
+        "Zwiększ rozdzielczość obrazu 2× lub 4× za pomocą AI, porównaj i pobierz wynik.",
       mobileDescription:
         "Zwiększ rozdzielczość obrazu 2× lub 4× w przeglądarce.",
       guide:
@@ -942,7 +942,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "Billedet er for stort til den valgte model i denne browser.",
       outputTooLarge: "Skaleringen overskrider 4096 px eller 16 megapixel.",
-      invalidImage: "Vælg et gyldigt PNG-, JPEG- eller WebP-billede.",
+      invalidImage: "Vælg et gyldigt JPG-/JPEG-, PNG- eller WebP-billede.",
       modelFailed:
         "Den verificerede model kunne ikke indlæses. Tjek forbindelsen, og prøv igen.",
       processingFailed:
@@ -952,9 +952,9 @@ const packs: Record<Locale, LocalPack> = {
         "Det opskalerede resultat og sammenligningen vises her.",
     },
     page: {
-      title: "Billedopskalering",
+      title: "Billedopskalerer (øg opløsningen)",
       description:
-        "Opskaler et billede 2× eller 4× med en lokal AI-model i browseren, sammenlign og hent resultatet.",
+        "Øg billedopløsningen 2× eller 4× med AI, sammenlign og hent resultatet.",
       mobileDescription: "Øg billedopløsningen 2× eller 4× i browseren.",
       guide:
         "Vælg et billede, Let eller WebGPU Kvalitet og 2× eller 4×. Bekræft engangsdownload, sammenlign og gem som PNG eller JPEG.",
@@ -1012,7 +1012,7 @@ const packs: Record<Locale, LocalPack> = {
       imageTooLarge:
         "Bildet er for stort for valgt modell i denne nettleseren.",
       outputTooLarge: "Skalaen overskrider 4096 px eller 16 megapiksler.",
-      invalidImage: "Velg et gyldig PNG-, JPEG- eller WebP-bilde.",
+      invalidImage: "Velg et gyldig JPG-/JPEG-, PNG- eller WebP-bilde.",
       modelFailed:
         "Den verifiserte modellen kunne ikke lastes. Sjekk tilkoblingen og prøv igjen.",
       processingFailed:
@@ -1022,9 +1022,9 @@ const packs: Record<Locale, LocalPack> = {
         "Det oppskalerte resultatet og sammenligningen vises her.",
     },
     page: {
-      title: "Bildeoppskalering",
+      title: "Bildeoppskalering (øk oppløsningen)",
       description:
-        "Oppskaler et bilde 2× eller 4× med en lokal AI-modell i nettleseren, sammenlign og last ned resultatet.",
+        "Øk bildeoppløsningen 2× eller 4× med KI, sammenlign og last ned resultatet.",
       mobileDescription: "Øk bildeoppløsningen 2× eller 4× i nettleseren.",
       guide:
         "Velg et bilde, Lett eller WebGPU Kvalitet og 2× eller 4×. Bekreft engangsnedlastingen, sammenlign og lagre som PNG eller JPEG.",
@@ -1080,7 +1080,7 @@ const packs: Record<Locale, LocalPack> = {
       fileTooLarge: "اختر صورة لا تتجاوز 10 MB.",
       imageTooLarge: "الصورة كبيرة جدًا للنموذج المختار في هذا المتصفح.",
       outputTooLarge: "يتجاوز المقياس حد 4096 px أو 16 ميغابكسل.",
-      invalidImage: "اختر صورة PNG أو JPEG أو WebP صالحة.",
+      invalidImage: "اختر صورة JPG/JPEG أو PNG أو WebP صالحة.",
       modelFailed:
         "تعذر تحميل النموذج المتحقق منه. تحقق من الاتصال وحاول مجددًا.",
       processingFailed: "تعذر رفع دقة الصورة. جرّب الوضع الخفيف أو صورة أصغر.",
@@ -1088,9 +1088,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "ستظهر النتيجة المكبّرة وأداة المقارنة هنا.",
     },
     page: {
-      title: "مكبر الصور",
+      title: "مكبر الصور (رفع الدقة)",
       description:
-        "كبّر صورة بمقدار 2× أو 4× بنموذج ذكاء اصطناعي محلي في المتصفح، ثم قارن النتيجة ونزّلها.",
+        "ارفع دقة الصورة 2× أو 4× بالذكاء الاصطناعي، ثم قارن النتيجة ونزّلها.",
       mobileDescription: "ارفع دقة الصورة 2× أو 4× داخل المتصفح.",
       guide:
         "اختر صورة والوضع الخفيف أو جودة WebGPU ومقياس 2× أو 4×. وافق على التنزيل لمرة واحدة، ثم قارن واحفظ بصيغة PNG أو JPEG.",
@@ -1144,16 +1144,15 @@ const packs: Record<Locale, LocalPack> = {
       fileTooLarge: "請選擇不超過 10 MB 的圖片。",
       imageTooLarge: "這張圖片對目前瀏覽器與所選模型而言太大。",
       outputTooLarge: "所選倍率會超過 4096 px 或 1600 萬像素限制。",
-      invalidImage: "請選擇有效的 PNG、JPEG 或 WebP 圖片。",
+      invalidImage: "請選擇有效的 JPG/JPEG、PNG 或 WebP 圖片。",
       modelFailed: "無法載入已驗證的模型，請檢查連線後再試一次。",
       processingFailed: "無法放大這張圖片，請改用輕量模式或較小圖片。",
       downloadFailed: "無法準備下載檔案。",
       resultPlaceholder: "放大結果與比較控制項會顯示在這裡。",
     },
     page: {
-      title: "圖片放大工具",
-      description:
-        "使用在瀏覽器本機執行的 AI 模型，將圖片放大 2× 或 4×，比較後下載結果。",
+      title: "圖片放大工具（提高解析度）",
+      description: "使用 AI 將圖片解析度提高 2× 或 4×，比較後下載結果。",
       mobileDescription: "在瀏覽器中將圖片解析度提高 2× 或 4×。",
       guide:
         "選擇一張圖片、輕量或 WebGPU 高品質模式，以及 2× 或 4×。確認一次性模型下載後，比較並儲存為 PNG 或 JPEG。",
@@ -1209,7 +1208,7 @@ const packs: Record<Locale, LocalPack> = {
       fileTooLarge: "En fazla 10 MB bir resim seçin.",
       imageTooLarge: "Resim, bu tarayıcıdaki seçili model için çok büyük.",
       outputTooLarge: "Ölçek 4096 px veya 16 megapiksel sınırını aşıyor.",
-      invalidImage: "Geçerli bir PNG, JPEG veya WebP resmi seçin.",
+      invalidImage: "Geçerli bir JPG/JPEG, PNG veya WebP resmi seçin.",
       modelFailed:
         "Doğrulanmış model yüklenemedi. Bağlantıyı kontrol edip yeniden deneyin.",
       processingFailed:
@@ -1218,9 +1217,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Büyütülmüş sonuç ve karşılaştırma burada görünür.",
     },
     page: {
-      title: "Resim büyütücü",
+      title: "Resim büyütücü (çözünürlüğü artırma)",
       description:
-        "Bir resmi tarayıcıdaki yerel yapay zekâ modeliyle 2× ya da 4× büyütün, karşılaştırın ve indirin.",
+        "Resim çözünürlüğünü yapay zekâyla 2× veya 4× artırın, karşılaştırın ve indirin.",
       mobileDescription: "Resim çözünürlüğünü tarayıcıda 2× veya 4× artırın.",
       guide:
         "Bir resim, Hafif veya WebGPU Kaliteli mod ve 2× ya da 4× seçin. Tek seferlik indirmeyi onaylayın, karşılaştırın ve PNG veya JPEG kaydedin.",

@@ -704,13 +704,9 @@ verifyFaviconLink(notFound, "404");
 const rootIndex = await readFile(join(dist, "index.html"), "utf8");
 verifyStaticContentPolicy(rootIndex, "root index", false);
 verifyFaviconLink(rootIndex, "root index");
-const rootIndexForScriptingBrowsers = rootIndex.replace(
-  /<noscript\b[^>]*>[\s\S]*?<\/noscript>/giu,
-  "",
-);
-if (rootIndexForScriptingBrowsers.includes("Continue to all tools")) {
+if (rootIndex.includes("Continue to all tools")) {
   throw new Error(
-    "The root entry exposes its English fallback before browser-language detection completes.",
+    "The root entry exposes a visible English fallback before browser-language detection completes.",
   );
 }
 if (
