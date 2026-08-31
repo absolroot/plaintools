@@ -253,13 +253,16 @@ function init(root: HTMLElement): void {
           return;
         if (message.kind === "progress") {
           progressWrap.hidden = false;
-          if (message.phase === "download") {
+          if (message.phase === "download" || message.phase === "cache") {
             const loaded = message.loaded ?? 0;
             const total = message.total ?? 0;
             progress.max = total || 1;
             progress.value = loaded;
-            progressLabel.textContent = `${copy.downloadingModel} ${formatBytes(loaded)} / ${formatBytes(total)}`;
-            setStatus(copy.downloadingModel, "working");
+            progressLabel.textContent =
+              message.phase === "download"
+                ? `${copy.downloadingModel} ${formatBytes(loaded)} / ${formatBytes(total)}`
+                : copy.loadingModel;
+            setStatus(progressLabel.textContent, "working");
           } else {
             progress.removeAttribute("value");
             progressLabel.textContent =

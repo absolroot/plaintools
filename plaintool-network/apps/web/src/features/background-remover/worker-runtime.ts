@@ -7,7 +7,7 @@ import type {
   RemoveRequest,
 } from "./contract";
 import { normalizeMask } from "./image";
-import { readVerifiedModelPart } from "./model-integrity";
+import { loadVerifiedModelPart } from "./model-cache";
 import { modelManifest } from "./model-manifest";
 
 type OrtApi = typeof import("onnxruntime-web");
@@ -31,17 +31,15 @@ export function startBackgroundWorker(ort: OrtApi): void {
     completed: number,
     total: number,
   ): Promise<void> {
-    const response = await fetch(part.path, { credentials: "same-origin" });
-    await readVerifiedModelPart(
-      response,
+    await loadVerifiedModelPart(
+      part,
       destination,
       completed,
-      part,
-      (partLoaded) =>
+      (source, partLoaded) =>
         post({
           kind: "progress",
           requestId,
-          phase: "download",
+          phase: source === "cache" ? "cache" : "download",
           loaded: completed + partLoaded,
           total,
         }),
@@ -61,13 +59,7 @@ export function startBackgroundWorker(ort: OrtApi): void {
     const manifest = modelManifest[model];
     const modelBytes = new Uint8Array(manifest.bytes);
     let completed = 0;
-    post({
-      kind: "progress",
-      requestId,
-      phase: "download",
-      loaded: 0,
-      total: manifest.bytes,
-    });
+    post({ kind: "progress", requestId, phase: "model" });
     for (const part of manifest.parts) {
       await fetchPart(part, modelBytes, requestId, completed, manifest.bytes);
       completed += part.bytes;

@@ -52,7 +52,7 @@ export type RemoveRequest = {
 export type WorkerProgress = {
   kind: "progress";
   requestId: number;
-  phase: "download" | "model" | "inference";
+  phase: "cache" | "download" | "model" | "inference";
   loaded?: number;
   total?: number;
 };
