@@ -328,12 +328,27 @@ export type NewToolLocaleSeed = {
     custom: string;
     color: string;
     remove: string;
+    compare: string;
+    comparison: string;
+    selected: string;
+    compareConsentTitle: string;
+    compareConsentBody: string;
+    compareConsentConfirm: string;
+    compareWithoutPrecision: string;
     newImage: string;
     png: string;
+    trim: string;
+    restore: string;
     reading: string;
     downloading: string;
     loading: string;
     processing: string;
+    comparing: string;
+    compareCompleted: string;
+    comparePartial: string;
+    trimmed: string;
+    trimUnavailable: string;
+    completed: string;
     scaled: string;
     imageTooLarge: string;
     invalid: string;
@@ -667,14 +682,28 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     },
     colorLabel: seed.background.color,
     removeBackground: seed.background.remove,
+    compareModels: seed.background.compare,
+    comparisonLabel: seed.background.comparison,
+    comparisonSelected: seed.background.selected,
+    compareConsentTitle: seed.background.compareConsentTitle,
+    compareConsentBody: seed.background.compareConsentBody,
+    compareConsentConfirm: seed.background.compareConsentConfirm,
+    compareWithoutPrecision: seed.background.compareWithoutPrecision,
     newImage: seed.background.newImage,
     downloadPng: seed.background.png,
+    trimImage: seed.background.trim,
+    restoreImage: seed.background.restore,
     ready: ui.ready,
     readingImage: seed.background.reading,
     downloadingModel: seed.background.downloading,
     loadingModel: seed.background.loading,
     processingImage: seed.background.processing,
-    completed: ui.complete,
+    completed: seed.background.completed,
+    comparingModels: seed.background.comparing,
+    compareCompleted: seed.background.compareCompleted,
+    comparePartial: seed.background.comparePartial,
+    trimmed: seed.background.trimmed,
+    trimUnavailable: seed.background.trimUnavailable,
     scaledImage: seed.background.scaled,
     fileTooLarge: ui.tooLarge,
     imageTooLarge: seed.background.imageTooLarge,

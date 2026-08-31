@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { copy } = Astro.props;
+const modelIds = ["fast", "portrait", "quality", "precision"] as const;
 ---
 
 <section
@@ -54,6 +55,42 @@ const { copy } = Astro.props;
           {copy.resultPlaceholder}
         </p>
       </div>
+      <section
+        class="background-comparison"
+        data-comparison
+        hidden
+        aria-label={copy.comparisonLabel}
+      >
+        <div class="background-comparison-heading">
+          <strong>{copy.comparisonLabel}</strong>
+          <span>{copy.comparisonSelected}</span>
+        </div>
+        <div class="background-comparison-grid">
+          {
+            modelIds.map((model) => (
+              <button
+                type="button"
+                class="background-comparison-card"
+                data-comparison-card={model}
+                disabled
+              >
+                <span class="background-comparison-title">
+                  {copy.modelOptions[model]}
+                </span>
+                <span class="background-comparison-preview is-checkerboard">
+                  <canvas data-comparison-canvas={model} hidden />
+                </span>
+                <span
+                  class="background-comparison-state"
+                  data-comparison-state={model}
+                >
+                  {copy.ready}
+                </span>
+              </button>
+            ))
+          }
+        </div>
+      </section>
     </section>
   </div>
 
@@ -66,7 +103,7 @@ const { copy } = Astro.props;
           <input type="radio" name="background-model" value="fast" checked />
           <span
             ><strong>{copy.modelOptions.fast}</strong><small
-              >U2NetP · {copy.modelHints.fast}</small
+              >{copy.modelHints.fast}</small
             ></span
           >
         </label>
@@ -74,7 +111,7 @@ const { copy } = Astro.props;
           <input type="radio" name="background-model" value="portrait" />
           <span
             ><strong>{copy.modelOptions.portrait}</strong><small
-              >MODNet · {copy.modelHints.portrait}</small
+              >{copy.modelHints.portrait}</small
             ></span
           >
         </label>
@@ -82,7 +119,7 @@ const { copy } = Astro.props;
           <input type="radio" name="background-model" value="quality" />
           <span
             ><strong>{copy.modelOptions.quality}</strong><small
-              >Silueta · {copy.modelHints.quality}</small
+              >{copy.modelHints.quality}</small
             ></span
           >
         </label>
@@ -96,7 +133,7 @@ const { copy } = Astro.props;
           />
           <span
             ><strong>{copy.modelOptions.precision}</strong><small
-              >BiRefNet Lite · {copy.modelHints.precision}</small
+              >{copy.modelHints.precision}</small
             ></span
           >
         </label>
@@ -150,6 +187,12 @@ const { copy } = Astro.props;
       <button class="primary-button" type="button" data-remove disabled>
         <span data-remove-label>{copy.removeBackground}</span>
       </button>
+      <button class="secondary-button" type="button" data-compare disabled>
+        {copy.compareModels}
+      </button>
+      <button class="secondary-button" type="button" data-trim disabled hidden>
+        <span data-trim-label>{copy.trimImage}</span>
+      </button>
       <IconButton
         variant="secondary"
         icon="download"
@@ -170,10 +213,12 @@ const { copy } = Astro.props;
   <dialog class="background-model-consent" data-precision-consent>
     <div class="background-model-consent-content">
       <div>
-        <p class="background-dialog-eyebrow">BiRefNet Lite · 98.5 MB</p>
-        <h2>{copy.precisionConsentTitle}</h2>
+        <p class="background-dialog-eyebrow" data-consent-eyebrow>
+          {copy.modelOptions.precision} · 98.5 MB
+        </p>
+        <h2 data-consent-title>{copy.precisionConsentTitle}</h2>
       </div>
-      <p>{copy.precisionConsentBody}</p>
+      <p data-consent-body>{copy.precisionConsentBody}</p>
       <p class="background-model-consent-notice">
         {copy.precisionConsentNotice}
       </p>
@@ -182,7 +227,7 @@ const { copy } = Astro.props;
           {copy.cancel}
         </button>
         <button type="button" class="primary-button" data-consent-confirm>
-          {copy.precisionConsentConfirm}
+          <span data-consent-confirm-label>{copy.precisionConsentConfirm}</span>
         </button>
       </div>
     </div>

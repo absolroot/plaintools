@@ -79,7 +79,10 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             precisionVisible: precision.getBoundingClientRect().height > 0,
             precisionSupport: root.dataset.precisionSupport,
             precisionDisabled: precision.disabled,
-            unavailableVisible: !root.querySelector('[data-precision-unavailable]').hidden
+            unavailableVisible: !root.querySelector('[data-precision-unavailable]').hidden,
+            modelLegend: options.querySelector('.background-model-options legend').textContent.trim(),
+            technicalNamesVisible: ['U2NetP', 'MODNet', 'Silueta', 'BiRefNet Lite']
+              .some((name) => options.innerText.includes(name))
           };
         }
         """
@@ -97,7 +100,12 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         and options_default["precisionDisabled"]
         and options_default["unavailableVisible"]
     )
-    if not options_visible or not precision_support_consistent:
+    if (
+        not options_visible
+        or not precision_support_consistent
+        or options_default["modelLegend"] != "AI model"
+        or options_default["technicalNamesVisible"]
+    ):
         report["ui_detail_failures"].append(
             "Background remover model choices were not visible by default: "
             f"{options_default}"
@@ -266,6 +274,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         or not state["downloadEnabled"]
         or state["removeBusy"]
         or state["removeLabel"] != "Remove background"
+        or "no added watermark" not in state["status"]
         or not state["originalVisible"]
         or not state["uploadPromptHidden"]
         or len(fast_model_resources) != 1
@@ -413,6 +422,142 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             f"state={quality_state}, resources={quality_resources}"
         )
 
+    resources_before_comparison = len(requested_resources)
+    page.locator("[data-compare]").click()
+    comparison_consent = None
+    if options_default["precisionSupport"] == "supported":
+        comparison_consent = page.evaluate(
+            """
+            () => ({
+              open: document.querySelector('[data-precision-consent]').open,
+              disclosesTotal: document.querySelector('[data-consent-body]').textContent.includes('180 MB'),
+              fallbackLabel: document.querySelector('[data-consent-cancel]').textContent.trim()
+            })
+            """
+        )
+        page.locator("[data-consent-cancel]").click()
+    page.wait_for_function(
+        """
+        () => !document.querySelector('[data-background-remover]').classList.contains('is-comparing')
+          && !document.querySelector('[data-comparison]').hidden
+          && document.querySelectorAll('[data-comparison-card][data-state="success"]').length >= 1
+        """,
+        timeout=300_000,
+    )
+    comparison_state = page.evaluate(
+        """
+        () => {
+          const root = document.querySelector('[data-background-remover]');
+          const grid = root.querySelector('.background-comparison-grid');
+          const cards = [...root.querySelectorAll('[data-comparison-card]')];
+          return {
+            visible: !root.querySelector('[data-comparison]').hidden,
+            columns: getComputedStyle(grid).gridTemplateColumns.split(' ').length,
+            cardCount: cards.length,
+            successModels: cards.filter((card) => card.dataset.state === 'success')
+              .map((card) => card.dataset.comparisonCard),
+            precisionState: root.querySelector('[data-comparison-card="precision"]').dataset.state,
+            selected: root.querySelector('[data-comparison-card][aria-pressed="true"]')?.dataset.comparisonCard,
+            status: root.querySelector('[data-status]').textContent.trim(),
+            trimVisible: !root.querySelector('[data-trim]').hidden,
+            downloadEnabled: !root.querySelector('[data-download]').disabled
+          };
+        }
+        """
+    )
+    if (
+        not comparison_state["visible"]
+        or comparison_state["columns"] != 2
+        or comparison_state["cardCount"] != 4
+        or comparison_state["successModels"] != ["fast", "portrait", "quality"]
+        or comparison_state["precisionState"] != "unavailable"
+        or comparison_state["selected"] != "fast"
+        or "no added watermark" not in comparison_state["status"]
+        or not comparison_state["trimVisible"]
+        or not comparison_state["downloadEnabled"]
+        or len(requested_resources) != resources_before_comparison
+        or (
+            comparison_consent is not None
+            and (
+                not comparison_consent["open"]
+                or not comparison_consent["disclosesTotal"]
+                or comparison_consent["fallbackLabel"] != "Compare the other 3"
+            )
+        )
+    ):
+        report["ui_detail_failures"].append(
+            "Background remover comparison did not preserve the sequential three-model fallback: "
+            f"state={comparison_state}, consent={comparison_consent}"
+        )
+
+    before_trim = page.locator("[data-result-canvas]").evaluate(
+        "canvas => ({ width: canvas.width, height: canvas.height })"
+    )
+    page.locator("[data-trim]").click()
+    after_trim = page.locator("[data-result-canvas]").evaluate(
+        "canvas => ({ width: canvas.width, height: canvas.height })"
+    )
+    page.locator('[data-comparison-card="portrait"]').click()
+    page.locator('[data-comparison-card="fast"]').click()
+    trim_state = page.evaluate(
+        """
+        () => ({
+          label: document.querySelector('[data-trim-label]').textContent.trim(),
+          selected: document.querySelector('[data-comparison-card][aria-pressed="true"]')?.dataset.comparisonCard
+        })
+        """
+    )
+    with page.expect_download(timeout=10_000) as download_info:
+        page.locator("[data-download]").click()
+    comparison_filename = download_info.value.suggested_filename
+    if (
+        after_trim["width"] > before_trim["width"]
+        or after_trim["height"] > before_trim["height"]
+        or after_trim == before_trim
+        or trim_state["label"] != "Restore original size"
+        or trim_state["selected"] != "fast"
+        or comparison_filename != "qa-subject-background-removed-fast-trimmed.png"
+        or len(requested_resources) != resources_before_comparison
+    ):
+        report["ui_detail_failures"].append(
+            "Background remover fit/restore state or comparison download is invalid: "
+            f"before={before_trim}, after={after_trim}, state={trim_state}, "
+            f"filename={comparison_filename}"
+        )
+
+    page.set_viewport_size({"width": 390, "height": 844})
+    comparison_mobile_state = page.evaluate(
+        """
+        () => {
+          const root = document.querySelector('[data-background-remover]');
+          return {
+            scrollWidth: document.documentElement.scrollWidth,
+            columns: getComputedStyle(root.querySelector('.background-comparison-grid'))
+              .gridTemplateColumns.split(' ').length,
+            cardHeights: [...root.querySelectorAll('[data-comparison-card]')]
+              .map((card) => card.getBoundingClientRect().height),
+            actionHeights: [...root.querySelectorAll('.background-actions button:not([hidden])')]
+              .map((button) => button.getBoundingClientRect().height)
+          };
+        }
+        """
+    )
+    if (
+        comparison_mobile_state["scrollWidth"] > 390
+        or comparison_mobile_state["columns"] != 2
+        or any(height < 44 for height in comparison_mobile_state["cardHeights"])
+        or any(height < 44 for height in comparison_mobile_state["actionHeights"])
+    ):
+        report["ui_detail_failures"].append(
+            "Background remover comparison overflowed or lost mobile target sizes: "
+            f"{comparison_mobile_state}"
+        )
+    page.screenshot(
+        path=str(QA_DIR / "background-remover-comparison-mobile-en.png"),
+        full_page=False,
+    )
+    page.set_viewport_size({"width": 1440, "height": 1100})
+
     precision_consent = {
         "support": options_default["precisionSupport"],
         "dialogOpened": False,
@@ -530,6 +675,48 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
     page.screenshot(
         path=str(QA_DIR / "background-remover-desktop-en.png"), full_page=False
     )
+    model_requests_before_revisit = len(
+        [url for url in requested_resources if "/models/background-remover/" in url]
+    )
+    page.reload(wait_until="networkidle")
+    page.locator("[data-file-input]").set_input_files(
+        {
+            "name": "qa-cache-revisit.png",
+            "mimeType": "image/png",
+            "buffer": _fixture_png(page),
+        }
+    )
+    page.locator("[data-remove]").click()
+    page.wait_for_function(
+        """
+        () => document.querySelector('[data-background-remover]').classList.contains('is-success')
+          || document.querySelector('[data-background-remover]').classList.contains('has-error')
+        """,
+        timeout=180_000,
+    )
+    cache_revisit = page.evaluate(
+        """
+        () => ({
+          success: document.querySelector('[data-background-remover]').classList.contains('is-success'),
+          resultVisible: !document.querySelector('[data-result-canvas]').hidden
+        })
+        """
+    )
+    model_requests_after_revisit = len(
+        [url for url in requested_resources if "/models/background-remover/" in url]
+    )
+    cache_revisit["modelRequests"] = (
+        model_requests_after_revisit - model_requests_before_revisit
+    )
+    if (
+        not cache_revisit["success"]
+        or not cache_revisit["resultVisible"]
+        or cache_revisit["modelRequests"] != 0
+    ):
+        report["ui_detail_failures"].append(
+            "Background remover did not reuse the verified model cache after revisiting: "
+            f"{cache_revisit}"
+        )
     report["background_remover"] = {
         "fast_model": state,
         "options_default": options_default,
@@ -543,9 +730,16 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         "portrait_model_resources": portrait_resources,
         "quality_model": quality_state,
         "quality_model_resources": quality_resources,
+        "comparison": comparison_state,
+        "comparison_consent": comparison_consent,
+        "comparison_trim_before": before_trim,
+        "comparison_trim_after": after_trim,
+        "comparison_download_filename": comparison_filename,
+        "comparison_mobile": comparison_mobile_state,
         "precision_consent": precision_consent,
         "precision_model": precision_state,
         "precision_model_resources": precision_resources,
+        "cache_revisit": cache_revisit,
     }
 
 
@@ -556,7 +750,7 @@ def run_background_remover_mobile(page, report: dict, _inventory) -> None:
         () => {
           const root = document.querySelector('[data-background-remover]');
           const workspace = root.querySelector('.background-workspace');
-          const actionHeights = [...root.querySelectorAll('.background-actions button')]
+          const actionHeights = [...root.querySelectorAll('.background-actions button:not([hidden])')]
             .map((button) => button.getBoundingClientRect().height);
           return {
             htmlDir: document.documentElement.dir,

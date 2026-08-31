@@ -11,15 +11,379 @@ type BackgroundPage = {
 
 type BackgroundLocalePack = { copy: BackgroundCopy; page: BackgroundPage };
 
+type ResultFeatureCopy = Pick<
+  BackgroundCopy,
+  | "compare"
+  | "comparison"
+  | "selected"
+  | "compareConsentTitle"
+  | "compareConsentBody"
+  | "compareConsentConfirm"
+  | "compareWithoutPrecision"
+  | "trim"
+  | "restore"
+  | "comparing"
+  | "compareCompleted"
+  | "comparePartial"
+  | "trimmed"
+  | "trimUnavailable"
+  | "completed"
+>;
+
+const resultFeatureCopy: Record<Locale, ResultFeatureCopy> = {
+  en: {
+    compare: "Compare models",
+    comparison: "Model comparison",
+    selected: "Select a result to download",
+    compareConsentTitle: "Include all four models?",
+    compareConsentBody:
+      "The first comparison may download up to about 180 MB for four models and their runtimes. Files stay in the browser cache, and your image remains on this device.",
+    compareConsentConfirm: "Compare all 4",
+    compareWithoutPrecision: "Compare the other 3",
+    trim: "Fit to subject",
+    restore: "Restore original size",
+    comparing: "Comparing models…",
+    compareCompleted:
+      "The comparison results are ready. Select one to download.",
+    comparePartial: "Some models failed, but the available results are ready.",
+    trimmed: "The canvas now fits the subject with a small margin.",
+    trimUnavailable: "No subject area was found to fit.",
+    completed:
+      "Download it now with no added watermark or paid high-resolution lock.",
+  },
+  ko: {
+    compare: "모델 비교",
+    comparison: "모델 비교 결과",
+    selected: "결과를 선택해 다운로드하세요",
+    compareConsentTitle: "4개 모델을 모두 비교할까요?",
+    compareConsentBody:
+      "처음 비교할 때 4개 모델과 실행 파일을 합쳐 최대 약 180MB를 받을 수 있습니다. 받은 파일은 브라우저 캐시에 저장되며 이미지는 이 기기를 벗어나지 않습니다.",
+    compareConsentConfirm: "4개 모두 비교",
+    compareWithoutPrecision: "나머지 3개 비교",
+    trim: "여백 맞춤",
+    restore: "원래 크기",
+    comparing: "모델별 결과를 비교하는 중…",
+    compareCompleted:
+      "비교 결과가 준비되었습니다. 원하는 결과를 선택해 다운로드하세요.",
+    comparePartial:
+      "일부 모델은 실패했지만 완성된 결과는 선택해 다운로드할 수 있습니다.",
+    trimmed: "피사체에 작은 여백을 더해 이미지 크기를 맞췄습니다.",
+    trimUnavailable: "크기를 맞출 피사체 영역을 찾지 못했습니다.",
+    completed:
+      "별도의 워터마크나 유료 고화질 잠금 없이 바로 다운로드할 수 있습니다.",
+  },
+  es: {
+    compare: "Comparar modelos",
+    comparison: "Comparación de modelos",
+    selected: "Elige un resultado para descargar",
+    compareConsentTitle: "¿Incluir los cuatro modelos?",
+    compareConsentBody:
+      "La primera comparación puede descargar hasta unos 180 MB entre modelos y entornos. Los archivos quedan en la caché y la imagen permanece en este dispositivo.",
+    compareConsentConfirm: "Comparar los 4",
+    compareWithoutPrecision: "Comparar los otros 3",
+    trim: "Ajustar al sujeto",
+    restore: "Restaurar tamaño original",
+    comparing: "Comparando modelos…",
+    compareCompleted: "Los resultados están listos. Elige uno para descargar.",
+    comparePartial:
+      "Algunos modelos fallaron, pero los resultados disponibles están listos.",
+    trimmed: "El lienzo se ajustó al sujeto con un pequeño margen.",
+    trimUnavailable: "No se encontró un área de sujeto para ajustar.",
+    completed:
+      "Descárgalo sin marca de agua añadida ni bloqueo de alta resolución de pago.",
+  },
+  de: {
+    compare: "Modelle vergleichen",
+    comparison: "Modellvergleich",
+    selected: "Ergebnis zum Herunterladen auswählen",
+    compareConsentTitle: "Alle vier Modelle einbeziehen?",
+    compareConsentBody:
+      "Beim ersten Vergleich können Modelle und Laufzeiten zusammen bis zu etwa 180 MB laden. Die Dateien bleiben im Browser-Cache und das Bild auf diesem Gerät.",
+    compareConsentConfirm: "Alle 4 vergleichen",
+    compareWithoutPrecision: "Die anderen 3 vergleichen",
+    trim: "An Motiv anpassen",
+    restore: "Originalgröße wiederherstellen",
+    comparing: "Modelle werden verglichen…",
+    compareCompleted:
+      "Die Vergleichsergebnisse sind bereit. Wähle eines zum Herunterladen.",
+    comparePartial:
+      "Einige Modelle sind fehlgeschlagen, die verfügbaren Ergebnisse sind jedoch bereit.",
+    trimmed: "Die Arbeitsfläche wurde mit kleinem Rand an das Motiv angepasst.",
+    trimUnavailable: "Es wurde kein Motivbereich zum Anpassen gefunden.",
+    completed:
+      "Jetzt ohne zusätzliches Wasserzeichen oder kostenpflichtige Auflösungssperre herunterladen.",
+  },
+  ja: {
+    compare: "モデルを比較",
+    comparison: "モデル比較",
+    selected: "ダウンロードする結果を選択",
+    compareConsentTitle: "4つのモデルをすべて比較しますか？",
+    compareConsentBody:
+      "初回比較では、4つのモデルと実行ファイルで最大約180MBをダウンロードする場合があります。ファイルはブラウザのキャッシュに保存され、画像は端末内で処理されます。",
+    compareConsentConfirm: "4つすべて比較",
+    compareWithoutPrecision: "残りの3つを比較",
+    trim: "被写体に合わせる",
+    restore: "元のサイズに戻す",
+    comparing: "モデルを比較中…",
+    compareCompleted:
+      "比較結果ができました。ダウンロードする結果を選んでください。",
+    comparePartial:
+      "一部のモデルは失敗しましたが、完成した結果は選択できます。",
+    trimmed: "少し余白を残して被写体にサイズを合わせました。",
+    trimUnavailable: "サイズを合わせる被写体領域が見つかりませんでした。",
+    completed:
+      "追加の透かしや有料の高解像度制限なしで、そのままダウンロードできます。",
+  },
+  fr: {
+    compare: "Comparer les modèles",
+    comparison: "Comparaison des modèles",
+    selected: "Choisissez un résultat à télécharger",
+    compareConsentTitle: "Inclure les quatre modèles ?",
+    compareConsentBody:
+      "La première comparaison peut télécharger jusqu’à environ 180 Mo pour les modèles et leurs moteurs. Les fichiers restent en cache et l’image reste sur cet appareil.",
+    compareConsentConfirm: "Comparer les 4",
+    compareWithoutPrecision: "Comparer les 3 autres",
+    trim: "Ajuster au sujet",
+    restore: "Rétablir la taille d’origine",
+    comparing: "Comparaison des modèles…",
+    compareCompleted:
+      "Les résultats sont prêts. Choisissez-en un à télécharger.",
+    comparePartial:
+      "Certains modèles ont échoué, mais les résultats disponibles sont prêts.",
+    trimmed: "La zone a été ajustée au sujet avec une petite marge.",
+    trimUnavailable: "Aucune zone de sujet n’a été trouvée pour l’ajustement.",
+    completed:
+      "Téléchargez directement, sans filigrane ajouté ni verrou payant sur la haute résolution.",
+  },
+  "pt-BR": {
+    compare: "Comparar modelos",
+    comparison: "Comparação de modelos",
+    selected: "Escolha um resultado para baixar",
+    compareConsentTitle: "Incluir os quatro modelos?",
+    compareConsentBody:
+      "A primeira comparação pode baixar até cerca de 180 MB entre modelos e mecanismos. Os arquivos ficam no cache e a imagem permanece neste dispositivo.",
+    compareConsentConfirm: "Comparar os 4",
+    compareWithoutPrecision: "Comparar os outros 3",
+    trim: "Ajustar ao objeto",
+    restore: "Restaurar tamanho original",
+    comparing: "Comparando modelos…",
+    compareCompleted: "Os resultados estão prontos. Escolha um para baixar.",
+    comparePartial:
+      "Alguns modelos falharam, mas os resultados disponíveis estão prontos.",
+    trimmed: "A tela foi ajustada ao objeto com uma pequena margem.",
+    trimUnavailable: "Nenhuma área de objeto foi encontrada para ajustar.",
+    completed:
+      "Baixe agora sem marca-d’água adicionada nem bloqueio pago de alta resolução.",
+  },
+  it: {
+    compare: "Confronta modelli",
+    comparison: "Confronto modelli",
+    selected: "Scegli un risultato da scaricare",
+    compareConsentTitle: "Includere tutti e quattro i modelli?",
+    compareConsentBody:
+      "Il primo confronto può scaricare fino a circa 180 MB tra modelli e runtime. I file restano nella cache e l’immagine rimane su questo dispositivo.",
+    compareConsentConfirm: "Confronta tutti e 4",
+    compareWithoutPrecision: "Confronta gli altri 3",
+    trim: "Adatta al soggetto",
+    restore: "Ripristina dimensioni originali",
+    comparing: "Confronto dei modelli…",
+    compareCompleted: "I risultati sono pronti. Scegline uno da scaricare.",
+    comparePartial:
+      "Alcuni modelli non sono riusciti, ma i risultati disponibili sono pronti.",
+    trimmed: "L’area è stata adattata al soggetto con un piccolo margine.",
+    trimUnavailable: "Non è stata trovata un’area del soggetto da adattare.",
+    completed:
+      "Scarica subito senza filigrana aggiunta o blocco a pagamento dell’alta risoluzione.",
+  },
+  nl: {
+    compare: "Modellen vergelijken",
+    comparison: "Modelvergelijking",
+    selected: "Kies een resultaat om te downloaden",
+    compareConsentTitle: "Alle vier modellen meenemen?",
+    compareConsentBody:
+      "De eerste vergelijking kan tot ongeveer 180 MB aan modellen en runtimes downloaden. De bestanden blijven in de browsercache en de afbeelding op dit apparaat.",
+    compareConsentConfirm: "Alle 4 vergelijken",
+    compareWithoutPrecision: "De andere 3 vergelijken",
+    trim: "Aan onderwerp aanpassen",
+    restore: "Oorspronkelijk formaat",
+    comparing: "Modellen vergelijken…",
+    compareCompleted: "De resultaten zijn klaar. Kies er een om te downloaden.",
+    comparePartial:
+      "Enkele modellen mislukten, maar de beschikbare resultaten zijn klaar.",
+    trimmed: "Het canvas is met een kleine marge aan het onderwerp aangepast.",
+    trimUnavailable: "Er is geen onderwerpgebied gevonden om aan te passen.",
+    completed:
+      "Download direct zonder toegevoegd watermerk of betaalde vergrendeling van hoge resolutie.",
+  },
+  sv: {
+    compare: "Jämför modeller",
+    comparison: "Modelljämförelse",
+    selected: "Välj ett resultat att hämta",
+    compareConsentTitle: "Ta med alla fyra modeller?",
+    compareConsentBody:
+      "Den första jämförelsen kan hämta upp till cirka 180 MB för modeller och körmiljöer. Filerna ligger kvar i webbläsarens cache och bilden stannar på enheten.",
+    compareConsentConfirm: "Jämför alla 4",
+    compareWithoutPrecision: "Jämför de andra 3",
+    trim: "Anpassa till motiv",
+    restore: "Återställ originalstorlek",
+    comparing: "Jämför modeller…",
+    compareCompleted: "Resultaten är klara. Välj ett att hämta.",
+    comparePartial:
+      "Några modeller misslyckades, men tillgängliga resultat är klara.",
+    trimmed: "Arbetsytan har anpassats till motivet med en liten marginal.",
+    trimUnavailable: "Inget motivområde hittades att anpassa till.",
+    completed:
+      "Hämta direkt utan tillagd vattenstämpel eller betalspärr för hög upplösning.",
+  },
+  cs: {
+    compare: "Porovnat modely",
+    comparison: "Porovnání modelů",
+    selected: "Vyberte výsledek ke stažení",
+    compareConsentTitle: "Zahrnout všechny čtyři modely?",
+    compareConsentBody:
+      "První porovnání může stáhnout až přibližně 180 MB modelů a běhových souborů. Soubory zůstanou v mezipaměti a obrázek v tomto zařízení.",
+    compareConsentConfirm: "Porovnat všechny 4",
+    compareWithoutPrecision: "Porovnat ostatní 3",
+    trim: "Přizpůsobit objektu",
+    restore: "Obnovit původní velikost",
+    comparing: "Porovnávání modelů…",
+    compareCompleted: "Výsledky jsou připravené. Vyberte jeden ke stažení.",
+    comparePartial:
+      "Některé modely selhaly, ale dostupné výsledky jsou připravené.",
+    trimmed: "Plátno bylo přizpůsobeno objektu s malým okrajem.",
+    trimUnavailable: "Nebyla nalezena oblast objektu k přizpůsobení.",
+    completed:
+      "Stáhněte ihned bez přidaného vodoznaku nebo placeného zámku vysokého rozlišení.",
+  },
+  pl: {
+    compare: "Porównaj modele",
+    comparison: "Porównanie modeli",
+    selected: "Wybierz wynik do pobrania",
+    compareConsentTitle: "Uwzględnić wszystkie cztery modele?",
+    compareConsentBody:
+      "Pierwsze porównanie może pobrać do około 180 MB modeli i środowisk. Pliki pozostaną w pamięci podręcznej, a obraz na tym urządzeniu.",
+    compareConsentConfirm: "Porównaj wszystkie 4",
+    compareWithoutPrecision: "Porównaj pozostałe 3",
+    trim: "Dopasuj do obiektu",
+    restore: "Przywróć oryginalny rozmiar",
+    comparing: "Porównywanie modeli…",
+    compareCompleted: "Wyniki są gotowe. Wybierz jeden do pobrania.",
+    comparePartial: "Niektóre modele zawiodły, ale dostępne wyniki są gotowe.",
+    trimmed: "Obszar dopasowano do obiektu z niewielkim marginesem.",
+    trimUnavailable: "Nie znaleziono obszaru obiektu do dopasowania.",
+    completed:
+      "Pobierz od razu bez dodanego znaku wodnego ani płatnej blokady wysokiej rozdzielczości.",
+  },
+  da: {
+    compare: "Sammenlign modeller",
+    comparison: "Modelsammenligning",
+    selected: "Vælg et resultat at hente",
+    compareConsentTitle: "Medtag alle fire modeller?",
+    compareConsentBody:
+      "Den første sammenligning kan hente op til cirka 180 MB modeller og runtimefiler. Filerne bliver i browserens cache, og billedet bliver på enheden.",
+    compareConsentConfirm: "Sammenlign alle 4",
+    compareWithoutPrecision: "Sammenlign de andre 3",
+    trim: "Tilpas til motiv",
+    restore: "Gendan original størrelse",
+    comparing: "Sammenligner modeller…",
+    compareCompleted: "Resultaterne er klar. Vælg et at hente.",
+    comparePartial:
+      "Nogle modeller mislykkedes, men de tilgængelige resultater er klar.",
+    trimmed: "Lærredet er tilpasset motivet med en lille margen.",
+    trimUnavailable: "Der blev ikke fundet et motivområde at tilpasse.",
+    completed:
+      "Hent direkte uden tilføjet vandmærke eller betalingslås på høj opløsning.",
+  },
+  no: {
+    compare: "Sammenlign modeller",
+    comparison: "Modellsammenligning",
+    selected: "Velg et resultat å laste ned",
+    compareConsentTitle: "Ta med alle fire modellene?",
+    compareConsentBody:
+      "Den første sammenligningen kan laste ned opptil rundt 180 MB med modeller og kjørefiler. Filene blir i nettleserbufferen, og bildet blir på enheten.",
+    compareConsentConfirm: "Sammenlign alle 4",
+    compareWithoutPrecision: "Sammenlign de andre 3",
+    trim: "Tilpass til motiv",
+    restore: "Gjenopprett original størrelse",
+    comparing: "Sammenligner modeller…",
+    compareCompleted: "Resultatene er klare. Velg ett å laste ned.",
+    comparePartial:
+      "Noen modeller mislyktes, men de tilgjengelige resultatene er klare.",
+    trimmed: "Lerretet er tilpasset motivet med en liten marg.",
+    trimUnavailable: "Fant ikke noe motivområde å tilpasse.",
+    completed:
+      "Last ned direkte uten ekstra vannmerke eller betalingslås for høy oppløsning.",
+  },
+  ar: {
+    compare: "مقارنة النماذج",
+    comparison: "نتائج مقارنة النماذج",
+    selected: "اختر نتيجة لتنزيلها",
+    compareConsentTitle: "هل تريد تضمين النماذج الأربعة؟",
+    compareConsentBody:
+      "قد ينزّل أول تشغيل للمقارنة ما يصل إلى نحو 180 م.ب للنماذج وملفات التشغيل. تبقى الملفات في ذاكرة المتصفح وتبقى الصورة على هذا الجهاز.",
+    compareConsentConfirm: "مقارنة النماذج الأربعة",
+    compareWithoutPrecision: "مقارنة النماذج الثلاثة الأخرى",
+    trim: "ملاءمة مع العنصر",
+    restore: "استعادة الحجم الأصلي",
+    comparing: "جارٍ مقارنة النماذج…",
+    compareCompleted: "نتائج المقارنة جاهزة. اختر نتيجة لتنزيلها.",
+    comparePartial: "فشلت بعض النماذج، لكن النتائج المتاحة جاهزة.",
+    trimmed: "تمت ملاءمة اللوحة مع العنصر مع هامش صغير.",
+    trimUnavailable: "لم يتم العثور على منطقة عنصر للملاءمة.",
+    completed:
+      "يمكنك التنزيل مباشرة بلا علامة مائية مضافة أو قفل مدفوع للدقة العالية.",
+  },
+  "zh-TW": {
+    compare: "比較模型",
+    comparison: "模型比較結果",
+    selected: "選擇要下載的結果",
+    compareConsentTitle: "要包含全部四個模型嗎？",
+    compareConsentBody:
+      "首次比較可能會下載最多約 180 MB 的模型與執行檔。檔案會保留在瀏覽器快取中，圖片只在此裝置處理。",
+    compareConsentConfirm: "比較全部 4 個",
+    compareWithoutPrecision: "比較其餘 3 個",
+    trim: "貼合主體",
+    restore: "恢復原始尺寸",
+    comparing: "正在比較模型…",
+    compareCompleted: "比較結果已就緒，請選擇一個下載。",
+    comparePartial: "部分模型處理失敗，但已完成的結果仍可選擇。",
+    trimmed: "已保留少量邊距並將畫布貼合主體。",
+    trimUnavailable: "找不到可貼合的主體區域。",
+    completed: "無需額外浮水印或付費解鎖高畫質，即可直接下載。",
+  },
+  tr: {
+    compare: "Modelleri karşılaştır",
+    comparison: "Model karşılaştırması",
+    selected: "İndirmek için bir sonuç seçin",
+    compareConsentTitle: "Dört modelin tümü dahil edilsin mi?",
+    compareConsentBody:
+      "İlk karşılaştırmada modeller ve çalışma dosyaları için yaklaşık 180 MB’a kadar indirme yapılabilir. Dosyalar tarayıcı önbelleğinde, görsel ise bu cihazda kalır.",
+    compareConsentConfirm: "4 modeli karşılaştır",
+    compareWithoutPrecision: "Diğer 3 modeli karşılaştır",
+    trim: "Nesneye sığdır",
+    restore: "Özgün boyutu geri yükle",
+    comparing: "Modeller karşılaştırılıyor…",
+    compareCompleted:
+      "Karşılaştırma sonuçları hazır. İndirmek için birini seçin.",
+    comparePartial:
+      "Bazı modeller başarısız oldu, ancak kullanılabilir sonuçlar hazır.",
+    trimmed: "Tuval küçük bir payla nesneye sığdırıldı.",
+    trimUnavailable: "Sığdırılacak bir nesne alanı bulunamadı.",
+    completed:
+      "Ek filigran veya ücretli yüksek çözünürlük kilidi olmadan hemen indirin.",
+  },
+};
+
 const packs = {
   en: {
     copy: {
+      ...resultFeatureCopy.en,
       original: "Original",
       result: "Result",
       uploadHint: "Drop an image here, or choose one from your device.",
       formats: "PNG, JPEG, or WebP up to 10 MB and 20 megapixels",
       options: "Options",
-      model: "Removal model",
+      model: "AI model",
       fast: "Fast",
       fastHint: "4.6 MB · quicker for clear subjects",
       portrait: "Portrait",
@@ -46,14 +410,14 @@ const packs = {
       newImage: "New image",
       png: "Download PNG",
       reading: "Reading image…",
-      downloading: "Downloading removal model…",
-      loading: "Loading removal model…",
+      downloading: "Downloading AI model…",
+      loading: "Loading AI model…",
       processing: "Removing background…",
       scaled: "The image was resized to 4096 px on its longest edge.",
       imageTooLarge: "The decoded image exceeds the 20 megapixel limit.",
       invalid: "Choose a valid PNG, JPEG, or WebP image.",
       modelFailed:
-        "The removal model could not be loaded. Check your connection and try again.",
+        "The AI model could not be loaded. Check your connection and try again.",
       processingFailed: "The background could not be removed from this image.",
       downloadFailed: "The PNG could not be prepared for download.",
       resultEmpty: "The cutout appears here after processing.",
@@ -75,12 +439,13 @@ const packs = {
   },
   ko: {
     copy: {
+      ...resultFeatureCopy.ko,
       original: "원본",
       result: "결과",
       uploadHint: "이미지를 여기에 놓거나 기기에서 선택하세요.",
       formats: "PNG, JPEG, WebP · 최대 10MB, 2천만 화소",
       options: "옵션",
-      model: "제거 모델",
+      model: "AI 모델",
       fast: "빠른 처리",
       fastHint: "4.6MB · 윤곽이 뚜렷한 피사체에 빠름",
       portrait: "인물",
@@ -107,14 +472,14 @@ const packs = {
       newImage: "새 이미지",
       png: "PNG 다운로드",
       reading: "이미지를 읽는 중…",
-      downloading: "배경 제거 모델을 받는 중…",
-      loading: "배경 제거 모델을 불러오는 중…",
+      downloading: "AI 모델을 받는 중…",
+      loading: "AI 모델을 불러오는 중…",
       processing: "배경을 제거하는 중…",
       scaled: "긴 변이 4096px가 되도록 이미지를 축소했습니다.",
       imageTooLarge: "압축을 푼 이미지가 2천만 화소 제한을 초과합니다.",
       invalid: "올바른 PNG, JPEG 또는 WebP 이미지를 선택하세요.",
       modelFailed:
-        "제거 모델을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
+        "AI 모델을 불러오지 못했습니다. 연결을 확인하고 다시 시도하세요.",
       processingFailed: "이 이미지의 배경을 제거하지 못했습니다.",
       downloadFailed: "다운로드할 PNG를 만들지 못했습니다.",
       resultEmpty: "처리가 끝나면 결과가 여기에 표시됩니다.",
@@ -136,12 +501,13 @@ const packs = {
   },
   es: {
     copy: {
+      ...resultFeatureCopy.es,
       original: "Original",
       result: "Resultado",
       uploadHint: "Suelta una imagen aquí o elígela en tu dispositivo.",
       formats: "PNG, JPEG o WebP de hasta 10 MB y 20 megapíxeles",
       options: "Opciones",
-      model: "Modelo de recorte",
+      model: "Modelo de IA",
       fast: "Rápido",
       fastHint: "4,6 MB · más rápido con sujetos definidos",
       portrait: "Retrato",
@@ -198,12 +564,13 @@ const packs = {
   },
   de: {
     copy: {
+      ...resultFeatureCopy.de,
       original: "Original",
       result: "Ergebnis",
       uploadHint: "Bild hier ablegen oder vom Gerät auswählen.",
       formats: "PNG, JPEG oder WebP bis 10 MB und 20 Megapixel",
       options: "Optionen",
-      model: "Freistellungsmodell",
+      model: "KI-Modell",
       fast: "Schnell",
       fastHint: "4,6 MB · schneller bei klaren Motiven",
       portrait: "Porträt",
@@ -261,12 +628,13 @@ const packs = {
   },
   ja: {
     copy: {
+      ...resultFeatureCopy.ja,
       original: "元画像",
       result: "結果",
       uploadHint: "画像をここにドロップするか、端末から選択してください。",
       formats: "PNG・JPEG・WebP、最大10 MB・2,000万画素",
       options: "オプション",
-      model: "切り抜きモデル",
+      model: "AIモデル",
       fast: "高速",
       fastHint: "4.6 MB・輪郭が明確な被写体向け",
       portrait: "人物",
@@ -316,12 +684,13 @@ const packs = {
   },
   fr: {
     copy: {
+      ...resultFeatureCopy.fr,
       original: "Original",
       result: "Résultat",
       uploadHint: "Déposez une image ici ou choisissez-la sur votre appareil.",
       formats: "PNG, JPEG ou WebP, 10 Mo et 20 mégapixels maximum",
       options: "Options",
-      model: "Modèle de détourage",
+      model: "Modèle d’IA",
       fast: "Rapide",
       fastHint: "4,6 Mo · rapide pour les sujets nets",
       portrait: "Portrait",
@@ -378,12 +747,13 @@ const packs = {
   },
   "pt-BR": {
     copy: {
+      ...resultFeatureCopy["pt-BR"],
       original: "Original",
       result: "Resultado",
       uploadHint: "Solte uma imagem aqui ou escolha uma no dispositivo.",
       formats: "PNG, JPEG ou WebP de até 10 MB e 20 megapixels",
       options: "Opções",
-      model: "Modelo de recorte",
+      model: "Modelo de IA",
       fast: "Rápido",
       fastHint: "4,6 MB · mais rápido para objetos nítidos",
       portrait: "Retrato",
@@ -439,12 +809,13 @@ const packs = {
   },
   it: {
     copy: {
+      ...resultFeatureCopy.it,
       original: "Originale",
       result: "Risultato",
       uploadHint: "Trascina qui un’immagine o sceglila dal dispositivo.",
       formats: "PNG, JPEG o WebP fino a 10 MB e 20 megapixel",
       options: "Opzioni",
-      model: "Modello di ritaglio",
+      model: "Modello IA",
       fast: "Veloce",
       fastHint: "4,6 MB · rapido con soggetti ben definiti",
       portrait: "Ritratto",
@@ -500,13 +871,14 @@ const packs = {
   },
   nl: {
     copy: {
+      ...resultFeatureCopy.nl,
       original: "Origineel",
       result: "Resultaat",
       uploadHint:
         "Sleep een afbeelding hierheen of kies er een op je apparaat.",
       formats: "PNG, JPEG of WebP tot 10 MB en 20 megapixel",
       options: "Opties",
-      model: "Vrijstaand model",
+      model: "AI-model",
       fast: "Snel",
       fastHint: "4,6 MB · sneller bij duidelijke onderwerpen",
       portrait: "Portret",
@@ -563,12 +935,13 @@ const packs = {
   },
   sv: {
     copy: {
+      ...resultFeatureCopy.sv,
       original: "Original",
       result: "Resultat",
       uploadHint: "Släpp en bild här eller välj en från enheten.",
       formats: "PNG, JPEG eller WebP upp till 10 MB och 20 megapixel",
       options: "Alternativ",
-      model: "Friläggningsmodell",
+      model: "AI-modell",
       fast: "Snabb",
       fastHint: "4,6 MB · snabbare för tydliga motiv",
       portrait: "Porträtt",
@@ -624,12 +997,13 @@ const packs = {
   },
   cs: {
     copy: {
+      ...resultFeatureCopy.cs,
       original: "Originál",
       result: "Výsledek",
       uploadHint: "Přetáhněte obrázek sem nebo jej vyberte ze zařízení.",
       formats: "PNG, JPEG nebo WebP do 10 MB a 20 megapixelů",
       options: "Možnosti",
-      model: "Model výřezu",
+      model: "Model AI",
       fast: "Rychlý",
       fastHint: "4,6 MB · rychlejší pro výrazné objekty",
       portrait: "Portrét",
@@ -685,12 +1059,13 @@ const packs = {
   },
   pl: {
     copy: {
+      ...resultFeatureCopy.pl,
       original: "Oryginał",
       result: "Wynik",
       uploadHint: "Upuść obraz tutaj lub wybierz go z urządzenia.",
       formats: "PNG, JPEG lub WebP do 10 MB i 20 megapikseli",
       options: "Opcje",
-      model: "Model wycinania",
+      model: "Model AI",
       fast: "Szybki",
       fastHint: "4,6 MB · szybciej dla wyraźnych obiektów",
       portrait: "Portret",
@@ -746,12 +1121,13 @@ const packs = {
   },
   da: {
     copy: {
+      ...resultFeatureCopy.da,
       original: "Original",
       result: "Resultat",
       uploadHint: "Slip et billede her, eller vælg et fra enheden.",
       formats: "PNG, JPEG eller WebP op til 10 MB og 20 megapixel",
       options: "Indstillinger",
-      model: "Fritlægningsmodel",
+      model: "AI-model",
       fast: "Hurtig",
       fastHint: "4,6 MB · hurtigere til tydelige motiver",
       portrait: "Portræt",
@@ -807,12 +1183,13 @@ const packs = {
   },
   no: {
     copy: {
+      ...resultFeatureCopy.no,
       original: "Original",
       result: "Resultat",
       uploadHint: "Slipp et bilde her, eller velg et fra enheten.",
       formats: "PNG, JPEG eller WebP opptil 10 MB og 20 megapiksler",
       options: "Alternativer",
-      model: "Frileggingsmodell",
+      model: "AI-modell",
       fast: "Rask",
       fastHint: "4,6 MB · raskere for tydelige motiver",
       portrait: "Portrett",
@@ -868,12 +1245,13 @@ const packs = {
   },
   ar: {
     copy: {
+      ...resultFeatureCopy.ar,
       original: "الصورة الأصلية",
       result: "النتيجة",
       uploadHint: "أسقط صورة هنا أو اخترها من جهازك.",
       formats: "PNG أو JPEG أو WebP حتى 10 ميجابايت و20 ميجابكسل",
       options: "الخيارات",
-      model: "نموذج القص",
+      model: "نموذج الذكاء الاصطناعي",
       fast: "سريع",
       fastHint: "4.6 ميجابايت · أسرع للعناصر الواضحة",
       portrait: "صور شخصية",
@@ -928,12 +1306,13 @@ const packs = {
   },
   "zh-TW": {
     copy: {
+      ...resultFeatureCopy["zh-TW"],
       original: "原始圖片",
       result: "結果",
       uploadHint: "將圖片拖放到這裡，或從裝置選取。",
       formats: "PNG、JPEG 或 WebP，最多 10 MB、2,000 萬畫素",
       options: "選項",
-      model: "去背模型",
+      model: "AI 模型",
       fast: "快速",
       fastHint: "4.6 MB · 適合輪廓清楚的主體",
       portrait: "人像",
@@ -959,8 +1338,8 @@ const packs = {
       newImage: "新圖片",
       png: "下載 PNG",
       reading: "正在讀取圖片…",
-      downloading: "正在下載去背模型…",
-      loading: "正在載入去背模型…",
+      downloading: "正在下載 AI 模型…",
+      loading: "正在載入 AI 模型…",
       processing: "正在移除背景…",
       scaled: "圖片最長邊已縮小為 4096 px。",
       imageTooLarge: "解碼後的圖片超過 2,000 萬畫素限制。",
@@ -981,12 +1360,13 @@ const packs = {
   },
   tr: {
     copy: {
+      ...resultFeatureCopy.tr,
       original: "Orijinal",
       result: "Sonuç",
       uploadHint: "Bir resmi buraya bırakın veya cihazınızdan seçin.",
       formats: "En fazla 10 MB ve 20 megapiksel PNG, JPEG veya WebP",
       options: "Seçenekler",
-      model: "Kesme modeli",
+      model: "Yapay zekâ modeli",
       fast: "Hızlı",
       fastHint: "4,6 MB · belirgin nesnelerde daha hızlı",
       portrait: "Portre",

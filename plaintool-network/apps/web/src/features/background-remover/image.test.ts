@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
   createInputTensor,
   joinByteParts,
+  maskCropBounds,
   normalizeMask,
   outputDimensions,
   resultFileName,
+  scaleCropBounds,
 } from "./image";
 
 describe("background remover image operations", () => {
@@ -59,5 +61,54 @@ describe("background remover image operations", () => {
       "portrait-final-background-removed.png",
     );
     expect(resultFileName(".png")).toBe("image-background-removed.png");
+    expect(resultFileName("portrait final.jpg", "quality")).toBe(
+      "portrait-final-background-removed-quality.png",
+    );
+    expect(resultFileName("portrait final.jpg", "quality", true)).toBe(
+      "portrait-final-background-removed-quality-trimmed.png",
+    );
+    expect(resultFileName("portrait final.jpg", undefined, true)).toBe(
+      "portrait-final-background-removed-trimmed.png",
+    );
+  });
+
+  it("finds subject bounds with safe padding and clamps to image edges", () => {
+    const alpha = new Uint8ClampedArray(100 * 80);
+    for (let y = 20; y < 40; y += 1) {
+      for (let x = 30; x < 50; x += 1) alpha[y * 100 + x] = 255;
+    }
+    expect(maskCropBounds(alpha, 100, 80)).toEqual({
+      x: 22,
+      y: 12,
+      width: 36,
+      height: 36,
+    });
+
+    alpha.fill(0);
+    alpha[0] = 255;
+    expect(maskCropBounds(alpha, 100, 80)).toEqual({
+      x: 0,
+      y: 0,
+      width: 9,
+      height: 9,
+    });
+  });
+
+  it("uses the alpha threshold and returns no crop for an empty mask", () => {
+    expect(maskCropBounds(new Uint8ClampedArray([0, 7, 0, 0]), 2, 2)).toBe(
+      undefined,
+    );
+    expect(maskCropBounds(new Uint8ClampedArray([0, 8, 0, 0]), 2, 2)).toEqual({
+      x: 0,
+      y: 0,
+      width: 2,
+      height: 2,
+    });
+  });
+
+  it("scales mask-space crop bounds outward into source pixels", () => {
+    expect(
+      scaleCropBounds({ x: 1, y: 2, width: 3, height: 4 }, 10, 10, 101, 51),
+    ).toEqual({ x: 10, y: 10, width: 31, height: 21 });
   });
 });

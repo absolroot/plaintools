@@ -33,7 +33,7 @@
     "apps/web/src/pages/[locale]/jwt-decoder/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:7ffe35ed377edfd8244a2a50694ba20ae8af5a1cc47c4f385dbef7c73276d51c",
+  "copyFingerprint": "sha256:f7cea26ef7054a5a5564435f4d8e9faa3f837649cd01ea96d572442b9ea9163a",
   "locales": {
     "en": {
       "status": "reference-backed",

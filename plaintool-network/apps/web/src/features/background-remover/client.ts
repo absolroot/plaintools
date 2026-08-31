@@ -12,14 +12,41 @@ import type {
 } from "./contract";
 import {
   createInputTensor,
+  maskCropBounds,
   MAX_FILE_BYTES,
   MAX_IMAGE_PIXELS,
   outputDimensions,
   resultFileName,
+  scaleCropBounds,
+  type CropBounds,
 } from "./image";
 import { modelManifest } from "./model-manifest";
 
 type DecodedImage = ImageBitmap | HTMLImageElement;
+type ConsentIntent = "single" | "compare";
+type WorkerKind = "standard" | "precision";
+type ModelResult = {
+  model: BackgroundModelId;
+  mask: Uint8ClampedArray;
+  width: number;
+  height: number;
+  trimmed: boolean;
+};
+
+const MODEL_ORDER: readonly BackgroundModelId[] = [
+  "fast",
+  "portrait",
+  "quality",
+  "precision",
+];
+const PREVIEW_EDGE = 512;
+
+class Cancelled extends Error {}
+class InferenceFailure extends Error {
+  constructor(readonly code: "model" | "inference") {
+    super(code);
+  }
+}
 
 async function decodeImage(file: File): Promise<DecodedImage> {
   if ("createImageBitmap" in window) {
@@ -63,6 +90,10 @@ function init(root: HTMLElement): void {
   const removeButtonLabel = root.querySelector<HTMLElement>(
     "[data-remove-label]",
   )!;
+  const compareButton =
+    root.querySelector<HTMLButtonElement>("[data-compare]")!;
+  const trimButton = root.querySelector<HTMLButtonElement>("[data-trim]")!;
+  const trimButtonLabel = root.querySelector<HTMLElement>("[data-trim-label]")!;
   const downloadButton =
     root.querySelector<HTMLButtonElement>("[data-download]")!;
   const uploadPrompt = root.querySelector<HTMLElement>("[data-upload-prompt]")!;
@@ -75,6 +106,7 @@ function init(root: HTMLElement): void {
   const resultPlaceholder = root.querySelector<HTMLElement>(
     "[data-result-placeholder]",
   )!;
+  const comparison = root.querySelector<HTMLElement>("[data-comparison]")!;
   const colorInput = root.querySelector<HTMLInputElement>(
     "[data-background-color]",
   )!;
@@ -96,36 +128,45 @@ function init(root: HTMLElement): void {
   const precisionConsent = root.querySelector<HTMLDialogElement>(
     "[data-precision-consent]",
   )!;
+  const consentEyebrow = root.querySelector<HTMLElement>(
+    "[data-consent-eyebrow]",
+  )!;
+  const consentTitle = root.querySelector<HTMLElement>("[data-consent-title]")!;
+  const consentBody = root.querySelector<HTMLElement>("[data-consent-body]")!;
   const consentConfirm = root.querySelector<HTMLButtonElement>(
     "[data-consent-confirm]",
+  )!;
+  const consentConfirmLabel = root.querySelector<HTMLElement>(
+    "[data-consent-confirm-label]",
   )!;
   const consentCancel = root.querySelector<HTMLButtonElement>(
     "[data-consent-cancel]",
   )!;
+  const modelInputs = [
+    ...root.querySelectorAll<HTMLInputElement>(
+      'input[name="background-model"]',
+    ),
+  ];
 
   let sourcePixels: ImageData | undefined;
-  let mask: Uint8ClampedArray | undefined;
-  let maskWidth = 0;
-  let maskHeight = 0;
   let sourceName = "image";
   let revision = 0;
+  let requestSequence = 0;
   let worker: Worker | undefined;
-  let activeRequest = 0;
+  let workerKind: WorkerKind | undefined;
+  let rejectActive: ((reason: Error) => void) | undefined;
   let precisionApproved = false;
+  let precisionSupported = false;
   let previousModel: BackgroundModelId = "fast";
+  let consentIntent: ConsentIntent | undefined;
+  let comparisonMode = false;
+  let selectedResultModel: BackgroundModelId | undefined;
+  const results = new Map<BackgroundModelId, ModelResult>();
 
   const setStatus = (
     message: string,
     state: "idle" | "working" | "success" | "error" = "idle",
   ) => setToolStatus(root, status, message, state);
-
-  function setRemoveBusy(busy: boolean): void {
-    if (busy) removeButton.setAttribute("aria-busy", "true");
-    else removeButton.removeAttribute("aria-busy");
-    removeButtonLabel.textContent = busy
-      ? copy.processingImage
-      : copy.removeBackground;
-  }
 
   const selectedModel = (): BackgroundModelId =>
     root.querySelector<HTMLInputElement>(
@@ -136,10 +177,32 @@ function init(root: HTMLElement): void {
       'input[name="background-mode"]:checked',
     )!.value as BackgroundMode;
 
+  function setBusy(busy: boolean, comparisonRun = false): void {
+    root.classList.toggle("is-comparing", busy && comparisonRun);
+    removeButton.disabled = busy || !sourcePixels;
+    compareButton.disabled = busy || !sourcePixels;
+    trimButton.disabled = busy || !selectedResultModel;
+    downloadButton.disabled = busy || !selectedResultModel;
+    modelInputs.forEach((input) => {
+      input.disabled =
+        busy || (input.value === "precision" && !precisionSupported);
+    });
+    if (busy) removeButton.setAttribute("aria-busy", "true");
+    else removeButton.removeAttribute("aria-busy");
+    removeButtonLabel.textContent = busy
+      ? comparisonRun
+        ? copy.comparingModels
+        : copy.processingImage
+      : copy.removeBackground;
+  }
+
   function stopWorker(): void {
+    const reject = rejectActive;
+    rejectActive = undefined;
     worker?.terminate();
     worker = undefined;
-    activeRequest = 0;
+    workerKind = undefined;
+    reject?.(new Cancelled());
   }
 
   function hideProgress(): void {
@@ -148,167 +211,389 @@ function init(root: HTMLElement): void {
     progressLabel.textContent = "";
   }
 
-  function invalidateResult(): void {
-    mask = undefined;
-    maskWidth = 0;
-    maskHeight = 0;
+  function setTileState(
+    model: BackgroundModelId,
+    state: "pending" | "working" | "success" | "error" | "unavailable",
+    message: string,
+  ): void {
+    const card = root.querySelector<HTMLButtonElement>(
+      `[data-comparison-card="${model}"]`,
+    )!;
+    card.dataset.state = state;
+    card.disabled = state !== "success";
+    root.querySelector<HTMLElement>(
+      `[data-comparison-state="${model}"]`,
+    )!.textContent = message;
+  }
+
+  function clearResults(): void {
+    results.clear();
+    selectedResultModel = undefined;
+    comparisonMode = false;
+    comparison.hidden = true;
     resultCanvas.width = 0;
     resultCanvas.height = 0;
     resultCanvas.hidden = true;
     resultPlaceholder.hidden = false;
+    trimButton.hidden = true;
+    trimButton.disabled = true;
+    trimButtonLabel.textContent = copy.trimImage;
     downloadButton.disabled = true;
+    MODEL_ORDER.forEach((model) => {
+      const canvas = root.querySelector<HTMLCanvasElement>(
+        `[data-comparison-canvas="${model}"]`,
+      )!;
+      canvas.width = 0;
+      canvas.height = 0;
+      canvas.hidden = true;
+      setTileState(model, "pending", copy.ready);
+      root
+        .querySelector<HTMLButtonElement>(`[data-comparison-card="${model}"]`)!
+        .setAttribute("aria-pressed", "false");
+    });
   }
 
-  function renderResult(): void {
-    if (!sourcePixels || !mask) return;
-    const alphaCanvas = document.createElement("canvas");
-    alphaCanvas.width = maskWidth;
-    alphaCanvas.height = maskHeight;
-    const alphaContext = alphaCanvas.getContext("2d")!;
-    const maskPixels = new Uint8ClampedArray(maskWidth * maskHeight * 4);
-    for (let pixel = 0; pixel < mask.length; pixel += 1) {
+  function maskCanvas(result: ModelResult): HTMLCanvasElement {
+    const canvas = document.createElement("canvas");
+    canvas.width = result.width;
+    canvas.height = result.height;
+    const pixels = new Uint8ClampedArray(result.width * result.height * 4);
+    for (let pixel = 0; pixel < result.mask.length; pixel += 1) {
       const index = pixel * 4;
-      maskPixels[index] = 255;
-      maskPixels[index + 1] = 255;
-      maskPixels[index + 2] = 255;
-      maskPixels[index + 3] = mask[pixel];
+      pixels[index] = 255;
+      pixels[index + 1] = 255;
+      pixels[index + 2] = 255;
+      pixels[index + 3] = result.mask[pixel];
     }
-    alphaContext.putImageData(
-      new ImageData(maskPixels, maskWidth, maskHeight),
-      0,
-      0,
-    );
-
-    const maskCanvas = document.createElement("canvas");
-    maskCanvas.width = sourcePixels.width;
-    maskCanvas.height = sourcePixels.height;
-    const maskContext = maskCanvas.getContext("2d")!;
-    maskContext.imageSmoothingEnabled = true;
-    maskContext.imageSmoothingQuality = "high";
-    maskContext.drawImage(
-      alphaCanvas,
-      0,
-      0,
-      maskCanvas.width,
-      maskCanvas.height,
-    );
-    const scaledMask = maskContext.getImageData(
-      0,
-      0,
-      maskCanvas.width,
-      maskCanvas.height,
-    ).data;
-
-    const output = new Uint8ClampedArray(sourcePixels.data);
-    for (let index = 0; index < output.length; index += 4) {
-      output[index + 3] = scaledMask[index + 3];
-    }
-    const foreground = document.createElement("canvas");
-    foreground.width = sourcePixels.width;
-    foreground.height = sourcePixels.height;
-    foreground
+    canvas
       .getContext("2d")!
-      .putImageData(
-        new ImageData(output, sourcePixels.width, sourcePixels.height),
-        0,
-        0,
-      );
+      .putImageData(new ImageData(pixels, result.width, result.height), 0, 0);
+    return canvas;
+  }
 
-    resultCanvas.width = sourcePixels.width;
-    resultCanvas.height = sourcePixels.height;
-    const resultContext = resultCanvas.getContext("2d")!;
-    resultContext.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
+  function sourceCrop(result: ModelResult): CropBounds | undefined {
+    if (!sourcePixels) return undefined;
+    if (!result.trimmed) {
+      return {
+        x: 0,
+        y: 0,
+        width: sourcePixels.width,
+        height: sourcePixels.height,
+      };
+    }
+    const maskBounds = maskCropBounds(result.mask, result.width, result.height);
+    return maskBounds
+      ? scaleCropBounds(
+          maskBounds,
+          result.width,
+          result.height,
+          sourcePixels.width,
+          sourcePixels.height,
+        )
+      : undefined;
+  }
+
+  function renderComposite(
+    target: HTMLCanvasElement,
+    result: ModelResult,
+    maximumEdge?: number,
+  ): boolean {
+    if (!sourcePixels) return false;
+    const crop = sourceCrop(result);
+    if (!crop) return false;
+    const scale = maximumEdge
+      ? Math.min(1, maximumEdge / Math.max(crop.width, crop.height))
+      : 1;
+    const width = Math.max(1, Math.round(crop.width * scale));
+    const height = Math.max(1, Math.round(crop.height * scale));
+    const foreground = document.createElement("canvas");
+    foreground.width = width;
+    foreground.height = height;
+    const foregroundContext = foreground.getContext("2d")!;
+    foregroundContext.imageSmoothingEnabled = true;
+    foregroundContext.imageSmoothingQuality = "high";
+    foregroundContext.drawImage(
+      originalCanvas,
+      crop.x,
+      crop.y,
+      crop.width,
+      crop.height,
+      0,
+      0,
+      width,
+      height,
+    );
+    const alpha = maskCanvas(result);
+    foregroundContext.globalCompositeOperation = "destination-in";
+    foregroundContext.drawImage(
+      alpha,
+      (crop.x / sourcePixels.width) * result.width,
+      (crop.y / sourcePixels.height) * result.height,
+      (crop.width / sourcePixels.width) * result.width,
+      (crop.height / sourcePixels.height) * result.height,
+      0,
+      0,
+      width,
+      height,
+    );
+    target.width = width;
+    target.height = height;
+    const context = target.getContext("2d")!;
+    context.clearRect(0, 0, width, height);
     const background = selectedBackground();
     if (background !== "transparent") {
-      resultContext.fillStyle =
-        background === "white" ? "#ffffff" : colorInput.value;
-      resultContext.fillRect(0, 0, resultCanvas.width, resultCanvas.height);
+      context.fillStyle = background === "white" ? "#ffffff" : colorInput.value;
+      context.fillRect(0, 0, width, height);
     }
-    resultContext.drawImage(foreground, 0, 0);
-    resultCanvas.hidden = false;
+    context.drawImage(foreground, 0, 0);
+    target.hidden = false;
+    return true;
+  }
+
+  function renderPreview(result: ModelResult): void {
+    const canvas = root.querySelector<HTMLCanvasElement>(
+      `[data-comparison-canvas="${result.model}"]`,
+    )!;
+    renderComposite(canvas, result, PREVIEW_EDGE);
+  }
+
+  function renderSelected(): void {
+    const selected = selectedResultModel
+      ? results.get(selectedResultModel)
+      : undefined;
+    if (!selected || !renderComposite(resultCanvas, selected)) return;
     resultPlaceholder.hidden = true;
+    trimButton.hidden = false;
+    trimButton.disabled = false;
+    trimButtonLabel.textContent = selected.trimmed
+      ? copy.restoreImage
+      : copy.trimImage;
     downloadButton.disabled = false;
+    MODEL_ORDER.forEach((model) => {
+      root
+        .querySelector<HTMLButtonElement>(`[data-comparison-card="${model}"]`)!
+        .setAttribute("aria-pressed", String(model === selectedResultModel));
+    });
+  }
+
+  function updateProgress(
+    model: BackgroundModelId,
+    message: Extract<BackgroundWorkerResponse, { kind: "progress" }>,
+  ): void {
+    progressWrap.hidden = false;
+    const prefix = comparisonMode ? `${copy.modelOptions[model]} · ` : "";
+    if (message.phase === "download" || message.phase === "cache") {
+      const loaded = message.loaded ?? 0;
+      const total = message.total ?? 0;
+      progress.max = total || 1;
+      progress.value = loaded;
+      progressLabel.textContent =
+        prefix +
+        (message.phase === "download"
+          ? `${copy.downloadingModel} ${formatBytes(loaded)} / ${formatBytes(total)}`
+          : copy.loadingModel);
+    } else {
+      progress.removeAttribute("value");
+      progressLabel.textContent =
+        prefix +
+        (message.phase === "model" ? copy.loadingModel : copy.processingImage);
+    }
+    setStatus(progressLabel.textContent, "working");
   }
 
   function ensureWorker(model: BackgroundModelId): Worker {
-    if (worker) return worker;
-    const nextWorker =
-      model === "precision"
+    const desiredKind: WorkerKind =
+      model === "precision" ? "precision" : "standard";
+    if (worker && workerKind === desiredKind) return worker;
+    stopWorker();
+    worker =
+      desiredKind === "precision"
         ? new Worker(new URL("./precision-worker.ts", import.meta.url), {
             type: "module",
           })
         : new Worker(new URL("./worker.ts", import.meta.url), {
             type: "module",
           });
-    worker = nextWorker;
-    nextWorker.addEventListener(
-      "message",
-      (event: MessageEvent<BackgroundWorkerResponse>) => {
-        if (worker !== nextWorker) return;
+    workerKind = desiredKind;
+    return worker;
+  }
+
+  function createTensor(model: BackgroundModelId): Float32Array {
+    const manifest = modelManifest[model];
+    const canvas = document.createElement("canvas");
+    canvas.width = manifest.inputSize;
+    canvas.height = manifest.inputSize;
+    const context = canvas.getContext("2d", { willReadFrequently: true })!;
+    context.drawImage(
+      originalCanvas,
+      0,
+      0,
+      manifest.inputSize,
+      manifest.inputSize,
+    );
+    return createInputTensor(
+      context.getImageData(0, 0, manifest.inputSize, manifest.inputSize).data,
+      manifest.normalization,
+    );
+  }
+
+  function runInference(
+    model: BackgroundModelId,
+    taskRevision: number,
+  ): Promise<ModelResult> {
+    const activeWorker = ensureWorker(model);
+    const requestId = ++requestSequence;
+    const tensor = createTensor(model);
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const cleanup = () => {
+        activeWorker.removeEventListener("message", onMessage);
+        activeWorker.removeEventListener("error", onError);
+        if (rejectActive === cancel) rejectActive = undefined;
+      };
+      const finish = (callback: () => void) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        callback();
+      };
+      const cancel = (reason: Error) => finish(() => reject(reason));
+      const onError = () => {
+        finish(() => reject(new InferenceFailure("model")));
+        if (worker === activeWorker) {
+          activeWorker.terminate();
+          worker = undefined;
+          workerKind = undefined;
+        }
+      };
+      const onMessage = (event: MessageEvent<BackgroundWorkerResponse>) => {
         const message = event.data;
-        if (
-          message.requestId !== activeRequest ||
-          message.requestId !== revision
-        )
+        if (message.requestId !== requestId) return;
+        if (taskRevision !== revision) {
+          cancel(new Cancelled());
           return;
+        }
         if (message.kind === "progress") {
-          progressWrap.hidden = false;
-          if (message.phase === "download" || message.phase === "cache") {
-            const loaded = message.loaded ?? 0;
-            const total = message.total ?? 0;
-            progress.max = total || 1;
-            progress.value = loaded;
-            progressLabel.textContent =
-              message.phase === "download"
-                ? `${copy.downloadingModel} ${formatBytes(loaded)} / ${formatBytes(total)}`
-                : copy.loadingModel;
-            setStatus(progressLabel.textContent, "working");
-          } else {
-            progress.removeAttribute("value");
-            progressLabel.textContent =
-              message.phase === "model"
-                ? copy.loadingModel
-                : copy.processingImage;
-            setStatus(progressLabel.textContent, "working");
+          updateProgress(model, message);
+          return;
+        }
+        if (message.kind === "error") {
+          finish(() => reject(new InferenceFailure(message.code)));
+          if (message.code === "model" && worker === activeWorker) {
+            activeWorker.terminate();
+            worker = undefined;
+            workerKind = undefined;
           }
           return;
         }
-        setRemoveBusy(false);
-        removeButton.disabled = false;
-        hideProgress();
-        if (message.kind === "error") {
-          if (message.code === "model") stopWorker();
-          setStatus(
-            message.code === "model" ? copy.modelFailed : copy.processingFailed,
-            "error",
-          );
-          return;
-        }
-        mask = message.alpha;
-        maskWidth = message.width;
-        maskHeight = message.height;
-        renderResult();
-        setStatus(copy.completed, "success");
-      },
-    );
-    nextWorker.addEventListener("error", () => {
-      if (worker !== nextWorker || !activeRequest) return;
-      setRemoveBusy(false);
-      removeButton.disabled = false;
-      hideProgress();
-      stopWorker();
-      setStatus(copy.modelFailed, "error");
+        finish(() =>
+          resolve({
+            model,
+            mask: message.alpha,
+            width: message.width,
+            height: message.height,
+            trimmed: false,
+          }),
+        );
+      };
+      rejectActive = cancel;
+      activeWorker.addEventListener("message", onMessage);
+      activeWorker.addEventListener("error", onError);
+      const request: RemoveRequest = {
+        kind: "remove",
+        requestId,
+        model,
+        tensor,
+      };
+      activeWorker.postMessage(request, [tensor.buffer]);
     });
-    return nextWorker;
+  }
+
+  async function runSingle(): Promise<void> {
+    if (!sourcePixels) return;
+    const taskRevision = ++revision;
+    clearResults();
+    setBusy(true);
+    try {
+      const result = await runInference(selectedModel(), taskRevision);
+      if (taskRevision !== revision) return;
+      results.set(result.model, result);
+      selectedResultModel = result.model;
+      renderSelected();
+      setStatus(copy.completed, "success");
+    } catch (error) {
+      if (error instanceof Cancelled || taskRevision !== revision) return;
+      setStatus(
+        error instanceof InferenceFailure && error.code === "model"
+          ? copy.modelFailed
+          : copy.processingFailed,
+        "error",
+      );
+    } finally {
+      if (taskRevision === revision) {
+        hideProgress();
+        setBusy(false);
+      }
+    }
+  }
+
+  async function runComparison(includePrecision: boolean): Promise<void> {
+    if (!sourcePixels) return;
+    const taskRevision = ++revision;
+    clearResults();
+    comparisonMode = true;
+    comparison.hidden = false;
+    setBusy(true, true);
+    setStatus(copy.comparingModels, "working");
+    if (!includePrecision) {
+      setTileState("precision", "unavailable", copy.precisionUnavailable);
+    }
+    const models = MODEL_ORDER.filter(
+      (model) => model !== "precision" || includePrecision,
+    );
+    let failures = 0;
+    for (const model of models) {
+      if (taskRevision !== revision) return;
+      setTileState(model, "working", copy.processingImage);
+      try {
+        const result = await runInference(model, taskRevision);
+        if (taskRevision !== revision) return;
+        results.set(model, result);
+        if (!selectedResultModel) selectedResultModel = model;
+        renderPreview(result);
+        renderSelected();
+        setTileState(model, "success", copy.ready);
+      } catch (error) {
+        if (error instanceof Cancelled || taskRevision !== revision) return;
+        failures += 1;
+        setTileState(
+          model,
+          "error",
+          error instanceof InferenceFailure && error.code === "model"
+            ? copy.modelFailed
+            : copy.processingFailed,
+        );
+      }
+    }
+    if (taskRevision !== revision) return;
+    hideProgress();
+    setBusy(false);
+    if (!results.size) {
+      setStatus(copy.processingFailed, "error");
+    } else {
+      setStatus(
+        `${failures ? copy.comparePartial : copy.compareCompleted} ${copy.completed}`,
+        "success",
+      );
+    }
   }
 
   async function selectFile(file: File): Promise<void> {
     revision += 1;
     stopWorker();
-    setRemoveBusy(false);
-    invalidateResult();
+    clearResults();
     hideProgress();
-    removeButton.disabled = true;
+    setBusy(false);
     if (file.size > MAX_FILE_BYTES) {
       setStatus(copy.fileTooLarge, "error");
       return;
@@ -350,7 +635,7 @@ function init(root: HTMLElement): void {
       originalCanvas.hidden = false;
       uploadPrompt.hidden = true;
       newImageButton.hidden = false;
-      removeButton.disabled = false;
+      setBusy(false);
       setStatus(output.scaled ? copy.scaledImage : copy.ready);
     } catch {
       if (fileRevision !== revision) return;
@@ -358,63 +643,49 @@ function init(root: HTMLElement): void {
     }
   }
 
-  function run(): void {
-    if (!sourcePixels) return;
-    revision += 1;
-    activeRequest = revision;
-    invalidateResult();
-    setRemoveBusy(true);
-    removeButton.disabled = true;
-    const selectedModelId = selectedModel();
-    const selectedManifest = modelManifest[selectedModelId];
-    const preprocessingCanvas = document.createElement("canvas");
-    preprocessingCanvas.width = selectedManifest.inputSize;
-    preprocessingCanvas.height = selectedManifest.inputSize;
-    const preprocessingContext = preprocessingCanvas.getContext("2d", {
-      willReadFrequently: true,
-    })!;
-    preprocessingContext.drawImage(
-      originalCanvas,
-      0,
-      0,
-      selectedManifest.inputSize,
-      selectedManifest.inputSize,
-    );
-    const tensor = createInputTensor(
-      preprocessingContext.getImageData(
-        0,
-        0,
-        selectedManifest.inputSize,
-        selectedManifest.inputSize,
-      ).data,
-      selectedManifest.normalization,
-    );
-    const request: RemoveRequest = {
-      kind: "remove",
-      requestId: activeRequest,
-      model: selectedModelId,
-      tensor,
-    };
-    ensureWorker(selectedModelId).postMessage(request, [tensor.buffer]);
-  }
-
   function reset(): void {
     revision += 1;
     stopWorker();
-    setRemoveBusy(false);
     sourcePixels = undefined;
     sourceName = "image";
-    invalidateResult();
+    clearResults();
     hideProgress();
     originalCanvas.width = 0;
     originalCanvas.height = 0;
     originalCanvas.hidden = true;
     uploadPrompt.hidden = false;
     newImageButton.hidden = true;
-    removeButton.disabled = true;
     fileInput.value = "";
+    setBusy(false);
     setStatus(copy.ready);
-    openButton.focus();
+  }
+
+  function showConsent(intent: ConsentIntent): void {
+    consentIntent = intent;
+    const compare = intent === "compare";
+    consentEyebrow.textContent = compare
+      ? `${copy.comparisonLabel} · ~180 MB`
+      : `${copy.modelOptions.precision} · 98.5 MB`;
+    consentTitle.textContent = compare
+      ? copy.compareConsentTitle
+      : copy.precisionConsentTitle;
+    consentBody.textContent = compare
+      ? copy.compareConsentBody
+      : copy.precisionConsentBody;
+    consentConfirmLabel.textContent = compare
+      ? copy.compareConsentConfirm
+      : copy.precisionConsentConfirm;
+    consentCancel.textContent = compare
+      ? copy.compareWithoutPrecision
+      : copy.cancel;
+    precisionConsent.showModal();
+  }
+
+  function handleConsentCancel(): void {
+    const intent = consentIntent;
+    consentIntent = undefined;
+    precisionConsent.close();
+    if (intent === "compare") void runComparison(false);
   }
 
   openButton.addEventListener("click", () => fileInput.click());
@@ -424,13 +695,41 @@ function init(root: HTMLElement): void {
     fileInput.value = "";
     if (file) void selectFile(file);
   });
-  removeButton.addEventListener("click", run);
+  removeButton.addEventListener("click", () => void runSingle());
+  compareButton.addEventListener("click", () => {
+    if (precisionSupported && !precisionApproved) showConsent("compare");
+    else void runComparison(precisionSupported && precisionApproved);
+  });
+  trimButton.addEventListener("click", () => {
+    const result = selectedResultModel
+      ? results.get(selectedResultModel)
+      : undefined;
+    if (!result) return;
+    if (
+      !result.trimmed &&
+      !maskCropBounds(result.mask, result.width, result.height)
+    ) {
+      setStatus(copy.trimUnavailable, "error");
+      return;
+    }
+    result.trimmed = !result.trimmed;
+    renderSelected();
+    if (comparisonMode) renderPreview(result);
+    setStatus(result.trimmed ? copy.trimmed : copy.completed, "success");
+  });
   downloadButton.addEventListener("click", () => {
-    if (!mask) return;
+    const result = selectedResultModel
+      ? results.get(selectedResultModel)
+      : undefined;
+    if (!result) return;
     const downloadRevision = revision;
-    const downloadName = resultFileName(sourceName);
+    const downloadName = resultFileName(
+      sourceName,
+      comparisonMode ? result.model : undefined,
+      result.trimmed,
+    );
     resultCanvas.toBlob((blob) => {
-      if (downloadRevision !== revision || !mask) return;
+      if (downloadRevision !== revision || !results.has(result.model)) return;
       if (!blob) {
         setStatus(copy.downloadFailed, "error");
         return;
@@ -439,14 +738,23 @@ function init(root: HTMLElement): void {
     }, "image/png");
   });
 
+  MODEL_ORDER.forEach((model) => {
+    root
+      .querySelector<HTMLButtonElement>(`[data-comparison-card="${model}"]`)!
+      .addEventListener("click", () => {
+        if (!results.has(model)) return;
+        selectedResultModel = model;
+        renderSelected();
+      });
+  });
+
   function modelSelectionChanged(): void {
     if (!sourcePixels) return;
     revision += 1;
     stopWorker();
-    setRemoveBusy(false);
-    invalidateResult();
+    clearResults();
     hideProgress();
-    removeButton.disabled = false;
+    setBusy(false);
     setStatus(copy.ready);
   }
 
@@ -465,48 +773,60 @@ function init(root: HTMLElement): void {
         available = false;
       }
     }
+    precisionSupported = available;
     precisionInput.disabled = !available;
     precisionOption.classList.toggle("is-unavailable", !available);
     precisionUnavailable.hidden = available;
     root.dataset.precisionSupport = available ? "supported" : "unsupported";
   })();
 
-  consentCancel.addEventListener("click", () => precisionConsent.close());
+  consentCancel.addEventListener("click", handleConsentCancel);
   consentConfirm.addEventListener("click", () => {
+    const intent = consentIntent;
+    consentIntent = undefined;
     precisionApproved = true;
-    precisionInput.checked = true;
     precisionConsent.close();
+    if (intent === "compare") {
+      void runComparison(true);
+      return;
+    }
+    precisionInput.checked = true;
     previousModel = "precision";
     modelSelectionChanged();
   });
-  precisionConsent.addEventListener("cancel", () => precisionConsent.close());
+  precisionConsent.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    handleConsentCancel();
+  });
 
-  root
-    .querySelectorAll<HTMLInputElement>('input[name="background-model"]')
-    .forEach((input) =>
-      input.addEventListener("change", () => {
-        const nextModel = input.value as BackgroundModelId;
-        if (nextModel === "precision" && !precisionApproved) {
-          input.checked = false;
-          root.querySelector<HTMLInputElement>(
-            `input[name="background-model"][value="${previousModel}"]`,
-          )!.checked = true;
-          precisionConsent.showModal();
-          return;
-        }
-        previousModel = nextModel;
-        modelSelectionChanged();
-      }),
-    );
+  modelInputs.forEach((input) =>
+    input.addEventListener("change", () => {
+      const nextModel = input.value as BackgroundModelId;
+      if (nextModel === "precision" && !precisionApproved) {
+        input.checked = false;
+        root.querySelector<HTMLInputElement>(
+          `input[name="background-model"][value="${previousModel}"]`,
+        )!.checked = true;
+        showConsent("single");
+        return;
+      }
+      previousModel = nextModel;
+      modelSelectionChanged();
+    }),
+  );
   root
     .querySelectorAll<HTMLInputElement>('input[name="background-mode"]')
     .forEach((input) =>
       input.addEventListener("change", () => {
         colorInput.disabled = selectedBackground() !== "color";
-        renderResult();
+        results.forEach(renderPreview);
+        renderSelected();
       }),
     );
-  colorInput.addEventListener("input", renderResult);
+  colorInput.addEventListener("input", () => {
+    results.forEach(renderPreview);
+    renderSelected();
+  });
 
   ["dragenter", "dragover"].forEach((eventName) =>
     root.addEventListener(eventName, (event) => {

@@ -69,6 +69,116 @@
   animation: background-result-in 150ms ease-out;
 }
 
+.background-comparison {
+  padding: var(--space-3);
+  border-top: 1px solid var(--line);
+  background: var(--base);
+}
+
+.background-comparison[hidden] {
+  display: none;
+}
+
+.background-comparison-heading {
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 13px;
+}
+
+.background-comparison-heading span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.background-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.background-comparison-card {
+  min-width: 0;
+  padding: var(--space-2);
+  display: grid;
+  gap: var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--base);
+  color: var(--ink);
+  text-align: start;
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease,
+    opacity 150ms ease;
+}
+
+.background-comparison-card:disabled {
+  color: var(--ink);
+  cursor: default;
+  opacity: 0.7;
+}
+
+.background-comparison-card[data-state="success"] {
+  opacity: 1;
+  animation: background-result-in 150ms ease-out;
+}
+
+.background-comparison-card[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--tint);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.background-comparison-card:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.background-comparison-title {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.background-comparison-preview {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background-color: var(--recessed);
+  background-image:
+    linear-gradient(45deg, var(--line) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--line) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--line) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--line) 75%);
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+  background-size: 16px 16px;
+}
+
+.background-comparison-preview canvas {
+  max-width: 100%;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+}
+
+.background-comparison-state {
+  min-height: 2.8em;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .background-upload-prompt {
   max-width: 320px;
   text-align: center;
@@ -251,6 +361,8 @@
 
 .background-actions {
   flex: 0 0 auto;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .background-progress {
@@ -314,10 +426,25 @@
     min-height: 44px;
   }
 
-  .background-actions {
+  .background-remover .background-actions {
     flex: 1 0 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .background-remover .background-actions button {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .background-comparison-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .background-comparison-card {
+    min-height: 44px;
   }
 
   .background-progress {
@@ -336,7 +463,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .background-stage canvas {
+  .background-stage canvas,
+  .background-comparison-card[data-state="success"] {
     animation: none;
+  }
+
+  .background-comparison-card {
+    transition: none;
   }
 }
