@@ -7,7 +7,7 @@
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": ["apps/web/src/lib/tool-registry.js", "apps/web/src/lib/tool-catalog.ts", "apps/web/src/lib/locale-data/bundle.ts", "apps/web/src/lib/locale-data/new-tools/factory.ts", "apps/web/src/lib/locale-data/new-tools/calculator-suite.ts", "apps/web/src/features/bmi-calculator/contract.ts", "apps/web/src/features/bmi-calculator/BmiCalculator.astro", "apps/web/src/features/bmi-calculator/client.ts", "apps/web/src/features/new-tools/NewToolPreview.astro", "apps/web/src/pages/[locale]/bmi-calculator/index.astro"],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:4d7223c265f1f7905bbae4b026add2184e066db8b561d073c4efe13d5705fb8a",
+  "copyFingerprint": "sha256:12c3726677bf27ff831f09384efb6f07827cb324af11972bb8364e77a94f329e",
   "locales": {
     "en": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["cdc-adult-bmi-categories", "who-adult-bmi-guidance"] },
     "ko": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["ko-bmi-terminology-review", "bmi-render-review"] },

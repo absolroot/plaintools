@@ -36,6 +36,7 @@ export type CalculatorToolId =
   | "percentage-calculator"
   | "bmi-calculator";
 import type { UuidGeneratorCopy } from "../../features/uuid-generator/contract";
+import type { ImageResizerCopy } from "../../features/image-resizer/contract";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -47,6 +48,7 @@ export type NewToolId =
   | "qr-code-scanner"
   | "background-remover"
   | "image-upscaler"
+  | "image-resizer"
   | "csv-to-markdown"
   | "markdown-to-csv"
   | "json-to-csv"
@@ -82,6 +84,7 @@ export type LegacyNewToolId = Exclude<
   | CalculatorToolId
   | "uuid-generator"
   | "image-upscaler"
+  | "image-resizer"
 >;
 
 export type ToolPageCopy<T> = {
@@ -107,6 +110,7 @@ export type NewToolsCopy = {
   "qr-code-scanner": ToolPageCopy<QrScannerCopy>;
   "background-remover": ToolPageCopy<BackgroundRemoverCopy>;
   "image-upscaler": ToolPageCopy<ImageUpscalerCopy>;
+  "image-resizer": ToolPageCopy<ImageResizerCopy>;
   "csv-to-markdown": ToolPageCopy<DataConverterCopy>;
   "markdown-to-csv": ToolPageCopy<DataConverterCopy>;
   "json-to-csv": ToolPageCopy<DataConverterCopy>;

@@ -5,6 +5,7 @@ import { dateCalculatorFor } from "./date-calculator";
 import { timeZoneConverterFor } from "./time-zone-converter";
 import { calculatorSuiteFor } from "./calculator-suite";
 import { uuidGeneratorFor } from "./uuid-generator";
+import { imageResizerFor } from "./image-resizer";
 
 const backgroundRemover = backgroundRemoverFor("zh-TW");
 
@@ -12,6 +13,7 @@ const seed = {
   locale: "zh-TW",
   formatterSubnet: formatterSubnetFor("zh-TW"),
   background: backgroundRemover.copy,
+  imageResizer: imageResizerFor("zh-TW"),
   dateCalculator: dateCalculatorFor("zh-TW"),
   timeZoneConverter: timeZoneConverterFor("zh-TW"),
   calculatorSuite: calculatorSuiteFor("zh-TW"),

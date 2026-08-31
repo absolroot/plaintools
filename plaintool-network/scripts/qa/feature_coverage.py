@@ -62,6 +62,10 @@ from .image_upscaler_feature import (
     run_image_upscaler_desktop,
     run_image_upscaler_mobile,
 )
+from .image_resizer_feature import (
+    run_image_resizer_desktop,
+    run_image_resizer_mobile,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -276,6 +280,12 @@ FEATURE_COVERAGE = {
         desktop=run_image_upscaler_desktop,
         mobile=run_image_upscaler_mobile,
         focus_targets=(("input", "[data-image-upscaler] [data-open-file]"),),
+        exercise_faq=True,
+    ),
+    "image-resizer": FeatureCoverage(
+        desktop=run_image_resizer_desktop,
+        mobile=run_image_resizer_mobile,
+        focus_targets=(("input", "[data-image-resizer] [data-open-file]"),),
         exercise_faq=True,
     ),
 }

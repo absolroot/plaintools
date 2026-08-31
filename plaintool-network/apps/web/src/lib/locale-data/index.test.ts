@@ -32,6 +32,7 @@ const newToolIds: NewToolId[] = [
   "ip-subnet-calculator",
   "background-remover",
   "image-upscaler",
+  "image-resizer",
   "date-calculator",
   "dday-calculator",
   "age-calculator",

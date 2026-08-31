@@ -5,6 +5,7 @@ import { dateCalculatorFor } from "./date-calculator";
 import { timeZoneConverterFor } from "./time-zone-converter";
 import { calculatorSuiteFor } from "./calculator-suite";
 import { uuidGeneratorFor } from "./uuid-generator";
+import { imageResizerFor } from "./image-resizer";
 
 const backgroundRemover = backgroundRemoverFor("da");
 
@@ -12,6 +13,7 @@ const seed = {
   locale: "da",
   formatterSubnet: formatterSubnetFor("da"),
   background: backgroundRemover.copy,
+  imageResizer: imageResizerFor("da"),
   dateCalculator: dateCalculatorFor("da"),
   timeZoneConverter: timeZoneConverterFor("da"),
   calculatorSuite: calculatorSuiteFor("da"),

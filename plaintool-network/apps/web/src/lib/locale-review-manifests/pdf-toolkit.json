@@ -34,7 +34,7 @@
     "apps/web/src/features/pdf-toolkit/PdfToolkitPage.astro",
     "apps/web/src/features/pdf-toolkit/client.ts"
   ],
-  "copyFingerprint": "sha256:04216a9d5fa5fbc66928b515fb26bc00dc783967cd3b6c8ddf089d77db333a99",
+  "copyFingerprint": "sha256:f06874c9a666a1a27024773fd4269100b2c7d31f7f0858dd3b4925bb9d478a1a",
   "locales": {
     "en": {
       "status": "reference-backed",

@@ -23,6 +23,8 @@ import BackgroundRemover from "../background-remover/BackgroundRemover.astro";
 import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
 import ImageUpscaler from "../image-upscaler/ImageUpscaler.astro";
 import imageUpscalerStylesheet from "../image-upscaler/styles.css?url";
+import ImageResizer from "../image-resizer/ImageResizer.astro";
+import imageResizerStylesheet from "../image-resizer/styles.css?url";
 import DateCalculator from "../date-calculator/DateCalculator.astro";
 import dateCalculatorStylesheet from "../date-calculator/styles.css?url";
 import UuidGenerator from "../uuid-generator/UuidGenerator.astro";
@@ -59,6 +61,7 @@ const featureStylesheets = {
   "qr-code-scanner": qrStylesheet,
   "background-remover": backgroundRemoverStylesheet,
   "image-upscaler": imageUpscalerStylesheet,
+  "image-resizer": imageResizerStylesheet,
   "csv-to-markdown": dataConverterStylesheet,
   "markdown-to-csv": dataConverterStylesheet,
   "json-to-csv": dataConverterStylesheet,
@@ -220,6 +223,15 @@ const dataModeLabels = Object.fromEntries(
   {
     page === "image-upscaler" && (
       <ImageUpscaler locale={locale} copy={bundle.tools[page].feature} />
+    )
+  }
+  {
+    page === "image-resizer" && (
+      <ImageResizer
+        locale={locale}
+        copy={bundle.tools[page].feature}
+        common={bundle.common}
+      />
     )
   }
   {

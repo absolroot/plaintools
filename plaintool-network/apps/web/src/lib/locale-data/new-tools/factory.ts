@@ -17,6 +17,7 @@ import type { UuidGeneratorCopy } from "../../../features/uuid-generator/contrac
 import type { ImageUpscalerCopy } from "../../../features/image-upscaler/contract";
 import type { Locale } from "../../site";
 import { imageUpscalerFor } from "./image-upscaler";
+import type { ImageResizerLocalePack } from "./image-resizer";
 import type {
   DateCalculatorLocaleSeed,
   DateCalculatorPageId,
@@ -369,6 +370,7 @@ export type NewToolLocaleSeed = {
     downloadFailed: string;
     resultEmpty: string;
   };
+  imageResizer: ImageResizerLocalePack;
   data: {
     convert: string;
     inputPlaceholder: string;
@@ -425,9 +427,11 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
                 id === "percentage-calculator" ||
                 id === "bmi-calculator"
               ? seed.calculatorSuite.pages[id as CalculatorPageId]
-              : id in seed.pages
-                ? seed.pages[id as LegacyNewToolId]
-                : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
+              : id === "image-resizer"
+                ? seed.imageResizer.page
+                : id in seed.pages
+                  ? seed.pages[id as LegacyNewToolId]
+                  : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
     const source = pageSeed(id);
     return {
@@ -1030,6 +1034,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "ip-subnet-calculator": page("ip-subnet-calculator", ipSubnet),
     "background-remover": page("background-remover", background),
     "image-upscaler": page("image-upscaler", upscaler),
+    "image-resizer": page("image-resizer", seed.imageResizer.copy),
     "date-calculator": page("date-calculator", {
       ...seed.dateCalculator.feature,
       ariaLabel: pageSeed("date-calculator").title,
@@ -1062,11 +1067,25 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const catalogToolIds = [
     ...Object.keys(tools).filter(
       (id) =>
+        id !== "fraction-calculator" &&
+        id !== "factor-calculator" &&
+        id !== "lcm-calculator" &&
+        id !== "percentage-calculator" &&
+        id !== "bmi-calculator" &&
+        id !== "image-upscaler" &&
+        id !== "image-resizer" &&
         id !== "date-calculator" &&
         id !== "dday-calculator" &&
         id !== "age-calculator" &&
         id !== "time-zone-converter",
     ),
+    "image-upscaler",
+    "fraction-calculator",
+    "factor-calculator",
+    "lcm-calculator",
+    "percentage-calculator",
+    "bmi-calculator",
+    "image-resizer",
     "date-calculator",
     "dday-calculator",
     "age-calculator",
