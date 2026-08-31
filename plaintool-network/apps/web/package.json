@@ -12,6 +12,7 @@
   "dependencies": {
     "@plaintool/codec-core": "*",
     "@plaintool/css-formatter-core": "*",
+    "@plaintool/date-core": "*",
     "@plaintool/data-conversion-core": "*",
     "@plaintool/hash-core": "*",
     "@plaintool/html-formatter-core": "*",

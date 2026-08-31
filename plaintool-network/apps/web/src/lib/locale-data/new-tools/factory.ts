@@ -13,6 +13,7 @@ import type { JavaScriptFormatterCopy } from "../../../features/javascript-forma
 import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../../features/background-remover/contract";
+import type { DateCalculatorLocaleSeed } from "./date-calculator";
 import type {
   FormatterSubnetToolId,
   LegacyNewToolId,
@@ -30,6 +31,8 @@ type PageSeed = {
   outputLabel?: string;
   inputPlaceholder?: string;
   terms: readonly string[];
+  mobileDescription?: string;
+  faqs?: Array<{ q: string; a: string }>;
 };
 
 export type FormatterSubnetLocaleSeed = {
@@ -355,6 +358,7 @@ export type NewToolLocaleSeed = {
   };
   pages: Record<LegacyNewToolId, PageSeed>;
   formatterSubnet: FormatterSubnetLocaleSeed;
+  dateCalculator: DateCalculatorLocaleSeed;
 };
 
 export type NewToolLocale = {
@@ -372,20 +376,25 @@ function fill(value: string, replacements: Record<string, string>): string {
 export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const { ui } = seed;
   const pageSeed = (id: NewToolId): PageSeed =>
-    id in seed.pages
-      ? seed.pages[id as LegacyNewToolId]
-      : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
+    id === "date-calculator"
+      ? seed.dateCalculator.page
+      : id in seed.pages
+        ? seed.pages[id as LegacyNewToolId]
+        : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
     const source = pageSeed(id);
     return {
       title: source.title,
       description: source.description,
-      mobileDescription: seed.mobileDescriptions?.[id] ?? source.description,
+      mobileDescription:
+        source.mobileDescription ??
+        seed.mobileDescriptions?.[id] ??
+        source.description,
       guideTitle: fill(ui.guideTitle, { name: source.title }),
       guideBody: source.guide,
       safetyTitle: ui.safetyTitle,
       safetyBody: ui.localBody,
-      faqs: [
+      faqs: source.faqs ?? [
         {
           q: fill(ui.faqWhat, { name: source.title }),
           a: source.description,
@@ -951,6 +960,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "sql-formatter": page("sql-formatter", sqlFormatter),
     "ip-subnet-calculator": page("ip-subnet-calculator", ipSubnet),
     "background-remover": page("background-remover", background),
+    "date-calculator": page("date-calculator", seed.dateCalculator.feature),
   };
 
   const catalog = Object.fromEntries(

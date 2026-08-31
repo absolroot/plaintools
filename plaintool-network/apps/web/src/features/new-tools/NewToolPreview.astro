@@ -21,6 +21,8 @@ import sqlFormatterStylesheet from "../sql-formatter/styles.css?url";
 import IpSubnetCalculator from "../ip-subnet/IpSubnetCalculator.astro";
 import BackgroundRemover from "../background-remover/BackgroundRemover.astro";
 import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
+import DateCalculator from "../date-calculator/DateCalculator.astro";
+import dateCalculatorStylesheet from "../date-calculator/styles.css?url";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
 import { localizedPath, type Locale } from "../../lib/site";
@@ -54,6 +56,7 @@ const featureStylesheets = {
   "javascript-formatter": undefined,
   "sql-formatter": sqlFormatterStylesheet,
   "ip-subnet-calculator": undefined,
+  "date-calculator": dateCalculatorStylesheet,
 } as const satisfies Record<NewToolId, string | undefined>;
 
 const urlFeature =
@@ -213,6 +216,15 @@ const dataModeLabels = Object.fromEntries(
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
         sampleInput="192.168.1.10/24"
+      />
+    )
+  }
+  {
+    page === "date-calculator" && (
+      <DateCalculator
+        locale={locale}
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
       />
     )
   }

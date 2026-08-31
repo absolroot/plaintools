@@ -1,12 +1,14 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
 import { backgroundRemoverFor } from "./background-remover";
+import { dateCalculatorFor } from "./date-calculator";
 
 const backgroundRemover = backgroundRemoverFor("ko");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("ko"),
   background: backgroundRemover.copy,
+  dateCalculator: dateCalculatorFor("ko"),
   mobileDescriptions: {
     "ai-watermark-remover": "텍스트의 숨은 유니코드 문자를 찾아 제거합니다.",
     "url-encode": "텍스트와 URL을 퍼센트 인코딩합니다.",

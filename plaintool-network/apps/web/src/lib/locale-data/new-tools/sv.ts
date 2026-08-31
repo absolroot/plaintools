@@ -1,12 +1,14 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
 import { backgroundRemoverFor } from "./background-remover";
+import { dateCalculatorFor } from "./date-calculator";
 
 const backgroundRemover = backgroundRemoverFor("sv");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("sv"),
   background: backgroundRemover.copy,
+  dateCalculator: dateCalculatorFor("sv"),
   ui: {
     clear: "Rensa",
     copy: "Kopiera",

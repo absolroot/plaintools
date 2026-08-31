@@ -26,6 +26,7 @@ const newToolIds: NewToolId[] = [
   "sql-formatter",
   "ip-subnet-calculator",
   "background-remover",
+  "date-calculator",
 ];
 
 describe("locale bundles", () => {

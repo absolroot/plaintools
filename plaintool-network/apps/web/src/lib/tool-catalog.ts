@@ -94,6 +94,7 @@ const toolMarks: Record<RegisteredToolId, string> = {
   "sql-formatter": "SQL",
   "ip-subnet-calculator": "IP",
   "background-remover": "BG",
+  "date-calculator": "D±",
 };
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {

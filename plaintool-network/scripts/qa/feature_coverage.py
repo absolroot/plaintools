@@ -18,6 +18,10 @@ from .data_converter_feature import (
     run_data_converter_desktop,
     run_data_converter_mobile,
 )
+from .date_calculator_feature import (
+    run_date_calculator_desktop,
+    run_date_calculator_mobile,
+)
 from .json_feature import run_json_desktop, run_json_mobile
 from .preflight import FeatureCoverage
 from .registry import RouteInventory
@@ -185,6 +189,12 @@ FEATURE_COVERAGE = {
         desktop=run_background_remover_desktop,
         mobile=run_background_remover_mobile,
         focus_targets=(("input", "[data-background-remover] [data-open-file]"),),
+        exercise_faq=True,
+    ),
+    "date-calculator": FeatureCoverage(
+        desktop=run_date_calculator_desktop,
+        mobile=run_date_calculator_mobile,
+        focus_targets=(("input", '[data-field="start"]'),),
         exercise_faq=True,
     ),
 }
