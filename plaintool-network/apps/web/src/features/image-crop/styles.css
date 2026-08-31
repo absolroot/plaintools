@@ -170,6 +170,7 @@
   max-width: 100%;
   max-height: 440px;
   object-fit: contain;
+  touch-action: none;
   box-shadow: 0 8px 32px var(--shadow-layer);
 }
 .crop-empty {
@@ -220,29 +221,6 @@
     50% 100%,
     100% 50%;
 }
-.crop-selection i {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: #fff;
-  border: 1px solid #111;
-}
-.crop-selection i:nth-child(1) {
-  left: -5px;
-  top: -5px;
-}
-.crop-selection i:nth-child(2) {
-  right: -5px;
-  top: -5px;
-}
-.crop-selection i:nth-child(3) {
-  left: -5px;
-  bottom: -5px;
-}
-.crop-selection i:nth-child(4) {
-  right: -5px;
-  bottom: -5px;
-}
 .image-crop > .converter-commandbar {
   border-top: 1px solid var(--line);
 }
@@ -275,6 +253,10 @@
   .transform-grid button,
   .crop-reset {
     min-height: 44px;
+  }
+  .crop-controls select,
+  .crop-controls input[type="number"] {
+    height: 44px;
   }
   .crop-file-summary span {
     display: none;

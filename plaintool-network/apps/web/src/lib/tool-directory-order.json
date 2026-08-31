@@ -17,9 +17,14 @@
     "image": 3
   },
   "pinnedToolOrder": {
-    "image": ["background-remover", "image-resizer", "image-upscaler"],
+    "image": [
+      "background-remover",
+      "image-resizer",
+      "image-upscaler",
+      "image-crop"
+    ],
     "pdf": [],
-    "text": ["ai-watermark-remover"],
+    "text": ["ai-watermark-remover", "regex-tester"],
     "generator": [
       "qr-code-generator",
       "qr-code-scanner",
@@ -34,7 +39,7 @@
       "age-calculator"
     ],
     "time": [],
-    "converter": [],
+    "converter": ["unit-converter"],
     "encoding": [],
     "data": []
   }

@@ -115,10 +115,11 @@ const packs: Record<Locale, LocalPack> = {
         "Your upscaled result and comparison control will appear here.",
     },
     page: {
-      title: "Image Upscaler (Increase Resolution)",
+      title: "Image Upscaler (Resolution)",
       description:
-        "Increase image resolution 2× or 4× with AI, then compare and download the result.",
-      mobileDescription: "Increase image resolution 2× or 4× in your browser.",
+        "Increase image resolution 2× or 4× with an AI model, then compare and download the result.",
+      mobileDescription:
+        "Use an AI model to upscale an image 2× or 4× in your browser.",
       guide:
         "Choose one image, select Compact or WebGPU Quality mode and a 2× or 4× scale, then approve the one-time model download. Compare the result before saving it as PNG or JPEG.",
       terms: [
@@ -185,11 +186,11 @@ const packs: Record<Locale, LocalPack> = {
         "해상도를 높인 이미지와 비교 조절기가 여기에 표시됩니다.",
     },
     page: {
-      title: "이미지 업스케일러 (해상도 높이기)",
-      heading: "이미지 해상도 높이기",
+      title: "이미지 업스케일러 (해상도)",
+      heading: "이미지 업스케일러 (해상도)",
       description:
-        "AI로 이미지 해상도를 2배 또는 4배 높이고 결과를 비교해 저장하세요.",
-      mobileDescription: "브라우저에서 이미지 해상도를 2배·4배 높입니다.",
+        "AI 모델로 이미지 해상도를 2배 또는 4배 높이고, 비교한 뒤 결과를 내려받으세요.",
+      mobileDescription: "AI 모델로 이미지를 2배 또는 4배 업스케일하세요.",
       guide:
         "이미지 한 장을 선택하고 경량 또는 WebGPU 고화질 모델과 2배·4배 배율을 고르세요. 최초 모델 다운로드를 확인한 뒤 결과를 원본과 비교하고 PNG 또는 JPEG로 저장할 수 있습니다.",
       terms: [
@@ -256,11 +257,11 @@ const packs: Record<Locale, LocalPack> = {
         "El resultado ampliado y el comparador aparecerán aquí.",
     },
     page: {
-      title: "Ampliador de imágenes (aumentar resolución)",
+      title: "Ampliador de imágenes (resolución)",
       description:
-        "Aumenta la resolución de una imagen 2× o 4× con IA, compara el resultado y descárgalo.",
+        "Aumenta la resolución de una imagen 2× o 4× con un modelo de IA, compara el resultado y descárgalo.",
       mobileDescription:
-        "Aumenta la resolución de imágenes 2× o 4× en el navegador.",
+        "Amplía una imagen 2× o 4× con un modelo de IA en el navegador.",
       guide:
         "Elige una imagen, el modo Ligero o Calidad con WebGPU y una escala 2× o 4×. Confirma la descarga única del modelo, compara y guarda en PNG o JPEG.",
       terms: [
@@ -328,10 +329,11 @@ const packs: Record<Locale, LocalPack> = {
         "Das hochskalierte Ergebnis und der Vergleich erscheinen hier.",
     },
     page: {
-      title: "Bild-Upscaler (Auflösung erhöhen)",
+      title: "Bild-Upscaler (Auflösung)",
       description:
-        "Bildauflösung mit KI 2× oder 4× erhöhen, Ergebnis vergleichen und herunterladen.",
-      mobileDescription: "Bildauflösung lokal im Browser 2× oder 4× erhöhen.",
+        "Bildauflösung mit einem KI-Modell 2× oder 4× erhöhen, Ergebnis vergleichen und herunterladen.",
+      mobileDescription:
+        "Ein Bild mit einem KI-Modell im Browser 2× oder 4× hochskalieren.",
       guide:
         "Bild auswählen, Kompakt- oder WebGPU-Qualitätsmodus und 2× oder 4× wählen. Einmaligen Modelldownload bestätigen, Ergebnis vergleichen und als PNG oder JPEG speichern.",
       terms: [
@@ -395,10 +397,10 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "高解像度の結果と比較スライダーがここに表示されます。",
     },
     page: {
-      title: "画像アップスケーラー（解像度を上げる）",
+      title: "画像アップスケーラー（解像度）",
       description:
-        "AIで画像の解像度を2倍または4倍に上げ、元画像と比較して保存できます。",
-      mobileDescription: "ブラウザーで画像の解像度を2倍・4倍にします。",
+        "AIモデルで画像の解像度を2倍または4倍に上げ、比較して結果をダウンロードできます。",
+      mobileDescription: "AIモデルで画像を2倍または4倍にアップスケールします。",
       guide:
         "画像を1枚選び、軽量またはWebGPU高画質モデルと2倍・4倍を指定します。初回モデル取得を確認し、比較後にPNGかJPEGで保存してください。",
       terms: [
@@ -466,11 +468,11 @@ const packs: Record<Locale, LocalPack> = {
         "Le résultat agrandi et le comparateur apparaîtront ici.",
     },
     page: {
-      title: "Agrandisseur d’image (augmenter la résolution)",
+      title: "Agrandisseur d’image (résolution)",
       description:
-        "Augmentez la résolution d’une image 2× ou 4× avec l’IA, comparez puis téléchargez le résultat.",
+        "Augmentez la résolution d’une image 2× ou 4× avec un modèle d’IA, comparez puis téléchargez le résultat.",
       mobileDescription:
-        "Augmentez la résolution d’une image 2× ou 4× dans le navigateur.",
+        "Agrandissez une image 2× ou 4× avec un modèle d’IA dans le navigateur.",
       guide:
         "Choisissez une image, le mode Léger ou Qualité WebGPU et un facteur 2× ou 4×. Confirmez le téléchargement unique, comparez et enregistrez en PNG ou JPEG.",
       terms: [
@@ -537,11 +539,11 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "O resultado ampliado e o comparador aparecerão aqui.",
     },
     page: {
-      title: "Ampliador de imagem (aumentar resolução)",
+      title: "Ampliador de imagem (resolução)",
       description:
-        "Aumente a resolução de uma imagem em 2× ou 4× com IA, compare e baixe o resultado.",
+        "Aumente a resolução de uma imagem em 2× ou 4× com um modelo de IA, compare e baixe o resultado.",
       mobileDescription:
-        "Aumente a resolução da imagem em 2× ou 4× no navegador.",
+        "Amplie uma imagem em 2× ou 4× com um modelo de IA no navegador.",
       guide:
         "Escolha uma imagem, o modo Leve ou Qualidade com WebGPU e 2× ou 4×. Confirme o download único, compare e salve em PNG ou JPEG.",
       terms: [
@@ -607,11 +609,11 @@ const packs: Record<Locale, LocalPack> = {
         "Il risultato ingrandito e il confronto appariranno qui.",
     },
     page: {
-      title: "Upscaler di immagini (aumentare la risoluzione)",
+      title: "Upscaler di immagini (risoluzione)",
       description:
-        "Aumenta la risoluzione di un’immagine di 2× o 4× con l’IA, confronta e scarica il risultato.",
+        "Aumenta la risoluzione di un’immagine di 2× o 4× con un modello di IA, confronta e scarica il risultato.",
       mobileDescription:
-        "Aumenta la risoluzione dell’immagine 2× o 4× nel browser.",
+        "Ingrandisci un’immagine 2× o 4× con un modello di IA nel browser.",
       guide:
         "Scegli un’immagine, Leggero o Qualità WebGPU e 2× o 4×. Conferma il download una tantum, confronta e salva come PNG o JPEG.",
       terms: [
@@ -677,11 +679,11 @@ const packs: Record<Locale, LocalPack> = {
         "Het vergrote resultaat en de vergelijking verschijnen hier.",
     },
     page: {
-      title: "Afbeeldingsvergroter (resolutie verhogen)",
+      title: "Afbeeldingsvergroter (resolutie)",
       description:
-        "Verhoog de resolutie van een afbeelding 2× of 4× met AI, vergelijk en download het resultaat.",
+        "Verhoog de resolutie van een afbeelding 2× of 4× met een AI-model, vergelijk en download het resultaat.",
       mobileDescription:
-        "Verhoog de afbeeldingsresolutie 2× of 4× in de browser.",
+        "Schaal een afbeelding 2× of 4× op met een AI-model in de browser.",
       guide:
         "Kies een afbeelding, Compact of WebGPU Kwaliteit en 2× of 4×. Bevestig de eenmalige download, vergelijk en sla op als PNG of JPEG.",
       terms: [
@@ -745,10 +747,11 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Den uppskalade bilden och jämförelsen visas här.",
     },
     page: {
-      title: "Bilduppskalare (höj upplösningen)",
+      title: "Bilduppskalare (upplösning)",
       description:
-        "Höj bildupplösningen 2× eller 4× med AI, jämför och hämta resultatet.",
-      mobileDescription: "Höj bildupplösningen 2× eller 4× i webbläsaren.",
+        "Höj bildupplösningen 2× eller 4× med en AI-modell, jämför och hämta resultatet.",
+      mobileDescription:
+        "Skala upp en bild 2× eller 4× med en AI-modell i webbläsaren.",
       guide:
         "Välj en bild, Kompakt eller WebGPU Kvalitet och 2× eller 4×. Bekräfta engångshämtningen, jämför och spara som PNG eller JPEG.",
       terms: [
@@ -813,10 +816,11 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Zvětšený výsledek a porovnání se zobrazí zde.",
     },
     page: {
-      title: "Zvětšení obrázku (vyšší rozlišení)",
+      title: "Zvětšení obrázku (rozlišení)",
       description:
-        "Zvyšte rozlišení obrázku 2× nebo 4× pomocí AI, porovnejte a stáhněte výsledek.",
-      mobileDescription: "Zvyšte rozlišení obrázku 2× nebo 4× v prohlížeči.",
+        "Zvyšte rozlišení obrázku 2× nebo 4× pomocí modelu AI, porovnejte a stáhněte výsledek.",
+      mobileDescription:
+        "Zvětšete obrázek 2× nebo 4× pomocí modelu AI v prohlížeči.",
       guide:
         "Vyberte obrázek, Kompaktní nebo WebGPU Kvalitní režim a 2× či 4×. Potvrďte jednorázové stažení, porovnejte a uložte PNG nebo JPEG.",
       terms: [
@@ -881,11 +885,11 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Powiększony wynik i porównanie pojawią się tutaj.",
     },
     page: {
-      title: "Powiększanie obrazów (zwiększ rozdzielczość)",
+      title: "Powiększanie obrazów (rozdzielczość)",
       description:
-        "Zwiększ rozdzielczość obrazu 2× lub 4× za pomocą AI, porównaj i pobierz wynik.",
+        "Zwiększ rozdzielczość obrazu 2× lub 4× za pomocą modelu AI, porównaj i pobierz wynik.",
       mobileDescription:
-        "Zwiększ rozdzielczość obrazu 2× lub 4× w przeglądarce.",
+        "Powiększ obraz 2× lub 4× za pomocą modelu AI w przeglądarce.",
       guide:
         "Wybierz obraz, tryb Lekki lub Jakość WebGPU i 2× albo 4×. Potwierdź jednorazowe pobranie, porównaj i zapisz jako PNG lub JPEG.",
       terms: [
@@ -952,10 +956,11 @@ const packs: Record<Locale, LocalPack> = {
         "Det opskalerede resultat og sammenligningen vises her.",
     },
     page: {
-      title: "Billedopskalerer (øg opløsningen)",
+      title: "Billedopskalerer (opløsning)",
       description:
-        "Øg billedopløsningen 2× eller 4× med AI, sammenlign og hent resultatet.",
-      mobileDescription: "Øg billedopløsningen 2× eller 4× i browseren.",
+        "Øg billedopløsningen 2× eller 4× med en AI-model, sammenlign og hent resultatet.",
+      mobileDescription:
+        "Opskaler et billede 2× eller 4× med en AI-model i browseren.",
       guide:
         "Vælg et billede, Let eller WebGPU Kvalitet og 2× eller 4×. Bekræft engangsdownload, sammenlign og gem som PNG eller JPEG.",
       terms: [
@@ -1022,10 +1027,11 @@ const packs: Record<Locale, LocalPack> = {
         "Det oppskalerte resultatet og sammenligningen vises her.",
     },
     page: {
-      title: "Bildeoppskalering (øk oppløsningen)",
+      title: "Bildeoppskalering (oppløsning)",
       description:
-        "Øk bildeoppløsningen 2× eller 4× med KI, sammenlign og last ned resultatet.",
-      mobileDescription: "Øk bildeoppløsningen 2× eller 4× i nettleseren.",
+        "Øk bildeoppløsningen 2× eller 4× med en KI-modell, sammenlign og last ned resultatet.",
+      mobileDescription:
+        "Oppskaler et bilde 2× eller 4× med en KI-modell i nettleseren.",
       guide:
         "Velg et bilde, Lett eller WebGPU Kvalitet og 2× eller 4×. Bekreft engangsnedlastingen, sammenlign og lagre som PNG eller JPEG.",
       terms: [
@@ -1088,10 +1094,10 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "ستظهر النتيجة المكبّرة وأداة المقارنة هنا.",
     },
     page: {
-      title: "مكبر الصور (رفع الدقة)",
+      title: "مكبر الصور (الدقة)",
       description:
-        "ارفع دقة الصورة 2× أو 4× بالذكاء الاصطناعي، ثم قارن النتيجة ونزّلها.",
-      mobileDescription: "ارفع دقة الصورة 2× أو 4× داخل المتصفح.",
+        "ارفع دقة الصورة 2× أو 4× باستخدام نموذج ذكاء اصطناعي، ثم قارن النتيجة ونزّلها.",
+      mobileDescription: "كبّر صورة 2× أو 4× بنموذج ذكاء اصطناعي داخل المتصفح.",
       guide:
         "اختر صورة والوضع الخفيف أو جودة WebGPU ومقياس 2× أو 4×. وافق على التنزيل لمرة واحدة، ثم قارن واحفظ بصيغة PNG أو JPEG.",
       terms: [
@@ -1151,9 +1157,9 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "放大結果與比較控制項會顯示在這裡。",
     },
     page: {
-      title: "圖片放大工具（提高解析度）",
-      description: "使用 AI 將圖片解析度提高 2× 或 4×，比較後下載結果。",
-      mobileDescription: "在瀏覽器中將圖片解析度提高 2× 或 4×。",
+      title: "圖片放大工具（解析度）",
+      description: "使用 AI 模型將圖片解析度提高 2× 或 4×，比較後下載結果。",
+      mobileDescription: "在瀏覽器中使用 AI 模型將圖片放大 2× 或 4×。",
       guide:
         "選擇一張圖片、輕量或 WebGPU 高品質模式，以及 2× 或 4×。確認一次性模型下載後，比較並儲存為 PNG 或 JPEG。",
       terms: [
@@ -1217,10 +1223,11 @@ const packs: Record<Locale, LocalPack> = {
       resultPlaceholder: "Büyütülmüş sonuç ve karşılaştırma burada görünür.",
     },
     page: {
-      title: "Resim büyütücü (çözünürlüğü artırma)",
+      title: "Resim büyütücü (çözünürlük)",
       description:
-        "Resim çözünürlüğünü yapay zekâyla 2× veya 4× artırın, karşılaştırın ve indirin.",
-      mobileDescription: "Resim çözünürlüğünü tarayıcıda 2× veya 4× artırın.",
+        "Resim çözünürlüğünü bir yapay zekâ modeliyle 2× veya 4× artırın, karşılaştırın ve indirin.",
+      mobileDescription:
+        "Bir resmi yapay zekâ modeliyle tarayıcıda 2× veya 4× büyütün.",
       guide:
         "Bir resim, Hafif veya WebGPU Kaliteli mod ve 2× ya da 4× seçin. Tek seferlik indirmeyi onaylayın, karşılaştırın ve PNG veya JPEG kaydedin.",
       terms: [

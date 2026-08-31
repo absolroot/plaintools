@@ -8,10 +8,75 @@ export type PixelImage = {
 
 export const MAX_IMAGE_BYTES = 50 * 1024 * 1024;
 export const MAX_IMAGE_PIXELS = 40_000_000;
+export const MAX_IMAGE_SNIFF_BYTES = 64 * 1024;
 
-export function detectImageFormat(bytes: Uint8Array): ImageInputFormat | undefined {
-  if (bytes.length < 12) return undefined;
-  if (bytes[0] === 0x42 && bytes[1] === 0x4d) return "bmp";
+function declarationEnd(source: string, start: number): number {
+  let quote = "";
+  let subsetDepth = 0;
+  for (let index = start; index < source.length; index += 1) {
+    const character = source[index]!;
+    if (quote) {
+      if (character === quote) quote = "";
+      continue;
+    }
+    if (character === '"' || character === "'") {
+      quote = character;
+      continue;
+    }
+    if (character === "[") subsetDepth += 1;
+    else if (character === "]" && subsetDepth > 0) subsetDepth -= 1;
+    else if (character === ">" && subsetDepth === 0) return index + 1;
+  }
+  return -1;
+}
+
+function svgRootStart(source: string): number {
+  let index = 0;
+  while (index < source.length) {
+    const whitespace = /^\s+/u.exec(source.slice(index));
+    if (whitespace) {
+      index += whitespace[0].length;
+      continue;
+    }
+    if (source.startsWith("<!--", index)) {
+      const end = source.indexOf("-->", index + 4);
+      if (end < 0) return -1;
+      index = end + 3;
+      continue;
+    }
+    if (/^<\?xml(?:\s|\?>)/iu.test(source.slice(index))) {
+      const end = source.indexOf("?>", index + 5);
+      if (end < 0) return -1;
+      index = end + 2;
+      continue;
+    }
+    if (/^<!doctype\s/iu.test(source.slice(index))) {
+      const end = declarationEnd(source, index + 2);
+      if (end < 0) return -1;
+      index = end;
+      continue;
+    }
+    return index;
+  }
+  return -1;
+}
+
+function decodedSvg(bytes: Uint8Array, fatal: boolean): string {
+  return new TextDecoder("utf-8", { fatal })
+    .decode(bytes)
+    .replace(/^\uFEFF/u, "");
+}
+
+function looksLikeSvg(bytes: Uint8Array): boolean {
+  const source = decodedSvg(bytes, false);
+  const start = svgRootStart(source);
+  return start >= 0 && /^<svg(?:\s|\/?>)/iu.test(source.slice(start));
+}
+
+export function detectImageFormat(
+  bytes: Uint8Array,
+): ImageInputFormat | undefined {
+  if (bytes.length >= 2 && bytes[0] === 0x42 && bytes[1] === 0x4d) return "bmp";
   if (
     bytes[0] === 0x89 &&
     bytes[1] === 0x50 &&
@@ -61,15 +126,57 @@ export function detectImageFormat(bytes: Uint8Array): ImageInputFormat | undefin
       return "heic";
     }
   }
-  const prefix = new TextDecoder("utf-8", { fatal: false }).decode(bytes.subarray(0, 4096)).replace(/^\uFEFF/u, "").trimStart();
-  if (/^<(?:\?xml[\s\S]*?\?>\s*)?<svg(?:\s|>)/iu.test(prefix)) return "svg";
+  if (looksLikeSvg(bytes.subarray(0, MAX_IMAGE_SNIFF_BYTES))) return "svg";
   return undefined;
 }
 
-export function assertSafeSvg(input: ArrayBuffer): void {
-  let svg: string;
-  try { svg = new TextDecoder("utf-8", { fatal: true }).decode(input); } catch { throw new Error("decode-failed"); }
-  if (/<(?:script|foreignObject|iframe|object|embed|audio|video)\b|\bon[a-z]+\s*=|(?:href|src)\s*=\s*["']\s*(?!#|data:)|\burl\(\s*["']?\s*(?!#|data:)|@import\b/iu.test(svg)) throw new Error("decode-failed");
+function attributeValues(source: string, name: string): string[] {
+  const pattern = new RegExp(
+    `\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`,
+    "giu",
+  );
+  return Array.from(source.matchAll(pattern), (match) =>
+    (match[1] ?? match[2] ?? match[3] ?? "").trim(),
+  );
+}
+
+export function sanitizeSvgForRasterization(input: ArrayBuffer): ArrayBuffer {
+  let source: string;
+  try {
+    source = decodedSvg(new Uint8Array(input), true);
+  } catch {
+    throw new Error("decode-failed");
+  }
+  const start = svgRootStart(source);
+  if (start < 0 || !/^<svg(?:\s|\/?>)/iu.test(source.slice(start)))
+    throw new Error("decode-failed");
+
+  const svg = source.slice(start).replace(/<!--[\s\S]*?-->/gu, "");
+  if (
+    /<\?(?!xml\b)|<!doctype\b|<!entity\b|<(?:script|foreignObject|iframe|object|embed|audio|video|link|base|style)\b|\bon[a-z][a-z0-9:_-]*\s*=/iu.test(
+      svg,
+    )
+  ) {
+    throw new Error("decode-failed");
+  }
+
+  for (const value of [
+    ...attributeValues(svg, "href"),
+    ...attributeValues(svg, "src"),
+  ]) {
+    if (!/^#[A-Za-z_][\w:.-]*$/u.test(value)) throw new Error("decode-failed");
+  }
+  for (const value of attributeValues(svg, "style")) {
+    if (/[\\@]|\b(?:url|expression)\s*\(/iu.test(value))
+      throw new Error("decode-failed");
+  }
+  for (const match of svg.matchAll(
+    /\burl\s*\(\s*(?:"([^"]*)"|'([^']*)'|([^\s)]+))\s*\)/giu,
+  )) {
+    const value = (match[1] ?? match[2] ?? match[3] ?? "").trim();
+    if (!/^#[A-Za-z_][\w:.-]*$/u.test(value)) throw new Error("decode-failed");
+  }
+  return new TextEncoder().encode(svg).buffer;
 }
 
 export function hasTransparency(image: PixelImage): boolean {

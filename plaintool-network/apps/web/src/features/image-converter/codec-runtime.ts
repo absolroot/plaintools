@@ -15,14 +15,17 @@ import {
 } from "elheif";
 import {
   encodeBmp,
-  assertSafeSvg,
   flattenTransparency,
   hasTransparency,
   validatePixelBudget,
   type PixelImage,
 } from "./codec-core";
 import { classifyNativeDecodeFailure } from "./decode-policy";
-import { imageFormatMime, type ImageFormat, type ImageInputFormat } from "./formats";
+import {
+  imageFormatMime,
+  type ImageFormat,
+  type ImageInputFormat,
+} from "./formats";
 
 export type ImageEncodeProfile = {
   jpg: number;
@@ -33,7 +36,7 @@ export type ImageEncodeProfile = {
 
 async function nativeDecode(
   input: ArrayBuffer,
-  source: ImageInputFormat,
+  source: Exclude<ImageInputFormat, "svg">,
 ): Promise<ImageData> {
   const bitmap = await createImageBitmap(
     new Blob([input], { type: imageFormatMime[source] }),
@@ -56,9 +59,8 @@ async function nativeDecode(
 
 export async function decodeImage(
   input: ArrayBuffer,
-  source: ImageInputFormat,
+  source: Exclude<ImageInputFormat, "svg">,
 ): Promise<ImageData> {
-  if (source === "svg") assertSafeSvg(input);
   if (source === "heic") {
     const decoded = await decodeHeic(input);
     validatePixelBudget(decoded.width, decoded.height);

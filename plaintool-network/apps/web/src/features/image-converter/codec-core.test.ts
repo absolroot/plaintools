@@ -3,6 +3,7 @@ import {
   detectImageFormat,
   encodeBmp,
   hasTransparency,
+  sanitizeSvgForRasterization,
   validatePixelBudget,
 } from "./codec-core";
 
@@ -27,6 +28,47 @@ describe("image converter codec core", () => {
     expect(
       detectImageFormat(new TextEncoder().encode("<script>x</script>")),
     ).toBeUndefined();
+  });
+
+  it("detects SVG after a normal XML declaration, comment, and doctype", () => {
+    const svg = `\uFEFF<?xml version="1.0" encoding="UTF-8"?>
+      <!-- exported by a vector editor -->
+      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8"></svg>`;
+    expect(detectImageFormat(new TextEncoder().encode(svg))).toBe("svg");
+    expect(detectImageFormat(new TextEncoder().encode("<svg/>"))).toBe("svg");
+  });
+
+  it("sanitizes a local-only SVG before rasterization", () => {
+    const svg = `<?xml version="1.0"?>
+      <!-- remove this -->
+      <!DOCTYPE svg [<!ENTITY unused "unused">]>
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8">
+        <defs><linearGradient id="paint"><stop offset="0" /></linearGradient></defs>
+        <rect width="12" height="8" fill="url(#paint)" style="opacity:.8" />
+      </svg>`;
+    const sanitized = new TextDecoder().decode(
+      sanitizeSvgForRasterization(new TextEncoder().encode(svg).buffer),
+    );
+    expect(sanitized).toMatch(/^<svg/u);
+    expect(sanitized).not.toContain("DOCTYPE");
+    expect(sanitized).not.toContain("remove this");
+    expect(sanitized).toContain("url(#paint)");
+  });
+
+  it.each([
+    "<svg><script>alert(1)</script></svg>",
+    "<svg><foreignObject><div>unsafe</div></foreignObject></svg>",
+    '<svg><rect onload="alert(1)" /></svg>',
+    '<svg><image href="https://attacker.invalid/image.png" /></svg>',
+    '<svg><image href="data:image/png;base64,AA==" /></svg>',
+    '<svg><rect fill="url(https://attacker.invalid/paint.svg)" /></svg>',
+    '<svg><rect style="fill:u\\72l(https://attacker.invalid/x)" /></svg>',
+    "<svg><style>rect { fill: red }</style></svg>",
+  ])("rejects active or nested SVG resources: %s", (svg) => {
+    expect(() =>
+      sanitizeSvgForRasterization(new TextEncoder().encode(svg).buffer),
+    ).toThrow("decode-failed");
   });
 
   it("writes a top-down 32-bit BMP V5 with alpha", () => {

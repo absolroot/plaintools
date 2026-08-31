@@ -1,6 +1,7 @@
 import type { LocaleCatalogToolCopy } from "../../lib/tool-catalog";
 import type { ToolPageCopy } from "../../lib/locale-data/bundle";
 import type { UnitConverterCopy } from "./contract";
+import { unitNamesFor } from "./unit-names";
 
 export type UnitConverterLocale =
   | "en"
@@ -37,6 +38,9 @@ type Text = Pick<
   guide: string;
   privacy: string;
   faq: string;
+  faqUse: string;
+  faqPrivacy: string;
+  faqUnits: string;
   terms: readonly string[];
 };
 
@@ -78,6 +82,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Conversions run only in your browser. Values are not uploaded or stored.",
     faq: "Temperature uses its real offset formula. Data units use decimal SI prefixes: 1 MB is 8 Mbit.",
+    faqUse: "How do I use the unit converter?",
+    faqPrivacy: "Are entered values stored?",
+    faqUnits: "Which units are supported?",
     terms: ["unit converter", "convert units", "metric imperial"],
   },
   ko: {
@@ -107,6 +114,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "변환은 브라우저 안에서만 이루어집니다. 값은 업로드하거나 저장하지 않습니다.",
     faq: "온도는 실제 오프셋 공식을 사용합니다. 데이터 단위는 십진 SI 접두어를 사용해 1 MB는 8 Mbit입니다.",
+    faqUse: "단위 변환기는 어떻게 사용하나요?",
+    faqPrivacy: "입력한 값은 저장되나요?",
+    faqUnits: "어떤 단위를 지원하나요?",
     terms: ["단위 변환", "길이 변환", "온도 변환"],
   },
   es: {
@@ -136,6 +146,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "La conversión se realiza solo en tu navegador. Los valores no se suben ni se guardan.",
     faq: "La temperatura usa su fórmula real con desplazamiento. Las unidades de datos usan prefijos SI decimales.",
+    faqUse: "¿Cómo se usa el conversor de unidades?",
+    faqPrivacy: "¿Se guardan los valores introducidos?",
+    faqUnits: "¿Qué unidades admite?",
     terms: ["conversor de unidades", "convertir unidades", "métrico imperial"],
   },
   de: {
@@ -165,6 +178,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Die Umrechnung läuft nur im Browser. Werte werden nicht hochgeladen oder gespeichert.",
     faq: "Temperaturen werden mit der tatsächlichen Offset-Formel berechnet. Datenpräfixe sind dezimal.",
+    faqUse: "Wie benutze ich den Einheitenumrechner?",
+    faqPrivacy: "Werden eingegebene Werte gespeichert?",
+    faqUnits: "Welche Einheiten werden unterstützt?",
     terms: ["Einheitenumrechner", "Einheiten umrechnen", "metrisch imperial"],
   },
   ja: {
@@ -194,6 +210,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "変換はブラウザ内だけで行われ、値はアップロードも保存もされません。",
     faq: "温度にはオフセットを含む正しい式を使用します。データ単位は十進SI接頭辞です。",
+    faqUse: "単位変換はどう使いますか？",
+    faqPrivacy: "入力した値は保存されますか？",
+    faqUnits: "どの単位に対応していますか？",
     terms: ["単位変換", "長さ変換", "温度変換"],
   },
   fr: {
@@ -223,6 +242,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "La conversion reste dans votre navigateur. Les valeurs ne sont ni envoyées ni enregistrées.",
     faq: "La température utilise sa formule avec décalage réel. Les préfixes de données sont décimaux.",
+    faqUse: "Comment utiliser le convertisseur d’unités ?",
+    faqPrivacy: "Les valeurs saisies sont-elles enregistrées ?",
+    faqUnits: "Quelles unités sont prises en charge ?",
     terms: ["convertisseur d’unités", "conversion unités", "métrique impérial"],
   },
   "pt-BR": {
@@ -252,6 +274,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "A conversão ocorre apenas no navegador. Os valores não são enviados nem armazenados.",
     faq: "Temperatura usa a fórmula real com deslocamento. Dados usam prefixos SI decimais.",
+    faqUse: "Como usar o conversor de unidades?",
+    faqPrivacy: "Os valores inseridos são armazenados?",
+    faqUnits: "Quais unidades são compatíveis?",
     terms: ["conversor de unidades", "converter unidades", "métrico imperial"],
   },
   it: {
@@ -281,6 +306,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "La conversione avviene solo nel browser. I valori non vengono caricati né salvati.",
     faq: "La temperatura usa la formula corretta con offset. Le unità dati usano prefissi SI decimali.",
+    faqUse: "Come si usa il convertitore di unità?",
+    faqPrivacy: "I valori inseriti vengono salvati?",
+    faqUnits: "Quali unità sono supportate?",
     terms: ["convertitore unità", "conversione unità", "metrico imperiale"],
   },
   nl: {
@@ -310,6 +338,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "De conversie gebeurt alleen in uw browser. Waarden worden niet geüpload of opgeslagen.",
     faq: "Temperatuur gebruikt de werkelijke offsetformule. Data-eenheden gebruiken decimale SI-voorvoegsels.",
+    faqUse: "Hoe gebruik ik de eenhedenconverter?",
+    faqPrivacy: "Worden ingevoerde waarden opgeslagen?",
+    faqUnits: "Welke eenheden worden ondersteund?",
     terms: ["eenhedenconverter", "eenheden omrekenen", "metrisch imperiaal"],
   },
   sv: {
@@ -339,6 +370,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Omvandlingen körs bara i webbläsaren. Värden laddas inte upp eller sparas.",
     faq: "Temperatur använder den riktiga offsetformeln. Dataenheter använder decimala SI-prefix.",
+    faqUse: "Hur använder jag enhetsomvandlaren?",
+    faqPrivacy: "Sparas de angivna värdena?",
+    faqUnits: "Vilka enheter stöds?",
     terms: ["enhetsomvandlare", "omvandla enheter", "metrisk imperial"],
   },
   cs: {
@@ -368,6 +402,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Převod probíhá jen v prohlížeči. Hodnoty se neodesílají ani neukládají.",
     faq: "Teplota používá skutečný vzorec s posunem. Datové jednotky používají desetinné předpony SI.",
+    faqUse: "Jak se převodník jednotek používá?",
+    faqPrivacy: "Ukládají se zadané hodnoty?",
+    faqUnits: "Které jednotky jsou podporovány?",
     terms: ["převodník jednotek", "převod jednotek", "metrické imperiální"],
   },
   pl: {
@@ -397,6 +434,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Przeliczenie działa tylko w przeglądarce. Wartości nie są wysyłane ani zapisywane.",
     faq: "Temperatura korzysta z rzeczywistego wzoru z przesunięciem. Jednostki danych używają dziesiętnych przedrostków SI.",
+    faqUse: "Jak używać konwertera jednostek?",
+    faqPrivacy: "Czy wprowadzone wartości są zapisywane?",
+    faqUnits: "Jakie jednostki są obsługiwane?",
     terms: [
       "konwerter jednostek",
       "przelicznik jednostek",
@@ -430,6 +470,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Omregningen sker kun i browseren. Værdier uploades eller gemmes ikke.",
     faq: "Temperatur bruger den korrekte offsetformel. Data bruger decimale SI-præfikser.",
+    faqUse: "Hvordan bruger jeg enhedsomregneren?",
+    faqPrivacy: "Bliver de indtastede værdier gemt?",
+    faqUnits: "Hvilke enheder understøttes?",
     terms: ["enhedsomregner", "omregn enheder", "metrisk imperial"],
   },
   no: {
@@ -459,6 +502,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Konverteringen skjer bare i nettleseren. Verdier lastes ikke opp eller lagres.",
     faq: "Temperatur bruker den reelle offsetformelen. Dataenheter bruker desimale SI-prefikser.",
+    faqUse: "Hvordan bruker jeg enhetskalkulatoren?",
+    faqPrivacy: "Blir de oppgitte verdiene lagret?",
+    faqUnits: "Hvilke enheter støttes?",
     terms: ["enhetskalkulator", "konverter enheter", "metrisk imperial"],
   },
   ar: {
@@ -486,6 +532,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     guide: "اختر الفئة وأدخل قيمة ثم اختر الوحدات. التبديل يعكس الاتجاه.",
     privacy: "تتم التحويلات داخل متصفحك فقط. لا تُرفع القيم ولا تُخزن.",
     faq: "تستخدم الحرارة معادلة الإزاحة الصحيحة. تستخدم وحدات البيانات بادئات SI العشرية.",
+    faqUse: "كيف أستخدم محول الوحدات؟",
+    faqPrivacy: "هل تُحفظ القيم المدخلة؟",
+    faqUnits: "ما الوحدات المدعومة؟",
     terms: ["محول الوحدات", "تحويل الوحدات", "متر قدم"],
   },
   "zh-TW": {
@@ -513,6 +562,9 @@ const texts: Record<UnitConverterLocale, Text> = {
     guide: "選擇類別、輸入數值，再選擇單位。交換可反轉方向而保留數值。",
     privacy: "換算只在瀏覽器中進行，數值不會上傳或儲存。",
     faq: "溫度使用正確的偏移公式。資料單位使用十進位 SI 前綴。",
+    faqUse: "如何使用單位換算？",
+    faqPrivacy: "輸入的數值會儲存嗎？",
+    faqUnits: "支援哪些單位？",
     terms: ["單位換算", "長度換算", "溫度換算"],
   },
   tr: {
@@ -542,69 +594,12 @@ const texts: Record<UnitConverterLocale, Text> = {
     privacy:
       "Dönüşüm yalnızca tarayıcınızda çalışır. Değerler yüklenmez veya saklanmaz.",
     faq: "Sıcaklık gerçek ofset formülünü kullanır. Veri birimleri ondalık SI önekleri kullanır.",
+    faqUse: "Birim dönüştürücü nasıl kullanılır?",
+    faqPrivacy: "Girilen değerler saklanır mı?",
+    faqUnits: "Hangi birimler desteklenir?",
     terms: ["birim dönüştürücü", "birim çevirme", "metrik imperial"],
   },
 };
-
-const unitNames = Object.fromEntries(
-  [
-    "millimeter",
-    "centimeter",
-    "meter",
-    "kilometer",
-    "inch",
-    "foot",
-    "yard",
-    "mile",
-    "nautical-mile",
-    "milligram",
-    "gram",
-    "kilogram",
-    "metric-ton",
-    "ounce",
-    "pound",
-    "stone",
-    "celsius",
-    "fahrenheit",
-    "kelvin",
-    "square-centimeter",
-    "square-meter",
-    "square-kilometer",
-    "square-foot",
-    "square-yard",
-    "acre",
-    "hectare",
-    "milliliter",
-    "liter",
-    "cubic-meter",
-    "us-fluid-ounce",
-    "us-cup",
-    "us-pint",
-    "us-quart",
-    "us-gallon",
-    "uk-pint",
-    "uk-gallon",
-    "meter-per-second",
-    "kilometer-per-hour",
-    "mile-per-hour",
-    "foot-per-second",
-    "knot",
-    "bit",
-    "kilobit",
-    "megabit",
-    "gigabit",
-    "byte",
-    "kilobyte",
-    "megabyte",
-    "gigabyte",
-    "millisecond",
-    "second",
-    "minute",
-    "hour",
-    "day",
-    "week",
-  ].map((id) => [id, id.replaceAll("-", " ")]),
-);
 
 export const unitConverterLocales = Object.fromEntries(
   Object.entries(texts).map(([locale, text]) => [
@@ -620,11 +615,15 @@ export const unitConverterLocales = Object.fromEntries(
           safetyTitle: text.privacy,
           safetyBody: text.privacy,
           faqs: [
-            { q: text.title, a: text.guide },
-            { q: "Privacy", a: text.privacy },
-            { q: "Units", a: text.faq },
+            { q: text.faqUse, a: text.guide },
+            { q: text.faqPrivacy, a: text.privacy },
+            { q: text.faqUnits, a: text.faq },
           ],
-          feature: { ...text, unitNames },
+          feature: {
+            ...text,
+            numberLocale: locale,
+            unitNames: unitNamesFor(locale as UnitConverterLocale),
+          },
         },
       },
       catalog: {

@@ -52,6 +52,24 @@ export function isImageInputFormat(value: string): value is ImageInputFormat {
   return (imageInputFormats as readonly string[]).includes(value);
 }
 
+export function resolveImageConversionNavigation(
+  nextSource: ImageInputFormat,
+  requestedTarget: ImageFormat,
+  previousSource: ImageInputFormat,
+): ImageConversionMode {
+  const target =
+    nextSource !== requestedTarget
+      ? requestedTarget
+      : isImageFormat(previousSource) && previousSource !== nextSource
+        ? previousSource
+        : imageFormats.find((format) => format !== nextSource)!;
+  return {
+    id: `${nextSource}-to-${target}` as ImageConverterToolId,
+    source: nextSource,
+    target,
+  };
+}
+
 export function parseImageConversionMode(
   value: string,
 ): ImageConversionMode | undefined {

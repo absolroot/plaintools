@@ -6,7 +6,26 @@ export type RegexMatch = {
 
 export type RegexEvaluation =
   | { valid: true; matches: RegexMatch[]; truncated: boolean }
-  | { valid: false; message: string };
+  | { valid: false; reason: "invalid-pattern" };
+
+export type RegexReplacement =
+  | { ok: true; output: string }
+  | { ok: false; reason: "invalid-pattern" | "too-many-matches" };
+
+export type RegexWorkerRequest = {
+  id: number;
+  operation: "evaluate" | "replace";
+  expression: string;
+  flags: string;
+  text: string;
+  replacement: string;
+};
+
+export type RegexWorkerReply = {
+  id: number;
+  evaluation: RegexEvaluation;
+  replacement?: RegexReplacement;
+};
 
 export type RegexTesterCopy = {
   expressionLabel: string;
@@ -14,22 +33,29 @@ export type RegexTesterCopy = {
   flagsLabel: string;
   testTextLabel: string;
   testTextPlaceholder: string;
-  replaceLabel: string;
-  replacePlaceholder: string;
+  replacementLabel: string;
+  replacementPlaceholder: string;
+  replacementOutputLabel: string;
+  replacementOutputPlaceholder: string;
   replaceAction: string;
   resultsLabel: string;
   ready: string;
+  enterExpression: string;
+  evaluating: string;
   noMatches: string;
-  matchCount: string;
+  matchSummary: string;
   matchAt: string;
   group: string;
-  wholeMatch: string;
   invalid: string;
   tooManyMatches: string;
+  inputTooLarge: string;
+  replacementTooLarge: string;
+  processingFailed: string;
   replacementResult: string;
   clear: string;
   loadSample: string;
   copied: string;
+  copyFailed: string;
   copy: string;
   localNote: string;
 };

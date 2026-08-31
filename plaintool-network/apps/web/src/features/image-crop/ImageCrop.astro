@@ -30,8 +30,8 @@ const clientCopy = {
       ></button
     >
     <div class="crop-file-summary">
-      <strong data-file-name>{copy.dropImage}</strong><span
-        >{copy.formats}</span>
+      <strong data-file-name>{copy.dropImage}</strong><span>{copy.formats}</span
+      >
     </div>
     <button class="text-button" type="button" data-clear disabled
       ><UiIcon name="x" size={14} />{common.clear}</button
@@ -39,7 +39,7 @@ const clientCopy = {
     <input
       data-file
       type="file"
-      accept="image/png,image/jpeg,image/webp,image/gif,image/avif,.png,.jpg,.jpeg,.webp,.gif,.avif"
+      accept="image/png,image/jpeg,image/webp,image/avif,.png,.jpg,.jpeg,.webp,.avif"
       hidden
     />
   </div>
@@ -76,7 +76,8 @@ const clientCopy = {
               min="1"
               step="1"
               dir="ltr"
-            /></label>
+            /></label
+          >
         </div>
         <div class="crop-divider"></div><strong>{copy.transform}</strong>
         <div class="transform-grid">
@@ -85,7 +86,7 @@ const clientCopy = {
           ><button type="button" data-flip="x">↔ {copy.flipHorizontal}</button
           ><button type="button" data-flip="y">↕ {copy.flipVertical}</button>
         </div>
-        <label class="straighten"
+        <label class="straighten" data-quality-control hidden
           ><span>{copy.straighten} <output data-angle>0°</output></span><input
             data-straighten
             type="range"
@@ -124,8 +125,8 @@ const clientCopy = {
         ><canvas data-canvas hidden></canvas><span
           class="crop-selection"
           data-selection
-          hidden><i></i><i></i><i></i><i></i></span
-        ></button>
+          hidden></span></button
+      >
     </div>
   </div>
   <ConverterStatus status={common.ready}

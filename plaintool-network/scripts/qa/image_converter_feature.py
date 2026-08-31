@@ -16,6 +16,7 @@ MIME_TYPES = {
     "webp": "image/webp",
     "heic": "image/heic",
     "avif": "image/avif",
+    "svg": "image/svg+xml",
 }
 
 
@@ -33,6 +34,16 @@ def _png_fixture(size: int = 24) -> bytes:
     output = BytesIO()
     image.save(output, format="PNG")
     return output.getvalue()
+
+
+def _svg_fixture() -> bytes:
+    return b'''<?xml version="1.0" encoding="UTF-8"?>
+<!-- QA fixture with a normal vector-editor prolog -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16">
+  <defs><linearGradient id="paint"><stop stop-color="#1d4ed8"/><stop offset="1" stop-color="#22c55e"/></linearGradient></defs>
+  <rect width="24" height="16" fill="url(#paint)"/>
+</svg>'''
 
 
 def _detected_format(payload: bytes) -> str | None:
@@ -110,9 +121,29 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
             _convert(page, source, target, fixtures[source])
             completed.append(f"{source}-to-{target}")
 
-    if len(completed) != 42 or len(set(completed)) != 42:
+    # SVG is an input-only format. Exercise every SVG-to-raster route with a
+    # prolog, comment, doctype, viewBox, and local fragment paint reference.
+    fixtures["svg"] = _svg_fixture()
+    for target in FORMATS:
+        _convert(page, "svg", target, fixtures["svg"])
+        completed.append(f"svg-to-{target}")
+
+    if len(completed) != 49 or len(set(completed)) != 49:
         report["ui_detail_failures"].append(
-            f"Image conversion matrix is incomplete: {len(set(completed))}/42"
+            f"Image conversion matrix is incomplete: {len(set(completed))}/49"
+        )
+
+    page.goto(f"{BASE_URL}/en/svg-to-png/", wait_until="networkidle")
+    svg_root = page.locator("[data-image-converter]")
+    if svg_root.locator("[data-swap-formats]").count() != 0:
+        report["ui_detail_failures"].append(
+            "SVG input exposed a reverse link to an unsupported raster-to-SVG route."
+        )
+    with page.expect_navigation():
+        svg_root.locator("[data-source-format]").select_option("png")
+    if not page.url.endswith("/en/png-to-bmp/"):
+        report["ui_detail_failures"].append(
+            f"SVG source change navigated to an invalid route: {page.url}"
         )
 
     page.goto(f"{BASE_URL}/en/png-to-jpg/", wait_until="networkidle")

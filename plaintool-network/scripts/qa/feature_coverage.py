@@ -66,6 +66,12 @@ from .image_resizer_feature import (
     run_image_resizer_desktop,
     run_image_resizer_mobile,
 )
+from .image_crop_feature import run_image_crop_desktop, run_image_crop_mobile
+from .regex_feature import run_regex_tester_desktop, run_regex_tester_mobile
+from .unit_converter_feature import (
+    run_unit_converter_desktop,
+    run_unit_converter_mobile,
+)
 from .uuid_generator_feature import (
     run_uuid_generator_desktop,
     run_uuid_generator_mobile,
@@ -297,6 +303,25 @@ FEATURE_COVERAGE = {
         desktop=run_image_resizer_desktop,
         mobile=run_image_resizer_mobile,
         focus_targets=(("input", "[data-image-resizer] [data-open-file]"),),
+        exercise_faq=True,
+    ),
+    "image-crop": FeatureCoverage(
+        desktop=run_image_crop_desktop,
+        mobile=run_image_crop_mobile,
+        focus_targets=(("input", "[data-image-crop] [data-open-file]"),),
+        exercise_faq=True,
+    ),
+    "regex-tester": FeatureCoverage(
+        desktop=run_regex_tester_desktop,
+        mobile=run_regex_tester_mobile,
+        focus_targets=(("input", "[data-regex-tester] [data-expression]"),),
+        focus_style="editor",
+        exercise_faq=True,
+    ),
+    "unit-converter": FeatureCoverage(
+        desktop=run_unit_converter_desktop,
+        mobile=run_unit_converter_mobile,
+        focus_targets=(("input", "[data-unit-converter] [data-value]"),),
         exercise_faq=True,
     ),
     "uuid-generator": FeatureCoverage(

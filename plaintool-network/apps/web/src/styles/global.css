@@ -356,15 +356,19 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   white-space: nowrap;
 }
 .brand-mark {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   margin-inline-end: var(--space-2);
   flex: 0 0 auto;
   object-fit: contain;
-  box-sizing: border-box;
-  padding: 2px;
-  border-radius: 8px;
-  background: #dfff9f;
+}
+:root[data-theme="dark"] .brand-mark {
+  filter: invert(1) brightness(1.12);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .brand-mark {
+    filter: invert(1) brightness(1.12);
+  }
 }
 .header-context {
   min-width: 0;

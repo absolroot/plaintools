@@ -6,6 +6,7 @@
   padding: 14px;
   border-bottom: 1px solid var(--line);
 }
+
 .regex-expression-input {
   display: flex;
   align-items: center;
@@ -15,16 +16,23 @@
   padding-inline: 10px;
   font-family: var(--font-mono);
 }
+
+.regex-expression-input:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
 .regex-expression-input input {
-  min-width: 0;
   width: 100%;
+  min-width: 0;
   border: 0;
+  outline: 0;
   background: transparent;
   padding: 10px 6px;
-  font: inherit;
   color: inherit;
-  outline: 0;
+  font: inherit;
 }
+
 .regex-flags {
   display: flex;
   gap: 8px;
@@ -33,6 +41,7 @@
   border: 0;
   font-family: var(--font-mono);
 }
+
 .regex-flags legend {
   position: absolute;
   width: 1px;
@@ -40,24 +49,49 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
 }
+
 .regex-flags label {
   display: flex;
   gap: 3px;
   align-items: center;
+  min-height: 36px;
   cursor: pointer;
 }
+
 .regex-editor-grid textarea {
   min-height: 240px;
 }
+
+.regex-replacement-pane {
+  display: grid;
+  grid-template-rows: auto 36px auto minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.regex-replacement-input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding-inline: 10px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+}
+
+.regex-replacement-pane textarea[readonly] {
+  background: var(--recessed);
+}
+
 .regex-replace-actions {
   display: flex;
   gap: 8px;
-  padding-top: 10px;
 }
+
 .regex-results {
   padding: 14px;
   border-top: 1px solid var(--line);
 }
+
 .regex-results ol {
   display: grid;
   gap: 8px;
@@ -65,6 +99,7 @@
   padding: 0;
   list-style: none;
 }
+
 .regex-results li {
   display: grid;
   grid-template-columns: 110px minmax(0, 1fr);
@@ -75,29 +110,52 @@
   font-family: var(--font-mono);
   font-size: 0.875rem;
 }
+
 .regex-results li span {
   grid-column: 2;
   color: var(--muted);
 }
+
 .regex-results code {
   overflow-wrap: anywhere;
 }
+
 @media (max-width: 720px) {
   .regex-expression-row {
     grid-template-columns: 1fr;
     gap: 8px;
   }
+
   .regex-flags {
     flex-wrap: wrap;
     min-height: 44px;
     align-items: center;
   }
+
+  .regex-flags label {
+    min-height: 44px;
+  }
+
   .regex-editor-grid textarea {
     min-height: 180px;
   }
+
+  .regex-replacement-pane {
+    grid-template-rows: auto 44px auto minmax(180px, 1fr) auto;
+  }
+
+  .regex-replace-actions {
+    flex-direction: column;
+  }
+
+  .regex-replace-actions .secondary-button {
+    min-height: 44px;
+  }
+
   .regex-results li {
     grid-template-columns: 1fr;
   }
+
   .regex-results li span {
     grid-column: auto;
   }

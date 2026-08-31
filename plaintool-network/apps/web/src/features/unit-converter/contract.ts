@@ -1,6 +1,7 @@
 import type { UnitCategory } from "@plaintool/unit-converter-core";
 
 export type UnitConverterCopy = {
+  numberLocale: string;
   ariaLabel: string;
   category: string;
   from: string;

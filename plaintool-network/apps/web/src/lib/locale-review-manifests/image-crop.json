@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "image-crop",
-  "enforcement": "existing-baseline",
+  "enforcement": "new-feature",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -37,7 +37,7 @@
   "copyDirectories": ["apps/web/src/lib/locale-data"],
   "locales": {
     "en": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "en-image-crop-terminology",
@@ -45,7 +45,7 @@
       ]
     },
     "ko": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "ko-image-crop-terminology",
@@ -53,7 +53,7 @@
       ]
     },
     "es": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "es-image-crop-terminology",
@@ -61,7 +61,7 @@
       ]
     },
     "de": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "de-image-crop-terminology",
@@ -69,7 +69,7 @@
       ]
     },
     "ja": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "ja-image-crop-terminology",
@@ -77,7 +77,7 @@
       ]
     },
     "fr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "fr-image-crop-terminology",
@@ -85,7 +85,7 @@
       ]
     },
     "pt-BR": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "pt-br-image-crop-terminology",
@@ -93,7 +93,7 @@
       ]
     },
     "it": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "it-image-crop-terminology",
@@ -101,7 +101,7 @@
       ]
     },
     "nl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "nl-image-crop-terminology",
@@ -109,7 +109,7 @@
       ]
     },
     "sv": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "sv-image-crop-terminology",
@@ -117,7 +117,7 @@
       ]
     },
     "cs": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "cs-image-crop-terminology",
@@ -125,7 +125,7 @@
       ]
     },
     "pl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "pl-image-crop-terminology",
@@ -133,7 +133,7 @@
       ]
     },
     "da": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "da-image-crop-terminology",
@@ -141,7 +141,7 @@
       ]
     },
     "no": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "no-image-crop-terminology",
@@ -149,7 +149,7 @@
       ]
     },
     "ar": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "ar-image-crop-terminology",
@@ -157,7 +157,7 @@
       ]
     },
     "zh-TW": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "zh-tw-image-crop-terminology",
@@ -165,7 +165,7 @@
       ]
     },
     "tr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-09-01",
       "referenceIds": [
         "tr-image-crop-terminology",

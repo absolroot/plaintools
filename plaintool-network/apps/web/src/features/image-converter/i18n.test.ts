@@ -21,7 +21,8 @@ const supportKeys = [
 ] as const;
 
 describe("image converter localization", () => {
-  it("publishes all 42 conversion intents in every locale", () => {
+  it("publishes all 49 conversion intents in every locale", () => {
+    expect(imageConversionModes).toHaveLength(49);
     for (const locale of locales) {
       expect(Object.keys(imageConverterLocales[locale].tools), locale).toEqual(
         imageConversionModes.map((mode) => mode.id),

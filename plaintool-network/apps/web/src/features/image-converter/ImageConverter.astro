@@ -21,7 +21,10 @@ interface Props {
 
 const { locale, mode, copy, common, formatNames } = Astro.props;
 const combinedCopy = { ...common, ...copy };
-const swapHref = mode.source === "svg" ? undefined : localizedPath(locale, `${mode.target}-to-${mode.source}`);
+const swapHref =
+  mode.source === "svg"
+    ? undefined
+    : localizedPath(locale, `${mode.target}-to-${mode.source}`);
 const adjustableQuality = ["jpg", "gif", "webp", "avif"].includes(mode.target);
 const losslessTarget = mode.target === "png" || mode.target === "bmp";
 const acceptedFormatList = imageInputFormats
@@ -66,16 +69,20 @@ const acceptedFormatList = imageInputFormats
         }
       </select>
     </label>
-    {swapHref && <a
-      class="format-swap"
-      href={swapHref}
-      aria-label={copy.swapFormats}
-      title={copy.swapFormats}
-      data-swap-formats
-    >
-      <UiIcon name="swap" size={16} />
-      <span>{copy.swapFormats}</span>
-    </a>}
+    {
+      swapHref && (
+        <a
+          class="format-swap"
+          href={swapHref}
+          aria-label={copy.swapFormats}
+          title={copy.swapFormats}
+          data-swap-formats
+        >
+          <UiIcon name="swap" size={16} />
+          <span>{copy.swapFormats}</span>
+        </a>
+      )
+    }
   </div>
 
   <div class="image-workspace" data-drop-zone>

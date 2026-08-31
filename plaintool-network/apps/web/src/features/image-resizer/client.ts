@@ -7,7 +7,11 @@ import {
   detectImageFormat,
   MAX_IMAGE_BYTES,
 } from "../image-converter/codec-core";
-import { imageFormatMime, isImageFormat, type ImageFormat } from "../image-converter/formats";
+import {
+  imageFormatMime,
+  isImageFormat,
+  type ImageFormat,
+} from "../image-converter/formats";
 import {
   applyEnlargeLimit,
   dimensionsFromPercent,

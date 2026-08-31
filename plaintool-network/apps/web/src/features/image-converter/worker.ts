@@ -20,29 +20,46 @@ self.addEventListener(
   "message",
   async (event: MessageEvent<ImageConverterWorkerRequest>) => {
     const request = event.data;
-    const detected = detectImageFormat(new Uint8Array(request.input));
-    if (!detected && request.source !== "svg") {
-      self.postMessage({
-        id: request.id,
-        ok: false,
-        error: "invalid-image",
-        runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
-      } satisfies ImageConverterWorkerReply);
-      return;
-    }
-    if (request.source !== "svg" && detected !== request.source) {
-      self.postMessage({
-        id: request.id,
-        ok: false,
-        error: "wrong-format",
-        detected,
-        runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
-      } satisfies ImageConverterWorkerReply);
-      return;
-    }
-
     try {
-      const image = await decodeImage(request.input, request.source);
+      let image: ImageData;
+      if (request.source === "svg") {
+        const expectedLength = request.width * request.height * 4;
+        if (
+          !Number.isSafeInteger(expectedLength) ||
+          request.width <= 0 ||
+          request.height <= 0 ||
+          request.pixels.byteLength !== expectedLength
+        ) {
+          throw new Error("decode-failed");
+        }
+        image = new ImageData(
+          new Uint8ClampedArray(request.pixels),
+          request.width,
+          request.height,
+        );
+      } else {
+        const detected = detectImageFormat(new Uint8Array(request.input));
+        if (!detected) {
+          self.postMessage({
+            id: request.id,
+            ok: false,
+            error: "invalid-image",
+            runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
+          } satisfies ImageConverterWorkerReply);
+          return;
+        }
+        if (detected !== request.source) {
+          self.postMessage({
+            id: request.id,
+            ok: false,
+            error: "wrong-format",
+            detected,
+            runtimeRevision: IMAGE_CODEC_RUNTIME_REVISION,
+          } satisfies ImageConverterWorkerReply);
+          return;
+        }
+        image = await decodeImage(request.input, request.source);
+      }
       const result = await encodeImage(
         image,
         request.target,

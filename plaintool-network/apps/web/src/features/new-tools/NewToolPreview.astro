@@ -238,7 +238,15 @@ const dataModeLabels = Object.fromEntries(
       />
     )
   }
-  {page === "image-crop" && (<ImageCrop locale={locale} copy={bundle.tools[page].feature} common={bundle.common} />)}
+  {
+    page === "image-crop" && (
+      <ImageCrop
+        locale={locale}
+        copy={bundle.tools[page].feature}
+        common={bundle.common}
+      />
+    )
+  }
   {
     dataMode && dataFeature && (
       <DataConverter

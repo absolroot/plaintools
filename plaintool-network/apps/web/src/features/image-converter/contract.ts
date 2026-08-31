@@ -1,7 +1,7 @@
 import type { CommonToolCopy } from "../../lib/common-tool-i18n";
 import type { ImageFormat, ImageInputFormat } from "./formats";
 
-export const IMAGE_CODEC_RUNTIME_REVISION = "csp-worker-v2";
+export const IMAGE_CODEC_RUNTIME_REVISION = "csp-worker-v3";
 
 export type ImageQualityProfile = "compact" | "balanced" | "maximum";
 
@@ -44,13 +44,25 @@ export type ImageConverterCopy = {
 
 export type ImageConverterClientCopy = ImageConverterCopy & CommonToolCopy;
 
-export type ImageConverterWorkerRequest = {
+type ImageConverterWorkerRequestBase = {
   id: number;
-  input: ArrayBuffer;
-  source: ImageInputFormat;
   target: ImageFormat;
   quality: ImageQualityProfile;
 };
+
+export type ImageConverterWorkerRequest = ImageConverterWorkerRequestBase &
+  (
+    | {
+        source: Exclude<ImageInputFormat, "svg">;
+        input: ArrayBuffer;
+      }
+    | {
+        source: "svg";
+        pixels: ArrayBuffer;
+        width: number;
+        height: number;
+      }
+  );
 
 export type ImageConverterWorkerError =
   | "invalid-image"

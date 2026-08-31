@@ -30,10 +30,11 @@ describe("home tool directory order", () => {
   });
 
   it("pins the requested image, generator, and calculator cards", () => {
-    expect(directoryOrder.pinnedToolOrder.image.slice(0, 3)).toEqual([
+    expect(directoryOrder.pinnedToolOrder.image.slice(0, 4)).toEqual([
       "background-remover",
       "image-resizer",
       "image-upscaler",
+      "image-crop",
     ]);
     expect(directoryOrder.pinnedToolOrder.image[1]).toBe("image-resizer");
     expect(directoryOrder.pinnedToolOrder.generator.slice(0, 4)).toEqual([
@@ -49,6 +50,8 @@ describe("home tool directory order", () => {
       "bmi-calculator",
       "age-calculator",
     ]);
+    expect(directoryOrder.pinnedToolOrder.text).toContain("regex-tester");
+    expect(directoryOrder.pinnedToolOrder.converter[0]).toBe("unit-converter");
   });
 
   it("keeps the generator top four and age calculator in exact display positions", () => {

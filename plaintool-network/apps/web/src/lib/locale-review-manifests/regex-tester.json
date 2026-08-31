@@ -29,9 +29,12 @@
     "apps/web/src/lib/locale-data/bundle.ts",
     "apps/web/src/lib/locale-data/new-tools/factory.ts",
     "apps/web/src/features/regex-tester/contract.ts",
+    "apps/web/src/features/regex-tester/copy.ts",
+    "apps/web/src/features/regex-tester/copy.test.ts",
     "apps/web/src/features/regex-tester/evaluate.ts",
     "apps/web/src/features/regex-tester/RegexTester.astro",
     "apps/web/src/features/regex-tester/client.ts",
+    "apps/web/src/features/regex-tester/worker.ts",
     "apps/web/src/pages/[locale]/regex-tester/index.astro"
   ],
   "locales": {

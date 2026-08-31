@@ -3,7 +3,11 @@ import {
   readClientCopy,
   setToolStatus,
 } from "../../scripts/shared/tool-dom";
-import { detectImageFormat, MAX_IMAGE_BYTES } from "./codec-core";
+import {
+  detectImageFormat,
+  MAX_IMAGE_BYTES,
+  MAX_IMAGE_SNIFF_BYTES,
+} from "./codec-core";
 import type {
   ImageConverterClientCopy,
   ImageConverterWorkerReply,
@@ -15,9 +19,11 @@ import {
   imageFormats,
   isImageFormat,
   isImageInputFormat,
+  resolveImageConversionNavigation,
   type ImageFormat,
   type ImageInputFormat,
 } from "./formats";
+import { rasterizeSvg } from "./svg-rasterizer";
 
 function formatBytes(value: number): string {
   if (value < 1024) return `${value} B`;
@@ -35,7 +41,12 @@ function initImageConverter(root: HTMLElement): void {
   root.dataset.initialized = "true";
   const source = root.dataset.source;
   const target = root.dataset.target;
-  if (!source || !target || !isImageInputFormat(source) || !isImageFormat(target))
+  if (
+    !source ||
+    !target ||
+    !isImageInputFormat(source) ||
+    !isImageFormat(target)
+  )
     return;
 
   const copy = readClientCopy<ImageConverterClientCopy>(root);
@@ -84,9 +95,7 @@ function initImageConverter(root: HTMLElement): void {
   const targetSelect = root.querySelector<HTMLSelectElement>(
     "[data-target-format]",
   )!;
-  const swapLink = root.querySelector<HTMLAnchorElement>(
-    "[data-swap-formats]",
-  );
+  const swapLink = root.querySelector<HTMLAnchorElement>("[data-swap-formats]");
   const detectedFormat = root.querySelector<HTMLElement>(
     "[data-detected-format]",
   )!;
@@ -152,7 +161,11 @@ function initImageConverter(root: HTMLElement): void {
     targetSelect.value = activeTarget;
     detectedFormat.textContent = formatLabel(activeSource);
     outputFormat.textContent = formatLabel(activeTarget);
-    if (swapLink) { swapLink.hidden = activeSource === "svg"; if (activeSource !== "svg") swapLink.href = `/${locale}/${activeTarget}-to-${activeSource}/`; }
+    if (swapLink) {
+      swapLink.hidden = activeSource === "svg";
+      if (activeSource !== "svg")
+        swapLink.href = `/${locale}/${activeTarget}-to-${activeSource}/`;
+    }
 
     const adjustableQuality = ["jpg", "gif", "webp", "avif"].includes(
       activeTarget,
@@ -204,7 +217,9 @@ function initImageConverter(root: HTMLElement): void {
     let detected: ImageInputFormat | undefined;
     try {
       detected = detectImageFormat(
-        new Uint8Array(await file.slice(0, 4096).arrayBuffer()),
+        new Uint8Array(
+          await file.slice(0, MAX_IMAGE_SNIFF_BYTES).arrayBuffer(),
+        ),
       );
     } catch {
       detected = undefined;
@@ -214,20 +229,30 @@ function initImageConverter(root: HTMLElement): void {
       setStatus(copy.invalidImage, "error");
       return;
     }
-    const nextTarget: ImageFormat = detected === activeTarget ? (isImageFormat(activeSource) && activeSource !== detected ? activeSource : imageFormats.find((format) => format !== detected)!) : activeTarget;
+    const nextTarget: ImageFormat =
+      detected === activeTarget
+        ? isImageFormat(activeSource) && activeSource !== detected
+          ? activeSource
+          : imageFormats.find((format) => format !== detected)!
+        : activeTarget;
     setActiveFormats(detected, nextTarget);
 
     selectedFile = file;
     revoke(inputUrl);
-    if (detected !== "svg") { inputUrl = URL.createObjectURL(file); inputPreview.src = inputUrl; inputPreview.hidden = false; inputPlaceholder.hidden = true;
-    inputPreview.addEventListener(
-      "error",
-      () => {
-        inputPreview.hidden = true;
-        inputPlaceholder.hidden = false;
-      },
-      { once: true },
-    ); }
+    if (detected !== "svg") {
+      inputUrl = URL.createObjectURL(file);
+      inputPreview.src = inputUrl;
+      inputPreview.hidden = false;
+      inputPlaceholder.hidden = true;
+      inputPreview.addEventListener(
+        "error",
+        () => {
+          inputPreview.hidden = true;
+          inputPlaceholder.hidden = false;
+        },
+        { once: true },
+      );
+    }
     fileName.textContent = file.name;
     inputSize.textContent = formatBytes(file.size);
     inputFacts.hidden = false;
@@ -264,13 +289,45 @@ function initImageConverter(root: HTMLElement): void {
     worker = new Worker(new URL("./worker.ts", import.meta.url), {
       type: "module",
     });
-    const request: ImageConverterWorkerRequest = {
-      id: runRevision,
-      input,
-      source: activeSource,
-      target: activeTarget,
-      quality: (quality?.value ?? "balanced") as ImageQualityProfile,
-    };
+    let request: ImageConverterWorkerRequest;
+    let transfer: ArrayBuffer;
+    try {
+      if (activeSource === "svg") {
+        const rasterized = await rasterizeSvg(input);
+        if (runRevision !== revision) return;
+        transfer = rasterized.pixels;
+        request = {
+          id: runRevision,
+          source: "svg",
+          target: activeTarget,
+          quality: (quality?.value ?? "balanced") as ImageQualityProfile,
+          pixels: rasterized.pixels,
+          width: rasterized.width,
+          height: rasterized.height,
+        };
+      } else {
+        transfer = input;
+        request = {
+          id: runRevision,
+          input,
+          source: activeSource,
+          target: activeTarget,
+          quality: (quality?.value ?? "balanced") as ImageQualityProfile,
+        };
+      }
+    } catch (error) {
+      if (runRevision !== revision) return;
+      runButton.disabled = false;
+      setStatus(
+        error instanceof Error && error.message === "image-dimensions-too-large"
+          ? copy.dimensionsTooLarge
+          : copy.decodeFailed,
+        "error",
+      );
+      return;
+    }
+
+    if (runRevision !== revision) return;
     worker.addEventListener(
       "message",
       (event: MessageEvent<ImageConverterWorkerReply>) => {
@@ -334,7 +391,7 @@ function initImageConverter(root: HTMLElement): void {
       runButton.disabled = false;
       setStatus(copy.encodeFailed, "error");
     });
-    worker.postMessage(request, [input]);
+    worker.postMessage(request, [transfer]);
     workerTimeout = window.setTimeout(() => {
       if (runRevision !== revision) return;
       stopWorker();
@@ -344,16 +401,18 @@ function initImageConverter(root: HTMLElement): void {
   };
 
   const navigate = () => {
-    const nextSource = sourceSelect.value;
-    let nextTarget = targetSelect.value;
-    if (nextSource === nextTarget) {
-      nextTarget =
-        activeSource === nextSource
-          ? imageFormats.find((format) => format !== nextSource)!
-          : activeSource;
-      targetSelect.value = nextTarget;
-    }
-    window.location.assign(`/${locale}/${nextSource}-to-${nextTarget}/`);
+    if (
+      !isImageInputFormat(sourceSelect.value) ||
+      !isImageFormat(targetSelect.value)
+    )
+      return;
+    const next = resolveImageConversionNavigation(
+      sourceSelect.value,
+      targetSelect.value,
+      activeSource,
+    );
+    targetSelect.value = next.target;
+    window.location.assign(`/${locale}/${next.id}/`);
   };
 
   openButton.addEventListener("click", () => fileInput.click());

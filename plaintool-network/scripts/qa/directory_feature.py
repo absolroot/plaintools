@@ -160,8 +160,8 @@ def run_directory_desktop(
         ).count(),
     }
     if report["home_directory_card_order"] != {
-        "imageCount": 46,
-        "uniqueImageRoutes": 45,
+        "imageCount": 54,
+        "uniqueImageRoutes": 53,
         "imageFirst": [
             "/ko/background-remover/",
             "/ko/image-resizer/",
@@ -201,10 +201,10 @@ def run_directory_desktop(
     image_more_summary.click()
     if report["image_converter_progressive_directory"] != {
         "groupCount": 1,
-        "remainingCards": 42,
+        "remainingCards": 50,
         "initiallyOpen": False,
         "summaryHeight": 48,
-        "summaryCount": "42",
+        "summaryCount": "50",
         "opensOnClick": True,
     }:
         report["ui_detail_failures"].append(

@@ -5,14 +5,7 @@ import {
 } from "@plaintool/unit-converter-core";
 import { readClientCopy, setToolStatus } from "../../scripts/shared/tool-dom";
 import type { UnitConverterCopy } from "./contract";
-
-const numberPattern = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/iu;
-
-function formatNumber(value: number): string {
-  return new Intl.NumberFormat(undefined, {
-    maximumSignificantDigits: 12,
-  }).format(value);
-}
+import { formatLocalizedNumber, parseLocalizedNumber } from "./number-format";
 
 function init(root: HTMLElement): void {
   if (root.dataset.initialized) return;
@@ -38,7 +31,8 @@ function init(root: HTMLElement): void {
   };
   const run = () => {
     const raw = value.value.trim();
-    if (!raw || !numberPattern.test(raw)) {
+    const parsed = parseLocalizedNumber(raw, copy.numberLocale);
+    if (parsed === null) {
       result.value = "";
       resultUnit.textContent = "";
       value.toggleAttribute("aria-invalid", Boolean(raw));
@@ -51,11 +45,11 @@ function init(root: HTMLElement): void {
       return;
     }
     try {
-      const converted = convertUnit(Number(raw), from.value, to.value);
+      const converted = convertUnit(parsed, from.value, to.value);
       const unit = unitsFor(category.value as UnitCategory).find(
         (item) => item.id === to.value,
       )!;
-      result.value = formatNumber(converted);
+      result.value = formatLocalizedNumber(converted, copy.numberLocale);
       resultUnit.textContent = unit.symbol;
       value.removeAttribute("aria-invalid");
       setToolStatus(root, status, copy.ready, "success");
