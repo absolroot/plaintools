@@ -182,7 +182,7 @@ export const ptBRBundle: LocaleBundle = {
           {
             title: "Análise e publicidade",
             body: [
-              "O Google Analytics está atualmente {{analytics_state}}, enquanto o Google AdSense está {{advertising_state}}. Quando o Analytics está ativo, o {{consent_provider}} gerencia o consentimento e o Google recebe dados de página, sessão, localização aproximada, navegador e dispositivo somente após o consentimento para cookies de estatísticas. Entradas, arquivos, resultados, erros e valores derivados ficam fora dos eventos de análise e publicidade.",
+              "O Google Analytics e o Google AdSense estão atualmente {{integration_state}}. Quando ativados, os detalhes sobre dispositivo, uso, cookies, consentimento, retenção e transferências internacionais serão informados aqui e gerenciados nas opções de privacidade. Por definição, entradas e resultados das ferramentas ficam fora dos eventos de análise e publicidade.",
             ],
           },
           {
@@ -225,13 +225,13 @@ export const ptBRBundle: LocaleBundle = {
           {
             title: "Uso atual",
             body: [
-              "A análise está atualmente {{analytics_state}}, enquanto a publicidade está {{advertising_state}}. O Google Analytics só é carregado após o consentimento para cookies de estatísticas gerenciado pelo {{consent_provider}}. O site não armazena entradas nem resultados em cookies ou no armazenamento local. Apenas a preferência de tema escolhida (light ou dark) é salva no armazenamento local, e esse valor não é transmitido.",
+              "A análise e a publicidade estão atualmente {{integration_state}}. O site não armazena entradas nem resultados em cookies ou no armazenamento local. Apenas a preferência de tema escolhida (light ou dark) é salva no armazenamento local, e esse valor não é transmitido.",
             ],
           },
           {
-            title: "Consentimento e detalhes dos cookies",
+            title: "Se as integrações forem ativadas",
             body: [
-              "O {{consent_provider}} registra e gerencia as escolhas de cookies. A declaração abaixo lista os cookies, provedores, finalidades e períodos de retenção atuais e permite revisar ou retirar o consentimento.",
+              "Uma plataforma de consentimento controlará o armazenamento necessário de preferências, análise e publicidade. Um controle de privacidade permanente permitirá revisar ou retirar o consentimento.",
             ],
           },
         ],

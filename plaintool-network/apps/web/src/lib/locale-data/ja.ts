@@ -176,7 +176,7 @@ const bundle: LocaleBundle = {
           {
             title: "アクセス解析と広告",
             body: [
-              "Google Analytics は現在 {{analytics_state}}、Google AdSense は {{advertising_state}} です。Analytics が有効な場合、{{consent_provider}} が同意を管理し、統計 Cookie への同意後にのみページ、セッション、おおよその地域、ブラウザー、端末の情報が Google に送信されます。ツールの入力、ファイル、結果、エラー、および入力から派生した値は解析・広告イベントから除外されます。",
+              "Google Analytics と Google AdSense は現在 {{integration_state}} です。有効にする場合は、端末、利用状況、Cookie、同意、保存期間、国外移転の詳細をここに記載し、「プライバシー設定」で管理します。ツールの入力と結果は、設計上、解析イベントおよび広告イベントから除外されます。",
             ],
           },
           {
@@ -218,13 +218,13 @@ const bundle: LocaleBundle = {
           {
             title: "現在の利用",
             body: [
-              "アクセス解析は現在 {{analytics_state}}、広告は {{advertising_state}} です。Google Analytics は {{consent_provider}} で統計 Cookie に同意した後にのみ読み込まれます。ツールの入力や結果を Cookie またはローカルストレージに保存しません。選択したテーマ（light または dark）だけをローカルストレージに保存し、この値は送信しません。",
+              "アクセス解析と広告は現在 {{integration_state}} です。ツールの入力や結果を Cookie またはローカルストレージに保存しません。選択したテーマ（light または dark）だけをローカルストレージに保存し、この値は送信しません。",
             ],
           },
           {
-            title: "同意と Cookie の詳細",
+            title: "連携機能を有効にする場合",
             body: [
-              "{{consent_provider}} が Cookie の選択内容を記録・管理します。以下の宣言には、現在の Cookie、提供者、目的、保存期間が記載され、同意内容の確認または撤回ができます。",
+              "同意管理プラットフォームが、必要な設定保存、解析用ストレージ、広告用ストレージを制御します。常設のプライバシー設定から、同意内容の確認または撤回ができます。",
             ],
           },
         ],

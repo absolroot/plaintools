@@ -93,9 +93,9 @@ The build output is `apps/web/dist/`. Cloudflare Pages applies the committed `_h
 
 ## Production gate
 
-Copy `.env.example` to `.env` and complete the operator and canonical-origin fields. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. Production enables the configured Cookiebot CMP and GA4 only when the Cookiebot domain-group ID, GA4 measurement ID, and consent flag are all valid; AdSense remains unimplemented and disabled.
+Copy `.env.example` to `.env` and complete the operator and canonical-origin fields. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. AdSense, GA4, and consent-management code are currently unimplemented and disabled. AdSense and Google's CMP will be implemented and reviewed together before either is enabled.
 
-Do not send input text, output text, file names, file bytes, error details, or hashes derived from them to analytics. GA4 is manually blocked under Cookiebot's `statistics` category, uses no Google Signals or ad-personalization signals, and starts only after Statistics consent. Preview builds and invalid production configurations keep all optional integrations disabled.
+Do not send input text, output text, file names, file bytes, error details, or hashes derived from them to analytics. The default source configuration ships no third-party consent, analytics, or advertising tags. Preview builds and invalid production configurations keep all optional integrations disabled.
 
 ## Localization and localized SEO
 

@@ -180,7 +180,7 @@ const bundle: LocaleBundle = {
           {
             title: "Analiz ve reklam",
             body: [
-              "Google Analytics şu anda {{analytics_state}}, Google AdSense ise {{advertising_state}}. Analytics etkin olduğunda izni {{consent_provider}} yönetir; Google sayfa, oturum, yaklaşık konum, tarayıcı ve cihaz verilerini yalnızca istatistik çerezlerine izin verildikten sonra alır. Araç girdileri, dosyalar, sonuçlar, hatalar ve türetilmiş değerler analiz ve reklam etkinliklerinin dışında tutulur.",
+              "Google Analytics ve Google AdSense şu anda {{integration_state}}. Etkinleştirildiklerinde cihaz, kullanım, çerez, izin, saklama ve uluslararası aktarım ayrıntıları burada açıklanacak ve Gizlilik seçenekleri üzerinden yönetilecektir. Araç girdileri ve sonuçları tasarım gereği analiz ve reklam etkinliklerinin dışında tutulur.",
             ],
           },
           {
@@ -222,13 +222,13 @@ const bundle: LocaleBundle = {
           {
             title: "Mevcut kullanım",
             body: [
-              "Analiz şu anda {{analytics_state}}, reklam ise {{advertising_state}}. Google Analytics yalnızca {{consent_provider}} tarafından yönetilen istatistik çerezlerine izin verildikten sonra yüklenir. Site, araç girdilerini veya sonuçlarını çerezlerde ya da yerel depolamada saklamaz. Yalnızca seçtiğiniz tema tercihini (light veya dark) yerel depolamada saklar ve bu değeri iletmez.",
+              "Analiz ve reklam şu anda {{integration_state}}. Site, araç girdilerini veya sonuçlarını çerezlerde ya da yerel depolamada saklamaz. Yalnızca seçtiğiniz tema tercihini (light veya dark) yerel depolamada saklar ve bu değeri iletmez.",
             ],
           },
           {
-            title: "İzin ve çerez ayrıntıları",
+            title: "Entegrasyonlar etkinleştirilirse",
             body: [
-              "{{consent_provider}} çerez tercihlerini kaydeder ve yönetir. Aşağıdaki bildirim mevcut çerezleri, sağlayıcıları, amaçları ve saklama sürelerini listeler ve izni inceleme veya geri çekme olanağı sunar.",
+              "Bir izin platformu gerekli tercih depolamasını, analiz depolamasını ve reklam depolamasını denetleyecektir. Kalıcı bir gizlilik denetimi, ziyaretçilerin izinlerini incelemesine veya geri çekmesine olanak verecektir.",
             ],
           },
         ],

@@ -181,7 +181,7 @@ const daBundle = {
           {
             title: "Analyse og reklame",
             body: [
-              "Google Analytics er i øjeblikket {{analytics_state}}, mens Google AdSense er {{advertising_state}}. Når Analytics er aktiveret, administrerer {{consent_provider}} samtykket, og Google modtager først side-, sessions-, omtrentlig placerings-, browser- og enhedsdata efter samtykke til statistikcookies. Værktøjsinput, filer, resultater, fejl og afledte værdier er udelukket fra analyse- og reklamehændelser.",
+              "Google Analytics og Google AdSense er i øjeblikket {{integration_state}}. Når de er aktiveret, vil deres oplysninger om enhed, brug, cookies, samtykke, opbevaring og international overførsel blive offentliggjort her og styres gennem privatlivsvalg. Værktøjsinput og resultater er som standard udelukket fra analyse- og reklamebegivenheder.",
             ],
           },
           {
@@ -223,13 +223,13 @@ const daBundle = {
           {
             title: "Nuværende brug",
             body: [
-              "Analyse er i øjeblikket {{analytics_state}}, mens reklame er {{advertising_state}}. Google Analytics indlæses først efter samtykke til statistikcookies administreret af {{consent_provider}}. Siden gemmer ikke værktøjsinput eller resultater i cookies eller lokal lagring. Den gemmer kun din valgte temaindstilling (lys eller mørk) i lokal lagring; denne værdi overføres ikke.",
+              "Analyse og reklame er i øjeblikket {{integration_state}}. Siden gemmer ikke værktøjsinput eller resultater i cookies eller lokal lagring. Den gemmer kun din valgte temaindstilling (lys eller mørk) i lokal lagring; denne værdi overføres ikke.",
             ],
           },
           {
-            title: "Samtykke og cookieoplysninger",
+            title: "Hvis integrationer er aktiveret",
             body: [
-              "{{consent_provider}} registrerer og administrerer cookievalg. Erklæringen nedenfor viser de aktuelle cookies, udbydere, formål og opbevaringsperioder og gør det muligt at gennemgå eller trække samtykke tilbage.",
+              "En samtykkeplatform vil kontrollere påkrævet præferenceopbevaring, analyseopbevaring og reklameopbevaring. En permanent privatlivskontrol vil lade besøgende gennemgå eller trække samtykke tilbage.",
             ],
           },
         ],

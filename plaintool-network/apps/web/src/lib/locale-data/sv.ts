@@ -181,7 +181,7 @@ const svBundle = {
           {
             title: "Analys och reklam",
             body: [
-              "Google Analytics är för närvarande {{analytics_state}}, medan Google AdSense är {{advertising_state}}. När Analytics är aktiverat hanterar {{consent_provider}} samtycket och Google får sid-, sessions-, ungefärlig plats-, webbläsar- och enhetsdata först efter samtycke till statistikcookies. Verktygsinmatning, filer, resultat, fel och härledda värden är uteslutna från analys- och annonseringshändelser.",
+              "Google Analytics och Google AdSense är för närvarande {{integration_state}}. När de är aktiverade kommer deras enhets-, användnings-, cookie-, samtycke-, lagrings- och internationella överföringsuppgifter att redovisas här och hanteras genom sekretessinställningar. Verktygets inmatning och resultat är uteslutna från analys- och annonseringsevenemang enligt design.",
             ],
           },
           {
@@ -223,13 +223,13 @@ const svBundle = {
           {
             title: "Nuvarande användning",
             body: [
-              "Analys är för närvarande {{analytics_state}}, medan reklam är {{advertising_state}}. Google Analytics laddas först efter samtycke till statistikcookies som hanteras av {{consent_provider}}. Webbplatsen lagrar inte verktygsinmatning eller resultat i cookies eller lokal lagring. Den lagrar endast ditt valda tema (ljust eller mörkt) i lokal lagring; detta värde överförs inte.",
+              "Analys och reklam är för närvarande {{integration_state}}. Webbplatsen lagrar inte verktygsinmatning eller resultat i cookies eller lokal lagring. Den lagrar endast ditt valda tema (ljust eller mörkt) i lokal lagring; detta värde överförs inte.",
             ],
           },
           {
-            title: "Samtycke och cookieinformation",
+            title: "Om integrationer är aktiverade",
             body: [
-              "{{consent_provider}} registrerar och hanterar cookieval. Deklarationen nedan listar aktuella cookies, leverantörer, ändamål och lagringsperioder och gör det möjligt att granska eller återkalla samtycke.",
+              "En samtyckesplattform kommer att kontrollera nödvändig lagring av preferenser, lagring av analysdata och lagring för annonsering. En permanent integritetskontroll kommer att låta besökare granska eller återkalla samtycke.",
             ],
           },
         ],

@@ -14,11 +14,10 @@ There is no server conversion, upload endpoint, database, account system,
 service worker, or tool-data persistence.
 
 The only application-owned localStorage entry is `plaintool.theme`, with the
-value `light` or `dark`. Cookiebot may store consent choices, and consented GA4
-may store its first-party analytics identifiers. GA4 receives page and device
-metadata only after Statistics consent; tool input, filenames, output, raw
-errors, and payload-derived values remain prohibited. Do not persist tool state
-or results.
+value `light` or `dark`. No analytics, advertising, or consent-management code
+is currently shipped. Tool input, filenames, output, raw errors, and
+payload-derived values remain prohibited from future integrations. Do not
+persist tool state or results.
 
 ## Source ownership
 
@@ -150,6 +149,9 @@ An integration is active only when both its reviewed implementation capability
 and valid deployment configuration exist. Environment variables alone must not
 turn on GA4, AdSense, or a CMP. Production fails closed when required operator,
 host, legal, origin, locale, or integration facts are absent.
+
+Cookiebot is not part of the current build. AdSense and Google's CMP must be
+implemented and reviewed together before either capability is enabled.
 
 The default build uses the preview target. Do not set the production origin to
 `https://absoltools.com` until ownership and host control are verified.
