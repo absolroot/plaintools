@@ -9,6 +9,7 @@ import { parseImageConversionMode } from "../../features/image-converter/formats
 import {
   networkCopy,
   toolCatalog,
+  toolCardName,
   type ToolCategory,
 } from "../../lib/tool-catalog";
 import {
@@ -121,6 +122,7 @@ const publicItems = toolCatalog
             tool={primaryImageConverter}
             locale={locale}
             displayName={imageConverterTitle}
+            subtitle={toolCardName(primaryImageConverter, locale)}
             mark="IMG"
             markId="image-converter"
             searchable={false}
