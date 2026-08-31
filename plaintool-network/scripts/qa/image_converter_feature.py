@@ -138,24 +138,60 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
 
     # Changing a quality-dependent setting must invalidate an older output.
     root.locator("[data-quality]").select_option("compact", force=True)
-    if (
-        root.locator("[data-quality-summary]").inner_text().strip()
-        != root.locator("[data-quality] option[value='compact']").text_content().strip()
-    ):
-        report["ui_detail_failures"].append(
-            "Image quality summary did not reflect the selected profile."
-        )
     if root.locator("[data-download]").is_enabled():
         report["ui_detail_failures"].append(
             "Image quality change retained a stale downloadable result."
         )
 
-    # Reject deceptive, empty, wrong-format, and oversized inputs before a
-    # worker can decode them.
+    # A supported image from another format must be detected and converted
+    # without making the user find the matching source route first.
+    root.locator("[data-file]").set_input_files(
+        {"name": "detected.jpg", "mimeType": "image/jpeg", "buffer": fixtures["jpg"]}
+    )
+    root.locator("[data-input-facts]").wait_for(state="visible")
+    auto_detect = {
+        "source": root.locator("[data-source-format]").input_value(),
+        "target": root.locator("[data-target-format]").input_value(),
+        "datasetSource": root.get_attribute("data-source"),
+        "datasetTarget": root.get_attribute("data-target"),
+        "detected": root.locator("[data-detected-format]").inner_text().strip(),
+        "runEnabled": root.locator("[data-run]").is_enabled(),
+        "qualitySelectVisible": root.locator("[data-quality]").is_visible(),
+        "fixedQualityVisible": root.locator("[data-quality-fixed]").is_visible(),
+    }
+    root.locator("[data-run]").click()
+    root.locator("[data-download]:not([disabled])").wait_for(
+        state="visible", timeout=60000
+    )
+    with page.expect_download() as auto_download_info:
+        root.locator("[data-download]").click()
+    auto_payload = Path(auto_download_info.value.path()).read_bytes()
+    auto_detect["downloadFormat"] = _detected_format(auto_payload)
+    auto_detect["downloadName"] = auto_download_info.value.suggested_filename
+    report["image_converter_auto_detect"] = auto_detect
+    if auto_detect != {
+        "source": "jpg",
+        "target": "png",
+        "datasetSource": "jpg",
+        "datasetTarget": "png",
+        "detected": "JPG",
+        "runEnabled": True,
+        "qualitySelectVisible": False,
+        "fixedQualityVisible": True,
+        "downloadFormat": "png",
+        "downloadName": "detected.png",
+    }:
+        report["ui_detail_failures"].append(
+            f"Image source auto-detection failed: {auto_detect}"
+        )
+
+    page.goto(f"{BASE_URL}/en/png-to-jpg/", wait_until="networkidle")
+    root = page.locator("[data-image-converter]")
+
+    # Reject deceptive, empty, and oversized inputs before a worker can decode them.
     adversarial = [
         ("script.png", "image/png", b"<script>alert(1)</script>", "valid"),
         ("empty.png", "image/png", b"", "valid"),
-        ("wrong.jpg", "image/jpeg", fixtures["jpg"], "not the source"),
         ("oversized.png", "image/png", b"\x89PNG\r\n\x1a\n" + bytes(50 * 1024 * 1024), "50 MiB"),
     ]
     rejected = []
@@ -179,23 +215,34 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
             )
         rejected.append(name)
 
-    quality_details = root.locator(".image-options")
-    quality_toggle = quality_details.locator("[data-quality-summary-toggle]")
+    quality_options = root.locator(".image-options")
+    format_order = root.locator(".image-format-bar > *").evaluate_all(
+        """elements => elements.map((element) => {
+          if (element.matches('[data-swap-formats]')) return 'swap';
+          if (element.querySelector('[data-source-format]')) return 'source';
+          if (element.querySelector('[data-target-format]')) return 'target';
+          return 'unknown';
+        })"""
+    )
+    format_boxes = [
+        root.locator(selector).bounding_box()
+        for selector in (
+            "[data-source-format]",
+            "[data-target-format]",
+            "[data-swap-formats]",
+        )
+    ]
     affordances = {
         "swapText": root.locator("[data-swap-formats]").inner_text().strip(),
         "swapIcon": root.locator("[data-swap-formats] .ui-icon").count(),
-        "qualitySummary": quality_details.locator(
-            "[data-quality-summary]"
-        ).inner_text().strip(),
-        "qualityChevron": quality_details.locator(
-            ".image-options-chevron"
-        ).count(),
-        "qualityInitiallyOpen": quality_details.get_attribute("open") is not None,
+        "formatOrder": format_order,
+        "swapAfterTarget": all(format_boxes)
+        and format_boxes[0]["x"] < format_boxes[1]["x"] < format_boxes[2]["x"],
+        "qualityVisible": root.locator("[data-quality]").is_visible(),
+        "qualityEnabled": root.locator("[data-quality]").is_enabled(),
+        "qualityChevron": quality_options.locator(".image-options-chevron").count(),
+        "qualityContainer": quality_options.evaluate("element => element.tagName"),
     }
-    quality_toggle.click()
-    affordances["qualityOpensOnClick"] = (
-        quality_details.get_attribute("open") is not None
-    )
     with page.expect_navigation():
         root.locator("[data-swap-formats]").click()
     affordances["swapUrl"] = page.url
@@ -203,10 +250,12 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
     if (
         not affordances["swapText"]
         or affordances["swapIcon"] != 1
-        or not affordances["qualitySummary"]
-        or affordances["qualityChevron"] != 1
-        or affordances["qualityInitiallyOpen"]
-        or not affordances["qualityOpensOnClick"]
+        or affordances["formatOrder"] != ["source", "target", "swap"]
+        or not affordances["swapAfterTarget"]
+        or not affordances["qualityVisible"]
+        or not affordances["qualityEnabled"]
+        or affordances["qualityChevron"] != 0
+        or affordances["qualityContainer"] != "DIV"
         or not affordances["swapUrl"].endswith("/en/jpg-to-png/")
     ):
         report["ui_detail_failures"].append(

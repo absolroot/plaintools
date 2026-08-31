@@ -36,7 +36,7 @@
     "apps/web/src/components/ConverterStatus.astro",
     "apps/web/src/components/LocalProcessingNote.astro"
   ],
-  "copyFingerprint": "sha256:f8d9ac6de65084069e139f05adcd83243a6997c404de61fdba0587a4eac350ba",
+  "copyFingerprint": "sha256:0cf37406239d6c4bc8a65c3a60b9d748c2d937bac0d4a7e2156f7134589f5fbf",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",

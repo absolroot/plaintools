@@ -10,7 +10,12 @@ import type {
   ImageConverterWorkerRequest,
   ImageQualityProfile,
 } from "./contract";
-import { imageFormatMime, isImageFormat, type ImageFormat } from "./formats";
+import {
+  imageFormatMime,
+  imageFormats,
+  isImageFormat,
+  type ImageFormat,
+} from "./formats";
 
 function formatBytes(value: number): string {
   if (value < 1024) return `${value} B`;
@@ -67,17 +72,27 @@ function initImageConverter(root: HTMLElement): void {
   const warnings = root.querySelector<HTMLElement>("[data-warnings]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const quality = root.querySelector<HTMLSelectElement>("[data-quality]");
-  const qualitySummary = root.querySelector<HTMLElement>(
-    "[data-quality-summary]",
-  );
+  const qualityControl = root.querySelector<HTMLElement>(
+    "[data-quality-control]",
+  )!;
+  const qualityFixed = root.querySelector<HTMLElement>("[data-quality-fixed]")!;
   const sourceSelect = root.querySelector<HTMLSelectElement>(
     "[data-source-format]",
   )!;
   const targetSelect = root.querySelector<HTMLSelectElement>(
     "[data-target-format]",
   )!;
+  const swapLink = root.querySelector<HTMLAnchorElement>(
+    "[data-swap-formats]",
+  )!;
+  const detectedFormat = root.querySelector<HTMLElement>(
+    "[data-detected-format]",
+  )!;
+  const outputFormat = root.querySelector<HTMLElement>("[data-output-format]")!;
 
   let selectedFile: File | undefined;
+  let activeSource = source;
+  let activeTarget = target;
   let inputUrl = "";
   let outputUrl = "";
   let resultBlob: Blob | undefined;
@@ -107,6 +122,36 @@ function initImageConverter(root: HTMLElement): void {
     worker?.terminate();
     worker = undefined;
   };
+  const formatLabel = (format: ImageFormat) =>
+    sourceSelect.querySelector<HTMLOptionElement>(`option[value="${format}"]`)
+      ?.textContent ?? format.toUpperCase();
+  const setActiveFormats = (
+    nextSource: ImageFormat,
+    nextTarget: ImageFormat,
+  ) => {
+    activeSource = nextSource;
+    activeTarget = nextTarget;
+    root.dataset.source = activeSource;
+    root.dataset.target = activeTarget;
+    sourceSelect.value = activeSource;
+    for (const option of targetSelect.options) {
+      option.disabled = option.value === activeSource;
+    }
+    targetSelect.value = activeTarget;
+    detectedFormat.textContent = formatLabel(activeSource);
+    outputFormat.textContent = formatLabel(activeTarget);
+    swapLink.href = `/${locale}/${activeTarget}-to-${activeSource}/`;
+
+    const adjustableQuality = ["jpg", "gif", "webp", "avif"].includes(
+      activeTarget,
+    );
+    qualityControl.hidden = !adjustableQuality;
+    if (quality) quality.disabled = !adjustableQuality;
+    qualityFixed.hidden = adjustableQuality;
+    qualityFixed.textContent = ["png", "bmp"].includes(activeTarget)
+      ? copy.lossless
+      : copy.fixedProfile;
+  };
   const clear = () => {
     cancel();
     selectedFile = undefined;
@@ -119,6 +164,7 @@ function initImageConverter(root: HTMLElement): void {
     inputFacts.hidden = true;
     clearButton.disabled = runButton.disabled = true;
     openLabel.textContent = copy.chooseImage;
+    setActiveFormats(source, target);
     resetResult();
     setStatus(copy.ready);
   };
@@ -156,13 +202,13 @@ function initImageConverter(root: HTMLElement): void {
       setStatus(copy.invalidImage, "error");
       return;
     }
-    if (detected !== source) {
-      setStatus(
-        copy.wrongFormat.replace("{format}", detected.toUpperCase()),
-        "error",
-      );
-      return;
-    }
+    const nextTarget =
+      detected === activeTarget
+        ? activeSource === detected
+          ? imageFormats.find((format) => format !== detected)!
+          : activeSource
+        : activeTarget;
+    setActiveFormats(detected, nextTarget);
 
     selectedFile = file;
     revoke(inputUrl);
@@ -217,8 +263,8 @@ function initImageConverter(root: HTMLElement): void {
     const request: ImageConverterWorkerRequest = {
       id: runRevision,
       input,
-      source,
-      target,
+      source: activeSource,
+      target: activeTarget,
       quality: (quality?.value ?? "balanced") as ImageQualityProfile,
     };
     worker.addEventListener(
@@ -244,7 +290,7 @@ function initImageConverter(root: HTMLElement): void {
         }
 
         resultBlob = new Blob([event.data.output], {
-          type: imageFormatMime[target],
+          type: imageFormatMime[activeTarget],
         });
         outputUrl = URL.createObjectURL(resultBlob);
         outputPreview.src = outputUrl;
@@ -291,7 +337,10 @@ function initImageConverter(root: HTMLElement): void {
     const nextSource = sourceSelect.value;
     let nextTarget = targetSelect.value;
     if (nextSource === nextTarget) {
-      nextTarget = source;
+      nextTarget =
+        activeSource === nextSource
+          ? imageFormats.find((format) => format !== nextSource)!
+          : activeSource;
       targetSelect.value = nextTarget;
     }
     window.location.assign(`/${locale}/${nextSource}-to-${nextTarget}/`);
@@ -308,13 +357,9 @@ function initImageConverter(root: HTMLElement): void {
   runButton.addEventListener("click", () => void run());
   downloadButton.addEventListener("click", () => {
     if (selectedFile && resultBlob)
-      downloadBlob(resultBlob, outputName(selectedFile.name, target));
+      downloadBlob(resultBlob, outputName(selectedFile.name, activeTarget));
   });
   quality?.addEventListener("change", () => {
-    if (qualitySummary) {
-      qualitySummary.textContent =
-        quality.selectedOptions[0]?.textContent?.trim() ?? "";
-    }
     cancel();
     resetResult();
     runButton.disabled = !selectedFile;
@@ -347,6 +392,8 @@ function initImageConverter(root: HTMLElement): void {
     },
     { once: true },
   );
+
+  setActiveFormats(source, target);
 }
 
 document

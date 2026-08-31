@@ -23,6 +23,9 @@ const combinedCopy = { ...common, ...copy };
 const swapHref = localizedPath(locale, `${mode.target}-to-${mode.source}`);
 const adjustableQuality = ["jpg", "gif", "webp", "avif"].includes(mode.target);
 const losslessTarget = mode.target === "png" || mode.target === "bmp";
+const acceptedFormatList = imageFormats
+  .map((format) => formatNames[format])
+  .join(" · ");
 ---
 
 <section
@@ -46,16 +49,6 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
         }
       </select>
     </label>
-    <a
-      class="format-swap"
-      href={swapHref}
-      aria-label={copy.swapFormats}
-      title={copy.swapFormats}
-      data-swap-formats
-    >
-      <UiIcon name="swap" size={16} />
-      <span>{copy.swapFormats}</span>
-    </a>
     <label>
       <span>{copy.targetFormat}</span>
       <select data-target-format aria-label={copy.targetFormat}>
@@ -72,6 +65,16 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
         }
       </select>
     </label>
+    <a
+      class="format-swap"
+      href={swapHref}
+      aria-label={copy.swapFormats}
+      title={copy.swapFormats}
+      data-swap-formats
+    >
+      <UiIcon name="swap" size={16} />
+      <span>{copy.swapFormats}</span>
+    </a>
   </div>
 
   <div class="image-workspace" data-drop-zone>
@@ -92,7 +95,7 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
         <span class="image-placeholder" data-input-placeholder>
           <UiIcon name="image" size={28} />
           <strong>{copy.dropImage}</strong>
-          <small>{formatNames[mode.source]}</small>
+          <small>{acceptedFormatList}</small>
         </span>
         <img data-input-preview alt="" hidden />
       </button>
@@ -104,6 +107,9 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
       />
       <dl class="image-facts" data-input-facts hidden>
         <div><dt>{copy.selected}</dt><dd data-file-name></dd></div>
+        <div>
+          <dt>{copy.sourceFormat}</dt><dd data-detected-format></dd>
+        </div>
         <div><dt>{copy.inputSize}</dt><dd data-input-size></dd></div>
       </dl>
     </section>
@@ -119,7 +125,7 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
         <span class="image-placeholder" data-output-placeholder>
           <UiIcon name="image" size={28} />
           <strong>{copy.resultEmpty}</strong>
-          <small>{formatNames[mode.target]}</small>
+          <small data-output-format>{formatNames[mode.target]}</small>
         </span>
         <img data-output-preview alt="" hidden />
       </div>
@@ -140,35 +146,23 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
     </button>
   </ConverterStatus>
 
-  <details class="image-options">
-    <summary data-quality-summary-toggle>
-      <span class="image-options-summary-copy">
-        <strong>{copy.quality}</strong>
-        <small data-quality-summary>
-          {adjustableQuality ? copy.balanced : formatNames[mode.target]}
-        </small>
-      </span>
-      <UiIcon name="chevron-right" size={16} class="image-options-chevron" />
-    </summary>
-    <div class="image-options-body">
-      {
-        adjustableQuality ? (
-          <label>
-            <span>{copy.quality}</span>
-            <select data-quality>
-              <option value="compact">{copy.compact}</option>
-              <option value="balanced" selected>
-                {copy.balanced}
-              </option>
-              <option value="maximum">{copy.maximum}</option>
-            </select>
-          </label>
-        ) : (
-          <p>{losslessTarget ? copy.lossless : copy.fixedProfile}</p>
-        )
-      }
-    </div>
-  </details>
+  <div class="image-options" data-quality-options>
+    <strong>{copy.quality}</strong>
+    <label data-quality-control hidden={!adjustableQuality}>
+      <select
+        data-quality
+        aria-label={copy.quality}
+        disabled={!adjustableQuality}
+      >
+        <option value="compact">{copy.compact}</option>
+        <option value="balanced" selected>{copy.balanced}</option>
+        <option value="maximum">{copy.maximum}</option>
+      </select>
+    </label>
+    <p data-quality-fixed hidden={adjustableQuality}>
+      {losslessTarget ? copy.lossless : copy.fixedProfile}
+    </p>
+  </div>
 
   <script
     is:inline
