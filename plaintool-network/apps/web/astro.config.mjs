@@ -23,6 +23,9 @@ export default defineConfig({
     inlineStylesheets: "never",
   },
   vite: {
+    resolve: {
+      conditions: ["onnxruntime-web-use-extern-wasm"],
+    },
     optimizeDeps: {
       exclude: ["onnxruntime-web"],
       include: [

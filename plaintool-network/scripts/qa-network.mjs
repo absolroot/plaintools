@@ -30,6 +30,7 @@ if (target === "production" && !config.productionReady) {
 }
 
 const dist = resolve("apps/web/dist");
+const pagesAssetLimit = 25 * 1024 * 1024;
 const previewTools = toolRegistry.filter(
   (tool) => tool.publication === "preview",
 );
@@ -58,6 +59,31 @@ const prettierNotices = await readFile(
 );
 const builtAssets = await readdir(join(dist, "_astro"));
 
+async function findOversizedAssets(directory, relativeDirectory = "") {
+  const oversized = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const relativePath = join(relativeDirectory, entry.name);
+    const absolutePath = join(directory, entry.name);
+    if (entry.isDirectory()) {
+      oversized.push(
+        ...(await findOversizedAssets(absolutePath, relativePath)),
+      );
+      continue;
+    }
+    if (entry.isFile() && (await stat(absolutePath)).size >= pagesAssetLimit) {
+      oversized.push(relativePath);
+    }
+  }
+  return oversized;
+}
+
+const oversizedAssets = await findOversizedAssets(dist);
+if (oversizedAssets.length) {
+  throw new Error(
+    `Static deployment assets exceed the Cloudflare Pages 25 MiB limit: ${oversizedAssets.join(", ")}`,
+  );
+}
+
 const requiredRuntimeNotices = [
   "flag-icons",
   "Prettier",
@@ -82,7 +108,7 @@ for (const [modelId, model] of Object.entries(backgroundModelManifest.models)) {
     const bytes = await readFile(join(backgroundModelRoot, part.path));
     if (bytes.byteLength !== part.bytes)
       throw new Error(`${modelId}:${part.path} has an unexpected byte size.`);
-    if (bytes.byteLength >= 25 * 1024 * 1024)
+    if (bytes.byteLength >= pagesAssetLimit)
       throw new Error(`${modelId}:${part.path} exceeds the Pages asset limit.`);
     const digest = createHash("sha256").update(bytes).digest("hex");
     if (digest !== part.sha256)
