@@ -36,7 +36,7 @@
     "apps/web/src/components/PreviewToolPage.astro",
     "apps/web/src/pages/[locale]/date-calculator/index.astro"
   ],
-  "copyFingerprint": "sha256:df07e94e9a2eed32d6304e7cb943fac276d434a3dec350cf9cb188a141f0fe8d",
+  "copyFingerprint": "sha256:35aae56878b65d4e6b39eb67ea32c52bea96b3a48f3d84e0f7bcdb3ab3d1602e",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",
