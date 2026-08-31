@@ -7,7 +7,6 @@
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": ["apps/web/src/lib/tool-registry.js", "apps/web/src/lib/tool-catalog.ts", "apps/web/src/lib/locale-data/bundle.ts", "apps/web/src/lib/locale-data/new-tools/factory.ts", "apps/web/src/lib/locale-data/new-tools/calculator-suite.ts", "apps/web/src/features/math-calculator/contract.ts", "apps/web/src/features/math-calculator/MathCalculator.astro", "apps/web/src/features/math-calculator/client.ts", "apps/web/src/features/new-tools/NewToolPreview.astro", "apps/web/src/pages/[locale]/fraction-calculator/index.astro", "apps/web/src/pages/[locale]/factor-calculator/index.astro", "apps/web/src/pages/[locale]/lcm-calculator/index.astro"],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:bd95628cde888ec4791a6afbb1e339bbfd2f5f4918f1397bf54f15398e4d0c42",
   "locales": {
     "en": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["calculator-net-fraction-benchmark", "calculatorsoup-lcm-benchmark"] },
     "ko": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["ko-calculator-terminology-review", "calculator-suite-render-review"] },

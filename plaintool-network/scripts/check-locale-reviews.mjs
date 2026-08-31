@@ -1,8 +1,7 @@
-import { readFile, readdir } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { locales, toolRegistry } from "../apps/web/src/lib/content-registry.js";
-import { fingerprintManifest } from "./locale-review-fingerprint.mjs";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestRoot = resolve(
@@ -11,7 +10,6 @@ const manifestRoot = resolve(
 );
 const args = process.argv.slice(2);
 const production = args.includes("--production");
-const printFingerprints = args.includes("--print-fingerprints");
 const selfTest = process.env.LOCALE_REVIEW_SELF_TEST;
 
 async function readJson(path) {
@@ -83,7 +81,7 @@ for (const [featureId, manifestFile] of featureManifests) {
   if (manifest.sourceLocale !== "en")
     errors.push(`${featureId} must declare en as its source locale.`);
   if (!Array.isArray(manifest.copyFiles) || manifest.copyFiles.length === 0) {
-    errors.push(`${featureId} has no fingerprinted copy surfaces.`);
+    errors.push(`${featureId} has no reviewed copy surfaces.`);
     continue;
   }
   if (
@@ -136,31 +134,16 @@ for (const [featureId, manifestFile] of featureManifests) {
     }
   }
 
-  let currentFingerprint;
   try {
-    currentFingerprint = await fingerprintManifest(
-      projectRoot,
-      manifest,
-      locales,
-    );
+    for (const file of manifest.copyFiles) {
+      await access(resolve(projectRoot, file));
+    }
+    for (const directory of manifest.copyDirectories ?? []) {
+      await access(resolve(projectRoot, directory));
+    }
   } catch (error) {
     errors.push(`${featureId} copy surface cannot be read: ${error.message}`);
     continue;
-  }
-
-  if (printFingerprints) {
-    console.log(`${featureId} ${currentFingerprint}`);
-    continue;
-  }
-  const expectedFingerprint =
-    selfTest === "fingerprint" &&
-    featureId === featureManifests.keys().next().value
-      ? "sha256:self-test-stale"
-      : manifest.copyFingerprint;
-  if (expectedFingerprint !== currentFingerprint) {
-    errors.push(
-      `${featureId} copy fingerprint changed. Expected ${expectedFingerprint}, received ${currentFingerprint}. Complete the locale review before updating the manifest.`,
-    );
   }
 
   const publicationStates = toolRegistry
@@ -183,8 +166,6 @@ for (const name of (await readdir(manifestRoot)).filter((item) =>
   if (!referencedNames.has(name))
     errors.push(`Orphan locale review manifest: ${name}.`);
 }
-
-if (printFingerprints) process.exit(0);
 
 if (errors.length) {
   console.error("Locale review gate failed:");

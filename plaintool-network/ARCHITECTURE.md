@@ -200,7 +200,7 @@ locale matrix (`en`, `ko`, `de`, `ar`, and `zh-TW`). `ui:qa:full` expands the sa
 browser checks to every published locale; static locale, route, and metadata gates
 remain exhaustive in both workflows.
 
-`npm run check` is non-mutating and includes SEO registry, locale fingerprint,
+`npm run check` is non-mutating and includes SEO registry, locale review,
 UI detail, TypeScript/Astro, ESLint, and Prettier checks. `npm run build` creates
 the preview static site and inspects built metadata, JSON-LD, crawler rules,
 sitemap membership, integrations, redirects, locale links, and route bundle

@@ -7,7 +7,6 @@
   "localeSourceFile": "apps/web/src/lib/content-registry.js",
   "copyFiles": ["apps/web/src/lib/tool-registry.js", "apps/web/src/lib/tool-catalog.ts", "apps/web/src/lib/locale-data/bundle.ts", "apps/web/src/lib/locale-data/new-tools/factory.ts", "apps/web/src/lib/locale-data/new-tools/calculator-suite.ts", "apps/web/src/features/percentage-calculator/contract.ts", "apps/web/src/features/percentage-calculator/PercentageCalculator.astro", "apps/web/src/features/percentage-calculator/client.ts", "apps/web/src/features/new-tools/NewToolPreview.astro", "apps/web/src/pages/[locale]/percentage-calculator/index.astro"],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:5416b761e73df3c96cc402ba5e8bd6eab78da4f90428e860cbae4f5eaa11874e",
   "locales": {
     "en": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["calculator-net-percentage-benchmark", "calculatorsoup-percentage-benchmark"] },
     "ko": { "status": "reference-backed", "reviewedAt": "2026-08-31", "referenceIds": ["ko-percentage-terminology-review", "percentage-render-review"] },

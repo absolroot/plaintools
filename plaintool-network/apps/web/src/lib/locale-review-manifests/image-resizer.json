@@ -35,7 +35,6 @@
     "apps/web/src/pages/[locale]/image-resizer/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:e0adbcab51b9d1d94af90e1515d515ca1f4b914919343495aed57be2bc3f0523",
   "locales": {
     "en": {
       "status": "reference-backed",

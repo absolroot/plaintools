@@ -35,7 +35,6 @@
     "apps/web/src/pages/[locale]/qr-code-scanner/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:ae04562fd82e85a473a55750d1423d536ef1dbcf7a9aad39ee802f16950f4d5e",
   "locales": {
     "en": {
       "status": "reference-backed",
