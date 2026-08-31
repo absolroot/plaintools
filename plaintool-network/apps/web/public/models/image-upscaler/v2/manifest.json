@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "model": "Swin2SR Realworld SR x4 64 BSRGAN PSNR",
+  "baseModel": "caidas/swin2SR-realworld-sr-x4-64-bsrgan-psnr",
+  "conversionRepository": "Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr",
+  "conversionRevision": "d0e9926970c93e472ce2392373d72597fc849027",
+  "upstream": "https://huggingface.co/Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr/tree/d0e9926970c93e472ce2392373d72597fc849027",
+  "runtime": "@huggingface/transformers@4.2.0",
+  "variants": {
+    "compact": {
+      "dtype": "q8",
+      "backend": "wasm",
+      "bytes": 21438622,
+      "sha256": "9e9bae06e1c280a1f2f5ab093312ee1ec39186afc8912259bb9e3de838f85fb8",
+      "parts": [
+        {
+          "path": "swin2sr-realworld-x4/onnx/model_quantized.onnx",
+          "bytes": 21438622,
+          "sha256": "9e9bae06e1c280a1f2f5ab093312ee1ec39186afc8912259bb9e3de838f85fb8"
+        }
+      ]
+    },
+    "quality": {
+      "dtype": "fp32",
+      "backend": "webgpu",
+      "bytes": 52772645,
+      "sha256": "f496dc73dcc01d778b1a12eb4c4038d6b27cd1c0b5bcd4258455ed6d7816c835",
+      "parts": [
+        {
+          "path": "swin2sr-realworld-x4/onnx/model.onnx.part1.bin",
+          "bytes": 20000000,
+          "sha256": "9553c663c862700934f7209aceaf6533768296d93c7cbaedfe696ae69d2f808b"
+        },
+        {
+          "path": "swin2sr-realworld-x4/onnx/model.onnx.part2.bin",
+          "bytes": 20000000,
+          "sha256": "135fb7fe4b80346851254424ab5ee112158bbc8f64a6ec1750ddcaa9ffd83032"
+        },
+        {
+          "path": "swin2sr-realworld-x4/onnx/model.onnx.part3.bin",
+          "bytes": 12772645,
+          "sha256": "93b9c3c149f4838bdd0177e85f2bb87f7dce7955e206909644ab2753167fe207"
+        }
+      ]
+    }
+  },
+  "license": {
+    "spdx": "Apache-2.0",
+    "path": "/licenses/u2net-apache-2.0.txt",
+    "source": "https://github.com/mv-lab/swin2sr/blob/main/LICENSE"
+  }
+}

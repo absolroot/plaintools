@@ -74,6 +74,26 @@ The image background remover bundles
 Copyright (c) Microsoft Corporation. It is distributed under the MIT License
 terms reproduced above.
 
+The image upscaler also bundles ONNX Runtime Web version
+`1.26.0-dev.20260416-b7804b056c` through
+[@huggingface/transformers](https://github.com/huggingface/transformers.js),
+version 4.2.0. ONNX Runtime Web is distributed under the MIT License terms
+reproduced above. Transformers.js is Copyright (c) Hugging Face and is
+distributed under Apache License 2.0.
+
+## Swin2SR model artifacts
+
+The image upscaler serves pinned Q8 and FP32 ONNX conversions of
+[Swin2SR Realworld SR x4](https://huggingface.co/caidas/swin2SR-realworld-sr-x4-64-bsrgan-psnr)
+from the
+[Xenova conversion repository](https://huggingface.co/Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr).
+The exact revision, byte sizes, and checksums are published in
+`/models/image-upscaler/v2/manifest.json`.
+
+The official Swin2SR repository states that its code and pretrained models are
+released under Apache License 2.0. The complete license is deployed at
+`/licenses/u2net-apache-2.0.txt`.
+
 ## U²-Net model artifacts
 
 The image background remover serves pinned copies of the U2NetP and Silueta
@@ -153,7 +173,6 @@ Copyright 2019 Justin Ridgewell <jridgewell@google.com>
 Copyright 2024 Justin Ridgewell <justin@ridgewell.name>
 
 These packages are distributed under the MIT License terms reproduced above.
-
 
 ## Image converter codecs
 

@@ -1,0 +1,203 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import IconButton from "../../components/IconButton.astro";
+import type { Locale } from "../../lib/site";
+import type { ImageUpscalerCopy } from "./contract";
+
+interface Props {
+  locale: Locale;
+  copy: ImageUpscalerCopy;
+}
+
+const { copy } = Astro.props;
+---
+
+<section
+  class="converter image-upscaler"
+  data-image-upscaler
+  aria-label={copy.accessibleLabel}
+>
+  <div class="upscaler-workspace" data-drop-zone>
+    <section class="upscaler-pane">
+      <div class="upscaler-pane-heading">
+        <span>{copy.originalLabel}</span>
+        <IconButton variant="text" icon="folder-open" data-new-image hidden
+          >{copy.newImage}</IconButton
+        >
+      </div>
+      <div class="upscaler-stage" data-source-stage>
+        <canvas data-source-canvas hidden></canvas>
+        <div class="upscaler-upload-prompt" data-upload-prompt>
+          <IconButton
+            variant="primary"
+            icon="folder-open"
+            iconSize={16}
+            data-open-file>{copy.chooseImage}</IconButton
+          >
+          <p>{copy.dropHint}</p>
+          <small>{copy.supportedImageTypes}</small>
+        </div>
+      </div>
+      <p class="upscaler-dimensions" data-input-details hidden></p>
+      <input
+        data-file-input
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+        hidden
+      />
+    </section>
+
+    <section class="upscaler-pane">
+      <div class="upscaler-pane-heading"><span>{copy.resultLabel}</span></div>
+      <div class="upscaler-stage upscaler-result-stage" data-result-stage>
+        <div
+          class="upscaler-comparison"
+          data-comparison
+          role="group"
+          aria-label={copy.comparisonLabel}
+          hidden
+        >
+          <canvas data-comparison-original></canvas>
+          <div class="upscaler-result-clip" data-result-clip>
+            <canvas data-result-canvas></canvas>
+          </div>
+          <span class="upscaler-divider" data-divider aria-hidden="true"></span>
+          <input
+            class="upscaler-comparison-range"
+            data-comparison-range
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            aria-label={copy.comparisonHelp}
+          />
+        </div>
+        <p class="upscaler-result-placeholder" data-result-placeholder>
+          {copy.resultPlaceholder}
+        </p>
+      </div>
+      <p class="upscaler-dimensions" data-output-details hidden></p>
+    </section>
+  </div>
+
+  <details class="upscaler-options" open>
+    <summary>{copy.optionsLabel}</summary>
+    <div class="upscaler-option-grid">
+      <fieldset>
+        <legend>{copy.modeLabel}</legend>
+        <label class="upscaler-choice">
+          <input type="radio" name="upscaler-mode" value="fast" checked />
+          <span
+            ><strong>{copy.modeOptions.fast}</strong><small
+              >{copy.modeHints.fast}</small
+            ></span
+          >
+        </label>
+        <label class="upscaler-choice" data-quality-option>
+          <input type="radio" name="upscaler-mode" value="quality" disabled />
+          <span
+            ><strong>{copy.modeOptions.quality}</strong><small
+              >{copy.modeHints.quality}</small
+            ></span
+          >
+        </label>
+        <p class="upscaler-unavailable" data-quality-unavailable hidden>
+          {copy.qualityUnavailable}
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>{copy.scaleLabel}</legend>
+        <div class="upscaler-segmented">
+          <label
+            ><input type="radio" name="upscaler-scale" value="2" checked /><span
+              >{copy.scaleOptions[2]}</span
+            ></label
+          >
+          <label
+            ><input type="radio" name="upscaler-scale" value="4" /><span
+              >{copy.scaleOptions[4]}</span
+            ></label
+          >
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>{copy.formatLabel}</legend>
+        <div class="upscaler-segmented">
+          <label
+            ><input type="radio" name="upscaler-format" value="png" /><span
+              >{copy.formatOptions.png}</span
+            ></label
+          >
+          <label
+            ><input
+              type="radio"
+              name="upscaler-format"
+              value="jpeg"
+              checked
+            /><span>{copy.formatOptions.jpeg}</span></label
+          >
+        </div>
+        <label class="upscaler-quality-control" data-jpeg-quality-wrap>
+          <span>{copy.jpegQualityLabel}</span>
+          <output data-jpeg-quality-output>92%</output>
+          <input data-jpeg-quality type="range" min="70" max="100" value="92" />
+        </label>
+      </fieldset>
+    </div>
+  </details>
+
+  <div class="upscaler-progress" data-progress-wrap hidden>
+    <progress data-progress max="100"></progress>
+    <span data-progress-label></span>
+  </div>
+
+  <ConverterStatus status={copy.ready}>
+    <div class="primary-actions upscaler-actions">
+      <button class="primary-button" type="button" data-upscale disabled>
+        <span data-upscale-label>{copy.upscale}</span>
+      </button>
+      <button class="secondary-button" type="button" data-cancel hidden>
+        {copy.cancel}
+      </button>
+      <IconButton
+        variant="secondary"
+        icon="download"
+        iconSize={15}
+        data-download
+        disabled>{copy.download}</IconButton
+      >
+    </div>
+  </ConverterStatus>
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(copy).replace(/</gu, "\\u003c")}
+  />
+
+  <dialog class="upscaler-consent" data-consent>
+    <div class="upscaler-consent-content">
+      <div>
+        <p class="upscaler-dialog-eyebrow" data-consent-eyebrow></p>
+        <h2>{copy.consentTitle}</h2>
+      </div>
+      <p data-consent-body></p>
+      <p class="upscaler-consent-notice">{copy.consentNotice}</p>
+      <div class="upscaler-dialog-actions">
+        <button type="button" class="secondary-button" data-consent-cancel>
+          {copy.cancel}
+        </button>
+        <button type="button" class="primary-button" data-consent-confirm>
+          {copy.consentConfirm}
+        </button>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  import "./client";
+</script>

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "collectedAt": "2026-08-31",
+  "market": "KR",
+  "locale": "ko",
+  "autocomplete": {
+    "provider": "Google Suggest",
+    "endpoint": "https://suggestqueries.google.com/complete/search?client=firefox&hl=ko&gl=kr",
+    "queries": {
+      "이미지 해상도": [
+        "이미지 해상도 높이기",
+        "이미지 해상도",
+        "이미지 해상도 낮추기",
+        "이미지 해상도 높이는 사이트",
+        "이미지 해상도 변경",
+        "이미지 해상도 올리기",
+        "이미지 해상도 조절",
+        "이미지 해상도 개선",
+        "이미지 해상도 업스케일링",
+        "이미지 해상도 변환"
+      ],
+      "사진 해상도": [
+        "사진 해상도 올리기",
+        "사진 해상도 줄이기",
+        "사진 해상도 변경",
+        "사진 해상도 높이는 사이트",
+        "사진 해상도",
+        "사진 해상도 확인",
+        "사진 해상도 조절",
+        "사진 해상도 올리기 사이트",
+        "사진 해상도 올리는 방법",
+        "사진 해상도 높이기"
+      ],
+      "이미지 업스케일": [
+        "이미지 업스케일링",
+        "이미지 업스케일",
+        "이미지 업스케일링 ai",
+        "이미지 업스케일 사이트",
+        "이미지 업스케일링 무료",
+        "이미지 업스케일러",
+        "이미지 업스케일링 프롬프트",
+        "이미지 업스케일링 디시",
+        "이미지 업스케일링 프로그램",
+        "이미지 업스케일링 방법"
+      ]
+    }
+  },
+  "relativeTrend": {
+    "provider": "Naver DataLab",
+    "resultUrl": "https://datalab.naver.com/keyword/trendResult.naver?hashKey=N_0ecff04c287a1633263710751a7a2a2c",
+    "period": {
+      "start": "2025-08-30",
+      "end": "2026-08-30"
+    },
+    "device": "all",
+    "gender": "all",
+    "ages": "all",
+    "metric": "relative search-interest index; the maximum across compared groups and dates is 100, not absolute volume",
+    "groups": [
+      {
+        "label": "해상도 높이기",
+        "terms": ["이미지 해상도 높이기", "사진 해상도 높이기"],
+        "days": 366,
+        "mean": 45.1649,
+        "median": 48.1781,
+        "maximum": 100,
+        "nonzeroDays": 366
+      },
+      {
+        "label": "이미지 업스케일링",
+        "terms": ["이미지 업스케일링", "사진 업스케일링"],
+        "days": 366,
+        "mean": 38.0478,
+        "median": 38.0567,
+        "maximum": 68.8259,
+        "nonzeroDays": 366
+      },
+      {
+        "label": "이미지 업스케일러",
+        "terms": ["AI 이미지 업스케일러", "이미지 업스케일러"],
+        "days": 366,
+        "mean": 0.1095,
+        "median": 0,
+        "maximum": 3.6437,
+        "nonzeroDays": 18
+      }
+    ]
+  },
+  "decision": {
+    "h1": "이미지 해상도 높이기",
+    "toolLabel": "AI 이미지 업스케일러",
+    "title": "AI 이미지 업스케일러 – 사진 해상도 2배·4배 높이기",
+    "reason": "Use the broad task phrase for the heading and retain the familiar AI upscaler term in the label and metadata."
+  }
+}

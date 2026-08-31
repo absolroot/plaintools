@@ -11,6 +11,8 @@ export default [
       "**/node_modules/**",
       "research/**",
       "scripts/qa/**",
+      "apps/web/public/runtime/**",
+      "apps/web/src/vendor/*.js",
     ],
   },
   eslint.configs.recommended,
