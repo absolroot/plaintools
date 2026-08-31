@@ -38,6 +38,7 @@ export type CalculatorToolId =
 import type { UuidGeneratorCopy } from "../../features/uuid-generator/contract";
 import type { ImageResizerCopy } from "../../features/image-resizer/contract";
 import type { ImageCropCopy } from "../../features/image-crop/contract";
+import type { RegexTesterCopy } from "../../features/regex-tester/contract";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -67,7 +68,8 @@ export type NewToolId =
   | "age-calculator"
   | "time-zone-converter"
   | CalculatorToolId
-  | "uuid-generator";
+  | "uuid-generator"
+  | "regex-tester";
 
 export type FormatterSubnetToolId =
   | "html-formatter"
@@ -85,6 +87,7 @@ export type LegacyNewToolId = Exclude<
   | "time-zone-converter"
   | CalculatorToolId
   | "uuid-generator"
+  | "regex-tester"
   | "image-upscaler"
   | "image-resizer"
   | "image-crop"
@@ -136,6 +139,7 @@ export type NewToolsCopy = {
   "percentage-calculator": ToolPageCopy<PercentageCalculatorCopy>;
   "bmi-calculator": ToolPageCopy<BmiCalculatorCopy>;
   "uuid-generator": ToolPageCopy<UuidGeneratorCopy>;
+  "regex-tester": ToolPageCopy<RegexTesterCopy>;
 };
 
 export type LocaleBundle = {

@@ -171,6 +171,16 @@ export const toolRegistry = /** @type {const} */ ([
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
+    id: "regex-tester",
+    featureId: "regex-tester",
+    slug: "regex-tester",
+    category: "text",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/regex-tester.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
     id: "jwt-decoder",
     featureId: "jwt-decoder",
     slug: "jwt-decoder",

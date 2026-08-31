@@ -1,0 +1,104 @@
+.regex-expression-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.regex-expression-input {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding-inline: 10px;
+  font-family: var(--font-mono);
+}
+.regex-expression-input input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 10px 6px;
+  font: inherit;
+  color: inherit;
+  outline: 0;
+}
+.regex-flags {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-mono);
+}
+.regex-flags legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.regex-flags label {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  cursor: pointer;
+}
+.regex-editor-grid textarea {
+  min-height: 240px;
+}
+.regex-replace-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+}
+.regex-results {
+  padding: 14px;
+  border-top: 1px solid var(--line);
+}
+.regex-results ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.regex-results li {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 6px 12px;
+  padding: 10px;
+  border-inline-start: 3px solid var(--accent);
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+.regex-results li span {
+  grid-column: 2;
+  color: var(--muted);
+}
+.regex-results code {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 720px) {
+  .regex-expression-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .regex-flags {
+    flex-wrap: wrap;
+    min-height: 44px;
+    align-items: center;
+  }
+  .regex-editor-grid textarea {
+    min-height: 180px;
+  }
+  .regex-results li {
+    grid-template-columns: 1fr;
+  }
+  .regex-results li span {
+    grid-column: auto;
+  }
+}

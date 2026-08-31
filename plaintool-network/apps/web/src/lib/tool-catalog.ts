@@ -115,6 +115,7 @@ const toolMarks = {
   "base64-encode": "B64",
   "word-counter": "Aa",
   "json-formatter": "{}",
+  "regex-tester": ".*",
   "unix-timestamp-converter": "T",
   "time-zone-converter": "TZ",
   "text-compare": "≠",

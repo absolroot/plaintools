@@ -1,0 +1,24 @@
+---
+import PreviewToolPage from "../../../components/PreviewToolPage.astro";
+import RegexTester from "../../../features/regex-tester/RegexTester.astro";
+import featureStylesheet from "../../../features/regex-tester/styles.css?url";
+import { localeBundles } from "../../../lib/locale-data";
+import { locales, type Locale } from "../../../lib/site";
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+const { locale } = Astro.props as { locale: Locale };
+const t = localeBundles[locale].tools["regex-tester"];
+---
+
+<PreviewToolPage
+  locale={locale}
+  page="regex-tester"
+  title={t.title}
+  description={t.description}
+  guideTitle={t.guideTitle}
+  guideBody={t.guideBody}
+  faqs={t.faqs}
+  featureStylesheet={featureStylesheet}
+  ><RegexTester locale={locale} /></PreviewToolPage
+>

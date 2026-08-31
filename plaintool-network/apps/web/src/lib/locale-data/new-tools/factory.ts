@@ -14,6 +14,7 @@ import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract"
 import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../../features/background-remover/contract";
 import type { UuidGeneratorCopy } from "../../../features/uuid-generator/contract";
+import type { RegexTesterCopy } from "../../../features/regex-tester/contract";
 import type { ImageUpscalerCopy } from "../../../features/image-upscaler/contract";
 import type { Locale } from "../../site";
 import { imageUpscalerFor } from "./image-upscaler";
@@ -1005,6 +1006,133 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     },
   };
 
+  const regexTitles: Record<string, { title: string; description: string }> = {
+    en: {
+      title: "RegEx Tester",
+      description:
+        "Test JavaScript regular expressions against text in your browser.",
+    },
+    ko: {
+      title: "정규식 테스터",
+      description:
+        "브라우저에서 JavaScript 정규식을 텍스트와 바로 테스트합니다.",
+    },
+    es: {
+      title: "Probador de RegEx",
+      description:
+        "Prueba expresiones regulares de JavaScript con texto en tu navegador.",
+    },
+    de: {
+      title: "RegEx-Tester",
+      description: "Teste JavaScript-RegExp direkt mit Text im Browser.",
+    },
+    ja: {
+      title: "正規表現テスター",
+      description: "ブラウザで JavaScript 正規表現をテキストに試します。",
+    },
+    fr: {
+      title: "Testeur RegEx",
+      description:
+        "Testez des expressions régulières JavaScript dans votre navigateur.",
+    },
+    "pt-BR": {
+      title: "Testador de RegEx",
+      description: "Teste expressões regulares JavaScript no navegador.",
+    },
+    it: {
+      title: "Tester RegEx",
+      description: "Prova espressioni regolari JavaScript nel browser.",
+    },
+    nl: {
+      title: "RegEx-tester",
+      description: "Test JavaScript-reguliere expressies in je browser.",
+    },
+    sv: {
+      title: "RegEx-testare",
+      description: "Testa JavaScript-reguljära uttryck i webbläsaren.",
+    },
+    cs: {
+      title: "Tester RegEx",
+      description: "Testujte regulární výrazy JavaScriptu v prohlížeči.",
+    },
+    pl: {
+      title: "Tester RegEx",
+      description: "Testuj wyrażenia regularne JavaScript w przeglądarce.",
+    },
+    da: {
+      title: "RegEx-tester",
+      description: "Test JavaScript-regulære udtryk i browseren.",
+    },
+    no: {
+      title: "RegEx-tester",
+      description: "Test JavaScript-regulære uttrykk i nettleseren.",
+    },
+    ar: {
+      title: "مختبر RegEx",
+      description: "اختبر تعبيرات JavaScript النمطية داخل المتصفح.",
+    },
+    "zh-TW": {
+      title: "RegEx 測試器",
+      description: "在瀏覽器中測試 JavaScript 正規表示式。",
+    },
+    tr: {
+      title: "RegEx Test Aracı",
+      description: "JavaScript düzenli ifadelerini tarayıcıda test edin.",
+    },
+  };
+  const regexTitle = regexTitles[seed.locale] ?? regexTitles.en;
+  const regexTester: ToolPageCopy<RegexTesterCopy> = {
+    title: regexTitle.title,
+    heading: regexTitle.title,
+    description: regexTitle.description,
+    mobileDescription: regexTitle.description,
+    guideTitle: `How to use ${regexTitle.title}`,
+    guideBody:
+      "Enter a JavaScript regular expression, choose flags, and inspect each match and capture group. Your text stays in this browser tab.",
+    safetyTitle: "Local JavaScript processing",
+    safetyBody:
+      "Expressions run with your browser's JavaScript regular-expression engine. Do not use this tester to validate PCRE, .NET, Java, or other engine-specific syntax.",
+    faqs: [
+      {
+        q: "Which regex engine is used?",
+        a: "This tester uses the JavaScript RegExp engine built into your browser.",
+      },
+      {
+        q: "Why does a pattern work elsewhere but not here?",
+        a: "Regular-expression syntax differs between engines. Check the target language or runtime documentation for engine-specific features.",
+      },
+      {
+        q: "Is my text uploaded?",
+        a: "No. Matching and replacement happen locally in this browser tab.",
+      },
+    ],
+    feature: {
+      expressionLabel: "Regular expression",
+      expressionPlaceholder: "Enter a JavaScript regular expression",
+      flagsLabel: "Flags",
+      testTextLabel: "Test text",
+      testTextPlaceholder: "Paste or type text to test",
+      replaceLabel: "Replacement result",
+      replacePlaceholder: "Use $1, $2, and other JavaScript replacement tokens",
+      replaceAction: "Replace all",
+      resultsLabel: "Match results",
+      ready: "Ready",
+      noMatches: "No matches",
+      matchCount: "matches",
+      matchAt: "Match at",
+      group: "Group",
+      wholeMatch: "Whole match",
+      invalid: "Invalid regular expression",
+      tooManyMatches: "Showing the first 500 matches",
+      replacementResult: "Replacement result updated",
+      clear: ui.clear,
+      loadSample: "Load sample",
+      copied: ui.copied,
+      copy: ui.copy,
+      localNote: "Processed only in this browser",
+    },
+  };
+
   const tools: NewToolsCopy = {
     "ai-watermark-remover": page("ai-watermark-remover", ai),
     "url-encode": page("url-encode", urlFeature("url-encode")),
@@ -1015,6 +1143,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       ariaLabel: pageSeed("uuid-generator").title,
       outdated: ui.outdated,
     } satisfies UuidGeneratorCopy),
+    "regex-tester": regexTester,
     "jwt-decoder": page("jwt-decoder", jwt),
     "qr-code-generator": page("qr-code-generator", qrGenerator),
     "qr-code-scanner": page("qr-code-scanner", qrScanner),
@@ -1104,9 +1233,16 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
         name: tools[id].title,
         summary: tools[id].mobileDescription,
         searchTerms:
-          id === "date-calculator"
-            ? [...pageSeed(id).terms, "Date Calculator"]
-            : pageSeed(id).terms,
+          id === "regex-tester"
+            ? [
+                "regex",
+                "regexp",
+                "regular expression",
+                "javascript regex tester",
+              ]
+            : id === "date-calculator"
+              ? [...pageSeed(id).terms, "Date Calculator"]
+              : pageSeed(id).terms,
       },
     ]),
   ) as Record<NewToolId, LocaleCatalogToolCopy>;
