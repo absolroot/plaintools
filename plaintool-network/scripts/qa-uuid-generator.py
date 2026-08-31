@@ -108,10 +108,15 @@ def run_desktop(page, report: dict) -> None:
     root.locator("[data-namespace]").select_option("custom")
     root.locator("[data-custom-namespace]").fill("not-a-uuid")
     root.locator("[data-generate]").click()
-    error_state = root.locator("[data-status]").evaluate(
-        "element => ({ state: element.dataset.state, text: element.textContent.trim() })"
+    error_state = root.evaluate(
+        """
+        element => ({
+          visible: element.classList.contains('has-error'),
+          text: element.querySelector('[data-status]').textContent.trim(),
+        })
+        """
     )
-    if error_state["state"] != "error" or not error_state["text"]:
+    if not error_state["visible"] or not error_state["text"]:
         fail(report, f"Custom namespace validation was not visible: {error_state}")
 
     root.locator('[data-version-button="v4"]').click()

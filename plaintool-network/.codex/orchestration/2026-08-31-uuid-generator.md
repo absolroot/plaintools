@@ -50,9 +50,21 @@ result authority.
 | --- | --- | --- |
 | Branch and boundary | complete | clean `uuid` branch at base commit |
 | Standards and UI research | complete | RFC 9562, uuid 14.0.2, EMN178, CreateUUID, UUIDTools, and ZeroTools reviewed; no EMN178 code copied because its repository does not license reuse |
-| Core implementation | complete | commit `e58af4a`; 10 focused tests cover versions, vectors, validation, format, uniqueness, and randomized v1 node behavior |
-| Feature UI | complete | commit `cbd64a1`; six-version workspace, deterministic inputs, 1-1,000 bulk, format/case, stale-result authority, copy/download/clear |
-| Registry, route, locales, SEO | in progress | 17 locale bundles and preview route complete; shared fingerprint refresh waits for latest-main integration |
-| Focused QA | in progress | type check and focused lint pass; dedicated desktop/mobile/RTL/local-route Playwright QA added |
-| Main reconciliation | pending | merge current `main` into branch before final gates |
-| Final commit | pending | record commit and verification evidence |
+| Core implementation | complete | commit `6e22a17`; 10 focused tests cover versions, vectors, validation, format, uniqueness, and randomized v1 node behavior |
+| Feature UI | complete | commit `239e066`; six-version workspace, deterministic inputs, 1-1,000 bulk, format/case, stale-result authority, copy/download/clear |
+| Registry, route, locales, SEO | complete | 17 locale bundles, preview route, and combined 20-feature fingerprints integrated with barcode/password in `a70480c` |
+| Focused QA | complete | full unit/type/lint/UI/source gates plus dedicated desktop/mobile/RTL/local-route Playwright QA passed |
+| Main reconciliation | complete | final fetch found `origin/main` `e084337`; rebuilt from that commit, cherry-picked UUID commits in order, and preserved barcode/password registry, locale, SEO, and lockfile changes |
+| Final commit | complete | this checkpoint records verification; the remote push follows only after one final origin-main ancestry check |
+
+## Verification checkpoint
+
+- `npm run test`: 52 files and 447 tests passed.
+- `npm run type:check`: 328 files, zero errors, warnings, or hints.
+- `npm run lint`, `npm run ui:check`, and `npm run qa:test`: passed; Python QA ran 18 tests.
+- `npm run seo:check`: 20 locale-review features, 17 locales, and 74 tools passed.
+- `npm run build`: 1,379 preview pages built and preview network QA passed.
+- `npm run build:production`: correctly stopped at the promotion gate because UUID remains `preview/noindex`; no production claim is made before promotion review.
+- Repository-focused Playwright against task-owned `http://127.0.0.1:4337` (PID 93516): 17/17 localized UUID routes returned 200 with localized H1 and noindex metadata; Korean homepage UUID card present; RFC v5 vector passed; v7 bulk and stale-result authority passed; 1,000 UUIDs generated and rendered in 73.0 ms; Arabic 390x844 had no overflow, all visible controls were at least 44 px, UUID values remained LTR, and generation scrolled to results; zero console, page, or external-request errors.
+- Existing barcode/password integration also passed its 34 localized route and homepage-card checks plus desktop/mobile interaction checks.
+- Managed QA server PID 93516 was stopped and port 4337 was released after verification.
