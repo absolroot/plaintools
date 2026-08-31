@@ -1,0 +1,356 @@
+.uuid-generator {
+  overflow: visible;
+}
+
+.uuid-version-bar {
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(220px, 0.6fr);
+  align-items: center;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  background: var(--base);
+}
+
+.uuid-control-label,
+.uuid-field > span,
+.uuid-choice-fieldset legend {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.uuid-version-switch {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  background: var(--recessed);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+
+.uuid-version-button {
+  min-width: 0;
+  min-height: 48px;
+  padding: var(--space-1) var(--space-2);
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  border: 0;
+  border-inline-start: 1px solid var(--line);
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+}
+
+.uuid-version-button:first-child {
+  border-inline-start: 0;
+}
+
+.uuid-version-button strong {
+  color: inherit;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.uuid-version-button small {
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uuid-version-button:hover,
+.uuid-version-button.is-active {
+  color: var(--ink);
+  background: var(--tint);
+}
+
+.uuid-version-button.is-active {
+  position: relative;
+  box-shadow: inset 0 -2px 0 var(--action);
+}
+
+.uuid-version-hint,
+.uuid-control-hint,
+.uuid-result-heading p,
+.uuid-result-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.uuid-workspace {
+  min-height: 430px;
+  display: grid;
+  grid-template-columns: minmax(280px, 350px) minmax(0, 1fr);
+  background: var(--line);
+  gap: 1px;
+}
+
+.uuid-settings,
+.uuid-results {
+  min-width: 0;
+  background: var(--base);
+}
+
+.uuid-settings {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.uuid-name-controls,
+.uuid-quantity-controls {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.uuid-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.uuid-field input,
+.uuid-field select {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  outline: 0;
+  color: var(--ink);
+  background: var(--recessed);
+  box-shadow: inset 0 0 0 1px var(--control-line);
+  font-size: 13px;
+}
+
+.uuid-field input:focus-visible,
+.uuid-field select:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--focus-ring);
+}
+
+.uuid-quick-counts,
+.uuid-format-choices,
+.uuid-case-choices {
+  display: grid;
+  gap: 1px;
+  background: var(--control-line);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+
+.uuid-quick-counts,
+.uuid-format-choices {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.uuid-case-choices {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.uuid-choice-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+  border: 0;
+}
+
+.uuid-choice-button {
+  min-width: 0;
+  height: 36px;
+  padding: 0 var(--space-2);
+  overflow: hidden;
+  border: 0;
+  color: var(--muted);
+  background: var(--base);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uuid-choice-button:hover:not(:disabled),
+.uuid-choice-button.is-active {
+  color: var(--ink);
+  background: var(--tint);
+}
+
+.uuid-choice-button.is-active {
+  box-shadow: inset 0 -2px 0 var(--action);
+}
+
+.uuid-generate-button {
+  width: 100%;
+  margin-block-start: auto;
+}
+
+.uuid-results {
+  display: flex;
+  flex-direction: column;
+  background: var(--output-surface);
+}
+
+.uuid-result-heading {
+  min-height: 60px;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  background: var(--elevated);
+}
+
+.uuid-result-heading h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.uuid-result-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.uuid-result-empty {
+  margin: auto;
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.uuid-result-list {
+  min-height: 0;
+  max-height: 520px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.uuid-result-row {
+  min-width: 0;
+  min-height: 45px;
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.uuid-result-row code {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--code-font);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uuid-copy-one::before {
+  content: "⧉";
+  font-size: 14px;
+}
+
+.uuid-generator.has-stale-result .uuid-result-list {
+  opacity: 0.58;
+}
+
+.uuid-generator .converter-commandbar {
+  margin-block-start: 0;
+}
+
+@media (max-width: 820px) {
+  .uuid-version-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .uuid-version-switch {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .uuid-version-button:nth-child(4) {
+    border-inline-start: 0;
+  }
+
+  .uuid-version-hint {
+    min-height: 34px;
+  }
+
+  .uuid-workspace {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    background: transparent;
+  }
+
+  .uuid-settings,
+  .uuid-results {
+    box-shadow: 0 0 0 1px var(--control-line);
+  }
+
+  .uuid-generate-button {
+    margin-block-start: 0;
+  }
+}
+
+@media (max-width: 680px) {
+  .uuid-version-bar {
+    padding: var(--space-3);
+    box-shadow: 0 0 0 1px var(--control-line);
+  }
+
+  .uuid-version-button {
+    min-height: 52px;
+  }
+
+  .uuid-settings {
+    padding: var(--space-3);
+  }
+
+  .uuid-field input,
+  .uuid-field select,
+  .uuid-choice-button,
+  .uuid-generate-button {
+    height: 44px;
+  }
+
+  .uuid-result-heading {
+    min-height: 104px;
+    padding: var(--space-3);
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .uuid-result-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .uuid-result-row {
+    min-height: 56px;
+    padding-inline: var(--space-3) var(--space-2);
+  }
+
+  .uuid-result-row code {
+    font-size: 12px;
+  }
+
+  .uuid-result-actions .text-button,
+  .uuid-copy-one {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 390px) {
+  .uuid-format-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
