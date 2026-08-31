@@ -9,6 +9,7 @@ import { uuidGeneratorFor } from "./uuid-generator";
 const backgroundRemover = backgroundRemoverFor("en");
 
 const seed = {
+  locale: "en",
   formatterSubnet: formatterSubnetFor("en"),
   background: backgroundRemover.copy,
   dateCalculator: dateCalculatorFor("en"),

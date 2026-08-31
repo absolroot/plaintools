@@ -58,6 +58,10 @@ from .generator_feature import (
     run_password_generator_mobile,
 )
 from .pdf_toolkit_feature import run_pdf_toolkit_desktop, run_pdf_toolkit_mobile
+from .image_upscaler_feature import (
+    run_image_upscaler_desktop,
+    run_image_upscaler_mobile,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -266,6 +270,12 @@ FEATURE_COVERAGE = {
         desktop=run_pdf_toolkit_desktop,
         mobile=run_pdf_toolkit_mobile,
         focus_targets=(("input", "[data-pdf-toolkit] [data-open-files]"),),
+        exercise_faq=True,
+    ),
+    "image-upscaler": FeatureCoverage(
+        desktop=run_image_upscaler_desktop,
+        mobile=run_image_upscaler_mobile,
+        focus_targets=(("input", "[data-image-upscaler] [data-open-file]"),),
         exercise_faq=True,
     ),
 }

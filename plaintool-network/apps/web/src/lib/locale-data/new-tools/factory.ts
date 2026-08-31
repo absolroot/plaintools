@@ -14,6 +14,9 @@ import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract"
 import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../../features/background-remover/contract";
 import type { UuidGeneratorCopy } from "../../../features/uuid-generator/contract";
+import type { ImageUpscalerCopy } from "../../../features/image-upscaler/contract";
+import type { Locale } from "../../site";
+import { imageUpscalerFor } from "./image-upscaler";
 import type {
   DateCalculatorLocaleSeed,
   DateCalculatorPageId,
@@ -35,6 +38,7 @@ import type { UuidGeneratorLocaleSeed } from "./uuid-generator";
 
 type PageSeed = {
   title: string;
+  heading?: string;
   description: string;
   guide: string;
   inputLabel?: string;
@@ -136,6 +140,7 @@ export type FormatterSubnetLocaleSeed = {
 };
 
 export type NewToolLocaleSeed = {
+  locale: Locale;
   mobileDescriptions?: Partial<Record<NewToolId, string>>;
   ui: {
     clear: string;
@@ -404,27 +409,30 @@ function fill(value: string, replacements: Record<string, string>): string {
 export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const { ui } = seed;
   const pageSeed = (id: NewToolId): PageSeed =>
-    id === "time-zone-converter"
-      ? seed.timeZoneConverter.page
-      : id === "uuid-generator"
-        ? seed.uuidGenerator.page
-        : id === "date-calculator" ||
-            id === "dday-calculator" ||
-            id === "age-calculator"
-          ? seed.dateCalculator.pages[id as DateCalculatorPageId]
-          : id === "fraction-calculator" ||
-              id === "factor-calculator" ||
-              id === "lcm-calculator" ||
-              id === "percentage-calculator" ||
-              id === "bmi-calculator"
-            ? seed.calculatorSuite.pages[id as CalculatorPageId]
-            : id in seed.pages
-              ? seed.pages[id as LegacyNewToolId]
-              : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
+    id === "image-upscaler"
+      ? imageUpscalerFor(seed.locale).page
+      : id === "time-zone-converter"
+        ? seed.timeZoneConverter.page
+        : id === "uuid-generator"
+          ? seed.uuidGenerator.page
+          : id === "date-calculator" ||
+              id === "dday-calculator" ||
+              id === "age-calculator"
+            ? seed.dateCalculator.pages[id as DateCalculatorPageId]
+            : id === "fraction-calculator" ||
+                id === "factor-calculator" ||
+                id === "lcm-calculator" ||
+                id === "percentage-calculator" ||
+                id === "bmi-calculator"
+              ? seed.calculatorSuite.pages[id as CalculatorPageId]
+              : id in seed.pages
+                ? seed.pages[id as LegacyNewToolId]
+                : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
     const source = pageSeed(id);
     return {
       title: source.title,
+      heading: source.heading,
       description: source.description,
       mobileDescription:
         source.mobileDescription ??
@@ -734,6 +742,8 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     resultPlaceholder: seed.background.resultEmpty,
   };
 
+  const upscaler: ImageUpscalerCopy = imageUpscalerFor(seed.locale).copy;
+
   const dataErrors = seed.data.errors;
   const dataFeature = (id: NewToolId): DataConverterCopy => {
     const source = pageSeed(id);
@@ -1019,6 +1029,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "sql-formatter": page("sql-formatter", sqlFormatter),
     "ip-subnet-calculator": page("ip-subnet-calculator", ipSubnet),
     "background-remover": page("background-remover", background),
+    "image-upscaler": page("image-upscaler", upscaler),
     "date-calculator": page("date-calculator", {
       ...seed.dateCalculator.feature,
       ariaLabel: pageSeed("date-calculator").title,

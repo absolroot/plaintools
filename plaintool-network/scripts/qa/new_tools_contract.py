@@ -23,6 +23,7 @@ NEW_TOOL_ROUTES = (
     "background-remover",
     "barcode-generator",
     "password-generator",
+    "image-upscaler",
 )
 
 NEW_TOOL_FEATURES = {
@@ -47,6 +48,7 @@ NEW_TOOL_FEATURES = {
     "background-remover": "background-remover",
     "barcode-generator": "barcode-generator",
     "password-generator": "password-generator",
+    "image-upscaler": "image-upscaler",
 }
 
 NEW_TOOL_PUBLICATIONS = {slug: "indexable" for slug in NEW_TOOL_ROUTES}

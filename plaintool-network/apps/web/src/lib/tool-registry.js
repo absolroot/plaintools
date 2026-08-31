@@ -371,6 +371,16 @@ export const toolRegistry = /** @type {const} */ ([
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
+    id: "image-upscaler",
+    featureId: "image-upscaler",
+    slug: "image-upscaler",
+    category: "image",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/image-upscaler.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
     id: "date-calculator",
     featureId: "date-calculator",
     slug: "date-calculator",

@@ -56,6 +56,10 @@ const backgroundModelRoot = join(dist, "models", "background-remover", "v1");
 const backgroundModelManifest = JSON.parse(
   await readFile(join(backgroundModelRoot, "manifest.json"), "utf8"),
 );
+const upscalerModelRoot = join(dist, "models", "image-upscaler", "v2");
+const upscalerModelManifest = JSON.parse(
+  await readFile(join(upscalerModelRoot, "manifest.json"), "utf8"),
+);
 const prettierNotices = await readFile(
   join(dist, "licenses", "prettier-3.9.6.txt"),
   "utf8",
@@ -99,6 +103,8 @@ const requiredRuntimeNotices = [
   "U²-Net model artifacts",
   "MODNet model artifact",
   "BiRefNet Lite model artifact",
+  "Transformers.js",
+  "Swin2SR model artifacts",
 ];
 for (const packageName of requiredRuntimeNotices) {
   if (!thirdPartyNotices.includes(packageName)) {
@@ -125,6 +131,54 @@ for (const [modelId, model] of Object.entries(backgroundModelManifest.models)) {
   const digest = createHash("sha256").update(joined).digest("hex");
   if (digest !== model.sha256)
     throw new Error(`${modelId} failed its reconstructed SHA-256 check.`);
+}
+for (const [variantId, variant] of Object.entries(
+  upscalerModelManifest.variants,
+)) {
+  const parts = [];
+  for (const part of variant.parts) {
+    const bytes = await readFile(join(upscalerModelRoot, part.path));
+    if (bytes.byteLength !== part.bytes)
+      throw new Error(
+        `image-upscaler:${variantId}:${part.path} has an unexpected byte size.`,
+      );
+    if (bytes.byteLength >= pagesAssetLimit)
+      throw new Error(
+        `image-upscaler:${variantId}:${part.path} exceeds the Pages asset limit.`,
+      );
+    const digest = createHash("sha256").update(bytes).digest("hex");
+    if (digest !== part.sha256)
+      throw new Error(
+        `image-upscaler:${variantId}:${part.path} failed its SHA-256 check.`,
+      );
+    parts.push(bytes);
+  }
+  const joined = Buffer.concat(parts);
+  if (joined.byteLength !== variant.bytes)
+    throw new Error(
+      `image-upscaler:${variantId} has an unexpected reconstructed byte size.`,
+    );
+  const digest = createHash("sha256").update(joined).digest("hex");
+  if (digest !== variant.sha256)
+    throw new Error(
+      `image-upscaler:${variantId} failed its reconstructed SHA-256 check.`,
+    );
+}
+const upscalerRuntimeAssets = new Map([
+  ["ort-wasm-simd-threaded.asyncify.mjs", { bytes: 47_389, text: true }],
+  ["ort-wasm-simd-threaded.asyncify.wasm", { bytes: 23_567_050, text: false }],
+]);
+for (const [asset, expected] of upscalerRuntimeAssets) {
+  const bytes = await readFile(
+    join(dist, "runtime", "transformers-4.2.0", asset),
+  );
+  const normalizedBytes = expected.text
+    ? Buffer.byteLength(bytes.toString("utf8").replaceAll("\r\n", "\n"))
+    : bytes.byteLength;
+  if (normalizedBytes !== expected.bytes)
+    throw new Error(
+      `Image upscaler runtime ${asset} has an unexpected byte size.`,
+    );
 }
 if (
   !thirdPartyNotices.includes("/licenses/prettier-3.9.6.txt") ||

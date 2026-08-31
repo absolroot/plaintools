@@ -138,6 +138,7 @@ const toolMarks = {
   "lcm-calculator": "LCM",
   "percentage-calculator": "%",
   "bmi-calculator": "BMI",
+  "image-upscaler": "4×",
   "date-calculator": "D±",
   "dday-calculator": "D",
   "age-calculator": "AGE",
@@ -193,7 +194,9 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   subtitle:
     tool.id === "background-remover"
       ? backgroundRemoverCardSubtitle
-      : undefined,
+      : tool.id === "image-upscaler"
+        ? localize(() => "2× · 4×")
+        : undefined,
   summary: localize(
     (locale) =>
       (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[

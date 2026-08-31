@@ -31,6 +31,7 @@ const newToolIds: NewToolId[] = [
   "sql-formatter",
   "ip-subnet-calculator",
   "background-remover",
+  "image-upscaler",
   "date-calculator",
   "dday-calculator",
   "age-calculator",

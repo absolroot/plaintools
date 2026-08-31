@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "featureId": "image-upscaler",
+  "enforcement": "new-feature",
+  "sourceLocale": "en",
+  "publicLocales": [
+    "en",
+    "ko",
+    "es",
+    "de",
+    "ja",
+    "fr",
+    "pt-BR",
+    "it",
+    "nl",
+    "sv",
+    "cs",
+    "pl",
+    "da",
+    "no",
+    "ar",
+    "zh-TW",
+    "tr"
+  ],
+  "localeSourceFile": "apps/web/src/lib/content-registry.js",
+  "copyFiles": [
+    "apps/web/src/lib/tool-registry.js",
+    "apps/web/src/lib/locale-data/bundle.ts",
+    "apps/web/src/lib/locale-data/new-tools/factory.ts",
+    "apps/web/src/lib/locale-data/new-tools/image-upscaler.ts",
+    "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/features/image-upscaler/contract.ts",
+    "apps/web/src/features/image-upscaler/ImageUpscaler.astro",
+    "apps/web/src/pages/[locale]/image-upscaler/index.astro"
+  ],
+  "copyFingerprint": "sha256:fbbbe9282b6e4bffc18ab81cd02eead6b9dbe22bafebe8740a2f584a3a4125d5",
+  "locales": {
+    "en": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["en-image-upscaler-copy", "en-swin2sr-model-docs"]
+    },
+    "ko": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ko-image-upscaler-copy", "ko-swin2sr-model-docs"]
+    },
+    "es": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["es-image-upscaler-copy", "es-swin2sr-model-docs"]
+    },
+    "de": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["de-image-upscaler-copy", "de-swin2sr-model-docs"]
+    },
+    "ja": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ja-image-upscaler-copy", "ja-swin2sr-model-docs"]
+    },
+    "fr": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["fr-image-upscaler-copy", "fr-swin2sr-model-docs"]
+    },
+    "pt-BR": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["pt-br-image-upscaler-copy", "pt-br-swin2sr-model-docs"]
+    },
+    "it": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["it-image-upscaler-copy", "it-swin2sr-model-docs"]
+    },
+    "nl": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["nl-image-upscaler-copy", "nl-swin2sr-model-docs"]
+    },
+    "sv": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["sv-image-upscaler-copy", "sv-swin2sr-model-docs"]
+    },
+    "cs": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["cs-image-upscaler-copy", "cs-swin2sr-model-docs"]
+    },
+    "pl": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["pl-image-upscaler-copy", "pl-swin2sr-model-docs"]
+    },
+    "da": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["da-image-upscaler-copy", "da-swin2sr-model-docs"]
+    },
+    "no": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["no-image-upscaler-copy", "no-swin2sr-model-docs"]
+    },
+    "ar": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["ar-image-upscaler-copy", "ar-swin2sr-model-docs"]
+    },
+    "zh-TW": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["zh-tw-image-upscaler-copy", "zh-tw-swin2sr-model-docs"]
+    },
+    "tr": {
+      "status": "adversarial-reviewed",
+      "reviewedAt": "2026-08-31",
+      "referenceIds": ["tr-image-upscaler-copy", "tr-swin2sr-model-docs"]
+    }
+  }
+}

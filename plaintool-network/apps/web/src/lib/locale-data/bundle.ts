@@ -22,6 +22,7 @@ import type { JavaScriptFormatterCopy } from "../../features/javascript-formatte
 import type { SqlFormatterCopy } from "../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../features/background-remover/contract";
+import type { ImageUpscalerCopy } from "../../features/image-upscaler/contract";
 import type { DateCalculatorCopy } from "../../features/date-calculator/contract";
 import type { TimeZoneConverterCopy } from "../../features/time-zone-converter/contract";
 import type { MathCalculatorCopy } from "../../features/math-calculator/contract";
@@ -45,6 +46,7 @@ export type NewToolId =
   | "qr-code-generator"
   | "qr-code-scanner"
   | "background-remover"
+  | "image-upscaler"
   | "csv-to-markdown"
   | "markdown-to-csv"
   | "json-to-csv"
@@ -79,10 +81,12 @@ export type LegacyNewToolId = Exclude<
   | "time-zone-converter"
   | CalculatorToolId
   | "uuid-generator"
+  | "image-upscaler"
 >;
 
 export type ToolPageCopy<T> = {
   title: string;
+  heading?: string;
   description: string;
   mobileDescription: string;
   guideTitle: string;
@@ -102,6 +106,7 @@ export type NewToolsCopy = {
   "qr-code-generator": ToolPageCopy<QrGeneratorCopy>;
   "qr-code-scanner": ToolPageCopy<QrScannerCopy>;
   "background-remover": ToolPageCopy<BackgroundRemoverCopy>;
+  "image-upscaler": ToolPageCopy<ImageUpscalerCopy>;
   "csv-to-markdown": ToolPageCopy<DataConverterCopy>;
   "markdown-to-csv": ToolPageCopy<DataConverterCopy>;
   "json-to-csv": ToolPageCopy<DataConverterCopy>;

@@ -21,6 +21,8 @@ import sqlFormatterStylesheet from "../sql-formatter/styles.css?url";
 import IpSubnetCalculator from "../ip-subnet/IpSubnetCalculator.astro";
 import BackgroundRemover from "../background-remover/BackgroundRemover.astro";
 import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
+import ImageUpscaler from "../image-upscaler/ImageUpscaler.astro";
+import imageUpscalerStylesheet from "../image-upscaler/styles.css?url";
 import DateCalculator from "../date-calculator/DateCalculator.astro";
 import dateCalculatorStylesheet from "../date-calculator/styles.css?url";
 import UuidGenerator from "../uuid-generator/UuidGenerator.astro";
@@ -56,6 +58,7 @@ const featureStylesheets = {
   "qr-code-generator": qrStylesheet,
   "qr-code-scanner": qrStylesheet,
   "background-remover": backgroundRemoverStylesheet,
+  "image-upscaler": imageUpscalerStylesheet,
   "csv-to-markdown": dataConverterStylesheet,
   "markdown-to-csv": dataConverterStylesheet,
   "json-to-csv": dataConverterStylesheet,
@@ -137,6 +140,7 @@ const dataModeLabels = Object.fromEntries(
   locale={locale}
   page={page}
   title={content.title}
+  heading={content.heading}
   description={content.description}
   guideTitle={content.guideTitle}
   guideBody={content.guideBody}
@@ -211,6 +215,11 @@ const dataModeLabels = Object.fromEntries(
   {
     page === "background-remover" && (
       <BackgroundRemover locale={locale} copy={bundle.tools[page].feature} />
+    )
+  }
+  {
+    page === "image-upscaler" && (
+      <ImageUpscaler locale={locale} copy={bundle.tools[page].feature} />
     )
   }
   {
