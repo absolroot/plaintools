@@ -50,6 +50,51 @@ def run_url_codec_desktop(page, report: dict, _inventory) -> None:
             f"URL options are not isolated in the collapsed options section: {options_state}"
         )
 
+    page.locator("[data-url-codec] .formatter-options > summary").click()
+    page.locator(
+        "[data-url-codec] [aria-describedby='url-form-space-help']"
+    ).hover()
+    layout_state = page.evaluate(
+        """
+        () => {
+          const rect = (selector) => {
+            const bounds = document.querySelector(selector).getBoundingClientRect();
+            return {
+              top: bounds.top,
+              bottom: bounds.bottom,
+              center: bounds.top + bounds.height / 2
+            };
+          };
+          return {
+            converter: rect('[data-url-codec]'),
+            scopeLabel: rect('.url-scope-field .tooltip--label'),
+            scopeSelect: rect('[data-url-codec] [data-scope]'),
+            formCheckbox: rect('[data-url-codec] [data-form-space]'),
+            formLabel: rect('.formatter-check-row .tooltip--label'),
+            formHelp: rect('#url-form-space-help')
+          };
+        }
+        """
+    )
+    aligned_centers = (
+        layout_state["scopeLabel"]["center"],
+        layout_state["scopeSelect"]["center"],
+        layout_state["formCheckbox"]["center"],
+        layout_state["formLabel"]["center"],
+    )
+    if max(aligned_centers) - min(aligned_centers) > 1:
+        report["ui_detail_failures"].append(
+            f"URL option controls do not share one vertical axis: {layout_state}"
+        )
+    if (
+        layout_state["formHelp"]["top"] < layout_state["converter"]["top"]
+        or layout_state["formHelp"]["bottom"]
+        > layout_state["converter"]["bottom"]
+    ):
+        report["ui_detail_failures"].append(
+            f"URL form-space tooltip is clipped by the converter: {layout_state}"
+        )
+
     page.locator("[data-url-codec] [data-sample]").click()
     page.wait_for_function(
         "document.querySelector('[data-url-codec] [data-input]').value === "

@@ -15,7 +15,25 @@
   opacity: 0.7;
 }
 
+.url-scope-field {
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 2fr);
+  align-items: center;
+}
+
+.url-scope-field select {
+  min-width: 0;
+}
+
+.url-codec .formatter-options .tooltip--label .tooltip-content {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
 @media (max-width: 680px) {
+  .url-scope-field {
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 2fr);
+  }
+
   .url-codec .formatter-check-row .tooltip-target > label {
     min-height: 44px;
     display: flex;
