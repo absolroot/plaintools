@@ -66,6 +66,10 @@ from .image_resizer_feature import (
     run_image_resizer_desktop,
     run_image_resizer_mobile,
 )
+from .uuid_generator_feature import (
+    run_uuid_generator_desktop,
+    run_uuid_generator_mobile,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -286,6 +290,12 @@ FEATURE_COVERAGE = {
         desktop=run_image_resizer_desktop,
         mobile=run_image_resizer_mobile,
         focus_targets=(("input", "[data-image-resizer] [data-open-file]"),),
+        exercise_faq=True,
+    ),
+    "uuid-generator": FeatureCoverage(
+        desktop=run_uuid_generator_desktop,
+        mobile=run_uuid_generator_mobile,
+        focus_targets=(("input", "[data-uuid-generator] [data-generate]"),),
         exercise_faq=True,
     ),
 }
