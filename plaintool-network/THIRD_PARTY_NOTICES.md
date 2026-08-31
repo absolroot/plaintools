@@ -39,6 +39,12 @@ and plugin artifacts include additional third-party software. The complete
 vendor-supplied notice is deployed verbatim at
 `/licenses/prettier-3.9.6.txt`.
 
+## uuid
+
+The UUID generator bundles [uuid](https://github.com/uuidjs/uuid), version
+14.0.2. Copyright (c) 2010-2020 Robert Kieffer and other contributors. It is
+distributed under the MIT License terms reproduced above.
+
 ## sql-formatter
 
 The SQL formatter bundles [sql-formatter](https://github.com/sql-formatter-org/sql-formatter),
