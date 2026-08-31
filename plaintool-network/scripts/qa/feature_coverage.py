@@ -235,7 +235,9 @@ FEATURE_COVERAGE = {
     "date-calculator": FeatureCoverage(
         desktop=run_date_calculator_desktop,
         mobile=run_date_calculator_mobile,
-        focus_targets=(("input", '[data-field="base"]'),),
+        focus_targets=(
+            ("action", "[data-date-calculator] [data-calculate]"),
+        ),
         exercise_faq=True,
     ),
     "image-converter": FeatureCoverage(
