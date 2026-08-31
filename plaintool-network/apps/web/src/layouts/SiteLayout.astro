@@ -84,6 +84,10 @@ const jsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@graph": graph,
 }).replace(/</gu, "\\u003c");
+const integrationActive = Boolean(
+  siteConfig.integrations.adsensePublisherId ||
+    siteConfig.integrations.ga4MeasurementId,
+);
 const contentSecurityPolicy =
   "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
 ---
