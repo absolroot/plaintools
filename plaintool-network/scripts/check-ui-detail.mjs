@@ -79,6 +79,14 @@ const directorySearchUrl = new URL(
   "../apps/web/src/components/ToolDirectorySearch.astro",
   import.meta.url,
 );
+const directoryCardUrl = new URL(
+  "../apps/web/src/components/ToolDirectoryCard.astro",
+  import.meta.url,
+);
+const directorySectionUrl = new URL(
+  "../apps/web/src/components/ToolDirectorySection.astro",
+  import.meta.url,
+);
 const [
   css,
   page,
@@ -97,6 +105,8 @@ const [
   tooltipScript,
   directoryPage,
   directorySearch,
+  directoryCard,
+  directorySection,
 ] = await Promise.all([
   Promise.all(cssUrls.map((url) => readFile(url, "utf8"))).then((parts) =>
     parts.join("\n"),
@@ -122,6 +132,8 @@ const [
   readFile(tooltipScriptUrl, "utf8"),
   readFile(directoryPageUrl, "utf8"),
   readFile(directorySearchUrl, "utf8"),
+  readFile(directoryCardUrl, "utf8"),
+  readFile(directorySectionUrl, "utf8"),
 ]);
 const failures = [];
 
@@ -491,6 +503,9 @@ expectSource(
     directorySearchIndex < directoryCategoriesIndex,
   "The directory search component must remain between the directory header and categories.",
 );
+const directorySources = [directoryPage, directorySection, directoryCard].join(
+  "\n",
+);
 for (const hook of [
   "data-directory-search-category",
   "data-directory-search-category-count",
@@ -498,16 +513,16 @@ for (const hook of [
   "data-directory-search-corpus",
 ]) {
   expectSource(
-    directoryPage.includes(hook),
-    `The directory page must preserve the ${hook} filtering hook.`,
+    directorySources.includes(hook),
+    `The directory components must preserve the ${hook} filtering hook.`,
   );
 }
 expectSource(
-  directoryPage.includes("buildToolDirectorySearchCorpus"),
+  directoryCard.includes("buildToolDirectorySearchCorpus"),
   "Directory cards must receive corpus text from the pure search helper.",
 );
 expectSource(
-  directoryPage.includes('tool.status !== "available"'),
+  directoryCard.includes('tool.status !== "available"'),
   "Directory cards must hide the redundant Available status label.",
 );
 expectSource(

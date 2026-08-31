@@ -138,6 +138,13 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
 
     # Changing a quality-dependent setting must invalidate an older output.
     root.locator("[data-quality]").select_option("compact", force=True)
+    if (
+        root.locator("[data-quality-summary]").inner_text().strip()
+        != root.locator("[data-quality] option[value='compact']").text_content().strip()
+    ):
+        report["ui_detail_failures"].append(
+            "Image quality summary did not reflect the selected profile."
+        )
     if root.locator("[data-download]").is_enabled():
         report["ui_detail_failures"].append(
             "Image quality change retained a stale downloadable result."
@@ -171,6 +178,40 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
                 f"Adversarial image was not safely rejected ({name}): {status!r}"
             )
         rejected.append(name)
+
+    quality_details = root.locator(".image-options")
+    quality_toggle = quality_details.locator("[data-quality-summary-toggle]")
+    affordances = {
+        "swapText": root.locator("[data-swap-formats]").inner_text().strip(),
+        "swapIcon": root.locator("[data-swap-formats] .ui-icon").count(),
+        "qualitySummary": quality_details.locator(
+            "[data-quality-summary]"
+        ).inner_text().strip(),
+        "qualityChevron": quality_details.locator(
+            ".image-options-chevron"
+        ).count(),
+        "qualityInitiallyOpen": quality_details.get_attribute("open") is not None,
+    }
+    quality_toggle.click()
+    affordances["qualityOpensOnClick"] = (
+        quality_details.get_attribute("open") is not None
+    )
+    with page.expect_navigation():
+        root.locator("[data-swap-formats]").click()
+    affordances["swapUrl"] = page.url
+    report["image_converter_affordances"] = affordances
+    if (
+        not affordances["swapText"]
+        or affordances["swapIcon"] != 1
+        or not affordances["qualitySummary"]
+        or affordances["qualityChevron"] != 1
+        or affordances["qualityInitiallyOpen"]
+        or not affordances["qualityOpensOnClick"]
+        or not affordances["swapUrl"].endswith("/en/jpg-to-png/")
+    ):
+        report["ui_detail_failures"].append(
+            f"Image converter controls do not expose their behavior: {affordances}"
+        )
 
     report["image_converter"] = {
         "matrix_routes": len(completed),

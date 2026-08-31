@@ -1,12 +1,14 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import ToolDirectoryCard from "../../components/ToolDirectoryCard.astro";
 import ToolDirectorySearch from "../../components/ToolDirectorySearch.astro";
-import ToolMark from "../../components/ToolMark.astro";
+import ToolDirectorySection from "../../components/ToolDirectorySection.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import { imageConverterLocales } from "../../features/image-converter/i18n";
+import { parseImageConversionMode } from "../../features/image-converter/formats";
 import {
   networkCopy,
   toolCatalog,
-  toolCardName,
-  toolPath,
   type ToolCategory,
 } from "../../lib/tool-catalog";
 import {
@@ -16,26 +18,28 @@ import {
   type ToolPage,
 } from "../../lib/site";
 import { itemListSchema } from "../../lib/seo";
-import { buildToolDirectorySearchCorpus } from "../../lib/tool-directory-search";
 
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale }, props: { locale } }));
 }
 const { locale } = Astro.props;
 const n = networkCopy[locale];
-const statusLabels = { preview: n.research, reserve: n.reserve } as const;
-const categories: ToolCategory[] = [
+const categoriesBeforeImageConversion: ToolCategory[] = [
   "encoding",
   "generator",
   "text",
   "converter",
+];
+const categoriesAfterImageConversion: ToolCategory[] = [
   "image",
   "data",
   "time",
 ];
 const directoryCategoriesId = "tool-directory-categories";
 const toolsForCategory = (category: ToolCategory) => {
-  const tools = toolCatalog.filter((tool) => tool.category === category);
+  const tools = toolCatalog.filter(
+    (tool) => tool.category === category && !parseImageConversionMode(tool.id),
+  );
   if (category !== "text") return tools;
   return tools.toSorted(
     (left, right) =>
@@ -43,6 +47,28 @@ const toolsForCategory = (category: ToolCategory) => {
       Number(left.id === "ai-watermark-remover"),
   );
 };
+const imageConverterTools = toolCatalog.filter((tool) =>
+  parseImageConversionMode(tool.id),
+);
+const popularImageConverterIds = [
+  "png-to-jpg",
+  "jpg-to-png",
+  "webp-to-jpg",
+] as const;
+const popularImageConverters = popularImageConverterIds.map((id) => {
+  const tool = imageConverterTools.find((candidate) => candidate.id === id);
+  if (!tool) throw new Error(`Missing popular image converter: ${id}`);
+  return tool;
+});
+const remainingImageConverters = imageConverterTools.filter(
+  (tool) => !popularImageConverterIds.some((id) => id === tool.id),
+);
+const primaryImageConverter = imageConverterTools.find(
+  (tool) => tool.id === "png-to-webp",
+);
+if (!primaryImageConverter) throw new Error("Missing primary image converter");
+const imageConverterTitle =
+  imageConverterLocales[locale].tools["png-to-webp"].feature.ariaLabel;
 const publicItems = toolCatalog
   .filter((tool) => tool.status === "available" && tool.slug)
   .map((tool) => ({
@@ -72,103 +98,71 @@ const publicItems = toolCatalog
       aria-label={n.catalogAria}
     >
       {
-        categories.map((category) => {
-          const tools = toolsForCategory(category);
-          return (
-            <section class="directory-category" data-directory-search-category>
-              <div class="directory-category-heading">
-                <>
-                  <h2>{n.categories[category]}</h2>
-                  <span aria-hidden="true" data-directory-search-category-count>
-                    {String(tools.length).padStart(2, "0")}
-                  </span>
-                </>
-              </div>
-              <div class="tool-directory-grid">
-                {tools.map((tool) => {
-                  const href = toolPath(locale, tool);
-                  const nameLines = toolCardName(tool, locale).split(" - ");
-                  return href ? (
-                    <a
-                      class:list={["tool-directory-card", `is-${tool.status}`]}
-                      href={href}
-                      data-directory-search-card
-                      data-directory-search-corpus={buildToolDirectorySearchCorpus(
-                        tool,
-                        locale,
-                      )}
-                    >
-                      <div class="tool-directory-card-heading">
-                        <ToolMark toolId={tool.id} mark={tool.mark} />
-                        <h3>
-                          {nameLines.map((line, lineIndex) => (
-                            <span>
-                              <bdi
-                                class:list={{
-                                  "tool-directory-card-subtitle": lineIndex > 0,
-                                }}
-                                dir="auto"
-                              >
-                                {line}
-                              </bdi>
-                            </span>
-                          ))}
-                        </h3>
-                        {tool.status !== "available" && (
-                          <span
-                            class:list={[
-                              "directory-status",
-                              `is-${tool.status}`,
-                            ]}
-                          >
-                            {statusLabels[tool.status]}
-                          </span>
-                        )}
-                      </div>
-                    </a>
-                  ) : (
-                    <article
-                      class:list={["tool-directory-card", `is-${tool.status}`]}
-                      data-directory-search-card
-                      data-directory-search-corpus={buildToolDirectorySearchCorpus(
-                        tool,
-                        locale,
-                      )}
-                    >
-                      <div class="tool-directory-card-heading">
-                        <ToolMark toolId={tool.id} mark={tool.mark} />
-                        <h3>
-                          {nameLines.map((line, lineIndex) => (
-                            <span>
-                              <bdi
-                                class:list={{
-                                  "tool-directory-card-subtitle": lineIndex > 0,
-                                }}
-                                dir="auto"
-                              >
-                                {line}
-                              </bdi>
-                            </span>
-                          ))}
-                        </h3>
-                        {tool.status !== "available" && (
-                          <span
-                            class:list={[
-                              "directory-status",
-                              `is-${tool.status}`,
-                            ]}
-                          >
-                            {statusLabels[tool.status]}
-                          </span>
-                        )}
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </section>
-          );
-        })
+        categoriesBeforeImageConversion.map((category) => (
+          <ToolDirectorySection
+            title={n.categories[category]}
+            tools={toolsForCategory(category)}
+            locale={locale}
+          />
+        ))
+      }
+      <section
+        class="directory-category image-converter-directory"
+        data-directory-search-category
+        data-image-converter-directory
+      >
+        <div class="directory-category-heading">
+          <h2>{imageConverterTitle}</h2>
+          <span aria-hidden="true" data-directory-search-category-count>
+            {String(imageConverterTools.length).padStart(2, "0")}
+          </span>
+        </div>
+        <div class="tool-directory-grid image-converter-featured-grid">
+          <ToolDirectoryCard
+            tool={primaryImageConverter}
+            locale={locale}
+            displayName={imageConverterTitle}
+            subtitle={primaryImageConverter.name[locale]}
+            mark="IMG"
+            markId="image-converter"
+            searchable={false}
+            featured
+          />
+          {
+            popularImageConverters.map((tool) => (
+              <ToolDirectoryCard tool={tool} locale={locale} />
+            ))
+          }
+        </div>
+        <details class="image-converter-more" data-directory-search-more>
+          <summary>
+            <span>{n.allTools}</span>
+            <span class="image-converter-more-count" aria-hidden="true">
+              {String(remainingImageConverters.length).padStart(2, "0")}
+            </span>
+            <UiIcon
+              name="chevron-right"
+              size={16}
+              class="image-converter-more-icon"
+            />
+          </summary>
+          <div class="tool-directory-grid image-converter-more-grid">
+            {
+              remainingImageConverters.map((tool) => (
+                <ToolDirectoryCard tool={tool} locale={locale} />
+              ))
+            }
+          </div>
+        </details>
+      </section>
+      {
+        categoriesAfterImageConversion.map((category) => (
+          <ToolDirectorySection
+            title={n.categories[category]}
+            tools={toolsForCategory(category)}
+            locale={locale}
+          />
+        ))
       }
     </div>
   </article>

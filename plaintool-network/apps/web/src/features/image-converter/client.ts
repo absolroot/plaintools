@@ -67,6 +67,9 @@ function initImageConverter(root: HTMLElement): void {
   const warnings = root.querySelector<HTMLElement>("[data-warnings]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const quality = root.querySelector<HTMLSelectElement>("[data-quality]");
+  const qualitySummary = root.querySelector<HTMLElement>(
+    "[data-quality-summary]",
+  );
   const sourceSelect = root.querySelector<HTMLSelectElement>(
     "[data-source-format]",
   )!;
@@ -308,6 +311,10 @@ function initImageConverter(root: HTMLElement): void {
       downloadBlob(resultBlob, outputName(selectedFile.name, target));
   });
   quality?.addEventListener("change", () => {
+    if (qualitySummary) {
+      qualitySummary.textContent =
+        quality.selectedOptions[0]?.textContent?.trim() ?? "";
+    }
     cancel();
     resetResult();
     runButton.disabled = !selectedFile;

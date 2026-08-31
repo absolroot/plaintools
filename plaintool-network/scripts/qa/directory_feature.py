@@ -82,8 +82,8 @@ def run_directory_desktop(
     report["footer_note_ko"] = desktop.locator(".footer-inner > div > p").text_content()
     expected_tool_count = len(inventory.tools)
     if (
-        report["tool_directory_cards"] != expected_tool_count
-        or report["live_tool_links"] != expected_tool_count
+        report["tool_directory_cards"] != expected_tool_count + 1
+        or report["live_tool_links"] != expected_tool_count + 1
     ):
         report["ui_detail_failures"].append(f"Directory card/link inventory changed unexpectedly: {report['tool_directory_cards']}/{report['live_tool_links']}")
     if any(item["columns"] != 4 for item in report["directory_desktop_columns"]):
@@ -115,6 +115,53 @@ def run_directory_desktop(
 
     search_input = desktop.locator("[data-directory-search-input]")
     search_clear = desktop.locator("[data-directory-search-clear]")
+    image_section = desktop.locator("[data-image-converter-directory]")
+    image_more = image_section.locator("[data-directory-search-more]")
+    report["image_converter_directory"] = {
+        "leadCards": image_section.locator(".tool-directory-card.is-featured").count(),
+        "popularCards": image_section.locator(
+            ".image-converter-featured-grid [data-directory-search-card]"
+        ).count(),
+        "remainingCards": image_more.locator("[data-directory-search-card]").count(),
+        "initiallyOpen": image_more.get_attribute("open") is not None,
+    }
+    image_more.locator("summary").click()
+    report["image_converter_directory"]["opensOnClick"] = (
+        image_more.get_attribute("open") is not None
+    )
+    image_more.locator("summary").click()
+    if report["image_converter_directory"] != {
+        "leadCards": 1,
+        "popularCards": 3,
+        "remainingCards": 39,
+        "initiallyOpen": False,
+        "opensOnClick": True,
+    }:
+        report["ui_detail_failures"].append(
+            f"Image converter progressive directory failed: {report['image_converter_directory']}"
+        )
+
+    search_input.fill("HEIC에서 AVIF")
+    image_search_state = _search_state(desktop)
+    report["image_converter_directory_search"] = {
+        "state": image_search_state,
+        "moreOpen": image_more.get_attribute("open") is not None,
+    }
+    if (
+        len(image_search_state["visibleCards"]) != 1
+        or image_search_state["visibleCards"][0]["href"]
+        != "/ko/heic-to-avif/"
+        or not report["image_converter_directory_search"]["moreOpen"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Collapsed image converter search did not reveal its result: {report['image_converter_directory_search']}"
+        )
+    search_clear.click()
+    if image_more.get_attribute("open") is not None:
+        report["ui_detail_failures"].append(
+            "Image converter directory did not restore its collapsed state after search."
+        )
+
     search_cases = {
         "name": ("JSON 정리", 1, "/ko/json-formatter/"),
         "summary": ("문단", 1, "/ko/word-counter/"),

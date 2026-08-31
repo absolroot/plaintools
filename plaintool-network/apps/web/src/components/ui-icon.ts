@@ -14,5 +14,6 @@ export type IconName =
   | "moon"
   | "search"
   | "shield"
+  | "swap"
   | "sun"
   | "x";

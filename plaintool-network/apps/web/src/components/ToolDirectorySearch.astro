@@ -112,6 +112,11 @@ const initialCount = copy.directorySearchCount.replace(
         "[data-directory-search-category]",
       ),
     );
+    const progressiveGroups = Array.from(
+      directory.querySelectorAll<HTMLDetailsElement>(
+        "[data-directory-search-more]",
+      ),
+    );
     let composing = false;
 
     const applyFilter = () => {
@@ -143,6 +148,28 @@ const initialCount = copy.directorySearchCount.replace(
         );
         if (count) count.textContent = String(categoryCount).padStart(2, "0");
         category.hidden = hasQuery && categoryCount === 0;
+      }
+
+      for (const group of progressiveGroups) {
+        const groupCards = Array.from(
+          group.querySelectorAll<HTMLElement>("[data-directory-search-card]"),
+        );
+        const hasVisibleMatch = groupCards.some((card) => !card.hidden);
+        if (hasQuery && group.dataset.directorySearchCaptured !== "true") {
+          group.dataset.directorySearchCaptured = "true";
+          group.dataset.directorySearchWasOpen = String(group.open);
+        }
+        if (hasQuery) {
+          group.hidden = !hasVisibleMatch;
+          group.open = hasVisibleMatch;
+        } else {
+          group.hidden = false;
+          if (group.dataset.directorySearchCaptured === "true") {
+            group.open = group.dataset.directorySearchWasOpen === "true";
+            delete group.dataset.directorySearchCaptured;
+            delete group.dataset.directorySearchWasOpen;
+          }
+        }
       }
 
       clear.hidden = input.value.length === 0;

@@ -52,8 +52,10 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
       href={swapHref}
       aria-label={copy.swapFormats}
       title={copy.swapFormats}
+      data-swap-formats
     >
-      <UiIcon name="arrow-right" size={16} />
+      <UiIcon name="swap" size={16} />
+      <span>{copy.swapFormats}</span>
     </a>
     <label>
       <span>{copy.targetFormat}</span>
@@ -140,7 +142,15 @@ const losslessTarget = mode.target === "png" || mode.target === "bmp";
   </ConverterStatus>
 
   <details class="image-options">
-    <summary>{copy.quality}</summary>
+    <summary data-quality-summary-toggle>
+      <span class="image-options-summary-copy">
+        <strong>{copy.quality}</strong>
+        <small data-quality-summary>
+          {adjustableQuality ? copy.balanced : formatNames[mode.target]}
+        </small>
+      </span>
+      <UiIcon name="chevron-right" size={16} class="image-options-chevron" />
+    </summary>
     <div class="image-options-body">
       {
         adjustableQuality ? (

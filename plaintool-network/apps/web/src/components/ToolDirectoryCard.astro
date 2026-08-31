@@ -1,0 +1,121 @@
+---
+import ToolMark from "./ToolMark.astro";
+import {
+  networkCopy,
+  toolCardName,
+  toolPath,
+  type ToolCatalogItem,
+} from "../lib/tool-catalog";
+import { buildToolDirectorySearchCorpus } from "../lib/tool-directory-search";
+import type { Locale } from "../lib/site";
+
+interface Props {
+  tool: ToolCatalogItem;
+  locale: Locale;
+  displayName?: string;
+  subtitle?: string;
+  mark?: string;
+  markId?: string;
+  searchable?: boolean;
+  featured?: boolean;
+}
+
+const {
+  tool,
+  locale,
+  displayName,
+  subtitle,
+  mark = tool.mark,
+  markId = tool.id,
+  searchable = true,
+  featured = false,
+} = Astro.props;
+const href = toolPath(locale, tool);
+const nameLines = (displayName ?? toolCardName(tool, locale)).split(" - ");
+const n = networkCopy[locale];
+const statusLabels = { preview: n.research, reserve: n.reserve } as const;
+const searchCorpus = searchable
+  ? buildToolDirectorySearchCorpus(tool, locale)
+  : undefined;
+---
+
+{
+  href ? (
+    <a
+      class:list={[
+        "tool-directory-card",
+        `is-${tool.status}`,
+        { "is-featured": featured },
+      ]}
+      href={href}
+      data-directory-search-card={searchable ? true : undefined}
+      data-directory-search-corpus={searchCorpus}
+    >
+      <div class="tool-directory-card-heading">
+        <ToolMark toolId={markId} mark={mark} />
+        <h3>
+          {nameLines.map((line, lineIndex) => (
+            <span>
+              <bdi
+                class:list={{
+                  "tool-directory-card-subtitle": lineIndex > 0,
+                }}
+                dir="auto"
+              >
+                {line}
+              </bdi>
+            </span>
+          ))}
+          {subtitle && (
+            <span class="tool-directory-card-subtitle">
+              <bdi dir="auto">{subtitle}</bdi>
+            </span>
+          )}
+        </h3>
+        {tool.status !== "available" && (
+          <span class:list={["directory-status", `is-${tool.status}`]}>
+            {statusLabels[tool.status]}
+          </span>
+        )}
+      </div>
+    </a>
+  ) : (
+    <article
+      class:list={[
+        "tool-directory-card",
+        `is-${tool.status}`,
+        { "is-featured": featured },
+      ]}
+      data-directory-search-card={searchable ? true : undefined}
+      data-directory-search-corpus={searchCorpus}
+    >
+      <div class="tool-directory-card-heading">
+        <ToolMark toolId={markId} mark={mark} />
+        <h3>
+          {nameLines.map((line, lineIndex) => (
+            <span>
+              <bdi
+                class:list={{
+                  "tool-directory-card-subtitle": lineIndex > 0,
+                }}
+                dir="auto"
+              >
+                {line}
+              </bdi>
+            </span>
+          ))}
+          {subtitle && (
+            <span class="tool-directory-card-subtitle">
+              <bdi dir="auto">{subtitle}</bdi>
+            </span>
+          )}
+        </h3>
+        {tool.status !== "available" && (
+          <span class:list={["directory-status", `is-${tool.status}`]}>
+            {statusLabels[tool.status]}
+          </span>
+        )}
+      </div>
+    </article>
+  )
+}
