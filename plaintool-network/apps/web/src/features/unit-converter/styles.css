@@ -1,0 +1,108 @@
+.unit-category-bar {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--input-surface);
+}
+.unit-category-field,
+.unit-value-field,
+.unit-select-field,
+.unit-result-field {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.unit-category-field {
+  width: min(100%, 260px);
+}
+.unit-category-field select,
+.unit-select-field select,
+.unit-value-field input {
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+.unit-value-field input {
+  font-family: var(--code-font);
+}
+.unit-workspace {
+  display: grid;
+  grid-template-columns:
+    minmax(110px, 0.75fr) minmax(180px, 1fr) 36px minmax(180px, 1fr)
+    minmax(150px, 0.8fr);
+  align-items: end;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--input-surface);
+}
+.unit-swap {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--muted);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+  cursor: pointer;
+}
+.unit-swap:hover {
+  color: var(--ink);
+  background: var(--recessed);
+}
+.unit-result-field {
+  min-height: 56px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  background: var(--output-surface);
+  box-shadow: inset 0 0 0 1px var(--control-line);
+}
+.unit-result-field output {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink);
+  font-family: var(--code-font);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.unit-result-field small {
+  color: var(--muted);
+  font-family: var(--code-font);
+  font-size: 11px;
+}
+@media (max-width: 760px) {
+  .unit-category-bar {
+    padding: var(--space-3);
+  }
+  .unit-workspace {
+    grid-template-columns: 1fr 44px 1fr;
+    align-items: end;
+    padding: var(--space-3);
+  }
+  .unit-value-field,
+  .unit-result-field {
+    grid-column: 1 / -1;
+  }
+  .unit-swap {
+    width: 44px;
+    height: 44px;
+  }
+  .unit-category-field select,
+  .unit-select-field select,
+  .unit-value-field input {
+    height: 44px;
+  }
+  .unit-result-field {
+    min-height: 62px;
+  }
+}

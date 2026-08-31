@@ -39,6 +39,7 @@
     "@plaintool/text-diff-core": "*",
     "@plaintool/text-metrics-core": "*",
     "@plaintool/time-core": "*",
+    "@plaintool/unit-converter-core": "*",
     "@plaintool/url-core": "*",
     "@plaintool/uuid-core": "*",
     "astro": "^7.2.9",

@@ -177,7 +177,8 @@ describe("locale bundles", () => {
         ...pdfToolIds,
         ...imageConversionModes.map(({ id }) => id),
         ...generatorToolIds,
-      ];
+        "unit-converter",
+      ] as const satisfies readonly RegisteredToolId[];
       expect(Object.keys(bundle.tools), locale).toEqual(completeToolIds);
       for (const toolId of completeToolIds) {
         const tool = bundle.tools[toolId];

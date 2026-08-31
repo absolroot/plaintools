@@ -1,0 +1,10 @@
+---
+import UnitConverterPage from "../../../features/unit-converter/UnitConverterPage.astro";
+import { locales, type Locale } from "../../../lib/site";
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<UnitConverterPage locale={locale} />

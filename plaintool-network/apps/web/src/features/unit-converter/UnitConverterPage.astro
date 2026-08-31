@@ -1,0 +1,27 @@
+---
+import PreviewToolPage from "../../components/PreviewToolPage.astro";
+import type { Locale } from "../../lib/site";
+import UnitConverter from "./UnitConverter.astro";
+import { unitConverterLocales } from "./i18n";
+import stylesheet from "./styles.css?url";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const content = unitConverterLocales[locale].tools["unit-converter"];
+---
+
+<PreviewToolPage
+  locale={locale}
+  page="unit-converter"
+  title={content.title}
+  description={content.description}
+  guideTitle={content.guideTitle}
+  guideBody={content.guideBody}
+  safetyTitle={content.safetyTitle}
+  safetyBody={content.safetyBody}
+  faqs={content.faqs}
+  featureStylesheet={stylesheet}
+>
+  <UnitConverter copy={content.feature} />
+</PreviewToolPage>

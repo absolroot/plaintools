@@ -161,6 +161,10 @@ const generatorToolMarks = {
   "password-generator": "PW",
 } as const satisfies Record<GeneratorToolId, string>;
 
+const unitConverterToolMarks = {
+  "unit-converter": "↔",
+} as const;
+
 export type PdfToolkitToolId =
   | "compress-pdf"
   | "merge-pdf"
@@ -175,7 +179,8 @@ export type RegisteredToolId =
   | BaseRegisteredToolId
   | ImageConverterToolId
   | GeneratorToolId
-  | PdfToolkitToolId;
+  | PdfToolkitToolId
+  | "unit-converter";
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
   return Object.fromEntries(
@@ -191,6 +196,7 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   status: tool.publication === "indexable" ? "available" : "preview",
   mark:
     generatorToolMarks[tool.id as GeneratorToolId] ??
+    unitConverterToolMarks[tool.id as keyof typeof unitConverterToolMarks] ??
     toolMarks[tool.id as keyof typeof toolMarks] ??
     tool.id.slice(0, tool.id.indexOf("-to-")).toUpperCase(),
   name: localize(

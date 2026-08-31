@@ -28,6 +28,10 @@ import {
   pdfToolkitLocales,
   type PdfToolkitLocale,
 } from "../../features/pdf-toolkit/i18n";
+import {
+  unitConverterLocales,
+  type UnitConverterLocale,
+} from "../../features/unit-converter/i18n";
 
 const baseLocaleBundles = {
   en,
@@ -61,12 +65,14 @@ export const localeBundles = Object.fromEntries(
         ...pdfToolkitLocales[locale as PdfToolkitLocale].catalog,
         ...imageConverterLocales[locale as ImageConverterLocale].catalog,
         ...generatorToolLocales[locale as LocaleBundleId].catalog,
+        ...unitConverterLocales[locale as UnitConverterLocale].catalog,
       },
       tools: {
         ...bundle.tools,
         ...pdfToolkitLocales[locale as PdfToolkitLocale].tools,
         ...imageConverterLocales[locale as ImageConverterLocale].tools,
         ...generatorToolLocales[locale as LocaleBundleId].tools,
+        ...unitConverterLocales[locale as UnitConverterLocale].tools,
       },
       help: toolHelpCopy[locale as LocaleBundleId],
     },
@@ -76,10 +82,12 @@ export const localeBundles = Object.fromEntries(
     catalog: (typeof baseLocaleBundles)[Key]["catalog"] &
       (typeof imageConverterLocales)[Key]["catalog"] &
       GeneratorToolLocale["catalog"] &
+      (typeof unitConverterLocales)[Key]["catalog"] &
       (typeof pdfToolkitLocales)[Key]["catalog"];
     tools: (typeof baseLocaleBundles)[Key]["tools"] &
       (typeof imageConverterLocales)[Key]["tools"] &
       GeneratorToolLocale["tools"] &
+      (typeof unitConverterLocales)[Key]["tools"] &
       (typeof pdfToolkitLocales)[Key]["tools"];
     help: ToolHelpCopy;
   };
