@@ -28,9 +28,9 @@ def _inventory(*, publication_overrides: dict[str, str] | None = None) -> RouteI
 
 
 class NewToolsContractTests(unittest.TestCase):
-    def test_defines_all_nineteen_routes_and_nine_feature_families(self) -> None:
-        self.assertEqual(len(NEW_TOOL_ROUTES), 19)
-        self.assertEqual(len(set(NEW_TOOL_FEATURES.values())), 9)
+    def test_defines_all_twenty_one_routes_and_eleven_feature_families(self) -> None:
+        self.assertEqual(len(NEW_TOOL_ROUTES), 21)
+        self.assertEqual(len(set(NEW_TOOL_FEATURES.values())), 11)
         self.assertTrue(set(TECHNICAL_DIRECTION_SELECTORS).issubset(NEW_TOOL_ROUTES))
 
     def test_accepts_complete_mixed_publication_inventory(self) -> None:
@@ -45,7 +45,7 @@ class NewToolsContractTests(unittest.TestCase):
             tools=inventory.tools[:-1],
             legal_pages=inventory.legal_pages,
         )
-        with self.assertRaisesRegex(RuntimeError, "background-remover"):
+        with self.assertRaisesRegex(RuntimeError, "password-generator"):
             validate_new_tool_inventory(incomplete)
 
     def test_rejects_wrong_publication(self) -> None:
@@ -56,6 +56,10 @@ class NewToolsContractTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "expected indexable"):
             validate_new_tool_inventory(
                 _inventory(publication_overrides={"background-remover": "preview"})
+            )
+        with self.assertRaisesRegex(RuntimeError, "expected indexable"):
+            validate_new_tool_inventory(
+                _inventory(publication_overrides={"password-generator": "preview"})
             )
 
 

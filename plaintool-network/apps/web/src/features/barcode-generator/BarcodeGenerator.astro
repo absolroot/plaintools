@@ -13,6 +13,7 @@ const { copy } = Astro.props;
 const moduleWidths = ["1", "2", "3", "4"] as const;
 const heights = ["40", "80", "120", "160"] as const;
 const margins = ["0", "10", "20", "30"] as const;
+const initiallyHidden = { hidden: true } as Record<string, boolean>;
 ---
 
 <section
@@ -167,7 +168,7 @@ const margins = ["0", "10", "20", "30"] as const;
           xmlns="http://www.w3.org/2000/svg"
           role="img"
           aria-label={copy.previewLabel}
-          hidden></svg>
+          {...initiallyHidden}></svg>
         <canvas data-canvas hidden></canvas>
         <p data-preview-placeholder>{copy.previewPlaceholder}</p>
       </div>

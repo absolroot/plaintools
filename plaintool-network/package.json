@@ -28,6 +28,7 @@
     "qa:security": "python scripts/qa-security.py",
     "qa:formatter": "python scripts/qa-formatter-consistency.py",
     "ui:qa": "python scripts/qa-redesign.py",
+    "ui:qa:generators": "python scripts/qa-generator.py",
     "ui:qa:full": "python scripts/qa-redesign.py --full",
     "browser:install": "agent-browser install",
     "browser:doctor": "agent-browser doctor --json",

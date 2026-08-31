@@ -8,3 +8,9 @@ export const barcodeLibraryFormats = {
   ean8: "EAN8",
   itf14: "ITF14",
 } as const satisfies Record<BarcodeFormat, string>;
+
+export function parseSvgLength(value: string | null): number | null {
+  if (!value) return null;
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}

@@ -92,6 +92,7 @@ const requiredRuntimeNotices = [
   "Prettier",
   "sql-formatter",
   "nearley",
+  "JsBarcode",
   "Terser",
   "@jridgewell/source-map",
   "ONNX Runtime Web",

@@ -22,12 +22,17 @@ describe("GS1 check digit", () => {
 
 describe("barcode value validation", () => {
   it("accepts printable ASCII for Code 128", () => {
-    expect(validateBarcodeValue("code128", "  Order-123 / A  ")).toEqual({
+    expect(validateBarcodeValue("code128", "Order-123 / A")).toEqual({
       format: "code128",
       sourceValue: "Order-123 / A",
       encodedValue: "Order-123 / A",
       checkDigitAdded: false,
     });
+  });
+
+  it("preserves meaningful leading and trailing spaces", () => {
+    expect(validateBarcodeValue("code128", " A ").encodedValue).toBe(" A ");
+    expect(validateBarcodeValue("code39", " A ").encodedValue).toBe(" A ");
   });
 
   it("restricts Code 39 to its uppercase character set", () => {
@@ -70,7 +75,7 @@ describe("barcode value validation", () => {
     expect(() => validateBarcodeValue("ean8", "123456")).toThrowError(
       expect.objectContaining({ code: "wrong-length" }),
     );
-    expect(() => validateBarcodeValue("code128", "   ")).toThrowError(
+    expect(() => validateBarcodeValue("code128", "")).toThrowError(
       expect.objectContaining({ code: "empty-input" }),
     );
     expect(() => validateBarcodeValue("code128", "x".repeat(81))).toThrowError(

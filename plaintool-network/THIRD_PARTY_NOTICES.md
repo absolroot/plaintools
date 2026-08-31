@@ -53,6 +53,14 @@ The SQL formatter includes [nearley](https://nearley.js.org/), version 2.20.1.
 Copyright (c) 2014, 2015, 2016, 2017, 2018, 2019 Kartik Chandra, Tim Radvan.
 It is distributed under the MIT License terms reproduced above.
 
+## JsBarcode
+
+The browser-local barcode generator bundles
+[JsBarcode](https://github.com/lindell/JsBarcode), version 3.12.3. Copyright
+Johan Lindell and contributors. It is distributed under the MIT License terms
+reproduced above. Barcode values are passed only to the bundled browser code;
+they are not sent to the JsBarcode project or an external rendering service.
+
 ## ONNX Runtime Web
 
 The image background remover bundles

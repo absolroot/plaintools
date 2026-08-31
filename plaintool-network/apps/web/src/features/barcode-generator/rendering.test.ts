@@ -1,6 +1,6 @@
 import JsBarcode from "jsbarcode";
 import { describe, expect, it } from "vitest";
-import { barcodeLibraryFormats } from "./rendering";
+import { barcodeLibraryFormats, parseSvgLength } from "./rendering";
 
 const examples = {
   code128: "Order-123 / A",
@@ -12,6 +12,13 @@ const examples = {
 } as const;
 
 describe("JsBarcode rendering contract", () => {
+  it("normalizes CSS-sized SVG dimensions for a numeric viewBox", () => {
+    expect(parseSvgLength("234px")).toBe(234);
+    expect(parseSvgLength("122")).toBe(122);
+    expect(parseSvgLength("0px")).toBeNull();
+    expect(parseSvgLength("not-a-size")).toBeNull();
+  });
+
   it.each(Object.entries(examples))(
     "encodes the curated %s format with the pinned library",
     (format, value) => {

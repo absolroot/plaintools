@@ -21,6 +21,8 @@ NEW_TOOL_ROUTES = (
     "sql-formatter",
     "ip-subnet-calculator",
     "background-remover",
+    "barcode-generator",
+    "password-generator",
 )
 
 NEW_TOOL_FEATURES = {
@@ -43,6 +45,8 @@ NEW_TOOL_FEATURES = {
     "sql-formatter": "source-formatter",
     "ip-subnet-calculator": "ip-subnet",
     "background-remover": "background-remover",
+    "barcode-generator": "barcode-generator",
+    "password-generator": "password-generator",
 }
 
 NEW_TOOL_PUBLICATIONS = {slug: "indexable" for slug in NEW_TOOL_ROUTES}
@@ -63,6 +67,14 @@ TECHNICAL_DIRECTION_SELECTORS = {
     "javascript-formatter": ("[data-javascript-formatter] [data-input]", "[data-javascript-formatter] [data-output]"),
     "sql-formatter": ("[data-sql-formatter] [data-input]", "[data-sql-formatter] [data-output]"),
     "ip-subnet-calculator": ("[data-ip-subnet] [data-input]", "[data-ip-subnet] [data-result='cidr']"),
+    "barcode-generator": (
+        "[data-barcode-generator] [data-format]",
+        "[data-barcode-generator] [data-value]",
+    ),
+    "password-generator": (
+        "[data-password-generator] [data-result]",
+        "[data-password-generator] [data-length-number]",
+    ),
 }
 
 

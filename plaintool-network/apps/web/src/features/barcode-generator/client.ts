@@ -13,7 +13,7 @@ import {
   setToolStatus,
 } from "../../scripts/shared/tool-dom";
 import type { BarcodeGeneratorCopy } from "./contract";
-import { barcodeLibraryFormats } from "./rendering";
+import { barcodeLibraryFormats, parseSvgLength } from "./rendering";
 
 const AUTO_RUN_DELAY = 120;
 
@@ -183,8 +183,10 @@ function init(root: HTMLElement): void {
       }
       const width = svg.getAttribute("width");
       const renderedHeight = svg.getAttribute("height");
-      if (width && renderedHeight) {
-        svg.setAttribute("viewBox", `0 0 ${width} ${renderedHeight}`);
+      const viewBoxWidth = parseSvgLength(width);
+      const viewBoxHeight = parseSvgLength(renderedHeight);
+      if (viewBoxWidth && viewBoxHeight) {
+        svg.setAttribute("viewBox", `0 0 ${viewBoxWidth} ${viewBoxHeight}`);
         svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
       }
       svg.setAttribute("role", "img");
@@ -222,7 +224,7 @@ function init(root: HTMLElement): void {
     revision += 1;
     clearInvalid();
     invalidateResult();
-    if (!input.value.trim()) {
+    if (!input.value) {
       setStatus(copy.ready);
       return;
     }

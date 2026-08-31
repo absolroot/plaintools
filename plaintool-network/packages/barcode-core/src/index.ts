@@ -141,7 +141,7 @@ export function validateBarcodeValue(
   format: BarcodeFormat,
   input: string,
 ): BarcodeValue {
-  const value = input.trim();
+  const value = input;
   if (!value) throw new BarcodeInputError("empty-input", format);
   const spec = barcodeFormatSpecs[format];
   if (value.length > spec.maxLength) {
