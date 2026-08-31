@@ -117,9 +117,6 @@ const acceptedFormatList = imageFormats
     <section class="image-pane image-output-pane">
       <div class="pane-heading">
         <span>{copy.outputImage}</span>
-        <button class="text-button" type="button" data-download disabled>
-          <UiIcon name="download" size={14} />{common.download}
-        </button>
       </div>
       <div class="image-result-stage">
         <span class="image-placeholder" data-output-placeholder>
@@ -143,6 +140,16 @@ const acceptedFormatList = imageFormats
     <div class="image-warning-list" data-warnings></div>
     <button class="primary-button" type="button" data-run disabled>
       {copy.convert}
+    </button>
+    <button
+      class="primary-button image-download-button"
+      type="button"
+      data-download
+      hidden
+      disabled
+    >
+      <UiIcon name="download" size={18} />
+      {common.download}
     </button>
   </ConverterStatus>
 

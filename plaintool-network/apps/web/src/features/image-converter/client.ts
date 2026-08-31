@@ -116,6 +116,8 @@ function initImageConverter(root: HTMLElement): void {
     outputPlaceholder.hidden = false;
     outputFacts.hidden = true;
     downloadButton.disabled = true;
+    downloadButton.hidden = true;
+    runButton.hidden = false;
     warnings.replaceChildren();
   };
   const stopWorker = () => {
@@ -322,6 +324,8 @@ function initImageConverter(root: HTMLElement): void {
         sizeResult.textContent = `${percent}%`;
         outputFacts.hidden = false;
         downloadButton.disabled = false;
+        downloadButton.hidden = false;
+        runButton.hidden = true;
         if (event.data.transparencyFlattened)
           addWarning(copy.transparencyFlattened);
         if (event.data.firstFrameOnly) addWarning(copy.animationFirstFrame);

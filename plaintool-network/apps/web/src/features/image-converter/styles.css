@@ -79,14 +79,16 @@
   overflow: hidden;
   border: 0;
   color: var(--muted);
-  background:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background: transparent;
 }
 
 .image-drop-target {
   cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.image-drop-target:hover {
+  background: var(--tint);
 }
 
 .image-converter.is-dragging .image-drop-target {
@@ -161,6 +163,14 @@
 
 .image-converter > .converter-commandbar {
   border-top: 1px solid var(--line);
+}
+
+.image-converter .image-download-button {
+  min-width: 156px;
+  height: 44px;
+  padding-inline: var(--space-5);
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .image-warning-list:empty {
@@ -264,5 +274,12 @@
 
   .image-options select {
     max-width: 190px;
+  }
+
+  .image-converter .image-download-button {
+    width: 100%;
+    min-width: 0;
+    flex: 1 0 100%;
+    padding-inline: var(--space-4);
   }
 }

@@ -124,6 +124,36 @@ def run_image_converter_desktop(page, report: dict, _inventory) -> None:
     root.locator("[data-download]:not([disabled])").wait_for(
         state="visible", timeout=60000
     )
+    result_actions = root.locator(".converter-commandbar")
+    download_box = root.locator("[data-download]").bounding_box()
+    status_box = root.locator("[data-status]").bounding_box()
+    stage_backgrounds = root.locator(
+        ".image-drop-target, .image-result-stage"
+    ).evaluate_all(
+        "elements => elements.map(element => getComputedStyle(element).backgroundImage)"
+    )
+    if (
+        root.locator(".pane-heading [data-download]").count() != 0
+        or result_actions.locator("[data-download]").count() != 1
+        or not root.locator("[data-run]").is_hidden()
+        or not download_box
+        or download_box["width"] < 140
+        or download_box["height"] < 40
+        or not status_box
+        or download_box["x"] <= status_box["x"]
+        or stage_backgrounds != ["none", "none"]
+    ):
+        report["ui_detail_failures"].append(
+            "Image conversion success does not prioritize a calm result and primary download action."
+        )
+    report["image_converter_result_ux"] = {
+        "stage_backgrounds": stage_backgrounds,
+        "download_width": download_box["width"] if download_box else 0,
+        "download_height": download_box["height"] if download_box else 0,
+        "download_in_commandbar": result_actions.locator("[data-download]").count()
+        == 1,
+        "convert_hidden_after_success": root.locator("[data-run]").is_hidden(),
+    }
     warning = root.locator("[data-warnings]").inner_text()
     if "white" not in warning.lower():
         report["ui_detail_failures"].append(
@@ -302,10 +332,27 @@ def run_image_converter_mobile(page, report: dict, _inventory) -> None:
     root.locator("[data-download]:not([disabled])").wait_for(
         state="visible", timeout=60000
     )
+    mobile_download_box = root.locator("[data-download]").bounding_box()
+    mobile_commandbar_box = root.locator(".converter-commandbar").bounding_box()
     if page.evaluate("document.documentElement.scrollWidth") > 390:
         report["ui_detail_failures"].append(
             "Converted mobile image introduced horizontal overflow."
         )
+    if (
+        not mobile_download_box
+        or not mobile_commandbar_box
+        or mobile_download_box["width"] < mobile_commandbar_box["width"] - 32
+        or mobile_download_box["height"] < 44
+    ):
+        report["ui_detail_failures"].append(
+            "Image download is not a full-width primary action on mobile."
+        )
+    state["downloadWidth"] = (
+        mobile_download_box["width"] if mobile_download_box else 0
+    )
+    state["commandbarWidth"] = (
+        mobile_commandbar_box["width"] if mobile_commandbar_box else 0
+    )
     report["image_converter_mobile"] = state
     page.evaluate("window.scrollTo(0, 0)")
     page.screenshot(
