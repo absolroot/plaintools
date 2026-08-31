@@ -146,7 +146,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "uuid-generator",
     slug: "uuid-generator",
     category: "generator",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/uuid-generator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -306,7 +306,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "math-calculator",
     slug: "fraction-calculator",
     category: "calculator",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/math-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -316,7 +316,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "math-calculator",
     slug: "factor-calculator",
     category: "calculator",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/math-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -326,7 +326,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "math-calculator",
     slug: "lcm-calculator",
     category: "calculator",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/math-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -336,7 +336,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "percentage-calculator",
     slug: "percentage-calculator",
     category: "calculator",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/percentage-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -346,7 +346,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "bmi-calculator",
     slug: "bmi-calculator",
     category: "calculator",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/bmi-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
@@ -386,7 +386,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "time-zone-converter",
     slug: "time-zone-converter",
     category: "time",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/time-zone-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],

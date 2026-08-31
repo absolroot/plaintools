@@ -408,19 +408,19 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       ? seed.timeZoneConverter.page
       : id === "uuid-generator"
         ? seed.uuidGenerator.page
-      : id === "date-calculator" ||
-          id === "dday-calculator" ||
-          id === "age-calculator"
-        ? seed.dateCalculator.pages[id as DateCalculatorPageId]
-        : id === "fraction-calculator" ||
-            id === "factor-calculator" ||
-            id === "lcm-calculator" ||
-            id === "percentage-calculator" ||
-            id === "bmi-calculator"
-          ? seed.calculatorSuite.pages[id as CalculatorPageId]
-          : id in seed.pages
-            ? seed.pages[id as LegacyNewToolId]
-            : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
+        : id === "date-calculator" ||
+            id === "dday-calculator" ||
+            id === "age-calculator"
+          ? seed.dateCalculator.pages[id as DateCalculatorPageId]
+          : id === "fraction-calculator" ||
+              id === "factor-calculator" ||
+              id === "lcm-calculator" ||
+              id === "percentage-calculator" ||
+              id === "bmi-calculator"
+            ? seed.calculatorSuite.pages[id as CalculatorPageId]
+            : id in seed.pages
+              ? seed.pages[id as LegacyNewToolId]
+              : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
     const source = pageSeed(id);
     return {
@@ -1053,11 +1053,13 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       (id) =>
         id !== "date-calculator" &&
         id !== "dday-calculator" &&
-        id !== "age-calculator",
+        id !== "age-calculator" &&
+        id !== "time-zone-converter",
     ),
     "date-calculator",
     "dday-calculator",
     "age-calculator",
+    "time-zone-converter",
   ] as NewToolId[];
   const catalog = Object.fromEntries(
     catalogToolIds.map((id) => [
