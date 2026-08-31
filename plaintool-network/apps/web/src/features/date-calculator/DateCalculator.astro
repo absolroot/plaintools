@@ -1,11 +1,26 @@
 ---
 import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import type { DateCalculatorProps } from "./contract";
+import { localizedPath } from "../../lib/site";
+import type { DateCalculatorMode, DateCalculatorProps } from "./contract";
 import { createDateCalculatorClientCopy } from "./copy";
 
-const { locale, copy, commonCopy } = Astro.props as DateCalculatorProps;
+const { locale, copy, commonCopy, initialMode } =
+  Astro.props as DateCalculatorProps;
 const clientCopy = createDateCalculatorClientCopy(copy, commonCopy);
+const modeRoutes = [
+  {
+    mode: "difference",
+    page: "dday-calculator",
+    label: copy.differenceMode,
+  },
+  { mode: "math", page: "date-calculator", label: copy.dateMathMode },
+  { mode: "age", page: "age-calculator", label: copy.ageMode },
+] as const satisfies readonly {
+  mode: DateCalculatorMode;
+  page: "date-calculator" | "dday-calculator" | "age-calculator";
+  label: string;
+}[];
 const amountFields = [
   ["years", copy.years],
   ["months", copy.months],
@@ -17,33 +32,33 @@ const amountFields = [
 <section
   class="converter date-calculator"
   data-date-calculator
-  data-mode="difference"
+  data-mode={initialMode}
   data-locale={locale}
   aria-label={copy.ariaLabel}
 >
   <div class="converter-topbar">
     <div class="mode-switch" role="group" aria-label={copy.ariaLabel}>
-      <button
-        class="mode-button is-active"
-        type="button"
-        data-mode-button="difference"
-        aria-pressed="true">{copy.differenceMode}</button
-      ><button
-        class="mode-button"
-        type="button"
-        data-mode-button="math"
-        aria-pressed="false">{copy.dateMathMode}</button
-      ><button
-        class="mode-button"
-        type="button"
-        data-mode-button="age"
-        aria-pressed="false">{copy.ageMode}</button
-      >
+      {
+        modeRoutes.map(({ mode, page, label }) => (
+          <a
+            class:list={["mode-button", { "is-active": initialMode === mode }]}
+            href={localizedPath(locale, page)}
+            data-mode-button={mode}
+            aria-current={initialMode === mode ? "page" : undefined}
+          >
+            {label}
+          </a>
+        ))
+      }
     </div>
   </div>
 
   <div class="date-calculator-workspace">
-    <div class="date-mode-panel" data-mode-panel="difference">
+    <div
+      class="date-mode-panel"
+      data-mode-panel="difference"
+      hidden={initialMode !== "difference"}
+    >
       <div class="date-field-grid">
         <label class="date-field">
           <span>{copy.startDate}</span>
@@ -86,7 +101,11 @@ const amountFields = [
       </label>
     </div>
 
-    <div class="date-mode-panel" data-mode-panel="math" hidden>
+    <div
+      class="date-mode-panel"
+      data-mode-panel="math"
+      hidden={initialMode !== "math"}
+    >
       <div class="date-field-grid date-math-main-fields">
         <label class="date-field">
           <span>{copy.baseDate}</span>
@@ -138,7 +157,11 @@ const amountFields = [
       <p class="date-calculator-note">{copy.monthEndNote}</p>
     </div>
 
-    <div class="date-mode-panel" data-mode-panel="age" hidden>
+    <div
+      class="date-mode-panel"
+      data-mode-panel="age"
+      hidden={initialMode !== "age"}
+    >
       <div class="date-field-grid">
         <label class="date-field">
           <span>{copy.birthDate}</span>

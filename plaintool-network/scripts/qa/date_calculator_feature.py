@@ -2,7 +2,7 @@ from .config import BASE_URL, QA_DIR
 
 
 def run_date_calculator_desktop(desktop, report: dict, _inventory) -> None:
-    desktop.goto(f"{BASE_URL}/ko/date-calculator/", wait_until="networkidle")
+    desktop.goto(f"{BASE_URL}/ko/dday-calculator/", wait_until="networkidle")
 
     desktop.locator('[data-field="start"]').fill("2026-08-01")
     desktop.locator('[data-field="end"]').fill("2026-08-31")
@@ -77,8 +77,7 @@ def run_date_calculator_desktop(desktop, report: dict, _inventory) -> None:
 
 
 def run_date_calculator_mobile(mobile, report: dict, _inventory) -> None:
-    mobile.goto(f"{BASE_URL}/ar/date-calculator/", wait_until="networkidle")
-    mobile.locator('[data-mode-button="age"]').click()
+    mobile.goto(f"{BASE_URL}/ar/age-calculator/", wait_until="networkidle")
     mobile.locator('[data-field="birth"]').fill("2000-02-29")
     mobile.locator('[data-field="reference"]').fill("2025-02-28")
     mobile.locator("[data-calculate]").click()
@@ -90,7 +89,7 @@ def run_date_calculator_mobile(mobile, report: dict, _inventory) -> None:
           clientWidth: document.documentElement.clientWidth,
           scrollWidth: document.documentElement.scrollWidth,
           fullAge: document.querySelector('[data-result="fullAge"]').textContent,
-          visibleControlHeights: [...document.querySelectorAll('[data-date-calculator] button:not([hidden]), [data-date-calculator] input:not([type="hidden"])')]
+          visibleControlHeights: [...document.querySelectorAll('[data-date-calculator] button:not([hidden]), [data-date-calculator] a[data-mode-button], [data-date-calculator] input:not([type="hidden"])')]
             .filter((element) => element.getClientRects().length)
             .map((element) => element.getBoundingClientRect().height),
         })

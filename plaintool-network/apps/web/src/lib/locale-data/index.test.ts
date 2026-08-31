@@ -29,6 +29,8 @@ const newToolIds: NewToolId[] = [
   "ip-subnet-calculator",
   "background-remover",
   "date-calculator",
+  "dday-calculator",
+  "age-calculator",
 ];
 
 describe("locale bundles", () => {
@@ -167,6 +169,23 @@ describe("locale bundles", () => {
     expect(
       localeBundles.en.tools["ai-watermark-remover"].description,
     ).toContain("does not detect AI authorship");
+  });
+
+  it("separates Korean date, D-Day, and full-age search intents", () => {
+    const tools = localeBundles.ko.tools;
+    expect(tools["date-calculator"].title).toBe("날짜 계산기");
+    expect(tools["dday-calculator"].title).toBe("디데이 계산기");
+    expect(tools["age-calculator"].title).toBe("만 나이 계산기");
+    expect(localeBundles.ko.catalog["age-calculator"].searchTerms).toContain(
+      "만나이 계산기",
+    );
+    expect(
+      new Set([
+        tools["date-calculator"].mobileDescription,
+        tools["dday-calculator"].mobileDescription,
+        tools["age-calculator"].mobileDescription,
+      ]).size,
+    ).toBe(3);
   });
 
   it("declares Arabic as RTL and every other locale as LTR", () => {

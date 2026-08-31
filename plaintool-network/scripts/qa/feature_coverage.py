@@ -198,7 +198,7 @@ FEATURE_COVERAGE = {
     "date-calculator": FeatureCoverage(
         desktop=run_date_calculator_desktop,
         mobile=run_date_calculator_mobile,
-        focus_targets=(("input", '[data-field="start"]'),),
+        focus_targets=(("input", '[data-field="base"]'),),
         exercise_faq=True,
     ),
     "image-converter": FeatureCoverage(

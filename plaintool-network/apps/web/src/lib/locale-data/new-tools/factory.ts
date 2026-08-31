@@ -13,7 +13,10 @@ import type { JavaScriptFormatterCopy } from "../../../features/javascript-forma
 import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../../features/background-remover/contract";
-import type { DateCalculatorLocaleSeed } from "./date-calculator";
+import type {
+  DateCalculatorLocaleSeed,
+  DateCalculatorPageId,
+} from "./date-calculator";
 import type {
   FormatterSubnetToolId,
   LegacyNewToolId,
@@ -376,8 +379,10 @@ function fill(value: string, replacements: Record<string, string>): string {
 export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const { ui } = seed;
   const pageSeed = (id: NewToolId): PageSeed =>
-    id === "date-calculator"
-      ? seed.dateCalculator.page
+    id === "date-calculator" ||
+    id === "dday-calculator" ||
+    id === "age-calculator"
+      ? seed.dateCalculator.pages[id as DateCalculatorPageId]
       : id in seed.pages
         ? seed.pages[id as LegacyNewToolId]
         : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
@@ -960,7 +965,18 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "sql-formatter": page("sql-formatter", sqlFormatter),
     "ip-subnet-calculator": page("ip-subnet-calculator", ipSubnet),
     "background-remover": page("background-remover", background),
-    "date-calculator": page("date-calculator", seed.dateCalculator.feature),
+    "date-calculator": page("date-calculator", {
+      ...seed.dateCalculator.feature,
+      ariaLabel: pageSeed("date-calculator").title,
+    }),
+    "dday-calculator": page("dday-calculator", {
+      ...seed.dateCalculator.feature,
+      ariaLabel: pageSeed("dday-calculator").title,
+    }),
+    "age-calculator": page("age-calculator", {
+      ...seed.dateCalculator.feature,
+      ariaLabel: pageSeed("age-calculator").title,
+    }),
   };
 
   const catalog = Object.fromEntries(

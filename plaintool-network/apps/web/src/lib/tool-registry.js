@@ -301,6 +301,26 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/date-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  {
+    id: "dday-calculator",
+    featureId: "date-calculator",
+    slug: "dday-calculator",
+    category: "time",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/date-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
+  {
+    id: "age-calculator",
+    featureId: "date-calculator",
+    slug: "age-calculator",
+    category: "time",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/date-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
   ...imageConverterRegistry,
 ]);
 

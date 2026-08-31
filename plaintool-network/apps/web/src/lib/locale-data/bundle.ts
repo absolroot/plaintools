@@ -44,7 +44,9 @@ export type NewToolId =
   | "javascript-formatter"
   | "sql-formatter"
   | "ip-subnet-calculator"
-  | "date-calculator";
+  | "date-calculator"
+  | "dday-calculator"
+  | "age-calculator";
 
 export type FormatterSubnetToolId =
   | "html-formatter"
@@ -55,7 +57,10 @@ export type FormatterSubnetToolId =
 
 export type LegacyNewToolId = Exclude<
   NewToolId,
-  FormatterSubnetToolId | "date-calculator"
+  | FormatterSubnetToolId
+  | "date-calculator"
+  | "dday-calculator"
+  | "age-calculator"
 >;
 
 export type ToolPageCopy<T> = {
@@ -91,6 +96,8 @@ export type NewToolsCopy = {
   "sql-formatter": ToolPageCopy<SqlFormatterCopy>;
   "ip-subnet-calculator": ToolPageCopy<IpSubnetCopy>;
   "date-calculator": ToolPageCopy<DateCalculatorCopy>;
+  "dday-calculator": ToolPageCopy<DateCalculatorCopy>;
+  "age-calculator": ToolPageCopy<DateCalculatorCopy>;
 };
 
 export type LocaleBundle = {

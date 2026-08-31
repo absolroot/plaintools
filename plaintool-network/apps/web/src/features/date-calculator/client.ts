@@ -49,7 +49,7 @@ function init(root: HTMLElement): void {
       ),
     ].map((field) => [field.dataset.field!, field]),
   ) as Record<string, HTMLInputElement | HTMLSelectElement>;
-  let mode: Mode = "difference";
+  const mode = (root.dataset.mode as Mode | undefined) ?? "difference";
   let revision = 0;
   let committedText = "";
 
@@ -211,30 +211,6 @@ function init(root: HTMLElement): void {
       markInvalid(error);
     }
   };
-
-  root
-    .querySelectorAll<HTMLButtonElement>("[data-mode-button]")
-    .forEach((button) =>
-      button.addEventListener("click", () => {
-        mode = button.dataset.modeButton as Mode;
-        root.dataset.mode = mode;
-        root
-          .querySelectorAll<HTMLButtonElement>("[data-mode-button]")
-          .forEach((item) => {
-            const active = item === button;
-            item.classList.toggle("is-active", active);
-            item.setAttribute("aria-pressed", String(active));
-          });
-        root
-          .querySelectorAll<HTMLElement>("[data-mode-panel]")
-          .forEach(
-            (panel) => (panel.hidden = panel.dataset.modePanel !== mode),
-          );
-        clearInvalid();
-        invalidate();
-        setStatus(copy.common.ready);
-      }),
-    );
 
   root
     .querySelectorAll<HTMLButtonElement>("[data-today-for]")

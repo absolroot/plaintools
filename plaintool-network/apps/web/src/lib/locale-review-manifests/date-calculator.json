@@ -34,9 +34,11 @@
     "apps/web/src/features/date-calculator/client.ts",
     "apps/web/src/features/new-tools/NewToolPreview.astro",
     "apps/web/src/components/PreviewToolPage.astro",
-    "apps/web/src/pages/[locale]/date-calculator/index.astro"
+    "apps/web/src/pages/[locale]/date-calculator/index.astro",
+    "apps/web/src/pages/[locale]/dday-calculator/index.astro",
+    "apps/web/src/pages/[locale]/age-calculator/index.astro"
   ],
-  "copyFingerprint": "sha256:35aae56878b65d4e6b39eb67ea32c52bea96b3a48f3d84e0f7bcdb3ab3d1602e",
+  "copyFingerprint": "sha256:147aafdf210322981e0e53f65cdd261303e731fd036ade7cf8ade1e33266ecdb",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",

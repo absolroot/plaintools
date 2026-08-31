@@ -1,7 +1,26 @@
 import type { DateCalculatorCopy } from "../../../features/date-calculator/contract";
 import type { Locale } from "../../site";
 
+export type DateCalculatorPageId =
+  | "date-calculator"
+  | "dday-calculator"
+  | "age-calculator";
+
+export type DateCalculatorPageSeed = {
+  title: string;
+  description: string;
+  mobileDescription: string;
+  guide: string;
+  terms: readonly string[];
+  faqs: Array<{ q: string; a: string }>;
+};
+
 export type DateCalculatorLocaleSeed = {
+  pages: Record<DateCalculatorPageId, DateCalculatorPageSeed>;
+  feature: DateCalculatorCopy;
+};
+
+type DateCalculatorTranslation = {
   page: {
     title: string;
     description: string;
@@ -13,11 +32,11 @@ export type DateCalculatorLocaleSeed = {
   feature: DateCalculatorCopy;
 };
 
-type DateSeedInput = Omit<DateCalculatorLocaleSeed, "feature"> & {
+type DateSeedSource = Omit<DateCalculatorTranslation, "feature"> & {
   feature: Omit<DateCalculatorCopy, "ariaLabel">;
 };
 
-function define(input: DateSeedInput): DateCalculatorLocaleSeed {
+function define(input: DateSeedSource): DateCalculatorTranslation {
   return {
     ...input,
     feature: { ariaLabel: input.page.title, ...input.feature },
@@ -1412,8 +1431,460 @@ const translations = {
       },
     },
   }),
-} satisfies Record<Locale, DateCalculatorLocaleSeed>;
+} satisfies Record<Locale, DateCalculatorTranslation>;
+
+type RouteCopy = Pick<
+  DateCalculatorPageSeed,
+  "title" | "description" | "mobileDescription" | "terms"
+>;
+
+const routeCopy = {
+  en: {
+    "date-calculator": {
+      title: "Date Calculator",
+      description:
+        "Add or subtract years, months, weeks, and days from a starting date.",
+      mobileDescription: "Add or subtract calendar time from a date.",
+      terms: ["date calculator", "add days to date", "subtract days from date"],
+    },
+    "dday-calculator": {
+      title: "D-Day Calculator",
+      description:
+        "Count days between two dates and see the D-Day value, with optional end-date inclusion.",
+      mobileDescription: "Count days between dates and calculate D-Day.",
+      terms: [
+        "D-Day calculator",
+        "days between dates",
+        "day counter",
+        "countdown calculator",
+      ],
+    },
+    "age-calculator": {
+      title: "Age Calculator",
+      description:
+        "Calculate completed age, exact calendar age, days lived, and the next birthday.",
+      mobileDescription: "Calculate exact age from a birth date.",
+      terms: ["age calculator", "birthday calculator", "exact age calculator"],
+    },
+  },
+  ko: {
+    "date-calculator": {
+      title: "날짜 계산기",
+      description:
+        "기준 날짜에 년·월·주·일을 더하거나 빼서 결과 날짜를 계산합니다.",
+      mobileDescription: "날짜에 기간을 더하거나 빼서 결과 날짜를 계산합니다.",
+      terms: ["날짜 계산기", "날짜 더하기", "날짜 빼기", "날짜 계산"],
+    },
+    "dday-calculator": {
+      title: "디데이 계산기",
+      description:
+        "두 날짜 사이의 일수와 D-Day를 계산하고 종료일 포함 여부를 선택합니다.",
+      mobileDescription: "두 날짜의 차이와 디데이를 계산합니다.",
+      terms: [
+        "디데이 계산기",
+        "D-Day 계산기",
+        "날짜 차이 계산기",
+        "일수 계산기",
+      ],
+    },
+    "age-calculator": {
+      title: "만 나이 계산기",
+      description:
+        "생년월일과 기준일로 만 나이, 정확한 경과 기간, 다음 생일까지 남은 날을 계산합니다.",
+      mobileDescription: "생년월일을 기준으로 만 나이를 계산합니다.",
+      terms: ["만 나이 계산기", "만나이 계산기", "나이 계산기", "생일 계산기"],
+    },
+  },
+  ja: {
+    "date-calculator": {
+      title: "日付計算機",
+      description:
+        "基準日から年・月・週・日を足し引きして、結果の日付を計算します。",
+      mobileDescription: "日付に期間を足し引きして結果を求めます。",
+      terms: ["日付計算", "日付計算機", "日付加算", "日付減算"],
+    },
+    "dday-calculator": {
+      title: "日数・D-Day計算機",
+      description:
+        "2つの日付の間の日数とD-Dayを計算し、終了日を含めるか選べます。",
+      mobileDescription: "2つの日付の差とD-Dayを計算します。",
+      terms: ["日数計算", "日付差", "D-Day計算", "日数カウント"],
+    },
+    "age-calculator": {
+      title: "満年齢計算機",
+      description:
+        "生年月日と基準日から満年齢、正確な経過期間、次の誕生日までの日数を計算します。",
+      mobileDescription: "生年月日から満年齢を計算します。",
+      terms: ["満年齢計算", "年齢計算", "年齢計算機", "誕生日計算"],
+    },
+  },
+  "zh-TW": {
+    "date-calculator": {
+      title: "日期計算機",
+      description: "在基準日期加上或減去年、月、週與日，計算結果日期。",
+      mobileDescription: "在日期加減一段時間並計算結果。",
+      terms: ["日期計算機", "日期加減", "日期加天數", "日期減天數"],
+    },
+    "dday-calculator": {
+      title: "日期差與倒數日計算機",
+      description: "計算兩個日期之間的天數與倒數日，並可選擇是否包含結束日。",
+      mobileDescription: "計算兩個日期的相差天數與倒數日。",
+      terms: ["日期差計算", "相差天數", "倒數日計算", "天數計算機"],
+    },
+    "age-calculator": {
+      title: "實歲計算機",
+      description:
+        "依出生日期與基準日計算實歲、完整經過期間及距離下次生日的天數。",
+      mobileDescription: "依出生日期計算實歲。",
+      terms: ["實歲計算機", "年齡計算", "歲數計算", "生日計算"],
+    },
+  },
+  de: {
+    "date-calculator": {
+      title: "Datumsrechner",
+      description:
+        "Jahre, Monate, Wochen und Tage zu einem Ausgangsdatum addieren oder davon abziehen.",
+      mobileDescription: "Kalenderzeit zu einem Datum addieren oder abziehen.",
+      terms: ["Datumsrechner", "Datum addieren", "Datum subtrahieren"],
+    },
+    "dday-calculator": {
+      title: "Tages- und Countdown-Rechner",
+      description:
+        "Tage zwischen zwei Daten und den Countdown berechnen; das Enddatum kann mitgezählt werden.",
+      mobileDescription: "Tage zwischen Daten und den Countdown berechnen.",
+      terms: ["Tagerechner", "Tage zwischen Daten", "Countdown Rechner"],
+    },
+    "age-calculator": {
+      title: "Altersrechner",
+      description:
+        "Vollendetes und genaues Alter sowie Lebenstage und den nächsten Geburtstag berechnen.",
+      mobileDescription: "Das genaue Alter aus dem Geburtsdatum berechnen.",
+      terms: ["Altersrechner", "Alter berechnen", "Geburtstagsrechner"],
+    },
+  },
+  fr: {
+    "date-calculator": {
+      title: "Calculateur de date",
+      description:
+        "Ajoutez ou retirez des années, des mois, des semaines et des jours à une date de départ.",
+      mobileDescription: "Ajoutez ou retirez une durée à une date.",
+      terms: [
+        "calculateur de date",
+        "ajouter des jours",
+        "soustraire des jours",
+      ],
+    },
+    "dday-calculator": {
+      title: "Calculateur de jours et de compte à rebours",
+      description:
+        "Calculez le nombre de jours entre deux dates et le compte à rebours, avec inclusion facultative de la date de fin.",
+      mobileDescription:
+        "Calculez les jours entre deux dates et le compte à rebours.",
+      terms: [
+        "calculateur de jours",
+        "jours entre deux dates",
+        "compte à rebours",
+      ],
+    },
+    "age-calculator": {
+      title: "Calculateur d’âge",
+      description:
+        "Calculez l’âge révolu, l’âge calendaire exact, les jours vécus et le prochain anniversaire.",
+      mobileDescription:
+        "Calculez l’âge exact à partir de la date de naissance.",
+      terms: ["calculateur d'âge", "calcul âge", "calcul anniversaire"],
+    },
+  },
+  es: {
+    "date-calculator": {
+      title: "Calculadora de fechas",
+      description:
+        "Suma o resta años, meses, semanas y días a una fecha inicial.",
+      mobileDescription: "Suma o resta tiempo de calendario a una fecha.",
+      terms: ["calculadora de fechas", "sumar días", "restar días"],
+    },
+    "dday-calculator": {
+      title: "Calculadora de días y cuenta regresiva",
+      description:
+        "Cuenta los días entre dos fechas y calcula la cuenta regresiva, con la opción de incluir la fecha final.",
+      mobileDescription:
+        "Cuenta días entre fechas y calcula la cuenta regresiva.",
+      terms: ["calculadora de días", "días entre fechas", "cuenta regresiva"],
+    },
+    "age-calculator": {
+      title: "Calculadora de edad",
+      description:
+        "Calcula la edad cumplida, la edad exacta, los días vividos y el próximo cumpleaños.",
+      mobileDescription: "Calcula la edad exacta desde la fecha de nacimiento.",
+      terms: [
+        "calculadora de edad",
+        "calcular edad",
+        "calculadora de cumpleaños",
+      ],
+    },
+  },
+  "pt-BR": {
+    "date-calculator": {
+      title: "Calculadora de datas",
+      description:
+        "Some ou subtraia anos, meses, semanas e dias de uma data inicial.",
+      mobileDescription: "Some ou subtraia tempo de calendário de uma data.",
+      terms: ["calculadora de datas", "somar dias", "subtrair dias"],
+    },
+    "dday-calculator": {
+      title: "Calculadora de dias e contagem regressiva",
+      description:
+        "Conte os dias entre duas datas e calcule a contagem regressiva, com opção de incluir a data final.",
+      mobileDescription:
+        "Conte dias entre datas e calcule a contagem regressiva.",
+      terms: ["calculadora de dias", "dias entre datas", "contagem regressiva"],
+    },
+    "age-calculator": {
+      title: "Calculadora de idade",
+      description:
+        "Calcule a idade completa, a idade exata, os dias vividos e o próximo aniversário.",
+      mobileDescription: "Calcule a idade exata pela data de nascimento.",
+      terms: [
+        "calculadora de idade",
+        "calcular idade",
+        "calculadora de aniversário",
+      ],
+    },
+  },
+  it: {
+    "date-calculator": {
+      title: "Calcolatore di date",
+      description:
+        "Aggiungi o sottrai anni, mesi, settimane e giorni a una data iniziale.",
+      mobileDescription: "Aggiungi o sottrai tempo di calendario a una data.",
+      terms: ["calcolatore di date", "aggiungere giorni", "sottrarre giorni"],
+    },
+    "dday-calculator": {
+      title: "Calcolatore di giorni e conto alla rovescia",
+      description:
+        "Conta i giorni tra due date e calcola il conto alla rovescia, includendo facoltativamente la data finale.",
+      mobileDescription:
+        "Conta i giorni tra date e calcola il conto alla rovescia.",
+      terms: [
+        "calcolatore di giorni",
+        "giorni tra due date",
+        "conto alla rovescia",
+      ],
+    },
+    "age-calculator": {
+      title: "Calcolatore dell’età",
+      description:
+        "Calcola l’età compiuta, l’età esatta, i giorni vissuti e il prossimo compleanno.",
+      mobileDescription: "Calcola l’età esatta dalla data di nascita.",
+      terms: ["calcolatore età", "calcolo età", "calcolo compleanno"],
+    },
+  },
+  nl: {
+    "date-calculator": {
+      title: "Datumcalculator",
+      description:
+        "Tel jaren, maanden, weken en dagen op bij een begindatum of trek ze ervan af.",
+      mobileDescription:
+        "Tel kalendertijd op bij een datum of trek die ervan af.",
+      terms: ["datumcalculator", "dagen optellen", "dagen aftrekken"],
+    },
+    "dday-calculator": {
+      title: "Dagen- en aftelcalculator",
+      description:
+        "Bereken dagen tussen twee datums en de aftelling, met de optie om de einddatum mee te tellen.",
+      mobileDescription: "Bereken dagen tussen datums en de aftelling.",
+      terms: ["dagencalculator", "dagen tussen datums", "aftelcalculator"],
+    },
+    "age-calculator": {
+      title: "Leeftijdscalculator",
+      description:
+        "Bereken de voltooide en exacte leeftijd, geleefde dagen en de volgende verjaardag.",
+      mobileDescription: "Bereken de exacte leeftijd uit de geboortedatum.",
+      terms: [
+        "leeftijdscalculator",
+        "leeftijd berekenen",
+        "verjaardag berekenen",
+      ],
+    },
+  },
+  pl: {
+    "date-calculator": {
+      title: "Kalkulator dat",
+      description:
+        "Dodaj lub odejmij lata, miesiące, tygodnie i dni od daty początkowej.",
+      mobileDescription: "Dodaj lub odejmij czas kalendarzowy od daty.",
+      terms: ["kalkulator dat", "dodawanie dni", "odejmowanie dni"],
+    },
+    "dday-calculator": {
+      title: "Kalkulator dni i odliczania",
+      description:
+        "Oblicz liczbę dni między dwiema datami i odliczanie, opcjonalnie z datą końcową.",
+      mobileDescription: "Oblicz dni między datami i odliczanie.",
+      terms: ["kalkulator dni", "dni między datami", "odliczanie dni"],
+    },
+    "age-calculator": {
+      title: "Kalkulator wieku",
+      description:
+        "Oblicz ukończony i dokładny wiek, liczbę przeżytych dni oraz następne urodziny.",
+      mobileDescription: "Oblicz dokładny wiek z daty urodzenia.",
+      terms: ["kalkulator wieku", "obliczanie wieku", "kalkulator urodzin"],
+    },
+  },
+  cs: {
+    "date-calculator": {
+      title: "Kalkulačka data",
+      description:
+        "Přičtěte nebo odečtěte roky, měsíce, týdny a dny od počátečního data.",
+      mobileDescription: "Přičtěte nebo odečtěte kalendářní dobu od data.",
+      terms: ["kalkulačka data", "přičítání dnů", "odečítání dnů"],
+    },
+    "dday-calculator": {
+      title: "Kalkulačka dnů a odpočtu",
+      description:
+        "Spočítejte dny mezi dvěma daty a odpočet s volitelným zahrnutím koncového data.",
+      mobileDescription: "Spočítejte dny mezi daty a odpočet.",
+      terms: ["kalkulačka dnů", "dny mezi daty", "odpočet dnů"],
+    },
+    "age-calculator": {
+      title: "Kalkulačka věku",
+      description:
+        "Spočítejte dokončený i přesný věk, prožité dny a příští narozeniny.",
+      mobileDescription: "Spočítejte přesný věk z data narození.",
+      terms: ["kalkulačka věku", "výpočet věku", "výpočet narozenin"],
+    },
+  },
+  sv: {
+    "date-calculator": {
+      title: "Datumräknare",
+      description:
+        "Lägg till eller dra bort år, månader, veckor och dagar från ett startdatum.",
+      mobileDescription: "Lägg till eller dra bort kalendertid från ett datum.",
+      terms: ["datumräknare", "lägg till dagar", "dra bort dagar"],
+    },
+    "dday-calculator": {
+      title: "Dag- och nedräkningsräknare",
+      description:
+        "Räkna dagar mellan två datum och nedräkningen, med val att ta med slutdatumet.",
+      mobileDescription: "Räkna dagar mellan datum och nedräkning.",
+      terms: ["dagräknare", "dagar mellan datum", "nedräkningsräknare"],
+    },
+    "age-calculator": {
+      title: "Ålderskalkylator",
+      description:
+        "Beräkna fylld och exakt ålder, levda dagar och nästa födelsedag.",
+      mobileDescription: "Beräkna exakt ålder från födelsedatumet.",
+      terms: ["ålderskalkylator", "beräkna ålder", "födelsedagsräknare"],
+    },
+  },
+  da: {
+    "date-calculator": {
+      title: "Datoberegner",
+      description:
+        "Læg år, måneder, uger og dage til en startdato, eller træk dem fra.",
+      mobileDescription: "Læg kalendertid til en dato, eller træk den fra.",
+      terms: ["datoberegner", "læg dage til", "træk dage fra"],
+    },
+    "dday-calculator": {
+      title: "Dage- og nedtællingsberegner",
+      description:
+        "Beregn dage mellem to datoer og nedtællingen med mulighed for at medregne slutdatoen.",
+      mobileDescription: "Beregn dage mellem datoer og nedtælling.",
+      terms: ["dageberegner", "dage mellem datoer", "nedtællingsberegner"],
+    },
+    "age-calculator": {
+      title: "Aldersberegner",
+      description:
+        "Beregn fuldført og nøjagtig alder, levede dage og næste fødselsdag.",
+      mobileDescription: "Beregn nøjagtig alder ud fra fødselsdatoen.",
+      terms: ["aldersberegner", "beregn alder", "fødselsdagsberegner"],
+    },
+  },
+  no: {
+    "date-calculator": {
+      title: "Datokalkulator",
+      description:
+        "Legg år, måneder, uker og dager til en startdato, eller trekk dem fra.",
+      mobileDescription: "Legg kalendertid til en dato, eller trekk den fra.",
+      terms: ["datokalkulator", "legg til dager", "trekk fra dager"],
+    },
+    "dday-calculator": {
+      title: "Dags- og nedtellingskalkulator",
+      description:
+        "Beregn dager mellom to datoer og nedtellingen, med mulighet for å ta med sluttdatoen.",
+      mobileDescription: "Beregn dager mellom datoer og nedtelling.",
+      terms: ["dagskalkulator", "dager mellom datoer", "nedtellingskalkulator"],
+    },
+    "age-calculator": {
+      title: "Alderskalkulator",
+      description:
+        "Beregn fullført og nøyaktig alder, levedager og neste fødselsdag.",
+      mobileDescription: "Beregn nøyaktig alder fra fødselsdatoen.",
+      terms: ["alderskalkulator", "beregn alder", "fødselsdagskalkulator"],
+    },
+  },
+  tr: {
+    "date-calculator": {
+      title: "Tarih hesaplama",
+      description:
+        "Başlangıç tarihine yıl, ay, hafta ve gün ekleyin veya çıkarın.",
+      mobileDescription: "Bir tarihe takvim süresi ekleyin veya çıkarın.",
+      terms: ["tarih hesaplama", "tarihe gün ekleme", "tarihten gün çıkarma"],
+    },
+    "dday-calculator": {
+      title: "Gün ve geri sayım hesaplama",
+      description:
+        "İki tarih arasındaki günleri ve geri sayımı, bitiş tarihini dahil etme seçeneğiyle hesaplayın.",
+      mobileDescription:
+        "Tarihler arasındaki günleri ve geri sayımı hesaplayın.",
+      terms: ["gün hesaplama", "iki tarih arası gün", "geri sayım hesaplama"],
+    },
+    "age-calculator": {
+      title: "Yaş hesaplama",
+      description:
+        "Tamamlanan ve kesin yaşı, yaşanan günleri ve sonraki doğum gününü hesaplayın.",
+      mobileDescription: "Doğum tarihinden kesin yaşı hesaplayın.",
+      terms: ["yaş hesaplama", "yaş hesaplayıcı", "doğum günü hesaplama"],
+    },
+  },
+  ar: {
+    "date-calculator": {
+      title: "حاسبة التاريخ",
+      description:
+        "أضف السنوات والأشهر والأسابيع والأيام إلى تاريخ بداية أو اطرحها منه.",
+      mobileDescription: "أضف مدة تقويمية إلى تاريخ أو اطرحها منه.",
+      terms: ["حاسبة التاريخ", "إضافة أيام إلى تاريخ", "طرح أيام من تاريخ"],
+    },
+    "dday-calculator": {
+      title: "حاسبة فرق الأيام والعد التنازلي",
+      description:
+        "احسب الأيام بين تاريخين والعد التنازلي، مع خيار احتساب تاريخ النهاية.",
+      mobileDescription: "احسب الأيام بين تاريخين والعد التنازلي.",
+      terms: ["حاسبة فرق الأيام", "الأيام بين تاريخين", "حاسبة العد التنازلي"],
+    },
+    "age-calculator": {
+      title: "حاسبة العمر",
+      description:
+        "احسب العمر المكتمل والدقيق، وأيام العمر، وموعد عيد الميلاد التالي.",
+      mobileDescription: "احسب العمر الدقيق من تاريخ الميلاد.",
+      terms: ["حاسبة العمر", "حساب العمر", "حاسبة عيد الميلاد"],
+    },
+  },
+} satisfies Record<Locale, Record<DateCalculatorPageId, RouteCopy>>;
 
 export function dateCalculatorFor(locale: Locale): DateCalculatorLocaleSeed {
-  return translations[locale];
+  const translation = translations[locale];
+  const localRoutes = routeCopy[locale];
+  const page = (id: DateCalculatorPageId): DateCalculatorPageSeed => ({
+    ...localRoutes[id],
+    guide: translation.page.guide,
+    faqs: translation.page.faqs,
+  });
+  return {
+    pages: {
+      "date-calculator": page("date-calculator"),
+      "dday-calculator": page("dday-calculator"),
+      "age-calculator": page("age-calculator"),
+    },
+    feature: translation.feature,
+  };
 }

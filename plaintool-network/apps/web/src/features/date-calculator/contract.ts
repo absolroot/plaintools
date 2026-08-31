@@ -1,4 +1,7 @@
 import type { ToolCommonCopy } from "../common-copy-contract";
+import type { Locale } from "../../lib/site";
+
+export type DateCalculatorMode = "difference" | "math" | "age";
 
 export interface DateCalculatorCopy {
   ariaLabel: string;
@@ -51,7 +54,8 @@ export interface DateCalculatorClientCopy {
 }
 
 export interface DateCalculatorProps {
-  locale: string;
+  locale: Locale;
   copy: DateCalculatorCopy;
   commonCopy: ToolCommonCopy;
+  initialMode: DateCalculatorMode;
 }

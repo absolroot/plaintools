@@ -95,6 +95,8 @@ const toolMarks = {
   "ip-subnet-calculator": "IP",
   "background-remover": "BG",
   "date-calculator": "D±",
+  "dday-calculator": "D",
+  "age-calculator": "AGE",
 } as const;
 
 export type BaseRegisteredToolId = keyof typeof toolMarks;
