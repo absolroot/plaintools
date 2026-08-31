@@ -1,0 +1,340 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { CommonToolCopy } from "../../lib/common-tool-i18n";
+import type { Locale } from "../../lib/site";
+import type { PdfToolkitCopy } from "./contract";
+import type { PdfToolId } from "./modes";
+
+interface Props {
+  locale: Locale;
+  mode: PdfToolId;
+  copy: PdfToolkitCopy;
+  common: CommonToolCopy;
+}
+
+const { locale, mode, copy, common } = Astro.props;
+const combinedCopy = { ...common, ...copy };
+const acceptsImages = mode === "image-to-pdf";
+const acceptsMultiple = mode === "merge-pdf" || acceptsImages;
+const accept = acceptsImages
+  ? "image/jpeg,image/png,image/webp"
+  : "application/pdf,.pdf";
+const chooseLabel = acceptsImages
+  ? copy.chooseImages
+  : acceptsMultiple
+    ? copy.choosePdfs
+    : copy.choosePdf;
+const dropLabel = acceptsImages
+  ? copy.dropImages
+  : acceptsMultiple
+    ? copy.dropPdfs
+    : copy.dropPdf;
+const typeLabel = acceptsImages ? copy.imageTypes : copy.pdfTypes;
+const actionLabel = {
+  "compress-pdf": copy.compress,
+  "merge-pdf": copy.merge,
+  "split-pdf": copy.split,
+  "pdf-to-image": copy.convertToImages,
+  "image-to-pdf": copy.createPdf,
+}[mode];
+---
+
+<section
+  class="converter pdf-toolkit"
+  data-pdf-toolkit
+  data-mode={mode}
+  data-locale={locale}
+  aria-label={copy.ariaLabel}
+>
+  <div class="pdf-upload" data-drop-zone>
+    <button class="pdf-upload-action" type="button" data-open-files>
+      <UiIcon name={acceptsImages ? "image" : "folder-open"} size={26} />
+      <strong data-open-label>{chooseLabel}</strong>
+      <span>{dropLabel}</span>
+      <small>{typeLabel}</small>
+    </button>
+    <input
+      type="file"
+      accept={accept}
+      multiple={acceptsMultiple}
+      data-file-input
+      hidden
+    />
+  </div>
+
+  <div class="pdf-editor" data-editor hidden>
+    <section class="pdf-file-panel" aria-labelledby="pdf-selected-heading">
+      <div class="pdf-section-heading">
+        <div>
+          <span class="pdf-step">01</span>
+          <h2 id="pdf-selected-heading">{copy.selectedFiles}</h2>
+        </div>
+        <button class="secondary-button" type="button" data-add-files hidden>
+          {copy.addFiles}
+        </button>
+      </div>
+      <div class="pdf-file-list" data-file-list></div>
+      <div class="pdf-page-selection" data-page-selection hidden>
+        <div class="pdf-page-selection-toolbar">
+          <span data-page-selection-count></span>
+          <div>
+            <button type="button" data-select-all>{copy.selectAll}</button>
+            <button type="button" data-clear-selection
+              >{copy.clearSelection}</button
+            >
+          </div>
+        </div>
+        <div class="pdf-page-grid" data-page-grid></div>
+      </div>
+    </section>
+
+    <aside class="pdf-options-panel" aria-labelledby="pdf-options-heading">
+      <div class="pdf-section-heading">
+        <div>
+          <span class="pdf-step">02</span>
+          <h2 id="pdf-options-heading">{copy.options}</h2>
+        </div>
+      </div>
+
+      <fieldset data-compress-options hidden={mode !== "compress-pdf"}>
+        <legend>{copy.compressionLevel}</legend>
+        <label class="pdf-choice">
+          <input type="radio" name="compression-preset" value="preserve" />
+          <span
+            ><strong>{copy.preserveDocument}</strong><small
+              >{copy.preserveDocumentHint}</small
+            ></span
+          >
+        </label>
+        <label class="pdf-choice">
+          <input
+            type="radio"
+            name="compression-preset"
+            value="balanced"
+            checked
+          />
+          <span
+            ><strong>{copy.balanced}</strong><small>{copy.balancedHint}</small
+            ></span
+          >
+        </label>
+        <label class="pdf-choice">
+          <input type="radio" name="compression-preset" value="small" />
+          <span
+            ><strong>{copy.smallerFile}</strong><small
+              >{copy.smallerFileHint}</small
+            ></span
+          >
+        </label>
+        <div class="pdf-warning" data-raster-warning>
+          <strong>{copy.rasterWarningTitle}</strong>
+          <p>{copy.rasterWarningBody}</p>
+        </div>
+      </fieldset>
+
+      <div
+        class="pdf-split-options"
+        data-split-options
+        hidden={mode !== "split-pdf"}
+      >
+        <fieldset class="pdf-mode-switch">
+          <legend class="sr-only">{copy.options}</legend>
+          <label
+            ><input
+              type="radio"
+              name="split-mode"
+              value="extract"
+              checked
+            /><span>{copy.extractPages}</span></label
+          >
+          <label
+            ><input type="radio" name="split-mode" value="split" /><span
+              >{copy.splitDocument}</span
+            ></label
+          >
+        </fieldset>
+        <div class="pdf-option-group" data-extract-options>
+          <label>
+            <span>{copy.pageSelection}</span>
+            <input
+              type="text"
+              value="1"
+              inputmode="numeric"
+              data-extract-range
+            />
+            <small>{copy.pageSelectionHint}</small>
+          </label>
+        </div>
+        <div class="pdf-option-group" data-document-split-options hidden>
+          <fieldset>
+            <legend>{copy.splitDocument}</legend>
+            <label class="pdf-choice pdf-choice-compact">
+              <input type="radio" name="split-rule" value="fixed" checked />
+              <span><strong>{copy.everyPages}</strong></span>
+            </label>
+            <label class="pdf-choice pdf-choice-compact">
+              <input type="radio" name="split-rule" value="custom" />
+              <span><strong>{copy.customRanges}</strong></span>
+            </label>
+          </fieldset>
+          <label data-fixed-rule>
+            <span>{copy.pagesPerFile}</span>
+            <input
+              type="number"
+              value="1"
+              min="1"
+              step="1"
+              data-pages-per-file
+            />
+          </label>
+          <label data-custom-rule hidden>
+            <span>{copy.customRanges}</span>
+            <input
+              type="text"
+              value="1"
+              inputmode="numeric"
+              data-custom-ranges
+            />
+            <small>{copy.customRangesHint}</small>
+          </label>
+        </div>
+      </div>
+
+      <div
+        class="pdf-option-group"
+        data-pdf-image-options
+        hidden={mode !== "pdf-to-image"}
+      >
+        <label>
+          <span>{copy.pageSelection}</span>
+          <input type="text" value="1" inputmode="numeric" data-image-range />
+          <small>{copy.pageSelectionHint}</small>
+        </label>
+        <label>
+          <span>{copy.outputFormat}</span>
+          <select data-image-format>
+            <option value="jpg" selected>{copy.jpg}</option>
+            <option value="png">{copy.png}</option>
+          </select>
+        </label>
+        <label>
+          <span>{copy.resolution}</span>
+          <select data-image-dpi>
+            <option value="96">{copy.dpi96}</option>
+            <option value="144" selected>{copy.dpi144}</option>
+            <option value="200">{copy.dpi200}</option>
+          </select>
+        </label>
+        <label data-quality-control>
+          <span>{copy.quality}</span>
+          <input
+            type="range"
+            min="55"
+            max="95"
+            value="82"
+            step="1"
+            data-image-quality
+          />
+          <output data-image-quality-output>82%</output>
+        </label>
+      </div>
+
+      <div
+        class="pdf-option-group"
+        data-images-pdf-options
+        hidden={mode !== "image-to-pdf"}
+      >
+        <label>
+          <span>{copy.pageSize}</span>
+          <select data-page-size>
+            <option value="fit" selected>{copy.fitImage}</option>
+            <option value="a4">{copy.a4}</option>
+            <option value="letter">{copy.letter}</option>
+          </select>
+        </label>
+        <label>
+          <span>{copy.orientation}</span>
+          <select data-orientation disabled>
+            <option value="auto" selected>{copy.automatic}</option>
+            <option value="portrait">{copy.portrait}</option>
+            <option value="landscape">{copy.landscape}</option>
+          </select>
+        </label>
+        <label>
+          <span>{copy.margin}</span>
+          <select data-margin disabled>
+            <option value="none" selected>{copy.noMargin}</option>
+            <option value="small">{copy.smallMargin}</option>
+            <option value="large">{copy.largeMargin}</option>
+          </select>
+        </label>
+      </div>
+
+      <p class="pdf-merge-note" data-merge-note hidden={mode !== "merge-pdf"}>
+        {copy.moveUp} / {copy.moveDown}
+      </p>
+    </aside>
+  </div>
+
+  <section
+    class="pdf-result"
+    data-result
+    hidden
+    aria-labelledby="pdf-result-heading"
+  >
+    <div class="pdf-section-heading">
+      <div>
+        <span class="pdf-step">03</span>
+        <h2 id="pdf-result-heading">{copy.result}</h2>
+      </div>
+    </div>
+    <dl class="pdf-result-facts" data-result-facts></dl>
+    <div class="pdf-result-files" data-result-files></div>
+  </section>
+
+  <ConverterStatus status={common.ready} statusId="pdf-status">
+    <div class="pdf-progress-wrap" data-progress-wrap hidden>
+      <progress max="100" value="0" data-progress></progress>
+      <span data-progress-label></span>
+    </div>
+    <button class="secondary-button" type="button" data-clear disabled
+      >{common.clear}</button
+    >
+    <button class="secondary-button" type="button" data-cancel hidden
+      >{copy.cancel}</button
+    >
+    <button class="primary-button" type="button" data-run disabled
+      >{actionLabel}</button
+    >
+    <button class="primary-button" type="button" data-download hidden disabled>
+      <UiIcon name="download" size={18} />
+      <span data-download-label>{copy.downloadPdf}</span>
+    </button>
+  </ConverterStatus>
+
+  <template data-file-template>
+    <article class="pdf-file-card" draggable="false">
+      <div class="pdf-thumbnail">
+        <canvas width="96" height="128"></canvas><span></span>
+      </div>
+      <div class="pdf-file-copy"><strong></strong><small></small></div>
+      <div class="pdf-file-actions">
+        <button type="button" data-move-up>↑</button>
+        <button type="button" data-move-down>↓</button>
+        <button type="button" data-remove>×</button>
+      </div>
+    </article>
+  </template>
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(combinedCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

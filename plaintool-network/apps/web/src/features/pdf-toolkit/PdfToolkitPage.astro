@@ -1,0 +1,38 @@
+---
+import PreviewToolPage from "../../components/PreviewToolPage.astro";
+import { localeBundles } from "../../lib/locale-data";
+import type { Locale } from "../../lib/site";
+import PdfToolkit from "./PdfToolkit.astro";
+import { pdfToolkitLocales } from "./i18n";
+import type { PdfToolId } from "./modes";
+import stylesheet from "./styles.css?url";
+
+interface Props {
+  locale: Locale;
+  page: PdfToolId;
+}
+
+const { locale, page } = Astro.props;
+const bundle = localeBundles[locale];
+const content = pdfToolkitLocales[locale].tools[page];
+---
+
+<PreviewToolPage
+  locale={locale}
+  page={page}
+  title={content.title}
+  description={content.description}
+  guideTitle={content.guideTitle}
+  guideBody={content.guideBody}
+  safetyTitle={content.safetyTitle}
+  safetyBody={content.safetyBody}
+  faqs={content.faqs}
+  featureStylesheet={stylesheet}
+>
+  <PdfToolkit
+    locale={locale}
+    mode={page}
+    copy={content.feature}
+    common={bundle.common}
+  />
+</PreviewToolPage>
