@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "featureId": "date-calculator",
-  "enforcement": "preview-feature",
+  "enforcement": "new-feature",
   "sourceLocale": "en",
   "publicLocales": [
     "en",
@@ -36,10 +36,10 @@
     "apps/web/src/components/PreviewToolPage.astro",
     "apps/web/src/pages/[locale]/date-calculator/index.astro"
   ],
-  "copyFingerprint": "sha256:640e3405c907bde40211109bc2088feee9d05cb2ac864d9d63808d7acb3052b3",
+  "copyFingerprint": "sha256:df07e94e9a2eed32d6304e7cb943fac276d434a3dec350cf9cb188a141f0fe8d",
   "locales": {
     "en": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": [
         "en-w3schools-date-age",
@@ -47,12 +47,12 @@
       ]
     },
     "ko": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["ko-moleg-full-age", "ko-date-age-search-results"]
     },
     "es": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": [
         "es-watchisup-calculadora-fechas",
@@ -60,47 +60,47 @@
       ]
     },
     "de": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["de-timeanddate-datum", "de-datums-rechner"]
     },
     "ja": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["ja-okyantools-date", "ja-alfa-tools-mannenrei"]
     },
     "fr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["fr-alexandrai-age-date", "fr-native-date-query"]
     },
     "pt-BR": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["pt-br-calendarr-idade", "pt-br-facilita-datas"]
     },
     "it": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["it-calkoo-date-eta", "it-native-date-query"]
     },
     "nl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["nl-i24app-datumberekening", "nl-datumrekenen"]
     },
     "sv": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["sv-kalkylverket-datum", "sv-native-age-query"]
     },
     "cs": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["cs-native-date-query", "cs-native-age-query"]
     },
     "pl": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": [
         "pl-darmowe-kalkulatory-daty",
@@ -108,27 +108,27 @@
       ]
     },
     "da": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["da-native-date-query", "da-native-age-query"]
     },
     "no": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["no-kalkulatorbanken-dato", "no-utregn-tid-dato"]
     },
     "ar": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["ar-freeonlinetools-date-difference", "ar-haseebat-age"]
     },
     "zh-TW": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["zh-tw-kuangli-datecalc", "zh-tw-lifecalc-age"]
     },
     "tr": {
-      "status": "reference-backed",
+      "status": "adversarial-reviewed",
       "reviewedAt": "2026-08-31",
       "referenceIds": ["tr-hesaplamatik-tarih", "tr-aktuerhesapla-yas"]
     }

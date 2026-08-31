@@ -296,7 +296,7 @@ export const toolRegistry = /** @type {const} */ ([
     featureId: "date-calculator",
     slug: "date-calculator",
     category: "time",
-    publication: "preview",
+    publication: "indexable",
     localeReviewManifest:
       "apps/web/src/lib/locale-review-manifests/date-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
