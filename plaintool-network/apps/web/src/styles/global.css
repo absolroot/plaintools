@@ -153,21 +153,21 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --canvas: #202124;
-    --elevated: #2e3135;
-    --recessed: #272a2d;
-    --base: #242629;
+    --canvas: #15171a;
+    --elevated: #32373e;
+    --recessed: #22262b;
+    --base: #292d32;
     --footer-bg: var(--base);
-    --tint: #2a2d31;
-    --control: #272a2d;
-    --fill: #363a3f;
+    --tint: #353a41;
+    --control: #24282d;
+    --fill: #3d424a;
     --ink: #dfe1e5;
     --ink-strong: #f1f3f4;
     --muted: #afb3ba;
     --placeholder: #9aa0a6;
-    --line: oklch(100% 0 0 / 0.15);
-    --control-line: oklch(100% 0 0 / 0.28);
-    --hairline: #363a3f;
+    --line: oklch(100% 0 0 / 0.18);
+    --control-line: oklch(100% 0 0 / 0.32);
+    --hairline: #484e56;
     --focus: oklch(78% 0.13 255);
     --brand: oklch(63% 0.19 258);
     --brand-hover: oklch(69% 0.17 258);
@@ -178,12 +178,12 @@
     --success-tint: oklch(30% 0.07 163 / 0.55);
     --danger: oklch(72% 0.17 25);
     --danger-tint: oklch(30% 0.08 25 / 0.55);
-    --input-surface: #2b292a;
-    --output-surface: #292c2b;
+    --input-surface: #292e34;
+    --output-surface: #28312d;
     --warning: oklch(80% 0.12 75);
     --warning-tint: oklch(31% 0.08 75 / 0.45);
     --on-action: oklch(99% 0 0);
-    --header-bg: rgba(32, 33, 36, 0.95);
+    --header-bg: rgba(21, 23, 26, 0.95);
     --shadow-layer: rgba(0, 0, 0, 0.28);
     --shadow-popover: rgba(0, 0, 0, 0.46);
   }
@@ -191,21 +191,21 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --canvas: #202124;
-  --elevated: #2e3135;
-  --recessed: #272a2d;
-  --base: #242629;
+  --canvas: #15171a;
+  --elevated: #32373e;
+  --recessed: #22262b;
+  --base: #292d32;
   --footer-bg: var(--base);
-  --tint: #2a2d31;
-  --control: #272a2d;
-  --fill: #363a3f;
+  --tint: #353a41;
+  --control: #24282d;
+  --fill: #3d424a;
   --ink: #dfe1e5;
   --ink-strong: #f1f3f4;
   --muted: #afb3ba;
   --placeholder: #9aa0a6;
-  --line: oklch(100% 0 0 / 0.15);
-  --control-line: oklch(100% 0 0 / 0.28);
-  --hairline: #363a3f;
+  --line: oklch(100% 0 0 / 0.18);
+  --control-line: oklch(100% 0 0 / 0.32);
+  --hairline: #484e56;
   --focus: oklch(78% 0.13 255);
   --brand: oklch(63% 0.19 258);
   --brand-hover: oklch(69% 0.17 258);
@@ -216,12 +216,12 @@
   --success-tint: oklch(30% 0.07 163 / 0.55);
   --danger: oklch(72% 0.17 25);
   --danger-tint: oklch(30% 0.08 25 / 0.55);
-  --input-surface: #2b292a;
-  --output-surface: #292c2b;
+  --input-surface: #292e34;
+  --output-surface: #28312d;
   --warning: oklch(80% 0.12 75);
   --warning-tint: oklch(31% 0.08 75 / 0.45);
   --on-action: oklch(99% 0 0);
-  --header-bg: rgba(32, 33, 36, 0.95);
+  --header-bg: rgba(21, 23, 26, 0.95);
   --shadow-layer: rgba(0, 0, 0, 0.28);
   --shadow-popover: rgba(0, 0, 0, 0.46);
 }
@@ -354,6 +354,21 @@ html:where([lang="ko"], [lang="ja"], [lang="zh-TW"]) {
   font-weight: 650;
   text-decoration: none;
   white-space: nowrap;
+}
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  margin-inline-end: var(--space-2);
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .brand-mark {
+    filter: invert(1) brightness(1.12);
+  }
+}
+:root[data-theme="dark"] .brand-mark {
+  filter: invert(1) brightness(1.12);
 }
 .header-context {
   min-width: 0;

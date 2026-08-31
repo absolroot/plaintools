@@ -692,9 +692,15 @@ export const deBundle: LocaleBundle = {
     directoryTitle:
       "Wir machen häufig genutzte Tools übersichtlicher und praktischer",
     directoryIntro:
-      "Speichern Sie diese Website als Lesezeichen, damit Sie beim nächsten Mal direkt darauf zugreifen können.",
-    toolPromise:
-      "AbsolTools macht häufig genutzte Online-Werkzeuge präziser und einfacher zu bedienen. Jede Aufgabe wird ausschließlich in Ihrem Browser verarbeitet, ohne separat gespeichert oder an einen Server gesendet zu werden. Speichern Sie diese Website als Lesezeichen.",
+      "Keine Anmeldung, keine Speicherung auf einem Server: Alle Werkzeuge sind kostenlos. Speichern Sie diese Website als Lesezeichen für das nächste Mal.",
+    toolPromise: {
+      improvement:
+        "AbsolTools macht häufig genutzte Werkzeuge präziser und komfortabler.",
+      privacy:
+        "Alle Werkzeuge sind kostenlos und erfordern keine Anmeldung. Die Verarbeitung erfolgt in Ihrem Browser; Eingaben und Ergebnisse werden weder auf einem Server gespeichert noch dorthin gesendet.",
+      bookmark:
+        "Speichern Sie diese Website als Lesezeichen, um beim nächsten Mal direkt zurückzukehren.",
+    },
     directorySearchLabel: "Werkzeuge durchsuchen",
     directorySearchPlaceholder: "Nach Name, Beschreibung oder Stichwort suchen",
     directorySearchClear: "Suche löschen",

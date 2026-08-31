@@ -8,7 +8,7 @@ import {
   validate as validateUuid,
 } from "uuid";
 
-export const uuidVersions = ["v4", "v7", "v1", "v3", "v5", "v6"] as const;
+export const uuidVersions = ["v1", "v3", "v4", "v5", "v6", "v7"] as const;
 export type UuidVersion = (typeof uuidVersions)[number];
 
 export const uuidNamespaceKinds = [

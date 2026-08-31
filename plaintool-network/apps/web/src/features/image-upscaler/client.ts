@@ -308,16 +308,34 @@ document
         setProgress(message);
         return;
       }
-      activeRequestId = undefined;
-      setBusy(false);
-      hideProgress();
       if (message.kind === "error") {
-        setStatus(
-          message.code === "model" ? copy.modelFailed : copy.processingFailed,
-          "error",
+        if (!sourcePixels) {
+          finishFailure(copy.processingFailed);
+          return;
+        }
+        stopWorker();
+        const fallbackRequestId = ++requestSequence;
+        activeRequestId = fallbackRequestId;
+        const fallbackPixels = new Uint8ClampedArray(sourcePixels.data);
+        void runOnMain(
+          {
+            kind: "upscale",
+            requestId: fallbackRequestId,
+            mode: selectedMode(),
+            scale: selectedScale(),
+            rgba: fallbackPixels,
+            width: sourcePixels.width,
+            height: sourcePixels.height,
+            tileSize: upscalerModelManifest[selectedMode()].initialTileSize,
+          },
+          "wasm",
+          revision,
         );
         return;
       }
+      activeRequestId = undefined;
+      setBusy(false);
+      hideProgress();
       renderResult({
         rgba: message.rgba,
         width: message.width,

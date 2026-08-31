@@ -687,9 +687,15 @@ const svBundle = {
     directoryTitle:
       "Vi gör verktygen du använder ofta enklare och smidigare att använda",
     directoryIntro:
-      "Lägg till webbplatsen som bokmärke så kan du gå direkt hit nästa gång.",
-    toolPromise:
-      "AbsolTools gör vanliga onlineverktyg mer exakta och enklare att använda. Varje uppgift behandlas endast i din webbläsare, utan att sparas separat eller skickas till en server. Lägg till webbplatsen i dina bokmärken.",
+      "Ingen registrering och ingen lagring på en server: alla verktyg är gratis. Bokmärk webbplatsen till nästa gång.",
+    toolPromise: {
+      improvement:
+        "AbsolTools gör verktygen du använder ofta mer exakta och smidigare.",
+      privacy:
+        "Alla verktyg är gratis och kräver ingen registrering. Bearbetningen sker i din webbläsare; inmatningar och resultat lagras inte på eller skickas till en server.",
+      bookmark:
+        "Bokmärk webbplatsen så att du kan komma tillbaka direkt nästa gång.",
+    },
     directorySearchLabel: "Sökverktyg",
     directorySearchPlaceholder: "Sök efter namn, beskrivning eller nyckelord",
     directorySearchClear: "Rensa sökning",

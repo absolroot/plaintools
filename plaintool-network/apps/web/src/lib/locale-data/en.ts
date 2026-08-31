@@ -700,9 +700,15 @@ const bundle: LocaleBundle = {
     directoryMetaDescription:
       "Format, convert, encode, decode, compare, and inspect text, data, and code directly in your browser. Tool inputs and results are not uploaded.",
     directoryTitle: "We make the tools you use often cleaner and easier to use",
-    directoryIntro: "Bookmark this site to come straight back next time.",
-    toolPromise:
-      "AbsolTools makes commonly used online tools more accurate and easier to use. Every task happens only in your browser, without being stored separately or sent to a server. Bookmark this site for easy access.",
+    directoryIntro:
+      "No sign-up, no server storage, and every tool is free. Bookmark this site for next time.",
+    toolPromise: {
+      improvement:
+        "AbsolTools makes the tools you use often more accurate and convenient.",
+      privacy:
+        "Every tool is free with no sign-up. Work happens in your browser, and inputs and results are not stored on or sent to a server.",
+      bookmark: "Bookmark this site so you can come straight back next time.",
+    },
     directorySearchLabel: "Search tools",
     directorySearchPlaceholder: "Search by name, description, or keyword",
     directorySearchClear: "Clear search",

@@ -686,9 +686,15 @@ const bundle: LocaleBundle = {
     directoryTitle:
       "Sık kullandığınız araçları daha sade ve kullanışlı hâle getiriyoruz",
     directoryIntro:
-      "Bu siteyi yer imlerinize ekleyin; böylece bir sonraki sefer doğrudan erişebilirsiniz.",
-    toolPromise:
-      "AbsolTools, sık kullanılan çevrim içi araçları daha doğru ve kullanışlı hâle getirir. Her işlem yalnızca tarayıcınızda gerçekleşir; ayrıca kaydedilmez veya bir sunucuya gönderilmez. Siteyi yer imlerinize ekleyin.",
+      "Kayıt yok, sunucuda depolama yok; tüm araçlar ücretsiz. Bir dahaki sefer için siteyi yer imlerinize ekleyin.",
+    toolPromise: {
+      improvement:
+        "AbsolTools, sık kullandığınız araçları daha doğru ve kullanışlı hâle getirir.",
+      privacy:
+        "Tüm araçlar ücretsizdir ve kayıt gerektirmez. İşlemler tarayıcınızda yapılır; girdiler ve sonuçlar bir sunucuda saklanmaz veya sunucuya gönderilmez.",
+      bookmark:
+        "Bir dahaki sefere doğrudan gelmek için bu siteyi yer imlerinize ekleyin.",
+    },
     directorySearchLabel: "Araçlarda ara",
     directorySearchPlaceholder: "Ad, açıklama veya anahtar kelimeyle ara",
     directorySearchClear: "Aramayı temizle",

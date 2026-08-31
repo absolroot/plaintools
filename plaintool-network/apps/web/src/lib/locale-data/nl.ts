@@ -690,9 +690,15 @@ export const nlBundle: LocaleBundle = {
     directoryTitle:
       "We maken de tools die je vaak gebruikt overzichtelijker en gebruiksvriendelijker",
     directoryIntro:
-      "Voeg deze site toe aan je bladwijzers, zodat je er de volgende keer direct naartoe kunt.",
-    toolPromise:
-      "AbsolTools maakt veelgebruikte online tools nauwkeuriger en gebruiksvriendelijker. Elke taak wordt uitsluitend in je browser verwerkt, zonder apart te worden opgeslagen of naar een server te worden verzonden. Voeg deze site toe aan je bladwijzers.",
+      "Geen account en geen opslag op een server: alle tools zijn gratis. Voeg deze site toe aan je bladwijzers voor de volgende keer.",
+    toolPromise: {
+      improvement:
+        "AbsolTools maakt de tools die je vaak gebruikt nauwkeuriger en handiger.",
+      privacy:
+        "Alle tools zijn gratis en je hebt geen account nodig. De verwerking gebeurt in je browser; invoer en resultaten worden niet op een server opgeslagen of ernaartoe verzonden.",
+      bookmark:
+        "Voeg deze site toe aan je bladwijzers om de volgende keer direct terug te keren.",
+    },
     directorySearchLabel: "Tools zoeken",
     directorySearchPlaceholder: "Zoek op naam, beschrijving of trefwoord",
     directorySearchClear: "Zoekopdracht wissen",

@@ -24,6 +24,16 @@ def run_uuid_generator_desktop(page, report: dict, _inventory) -> None:
         "document.querySelectorAll('[data-result-list] code').length === 1"
     )
 
+    version_order = root.locator("[data-version-button]").evaluate_all(
+        "buttons => buttons.map((button) => button.dataset.versionButton)"
+    )
+    expected_version_order = ["v1", "v3", "v4", "v5", "v6", "v7"]
+    if version_order != expected_version_order:
+        _fail(
+            report,
+            f"UUID version controls are not in numeric standards order: {version_order}",
+        )
+
     initial = _values(root)
     initial_match = UUID_PATTERN.fullmatch(initial[0]) if initial else None
     if not initial_match or initial_match.group(1) != "4":
@@ -63,6 +73,7 @@ def run_uuid_generator_desktop(page, report: dict, _inventory) -> None:
 
     report["uuid_generator"] = {
         "initialVersion": "v4",
+        "versionOrder": version_order,
         "bulkV7Count": len(values),
         "rfcV5Vector": deterministic[0] if deterministic else None,
     }

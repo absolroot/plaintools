@@ -632,9 +632,14 @@ const bundle: LocaleBundle = {
     directoryMetaDescription:
       "直接在瀏覽器中格式化、轉換、編碼、解碼、比較及檢查文字、資料與程式碼。工具輸入與結果不會上傳。",
     directoryTitle: "我們讓常用工具更簡潔、更好用",
-    directoryIntro: "將本站加入書籤，下次就能直接開啟。",
-    toolPromise:
-      "AbsolTools 讓常用的線上工具更精準、更容易使用。所有處理只會在您的瀏覽器內進行，不會另行儲存或傳送到伺服器。將本站加入書籤，方便下次使用。",
+    directoryIntro:
+      "免登入、資料不儲存於伺服器，所有工具皆可免費使用。將本站加入書籤，下次即可直接開啟。",
+    toolPromise: {
+      improvement: "AbsolTools 讓常用工具更精準、更方便使用。",
+      privacy:
+        "所有工具皆免費且無須註冊。處理只在瀏覽器中進行，輸入內容與結果不會儲存於伺服器，也不會傳送到伺服器。",
+      bookmark: "將本站加入書籤，下次需要時即可直接使用。",
+    },
     directorySearchLabel: "搜尋工具",
     directorySearchPlaceholder: "依名稱、說明或關鍵字搜尋",
     directorySearchClear: "清除搜尋",

@@ -683,9 +683,15 @@ export const ptBRBundle: LocaleBundle = {
     directoryTitle:
       "Deixamos as ferramentas que você usa com frequência mais simples e práticas",
     directoryIntro:
-      "Adicione este site aos favoritos para acessá-lo diretamente na próxima vez.",
-    toolPromise:
-      "O AbsolTools torna as ferramentas online mais usadas mais precisas e fáceis de usar. Cada tarefa é processada somente no seu navegador, sem ser armazenada separadamente nem enviada a um servidor. Adicione este site aos favoritos.",
+      "Sem cadastro nem armazenamento em servidor: todas as ferramentas são gratuitas. Adicione este site aos favoritos para a próxima vez.",
+    toolPromise: {
+      improvement:
+        "O AbsolTools torna as ferramentas que você usa com frequência mais precisas e práticas.",
+      privacy:
+        "Todas as ferramentas são gratuitas e não exigem cadastro. O processamento acontece no seu navegador; as entradas e os resultados não são armazenados nem enviados a um servidor.",
+      bookmark:
+        "Adicione este site aos favoritos para voltar diretamente na próxima vez.",
+    },
     directorySearchLabel: "Pesquisar ferramentas",
     directorySearchPlaceholder: "Pesquise por nome, descrição ou palavra-chave",
     directorySearchClear: "Limpar pesquisa",

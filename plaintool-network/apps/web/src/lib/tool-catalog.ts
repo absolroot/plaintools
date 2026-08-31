@@ -48,7 +48,11 @@ export type NetworkCopy = {
   directoryMetaDescription: string;
   directoryTitle: string;
   directoryIntro: string;
-  toolPromise: string;
+  toolPromise: {
+    improvement: string;
+    privacy: string;
+    bookmark: string;
+  };
   directorySearchLabel: string;
   directorySearchPlaceholder: string;
   directorySearchClear: string;

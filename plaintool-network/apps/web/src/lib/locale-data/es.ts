@@ -705,9 +705,15 @@ const bundle: LocaleBundle = {
     directoryTitle:
       "Hacemos más claras y prácticas las herramientas que usas a menudo",
     directoryIntro:
-      "Añade este sitio a tus favoritos para volver aquí directamente la próxima vez.",
-    toolPromise:
-      "AbsolTools hace que las herramientas en línea más utilizadas sean más precisas y fáciles de usar. Cada tarea se procesa únicamente en tu navegador, sin guardarse por separado ni enviarse a un servidor. Añade este sitio a tus favoritos.",
+      "Sin registro ni almacenamiento en servidores: todas las herramientas son gratuitas. Añade este sitio a tus favoritos para la próxima vez.",
+    toolPromise: {
+      improvement:
+        "AbsolTools hace que las herramientas que usas a menudo sean más precisas y cómodas.",
+      privacy:
+        "Todas las herramientas son gratuitas y no requieren registro. El trabajo se realiza en tu navegador; las entradas y los resultados no se guardan ni se envían a un servidor.",
+      bookmark:
+        "Añade este sitio a tus favoritos para volver directamente la próxima vez.",
+    },
     directorySearchLabel: "Buscar herramientas",
     directorySearchPlaceholder: "Busca por nombre, descripción o palabra clave",
     directorySearchClear: "Borrar búsqueda",

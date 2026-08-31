@@ -687,9 +687,15 @@ const daBundle = {
     directoryTitle:
       "Vi gør ofte brugte værktøjer mere overskuelige og nemmere at bruge",
     directoryIntro:
-      "Føj siden til dine bogmærker, så du kan gå direkte hertil næste gang.",
-    toolPromise:
-      "AbsolTools gør ofte brugte onlineværktøjer mere præcise og nemmere at bruge. Hver opgave behandles kun i din browser uden at blive gemt separat eller sendt til en server. Føj siden til dine bogmærker.",
+      "Ingen tilmelding og ingen lagring på en server: Alle værktøjer er gratis. Gem siden som bogmærke til næste gang.",
+    toolPromise: {
+      improvement:
+        "AbsolTools gør de værktøjer, du ofte bruger, mere præcise og praktiske.",
+      privacy:
+        "Alle værktøjer er gratis og kræver ingen tilmelding. Behandlingen foregår i din browser; input og resultater gemmes ikke på eller sendes til en server.",
+      bookmark:
+        "Gem siden som bogmærke, så du kan gå direkte hertil næste gang.",
+    },
     directorySearchLabel: "Søg efter værktøjer",
     directorySearchPlaceholder: "Søg efter navn, beskrivelse eller nøgleord",
     directorySearchClear: "Ryd søgning",

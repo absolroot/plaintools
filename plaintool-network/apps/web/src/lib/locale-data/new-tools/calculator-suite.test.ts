@@ -57,6 +57,36 @@ const criticalMathPaths = [
   "errors.too-many-values",
 ] as const;
 
+const criticalBmiPaths = [
+  "ariaLabel",
+  "unitSystemLabel",
+  "metricUnit",
+  "usUnit",
+  "weightKilograms",
+  "heightCentimeters",
+  "weightPounds",
+  "heightFeet",
+  "heightInches",
+  "calculate",
+  "resultTitle",
+  "categoryLabel",
+  "categories.underweight",
+  "categories.healthy",
+  "categories.overweight",
+  "categories.obesity",
+  "healthyWeightRange",
+  "calculated",
+  "limitationTitle",
+  "limitationBody",
+  "errors.non-finite-input",
+  "errors.weight-not-positive",
+  "errors.height-not-positive",
+  "errors.weight-out-of-range",
+  "errors.height-out-of-range",
+  "errors.feet-not-integer",
+  "errors.inches-out-of-range",
+] as const;
+
 describe("calculator suite locale copy", () => {
   it("localizes the page copy for all three math calculators", () => {
     const english = calculatorSuiteFor("en");
@@ -97,6 +127,49 @@ describe("calculator suite locale copy", () => {
     const english = new Map(flattenCopy(calculatorSuiteFor("en").math));
     for (const locale of locales) {
       const localized = new Map(flattenCopy(calculatorSuiteFor(locale).math));
+      expect([...localized.keys()].sort(), locale).toEqual(
+        [...english.keys()].sort(),
+      );
+      for (const [path, value] of localized) {
+        expect(copyPlaceholders(value), `${locale}:${path}`).toEqual(
+          copyPlaceholders(english.get(path) ?? ""),
+        );
+      }
+    }
+  });
+
+  it("localizes BMI page copy instead of retaining the English fallback", () => {
+    const english = calculatorSuiteFor("en").pages["bmi-calculator"];
+    for (const locale of locales.filter((item) => item !== "en")) {
+      const page = calculatorSuiteFor(locale).pages["bmi-calculator"];
+      expect(page.title, `${locale}:title`).not.toBe(english.title);
+      expect(page.description, `${locale}:description`).not.toBe(
+        english.description,
+      );
+      expect(page.mobileDescription, `${locale}:mobileDescription`).not.toBe(
+        english.mobileDescription,
+      );
+      expect(page.guide, `${locale}:guide`).not.toBe(english.guide);
+      expect(page.terms[0], `${locale}:terms`).not.toBe(english.terms[0]);
+    }
+  });
+
+  it("does not reuse English BMI result, limitation, or error copy", () => {
+    const english = new Map(flattenCopy(calculatorSuiteFor("en").bmi));
+    for (const locale of locales.filter((item) => item !== "en")) {
+      const localized = new Map(flattenCopy(calculatorSuiteFor(locale).bmi));
+      for (const path of criticalBmiPaths) {
+        expect(localized.get(path), `${locale}:${path}`).not.toBe(
+          english.get(path),
+        );
+      }
+    }
+  });
+
+  it("preserves BMI interpolation tokens across all locales", () => {
+    const english = new Map(flattenCopy(calculatorSuiteFor("en").bmi));
+    for (const locale of locales) {
+      const localized = new Map(flattenCopy(calculatorSuiteFor(locale).bmi));
       expect([...localized.keys()].sort(), locale).toEqual(
         [...english.keys()].sort(),
       );

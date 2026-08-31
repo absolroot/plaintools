@@ -5,12 +5,17 @@ import {
   generateUuidBatch,
   supportsUuidBulk,
   uuidNamespaces,
+  uuidVersions,
 } from "./index";
 
 const canonical =
   /^[0-9a-f]{8}-[0-9a-f]{4}-([1-7])[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/u;
 
 describe("UUID generation", () => {
+  it("lists supported versions in numeric standards order", () => {
+    expect(uuidVersions).toEqual(["v1", "v3", "v4", "v5", "v6", "v7"]);
+  });
+
   it.each(["v1", "v4", "v6", "v7"] as const)(
     "generates a unique bulk batch for %s with RFC version and variant bits",
     (version) => {

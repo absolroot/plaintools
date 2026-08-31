@@ -14,6 +14,10 @@ const pdfToolkitCssUrl = new URL(
   "../apps/web/src/features/pdf-toolkit/styles.css",
   import.meta.url,
 );
+const bmiCalculatorCssUrl = new URL(
+  "../apps/web/src/features/bmi-calculator/styles.css",
+  import.meta.url,
+);
 const pageUrl = new URL(
   "../apps/web/src/features/base64/Base64Page.astro",
   import.meta.url,
@@ -98,6 +102,7 @@ const directorySectionUrl = new URL(
 const [
   css,
   pdfToolkitCss,
+  bmiCalculatorCss,
   page,
   converter,
   faqSection,
@@ -122,6 +127,7 @@ const [
     parts.join("\n"),
   ),
   readFile(pdfToolkitCssUrl, "utf8"),
+  readFile(bmiCalculatorCssUrl, "utf8"),
   readFile(pageUrl, "utf8"),
   readFile(converterUrl, "utf8"),
   readFile(faqSectionUrl, "utf8"),
@@ -254,6 +260,16 @@ expectDeclaration(
 expectSource(
   !pdfToolkitCss.includes("var(--input-surface)"),
   "Button-run PDF tools must keep their upload and input panels neutral.",
+);
+expectDeclaration(
+  ".bmi-workspace",
+  "background",
+  "var(--base)",
+  bmiCalculatorCss,
+);
+expectSource(
+  !bmiCalculatorCss.includes("var(--input-surface)"),
+  "Button-run BMI inputs must keep a neutral background.",
 );
 expectDeclaration(
   ".converter.is-success .converter-commandbar",

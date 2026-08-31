@@ -688,9 +688,15 @@ const plBundle = {
     directoryTitle:
       "Sprawiamy, że narzędzia, z których często korzystasz, są prostsze i wygodniejsze",
     directoryIntro:
-      "Dodaj tę stronę do zakładek, aby następnym razem od razu do niej wrócić.",
-    toolPromise:
-      "AbsolTools sprawia, że często używane narzędzia online są dokładniejsze i łatwiejsze w obsłudze. Każde zadanie jest przetwarzane wyłącznie w twojej przeglądarce, bez osobnego zapisywania ani wysyłania na serwer. Dodaj tę stronę do zakładek.",
+      "Bez rejestracji i bez zapisywania na serwerze: wszystkie narzędzia są bezpłatne. Dodaj tę stronę do zakładek na następny raz.",
+    toolPromise: {
+      improvement:
+        "AbsolTools sprawia, że często używane narzędzia są dokładniejsze i wygodniejsze.",
+      privacy:
+        "Wszystkie narzędzia są bezpłatne i nie wymagają rejestracji. Przetwarzanie odbywa się w przeglądarce; dane wejściowe ani wyniki nie są zapisywane na serwerze ani na niego wysyłane.",
+      bookmark:
+        "Dodaj tę stronę do zakładek, aby następnym razem od razu do niej wrócić.",
+    },
     directorySearchLabel: "Szukaj narzędzi",
     directorySearchPlaceholder:
       "Wyszukaj według nazwy, opisu lub słowa kluczowego",

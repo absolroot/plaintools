@@ -48,6 +48,11 @@ const googleConsentInit = config.integrations.ga4MeasurementId
   ? await readFile(join(dist, "google-consent-init.js"), "utf8")
   : "";
 const faviconPng = await readFile(join(dist, "favicon.png"));
+const favicon32Png = await readFile(join(dist, "favicon-32.png"));
+const appleTouchIcon = await readFile(join(dist, "apple-touch-icon.png"));
+const socialImage = await readFile(
+  join(dist, "brand", "absoltools-social.png"),
+);
 const thirdPartyNotices = await readFile(
   join(dist, "third-party-notices.txt"),
   "utf8",
@@ -258,6 +263,20 @@ if (
 ) {
   throw new Error("The deployed favicon must be a valid 64x64 PNG.");
 }
+for (const [name, image, width, height] of [
+  ["32px favicon", favicon32Png, 32, 32],
+  ["Apple touch icon", appleTouchIcon, 180, 180],
+  ["social image", socialImage, 1200, 630],
+]) {
+  if (
+    image.length < 24 ||
+    image.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a" ||
+    image.readUInt32BE(16) !== width ||
+    image.readUInt32BE(20) !== height
+  ) {
+    throw new Error(`${name} must be a valid ${width}x${height} PNG.`);
+  }
+}
 for (const header of requiredSecurityHeaders) {
   if (!headers.includes(header)) {
     throw new Error(`Static deployment is missing security header: ${header}`);
@@ -396,6 +415,14 @@ function verifyFaviconLink(html, route) {
   ) {
     throw new Error(`${route} does not expose the shared PNG favicon.`);
   }
+  for (const asset of [
+    '<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">',
+    '<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">',
+    '<link rel="manifest" href="/site.webmanifest">',
+  ]) {
+    if (!html.includes(asset))
+      throw new Error(`${route} is missing brand asset metadata: ${asset}`);
+  }
 }
 
 function nodeTypes(node) {
@@ -455,6 +482,16 @@ function verifyMetadata(
     throw new Error(`${route} has an empty Open Graph title.`);
   if (!metaContent(html, "name", "twitter:title"))
     throw new Error(`${route} has an empty Twitter title.`);
+  const expectedSocialImage = new URL(
+    "/brand/absoltools-social.png",
+    config.origin,
+  ).toString();
+  if (metaContent(html, "property", "og:image") !== expectedSocialImage)
+    throw new Error(`${route} has an incorrect Open Graph image.`);
+  if (metaContent(html, "name", "twitter:image") !== expectedSocialImage)
+    throw new Error(`${route} has an incorrect Twitter image.`);
+  if (metaContent(html, "name", "twitter:card") !== "summary_large_image")
+    throw new Error(`${route} must use a large-image Twitter card.`);
   if (metaContent(html, "name", "robots") !== expectedRobots(publication))
     throw new Error(`${route} has the wrong robots directive for ${target}.`);
   verifyAlternates(html, page, route);

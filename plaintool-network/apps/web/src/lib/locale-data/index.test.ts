@@ -54,6 +54,32 @@ describe("locale bundles", () => {
     expect(Object.keys(localeMetadata)).toEqual([...locales]);
   });
 
+  it("keeps the home introduction and three-part tool promise complete", () => {
+    for (const locale of locales) {
+      const { directoryIntro, toolPromise } = localeBundles[locale].network;
+
+      expect(directoryIntro.trim(), `${locale}:directoryIntro`).not.toBe("");
+      expect(Object.keys(toolPromise), `${locale}:toolPromise`).toEqual([
+        "improvement",
+        "privacy",
+        "bookmark",
+      ]);
+      const lines = [
+        toolPromise.improvement,
+        toolPromise.privacy,
+        toolPromise.bookmark,
+      ];
+      expect(
+        lines.every((line) => line.trim().length > 0),
+        `${locale}:toolPromise`,
+      ).toBe(true);
+      expect(new Set(lines).size, `${locale}:toolPromise`).toBe(3);
+      expect(toolPromise.improvement, `${locale}:improvement`).toContain(
+        "AbsolTools",
+      );
+    }
+  });
+
   it("uses the reviewed locale-specific header wordmark", () => {
     expect(
       Object.fromEntries(

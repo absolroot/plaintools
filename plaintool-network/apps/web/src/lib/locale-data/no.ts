@@ -688,9 +688,14 @@ const noBundle = {
     directoryTitle:
       "Vi gjør verktøyene du bruker ofte ryddigere og enklere å bruke",
     directoryIntro:
-      "Legg nettstedet til i bokmerkene, så kan du gå rett hit neste gang.",
-    toolPromise:
-      "AbsolTools gjør ofte brukte nettverktøy mer presise og enklere å bruke. Hver oppgave behandles bare i nettleseren din, uten å bli lagret separat eller sendt til en server. Legg nettstedet til i bokmerkene.",
+      "Ingen registrering og ingen lagring på en server: Alle verktøy er gratis. Bokmerk nettstedet til neste gang.",
+    toolPromise: {
+      improvement:
+        "AbsolTools gjør verktøyene du bruker ofte mer presise og praktiske.",
+      privacy:
+        "Alle verktøy er gratis og krever ingen registrering. Behandlingen skjer i nettleseren din; inndata og resultater lagres ikke på eller sendes til en server.",
+      bookmark: "Bokmerk nettstedet, så kan du gå rett hit neste gang.",
+    },
     directorySearchLabel: "Søk etter verktøy",
     directorySearchPlaceholder: "Søk etter navn, beskrivelse eller nøkkelord",
     directorySearchClear: "Tøm søk",

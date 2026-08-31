@@ -53,6 +53,7 @@ const pageNoindex = noindex || currentTool?.status === "preview";
 const path = localizedPath(locale, page);
 const canonical = absoluteUrl(path);
 const siteUrl = absoluteUrl("/");
+const socialImageUrl = absoluteUrl("/brand/absoltools-social.png");
 const pageTitle = title || t.metaTitle;
 const pageDescription = description || t.metaDescription;
 const { direction, ogLocale } = localeMetadata[locale];
@@ -68,6 +69,7 @@ const graph: StructuredData[] = canonicalize
         "@id": `${siteUrl}#website`,
         url: siteUrl,
         name: "AbsolTools",
+        image: socialImageUrl,
         inLanguage: locales,
       },
       {
@@ -76,6 +78,12 @@ const graph: StructuredData[] = canonicalize
         url: canonical,
         name: pageTitle,
         description: pageDescription,
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: socialImageUrl,
+          width: 1200,
+          height: 630,
+        },
         inLanguage: locale,
         isPartOf: { "@id": `${siteUrl}#website` },
       },
@@ -111,7 +119,10 @@ const contentSecurityPolicy = integrationActive
     <meta name="theme-color" content="#fafafa" data-theme-color />
     <script is:inline src="/theme-init.js"></script>
     <GoogleIntegrations />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="license" href="/third-party-notices.txt" />
     <link rel="sitemap" href="/sitemap.xml" />
     {featureStylesheet && <link rel="stylesheet" href={featureStylesheet} />}
@@ -142,6 +153,11 @@ const contentSecurityPolicy = integrationActive
     <meta property="og:site_name" content="AbsolTools" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AbsolTools" />
     {canonicalize && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content={ogLocale} />
     {
@@ -154,9 +170,11 @@ const contentSecurityPolicy = integrationActive
           />
         ))
     }
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content="AbsolTools" />
     {
       graph.length > 0 && (
         <script
@@ -177,6 +195,13 @@ const contentSecurityPolicy = integrationActive
       <div class="header-inner">
         <div class="header-branding">
           <a class="wordmark" href={localizedPath(locale)}>
+            <img
+              class="brand-mark"
+              src="/brand/absoltools-mark.webp"
+              width="28"
+              height="28"
+              alt=""
+            />
             <span>{t.brandName}</span>
           </a>
           {
@@ -240,12 +265,10 @@ const contentSecurityPolicy = integrationActive
                       <LanguageFlag
                         country={localeMetadata[targetLocale].flagCountry}
                       />
-                      <span
-                        class="language-menu-name"
-                        lang={targetLocale}
-                        dir={localeMetadata[targetLocale].direction}
-                      >
-                        {target.languageName}
+                      <span class="language-menu-name" lang={targetLocale}>
+                        <bdi dir={localeMetadata[targetLocale].direction}>
+                          {target.languageName}
+                        </bdi>
                       </span>
                       {active && <UiIcon name="check" size={14} />}
                     </a>
@@ -311,7 +334,7 @@ const contentSecurityPolicy = integrationActive
         const dark =
           document.documentElement.dataset.theme === "dark" ||
           (!document.documentElement.dataset.theme && systemDark.matches);
-        if (themeColor) themeColor.content = dark ? "#202124" : "#fafafa";
+        if (themeColor) themeColor.content = dark ? "#15171a" : "#fafafa";
         if (themeToggle) {
           themeToggle.dataset.currentTheme = dark ? "dark" : "light";
           themeToggle.ariaLabel = dark

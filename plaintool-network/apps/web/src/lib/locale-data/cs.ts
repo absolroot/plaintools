@@ -685,9 +685,15 @@ const csBundle = {
     directoryTitle:
       "Často používané nástroje děláme přehlednějšími a praktičtějšími",
     directoryIntro:
-      "Přidejte si tento web do záložek, abyste se sem příště dostali rovnou.",
-    toolPromise:
-      "AbsolTools dělá běžně používané online nástroje přesnější a snadněji použitelné. Každá úloha se zpracovává pouze ve vašem prohlížeči, bez samostatného ukládání nebo odesílání na server. Přidejte si web do záložek.",
+      "Bez registrace a bez ukládání na server: všechny nástroje jsou zdarma. Uložte si web do záložek na příště.",
+    toolPromise: {
+      improvement:
+        "AbsolTools dělá často používané nástroje přesnějšími a pohodlnějšími.",
+      privacy:
+        "Všechny nástroje jsou zdarma a nevyžadují registraci. Zpracování probíhá ve vašem prohlížeči; vstupy ani výsledky se neukládají na server ani se na něj neodesílají.",
+      bookmark:
+        "Uložte si tento web do záložek, abyste se sem příště dostali rovnou.",
+    },
     directorySearchLabel: "Hledat nástroje",
     directorySearchPlaceholder:
       "Hledat podle jména, popisu nebo klíčového slova",

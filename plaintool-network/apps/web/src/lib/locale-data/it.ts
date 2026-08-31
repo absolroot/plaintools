@@ -683,9 +683,15 @@ export const itBundle: LocaleBundle = {
     directoryTitle:
       "Rendiamo più semplici e pratici gli strumenti che usi più spesso",
     directoryIntro:
-      "Aggiungi questo sito ai preferiti per tornarci subito la prossima volta.",
-    toolPromise:
-      "AbsolTools rende gli strumenti online più usati più precisi e facili da usare. Ogni operazione viene elaborata esclusivamente nel tuo browser, senza essere salvata separatamente né inviata a un server. Aggiungi questo sito ai preferiti.",
+      "Nessuna registrazione e nessun salvataggio su server: tutti gli strumenti sono gratuiti. Aggiungi il sito ai preferiti per la prossima volta.",
+    toolPromise: {
+      improvement:
+        "AbsolTools rende gli strumenti che usi più spesso più precisi e pratici.",
+      privacy:
+        "Tutti gli strumenti sono gratuiti e non richiedono registrazione. L’elaborazione avviene nel browser; i dati inseriti e i risultati non vengono salvati né inviati a un server.",
+      bookmark:
+        "Aggiungi questo sito ai preferiti per tornarci subito la prossima volta.",
+    },
     directorySearchLabel: "Cerca strumenti",
     directorySearchPlaceholder: "Cerca per nome, descrizione o parola chiave",
     directorySearchClear: "Cancella ricerca",

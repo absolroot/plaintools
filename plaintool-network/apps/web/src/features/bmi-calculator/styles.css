@@ -21,7 +21,7 @@
   display: grid;
   gap: var(--space-4);
   border-bottom: 1px solid var(--line);
-  background: var(--input-surface);
+  background: var(--base);
 }
 
 .bmi-input-grid {
@@ -55,6 +55,7 @@
   box-shadow: 0 0 0 1px var(--control-line);
   font-family: var(--code-font);
   font-size: 13px;
+  direction: ltr;
 }
 
 .bmi-field input:focus-visible {
