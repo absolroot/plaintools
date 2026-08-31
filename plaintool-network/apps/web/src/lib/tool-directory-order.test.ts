@@ -114,17 +114,18 @@ describe("home tool directory order", () => {
   it("puts image converters after the primary image tools", () => {
     const imageTools = homeDirectoryToolsForCategory("image");
 
-    expect(imageTools.slice(0, 3).map((tool) => tool.id)).toEqual([
+    expect(imageTools.slice(0, 4).map((tool) => tool.id)).toEqual([
       "background-remover",
       "image-resizer",
       "image-upscaler",
+      "image-crop",
     ]);
     expect(
       imageTools
         .filter((tool) => tool.featureId === "image-converter")
-        .every((tool) => imageTools.indexOf(tool) > 2),
+        .every((tool) => imageTools.indexOf(tool) > 3),
     ).toBe(true);
-    expect(homeDirectoryInitiallyVisibleToolCount("image")).toBe(3);
+    expect(homeDirectoryInitiallyVisibleToolCount("image")).toBe(4);
     expect(
       homeDirectoryInitiallyVisibleToolCount("calculator"),
     ).toBeUndefined();

@@ -150,8 +150,8 @@ def run_directory_desktop(
     report["home_directory_card_order"] = {
         "imageCount": len(image_hrefs),
         "uniqueImageRoutes": len(set(image_hrefs)),
-        "imageFirst": image_hrefs[:4],
-        "representativeTitle": image_primary_cards.nth(3).locator(
+        "imageFirst": image_hrefs[:5],
+        "representativeTitle": image_primary_cards.nth(4).locator(
             "h3 > span"
         ).first.text_content().strip(),
         "calculatorFirst": calculator_hrefs[:4],
@@ -166,6 +166,7 @@ def run_directory_desktop(
             "/ko/background-remover/",
             "/ko/image-resizer/",
             "/ko/image-upscaler/",
+            "/ko/image-crop/",
             "/ko/png-to-webp/",
         ],
         "representativeTitle": "이미지 포맷 변환",
@@ -201,10 +202,10 @@ def run_directory_desktop(
     image_more_summary.click()
     if report["image_converter_progressive_directory"] != {
         "groupCount": 1,
-        "remainingCards": 50,
+        "remainingCards": 49,
         "initiallyOpen": False,
         "summaryHeight": 48,
-        "summaryCount": "50",
+        "summaryCount": "49",
         "opensOnClick": True,
     }:
         report["ui_detail_failures"].append(
