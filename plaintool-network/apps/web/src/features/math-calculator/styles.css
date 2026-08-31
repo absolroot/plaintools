@@ -1,0 +1,312 @@
+.math-workspace {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--input-surface);
+}
+
+.math-mode-panel {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.math-field {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.math-field input,
+.fraction-input-group input,
+.fraction-operation select {
+  min-width: 0;
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+  font-family: var(--code-font);
+  font-size: 13px;
+}
+
+.math-field input[aria-invalid="true"],
+.fraction-input-group input[aria-invalid="true"],
+.fraction-operation select[aria-invalid="true"] {
+  box-shadow: 0 0 0 1px var(--danger);
+}
+
+.math-input-hint {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.fraction-expression {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(128px, 0.55fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.fraction-input-group {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--base);
+}
+
+.fraction-input-group legend {
+  padding: 0 var(--space-1);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fraction-input-group label,
+.fraction-operation {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-1);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fraction-input-group input {
+  text-align: center;
+}
+
+.fraction-rule {
+  width: calc(100% - var(--space-4));
+  height: 1px;
+  margin: 0 auto;
+  background: var(--ink);
+  opacity: 0.48;
+}
+
+.fraction-operation select {
+  font-family: inherit;
+}
+
+.math-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.math-actions .secondary-button,
+.math-result-heading .text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.math-results {
+  background: var(--output-surface);
+}
+
+.math-results.is-revealed {
+  animation: math-result-reveal 140ms ease-out;
+}
+
+@keyframes math-result-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.math-result-heading {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.math-result-heading h2,
+.math-working h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.math-result-primary,
+.math-result-details,
+.math-working dl {
+  min-width: 0;
+  margin: 0;
+}
+
+.math-result-primary > div {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+  background: var(--output-surface);
+}
+
+.math-result-primary dt,
+.math-result-details dt,
+.math-working dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.math-result-primary dd,
+.math-result-details dd,
+.math-working dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.math-result-primary dd {
+  font-family: var(--code-font);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.math-result-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid var(--line);
+  background: var(--line);
+}
+
+.math-result-details > div,
+.math-working dl > div {
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+  background: var(--output-surface);
+}
+
+.math-result-details dd,
+.math-working dd {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.math-result-details dd[dir="ltr"],
+.math-working dd[dir="ltr"],
+.math-factorization-list[dir="ltr"] {
+  font-family: var(--code-font);
+  text-align: start;
+  unicode-bidi: isolate;
+}
+
+.math-result-details > .math-result-wide {
+  grid-column: 1 / -1;
+}
+
+.math-working {
+  border-top: 1px solid var(--line);
+}
+
+.math-working h3 {
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.math-working dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+}
+
+.math-factorization-list {
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+@media (max-width: 680px) {
+  .math-calculator .converter-topbar {
+    overflow-x: auto;
+  }
+
+  .math-calculator .mode-switch {
+    min-width: max-content;
+  }
+
+  .fraction-expression {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .fraction-operation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .fraction-input-group:last-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .math-field input,
+  .fraction-input-group input,
+  .fraction-operation select,
+  .math-actions .primary-button,
+  .math-actions .secondary-button,
+  .math-result-heading .text-button {
+    min-height: 44px;
+  }
+
+  .math-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .math-result-details,
+  .math-working dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .math-result-details > .math-result-wide {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .math-results.is-revealed {
+    animation: none;
+  }
+}

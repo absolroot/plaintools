@@ -1,0 +1,334 @@
+---
+import {
+  FACTOR_INTEGER_MAX_DIGITS,
+  FRACTION_INTEGER_MAX_DIGITS,
+  LCM_INPUT_MAX_VALUES,
+  LCM_INTEGER_MAX_DIGITS,
+} from "@plaintool/math-calculator-core";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { MathCalculatorMode, MathCalculatorProps } from "./contract";
+import { createMathCalculatorClientCopy } from "./copy";
+import "./styles.css";
+
+const { locale, copy, commonCopy, initialMode, modeLinks } =
+  Astro.props as MathCalculatorProps;
+const clientCopy = createMathCalculatorClientCopy(copy, commonCopy);
+const modes = [
+  "fraction",
+  "factor",
+  "lcm",
+] as const satisfies readonly MathCalculatorMode[];
+const operations = ["add", "subtract", "multiply", "divide"] as const;
+const operationSymbols = {
+  add: "+",
+  subtract: "−",
+  multiply: "×",
+  divide: "÷",
+} as const;
+const fractionIntegerMaxLength = FRACTION_INTEGER_MAX_DIGITS + 1;
+---
+
+<section
+  class="converter math-calculator"
+  data-math-calculator
+  data-mode={initialMode}
+  data-locale={locale}
+  aria-label={copy.ariaLabel}
+>
+  <div class="converter-topbar">
+    <nav class="mode-switch" aria-label={copy.ariaLabel}>
+      {
+        modes.map((mode) => (
+          <a
+            class:list={["mode-button", { "is-active": initialMode === mode }]}
+            href={modeLinks[mode].href}
+            aria-current={initialMode === mode ? "page" : undefined}
+          >
+            {modeLinks[mode].label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="math-workspace">
+    <div
+      class="math-mode-panel fraction-panel"
+      data-mode-panel="fraction"
+      hidden={initialMode !== "fraction"}
+    >
+      <div class="fraction-expression">
+        <fieldset class="fraction-input-group">
+          <legend>{copy.fraction.firstFraction}</legend>
+          <label>
+            <span>{copy.fraction.numerator}</span>
+            <input
+              type="text"
+              inputmode="numeric"
+              dir="ltr"
+              autocomplete="off"
+              maxlength={fractionIntegerMaxLength}
+              data-field="firstNumerator"
+              aria-describedby="math-fraction-hint math-calculator-status"
+            />
+          </label>
+          <span class="fraction-rule" aria-hidden="true"></span>
+          <label>
+            <span>{copy.fraction.denominator}</span>
+            <input
+              type="text"
+              inputmode="numeric"
+              dir="ltr"
+              autocomplete="off"
+              maxlength={fractionIntegerMaxLength}
+              data-field="firstDenominator"
+              aria-describedby="math-fraction-hint math-calculator-status"
+            />
+          </label>
+        </fieldset>
+
+        <label class="fraction-operation">
+          <span>{copy.fraction.operation}</span>
+          <select
+            data-field="operation"
+            aria-describedby="math-calculator-status"
+          >
+            {
+              operations.map((operation) => (
+                <option value={operation}>
+                  {operationSymbols[operation]}{" "}
+                  {copy.fraction.operations[operation]}
+                </option>
+              ))
+            }
+          </select>
+        </label>
+
+        <fieldset class="fraction-input-group">
+          <legend>{copy.fraction.secondFraction}</legend>
+          <label>
+            <span>{copy.fraction.numerator}</span>
+            <input
+              type="text"
+              inputmode="numeric"
+              dir="ltr"
+              autocomplete="off"
+              maxlength={fractionIntegerMaxLength}
+              data-field="secondNumerator"
+              aria-describedby="math-fraction-hint math-calculator-status"
+            />
+          </label>
+          <span class="fraction-rule" aria-hidden="true"></span>
+          <label>
+            <span>{copy.fraction.denominator}</span>
+            <input
+              type="text"
+              inputmode="numeric"
+              dir="ltr"
+              autocomplete="off"
+              maxlength={fractionIntegerMaxLength}
+              data-field="secondDenominator"
+              aria-describedby="math-fraction-hint math-calculator-status"
+            />
+          </label>
+        </fieldset>
+      </div>
+      <small id="math-fraction-hint" class="math-input-hint"
+        >{copy.fraction.inputHint}</small
+      >
+    </div>
+
+    <div
+      class="math-mode-panel"
+      data-mode-panel="factor"
+      hidden={initialMode !== "factor"}
+    >
+      <label class="math-field" for="math-factor-input">
+        <span>{copy.factor.inputLabel}</span>
+        <input
+          id="math-factor-input"
+          type="text"
+          inputmode="numeric"
+          dir="ltr"
+          autocomplete="off"
+          maxlength={FACTOR_INTEGER_MAX_DIGITS}
+          placeholder={copy.factor.inputPlaceholder}
+          data-field="factor"
+          aria-describedby="math-factor-hint math-calculator-status"
+        />
+      </label>
+      <small id="math-factor-hint" class="math-input-hint"
+        >{copy.factor.inputHint}</small
+      >
+    </div>
+
+    <div
+      class="math-mode-panel"
+      data-mode-panel="lcm"
+      hidden={initialMode !== "lcm"}
+    >
+      <label class="math-field" for="math-lcm-input">
+        <span>{copy.lcm.inputLabel}</span>
+        <input
+          id="math-lcm-input"
+          type="text"
+          inputmode="text"
+          dir="ltr"
+          autocomplete="off"
+          maxlength={(LCM_INTEGER_MAX_DIGITS + 2) * LCM_INPUT_MAX_VALUES}
+          placeholder={copy.lcm.inputPlaceholder}
+          data-field="lcm"
+          aria-describedby="math-lcm-hint math-calculator-status"
+        />
+      </label>
+      <small id="math-lcm-hint" class="math-input-hint"
+        >{copy.lcm.inputHint}</small
+      >
+    </div>
+
+    <div class="math-actions">
+      <button class="primary-button" type="button" data-calculate
+        >{copy.calculate}</button
+      >
+      <button class="secondary-button" type="button" data-clear>
+        <UiIcon name="x" size={14} />{commonCopy.clear}
+      </button>
+    </div>
+  </div>
+
+  <section class="math-results" data-results hidden>
+    <div class="math-result-heading">
+      <h2>
+        <span data-result-title="fraction" hidden={initialMode !== "fraction"}
+          >{copy.fraction.resultTitle}</span
+        >
+        <span data-result-title="factor" hidden={initialMode !== "factor"}
+          >{copy.factor.resultTitle}</span
+        >
+        <span data-result-title="lcm" hidden={initialMode !== "lcm"}
+          >{copy.lcm.resultTitle}</span
+        >
+      </h2>
+      <button class="text-button" type="button" data-copy disabled>
+        <UiIcon name="copy" size={14} />{commonCopy.copy}
+      </button>
+    </div>
+
+    <div
+      class="math-result-panel"
+      data-result-panel="fraction"
+      hidden={initialMode !== "fraction"}
+    >
+      <dl class="math-result-primary">
+        <div>
+          <dt>{copy.fraction.reducedFraction}</dt>
+          <dd data-result="fraction" dir="ltr"></dd>
+        </div>
+      </dl>
+      <dl class="math-result-details">
+        <div>
+          <dt>{copy.fraction.mixedNumber}</dt><dd
+            data-result="mixedNumber"
+            dir="ltr"
+          >
+          </dd>
+        </div>
+        <div>
+          <dt>{copy.fraction.decimal}</dt><dd data-result="decimal" dir="ltr">
+          </dd>
+        </div>
+      </dl>
+      <div class="math-working">
+        <h3>{copy.fraction.workingTitle}</h3>
+        <dl>
+          <div>
+            <dt>{copy.fraction.expression}</dt><dd
+              data-result="expression"
+              dir="ltr"
+            >
+            </dd>
+          </div>
+          <div>
+            <dt>{copy.fraction.reduction}</dt><dd
+              data-result="reduction"
+              dir="ltr"
+            >
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div
+      class="math-result-panel"
+      data-result-panel="factor"
+      hidden={initialMode !== "factor"}
+    >
+      <dl class="math-result-primary">
+        <div>
+          <dt>{copy.factor.primeFactorization}</dt>
+          <dd data-result="primeFactorization" dir="ltr"></dd>
+        </div>
+      </dl>
+      <dl class="math-result-details factor-result-details">
+        <div>
+          <dt>{copy.factor.classification}</dt><dd data-result="classification">
+          </dd>
+        </div>
+        <div>
+          <dt>{copy.factor.factors}</dt><dd data-result="factors" dir="ltr">
+          </dd>
+        </div>
+        <div class="math-result-wide">
+          <dt>{copy.factor.factorPairs}</dt><dd
+            data-result="factorPairs"
+            dir="ltr"
+          >
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div
+      class="math-result-panel"
+      data-result-panel="lcm"
+      hidden={initialMode !== "lcm"}
+    >
+      <dl class="math-result-primary">
+        <div>
+          <dt>{copy.lcm.leastCommonMultiple}</dt>
+          <dd data-result="lcm" dir="ltr"></dd>
+        </div>
+      </dl>
+      <dl class="math-result-details">
+        <div class="math-result-wide">
+          <dt>{copy.lcm.greatestCommonFactor}</dt><dd
+            data-result="gcf"
+            dir="ltr"
+          >
+          </dd>
+        </div>
+      </dl>
+      <div class="math-working">
+        <h3>{copy.lcm.workingTitle}</h3>
+        <div class="math-factorization-list" data-result="lcmWorking" dir="ltr">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ConverterStatus
+    status={commonCopy.ready}
+    statusId="math-calculator-status"
+  />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>
