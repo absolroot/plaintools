@@ -188,6 +188,33 @@ describe("locale bundles", () => {
     ).toBe(3);
   });
 
+  it("publishes a localized general age-calculator title outside Korea", () => {
+    const expectedTitles = {
+      en: "Age Calculator",
+      es: "Calculadora de edad",
+      de: "Altersrechner",
+      ja: "年齢計算機",
+      fr: "Calculateur d’âge",
+      "pt-BR": "Calculadora de idade",
+      it: "Calcolatore dell’età",
+      nl: "Leeftijdscalculator",
+      sv: "Ålderskalkylator",
+      cs: "Kalkulačka věku",
+      pl: "Kalkulator wieku",
+      da: "Aldersberegner",
+      no: "Alderskalkulator",
+      ar: "حاسبة العمر",
+      "zh-TW": "年齡計算機",
+      tr: "Yaş hesaplama",
+    } as const;
+
+    for (const locale of locales.filter((item) => item !== "ko")) {
+      const title = expectedTitles[locale];
+      expect(localeBundles[locale].tools["age-calculator"].title).toBe(title);
+      expect(localeBundles[locale].catalog["age-calculator"].name).toBe(title);
+    }
+  });
+
   it("declares Arabic as RTL and every other locale as LTR", () => {
     const flagCountries = locales.map(
       (locale) => localeMetadata[locale].flagCountry,

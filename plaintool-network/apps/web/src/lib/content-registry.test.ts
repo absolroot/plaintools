@@ -30,4 +30,15 @@ describe("content registry", () => {
     );
     expect(toolPages).toEqual(toolRegistry.map((tool) => tool.slug));
   });
+
+  it("keeps the age calculator in the public SEO route inventory", () => {
+    expect(
+      toolRegistry.find((tool) => tool.id === "age-calculator"),
+    ).toMatchObject({
+      slug: "age-calculator",
+      publication: "indexable",
+      structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+    });
+    expect(publicToolPages).toContain("age-calculator");
+  });
 });
