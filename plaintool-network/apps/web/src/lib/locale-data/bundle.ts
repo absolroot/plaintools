@@ -5,7 +5,7 @@ import type { ToolExamples } from "../tool-examples";
 import type {
   LocaleCatalogToolCopy,
   NetworkCopy,
-  RegisteredToolId,
+  BaseRegisteredToolId,
 } from "../tool-catalog";
 import type { AiTextCleanerCopy } from "../../features/ai-text-cleaner/contract";
 import type { DataConverterCopy } from "../../features/data-converter/contract";
@@ -95,7 +95,7 @@ export type LocaleBundle = {
   common: CommonToolCopy;
   preview: Omit<PreviewToolCopy, "common">;
   examples: ToolExamples;
-  catalog: Record<RegisteredToolId, LocaleCatalogToolCopy>;
+  catalog: Record<BaseRegisteredToolId, LocaleCatalogToolCopy>;
   tools: NewToolsCopy;
   network: NetworkCopy;
 };

@@ -94,3 +94,31 @@ Copyright 2019 Justin Ridgewell <jridgewell@google.com>
 Copyright 2024 Justin Ridgewell <justin@ridgewell.name>
 
 These packages are distributed under the MIT License terms reproduced above.
+
+
+## Image converter codecs
+
+The browser-local image converters use the following open-source packages. No
+image bytes are sent to these projects or to an external conversion service.
+
+- [jSquash](https://github.com/jamsinclair/jSquash): AVIF 2.1.1, JPEG 1.6.0,
+  PNG 3.1.1, WebP 1.5.0, OxiPNG 2.3.0, and the Discourse HEIC decoder 1.0.0.
+  Copyright Jamie Sinclair, Discourse, and contributors. Licensed under the
+  Apache License 2.0. These packages
+  incorporate their documented upstream codecs, including libavif, MozJPEG,
+  libpng/PNG Rust tooling, libwebp, and OxiPNG.
+- [gifenc](https://github.com/mattdesl/gifenc), version 1.0.3. Copyright Matt
+  DesLauriers and contributors. Licensed under the MIT License terms reproduced
+  above. Its palette quantizer is derived from PnnQuant as documented by the
+  project.
+- [elheif](https://github.com/hpp2334/elheif), version 0.1.0. Copyright hpp2334.
+  Licensed under the MIT License terms reproduced above. Its WebAssembly build
+  incorporates [libheif](https://github.com/strukturag/libheif),
+  [libde265](https://github.com/strukturag/libde265), and
+  [Kvazaar](https://github.com/ultravideo/kvazaar). Their respective LGPL-3.0
+  and BSD-3-Clause terms and corresponding source are available from those
+  linked upstream repositories.
+
+The Apache License 2.0 text is available at
+<https://www.apache.org/licenses/LICENSE-2.0>. The package versions are pinned
+by the deployed application's lockfile.

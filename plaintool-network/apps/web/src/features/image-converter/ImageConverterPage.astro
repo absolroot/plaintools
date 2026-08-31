@@ -1,0 +1,43 @@
+---
+import PreviewToolPage from "../../components/PreviewToolPage.astro";
+import { localeBundles } from "../../lib/locale-data";
+import type { Locale } from "../../lib/site";
+import ImageConverter from "./ImageConverter.astro";
+import { imageConverterLocales } from "./i18n";
+import { parseImageConversionMode, type ImageConverterToolId } from "./formats";
+import stylesheet from "./styles.css?url";
+
+interface Props {
+  locale: Locale;
+  page: ImageConverterToolId;
+}
+
+const { locale, page } = Astro.props;
+const mode = parseImageConversionMode(page);
+if (!mode) throw new Error(`Unknown image conversion route: ${page}`);
+
+const bundle = localeBundles[locale];
+const content = bundle.tools[page];
+const converterLocale = imageConverterLocales[locale];
+---
+
+<PreviewToolPage
+  locale={locale}
+  page={page}
+  title={content.title}
+  description={content.description}
+  guideTitle={content.guideTitle}
+  guideBody={content.guideBody}
+  safetyTitle={content.safetyTitle}
+  safetyBody={content.safetyBody}
+  faqs={content.faqs}
+  featureStylesheet={stylesheet}
+>
+  <ImageConverter
+    locale={locale}
+    mode={mode}
+    copy={content.feature}
+    common={bundle.common}
+    formatNames={converterLocale.formatNames}
+  />
+</PreviewToolPage>

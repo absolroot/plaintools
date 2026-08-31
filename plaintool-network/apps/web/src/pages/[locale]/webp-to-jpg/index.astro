@@ -1,0 +1,16 @@
+---
+import ImageConverterPage from "../../../features/image-converter/ImageConverterPage.astro";
+import { locales, type Locale } from "../../../lib/site";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<ImageConverterPage locale={locale} page="webp-to-jpg" />

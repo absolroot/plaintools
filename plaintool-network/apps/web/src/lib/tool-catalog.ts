@@ -1,6 +1,7 @@
 import { localeBundles } from "./locale-data";
 import { locales, type Locale } from "./site";
 import { toolRegistry } from "./tool-registry.js";
+import type { ImageConverterToolId } from "../features/image-converter/formats";
 
 export type ToolStatus = "available" | "preview" | "reserve";
 export type ToolCategory = "encoding" | "text" | "converter" | "data" | "time";
@@ -19,8 +20,6 @@ export interface ToolCatalogItem {
   searchTerms: LocalizedSearchTerms;
 }
 
-type RegisteredTool = (typeof toolRegistry)[number];
-export type RegisteredToolId = RegisteredTool["id"];
 export type LocaleCatalogToolCopy = {
   name: string;
   summary: string;
@@ -61,7 +60,7 @@ const converterCardNames = {
   "markdown-to-html": "Markdown → HTML",
 } as const satisfies Partial<Record<RegisteredToolId, string>>;
 
-const toolMarks: Record<RegisteredToolId, string> = {
+const toolMarks = {
   "base64-decode": "B64",
   "base64-encode": "B64",
   "word-counter": "Aa",
@@ -88,7 +87,10 @@ const toolMarks: Record<RegisteredToolId, string> = {
   "sql-formatter": "SQL",
   "ip-subnet-calculator": "IP",
   "date-calculator": "D±",
-};
+} as const;
+
+export type BaseRegisteredToolId = keyof typeof toolMarks;
+export type RegisteredToolId = BaseRegisteredToolId | ImageConverterToolId;
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
   return Object.fromEntries(
@@ -99,13 +101,28 @@ function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
 const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   id: tool.id,
   slug: tool.slug,
-  category: tool.category,
+  category: tool.category as ToolCategory,
   status: tool.publication === "indexable" ? "available" : "preview",
-  mark: toolMarks[tool.id],
-  name: localize((locale) => localeBundles[locale].catalog[tool.id].name),
-  summary: localize((locale) => localeBundles[locale].catalog[tool.id].summary),
+  mark:
+    toolMarks[tool.id as keyof typeof toolMarks] ??
+    tool.id.slice(0, tool.id.indexOf("-to-")).toUpperCase(),
+  name: localize(
+    (locale) =>
+      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
+        tool.id
+      ]!.name,
+  ),
+  summary: localize(
+    (locale) =>
+      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
+        tool.id
+      ]!.summary,
+  ),
   searchTerms: localize(
-    (locale) => localeBundles[locale].catalog[tool.id].searchTerms,
+    (locale) =>
+      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
+        tool.id
+      ]!.searchTerms,
   ),
 }));
 

@@ -10,15 +10,21 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@discourse/heic": "^1.0.0",
+    "@jsquash/avif": "^2.1.1",
+    "@jsquash/jpeg": "^1.6.0",
+    "@jsquash/oxipng": "^2.3.0",
+    "@jsquash/png": "^3.1.1",
+    "@jsquash/webp": "^1.5.0",
     "@plaintool/codec-core": "*",
     "@plaintool/date-core": "*",
+    "@plaintool/css-formatter-core": "*",
     "@plaintool/data-conversion-core": "*",
     "@plaintool/hash-core": "*",
     "@plaintool/html-formatter-core": "*",
-    "@plaintool/css-formatter-core": "*",
     "@plaintool/ip-subnet-core": "*",
-    "@plaintool/json-core": "*",
     "@plaintool/javascript-formatter-core": "*",
+    "@plaintool/json-core": "*",
     "@plaintool/jwt-core": "*",
     "@plaintool/qr-core": "*",
     "@plaintool/sql-formatter-core": "*",
@@ -29,7 +35,9 @@
     "@plaintool/time-core": "*",
     "@plaintool/url-core": "*",
     "astro": "^7.2.9",
-    "flag-icons": "7.5.0"
+    "elheif": "^0.1.0",
+    "flag-icons": "7.5.0",
+    "gifenc": "^1.0.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4"

@@ -31,6 +31,10 @@ from .formatter_subnet_feature import (
     run_source_formatter_desktop, run_source_formatter_mobile,
     run_ip_subnet_desktop, run_ip_subnet_mobile,
 )
+from .image_converter_feature import (
+    run_image_converter_desktop,
+    run_image_converter_mobile,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -185,6 +189,12 @@ FEATURE_COVERAGE = {
         desktop=run_date_calculator_desktop,
         mobile=run_date_calculator_mobile,
         focus_targets=(("input", '[data-field="start"]'),),
+        exercise_faq=True,
+    ),
+    "image-converter": FeatureCoverage(
+        desktop=run_image_converter_desktop,
+        mobile=run_image_converter_mobile,
+        focus_targets=(("input", "[data-image-converter] [data-drop-target]"),),
         exercise_faq=True,
     ),
 }
