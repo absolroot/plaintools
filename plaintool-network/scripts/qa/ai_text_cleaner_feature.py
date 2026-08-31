@@ -8,6 +8,10 @@ def run_ai_text_cleaner_desktop(page, report: dict, _inventory) -> None:
         page.goto(
             f"{BASE_URL}/{locale}/ai-watermark-remover/", wait_until="networkidle"
         )
+        if page.locator("[data-ai-text-cleaner] [data-run]").count():
+            report["ui_detail_failures"].append(
+                f"AI cleaner {locale} still exposes a redundant run button."
+            )
         page.locator("[data-ai-text-cleaner] [data-input]").fill(sample)
         page.wait_for_function(
             "document.querySelector('[data-ai-text-cleaner] [data-output]').value === 'AB\\u202eCD👩‍💻'"

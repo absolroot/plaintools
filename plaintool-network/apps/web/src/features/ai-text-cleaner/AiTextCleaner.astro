@@ -109,9 +109,7 @@ const { copy, textDirection = "auto" } = Astro.props;
     </div>
   </details>
 
-  <ConverterStatus status={copy.ready}>
-    <button class="primary-button" type="button" data-run>{copy.run}</button>
-  </ConverterStatus>
+  <ConverterStatus status={copy.ready} />
 
   <script
     is:inline

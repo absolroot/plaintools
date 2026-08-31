@@ -7,10 +7,13 @@ def run_qr_desktop(page, report: dict, _inventory) -> None:
     sentinel = "https://example.com/qa-qr-sentinel"
     page.goto(f"{BASE_URL}/en/qr-code-generator/", wait_until="networkidle")
     page.locator("[data-qr-generator] [data-input]").fill(sentinel)
-    page.locator("[data-qr-generator] [data-generate]").click()
     page.wait_for_function(
         "!document.querySelector('[data-qr-generator] [data-canvas]').hidden"
     )
+    if page.locator("[data-qr-generator] [data-generate]").count():
+        report["ui_detail_failures"].append(
+            "QR generator still exposes a redundant generate button."
+        )
     data_url = page.locator("[data-qr-generator] [data-canvas]").evaluate(
         "canvas => canvas.toDataURL('image/png')"
     )
@@ -92,21 +95,19 @@ def run_qr_mobile(page, report: dict, _inventory) -> None:
     generator_state = page.evaluate(
         """
         () => ({
-          generate_bottom: document.querySelector('[data-qr-generator] [data-generate]').getBoundingClientRect().bottom,
-          viewport_height: window.innerHeight,
+          generate_count: document.querySelectorAll('[data-qr-generator] [data-generate]').length,
           scroll_width: document.documentElement.scrollWidth
         })
         """
     )
     if (
-        generator_state["generate_bottom"] > generator_state["viewport_height"]
+        generator_state["generate_count"]
         or generator_state["scroll_width"] > 390
     ):
         report["ui_detail_failures"].append(
-            f"QR generator primary action is outside the first mobile viewport: {generator_state}"
+            f"QR generator still exposes a redundant action or overflows: {generator_state}"
         )
     page.locator("[data-qr-generator] [data-input]").fill(sentinel)
-    page.locator("[data-qr-generator] [data-generate]").click()
     page.wait_for_function(
         "!document.querySelector('[data-qr-generator] [data-canvas]').hidden"
     )

@@ -9,10 +9,13 @@ def run_data_converter_desktop(page, report: dict, _inventory) -> None:
         "<script>window.__plainToolXss=2</script>"
     )
     page.locator("[data-data-converter] [data-input]").fill(payload)
-    page.locator("[data-data-converter] [data-run]").click()
     page.wait_for_function(
         "document.querySelector('[data-data-converter] [data-output]').value.includes('__plainToolXss')"
     )
+    if page.locator("[data-data-converter] [data-run]").count():
+        report["ui_detail_failures"].append(
+            "Data converter still exposes a redundant run button."
+        )
     state = page.evaluate(
         """
         () => ({
@@ -48,7 +51,6 @@ def run_data_converter_desktop(page, report: dict, _inventory) -> None:
     page.locator("[data-data-converter] [data-input]").fill(
         "| name | age |\n| --- | --- |\n| Ada | 37 |"
     )
-    page.locator("[data-data-converter] [data-run]").click()
     page.wait_for_function(
         "document.querySelector('[data-data-converter] [data-output]').value.includes('\\t')"
     )
@@ -76,7 +78,6 @@ def run_data_converter_desktop(page, report: dict, _inventory) -> None:
 def run_data_converter_mobile(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/ar/csv-to-json/", wait_until="networkidle")
     page.locator("[data-data-converter] [data-input]").fill("name,note\nAda,مرحبا")
-    page.locator("[data-data-converter] [data-run]").click()
     page.wait_for_function(
         "document.querySelector('[data-data-converter] [data-output]').value.includes('مرحبا')"
     )
@@ -87,8 +88,7 @@ def run_data_converter_mobile(page, report: dict, _inventory) -> None:
           input_dir: getComputedStyle(document.querySelector('[data-data-converter] [data-input]')).direction,
           output_dir: getComputedStyle(document.querySelector('[data-data-converter] [data-output]')).direction,
           scroll_width: document.documentElement.scrollWidth,
-          run_bottom: document.querySelector('[data-data-converter] [data-run]').getBoundingClientRect().bottom,
-          viewport_height: window.innerHeight
+          run_count: document.querySelectorAll('[data-data-converter] [data-run]').length
         })
         """
     )
@@ -97,7 +97,7 @@ def run_data_converter_mobile(page, report: dict, _inventory) -> None:
         or state["input_dir"] != "ltr"
         or state["output_dir"] != "ltr"
         or state["scroll_width"] > 390
-        or state["run_bottom"] > state["viewport_height"] + 1
+        or state["run_count"]
     ):
         report["ui_detail_failures"].append(
             f"Arabic data converter direction or layout is wrong: {state}"

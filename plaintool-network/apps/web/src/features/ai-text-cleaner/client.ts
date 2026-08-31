@@ -132,7 +132,6 @@ function init(root: HTMLElement): void {
     timer = window.setTimeout(run, AUTO_RUN_DELAY);
   });
 
-  root.querySelector("[data-run]")?.addEventListener("click", run);
   root.querySelectorAll<HTMLInputElement>("[data-option]").forEach((control) =>
     control.addEventListener("change", () => {
       if (input.value) run();

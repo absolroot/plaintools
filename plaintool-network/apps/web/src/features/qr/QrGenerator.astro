@@ -66,11 +66,7 @@ const {
         placeholder={copy.inputPlaceholder}></textarea>
     </section>
 
-    <ConverterStatus status={copy.ready}>
-      <button class="primary-button" type="button" data-generate>
-        {copy.generate}
-      </button>
-    </ConverterStatus>
+    <ConverterStatus status={copy.ready} />
 
     <section class="qr-preview-pane" aria-labelledby="qr-preview-heading">
       <div class="pane-heading">

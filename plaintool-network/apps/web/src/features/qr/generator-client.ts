@@ -125,7 +125,6 @@ function init(root: HTMLElement): void {
       if (input.value) generate();
     }),
   );
-  root.querySelector("[data-generate]")?.addEventListener("click", generate);
   root.querySelector("[data-clear]")?.addEventListener("click", () => {
     window.clearTimeout(timer);
     revision += 1;

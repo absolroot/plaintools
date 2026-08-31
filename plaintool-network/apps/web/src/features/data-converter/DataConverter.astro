@@ -144,11 +144,7 @@ const accepts = csvInput
       <p class="drop-hint">{copy.dropHint}</p>
     </section>
 
-    <ConverterStatus status={copy.ready}>
-      <button class="primary-button" type="button" data-run
-        >{copy.convert}</button
-      >
-    </ConverterStatus>
+    <ConverterStatus status={copy.ready} />
 
     <section class="editor-pane output-pane">
       <div class="pane-heading">
@@ -171,7 +167,6 @@ const accepts = csvInput
         placeholder={copy.outputPlaceholder}></textarea>
     </section>
   </div>
-
 
   <script
     is:inline

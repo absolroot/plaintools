@@ -20,7 +20,6 @@ import type {
 } from "./contract";
 
 const MAX_BYTES = 10 * 1024 * 1024;
-const AUTO_BYTES = 1024 * 1024;
 const AUTO_DELAY = 180;
 
 const outputDefinitions: Record<
@@ -69,7 +68,6 @@ function initDataConverter(root: HTMLElement): void {
   const input = root.querySelector<HTMLTextAreaElement>("[data-input]")!;
   const output = root.querySelector<HTMLTextAreaElement>("[data-output]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
-  const runButton = root.querySelector<HTMLButtonElement>("[data-run]")!;
   const copyButton = root.querySelector<HTMLButtonElement>("[data-copy]")!;
   const downloadButton =
     root.querySelector<HTMLButtonElement>("[data-download]")!;
@@ -209,7 +207,6 @@ function initDataConverter(root: HTMLElement): void {
     }
   };
 
-  runButton.addEventListener("click", run);
   input.addEventListener("input", () => {
     cancelPendingWork();
     if (!input.value) {
@@ -224,12 +221,7 @@ function initDataConverter(root: HTMLElement): void {
     }
     if (root.classList.contains("has-error")) restoreSettledStatus();
     markResultPending();
-    if (exceedsUtf8ByteLimit(input.value, AUTO_BYTES)) {
-      invalidateResult();
-      setStatus(copy.ready);
-    } else {
-      timer = window.setTimeout(run, AUTO_DELAY);
-    }
+    timer = window.setTimeout(run, AUTO_DELAY);
   });
   input.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
