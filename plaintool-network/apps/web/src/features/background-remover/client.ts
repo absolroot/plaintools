@@ -177,10 +177,7 @@ function init(root: HTMLElement): void {
     )!.value as BackgroundMode;
 
   function updateRemoveButtonLabel(): void {
-    removeButtonLabel.textContent =
-      selectedRunMode() === "compare"
-        ? copy.compareModels
-        : copy.removeBackground;
+    removeButtonLabel.textContent = copy.removeBackground;
   }
 
   function setBusy(busy: boolean, comparisonRun = false): void {
@@ -671,19 +668,19 @@ function init(root: HTMLElement): void {
     consentIntent = intent;
     const compare = intent === "compare";
     consentEyebrow.textContent = compare
-      ? `${copy.comparisonLabel} · ~180 MB`
+      ? root.dataset.runTogetherLabel!
       : `${copy.modelOptions.precision} · 98.5 MB`;
     consentTitle.textContent = compare
-      ? copy.compareConsentTitle
+      ? root.dataset.runTogetherLabel!
       : copy.precisionConsentTitle;
     consentBody.textContent = compare
-      ? copy.compareConsentBody
+      ? `${root.dataset.comparisonChoiceSummary}. ${copy.compareConsentBody}`
       : copy.precisionConsentBody;
     consentConfirmLabel.textContent = compare
-      ? copy.compareConsentConfirm
+      ? root.dataset.fourModelSummary!
       : copy.precisionConsentConfirm;
     consentCancel.textContent = compare
-      ? copy.compareWithoutPrecision
+      ? root.dataset.threeModelSummary!
       : copy.cancel;
     precisionConsent.showModal();
   }

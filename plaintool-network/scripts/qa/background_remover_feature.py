@@ -433,6 +433,10 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         () => ({
           selected: document.querySelector('input[name="background-model"]:checked').value,
           primaryLabel: document.querySelector('[data-remove-label]').textContent.trim(),
+          optionLabel: document.querySelector('input[name="background-model"][value="compare"]')
+            .closest('label').querySelector('strong').textContent.trim(),
+          compareHint: [...document.querySelector('input[name="background-model"][value="compare"]')
+            .closest('label').querySelectorAll('small span')].map((item) => item.textContent.trim()),
           separateCompareButton: Boolean(document.querySelector('[data-compare]'))
         })
         """
@@ -445,6 +449,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             () => ({
               open: document.querySelector('[data-precision-consent]').open,
               disclosesTotal: document.querySelector('[data-consent-body]').textContent.includes('180 MB'),
+              confirmLabel: document.querySelector('[data-consent-confirm-label]').textContent.trim(),
               fallbackLabel: document.querySelector('[data-consent-cancel]').textContent.trim()
             })
             """
@@ -482,7 +487,13 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
     if (
         not comparison_state["visible"]
         or compare_selection["selected"] != "compare"
-        or compare_selection["primaryLabel"] != "Compare models"
+        or compare_selection["primaryLabel"] != "Remove background"
+        or compare_selection["optionLabel"] != "Run together"
+        or compare_selection["compareHint"]
+        != [
+            "3 · Fast + Portrait + Quality · ~55 MB",
+            "4 · + Precision · ~180 MB",
+        ]
         or compare_selection["separateCompareButton"]
         or comparison_state["columns"] != 2
         or comparison_state["cardCount"] != 4
@@ -498,7 +509,10 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             and (
                 not comparison_consent["open"]
                 or not comparison_consent["disclosesTotal"]
-                or comparison_consent["fallbackLabel"] != "Compare the other 3"
+                or comparison_consent["confirmLabel"]
+                != "4 · + Precision · ~180 MB"
+                or comparison_consent["fallbackLabel"]
+                != "3 · Fast + Portrait + Quality · ~55 MB"
             )
         )
     ):

@@ -9,13 +9,46 @@ interface Props {
   copy: BackgroundRemoverCopy;
 }
 
-const { copy } = Astro.props;
+const { locale, copy } = Astro.props;
 const modelIds = ["fast", "portrait", "quality", "precision"] as const;
+const runTogetherLabels: Record<Locale, string> = {
+  en: "Run together",
+  ko: "동시 실행",
+  es: "Ejecutar juntos",
+  de: "Gemeinsam ausführen",
+  ja: "同時実行",
+  fr: "Exécuter ensemble",
+  "pt-BR": "Executar juntos",
+  it: "Esegui insieme",
+  nl: "Tegelijk uitvoeren",
+  sv: "Kör samtidigt",
+  cs: "Spustit současně",
+  pl: "Uruchom razem",
+  da: "Kør samtidigt",
+  no: "Kjør samtidig",
+  ar: "تشغيل متزامن",
+  "zh-TW": "同時執行",
+  tr: "Birlikte çalıştır",
+};
+const runTogetherLabel = runTogetherLabels[locale];
+const threeModelSummary =
+  locale === "ko"
+    ? `기본 3개 · ${copy.modelOptions.fast} + ${copy.modelOptions.portrait} + ${copy.modelOptions.quality} · 약 55MB`
+    : `3 · ${copy.modelOptions.fast} + ${copy.modelOptions.portrait} + ${copy.modelOptions.quality} · ~55 MB`;
+const fourModelSummary =
+  locale === "ko"
+    ? `정밀 포함 4개 · 약 180MB`
+    : `4 · + ${copy.modelOptions.precision} · ~180 MB`;
+const comparisonChoiceSummary = `${threeModelSummary} / ${fourModelSummary}`;
 ---
 
 <section
   class="converter background-remover"
   data-background-remover
+  data-run-together-label={runTogetherLabel}
+  data-comparison-choice-summary={comparisonChoiceSummary}
+  data-three-model-summary={threeModelSummary}
+  data-four-model-summary={fourModelSummary}
   aria-label={copy.accessibleLabel}
 >
   <div class="background-workspace" data-drop-zone>
@@ -153,9 +186,10 @@ const modelIds = ["fast", "portrait", "quality", "precision"] as const;
         <label class="background-model-option">
           <input type="radio" name="background-model" value="compare" />
           <span
-            ><strong>{copy.compareModels}</strong><small
-              >{copy.comparisonSelected}</small
-            ></span
+            ><strong>{runTogetherLabel}</strong><small>
+              <span>{threeModelSummary}</span>
+              <span>{fourModelSummary}</span>
+            </small></span
           >
         </label>
       </fieldset>
