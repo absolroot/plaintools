@@ -181,7 +181,7 @@ const noBundle = {
           {
             title: "Analyse og annonsering",
             body: [
-              "Google Analytics er for øyeblikket {{analytics_state}}, mens Google AdSense er {{advertising_state}}. Når Analytics er aktivert, administrerer {{consent_provider}} samtykket, og Google mottar side-, økt-, omtrentlig posisjons-, nettleser- og enhetsdata først etter samtykke til statistikkapsler. Verktøyinnspill, filer, resultater, feil og avledede verdier er utelukket fra analyse- og annonsehendelser.",
+              "Google Analytics og Google AdSense er for øyeblikket {{integration_state}}. Når de er aktivert, vil deres enhets-, bruk-, cookie-, samtykke-, lagrings- og internasjonale overføringsdetaljer bli oppgitt her og administrert gjennom personvernvalg. Verktøyinnspill og resultater er utelukket fra analyse- og reklamehendelser etter design.",
             ],
           },
           {
@@ -224,13 +224,13 @@ const noBundle = {
           {
             title: "Nåværende bruk",
             body: [
-              "Analyse er for øyeblikket {{analytics_state}}, mens annonsering er {{advertising_state}}. Google Analytics lastes først etter samtykke til statistikkapsler administrert av {{consent_provider}}. Nettstedet lagrer ikke verktøyinnsats eller resultater i informasjonskapsler eller lokal lagring. Det lagrer kun ditt valgte temapreferanse (lys eller mørk) i lokal lagring; denne verdien sendes ikke.",
+              "Analyse og annonsering er for øyeblikket {{integration_state}}. Nettstedet lagrer ikke verktøyinnsats eller resultater i informasjonskapsler eller lokal lagring. Det lagrer kun ditt valgte temapreferanse (lys eller mørk) i lokal lagring; denne verdien sendes ikke.",
             ],
           },
           {
-            title: "Samtykke og informasjonskapseldetaljer",
+            title: "Hvis integrasjoner er aktivert",
             body: [
-              "{{consent_provider}} registrerer og administrerer valg av informasjonskapsler. Erklæringen nedenfor viser gjeldende informasjonskapsler, leverandører, formål og lagringsperioder og gjør det mulig å gjennomgå eller trekke tilbake samtykke.",
+              "En samtykkeplattform vil kontrollere pålagt lagring av preferanser, lagring av analyser og lagring av annonsering. En permanent personvernkontroll vil la besøkende gjennomgå eller trekke tilbake samtykke.",
             ],
           },
         ],

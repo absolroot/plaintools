@@ -169,7 +169,7 @@ const bundle: LocaleBundle = {
           {
             title: "分析與廣告",
             body: [
-              "Google Analytics 目前為 {{analytics_state}}，Google AdSense 為 {{advertising_state}}。啟用 Analytics 時，由 {{consent_provider}} 管理同意；只有在同意統計 Cookie 後，頁面、工作階段、大致地區、瀏覽器與裝置資訊才會傳送給 Google。依系統設計，工具輸入、檔案、結果、錯誤及其衍生值不會進入分析或廣告事件。",
+              "Google Analytics 與 Google AdSense 目前為 {{integration_state}}。若日後啟用，這裡會揭露裝置、使用情形、Cookie、同意、保留期間與跨境傳輸細節，並透過「隱私權選擇」管理。依系統設計，工具輸入與結果不會進入分析或廣告事件。",
             ],
           },
           {
@@ -211,13 +211,13 @@ const bundle: LocaleBundle = {
           {
             title: "目前使用情形",
             body: [
-              "分析目前為 {{analytics_state}}，廣告為 {{advertising_state}}。Google Analytics 只有在透過 {{consent_provider}} 同意統計 Cookie 後才會載入。網站不會將工具輸入或結果儲存在 Cookie 或本機儲存空間，只會把您選擇的主題（light 或 dark）存入本機儲存空間，且不會傳送該值。",
+              "分析與廣告目前為 {{integration_state}}。網站不會將工具輸入或結果儲存在 Cookie 或本機儲存空間，只會把您選擇的主題（light 或 dark）存入本機儲存空間，且不會傳送該值。",
             ],
           },
           {
-            title: "同意與 Cookie 詳情",
+            title: "若啟用整合服務",
             body: [
-              "{{consent_provider}} 會記錄並管理 Cookie 選擇。下方聲明列出目前的 Cookie、供應商、用途與保存期限，並提供檢視或撤回同意的方式。",
+              "同意管理平台將控制必要的偏好設定儲存、分析儲存與廣告儲存。訪客可透過永久顯示的隱私權控制，檢視或撤回同意。",
             ],
           },
         ],

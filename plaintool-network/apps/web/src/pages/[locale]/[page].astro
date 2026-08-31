@@ -1,6 +1,5 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import CookieDeclaration from "../../components/CookieDeclaration.astro";
 import { getCopy, interpolate } from "../../lib/i18n";
 import {
   legalPages,
@@ -26,14 +25,11 @@ interface Props {
 const { locale, page } = Astro.props;
 const t = getCopy(locale);
 const content = t.legal[page];
-const analyticsState =
-  t.integrationState[
-    siteConfig.integrations.ga4MeasurementId ? "enabled" : "disabled"
-  ];
-const advertisingState =
-  t.integrationState[
-    siteConfig.integrations.adsensePublisherId ? "enabled" : "disabled"
-  ];
+const active = Boolean(
+  siteConfig.integrations.ga4MeasurementId ||
+    siteConfig.integrations.adsensePublisherId,
+);
+const integrationState = t.integrationState[active ? "enabled" : "disabled"];
 const variables = {
   operator: siteConfig.operator.name,
   email: siteConfig.operator.email,
@@ -44,9 +40,7 @@ const variables = {
   host_provider: siteConfig.hosting.provider,
   host_privacy_url: siteConfig.hosting.privacyUrl,
   host_log_retention: siteConfig.hosting.logRetention,
-  analytics_state: analyticsState,
-  advertising_state: advertisingState,
-  consent_provider: "Cookiebot by Usercentrics",
+  integration_state: integrationState,
 };
 ---
 
@@ -69,6 +63,5 @@ const variables = {
         </section>
       ))
     }
-    {page === "cookies" && <CookieDeclaration />}
   </article>
 </SiteLayout>

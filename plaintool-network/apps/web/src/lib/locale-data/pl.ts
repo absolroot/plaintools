@@ -181,7 +181,7 @@ const plBundle = {
           {
             title: "Analiza i reklama",
             body: [
-              "Google Analytics jest obecnie {{analytics_state}}, a Google AdSense {{advertising_state}}. Gdy Analytics jest włączony, {{consent_provider}} zarządza zgodą, a Google otrzymuje dane o stronie, sesji, przybliżonej lokalizacji, przeglądarce i urządzeniu dopiero po wyrażeniu zgody na statystyczne pliki cookie. Dane wejściowe, pliki, wyniki, błędy i wartości pochodne są wyłączone ze zdarzeń analitycznych i reklamowych.",
+              "Google Analytics i Google AdSense są obecnie {{integration_state}}. Po włączeniu ich szczegóły dotyczące urządzenia, użytkowania, plików cookie, zgody, przechowywania i transferu międzynarodowego będą tutaj ujawniane i zarządzane za pomocą ustawień prywatności. Dane wejściowe narzędzia i wyniki są domyślnie wyłączone z wydarzeń analitycznych i reklamowych.",
             ],
           },
           {
@@ -224,13 +224,13 @@ const plBundle = {
           {
             title: "Obecne użytkowanie",
             body: [
-              "Analityka jest obecnie {{analytics_state}}, a reklama {{advertising_state}}. Google Analytics jest ładowany dopiero po zgodzie na statystyczne pliki cookie zarządzanej przez {{consent_provider}}. Strona nie przechowuje danych wprowadzanych do narzędzi ani wyników w plikach cookie ani w pamięci lokalnej. Przechowuje tylko wybraną przez Ciebie preferencję motywu (jasny lub ciemny) w pamięci lokalnej; ta wartość nie jest przesyłana.",
+              "Analiza i reklama są obecnie {{integration_state}}. Strona nie przechowuje danych wprowadzanych do narzędzi ani wyników w plikach cookie ani w pamięci lokalnej. Przechowuje tylko wybraną przez Ciebie preferencję motywu (jasny lub ciemny) w pamięci lokalnej; ta wartość nie jest przesyłana.",
             ],
           },
           {
-            title: "Zgoda i szczegóły plików cookie",
+            title: "Jeśli integracje są włączone",
             body: [
-              "{{consent_provider}} rejestruje wybory dotyczące plików cookie i nimi zarządza. Poniższa deklaracja zawiera aktualne pliki cookie, dostawców, cele i okresy przechowywania oraz umożliwia przejrzenie lub wycofanie zgody.",
+              "Platforma zgody będzie kontrolować wymaganą pamięć preferencji, pamięć analityczną i pamięć reklamową. Stała kontrola prywatności pozwoli odwiedzającym przeglądać lub wycofywać zgodę.",
             ],
           },
         ],

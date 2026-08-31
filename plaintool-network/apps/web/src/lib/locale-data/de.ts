@@ -182,7 +182,7 @@ export const deBundle: LocaleBundle = {
           {
             title: "Analyse und Werbung",
             body: [
-              "Google Analytics ist derzeit {{analytics_state}}, Google AdSense dagegen {{advertising_state}}. Wenn Analytics aktiviert ist, verwaltet {{consent_provider}} die Einwilligung; Google erhält Seiten-, Sitzungs-, ungefähre Standort-, Browser- und Gerätedaten erst nach Einwilligung in Statistik-Cookies. Werkzeug-Eingaben, Dateien, Ergebnisse, Fehler und daraus abgeleitete Werte sind von Analyse- und Werbeereignissen ausgeschlossen.",
+              "Google Analytics und Google AdSense sind derzeit {{integration_state}}. Bei einer Aktivierung werden Angaben zu Gerät, Nutzung, Cookies, Einwilligung, Aufbewahrung und internationalen Übermittlungen hier erläutert und über die Datenschutzeinstellungen gesteuert. Werkzeug-Eingaben und -Ergebnisse sind standardmäßig von Analyse- und Werbeereignissen ausgeschlossen.",
             ],
           },
           {
@@ -225,13 +225,13 @@ export const deBundle: LocaleBundle = {
           {
             title: "Aktuelle Verwendung",
             body: [
-              "Analyse ist derzeit {{analytics_state}}, Werbung dagegen {{advertising_state}}. Google Analytics wird erst nach der von {{consent_provider}} verwalteten Einwilligung in Statistik-Cookies geladen. Die Website speichert Werkzeug-Eingaben und -Ergebnisse weder in Cookies noch im lokalen Speicher. Dort wird nur die gewählte Design-Einstellung light oder dark gespeichert; dieser Wert wird nicht übermittelt.",
+              "Analyse und Werbung sind derzeit {{integration_state}}. Die Website speichert Werkzeug-Eingaben und -Ergebnisse weder in Cookies noch im lokalen Speicher. Dort wird nur die gewählte Design-Einstellung light oder dark gespeichert; dieser Wert wird nicht übermittelt.",
             ],
           },
           {
-            title: "Einwilligung und Cookie-Details",
+            title: "Bei Aktivierung von Integrationen",
             body: [
-              "{{consent_provider}} erfasst und verwaltet die Cookie-Auswahl. Die nachstehende Erklärung nennt die aktuellen Cookies, Anbieter, Zwecke und Speicherdauern und ermöglicht es, die Einwilligung zu prüfen oder zu widerrufen.",
+              "Eine Einwilligungsplattform steuert dann erforderlichen Präferenz-, Analyse- und Werbespeicher. Über eine dauerhafte Datenschutzoption lässt sich die Einwilligung prüfen oder widerrufen.",
             ],
           },
         ],

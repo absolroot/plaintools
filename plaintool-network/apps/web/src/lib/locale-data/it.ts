@@ -182,7 +182,7 @@ export const itBundle: LocaleBundle = {
           {
             title: "Analisi e pubblicità",
             body: [
-              "Google Analytics è attualmente {{analytics_state}}, mentre Google AdSense è {{advertising_state}}. Quando Analytics è attivo, {{consent_provider}} gestisce il consenso e Google riceve dati relativi a pagina, sessione, posizione approssimativa, browser e dispositivo solo dopo il consenso ai cookie statistici. Input, file, risultati, errori e valori derivati sono esclusi dagli eventi di analisi e pubblicità.",
+              "Google Analytics e Google AdSense sono attualmente {{integration_state}}. Se attivati, i dettagli su dispositivo, utilizzo, cookie, consenso, conservazione e trasferimenti internazionali saranno descritti qui e gestiti nelle impostazioni sulla privacy. Per impostazione predefinita, input e risultati degli strumenti sono esclusi dagli eventi di analisi e pubblicità.",
             ],
           },
           {
@@ -224,13 +224,13 @@ export const itBundle: LocaleBundle = {
           {
             title: "Uso attuale",
             body: [
-              "L’analisi è attualmente {{analytics_state}}, mentre la pubblicità è {{advertising_state}}. Google Analytics viene caricato solo dopo il consenso ai cookie statistici gestito da {{consent_provider}}. Il sito non memorizza input o risultati degli strumenti nei cookie o nello spazio locale. Viene salvata localmente solo la preferenza del tema scelta, light o dark, e tale valore non viene trasmesso.",
+              "Analisi e pubblicità sono attualmente {{integration_state}}. Il sito non memorizza input o risultati degli strumenti nei cookie o nello spazio locale. Viene salvata localmente solo la preferenza del tema scelta, light o dark, e tale valore non viene trasmesso.",
             ],
           },
           {
-            title: "Consenso e dettagli sui cookie",
+            title: "Se le integrazioni vengono attivate",
             body: [
-              "{{consent_provider}} registra e gestisce le scelte relative ai cookie. La dichiarazione qui sotto elenca i cookie, i fornitori, le finalità e i periodi di conservazione attuali e consente di rivedere o revocare il consenso.",
+              "Una piattaforma di consenso controllerà lo spazio necessario per preferenze, analisi e pubblicità. Un controllo permanente della privacy consentirà di rivedere o revocare il consenso.",
             ],
           },
         ],
