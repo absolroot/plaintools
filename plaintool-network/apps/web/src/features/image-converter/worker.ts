@@ -21,7 +21,7 @@ self.addEventListener(
   async (event: MessageEvent<ImageConverterWorkerRequest>) => {
     const request = event.data;
     const detected = detectImageFormat(new Uint8Array(request.input));
-    if (!detected) {
+    if (!detected && request.source !== "svg") {
       self.postMessage({
         id: request.id,
         ok: false,
@@ -30,7 +30,7 @@ self.addEventListener(
       } satisfies ImageConverterWorkerReply);
       return;
     }
-    if (detected !== request.source) {
+    if (request.source !== "svg" && detected !== request.source) {
       self.postMessage({
         id: request.id,
         ok: false,

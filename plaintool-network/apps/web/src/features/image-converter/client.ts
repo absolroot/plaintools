@@ -14,7 +14,9 @@ import {
   imageFormatMime,
   imageFormats,
   isImageFormat,
+  isImageInputFormat,
   type ImageFormat,
+  type ImageInputFormat,
 } from "./formats";
 
 function formatBytes(value: number): string {
@@ -33,7 +35,7 @@ function initImageConverter(root: HTMLElement): void {
   root.dataset.initialized = "true";
   const source = root.dataset.source;
   const target = root.dataset.target;
-  if (!source || !target || !isImageFormat(source) || !isImageFormat(target))
+  if (!source || !target || !isImageInputFormat(source) || !isImageFormat(target))
     return;
 
   const copy = readClientCopy<ImageConverterClientCopy>(root);
@@ -84,7 +86,7 @@ function initImageConverter(root: HTMLElement): void {
   )!;
   const swapLink = root.querySelector<HTMLAnchorElement>(
     "[data-swap-formats]",
-  )!;
+  );
   const detectedFormat = root.querySelector<HTMLElement>(
     "[data-detected-format]",
   )!;
@@ -132,11 +134,11 @@ function initImageConverter(root: HTMLElement): void {
     revision += 1;
     stopWorker();
   };
-  const formatLabel = (format: ImageFormat) =>
+  const formatLabel = (format: ImageInputFormat) =>
     sourceSelect.querySelector<HTMLOptionElement>(`option[value="${format}"]`)
       ?.textContent ?? format.toUpperCase();
   const setActiveFormats = (
-    nextSource: ImageFormat,
+    nextSource: ImageInputFormat,
     nextTarget: ImageFormat,
   ) => {
     activeSource = nextSource;
@@ -150,7 +152,7 @@ function initImageConverter(root: HTMLElement): void {
     targetSelect.value = activeTarget;
     detectedFormat.textContent = formatLabel(activeSource);
     outputFormat.textContent = formatLabel(activeTarget);
-    swapLink.href = `/${locale}/${activeTarget}-to-${activeSource}/`;
+    if (swapLink) { swapLink.hidden = activeSource === "svg"; if (activeSource !== "svg") swapLink.href = `/${locale}/${activeTarget}-to-${activeSource}/`; }
 
     const adjustableQuality = ["jpg", "gif", "webp", "avif"].includes(
       activeTarget,
@@ -199,10 +201,10 @@ function initImageConverter(root: HTMLElement): void {
       return;
     }
     const selectionRevision = revision;
-    let detected: ImageFormat | undefined;
+    let detected: ImageInputFormat | undefined;
     try {
       detected = detectImageFormat(
-        new Uint8Array(await file.slice(0, 32).arrayBuffer()),
+        new Uint8Array(await file.slice(0, 4096).arrayBuffer()),
       );
     } catch {
       detected = undefined;
@@ -212,20 +214,12 @@ function initImageConverter(root: HTMLElement): void {
       setStatus(copy.invalidImage, "error");
       return;
     }
-    const nextTarget =
-      detected === activeTarget
-        ? activeSource === detected
-          ? imageFormats.find((format) => format !== detected)!
-          : activeSource
-        : activeTarget;
+    const nextTarget: ImageFormat = detected === activeTarget ? (isImageFormat(activeSource) && activeSource !== detected ? activeSource : imageFormats.find((format) => format !== detected)!) : activeTarget;
     setActiveFormats(detected, nextTarget);
 
     selectedFile = file;
     revoke(inputUrl);
-    inputUrl = URL.createObjectURL(file);
-    inputPreview.src = inputUrl;
-    inputPreview.hidden = false;
-    inputPlaceholder.hidden = true;
+    if (detected !== "svg") { inputUrl = URL.createObjectURL(file); inputPreview.src = inputUrl; inputPreview.hidden = false; inputPlaceholder.hidden = true;
     inputPreview.addEventListener(
       "error",
       () => {
@@ -233,7 +227,7 @@ function initImageConverter(root: HTMLElement): void {
         inputPlaceholder.hidden = false;
       },
       { once: true },
-    );
+    ); }
     fileName.textContent = file.name;
     inputSize.textContent = formatBytes(file.size);
     inputFacts.hidden = false;

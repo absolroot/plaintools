@@ -1,11 +1,11 @@
-import type { ImageFormat } from "./formats";
+import type { ImageInputFormat } from "./formats";
 
 export type NativeDecodeFailurePolicy =
   | "pixel-budget"
   | "fallback"
   | "decode-failed";
 
-const fallbackDecoderFormats = new Set<ImageFormat>([
+const fallbackDecoderFormats = new Set<ImageInputFormat>([
   "png",
   "jpg",
   "webp",
@@ -13,7 +13,7 @@ const fallbackDecoderFormats = new Set<ImageFormat>([
 ]);
 
 export function classifyNativeDecodeFailure(
-  source: ImageFormat,
+  source: ImageInputFormat,
   error: unknown,
 ): NativeDecodeFailurePolicy {
   if (

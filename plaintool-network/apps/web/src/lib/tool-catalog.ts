@@ -88,6 +88,7 @@ const imageFormatCardNames = {
   webp: "WebP",
   heic: "HEIC",
   avif: "AVIF",
+  svg: "SVG",
 } as const;
 
 const backgroundRemoverCardSubtitle = {

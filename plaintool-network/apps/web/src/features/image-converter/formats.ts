@@ -9,20 +9,22 @@ export const imageFormats = [
 ] as const;
 
 export type ImageFormat = (typeof imageFormats)[number];
+export const imageInputFormats = [...imageFormats, "svg"] as const;
+export type ImageInputFormat = (typeof imageInputFormats)[number];
 
 export type ImageConverterToolId = {
-  [From in ImageFormat]: {
+  [From in ImageInputFormat]: {
     [To in Exclude<ImageFormat, From>]: `${From}-to-${To}`;
   }[Exclude<ImageFormat, From>];
-}[ImageFormat];
+}[ImageInputFormat];
 
 export type ImageConversionMode = {
   id: ImageConverterToolId;
-  source: ImageFormat;
+  source: ImageInputFormat;
   target: ImageFormat;
 };
 
-export const imageConversionModes = imageFormats.flatMap((source) =>
+export const imageConversionModes = imageInputFormats.flatMap((source) =>
   imageFormats
     .filter((target) => target !== source)
     .map((target) => ({
@@ -32,7 +34,7 @@ export const imageConversionModes = imageFormats.flatMap((source) =>
     })),
 );
 
-export const imageFormatMime: Record<ImageFormat, string> = {
+export const imageFormatMime: Record<ImageInputFormat, string> = {
   bmp: "image/bmp",
   png: "image/png",
   jpg: "image/jpeg",
@@ -40,21 +42,25 @@ export const imageFormatMime: Record<ImageFormat, string> = {
   webp: "image/webp",
   heic: "image/heic",
   avif: "image/avif",
+  svg: "image/svg+xml",
 };
 
 export function isImageFormat(value: string): value is ImageFormat {
   return (imageFormats as readonly string[]).includes(value);
+}
+export function isImageInputFormat(value: string): value is ImageInputFormat {
+  return (imageInputFormats as readonly string[]).includes(value);
 }
 
 export function parseImageConversionMode(
   value: string,
 ): ImageConversionMode | undefined {
   const match = /^([a-z0-9]+)-to-([a-z0-9]+)$/u.exec(value);
-  if (!match || !isImageFormat(match[1]!) || !isImageFormat(match[2]!)) {
+  if (!match || !isImageInputFormat(match[1]!) || !isImageFormat(match[2]!)) {
     return undefined;
   }
-  const source = match[1];
-  const target = match[2];
+  const source = match[1] as ImageInputFormat;
+  const target = match[2] as ImageFormat;
   if (source === target) return undefined;
   return { id: value as ImageConverterToolId, source, target };
 }

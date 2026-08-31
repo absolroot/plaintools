@@ -4,7 +4,7 @@ import type { ImageConverterCopy } from "./contract";
 import {
   imageConversionModes,
   type ImageConverterToolId,
-  type ImageFormat,
+  type ImageInputFormat,
 } from "./formats";
 
 export type ImageConverterLocale =
@@ -27,7 +27,7 @@ export type ImageConverterLocale =
   | "tr";
 
 type ImageLocaleText = {
-  formats: Record<ImageFormat, string>;
+  formats: Record<ImageInputFormat, string>;
   ui: ImageConverterCopy;
   title: string;
   description: string;
@@ -52,6 +52,7 @@ const formatNames = {
   webp: "WebP",
   heic: "HEIC",
   avif: "AVIF",
+  svg: "SVG",
 } as const;
 
 const en: ImageLocaleText = {
@@ -1260,7 +1261,7 @@ function fill(template: string, from: string, to: string): string {
 export function createImageConverterLocale(locale: ImageConverterLocale): {
   tools: Record<ImageConverterToolId, ToolPageCopy<ImageConverterCopy>>;
   catalog: Record<ImageConverterToolId, LocaleCatalogToolCopy>;
-  formatNames: Record<ImageFormat, string>;
+  formatNames: Record<ImageInputFormat, string>;
 } {
   const text = texts[locale];
   const tools = Object.fromEntries(

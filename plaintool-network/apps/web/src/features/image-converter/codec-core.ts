@@ -1,4 +1,4 @@
-import type { ImageFormat } from "./formats";
+import type { ImageInputFormat } from "./formats";
 
 export type PixelImage = {
   data: Uint8ClampedArray;
@@ -9,7 +9,7 @@ export type PixelImage = {
 export const MAX_IMAGE_BYTES = 50 * 1024 * 1024;
 export const MAX_IMAGE_PIXELS = 40_000_000;
 
-export function detectImageFormat(bytes: Uint8Array): ImageFormat | undefined {
+export function detectImageFormat(bytes: Uint8Array): ImageInputFormat | undefined {
   if (bytes.length < 12) return undefined;
   if (bytes[0] === 0x42 && bytes[1] === 0x4d) return "bmp";
   if (
@@ -61,7 +61,15 @@ export function detectImageFormat(bytes: Uint8Array): ImageFormat | undefined {
       return "heic";
     }
   }
+  const prefix = new TextDecoder("utf-8", { fatal: false }).decode(bytes.subarray(0, 4096)).replace(/^\uFEFF/u, "").trimStart();
+  if (/^<(?:\?xml[\s\S]*?\?>\s*)?<svg(?:\s|>)/iu.test(prefix)) return "svg";
   return undefined;
+}
+
+export function assertSafeSvg(input: ArrayBuffer): void {
+  let svg: string;
+  try { svg = new TextDecoder("utf-8", { fatal: true }).decode(input); } catch { throw new Error("decode-failed"); }
+  if (/<(?:script|foreignObject|iframe|object|embed|audio|video)\b|\bon[a-z]+\s*=|(?:href|src)\s*=\s*["']\s*(?!#|data:)|\burl\(\s*["']?\s*(?!#|data:)|@import\b/iu.test(svg)) throw new Error("decode-failed");
 }
 
 export function hasTransparency(image: PixelImage): boolean {

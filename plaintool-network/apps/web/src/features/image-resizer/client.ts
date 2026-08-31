@@ -7,7 +7,7 @@ import {
   detectImageFormat,
   MAX_IMAGE_BYTES,
 } from "../image-converter/codec-core";
-import { imageFormatMime, type ImageFormat } from "../image-converter/formats";
+import { imageFormatMime, isImageFormat, type ImageFormat } from "../image-converter/formats";
 import {
   applyEnlargeLimit,
   dimensionsFromPercent,
@@ -367,19 +367,20 @@ function initImageResizer(root: HTMLElement): void {
 
     const selectionRevision = revision;
     setStatus(copy.reading, "working");
-    let detected: ImageFormat | undefined;
+    let detectedCandidate;
     try {
-      detected = detectImageFormat(
+      detectedCandidate = detectImageFormat(
         new Uint8Array(await file.slice(0, 32).arrayBuffer()),
       );
     } catch {
-      detected = undefined;
+      detectedCandidate = undefined;
     }
     if (selectionRevision !== revision) return;
-    if (!detected) {
+    if (!detectedCandidate || !isImageFormat(detectedCandidate)) {
       setStatus(copy.invalidImage, "error");
       return;
     }
+    const detected: ImageFormat = detectedCandidate;
 
     let dimensions: Dimensions;
     try {

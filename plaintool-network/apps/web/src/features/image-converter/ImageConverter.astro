@@ -6,8 +6,9 @@ import { localizedPath, type Locale } from "../../lib/site";
 import type { ImageConverterCopy } from "./contract";
 import {
   imageFormats,
+  imageInputFormats,
   type ImageConversionMode,
-  type ImageFormat,
+  type ImageInputFormat,
 } from "./formats";
 
 interface Props {
@@ -15,15 +16,15 @@ interface Props {
   mode: ImageConversionMode;
   copy: ImageConverterCopy;
   common: CommonToolCopy;
-  formatNames: Record<ImageFormat, string>;
+  formatNames: Record<ImageInputFormat, string>;
 }
 
 const { locale, mode, copy, common, formatNames } = Astro.props;
 const combinedCopy = { ...common, ...copy };
-const swapHref = localizedPath(locale, `${mode.target}-to-${mode.source}`);
+const swapHref = mode.source === "svg" ? undefined : localizedPath(locale, `${mode.target}-to-${mode.source}`);
 const adjustableQuality = ["jpg", "gif", "webp", "avif"].includes(mode.target);
 const losslessTarget = mode.target === "png" || mode.target === "bmp";
-const acceptedFormatList = imageFormats
+const acceptedFormatList = imageInputFormats
   .map((format) => formatNames[format])
   .join(" · ");
 ---
@@ -41,7 +42,7 @@ const acceptedFormatList = imageFormats
       <span>{copy.sourceFormat}</span>
       <select data-source-format aria-label={copy.sourceFormat}>
         {
-          imageFormats.map((format) => (
+          imageInputFormats.map((format) => (
             <option value={format} selected={format === mode.source}>
               {formatNames[format]}
             </option>
@@ -65,7 +66,7 @@ const acceptedFormatList = imageFormats
         }
       </select>
     </label>
-    <a
+    {swapHref && <a
       class="format-swap"
       href={swapHref}
       aria-label={copy.swapFormats}
@@ -74,7 +75,7 @@ const acceptedFormatList = imageFormats
     >
       <UiIcon name="swap" size={16} />
       <span>{copy.swapFormats}</span>
-    </a>
+    </a>}
   </div>
 
   <div class="image-workspace" data-drop-zone>
@@ -102,7 +103,7 @@ const acceptedFormatList = imageFormats
       <input
         data-file
         type="file"
-        accept=".bmp,.png,.jpg,.jpeg,.gif,.webp,.heic,.heif,.avif,image/bmp,image/png,image/jpeg,image/gif,image/webp,image/heic,image/heif,image/avif"
+        accept=".bmp,.png,.jpg,.jpeg,.gif,.webp,.heic,.heif,.avif,.svg,image/bmp,image/png,image/jpeg,image/gif,image/webp,image/heic,image/heif,image/avif,image/svg+xml"
         hidden
       />
       <dl class="image-facts" data-input-facts hidden>

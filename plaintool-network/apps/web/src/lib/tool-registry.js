@@ -14,8 +14,9 @@ const imageFormats = /** @type {const} */ ([
   "heic",
   "avif",
 ]);
+const imageInputFormats = /** @type {const} */ ([...imageFormats, "svg"]);
 
-const imageConverterRegistry = imageFormats.flatMap((source) =>
+const imageConverterRegistry = imageInputFormats.flatMap((source) =>
   imageFormats
     .filter((target) => target !== source)
     .map((target) => ({

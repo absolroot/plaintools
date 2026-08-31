@@ -1,5 +1,5 @@
 import type { CommonToolCopy } from "../../lib/common-tool-i18n";
-import type { ImageFormat } from "./formats";
+import type { ImageFormat, ImageInputFormat } from "./formats";
 
 export const IMAGE_CODEC_RUNTIME_REVISION = "csp-worker-v2";
 
@@ -47,7 +47,7 @@ export type ImageConverterClientCopy = ImageConverterCopy & CommonToolCopy;
 export type ImageConverterWorkerRequest = {
   id: number;
   input: ArrayBuffer;
-  source: ImageFormat;
+  source: ImageInputFormat;
   target: ImageFormat;
   quality: ImageQualityProfile;
 };
@@ -74,6 +74,6 @@ export type ImageConverterWorkerReply =
       id: number;
       ok: false;
       error: ImageConverterWorkerError;
-      detected?: ImageFormat;
+      detected?: ImageInputFormat;
       runtimeRevision: typeof IMAGE_CODEC_RUNTIME_REVISION;
     };
