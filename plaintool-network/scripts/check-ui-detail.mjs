@@ -26,6 +26,15 @@ const jsonFormatterUrl = new URL(
   "../apps/web/src/features/json/JsonFormatter.astro",
   import.meta.url,
 );
+const sourceFormatterUrls = [
+  ["HTML", "../apps/web/src/features/html-formatter/HtmlFormatter.astro"],
+  ["CSS", "../apps/web/src/features/css-formatter/CssFormatter.astro"],
+  [
+    "JavaScript",
+    "../apps/web/src/features/javascript-formatter/JavaScriptFormatter.astro",
+  ],
+  ["SQL", "../apps/web/src/features/sql-formatter/SqlFormatter.astro"],
+].map(([name, path]) => [name, new URL(path, import.meta.url)]);
 const previewToolPageUrl = new URL(
   "../apps/web/src/components/PreviewToolPage.astro",
   import.meta.url,
@@ -72,6 +81,7 @@ const [
   converter,
   faqSection,
   jsonFormatter,
+  sourceFormatters,
   previewToolPage,
   processingNote,
   tooltip,
@@ -90,6 +100,12 @@ const [
   readFile(converterUrl, "utf8"),
   readFile(faqSectionUrl, "utf8"),
   readFile(jsonFormatterUrl, "utf8"),
+  Promise.all(
+    sourceFormatterUrls.map(async ([name, url]) => [
+      name,
+      await readFile(url, "utf8"),
+    ]),
+  ),
   readFile(previewToolPageUrl, "utf8"),
   readFile(processingNoteUrl, "utf8"),
   readFile(tooltipUrl, "utf8"),
@@ -318,16 +334,48 @@ expectSource(
   "The output textarea must not restore a separate focus outline.",
 );
 expectSource(
-  (jsonFormatter.match(/<Tooltip\b/g) ?? []).length === 2,
-  "JSON Validate and Minify must each use the shared Tooltip component.",
+  (jsonFormatter.match(/<ToolModeSwitch\b/g) ?? []).length === 1,
+  "JSON operations must use the shared formatter mode switch.",
 );
 expectSource(
-  (
-    jsonFormatter.match(/aria-describedby="json-(?:validate|minify)-help"/g) ??
-    []
-  ).length === 2,
-  "JSON action buttons must reference their tooltip descriptions.",
+  (jsonFormatter.match(/<FormatterOptions\b/g) ?? []).length === 1,
+  "JSON indentation must use the shared formatter options panel.",
 );
+expectSource(
+  !jsonFormatter.includes("primary-button") &&
+    !jsonFormatter.includes("data-action="),
+  "JSON operations must remain live modes instead of primary run actions.",
+);
+expectSource(
+  jsonFormatter.indexOf('<div class="converter-grid">') <
+    jsonFormatter.indexOf("<ConverterStatus") &&
+    jsonFormatter.indexOf("<ConverterStatus") <
+      jsonFormatter.indexOf("<FormatterOptions"),
+  "JSON must share the editor, status, then options formatter structure.",
+);
+for (const [name, formatter] of sourceFormatters) {
+  expectSource(
+    (formatter.match(/<FormatterOptions\b/g) ?? []).length === 1,
+    `${name} must use the shared formatter options panel exactly once.`,
+  );
+  expectSource(
+    !formatter.includes("primary-button"),
+    `${name} must remain live instead of exposing a primary run button.`,
+  );
+  expectSource(
+    formatter.indexOf('<div class="converter-grid">') <
+      formatter.indexOf("<ConverterStatus") &&
+      formatter.indexOf("<ConverterStatus") <
+        formatter.indexOf("<FormatterOptions"),
+    `${name} must share the editor, status, then options formatter structure.`,
+  );
+  if (name === "JavaScript") {
+    expectSource(
+      (formatter.match(/<ToolModeSwitch\b/g) ?? []).length === 1,
+      "JavaScript modes must use the shared formatter mode switch.",
+    );
+  }
+}
 expectSource(
   tooltip.includes('role="tooltip"'),
   "The shared Tooltip component must expose tooltip semantics.",

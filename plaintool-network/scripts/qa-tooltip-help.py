@@ -50,7 +50,7 @@ def run() -> None:
         "/ko/base64-decode/": 11,
         "/ko/case-converter/": 1,
         "/ko/unix-timestamp-converter/": 3,
-        "/ko/json-formatter/": 2,
+        "/ko/json-formatter/": 0,
         "/ko/url-decode/": 3,
         "/ko/qr-code-generator/": 2,
         "/ko/csv-to-markdown/": 2,
