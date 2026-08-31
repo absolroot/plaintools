@@ -23,6 +23,7 @@ import type { SqlFormatterCopy } from "../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../features/ip-subnet/contract";
 import type { BackgroundRemoverCopy } from "../../features/background-remover/contract";
 import type { DateCalculatorCopy } from "../../features/date-calculator/contract";
+import type { TimeZoneConverterCopy } from "../../features/time-zone-converter/contract";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -46,7 +47,8 @@ export type NewToolId =
   | "ip-subnet-calculator"
   | "date-calculator"
   | "dday-calculator"
-  | "age-calculator";
+  | "age-calculator"
+  | "time-zone-converter";
 
 export type FormatterSubnetToolId =
   | "html-formatter"
@@ -61,6 +63,7 @@ export type LegacyNewToolId = Exclude<
   | "date-calculator"
   | "dday-calculator"
   | "age-calculator"
+  | "time-zone-converter"
 >;
 
 export type ToolPageCopy<T> = {
@@ -98,6 +101,7 @@ export type NewToolsCopy = {
   "date-calculator": ToolPageCopy<DateCalculatorCopy>;
   "dday-calculator": ToolPageCopy<DateCalculatorCopy>;
   "age-calculator": ToolPageCopy<DateCalculatorCopy>;
+  "time-zone-converter": ToolPageCopy<TimeZoneConverterCopy>;
 };
 
 export type LocaleBundle = {

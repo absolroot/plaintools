@@ -24,6 +24,8 @@ import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
 import DateCalculator from "../date-calculator/DateCalculator.astro";
 import dateCalculatorStylesheet from "../date-calculator/styles.css?url";
 import type { DateCalculatorMode } from "../date-calculator/contract";
+import TimeZoneConverter from "../time-zone-converter/TimeZoneConverter.astro";
+import timeZoneConverterStylesheet from "../time-zone-converter/styles.css?url";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
 import { localizedPath, type Locale } from "../../lib/site";
@@ -60,6 +62,7 @@ const featureStylesheets = {
   "date-calculator": dateCalculatorStylesheet,
   "dday-calculator": dateCalculatorStylesheet,
   "age-calculator": dateCalculatorStylesheet,
+  "time-zone-converter": timeZoneConverterStylesheet,
 } as const satisfies Record<NewToolId, string | undefined>;
 
 const dateCalculatorModes = {
@@ -238,6 +241,16 @@ const dataModeLabels = Object.fromEntries(
         copy={bundle.tools[page].feature}
         commonCopy={bundle.common}
         initialMode={dateCalculatorModes[page]}
+      />
+    )
+  }
+  {
+    page === "time-zone-converter" && (
+      <TimeZoneConverter
+        locale={locale}
+        copy={bundle.tools[page].feature}
+        commonCopy={bundle.common}
+        popularZones={bundle.preview.time.popularZones}
       />
     )
   }

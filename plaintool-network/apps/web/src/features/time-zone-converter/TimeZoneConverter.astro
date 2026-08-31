@@ -1,0 +1,152 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import { createTimeZoneConverterClientCopy } from "./copy";
+import type { TimeZoneConverterProps } from "./contract";
+
+const { locale, copy, commonCopy, popularZones } =
+  Astro.props as TimeZoneConverterProps;
+const clientCopy = createTimeZoneConverterClientCopy(copy, commonCopy);
+---
+
+<section
+  class="converter time-zone-converter"
+  data-time-zone-converter
+  data-locale={locale}
+  aria-label={copy.ariaLabel}
+>
+  <div class="time-zone-input-surface">
+    <div class="time-zone-source-grid">
+      <label class="time-zone-field">
+        <span>{copy.sourceTime}</span>
+        <input
+          type="datetime-local"
+          step="60"
+          data-source-time
+          dir="ltr"
+          aria-describedby="time-zone-source-hint time-zone-status"
+        />
+        <small id="time-zone-source-hint">{copy.sourceTimeHint}</small>
+      </label>
+
+      <label class="time-zone-field">
+        <span>{copy.sourceZone}</span>
+        <input
+          type="text"
+          list="time-zone-options"
+          data-source-zone
+          dir="ltr"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder={copy.sourceZonePlaceholder}
+          aria-describedby="time-zone-status"
+        />
+      </label>
+
+      <div class="time-zone-format-field">
+        <span>{copy.hourFormat}</span>
+        <div
+          class="time-zone-format-switch"
+          role="group"
+          aria-label={copy.hourFormat}
+        >
+          <button type="button" data-hour-format="12">{copy.hour12}</button>
+          <button type="button" data-hour-format="24">{copy.hour24}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-zone-source-actions">
+      <button class="secondary-button" type="button" data-now>{copy.now}</button
+      >
+      <button class="primary-button" type="button" data-convert>
+        {copy.convert}
+      </button>
+    </div>
+  </div>
+
+  <section class="world-clock-surface" aria-labelledby="world-clock-heading">
+    <div class="world-clock-heading">
+      <div>
+        <h2 id="world-clock-heading">{copy.worldClock}</h2>
+        <span class="world-clock-live" data-live-indicator hidden>
+          <span aria-hidden="true"></span>{copy.live}
+        </span>
+      </div>
+      <form class="time-zone-add" data-add-zone-form>
+        <input
+          id="time-zone-add-input"
+          type="text"
+          list="time-zone-options"
+          data-add-zone
+          dir="ltr"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder={copy.zonePlaceholder}
+          aria-label={copy.addZone}
+          aria-describedby="time-zone-status"
+        />
+        <button class="secondary-button" type="submit">{copy.add}</button>
+      </form>
+    </div>
+
+    <datalist id="time-zone-options" data-time-zone-options>
+      {
+        popularZones.map(({ value, label }) => (
+          <option value={value} label={label} />
+        ))
+      }
+    </datalist>
+
+    <div class="world-clock-list" data-world-clock-list role="list"></div>
+    <p class="world-clock-empty" data-world-clock-empty hidden>
+      {copy.emptyZones}
+    </p>
+
+    <template data-zone-row-template>
+      <article class="world-clock-row" role="listitem">
+        <div class="world-clock-place">
+          <div class="world-clock-place-heading">
+            <strong data-zone-label></strong>
+            <span class="badge" data-source-badge hidden
+              >{copy.sourceBadge}</span
+            >
+          </div>
+          <span data-zone-id dir="ltr"></span>
+          <div class="world-clock-dayline" aria-hidden="true">
+            <span></span>
+          </div>
+        </div>
+        <div class="world-clock-time">
+          <strong data-zone-time dir="ltr"></strong>
+          <span data-zone-offset dir="ltr"></span>
+        </div>
+        <div class="world-clock-date">
+          <strong data-zone-date></strong>
+          <span data-zone-difference></span>
+        </div>
+        <button
+          class="text-button world-clock-remove"
+          type="button"
+          data-remove-zone
+          aria-label={copy.removeZone}
+        >
+          <UiIcon name="x" size={16} />
+          <span>{copy.removeZone}</span>
+        </button>
+      </article>
+    </template>
+  </section>
+
+  <ConverterStatus status={commonCopy.ready} statusId="time-zone-status" />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>

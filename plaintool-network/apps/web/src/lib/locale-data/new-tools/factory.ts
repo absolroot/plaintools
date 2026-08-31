@@ -17,6 +17,7 @@ import type {
   DateCalculatorLocaleSeed,
   DateCalculatorPageId,
 } from "./date-calculator";
+import type { TimeZoneConverterLocaleSeed } from "./time-zone-converter";
 import type {
   FormatterSubnetToolId,
   LegacyNewToolId,
@@ -377,6 +378,7 @@ export type NewToolLocaleSeed = {
   pages: Record<LegacyNewToolId, PageSeed>;
   formatterSubnet: FormatterSubnetLocaleSeed;
   dateCalculator: DateCalculatorLocaleSeed;
+  timeZoneConverter: TimeZoneConverterLocaleSeed;
 };
 
 export type NewToolLocale = {
@@ -394,13 +396,15 @@ function fill(value: string, replacements: Record<string, string>): string {
 export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
   const { ui } = seed;
   const pageSeed = (id: NewToolId): PageSeed =>
-    id === "date-calculator" ||
-    id === "dday-calculator" ||
-    id === "age-calculator"
-      ? seed.dateCalculator.pages[id as DateCalculatorPageId]
-      : id in seed.pages
-        ? seed.pages[id as LegacyNewToolId]
-        : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
+    id === "time-zone-converter"
+      ? seed.timeZoneConverter.page
+      : id === "date-calculator" ||
+          id === "dday-calculator" ||
+          id === "age-calculator"
+        ? seed.dateCalculator.pages[id as DateCalculatorPageId]
+        : id in seed.pages
+          ? seed.pages[id as LegacyNewToolId]
+          : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
   const page = <T>(id: NewToolId, feature: T): ToolPageCopy<T> => {
     const source = pageSeed(id);
     return {
@@ -1006,6 +1010,10 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
       ...seed.dateCalculator.feature,
       ariaLabel: pageSeed("age-calculator").title,
     }),
+    "time-zone-converter": page(
+      "time-zone-converter",
+      seed.timeZoneConverter.feature,
+    ),
   };
 
   const catalog = Object.fromEntries(

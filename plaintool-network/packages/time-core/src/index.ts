@@ -18,6 +18,20 @@ export interface TimeConversion {
   y2038Warning: boolean;
 }
 
+export interface ZonedTimeValue {
+  timeZone: string;
+  localDateTime: string;
+  offset: string;
+  offsetMinutes: number;
+  dayDifference: number;
+}
+
+export interface TimeZoneConversion {
+  instant: string;
+  source: ZonedTimeValue;
+  targets: ZonedTimeValue[];
+}
+
 export class TimeInputError extends Error {
   constructor(public readonly code: TimeInputErrorCode) {
     super(code);
@@ -150,4 +164,61 @@ export function dateToTimestamp(
     }
     throw new TimeInputError("invalid");
   }
+}
+
+function zonedValue(
+  instant: Temporal.Instant,
+  timeZone: string,
+  sourceDate?: Temporal.PlainDate,
+): ZonedTimeValue {
+  let zoned: Temporal.ZonedDateTime;
+  try {
+    zoned = instant.toZonedDateTimeISO(timeZone);
+  } catch {
+    throw new TimeInputError("invalid-zone");
+  }
+  const date = zoned.toPlainDate();
+  return {
+    timeZone,
+    localDateTime: zoned.toPlainDateTime().toString(),
+    offset: zoned.offset,
+    offsetMinutes: zoned.offsetNanoseconds / 60_000_000_000,
+    dayDifference: sourceDate ? sourceDate.until(date).days : 0,
+  };
+}
+
+export function convertInstantBetweenTimeZones(
+  instantValue: string,
+  sourceTimeZone: string,
+  targetTimeZones: readonly string[],
+): TimeZoneConversion {
+  let instant: Temporal.Instant;
+  try {
+    instant = Temporal.Instant.from(instantValue);
+  } catch {
+    throw new TimeInputError("invalid");
+  }
+  const source = zonedValue(instant, sourceTimeZone);
+  const sourceDate = Temporal.PlainDate.from(source.localDateTime.slice(0, 10));
+  return {
+    instant: instant.toString(),
+    source,
+    targets: targetTimeZones.map((timeZone) =>
+      zonedValue(instant, timeZone, sourceDate),
+    ),
+  };
+}
+
+export function convertBetweenTimeZones(
+  localDateTime: string,
+  sourceTimeZone: string,
+  targetTimeZones: readonly string[],
+  disambiguation: Disambiguation = "reject",
+): TimeZoneConversion {
+  const source = dateToTimestamp(localDateTime, sourceTimeZone, disambiguation);
+  return convertInstantBetweenTimeZones(
+    source.instant,
+    sourceTimeZone,
+    targetTimeZones,
+  );
 }

@@ -107,6 +107,7 @@ const toolMarks = {
   "word-counter": "Aa",
   "json-formatter": "{}",
   "unix-timestamp-converter": "T",
+  "time-zone-converter": "TZ",
   "text-compare": "≠",
   "case-converter": "aA",
   "ai-watermark-remover": "AI",

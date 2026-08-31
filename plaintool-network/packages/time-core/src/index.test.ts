@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  convertBetweenTimeZones,
+  convertInstantBetweenTimeZones,
   dateToTimestamp,
   detectTimestampUnit,
   TimeInputError,
@@ -72,5 +74,75 @@ describe("timestamp conversion", () => {
 
   it("flags values outside signed 32-bit seconds", () => {
     expect(timestampToDate("2147483648", "seconds").y2038Warning).toBe(true);
+  });
+});
+
+describe("time zone conversion", () => {
+  it("converts one Seoul wall time across zones and reports date changes", () => {
+    const result = convertBetweenTimeZones("2026-08-31T09:00", "Asia/Seoul", [
+      "America/New_York",
+      "Europe/London",
+    ]);
+
+    expect(result.instant).toBe("2026-08-31T00:00:00Z");
+    expect(result.source).toMatchObject({
+      localDateTime: "2026-08-31T09:00:00",
+      offset: "+09:00",
+      dayDifference: 0,
+    });
+    expect(result.targets[0]).toMatchObject({
+      localDateTime: "2026-08-30T20:00:00",
+      offset: "-04:00",
+      dayDifference: -1,
+    });
+    expect(result.targets[1]).toMatchObject({
+      localDateTime: "2026-08-31T01:00:00",
+      offset: "+01:00",
+      dayDifference: 0,
+    });
+  });
+
+  it("keeps half-hour and quarter-hour offsets exact", () => {
+    const result = convertInstantBetweenTimeZones(
+      "2026-01-01T00:00:00Z",
+      "UTC",
+      ["Asia/Kolkata", "Asia/Kathmandu"],
+    );
+    expect(result.targets.map(({ offset }) => offset)).toEqual([
+      "+05:30",
+      "+05:45",
+    ]);
+  });
+
+  it("uses the selected date's daylight-saving rules", () => {
+    const winter = convertBetweenTimeZones(
+      "2026-01-15T12:00",
+      "America/New_York",
+      ["Europe/London"],
+    );
+    const summer = convertBetweenTimeZones(
+      "2026-07-15T12:00",
+      "America/New_York",
+      ["Europe/London"],
+    );
+    expect(winter.source.offset).toBe("-05:00");
+    expect(summer.source.offset).toBe("-04:00");
+    expect(winter.targets[0].offset).toBe("+00:00");
+    expect(summer.targets[0].offset).toBe("+01:00");
+  });
+
+  it("rejects missing and repeated source wall times", () => {
+    expect(() =>
+      convertBetweenTimeZones("2026-03-08T02:30", "America/New_York", ["UTC"]),
+    ).toThrowError(expect.objectContaining({ code: "nonexistent-time" }));
+    expect(() =>
+      convertBetweenTimeZones("2026-11-01T01:30", "America/New_York", ["UTC"]),
+    ).toThrowError(expect.objectContaining({ code: "repeated-time" }));
+  });
+
+  it("rejects an invalid destination zone", () => {
+    expect(() =>
+      convertBetweenTimeZones("2026-08-31T09:00", "Asia/Seoul", ["Moon/Base"]),
+    ).toThrowError(expect.objectContaining({ code: "invalid-zone" }));
   });
 });

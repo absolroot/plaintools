@@ -321,6 +321,16 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/date-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  {
+    id: "time-zone-converter",
+    featureId: "time-zone-converter",
+    slug: "time-zone-converter",
+    category: "time",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/time-zone-converter.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
   ...imageConverterRegistry,
 ]);
 

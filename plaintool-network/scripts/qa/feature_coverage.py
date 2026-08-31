@@ -28,6 +28,10 @@ from .registry import RouteInventory
 from .responsive_feature import run_base64_mobile
 from .qr_feature import run_qr_desktop, run_qr_mobile
 from .time_feature import run_time_desktop, run_time_mobile
+from .time_zone_converter_feature import (
+    run_time_zone_converter_desktop,
+    run_time_zone_converter_mobile,
+)
 from .text_compare_feature import run_text_compare_desktop, run_text_compare_mobile
 from .word_feature import run_word_desktop, run_word_mobile
 from .url_codec_feature import run_url_codec_desktop, run_url_codec_mobile
@@ -117,6 +121,12 @@ FEATURE_COVERAGE = {
             ("input", "[data-timestamp]"),
             ("output", "#time-result-instant"),
         ),
+    ),
+    "time-zone-converter": FeatureCoverage(
+        desktop=run_time_zone_converter_desktop,
+        mobile=run_time_zone_converter_mobile,
+        focus_targets=(("input", "[data-source-time]"),),
+        exercise_faq=True,
     ),
     "text-compare": FeatureCoverage(
         desktop=_run_text_compare_desktop,

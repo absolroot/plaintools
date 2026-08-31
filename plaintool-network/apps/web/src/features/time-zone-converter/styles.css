@@ -1,0 +1,348 @@
+.time-zone-input-surface {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--input-surface);
+}
+
+.time-zone-source-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--space-3);
+}
+
+.time-zone-field,
+.time-zone-format-field {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.time-zone-field input,
+.time-zone-add input {
+  min-width: 0;
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+  font-family: var(--code-font);
+}
+
+.time-zone-field input[aria-invalid="true"],
+.time-zone-add input[aria-invalid="true"] {
+  box-shadow: 0 0 0 1px var(--danger);
+}
+
+.time-zone-field small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.time-zone-format-switch {
+  height: 36px;
+  padding: 2px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(44px, 1fr));
+  gap: 2px;
+  background: var(--fill);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.time-zone-format-switch button {
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.time-zone-format-switch button.is-active {
+  color: var(--ink);
+  background: var(--base);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+
+.time-zone-source-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.world-clock-surface {
+  background: var(--output-surface);
+}
+
+.world-clock-heading {
+  min-height: 60px;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.world-clock-heading > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.world-clock-heading h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.world-clock-live {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--success);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.world-clock-live > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.time-zone-add {
+  min-width: min(100%, 360px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+}
+
+.world-clock-list {
+  display: grid;
+}
+
+.world-clock-row {
+  min-width: 0;
+  min-height: 104px;
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  grid-template-columns:
+    minmax(240px, 1fr) minmax(120px, auto) minmax(210px, auto)
+    auto;
+  align-items: center;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--output-surface);
+}
+
+.world-clock-row.is-source {
+  background: var(--base);
+}
+
+.world-clock-place,
+.world-clock-time,
+.world-clock-date {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.world-clock-place-heading {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.world-clock-place-heading strong {
+  overflow: hidden;
+  color: var(--ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.world-clock-place > span,
+.world-clock-time span,
+.world-clock-date span {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.world-clock-place > span,
+.world-clock-time strong,
+.world-clock-time span {
+  font-family: var(--code-font);
+}
+
+.world-clock-time strong {
+  color: var(--ink-strong);
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.world-clock-date strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.world-clock-dayline {
+  --time-position: 50%;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  height: 5px;
+  margin-top: var(--space-1);
+  overflow: hidden;
+  background: var(--recessed);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.world-clock-dayline::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 33.333%;
+  width: 41.667%;
+  background: var(--success-tint);
+}
+
+.world-clock-dayline span {
+  position: absolute;
+  inset-block: -2px;
+  inset-inline-start: var(--time-position);
+  width: 2px;
+  background: var(--action);
+  transform: translateX(-1px);
+}
+
+.world-clock-remove {
+  min-width: 36px;
+  justify-content: center;
+}
+
+.world-clock-remove span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.world-clock-empty {
+  margin: 0;
+  padding: var(--space-4);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 840px) {
+  .time-zone-source-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .time-zone-format-field {
+    grid-column: 1 / -1;
+  }
+
+  .world-clock-row {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .world-clock-place {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 680px) {
+  .time-zone-source-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .time-zone-format-field {
+    grid-column: auto;
+  }
+
+  .time-zone-field input,
+  .time-zone-format-switch,
+  .time-zone-source-actions .primary-button,
+  .time-zone-source-actions .secondary-button,
+  .time-zone-add input,
+  .time-zone-add .secondary-button,
+  .world-clock-remove {
+    min-height: 44px;
+  }
+
+  .time-zone-format-switch {
+    min-height: 48px;
+  }
+
+  .time-zone-format-switch button {
+    min-height: 44px;
+  }
+
+  .time-zone-source-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .time-zone-source-actions button {
+    justify-content: center;
+  }
+
+  .world-clock-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .time-zone-add {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .world-clock-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-3);
+  }
+
+  .world-clock-place {
+    grid-column: 1 / -1;
+  }
+
+  .world-clock-date {
+    text-align: end;
+  }
+
+  .world-clock-remove {
+    grid-column: 1 / -1;
+    width: 100%;
+    box-shadow: inset 0 1px var(--line);
+  }
+
+  .world-clock-remove span {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+}

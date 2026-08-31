@@ -2,6 +2,7 @@ import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
 import { backgroundRemoverFor } from "./background-remover";
 import { dateCalculatorFor } from "./date-calculator";
+import { timeZoneConverterFor } from "./time-zone-converter";
 
 const backgroundRemover = backgroundRemoverFor("cs");
 
@@ -9,6 +10,7 @@ const seed = {
   formatterSubnet: formatterSubnetFor("cs"),
   background: backgroundRemover.copy,
   dateCalculator: dateCalculatorFor("cs"),
+  timeZoneConverter: timeZoneConverterFor("cs"),
   ui: {
     clear: "Vymazat",
     copy: "Kopírovat",

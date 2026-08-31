@@ -31,6 +31,7 @@ const newToolIds: NewToolId[] = [
   "date-calculator",
   "dday-calculator",
   "age-calculator",
+  "time-zone-converter",
 ];
 
 describe("locale bundles", () => {
