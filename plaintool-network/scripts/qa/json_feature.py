@@ -66,7 +66,6 @@ def run_json_desktop(desktop, report: dict) -> None:
     report["json_success_status"] = desktop.locator("[data-json-tool] .converter-commandbar").evaluate("el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el.querySelector('.status-copy')).color, fontSize: getComputedStyle(el.querySelector('.status-copy')).fontSize, fontWeight: getComputedStyle(el.querySelector('.status-copy')).fontWeight })")
     if report["json_complete_label"] != "올바른 JSON입니다." or "is-success" not in (desktop.locator("[data-json-tool]").get_attribute("class") or ""):
         report["ui_detail_failures"].append(f"JSON completion state is unclear: {report['json_complete_label']}")
-    report["json_privacy_note"] = desktop.locator("[data-json-tool] .privacy-note").evaluate("el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el).color })")
     desktop.evaluate("""
       () => {
         const root = document.querySelector('[data-json-tool]');
@@ -98,13 +97,14 @@ def run_json_desktop(desktop, report: dict) -> None:
     desktop.wait_for_function("document.querySelector('[data-json-tool]').classList.contains('has-error')")
     report["json_error_status"] = desktop.locator("[data-json-tool] .converter-commandbar").evaluate("el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el.querySelector('.status-copy')).color })")
     desktop.screenshot(path=str(QA_DIR / "plaintool-json-error-desktop-ko.png"), full_page=False)
-    if report["json_success_status"]["background"] == report["json_error_status"]["background"] or report["json_success_status"]["background"] == report["json_privacy_note"]["background"]:
-        report["ui_detail_failures"].append(f"JSON success, error, and privacy surfaces must remain visually distinct: {report['json_success_status']}/{report['json_error_status']}/{report['json_privacy_note']}")
+    if report["json_success_status"]["background"] == report["json_error_status"]["background"]:
+        report["ui_detail_failures"].append(f"JSON success and error surfaces must remain visually distinct: {report['json_success_status']}/{report['json_error_status']}")
     if report["json_success_status"]["fontSize"] != "13px" or int(report["json_success_status"]["fontWeight"]) < 600:
         report["ui_detail_failures"].append(f"JSON status text must remain prominent: {report['json_success_status']}")
     desktop.locator("[data-json-tool] [data-input]").fill('{"nested":{"value":1}}')
     desktop.locator('[data-action="format"]').click()
     desktop.wait_for_function("document.querySelector('[data-json-tool] [data-output]').value.includes('  \"nested\"')")
+    desktop.locator("[data-json-tool] .formatter-options summary").click()
     desktop.locator("[data-json-tool] [data-indent]").select_option("4")
     desktop.wait_for_function("document.querySelector('[data-json-tool] [data-output]').value.includes('    \"value\"')")
     report["json_indent_recomputed"] = desktop.locator("[data-json-tool] [data-output]").input_value()

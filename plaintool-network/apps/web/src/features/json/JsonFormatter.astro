@@ -1,8 +1,9 @@
 ---
-import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
-import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
+import FormatterOptions from "../../components/FormatterOptions.astro";
+import FormatterWorkspace from "../../components/FormatterWorkspace.astro";
 import Tooltip from "../../components/Tooltip.astro";
+import { localeBundles } from "../../lib/locale-data";
 import { previewCopy } from "../../lib/tool-i18n";
 import { toolExamples } from "../../lib/tool-examples";
 import type { Locale } from "../../lib/site";
@@ -15,6 +16,7 @@ const { locale } = Astro.props;
 const c = previewCopy[locale].common;
 const t = jsonCopy[locale];
 const examples = toolExamples[locale];
+const formatterUi = localeBundles[locale].tools["html-formatter"].feature;
 const clientCopy = {
   ready: c.ready,
   working: c.working,
@@ -31,21 +33,28 @@ const clientCopy = {
 } satisfies JsonClientCopy;
 ---
 
-<section class="converter" data-json-tool aria-label={t.title}>
-  <div class="converter-topbar action-topbar">
-    <div class="primary-actions">
+<section
+  class="converter json-formatter"
+  data-json-tool
+  data-sample-input={'{"name":"AbsolTools","items":[1,2,3]}'}
+  aria-label={t.title}
+>
+  <div class="converter-topbar json-formatter-topbar">
+    <div class="mode-switch json-mode-switch" role="group" aria-label={t.title}>
       <button
-        class="primary-button"
+        class="mode-button is-active"
         type="button"
         data-action="format"
+        aria-pressed="true"
         aria-keyshortcuts="Control+Enter Meta+Enter">{t.format}</button
       >
       <Tooltip id="json-validate-help" triggerLabel={t.validateHelpLabel}>
         <button
           slot="target"
-          class="secondary-button"
+          class="mode-button"
           type="button"
           data-action="validate"
+          aria-pressed="false"
           aria-describedby="json-validate-help">{t.validate}</button
         >
         {t.validateHelp}
@@ -57,66 +66,44 @@ const clientCopy = {
       >
         <button
           slot="target"
-          class="secondary-button"
+          class="mode-button"
           type="button"
           data-action="minify"
+          aria-pressed="false"
           aria-describedby="json-minify-help">{t.minify}</button
         >
         {t.minifyHelp}
       </Tooltip>
     </div>
-    <label class="inline-field"
-      ><span>{t.indent}</span><select name="indent" data-indent
-        ><option value="2">{t.twoSpaces}</option><option value="4"
-          >{t.fourSpaces}</option
-        ><option value="tab">{t.tabs}</option></select
-      ></label
-    >
   </div>
-  <div class="converter-grid">
-    <section class="editor-pane">
-      <div class="pane-heading">
-        <label for="json-input">{t.inputLabel}</label><div class="pane-actions">
-          <button class="text-button" type="button" data-open-file
-            ><UiIcon name="folder-open" size={14} />{t.openFile}</button
-          ><input
-            id="json-file"
-            data-file
-            type="file"
-            accept="application/json,.json"
-            hidden
-          /><button class="text-button" type="button" data-clear
-            ><UiIcon name="x" size={14} />{c.clear}</button
-          >
-        </div>
-      </div><textarea
-        id="json-input"
-        data-input
-        dir="ltr"
-        spellcheck="false"
-        placeholder={examples.jsonInput}></textarea>
-    </section><section class="editor-pane output-pane">
-      <div class="pane-heading">
-        <label for="json-output">{t.outputLabel}</label><div
-          class="pane-actions"
-        >
-          <button class="text-button" type="button" data-copy disabled
-            ><UiIcon name="copy" size={14} />{c.copy}</button
-          ><button class="text-button" type="button" data-download disabled
-            ><UiIcon name="download" size={14} />{c.download}</button
-          >
-        </div>
-      </div><textarea
-        id="json-output"
-        data-output
-        dir="ltr"
-        readonly
-        spellcheck="false"
-        placeholder={t.outputPlaceholder}></textarea>
-    </section>
-  </div>
+  <FormatterWorkspace
+    inputId="json-input"
+    outputId="json-output"
+    inputLabel={t.inputLabel}
+    outputLabel={t.outputLabel}
+    inputPlaceholder={examples.jsonInput}
+    outputPlaceholder={t.outputPlaceholder}
+    loadSample={formatterUi.loadSample}
+    openFile={t.openFile}
+    clear={c.clear}
+    copy={c.copy}
+    download={c.download}
+    fileAccept="application/json,.json"
+    staleNotice={formatterUi.outdated}
+  />
   <ConverterStatus status={c.ready} badges />
-  <LocalProcessingNote locale={locale} />
+  <FormatterOptions label={formatterUi.optionsLabel}>
+    <div class="formatter-options-grid">
+      <div class="formatter-option-field">
+        <label for="json-indent">{t.indent}</label>
+        <select id="json-indent" name="indent" data-indent>
+          <option value="2">{t.twoSpaces}</option>
+          <option value="4">{t.fourSpaces}</option>
+          <option value="tab">{t.tabs}</option>
+        </select>
+      </div>
+    </div>
+  </FormatterOptions>
   <script
     is:inline
     type="application/json"

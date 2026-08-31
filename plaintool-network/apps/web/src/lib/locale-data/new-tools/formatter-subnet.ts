@@ -200,7 +200,7 @@ const en = define({
 const ko = define({
   formatter: {
     mode: "작업",
-    format: "포맷",
+    format: "정리",
     minify: "코드 경량화",
     loadSample: "예제 불러오기",
     options: "옵션",
@@ -209,7 +209,7 @@ const ko = define({
     fourSpaces: "공백 4칸",
     tabs: "탭",
     printWidth: "줄 너비",
-    formatted: "포맷 완료",
+    formatted: "정리 완료",
     minified: "코드 경량화 완료",
     manualRequired: "입력 크기가 큽니다. 처리하려면 현재 작업 버튼을 누르세요.",
     invalidAt: "{message} {line}행 {column}열.",
@@ -217,14 +217,14 @@ const ko = define({
     unknownError: "소스를 처리하지 못했습니다.",
   },
   scopes: {
-    html: "HTML 소스만 포맷합니다. 포함된 CSS와 JavaScript는 그대로 두며, 공백에 민감한 내용은 달라질 수 있습니다.",
-    css: "일반 CSS 소스만 포맷합니다. URL을 불러오거나 스타일을 적용·축소하지 않으며 동작 동일성을 보장하지 않습니다.",
+    html: "HTML 소스만 정리합니다. 포함된 CSS와 JavaScript는 그대로 두며, 공백에 민감한 내용은 달라질 수 있습니다.",
+    css: "일반 CSS 소스만 정리합니다. URL을 불러오거나 스타일을 적용·축소하지 않으며 동작 동일성을 보장하지 않습니다.",
     javascript:
-      "소스를 실행하지 않고 포맷하거나 코드 경량화합니다. 코드 경량화 시 압축 최적화와 식별자 변경은 하지 않으며, 동일한 동작을 보장하지 않습니다.",
-    sql: "선택한 SQL 방언만 포맷합니다. 표준 SQL은 자동 감지가 아닌 공통 부분집합이며 쿼리를 실행하지 않습니다.",
+      "소스를 실행하지 않고 보기 좋게 정리하거나 코드 경량화합니다. 코드 경량화 시 압축 최적화와 식별자 변경은 하지 않으며, 동일한 동작을 보장하지 않습니다.",
+    sql: "선택한 SQL 방언에 맞춰 소스만 정리합니다. 표준 SQL은 자동 감지가 아닌 공통 부분집합이며 쿼리를 실행하지 않습니다.",
   },
   javascript: {
-    runFormat: "JavaScript 포맷",
+    runFormat: "JavaScript 정리",
     runMinify: "JavaScript 코드 경량화",
     semicolons: "세미콜론 사용",
     singleQuotes: "작은따옴표 우선",
@@ -239,7 +239,7 @@ const ko = define({
     preserveCase: "유지",
     uppercase: "대문자",
     lowercase: "소문자",
-    formattingFailed: "선택한 방언으로 SQL을 포맷하지 못했습니다.",
+    formattingFailed: "선택한 방언에 맞춰 SQL을 정리하지 못했습니다.",
   },
   subnet: {
     inputHint:
@@ -299,31 +299,31 @@ const ko = define({
     "html-formatter": {
       title: "HTML 포매터",
       description:
-        "예측 가능한 들여쓰기와 줄바꿈으로 HTML 소스를 브라우저에서 포맷합니다.",
+        "예측 가능한 들여쓰기와 줄바꿈으로 HTML 소스를 브라우저에서 보기 좋게 정리합니다.",
       guide:
         "HTML을 붙여 넣고 들여쓰기와 줄 너비를 고른 뒤, 결과를 사용하기 전에 pre·code 요소처럼 공백에 민감한 부분을 확인하세요.",
       inputLabel: "HTML 소스",
-      outputLabel: "포맷된 HTML",
+      outputLabel: "정리된 HTML",
       inputPlaceholder: "<main><h1>제목</h1><p>내용</p></main>",
       terms: ["HTML 포매터", "HTML 정리", "HTML 포맷"],
     },
     "css-formatter": {
       title: "CSS 포매터",
       description:
-        "참조 URL을 불러오거나 스타일을 적용하지 않고 일반 CSS 소스를 로컬에서 포맷합니다.",
+        "참조 URL을 불러오거나 스타일을 적용하지 않고 일반 CSS 소스를 로컬에서 보기 좋게 정리합니다.",
       guide:
         "일반 CSS를 붙여 넣고 옵션을 고르세요. 운영 스타일시트를 바꾸기 전에 결과를 검토하고, SCSS·Less·축소는 지원 범위가 아님을 확인하세요.",
       inputLabel: "CSS 소스",
-      outputLabel: "포맷된 CSS",
+      outputLabel: "정리된 CSS",
       inputPlaceholder: ".card{display:grid;gap:1rem}",
       terms: ["CSS 포매터", "CSS 정리", "CSS 포맷"],
     },
     "javascript-formatter": {
       title: "JavaScript 포매터",
       description:
-        "JavaScript를 실행하지 않고 브라우저에서 포맷하거나, 압축 최적화와 식별자 변경 없이 코드 경량화합니다.",
+        "JavaScript를 실행하지 않고 브라우저에서 보기 좋게 정리하거나, 압축 최적화와 식별자 변경 없이 코드 경량화합니다.",
       guide:
-        "읽기 쉽게 만들려면 포맷을, 압축 최적화와 식별자 변경 없이 코드 크기를 줄이려면 코드 경량화를 선택하세요. 배포 전에 결과를 검토하세요.",
+        "읽기 쉽게 만들려면 정리를, 압축 최적화와 식별자 변경 없이 코드 크기를 줄이려면 코드 경량화를 선택하세요. 배포 전에 결과를 검토하세요.",
       inputLabel: "JavaScript 소스",
       outputLabel: "처리된 JavaScript",
       inputPlaceholder: "const greet=(name)=>console.log(name);",
@@ -332,11 +332,11 @@ const ko = define({
     "sql-formatter": {
       title: "SQL 포매터",
       description:
-        "명시적으로 선택한 데이터베이스 방언에 맞춰 SQL을 로컬에서 포맷합니다.",
+        "명시적으로 선택한 데이터베이스 방언에 맞춰 SQL을 로컬에서 보기 좋게 정리합니다.",
       guide:
-        "포맷 전에 방언을 고르세요. 표준 SQL은 자동 감지가 아닌 공통 부분집합이며 저장 프로시저와 사용자 지정 구분자는 별도 도구가 필요할 수 있습니다.",
+        "정리하기 전에 방언을 고르세요. 표준 SQL은 자동 감지가 아닌 공통 부분집합이며 저장 프로시저와 사용자 지정 구분자는 별도 도구가 필요할 수 있습니다.",
       inputLabel: "SQL 소스",
-      outputLabel: "포맷된 SQL",
+      outputLabel: "정리된 SQL",
       inputPlaceholder: "select id,name from users where active=true;",
       terms: ["SQL 포매터", "SQL 정리", "PostgreSQL 포맷"],
     },

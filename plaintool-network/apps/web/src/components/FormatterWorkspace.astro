@@ -1,0 +1,87 @@
+---
+import UiIcon from "./UiIcon.astro";
+import "./formatter-workspace.css";
+
+interface Props {
+  inputId: string;
+  outputId: string;
+  inputLabel: string;
+  outputLabel: string;
+  inputPlaceholder: string;
+  outputPlaceholder: string;
+  loadSample: string;
+  openFile: string;
+  clear: string;
+  copy: string;
+  download: string;
+  fileAccept: string;
+  staleNotice: string;
+}
+
+const {
+  inputId,
+  outputId,
+  inputLabel,
+  outputLabel,
+  inputPlaceholder,
+  outputPlaceholder,
+  loadSample,
+  openFile,
+  clear,
+  copy,
+  download,
+  fileAccept,
+  staleNotice,
+} = Astro.props;
+---
+
+<div class="converter-grid formatter-workspace">
+  <section class="editor-pane">
+    <div class="pane-heading">
+      <label for={inputId}>{inputLabel}</label>
+      <div class="pane-actions">
+        <button class="text-button" type="button" data-sample>
+          {loadSample}
+        </button>
+        <button class="text-button" type="button" data-open-file>
+          <UiIcon name="folder-open" size={14} />{openFile}
+        </button>
+        <input data-file type="file" accept={fileAccept} hidden />
+        <button class="text-button" type="button" data-clear>
+          <UiIcon name="x" size={14} />{clear}
+        </button>
+      </div>
+    </div>
+    <textarea
+      id={inputId}
+      data-input
+      dir="ltr"
+      spellcheck="false"
+      autocapitalize="off"
+      autocomplete="off"
+      placeholder={inputPlaceholder}></textarea>
+  </section>
+  <section class="editor-pane output-pane">
+    <div class="pane-heading">
+      <label for={outputId}>{outputLabel}</label>
+      <div class="pane-actions">
+        <button class="text-button" type="button" data-copy disabled>
+          <UiIcon name="copy" size={14} />{copy}
+        </button>
+        <button class="text-button" type="button" data-download disabled>
+          <UiIcon name="download" size={14} />{download}
+        </button>
+      </div>
+    </div>
+    <textarea
+      id={outputId}
+      data-output
+      dir="ltr"
+      readonly
+      spellcheck="false"
+      placeholder={outputPlaceholder}></textarea>
+    <p class="formatter-stale-notice" data-stale-notice hidden>
+      {staleNotice}
+    </p>
+  </section>
+</div>

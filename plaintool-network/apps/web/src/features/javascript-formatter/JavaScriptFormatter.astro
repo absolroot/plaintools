@@ -1,7 +1,7 @@
 ---
-import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import FormatterOptions from "../../components/FormatterOptions.astro";
+import FormatterWorkspace from "../../components/FormatterWorkspace.astro";
 import Tooltip from "../../components/Tooltip.astro";
 import type { JavaScriptFormatterComponentProps } from "./contract";
 import { createJavaScriptFormatterClientCopy } from "./copy";
@@ -35,61 +35,21 @@ const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
       >
     </div>
   </div>
-  <div class="converter-grid">
-    <section class="editor-pane">
-      <div class="pane-heading">
-        <label for="javascript-formatter-input">{copy.inputLabel}</label>
-        <div class="pane-actions">
-          <button class="text-button" type="button" data-sample>
-            {copy.loadSample}
-          </button>
-          <button class="text-button" type="button" data-open-file>
-            <UiIcon name="folder-open" size={14} />{copy.openFile}
-          </button>
-          <input
-            data-file
-            type="file"
-            accept="text/javascript,application/javascript,.js,.mjs,.cjs"
-            hidden
-          />
-          <button class="text-button" type="button" data-clear>
-            <UiIcon name="x" size={14} />{commonCopy.clear}
-          </button>
-        </div>
-      </div>
-      <textarea
-        id="javascript-formatter-input"
-        data-input
-        dir="ltr"
-        spellcheck="false"
-        autocapitalize="off"
-        autocomplete="off"
-        placeholder={copy.inputPlaceholder}></textarea>
-    </section>
-    <section class="editor-pane output-pane">
-      <div class="pane-heading">
-        <label for="javascript-formatter-output">{copy.outputLabel}</label>
-        <div class="pane-actions">
-          <button class="text-button" type="button" data-copy disabled>
-            <UiIcon name="copy" size={14} />{commonCopy.copy}
-          </button>
-          <button class="text-button" type="button" data-download disabled>
-            <UiIcon name="download" size={14} />{commonCopy.download}
-          </button>
-        </div>
-      </div>
-      <textarea
-        id="javascript-formatter-output"
-        data-output
-        dir="ltr"
-        readonly
-        spellcheck="false"
-        placeholder={copy.outputPlaceholder}></textarea>
-      <p class="javascript-stale-notice" data-stale-notice hidden>
-        {copy.outdated}
-      </p>
-    </section>
-  </div>
+  <FormatterWorkspace
+    inputId="javascript-formatter-input"
+    outputId="javascript-formatter-output"
+    inputLabel={copy.inputLabel}
+    outputLabel={copy.outputLabel}
+    inputPlaceholder={copy.inputPlaceholder}
+    outputPlaceholder={copy.outputPlaceholder}
+    loadSample={copy.loadSample}
+    openFile={copy.openFile}
+    clear={commonCopy.clear}
+    copy={commonCopy.copy}
+    download={commonCopy.download}
+    fileAccept="text/javascript,application/javascript,.js,.mjs,.cjs"
+    staleNotice={copy.outdated}
+  />
   <ConverterStatus status={commonCopy.ready}>
     <button
       class="secondary-button formatter-manual-run"
@@ -205,15 +165,7 @@ const clientCopy = createJavaScriptFormatterClientCopy(copy, commonCopy);
       </div>
     </div>
   </FormatterOptions>
-  <p class="javascript-scope-notice" role="note">{copy.scopeNotice}</p>
-  <div class="privacy-note">
-    <span class="privacy-icon" aria-hidden="true">
-      <UiIcon name="shield" size={14} />
-    </span>
-    <div>
-      <strong>{commonCopy.localTitle}</strong><p>{commonCopy.localBody}</p>
-    </div>
-  </div>
+  <p class="formatter-scope-notice" role="note">{copy.scopeNotice}</p>
   <script
     is:inline
     type="application/json"

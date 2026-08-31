@@ -26,12 +26,22 @@ const jsonFormatterUrl = new URL(
   "../apps/web/src/features/json/JsonFormatter.astro",
   import.meta.url,
 );
-const previewToolPageUrl = new URL(
-  "../apps/web/src/components/PreviewToolPage.astro",
+const formatterWorkspaceUrl = new URL(
+  "../apps/web/src/components/FormatterWorkspace.astro",
   import.meta.url,
 );
-const processingNoteUrl = new URL(
-  "../apps/web/src/components/LocalProcessingNote.astro",
+const sourceFormatterUrls = [
+  "../apps/web/src/features/html-formatter/HtmlFormatter.astro",
+  "../apps/web/src/features/css-formatter/CssFormatter.astro",
+  "../apps/web/src/features/javascript-formatter/JavaScriptFormatter.astro",
+  "../apps/web/src/features/sql-formatter/SqlFormatter.astro",
+].map((path) => new URL(path, import.meta.url));
+const formatterLocaleUrl = new URL(
+  "../apps/web/src/lib/locale-data/new-tools/formatter-subnet.ts",
+  import.meta.url,
+);
+const previewToolPageUrl = new URL(
+  "../apps/web/src/components/PreviewToolPage.astro",
   import.meta.url,
 );
 const tooltipUrl = new URL(
@@ -73,7 +83,6 @@ const [
   faqSection,
   jsonFormatter,
   previewToolPage,
-  processingNote,
   tooltip,
   icon,
   statusComponent,
@@ -82,6 +91,9 @@ const [
   tooltipScript,
   directoryPage,
   directorySearch,
+  formatterWorkspace,
+  sourceFormatters,
+  formatterLocale,
 ] = await Promise.all([
   Promise.all(cssUrls.map((url) => readFile(url, "utf8"))).then((parts) =>
     parts.join("\n"),
@@ -91,7 +103,6 @@ const [
   readFile(faqSectionUrl, "utf8"),
   readFile(jsonFormatterUrl, "utf8"),
   readFile(previewToolPageUrl, "utf8"),
-  readFile(processingNoteUrl, "utf8"),
   readFile(tooltipUrl, "utf8"),
   readFile(iconUrl, "utf8"),
   readFile(statusUrl, "utf8"),
@@ -100,6 +111,9 @@ const [
   readFile(tooltipScriptUrl, "utf8"),
   readFile(directoryPageUrl, "utf8"),
   readFile(directorySearchUrl, "utf8"),
+  readFile(formatterWorkspaceUrl, "utf8"),
+  Promise.all(sourceFormatterUrls.map((url) => readFile(url, "utf8"))),
+  readFile(formatterLocaleUrl, "utf8"),
 ]);
 const failures = [];
 
@@ -262,13 +276,14 @@ expectSource(
   "Do not duplicate the local-processing message in the converter toolbar.",
 );
 expectSource(
-  (converter.match(/<LocalProcessingNote locale=\{locale\}/g) ?? []).length ===
-    1,
-  "Render the shared local-processing note exactly once.",
+  !converter.includes("LocalProcessingNote"),
+  "Keep local-processing assurance in the top tool promise, not the converter.",
 );
 expectSource(
-  (processingNote.match(/class="privacy-note"/g) ?? []).length === 1,
-  "The shared component must render one authoritative privacy note.",
+  (page.match(/<ToolPromise locale=\{locale\}/g) ?? []).length === 1 &&
+    (previewToolPage.match(/<ToolPromise locale=\{locale\}/g) ?? []).length ===
+      1,
+  "Render one authoritative tool promise at the top of every tool page.",
 );
 expectSource(
   (page.match(/<FaqSection\b/g) ?? []).length === 1,
@@ -329,6 +344,30 @@ expectSource(
   "JSON action buttons must reference their tooltip descriptions.",
 );
 expectSource(
+  jsonFormatter.includes("<FormatterOptions") &&
+    sourceFormatters.every((source) => source.includes("<FormatterWorkspace")),
+  "JSON and source formatters must share the formatter workspace and options patterns.",
+);
+for (const marker of [
+  "data-sample",
+  "data-open-file",
+  "data-clear",
+  "data-copy",
+  "data-download",
+  "data-stale-notice",
+  "readonly",
+]) {
+  expectSource(
+    formatterWorkspace.includes(marker),
+    `The shared formatter workspace must retain ${marker}.`,
+  );
+}
+expectSource(
+  formatterLocale.includes('formatted: "정리 완료"') &&
+    !formatterLocale.includes('formatted: "포맷 완료"'),
+  "Korean formatter completion copy must describe code cleanup, not disk formatting.",
+);
+expectSource(
   tooltip.includes('role="tooltip"'),
   "The shared Tooltip component must expose tooltip semantics.",
 );
@@ -376,10 +415,6 @@ for (const name of ["chevron-right", "folder-open", "x", "copy", "download"]) {
     `Keep the ${name} action icon on the converter surface.`,
   );
 }
-expectSource(
-  processingNote.includes('name="shield"'),
-  "Keep the shield icon in the shared local-processing note.",
-);
 expectSource(
   icon.includes('aria-hidden="true"'),
   "Decorative action icons must stay out of the accessibility tree.",

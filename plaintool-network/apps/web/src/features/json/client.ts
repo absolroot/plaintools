@@ -37,6 +37,7 @@ function init(root: HTMLElement): void {
   const output = root.querySelector<HTMLTextAreaElement>("[data-output]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const badges = root.querySelector<HTMLElement>("[data-badges]")!;
+  const staleNotice = root.querySelector<HTMLElement>("[data-stale-notice]")!;
   const copyButton = root.querySelector<HTMLButtonElement>("[data-copy]")!;
   const downloadButton =
     root.querySelector<HTMLButtonElement>("[data-download]")!;
@@ -45,7 +46,7 @@ function init(root: HTMLElement): void {
   const copy = readClientCopy<JsonClientCopy>(root);
   let timer = 0;
   let revision = 0;
-  let selectedOperation: JsonOperation = "validate";
+  let selectedOperation: JsonOperation = "format";
   let committedResult: JsonCommittedResult = { kind: "none" };
   const bytes = () =>
     exceedsUtf8ByteLimit(input.value, MAX_BYTES)
@@ -59,23 +60,25 @@ function init(root: HTMLElement): void {
     committedResult = { kind: "none" };
     output.value = "";
     root.classList.remove("has-stale-result");
+    staleNotice.hidden = true;
     badges.replaceChildren();
     copyButton.disabled = downloadButton.disabled = true;
   };
   const markResultPending = () => {
-    root.classList.toggle("has-stale-result", Boolean(output.value));
+    const stale = Boolean(output.value);
+    root.classList.toggle("has-stale-result", stale);
+    staleNotice.hidden = !stale;
     copyButton.disabled = downloadButton.disabled = true;
   };
   const selectOperation = (operation: JsonOperation) => {
     selectedOperation = operation;
     root
       .querySelectorAll<HTMLButtonElement>("[data-action]")
-      .forEach((button) =>
-        button.setAttribute(
-          "aria-pressed",
-          String(button.dataset.action === operation),
-        ),
-      );
+      .forEach((button) => {
+        const active = button.dataset.action === operation;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
     indentControl.disabled = !jsonOperationUsesIndent(operation);
   };
   selectOperation(selectedOperation);
@@ -112,6 +115,7 @@ function init(root: HTMLElement): void {
     onReply: (reply, context) => {
       workingIndicator.end();
       root.classList.remove("has-stale-result");
+      staleNotice.hidden = true;
       badges.replaceChildren();
       const inspection = reply.inspection;
       if (!inspection.valid) {
@@ -183,6 +187,17 @@ function init(root: HTMLElement): void {
     }),
   );
   root
+    .querySelector<HTMLButtonElement>("[data-sample]")!
+    .addEventListener("click", () => {
+      if (input.value) return;
+      window.clearTimeout(timer);
+      cancelPendingWork();
+      input.value = root.dataset.sampleInput ?? "";
+      setStatus(copy.ready);
+      timer = window.setTimeout(() => run(selectedOperation), 120);
+      input.focus();
+    });
+  root
     .querySelector<HTMLButtonElement>("[data-open-file]")!
     .addEventListener("click", () => fileInput.click());
   input.addEventListener("input", () => {
@@ -208,8 +223,7 @@ function init(root: HTMLElement): void {
   input.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
       event.preventDefault();
-      selectOperation("format");
-      run("format", true);
+      run(selectedOperation, true);
     }
   });
   indentControl.addEventListener("change", () => {

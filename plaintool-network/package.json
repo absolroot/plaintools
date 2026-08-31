@@ -26,6 +26,7 @@
     "ui:check": "node scripts/check-ui-detail.mjs",
     "qa:test": "python -m unittest discover -s scripts -p \"test_*.py\"",
     "qa:security": "python scripts/qa-security.py",
+    "qa:formatter": "python scripts/qa-formatter-consistency.py",
     "ui:qa": "python scripts/qa-redesign.py",
     "ui:qa:full": "python scripts/qa-redesign.py --full",
     "qa:network": "node scripts/qa-network.mjs",
