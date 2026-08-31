@@ -1,0 +1,182 @@
+---
+import type { BmiUnitSystem } from "@plaintool/bmi-calculator-core";
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { BmiCalculatorProps } from "./contract";
+import { createBmiCalculatorClientCopy } from "./copy";
+import "./styles.css";
+
+const {
+  locale,
+  copy,
+  commonCopy,
+  initialUnitSystem = "metric",
+} = Astro.props as BmiCalculatorProps;
+const clientCopy = createBmiCalculatorClientCopy(copy, commonCopy);
+const unitModes = [
+  ["metric", copy.metricUnit],
+  ["us", copy.usUnit],
+] as const satisfies readonly (readonly [BmiUnitSystem, string])[];
+---
+
+<section
+  class="converter bmi-calculator"
+  data-bmi-calculator
+  data-unit-system={initialUnitSystem}
+  data-locale={locale}
+  aria-label={copy.ariaLabel}
+>
+  <div class="converter-topbar bmi-unit-topbar">
+    <span class="bmi-unit-label">{copy.unitSystemLabel}</span>
+    <div class="mode-switch" role="group" aria-label={copy.unitSystemLabel}>
+      {
+        unitModes.map(([unitSystem, label]) => (
+          <button
+            class:list={[
+              "mode-button",
+              { "is-active": unitSystem === initialUnitSystem },
+            ]}
+            type="button"
+            data-unit-button={unitSystem}
+            aria-pressed={unitSystem === initialUnitSystem ? "true" : "false"}
+          >
+            {label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="bmi-workspace">
+    <div
+      class="bmi-input-grid"
+      data-unit-panel="metric"
+      hidden={initialUnitSystem !== "metric"}
+    >
+      <label class="bmi-field" for="bmi-weight-kilograms">
+        <span>{copy.weightKilograms}</span>
+        <input
+          id="bmi-weight-kilograms"
+          type="number"
+          inputmode="decimal"
+          min="10"
+          max="500"
+          step="0.1"
+          value="70"
+          data-field="weightKilograms"
+          aria-describedby="bmi-calculator-status"
+        />
+      </label>
+      <label class="bmi-field" for="bmi-height-centimeters">
+        <span>{copy.heightCentimeters}</span>
+        <input
+          id="bmi-height-centimeters"
+          type="number"
+          inputmode="decimal"
+          min="100"
+          max="250"
+          step="0.1"
+          value="170"
+          data-field="heightCentimeters"
+          aria-describedby="bmi-calculator-status"
+        />
+      </label>
+    </div>
+
+    <div
+      class="bmi-input-grid bmi-us-input-grid"
+      data-unit-panel="us"
+      hidden={initialUnitSystem !== "us"}
+    >
+      <label class="bmi-field" for="bmi-weight-pounds">
+        <span>{copy.weightPounds}</span>
+        <input
+          id="bmi-weight-pounds"
+          type="number"
+          inputmode="decimal"
+          min="22"
+          max="1102"
+          step="0.1"
+          value="154"
+          data-field="weightPounds"
+          aria-describedby="bmi-calculator-status"
+        />
+      </label>
+      <label class="bmi-field" for="bmi-height-feet">
+        <span>{copy.heightFeet}</span>
+        <input
+          id="bmi-height-feet"
+          type="number"
+          inputmode="numeric"
+          min="0"
+          max="8"
+          step="1"
+          value="5"
+          data-field="heightFeet"
+          aria-describedby="bmi-calculator-status"
+        />
+      </label>
+      <label class="bmi-field" for="bmi-height-inches">
+        <span>{copy.heightInches}</span>
+        <input
+          id="bmi-height-inches"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          max="11.9"
+          step="0.1"
+          value="9"
+          data-field="heightInches"
+          aria-describedby="bmi-calculator-status"
+        />
+      </label>
+    </div>
+
+    <div class="bmi-actions">
+      <button class="primary-button" type="button" data-calculate>
+        {copy.calculate}
+      </button>
+      <button class="secondary-button" type="button" data-clear>
+        <UiIcon name="x" size={14} />{commonCopy.clear}
+      </button>
+    </div>
+  </div>
+
+  <section class="bmi-results" data-results hidden aria-live="polite">
+    <div class="bmi-result-heading">
+      <h2>{copy.resultTitle}</h2>
+    </div>
+    <div class="bmi-result-body">
+      <div class="bmi-primary-result">
+        <span>{copy.bmiLabel}</span>
+        <strong data-result="bmi" dir="ltr"></strong>
+      </div>
+      <dl class="bmi-supporting-results">
+        <div>
+          <dt>{copy.categoryLabel}</dt>
+          <dd data-result="category"></dd>
+        </div>
+        <div>
+          <dt>{copy.healthyWeightRange}</dt>
+          <dd data-result="healthyWeightRange"></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <aside class="bmi-limitation" aria-labelledby="bmi-limitation-title">
+    <strong id="bmi-limitation-title">{copy.limitationTitle}</strong>
+    <p>{copy.limitationBody}</p>
+  </aside>
+
+  <ConverterStatus status={commonCopy.ready} statusId="bmi-calculator-status" />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>
