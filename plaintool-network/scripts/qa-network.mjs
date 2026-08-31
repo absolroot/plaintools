@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import {
@@ -51,6 +52,10 @@ const thirdPartyNotices = await readFile(
   join(dist, "third-party-notices.txt"),
   "utf8",
 );
+const backgroundModelRoot = join(dist, "models", "background-remover", "v1");
+const backgroundModelManifest = JSON.parse(
+  await readFile(join(backgroundModelRoot, "manifest.json"), "utf8"),
+);
 const prettierNotices = await readFile(
   join(dist, "licenses", "prettier-3.9.6.txt"),
   "utf8",
@@ -64,11 +69,36 @@ const requiredRuntimeNotices = [
   "nearley",
   "Terser",
   "@jridgewell/source-map",
+  "ONNX Runtime Web",
+  "U²-Net model artifacts",
+  "MODNet model artifact",
+  "BiRefNet Lite model artifact",
 ];
 for (const packageName of requiredRuntimeNotices) {
   if (!thirdPartyNotices.includes(packageName)) {
     throw new Error(`Deployed third-party notices are missing ${packageName}.`);
   }
+}
+
+for (const [modelId, model] of Object.entries(backgroundModelManifest.models)) {
+  const parts = [];
+  for (const part of model.parts) {
+    const bytes = await readFile(join(backgroundModelRoot, part.path));
+    if (bytes.byteLength !== part.bytes)
+      throw new Error(`${modelId}:${part.path} has an unexpected byte size.`);
+    if (bytes.byteLength >= 25 * 1024 * 1024)
+      throw new Error(`${modelId}:${part.path} exceeds the Pages asset limit.`);
+    const digest = createHash("sha256").update(bytes).digest("hex");
+    if (digest !== part.sha256)
+      throw new Error(`${modelId}:${part.path} failed its SHA-256 check.`);
+    parts.push(bytes);
+  }
+  const joined = Buffer.concat(parts);
+  if (joined.byteLength !== model.bytes)
+    throw new Error(`${modelId} has an unexpected reconstructed byte size.`);
+  const digest = createHash("sha256").update(joined).digest("hex");
+  if (digest !== model.sha256)
+    throw new Error(`${modelId} failed its reconstructed SHA-256 check.`);
 }
 if (
   !thirdPartyNotices.includes("/licenses/prettier-3.9.6.txt") ||
@@ -429,6 +459,8 @@ for (const locale of locales) {
       tool.structuredData,
       routeName,
     );
+    if (!html.includes('class="privacy-note"'))
+      throw new Error(`${routeName} is missing the local-processing notice.`);
     if (
       tool.publication === "preview" &&
       sitemap.includes(`/${locale}/${route}/`)

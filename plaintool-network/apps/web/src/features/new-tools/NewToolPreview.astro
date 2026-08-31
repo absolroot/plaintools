@@ -19,6 +19,8 @@ import JavaScriptFormatter from "../javascript-formatter/JavaScriptFormatter.ast
 import SqlFormatter from "../sql-formatter/SqlFormatter.astro";
 import sqlFormatterStylesheet from "../sql-formatter/styles.css?url";
 import IpSubnetCalculator from "../ip-subnet/IpSubnetCalculator.astro";
+import BackgroundRemover from "../background-remover/BackgroundRemover.astro";
+import backgroundRemoverStylesheet from "../background-remover/styles.css?url";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
 import { localizedPath, type Locale } from "../../lib/site";
@@ -32,7 +34,6 @@ const { locale, page } = Astro.props;
 const bundle = localeBundles[locale];
 const content = bundle.tools[page];
 const technicalDirection = localeMetadata[locale].technicalDirection;
-
 const featureStylesheets = {
   "ai-watermark-remover": aiTextCleanerStylesheet,
   "url-encode": undefined,
@@ -41,6 +42,7 @@ const featureStylesheets = {
   "jwt-decoder": undefined,
   "qr-code-generator": qrStylesheet,
   "qr-code-scanner": qrStylesheet,
+  "background-remover": backgroundRemoverStylesheet,
   "csv-to-markdown": dataConverterStylesheet,
   "markdown-to-csv": dataConverterStylesheet,
   "json-to-csv": dataConverterStylesheet,
@@ -91,7 +93,11 @@ const dataModeLabels = Object.fromEntries(
 >
   {
     page === "ai-watermark-remover" && (
-      <AiTextCleaner copy={bundle.tools[page].feature} textDirection="auto" />
+      <AiTextCleaner
+        locale={locale}
+        copy={bundle.tools[page].feature}
+        textDirection="auto"
+      />
     )
   }
   {
@@ -146,6 +152,11 @@ const dataModeLabels = Object.fromEntries(
         scannerLabel={bundle.catalog["qr-code-scanner"].name}
         resultDirection="auto"
       />
+    )
+  }
+  {
+    page === "background-remover" && (
+      <BackgroundRemover locale={locale} copy={bundle.tools[page].feature} />
     )
   }
   {

@@ -717,6 +717,7 @@ const bundle: LocaleBundle = {
       encoding: "Encoding & decoding",
       text: "Text",
       converter: "Converters",
+      image: "Images",
       data: "Data",
       time: "Time",
     },

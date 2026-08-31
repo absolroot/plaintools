@@ -895,11 +895,16 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
 .secondary-button {
   height: 36px;
   padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
   border: 0;
   border-radius: var(--radius-control);
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
 }
 .primary-button {
   color: var(--on-action);
@@ -907,8 +912,14 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   box-shadow: 0 0 0 1px
     color-mix(in oklch, var(--action), var(--ink-strong) 18%);
 }
-.primary-button:hover {
+.primary-button:hover:not(:disabled) {
   background: var(--action-hover);
+}
+.primary-button:disabled {
+  color: var(--placeholder);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--line);
+  cursor: not-allowed;
 }
 .secondary-button {
   color: var(--ink);

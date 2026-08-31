@@ -1,4 +1,8 @@
 from .base64_feature import run_base64_desktop
+from .background_remover_feature import (
+    run_background_remover_desktop,
+    run_background_remover_mobile,
+)
 from .ai_text_cleaner_feature import (
     run_ai_text_cleaner_desktop,
     run_ai_text_cleaner_mobile,
@@ -175,6 +179,12 @@ FEATURE_COVERAGE = {
         desktop=run_ip_subnet_desktop,
         mobile=run_ip_subnet_mobile,
         focus_targets=(("input", "[data-ip-subnet] [data-input]"),),
+        exercise_faq=True,
+    ),
+    "background-remover": FeatureCoverage(
+        desktop=run_background_remover_desktop,
+        mobile=run_background_remover_mobile,
+        focus_targets=(("input", "[data-background-remover] [data-open-file]"),),
         exercise_faq=True,
     ),
 }

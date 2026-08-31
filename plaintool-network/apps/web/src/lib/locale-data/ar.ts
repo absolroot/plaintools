@@ -694,6 +694,7 @@ const bundle: LocaleBundle = {
       encoding: "الترميز وفك الترميز",
       text: "النصوص",
       converter: "المحوّلات",
+      image: "الصور",
       data: "البيانات",
       time: "الوقت",
     },

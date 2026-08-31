@@ -53,6 +53,51 @@ The SQL formatter includes [nearley](https://nearley.js.org/), version 2.20.1.
 Copyright (c) 2014, 2015, 2016, 2017, 2018, 2019 Kartik Chandra, Tim Radvan.
 It is distributed under the MIT License terms reproduced above.
 
+## ONNX Runtime Web
+
+The image background remover bundles
+[ONNX Runtime Web](https://github.com/microsoft/onnxruntime), version 1.29.0.
+Copyright (c) Microsoft Corporation. It is distributed under the MIT License
+terms reproduced above.
+
+## U²-Net model artifacts
+
+The image background remover serves pinned copies of the U2NetP and Silueta
+ONNX model artifacts from the
+[rembg model release](https://github.com/danielgatis/rembg/releases/tag/v0.0.0).
+Their exact upstream URLs, byte sizes, and checksums are published in
+`/models/background-remover/v1/manifest.json`.
+
+The U²-Net project source is Copyright (c) 2020 Xuebin Qin and is licensed
+under Apache License 2.0. The complete license is deployed at
+`/licenses/u2net-apache-2.0.txt`. The rembg source repository is MIT
+licensed; that source-code license is not presented here as a separate license
+grant for the model weights.
+
+## MODNet model artifact
+
+The image background remover serves a pinned quantized ONNX conversion of
+[MODNet](https://github.com/ZHKKKe/MODNet) from the
+[Xenova/modnet](https://huggingface.co/Xenova/modnet) model repository. Its
+exact revision, byte size, and checksum are published in
+`/models/background-remover/v1/manifest.json`.
+
+The MODNet project states that its code, models, and demos are released under
+Apache License 2.0. The complete license is deployed at
+`/licenses/u2net-apache-2.0.txt`.
+
+## BiRefNet Lite model artifact
+
+The image background remover serves a pinned 512x512 FP16 ONNX conversion of
+[BiRefNet Lite](https://huggingface.co/ZhengPeng7/BiRefNet_lite) from the
+[studioludens/birefnet-lite-512](https://huggingface.co/studioludens/birefnet-lite-512)
+model repository. Its exact revision, byte size, and checksums are published in
+`/models/background-remover/v1/manifest.json`.
+
+BiRefNet is Copyright (c) 2024 ZhengPeng and is distributed under the MIT
+License terms reproduced above. The conversion repository identifies the
+artifact as MIT-licensed and records BiRefNet Lite as its base model.
+
 ## Terser
 
 The JavaScript minifier bundles [Terser](https://terser.org/), version 5.51.2.

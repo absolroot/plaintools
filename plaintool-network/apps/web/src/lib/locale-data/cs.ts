@@ -703,6 +703,7 @@ const csBundle = {
       encoding: "Kódování",
       text: "Text",
       converter: "Převodníky",
+      image: "Obrázky",
       data: "Data",
       time: "Čas",
     },

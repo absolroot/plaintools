@@ -17,9 +17,21 @@ describe("content registry", () => {
     expect(new Set(contentPages).size).toBe(contentPages.length);
   });
 
-  it("publishes every reviewed tool route without preview leftovers", () => {
-    expect(publicToolPages).toEqual(toolRegistry.map((tool) => tool.slug));
-    expect(previewPages).toEqual([]);
+  it("derives public and preview routes from publication state", () => {
+    const registryByPublication: ReadonlyArray<{
+      slug: string;
+      publication: "indexable" | "preview";
+    }> = toolRegistry;
+    expect(publicToolPages).toEqual(
+      registryByPublication
+        .filter((tool) => tool.publication === "indexable")
+        .map((tool) => tool.slug),
+    );
+    expect(previewPages).toEqual(
+      registryByPublication
+        .filter((tool) => tool.publication === "preview")
+        .map((tool) => tool.slug),
+    );
     expect(toolPages).toEqual(toolRegistry.map((tool) => tool.slug));
   });
 });

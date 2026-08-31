@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("tr");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("tr"),
+  background: backgroundRemover.copy,
   ui: {
     clear: "Temizle",
     copy: "Kopyala",
@@ -216,6 +220,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "AI filigranı ve gizli karakter temizleyici",
       description:

@@ -707,6 +707,7 @@ export const nlBundle: LocaleBundle = {
       encoding: "Encoderen en decoderen",
       text: "Tekst",
       converter: "Converters",
+      image: "Afbeeldingen",
       data: "Gegevens",
       time: "Tijd",
     },

@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("it");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("it"),
+  background: backgroundRemover.copy,
   ui: {
     clear: "Cancella",
     copy: "Copia",
@@ -219,6 +223,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "Rimozione filigrane IA e caratteri nascosti",
       description:

@@ -1,5 +1,6 @@
 ---
 import ConverterStatus from "../../components/ConverterStatus.astro";
+import LocalProcessingNote from "../../components/LocalProcessingNote.astro";
 import Tooltip from "../../components/Tooltip.astro";
 import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import UiIcon from "../../components/UiIcon.astro";
@@ -171,6 +172,8 @@ const accepts = csvInput
         placeholder={copy.outputPlaceholder}></textarea>
     </section>
   </div>
+
+  <LocalProcessingNote locale={locale} />
 
   <script
     is:inline

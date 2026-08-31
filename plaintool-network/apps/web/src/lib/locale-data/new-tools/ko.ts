@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("ko");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("ko"),
+  background: backgroundRemover.copy,
   mobileDescriptions: {
     "ai-watermark-remover": "텍스트의 숨은 유니코드 문자를 찾아 제거합니다.",
     "url-encode": "텍스트와 URL을 퍼센트 인코딩합니다.",
@@ -22,6 +26,7 @@ const seed = {
     "javascript-formatter": "JavaScript를 정리하거나 경량화합니다.",
     "sql-formatter": "SQL을 선택한 방언에 맞게 정리합니다.",
     "ip-subnet-calculator": "IPv4 네트워크 범위와 주소를 계산합니다.",
+    "background-remover": "AI로 이미지 배경을 제거해 PNG로 저장합니다.",
   },
   ui: {
     clear: "지우기",
@@ -235,6 +240,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "AI 워터마크 제거기 - GPT·Claude·Gemini 숨은 문자 정리",
       description:

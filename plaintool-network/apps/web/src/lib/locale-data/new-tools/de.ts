@@ -1,8 +1,12 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { backgroundRemoverFor } from "./background-remover";
+
+const backgroundRemover = backgroundRemoverFor("de");
 
 const seed = {
   formatterSubnet: formatterSubnetFor("de"),
+  background: backgroundRemover.copy,
   ui: {
     clear: "Leeren",
     copy: "Kopieren",
@@ -222,6 +226,7 @@ const seed = {
     ],
   },
   pages: {
+    "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
       title: "Entferner für KI-Wasserzeichen und unsichtbare Zeichen",
       description:

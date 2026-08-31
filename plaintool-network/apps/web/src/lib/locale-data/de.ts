@@ -709,6 +709,7 @@ export const deBundle: LocaleBundle = {
       encoding: "Codieren und Decodieren",
       text: "Text",
       converter: "Konverter",
+      image: "Bilder",
       data: "Daten",
       time: "Zeit",
     },

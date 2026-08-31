@@ -714,6 +714,7 @@ export const frBundle: LocaleBundle = {
       encoding: "Encodage et décodage",
       text: "Texte",
       converter: "Convertisseurs",
+      image: "Images",
       data: "Données",
       time: "Temps",
     },

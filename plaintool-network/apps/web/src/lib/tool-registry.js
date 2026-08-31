@@ -256,6 +256,16 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/ip-subnet.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  {
+    id: "background-remover",
+    featureId: "background-remover",
+    slug: "background-remover",
+    category: "image",
+    publication: "indexable",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/background-remover.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);

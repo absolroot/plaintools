@@ -12,6 +12,7 @@ import type { CssFormatterCopy } from "../../../features/css-formatter/contract"
 import type { JavaScriptFormatterCopy } from "../../../features/javascript-formatter/contract";
 import type { SqlFormatterCopy } from "../../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../../features/ip-subnet/contract";
+import type { BackgroundRemoverCopy } from "../../../features/background-remover/contract";
 import type {
   FormatterSubnetToolId,
   LegacyNewToolId,
@@ -293,6 +294,47 @@ export type NewToolLocaleSeed = {
     denied: string;
     unavailable: string;
     scanFailed: string;
+  };
+  background: {
+    original: string;
+    result: string;
+    uploadHint: string;
+    formats: string;
+    options: string;
+    model: string;
+    fast: string;
+    fastHint: string;
+    portrait: string;
+    portraitHint: string;
+    quality: string;
+    qualityHint: string;
+    precision: string;
+    precisionHint: string;
+    precisionUnavailable: string;
+    precisionConsentTitle: string;
+    precisionConsentBody: string;
+    precisionConsentNotice: string;
+    precisionConsentConfirm: string;
+    cancel: string;
+    background: string;
+    transparent: string;
+    white: string;
+    custom: string;
+    color: string;
+    remove: string;
+    newImage: string;
+    png: string;
+    reading: string;
+    downloading: string;
+    loading: string;
+    processing: string;
+    scaled: string;
+    imageTooLarge: string;
+    invalid: string;
+    modelFailed: string;
+    processingFailed: string;
+    downloadFailed: string;
+    resultEmpty: string;
   };
   data: {
     convert: string;
@@ -576,6 +618,59 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     scanFailed: seed.qr.scanFailed,
   };
 
+  const background: BackgroundRemoverCopy = {
+    accessibleLabel: seed.pages["background-remover"].title,
+    originalLabel: seed.background.original,
+    resultLabel: seed.background.result,
+    chooseImage: ui.chooseImage,
+    dropHint: seed.background.uploadHint,
+    supportedImageTypes: seed.background.formats,
+    optionsLabel: seed.background.options,
+    modelLabel: seed.background.model,
+    modelOptions: {
+      fast: seed.background.fast,
+      portrait: seed.background.portrait,
+      quality: seed.background.quality,
+      precision: seed.background.precision,
+    },
+    modelHints: {
+      fast: seed.background.fastHint,
+      portrait: seed.background.portraitHint,
+      quality: seed.background.qualityHint,
+      precision: seed.background.precisionHint,
+    },
+    precisionUnavailable: seed.background.precisionUnavailable,
+    precisionConsentTitle: seed.background.precisionConsentTitle,
+    precisionConsentBody: seed.background.precisionConsentBody,
+    precisionConsentNotice: seed.background.precisionConsentNotice,
+    precisionConsentConfirm: seed.background.precisionConsentConfirm,
+    cancel: seed.background.cancel,
+    backgroundLabel: seed.background.background,
+    backgroundOptions: {
+      transparent: seed.background.transparent,
+      white: seed.background.white,
+      color: seed.background.custom,
+    },
+    colorLabel: seed.background.color,
+    removeBackground: seed.background.remove,
+    newImage: seed.background.newImage,
+    downloadPng: seed.background.png,
+    ready: ui.ready,
+    readingImage: seed.background.reading,
+    downloadingModel: seed.background.downloading,
+    loadingModel: seed.background.loading,
+    processingImage: seed.background.processing,
+    completed: ui.complete,
+    scaledImage: seed.background.scaled,
+    fileTooLarge: ui.tooLarge,
+    imageTooLarge: seed.background.imageTooLarge,
+    invalidImage: seed.background.invalid,
+    modelFailed: seed.background.modelFailed,
+    processingFailed: seed.background.processingFailed,
+    downloadFailed: seed.background.downloadFailed,
+    resultPlaceholder: seed.background.resultEmpty,
+  };
+
   const dataErrors = seed.data.errors;
   const dataFeature = (id: NewToolId): DataConverterCopy => {
     const source = pageSeed(id);
@@ -855,6 +950,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "javascript-formatter": page("javascript-formatter", javascriptFormatter),
     "sql-formatter": page("sql-formatter", sqlFormatter),
     "ip-subnet-calculator": page("ip-subnet-calculator", ipSubnet),
+    "background-remover": page("background-remover", background),
   };
 
   const catalog = Object.fromEntries(

@@ -704,6 +704,7 @@ const svBundle = {
       encoding: "Kodning",
       text: "Text",
       converter: "Konverterare",
+      image: "Bilder",
       data: "Data",
       time: "Tid",
     },

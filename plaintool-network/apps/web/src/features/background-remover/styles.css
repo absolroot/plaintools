@@ -1,0 +1,342 @@
+.background-remover {
+  overflow: hidden;
+  background: var(--base);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 2px 8px var(--shadow-layer);
+}
+
+.background-workspace {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 470px;
+}
+
+.background-pane {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.background-pane + .background-pane {
+  border-inline-start: 1px solid var(--line);
+}
+
+.background-pane-heading {
+  min-height: 52px;
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.background-stage {
+  min-height: 418px;
+  padding: var(--space-4);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--recessed);
+}
+
+.background-stage.is-checkerboard {
+  background-color: var(--recessed);
+  background-image:
+    linear-gradient(45deg, var(--line) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--line) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--line) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--line) 75%);
+  background-position:
+    0 0,
+    0 12px,
+    12px -12px,
+    -12px 0;
+  background-size: 24px 24px;
+}
+
+.background-stage canvas {
+  max-width: 100%;
+  max-height: 380px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: background-result-in 150ms ease-out;
+}
+
+.background-upload-prompt {
+  max-width: 320px;
+  text-align: center;
+}
+
+.background-upload-prompt p,
+.background-result-placeholder {
+  margin: var(--space-3) 0 var(--space-1);
+  color: var(--muted);
+}
+
+.background-upload-prompt small {
+  color: var(--muted);
+}
+
+.background-remover.is-dragging .background-original-pane {
+  background: var(--tint);
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.background-options {
+  border-top: 1px solid var(--line);
+}
+
+.background-options summary {
+  min-height: 52px;
+  padding: 0 var(--space-3);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.background-option-grid {
+  padding: 0 var(--space-3) var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.background-option-grid fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+}
+
+.background-option-grid legend {
+  padding: 0 var(--space-1);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.background-option-grid label {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 14px;
+}
+
+.background-option-grid label + label {
+  margin-top: var(--space-1);
+}
+
+.background-option-grid label span {
+  display: grid;
+  gap: 2px;
+}
+
+.background-model-options {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+}
+
+.background-model-options .background-model-option {
+  margin: 0;
+  padding: var(--space-2);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+.background-model-option:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--tint);
+}
+
+.background-model-option:focus-within {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.background-model-option.is-unavailable {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.background-model-unavailable {
+  margin: var(--space-1) var(--space-2) 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.background-model-consent {
+  width: min(520px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--base);
+  color: var(--ink);
+  box-shadow: 0 20px 60px var(--shadow-layer);
+}
+
+.background-model-consent::backdrop {
+  background: rgb(15 23 42 / 0.56);
+  backdrop-filter: blur(2px);
+}
+
+.background-model-consent-content {
+  padding: clamp(22px, 5vw, 34px);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.background-dialog-eyebrow {
+  margin: 0 0 var(--space-1);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.background-model-consent h2,
+.background-model-consent p {
+  margin: 0;
+}
+
+.background-model-consent h2 {
+  font-size: clamp(20px, 4vw, 26px);
+}
+
+.background-model-consent-content > p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.background-model-consent-notice {
+  padding: var(--space-3);
+  border-inline-start: 3px solid var(--accent);
+  background: var(--recessed);
+}
+
+.background-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.background-option-grid small {
+  color: var(--muted);
+}
+
+.background-color-control {
+  justify-content: space-between;
+  padding-inline-start: 24px;
+}
+
+.background-color-control input {
+  width: 48px;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  background: var(--base);
+}
+
+.background-actions {
+  flex: 0 0 auto;
+}
+
+.background-progress {
+  min-height: 52px;
+  padding: var(--space-3);
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.background-progress[hidden] {
+  display: none;
+}
+
+.background-progress progress {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+@keyframes background-result-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .background-workspace,
+  .background-option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .background-pane + .background-pane {
+    border-inline-start: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .background-stage {
+    min-height: 300px;
+  }
+
+  .background-stage canvas {
+    max-height: 270px;
+  }
+
+  .background-pane-heading,
+  .background-options summary {
+    min-height: 60px;
+  }
+
+  .background-option-grid label,
+  .background-actions button {
+    min-height: 44px;
+  }
+
+  .background-actions {
+    flex: 1 0 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .background-progress {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .background-dialog-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .background-dialog-actions button {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-stage canvas {
+    animation: none;
+  }
+}

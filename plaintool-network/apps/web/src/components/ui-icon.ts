@@ -1,0 +1,17 @@
+export type IconName =
+  | "arrow-left"
+  | "arrow-right"
+  | "calendar"
+  | "check"
+  | "chevron-right"
+  | "copy"
+  | "download"
+  | "folder-open"
+  | "grid"
+  | "help-circle"
+  | "languages"
+  | "moon"
+  | "search"
+  | "shield"
+  | "sun"
+  | "x";

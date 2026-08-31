@@ -649,6 +649,7 @@ const bundle: LocaleBundle = {
       encoding: "編碼與解碼",
       text: "文字",
       converter: "轉換工具",
+      image: "圖片",
       data: "資料",
       time: "時間",
     },
