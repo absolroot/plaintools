@@ -1,0 +1,211 @@
+.date-calculator-workspace {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--input-surface);
+}
+
+.date-mode-panel {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.date-field-grid,
+.date-amount-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.date-amount-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.date-field {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.date-field input,
+.date-field select {
+  min-width: 0;
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
+}
+
+.date-field input {
+  font-family: var(--code-font);
+}
+
+.date-field input[aria-invalid="true"],
+.date-field select[aria-invalid="true"] {
+  box-shadow: 0 0 0 1px var(--danger);
+}
+
+.date-input-row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+}
+
+.date-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.date-option input {
+  margin: 2px 0 0;
+}
+
+.date-option span {
+  display: grid;
+  gap: 2px;
+}
+
+.date-option strong {
+  font-weight: 600;
+}
+
+.date-option small,
+.date-calculator-note {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.date-calculator-note {
+  margin: 0;
+}
+
+.date-calculator-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.date-calculator-actions .secondary-button,
+.date-result-heading .text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.date-calculator-results {
+  background: var(--output-surface);
+}
+
+.date-result-heading {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.date-result-heading h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.date-result-grid {
+  min-width: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+}
+
+.date-result-grid > div {
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+  background: var(--output-surface);
+}
+
+.date-result-grid > .date-result-wide {
+  grid-column: 1 / -1;
+}
+
+.date-result-grid dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.date-result-grid dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.date-result-grid dd[dir="ltr"] {
+  font-family: var(--code-font);
+  text-align: start;
+  unicode-bidi: isolate;
+}
+
+@media (max-width: 680px) {
+  .date-calculator .converter-topbar {
+    overflow-x: auto;
+  }
+
+  .date-calculator .mode-switch {
+    min-width: max-content;
+  }
+
+  .date-field-grid,
+  .date-math-main-fields,
+  .date-result-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .date-amount-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .date-field input,
+  .date-field select,
+  .date-input-row .secondary-button,
+  .date-calculator-actions .primary-button,
+  .date-calculator-actions .secondary-button,
+  .date-result-heading .text-button {
+    min-height: 44px;
+  }
+
+  .date-calculator-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .date-result-grid > .date-result-wide {
+    grid-column: auto;
+  }
+}

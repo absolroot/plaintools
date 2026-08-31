@@ -256,6 +256,16 @@ export const toolRegistry = /** @type {const} */ ([
       "apps/web/src/lib/locale-review-manifests/ip-subnet.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  {
+    id: "date-calculator",
+    featureId: "date-calculator",
+    slug: "date-calculator",
+    category: "time",
+    publication: "preview",
+    localeReviewManifest:
+      "apps/web/src/lib/locale-review-manifests/date-calculator.json",
+    structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
+  },
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);

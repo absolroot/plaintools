@@ -87,6 +87,7 @@ const toolMarks: Record<RegisteredToolId, string> = {
   "javascript-formatter": "JS",
   "sql-formatter": "SQL",
   "ip-subnet-calculator": "IP",
+  "date-calculator": "D±",
 };
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {

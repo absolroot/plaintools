@@ -21,6 +21,7 @@ import type { CssFormatterCopy } from "../../features/css-formatter/contract";
 import type { JavaScriptFormatterCopy } from "../../features/javascript-formatter/contract";
 import type { SqlFormatterCopy } from "../../features/sql-formatter/contract";
 import type { IpSubnetCopy } from "../../features/ip-subnet/contract";
+import type { DateCalculatorCopy } from "../../features/date-calculator/contract";
 
 export type NewToolId =
   | "ai-watermark-remover"
@@ -40,7 +41,8 @@ export type NewToolId =
   | "css-formatter"
   | "javascript-formatter"
   | "sql-formatter"
-  | "ip-subnet-calculator";
+  | "ip-subnet-calculator"
+  | "date-calculator";
 
 export type FormatterSubnetToolId =
   | "html-formatter"
@@ -49,7 +51,10 @@ export type FormatterSubnetToolId =
   | "sql-formatter"
   | "ip-subnet-calculator";
 
-export type LegacyNewToolId = Exclude<NewToolId, FormatterSubnetToolId>;
+export type LegacyNewToolId = Exclude<
+  NewToolId,
+  FormatterSubnetToolId | "date-calculator"
+>;
 
 export type ToolPageCopy<T> = {
   title: string;
@@ -82,6 +87,7 @@ export type NewToolsCopy = {
   "javascript-formatter": ToolPageCopy<JavaScriptFormatterCopy>;
   "sql-formatter": ToolPageCopy<SqlFormatterCopy>;
   "ip-subnet-calculator": ToolPageCopy<IpSubnetCopy>;
+  "date-calculator": ToolPageCopy<DateCalculatorCopy>;
 };
 
 export type LocaleBundle = {

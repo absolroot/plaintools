@@ -1,8 +1,10 @@
 import { createNewToolLocale, type NewToolLocaleSeed } from "./factory";
 import { formatterSubnetFor } from "./formatter-subnet";
+import { dateCalculatorFor } from "./date-calculator";
 
 const seed = {
   formatterSubnet: formatterSubnetFor("cs"),
+  dateCalculator: dateCalculatorFor("cs"),
   ui: {
     clear: "Vymazat",
     copy: "Kopírovat",
