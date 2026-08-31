@@ -335,3 +335,188 @@ available.
   region display names. Do not claim that `Intl` localizes cities.
 - Keep IANA IDs visible and treat a pinned CLDR/IANA data pipeline plus native
   review as the gate for a fully localized all-city directory.
+
+## 2026-09-01 follow-up: desktop time entry and 24px glyph geometry
+
+This follow-up was requested after implementation work had already started. It
+does not supersede the route-separation decision above; it narrows the input
+layout and the icon drawing contract.
+
+Chrome DevTools MCP was attempted again before this follow-up. The exact error
+was unchanged:
+
+`Could not connect to Chrome. Check if Chrome is running. Cause: Could not find DevToolsActivePort for chrome at C:\Users\super\AppData\Local\Google\Chrome\User Data\DevToolsActivePort`
+
+No isolated Chrome was launched. The rendered inspection below used the
+permitted Playwright fallback at a 1440 x 1000 desktop viewport, supplemented
+by each product's official HTML and SVG assets.
+
+### Additional time-converter desktop comparison
+
+These are additional products beyond timeanddate, Dateful, and Savvy Time.
+
+#### [World Time Buddy](https://www.worldtimebuddy.com/)
+
+- Input model: a custom seven-day strip plus a 24-hour row for each location.
+  The page initializes around now; choosing a date/hour directly moves the
+  comparison instant. There is no native `date`, `time`, or `datetime-local`
+  field and no separate Now button.
+- Location entry is one ordinary text input. The date trigger is a `span` with
+  `title="Pick date (Home)"`; day cells are spans, and hour cells are plain
+  `b`/`i` elements.
+- Keyboard finding: the location input and header links are focusable, but the
+  inspected date and hour cells had no button role and no `tabindex`. Its
+  mouse-at-a-glance timeline is useful evidence for a result scan, not an
+  accessibility pattern to copy.
+
+#### [Every Time Zone](https://everytimezone.com/)
+
+- Input model: a horizontal multi-day timeline initialized to the current
+  instant. A selected-time line moves across six date columns and all zone
+  rows; no native picker or split date/time field is exposed.
+- The date cells and current/selected time lines are `div`/`span` elements.
+  The inspected surface exposed neither a semantic slider nor a focusable
+  date/time control.
+- Keyboard finding: navigation and Share/Customize buttons are focusable, but
+  the primary timeline did not expose `role="slider"` or `tabindex`. Again,
+  the useful lesson is the aligned result timeline, not its input semantics.
+
+#### [Time.is Compare](https://time.is/compare)
+
+- Input model: four direct text fields in one compact form: source place,
+  start time (`08:00`), start date (`today`), and destination (`Automatic`).
+  It uses text rather than native date/time pickers, so both clock time and a
+  natural-language date can be typed directly.
+- Keyboard finding: the four inputs carry an explicit sequence of `tabindex`
+  values 2 through 5, followed by radio choices and a submit control. This was
+  the clearest keyboard-reachable input surface in the additional set.
+- It has no dedicated Now button, but `today` is visible and editable. That is
+  more discoverable than an implicit timeline start, while still less precise
+  than a single action that restores the current date and time together.
+
+#### [WorldTimeServer converter](https://www.worldtimeserver.com/time-zone-converter/)
+
+- This established service makes location/time-zone selection a first stage:
+  two location text searches or two time-zone text searches, then a submit.
+  The page labels the next stage "When is the event?" after the pair is chosen.
+- The initial desktop DOM therefore contained no reachable date/time input.
+  This extra gate is poor evidence for the requested fast converter and was
+  not included among the three primary input patterns above.
+
+### Compact two-row input contract
+
+Keep the repository's `datetime-local` control. It provides direct keyboard
+editing and the browser picker without inventing a custom calendar/timeline.
+The evidence above does not justify replacing it with mouse-only cells.
+
+Desktop, maximum three columns:
+
+1. Row 1: `Source time zone` (`minmax(0, 1fr)`), `Local date and time`
+   (`minmax(14rem, 1fr)`), and a 44px-minimum `Now` button (`auto`). Now must
+   replace both date and time using the currently selected source zone.
+2. Row 2: `Target time zone` (`minmax(0, 1fr)`) and the primary `Convert`
+   action spanning the remaining columns. A swap action is optional; if kept,
+   it must be a labelled 44px control rather than a decorative arrow between
+   rows.
+3. Below the form, show one dominant converted result. Then show a small,
+   fixed representative-city strip computed for that exact converted instant,
+   not a separately ticking all-zone editor.
+4. Below the desktop breakpoint, collapse to one column in label/control
+   order. Do not preserve empty grid cells. Source and target searchable
+   comboboxes must support typing, Up/Down, Enter, Escape, and visible focus.
+5. `datetime-local` must have an explicit visible label and an adjacent
+   localized explanation that it is interpreted in the source zone. Preserve
+   the entered wall time on target changes; invalidate the old result on any
+   source-zone or date/time change.
+
+This contract takes Time.is's compact keyboard form, adds the explicit Now
+recovery missing from all three primary references, and uses the visual
+timelines only as evidence for aligned outputs.
+
+### Additional PDF icon evidence beyond Adobe, Smallpdf, and iLovePDF
+
+#### [Sejda tool directory](https://www.sejda.com/)
+
+The live cards use Font Awesome glyphs inside a circular field:
+
+- Compress: four-corner `compress` arrows.
+- Merge: a `sitemap`/convergence tree.
+- Split: two offset rectangles (`clone`), relying heavily on the label.
+- PDF to JPG: a folded file containing a photo.
+- JPG to PDF: a standalone landscape/photo frame.
+
+This confirms that compact directories often omit literal `PDF` text and let
+the visible tool label disambiguate format and direction. It also shows why a
+generic clone glyph is too weak for PlainTool's Split card.
+
+#### [PDF Candy tool directory](https://pdfcandy.com/)
+
+PDF Candy's official SVG sprite supplies 52 x 52 source glyphs:
+
+- Compress: a large downward arrow over three progressively flatter curved
+  lines, an explicit reduction metaphor rather than download alone.
+- Merge: three offset folded-corner documents stacked toward the foreground.
+- Split: a large open pair of scissors.
+- PDF to JPG and JPG to PDF: a photo frame plus format lettering; direction is
+  carried mainly by the card label rather than by an arrow.
+
+The first three reinforce reduction, many-pages-to-one, and cutting as distinct
+silhouettes. The letter-heavy conversion marks should not be reduced to 24px.
+
+#### [Xodo online tools](https://xodo.com/)
+
+Xodo exposes the same official assets at 20px in its navigation and defines
+them on a 24 x 24 SVG viewBox, making it the most relevant small-size evidence:
+
+- [Compress asset](https://cdn.xodo.com/21.38.0/public/img/tools/compress.svg):
+  four diagonal arrows point into a 4 x 4 center square.
+- [Merge asset](https://cdn.xodo.com/21.38.0/public/img/tools/merge-pdf.svg):
+  two offset folded documents, with a plus in the foreground page.
+- [Split asset](https://cdn.xodo.com/21.38.0/public/img/tools/split-pdf.svg):
+  one folded page separated by a seven-dash horizontal cut.
+- [PDF to JPG asset](https://cdn.xodo.com/21.38.0/public/img/tools/pdf-to-jpg.svg):
+  a small source document, rightward arrow, and larger photo document.
+- [JPG to PDF asset](https://cdn.xodo.com/21.38.0/public/img/tools/jpg-to-pdf.svg):
+  the source document contains the photo, the destination is a plain folded
+  page, and the same rightward arrow preserves reading direction.
+
+These are observations of product assets, not assets to copy.
+
+### Original 24 x 24 geometry contract for PlainTool
+
+Global rules:
+
+- Use `viewBox="0 0 24 24"`, a 2px optical safe area, and a consistent
+  1.75px stroke with round joins/caps. Prefer strokes and at most one small
+  solid accent; do not use competitor paths, colors, gradients, or shadows.
+- Keep all five marks legible at an actual 20-24px display size. The card label
+  remains the accessible name; SVGs are decorative (`aria-hidden="true"`).
+- Do not draw tiny `PDF`, `JPG`, or `PNG` letters. They collapse at this size,
+  are language-like visual noise, and do not help the two conversion directions.
+
+Per glyph:
+
+1. **Compress PDF**: folded page outline from `(4,2)` to `(20,22)`, with the
+   fold occupying the top-right 5 x 5 area. In the lower page body, draw two
+   horizontal arrows from x=7 and x=17 toward x=12 on y=14. Both arrowheads
+   point inward. No downward arrow: download is a different action.
+2. **Merge PDF**: rear page outline `(3,2)-(14,17)` and foreground page outline
+   `(8,6)-(21,22)`, each with a small folded corner. Put one 5 x 5 plus centered
+   near `(15,15)` in the foreground. The two silhouettes must remain visible;
+   do not add a third page at 24px.
+3. **Split PDF**: one folded page outline `(5,2)-(19,22)` interrupted at y=12.
+   Draw three 2px dashes across x=3..21 on that line and leave a 1px optical
+   gap between the upper and lower page halves. This keeps the scissors/cut
+   metaphor without forcing unreadable scissor handles into the small glyph.
+4. **PDF to image**: source folded page in `(2,5)-(10,19)`, destination photo
+   frame in `(14,6)-(22,18)`, and a right arrow from x=10.5 to x=13.5 at y=12.
+   The photo frame contains one dot and one two-segment mountain line.
+5. **Image to PDF**: mirror only the silhouettes, not the reading direction:
+   source photo frame in `(2,6)-(10,18)`, destination folded page in
+   `(14,5)-(22,19)`, and the same right arrow at y=12. This makes the two
+   conversions distinguishable before the label is read.
+
+At final review, render all five together at 24px and at the card's real size.
+Reject any pair whose silhouette is not distinguishable without color, and
+verify the SVGs remain unchanged in RTL: conversion meaning follows source to
+destination, not interface text direction.

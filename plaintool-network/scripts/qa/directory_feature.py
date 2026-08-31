@@ -82,8 +82,8 @@ def run_directory_desktop(
     report["footer_note_ko"] = desktop.locator(".footer-inner > div > p").text_content()
     expected_tool_count = len(inventory.tools)
     if (
-        report["tool_directory_cards"] != expected_tool_count
-        or report["live_tool_links"] != expected_tool_count
+        report["tool_directory_cards"] != expected_tool_count + 1
+        or report["live_tool_links"] != expected_tool_count + 1
     ):
         report["ui_detail_failures"].append(f"Directory card/link inventory changed unexpectedly: {report['tool_directory_cards']}/{report['live_tool_links']}")
     if any(item["columns"] != 4 for item in report["directory_desktop_columns"]):
@@ -139,6 +139,9 @@ def run_directory_desktop(
     image_hrefs = image_section.locator("a.tool-directory-card").evaluate_all(
         "elements => elements.map(element => element.getAttribute('href'))"
     )
+    image_primary_cards = image_section.locator(
+        ":scope > .tool-directory-grid > .tool-directory-card"
+    )
     calculator_hrefs = desktop.locator(
         '[data-directory-category="calculator"] a.tool-directory-card'
     ).evaluate_all(
@@ -146,19 +149,26 @@ def run_directory_desktop(
     )
     report["home_directory_card_order"] = {
         "imageCount": len(image_hrefs),
-        "imageFirst": image_hrefs[:3],
+        "uniqueImageRoutes": len(set(image_hrefs)),
+        "imageFirst": image_hrefs[:4],
+        "representativeTitle": image_primary_cards.nth(3).locator(
+            "h3 > span"
+        ).first.text_content().strip(),
         "calculatorFirst": calculator_hrefs[:4],
         "separateImageConverterCategory": desktop.locator(
             '[data-directory-category="image-converter"]'
         ).count(),
     }
     if report["home_directory_card_order"] != {
-        "imageCount": 45,
+        "imageCount": 46,
+        "uniqueImageRoutes": 45,
         "imageFirst": [
             "/ko/background-remover/",
             "/ko/image-resizer/",
             "/ko/image-upscaler/",
+            "/ko/png-to-webp/",
         ],
+        "representativeTitle": "이미지 포맷 변환",
         "calculatorFirst": [
             "/ko/date-calculator/",
             "/ko/dday-calculator/",

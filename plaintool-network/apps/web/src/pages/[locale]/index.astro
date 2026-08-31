@@ -2,12 +2,14 @@
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import ToolDirectorySearch from "../../components/ToolDirectorySearch.astro";
 import ToolDirectorySection from "../../components/ToolDirectorySection.astro";
+import { imageConverterLocales } from "../../features/image-converter/i18n";
 import {
   homeDirectoryCategoryOrder,
   homeDirectoryInitiallyVisibleToolCount,
   homeDirectoryToolsForCategory,
   homeDirectoryToolsInDisplayOrder,
   networkCopy,
+  toolCardName,
 } from "../../lib/tool-catalog";
 import {
   absoluteUrl,
@@ -23,6 +25,20 @@ export function getStaticPaths() {
 const { locale } = Astro.props;
 const n = networkCopy[locale];
 const directoryCategoriesId = "tool-directory-categories";
+const imageConverterEntryTool = homeDirectoryToolsForCategory("image").find(
+  (tool) => tool.id === "png-to-webp",
+);
+if (!imageConverterEntryTool) {
+  throw new Error("Missing image format converter directory entry tool.");
+}
+const imageConverterRepresentativeCard = {
+  tool: imageConverterEntryTool,
+  displayName:
+    imageConverterLocales[locale].tools["png-to-webp"].feature.ariaLabel,
+  subtitle: toolCardName(imageConverterEntryTool, locale),
+  mark: "IMG",
+  markId: "image-converter",
+};
 const publicItems = homeDirectoryToolsInDisplayOrder
   .filter((tool) => tool.status === "available" && tool.slug)
   .map((tool) => ({
@@ -62,6 +78,11 @@ const publicItems = homeDirectoryToolsInDisplayOrder
               category,
             )}
             collapsedLabel={n.allTools}
+            representativeCard={
+              category === "image"
+                ? imageConverterRepresentativeCard
+                : undefined
+            }
           />
         ))
       }

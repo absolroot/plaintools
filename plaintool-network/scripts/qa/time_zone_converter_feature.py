@@ -29,6 +29,8 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
             targetOptions: document.querySelector('[data-target-zone]').options.length,
             rowCount: worldRows.length,
             worldZones: worldRows.map((row) => row.dataset.zone),
+            worldTimes: worldRows.map((row) => row.querySelector('[data-zone-time]')?.textContent),
+            worldMode: document.querySelector('[data-live-indicator]')?.dataset.mode,
             localizedLabels: worldRows.map((row) => row.querySelector('[data-zone-label]')?.textContent),
             resultVisible: !document.querySelector('[data-conversion-result]').hidden,
             resultZone: document.querySelector('[data-conversion-zone]').textContent,
@@ -73,6 +75,9 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
             "Australia/Sydney",
         ]
         or not all(state["localizedLabels"])
+        or state["worldMode"] != "converted"
+        or not state["worldTimes"]
+        or state["worldTimes"][0] != "09:00"
         or not state["resultVisible"]
         or state["resultZone"] != "Asia/Kathmandu"
         or "05:45" not in (state["resultTime"] or "")

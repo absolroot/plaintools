@@ -10,6 +10,10 @@ const cssUrls = [
   "../apps/web/src/features/case-converter/styles.css",
   "../apps/web/src/features/hash-generator/styles.css",
 ].map((path) => new URL(path, import.meta.url));
+const pdfToolkitCssUrl = new URL(
+  "../apps/web/src/features/pdf-toolkit/styles.css",
+  import.meta.url,
+);
 const pageUrl = new URL(
   "../apps/web/src/features/base64/Base64Page.astro",
   import.meta.url,
@@ -93,6 +97,7 @@ const directorySectionUrl = new URL(
 );
 const [
   css,
+  pdfToolkitCss,
   page,
   converter,
   faqSection,
@@ -116,6 +121,7 @@ const [
   Promise.all(cssUrls.map((url) => readFile(url, "utf8"))).then((parts) =>
     parts.join("\n"),
   ),
+  readFile(pdfToolkitCssUrl, "utf8"),
   readFile(pageUrl, "utf8"),
   readFile(converterUrl, "utf8"),
   readFile(faqSectionUrl, "utf8"),
@@ -233,6 +239,22 @@ expectDeclaration(".privacy-note", "border-top", "1px solid var(--line)");
 expectDeclaration(".privacy-note", "color", "var(--muted)");
 expectDeclaration(".privacy-note", "background", "var(--recessed)");
 expectDeclaration(".converter-commandbar", "background", "var(--elevated)");
+expectDeclaration(
+  ".pdf-upload",
+  "background",
+  "var(--recessed)",
+  pdfToolkitCss,
+);
+expectDeclaration(
+  ".pdf-file-panel",
+  "background",
+  "var(--base)",
+  pdfToolkitCss,
+);
+expectSource(
+  !pdfToolkitCss.includes("var(--input-surface)"),
+  "Button-run PDF tools must keep their upload and input panels neutral.",
+);
 expectDeclaration(
   ".converter.is-success .converter-commandbar",
   "background",

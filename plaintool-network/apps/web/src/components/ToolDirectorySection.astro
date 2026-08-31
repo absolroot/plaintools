@@ -4,6 +4,14 @@ import UiIcon from "./UiIcon.astro";
 import type { ToolCatalogItem, ToolCategory } from "../lib/tool-catalog";
 import type { Locale } from "../lib/site";
 
+interface RepresentativeCard {
+  tool: ToolCatalogItem;
+  displayName: string;
+  subtitle: string;
+  mark: string;
+  markId: string;
+}
+
 interface Props {
   category: ToolCategory;
   title: string;
@@ -11,6 +19,7 @@ interface Props {
   locale: Locale;
   initiallyVisibleToolCount?: number;
   collapsedLabel?: string;
+  representativeCard?: RepresentativeCard;
 }
 
 const {
@@ -20,6 +29,7 @@ const {
   locale,
   initiallyVisibleToolCount = tools.length,
   collapsedLabel,
+  representativeCard,
 } = Astro.props;
 const initiallyVisibleTools = tools.slice(0, initiallyVisibleToolCount);
 const collapsedTools = tools.slice(initiallyVisibleToolCount);
@@ -39,11 +49,29 @@ if (collapsedTools.length > 0 && !collapsedLabel) {
       {String(tools.length).padStart(2, "0")}
     </span>
   </div>
-  <div class="tool-directory-grid">
+  <div
+    class:list={[
+      "tool-directory-grid",
+      { "image-converter-featured-grid": representativeCard },
+    ]}
+  >
     {
       initiallyVisibleTools.map((tool) => (
         <ToolDirectoryCard tool={tool} locale={locale} />
       ))
+    }
+    {
+      representativeCard && (
+        <ToolDirectoryCard
+          tool={representativeCard.tool}
+          locale={locale}
+          displayName={representativeCard.displayName}
+          subtitle={representativeCard.subtitle}
+          mark={representativeCard.mark}
+          markId={representativeCard.markId}
+          searchable={false}
+        />
+      )
     }
   </div>
   {

@@ -61,6 +61,10 @@ function init(root: HTMLElement): void {
     "[data-conversion-difference]",
   )!;
   const clockList = root.querySelector<HTMLElement>("[data-world-clock-list]")!;
+  const clockMode = root.querySelector<HTMLElement>("[data-live-indicator]")!;
+  const clockModeLabel = root.querySelector<HTMLElement>(
+    "[data-clock-mode-label]",
+  )!;
   const template = root.querySelector<HTMLTemplateElement>(
     "[data-zone-row-template]",
   )!;
@@ -70,6 +74,7 @@ function init(root: HTMLElement): void {
       .hour12 ?? false;
   let lastConversion: TimeZoneConversion | undefined;
   let lastWorldClock: TimeZoneConversion | undefined;
+  let clocksFollowConversion = false;
   const zoneLabels = new Map<string, string>();
 
   const setStatus = (
@@ -237,8 +242,17 @@ function init(root: HTMLElement): void {
     return row;
   };
 
-  const renderWorldClocks = (conversion: TimeZoneConversion) => {
+  const renderWorldClocks = (
+    conversion: TimeZoneConversion,
+    mode: "live" | "converted",
+  ) => {
     lastWorldClock = conversion;
+    clocksFollowConversion = mode === "converted";
+    clockMode.dataset.mode = mode;
+    clockModeLabel.textContent =
+      mode === "converted"
+        ? (clockMode.dataset.convertedLabel ?? copy.converted)
+        : (clockMode.dataset.liveLabel ?? copy.live);
     const instant = new Date(conversion.instant);
     clockList.replaceChildren(
       ...conversion.targets.map((value) => worldClockRow(value, instant)),
@@ -253,6 +267,7 @@ function init(root: HTMLElement): void {
           "UTC",
           worldZones,
         ),
+        "live",
       );
     } catch {
       // Keep the last valid clocks if the platform's time-zone data fails.
@@ -283,6 +298,10 @@ function init(root: HTMLElement): void {
         [targetZone.value],
       );
       renderConversion(conversion);
+      renderWorldClocks(
+        convertInstantBetweenTimeZones(conversion.instant, "UTC", worldZones),
+        "converted",
+      );
       setStatus(copy.converted, "success");
     } catch (error) {
       fail(
@@ -299,6 +318,7 @@ function init(root: HTMLElement): void {
     result.hidden = true;
     clearError();
     setStatus(common.ready);
+    if (clocksFollowConversion) refreshWorldClocks();
   };
 
   const updateFormatButtons = () => {
@@ -336,7 +356,11 @@ function init(root: HTMLElement): void {
         hour12 = button.dataset.hourFormat === "12";
         updateFormatButtons();
         if (lastConversion) renderConversion(lastConversion);
-        if (lastWorldClock) renderWorldClocks(lastWorldClock);
+        if (lastWorldClock)
+          renderWorldClocks(
+            lastWorldClock,
+            clocksFollowConversion ? "converted" : "live",
+          );
       }),
     );
 
@@ -356,7 +380,7 @@ function init(root: HTMLElement): void {
   refreshWorldClocks();
 
   window.setInterval(() => {
-    if (!document.hidden) refreshWorldClocks();
+    if (!document.hidden && !clocksFollowConversion) refreshWorldClocks();
   }, 60_000);
 }
 

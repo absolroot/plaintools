@@ -6,7 +6,7 @@
   min-height: 330px;
   display: grid;
   place-items: center;
-  background: var(--input-surface);
+  background: var(--recessed);
 }
 
 .pdf-upload-action {
@@ -62,7 +62,7 @@
 }
 
 .pdf-file-panel {
-  background: var(--input-surface);
+  background: var(--base);
 }
 
 .pdf-options-panel {

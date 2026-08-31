@@ -45,8 +45,8 @@ const iconIds = new Set([
         )}
         {toolId === "unix-timestamp-converter" && (
           <>
-            <circle cx="12" cy="12" r="8.5" />
-            <path d="M12 7v5l3 2" />
+            <circle cx="12" cy="12" r="7.25" />
+            <path d="M12 8.25V12l2.5 1.5" />
           </>
         )}
         {toolId === "text-compare" && (
@@ -77,8 +77,54 @@ const iconIds = new Set([
         )}
         {toolId === "barcode-generator" && (
           <>
-            <path d="M4 5v14M7 5v14M10 5v14M14 5v14M17 5v14M20 5v14" />
-            <path d="M4 5h3M17 19h3" />
+            <rect
+              x="4.5"
+              y="6"
+              width="1"
+              height="12"
+              fill="currentColor"
+              stroke="none"
+            />
+            <rect
+              x="7"
+              y="6"
+              width="2"
+              height="12"
+              fill="currentColor"
+              stroke="none"
+            />
+            <rect
+              x="10.5"
+              y="6"
+              width="1"
+              height="12"
+              fill="currentColor"
+              stroke="none"
+            />
+            <rect
+              x="13"
+              y="6"
+              width="1.75"
+              height="12"
+              fill="currentColor"
+              stroke="none"
+            />
+            <rect
+              x="16"
+              y="6"
+              width="1"
+              height="12"
+              fill="currentColor"
+              stroke="none"
+            />
+            <rect
+              x="18.5"
+              y="6"
+              width="1"
+              height="12"
+              fill="currentColor"
+              stroke="none"
+            />
           </>
         )}
         {toolId === "password-generator" && (
@@ -121,42 +167,45 @@ const iconIds = new Set([
         )}
         {toolId === "compress-pdf" && (
           <>
-            <path d="M6 3h8l4 4v14H6zM14 3v5h4" />
-            <path d="M9 10v3h3M15 18v-3h-3M9 13l-2-2M15 15l2 2" />
+            <path d="M5 2.5h9l5 5v14H5zM14 2.5v5h5" />
+            <path d="M7 14h4M9 12l2 2-2 2M17 14h-4M15 12l-2 2 2 2" />
           </>
         )}
         {toolId === "merge-pdf" && (
           <>
-            <path d="M5 7V3h10l4 4v10h-4M15 3v5h4" />
-            <rect x="3" y="9" width="12" height="12" rx="1" />
-            <path d="M9 12v6M6 15h6" />
+            <path d="M3.5 3h8l3.5 3.5V17H3.5zM11.5 3v3.5H15" />
+            <path d="M8 7h8l4 4v10.5H8zM16 7v4h4" fill="var(--recessed)" />
+            <path d="M14 13v5M11.5 15.5h5" />
           </>
         )}
         {toolId === "split-pdf" && (
           <>
-            <path d="M6 3h8l4 4v14H6zM14 3v5h4" />
-            <path d="M8 12h8" stroke-dasharray="2 2" />
-            <circle cx="9" cy="16" r="1.5" />
-            <circle cx="15" cy="16" r="1.5" />
-            <path d="m10.2 15 3.8-4M13.8 15 10 11" />
+            <path d="M5 11V2.5h9l5 5V11M19 13v8.5H5V13M14 2.5v5h5" />
+            <path d="M3 12h18" stroke-dasharray="2 2" />
           </>
         )}
         {toolId === "pdf-to-image" && (
           <>
-            <path d="M3 4h7v7H3zM6.5 4v3H10" />
-            <path d="M11 8h4M13 6l2 2-2 2" />
-            <rect x="14" y="12" width="7" height="7" rx="1" />
-            <circle cx="16.5" cy="14.5" r=".75" />
-            <path d="m15 18 2-2 1.25 1.25 1-1L20 17" />
+            <path d="M2.5 5h5l2.5 2.5V19H2.5zM7.5 5v2.5H10" />
+            <path d="M10.5 12h3M12 10.5l1.5 1.5-1.5 1.5" />
+            <rect x="14" y="6" width="8" height="12" rx="1" />
+            <circle
+              cx="16.5"
+              cy="9"
+              r=".75"
+              fill="currentColor"
+              stroke="none"
+            />
+            <path d="m15 16 2.25-2.5 1.5 1.5 1.25-1.25 1 1.25" />
           </>
         )}
         {toolId === "image-to-pdf" && (
           <>
-            <rect x="3" y="5" width="7" height="7" rx="1" />
-            <circle cx="5.5" cy="7.5" r=".75" />
-            <path d="m4 11 2-2 1.25 1.25 1-1L9 10" />
-            <path d="M11 9h4M13 7l2 2-2 2" />
-            <path d="M14 13h7v7h-7zM17.5 13v3H21" />
+            <rect x="2" y="6" width="8" height="12" rx="1" />
+            <circle cx="4.5" cy="9" r=".75" fill="currentColor" stroke="none" />
+            <path d="m3 16 2.25-2.5 1.5 1.5L8 13.75 9 15" />
+            <path d="M10.5 12h3M12 10.5l1.5 1.5-1.5 1.5" />
+            <path d="M14 5h5l2.5 2.5V19H14zM19 5v2.5h2.5" />
           </>
         )}
       </svg>

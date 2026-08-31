@@ -263,6 +263,16 @@ for (const header of requiredSecurityHeaders) {
     throw new Error(`Static deployment is missing security header: ${header}`);
   }
 }
+for (const assetRule of [
+  "/models/image-upscaler/v2/*\n  Cache-Control: public, max-age=31536000, immutable, no-transform",
+  "/runtime/transformers-4.2.0/*\n  Cache-Control: public, max-age=31536000, immutable, no-transform",
+]) {
+  if (!headers.includes(assetRule)) {
+    throw new Error(
+      `Image upscaler assets must be deployed without edge transformation: ${assetRule}`,
+    );
+  }
+}
 if (config.integrations.ga4MeasurementId) {
   for (const marker of [
     'globalThis.gtag("consent", "default"',

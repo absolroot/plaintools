@@ -3,16 +3,22 @@
   display: grid;
   gap: var(--space-4);
   border-bottom: 1px solid var(--line);
-  background: var(--input-surface);
+  background: var(--base);
 }
 
-.time-zone-converter-grid {
+.time-zone-date-row,
+.time-zone-zone-row {
   display: grid;
-  grid-template-columns:
-    minmax(210px, 1.25fr) minmax(180px, 1fr) 40px minmax(180px, 1fr)
-    minmax(120px, 0.65fr);
   align-items: end;
   gap: var(--space-3);
+}
+
+.time-zone-date-row {
+  grid-template-columns: minmax(240px, 1fr) minmax(150px, 220px);
+}
+
+.time-zone-zone-row {
+  grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
 }
 
 .time-zone-field,
@@ -52,7 +58,7 @@
   line-height: 1.45;
 }
 
-.time-zone-field:not(.time-zone-date-field)::after,
+.time-zone-zone-row .time-zone-field::after,
 .time-zone-format-field::after {
   content: "";
   min-height: 17px;
@@ -186,9 +192,10 @@
   color: var(--success);
   font-size: 11px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.world-clock-live > span {
+.world-clock-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -267,28 +274,18 @@
 }
 
 @media (max-width: 1040px) {
-  .time-zone-converter-grid {
-    grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr) minmax(
-        120px,
-        0.6fr
-      );
-  }
-
-  .time-zone-date-field {
-    grid-column: 1 / -1;
+  .time-zone-date-row {
+    grid-template-columns: minmax(0, 1fr) minmax(140px, 190px);
   }
 }
 
 @media (max-width: 760px) {
-  .time-zone-converter-grid {
+  .time-zone-date-row,
+  .time-zone-zone-row {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .time-zone-date-field {
-    grid-column: auto;
-  }
-
-  .time-zone-field:not(.time-zone-date-field)::after,
+  .time-zone-zone-row .time-zone-field::after,
   .time-zone-format-field::after {
     display: none;
   }

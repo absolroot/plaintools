@@ -24,7 +24,7 @@ const worldClockZones = new Set([
   aria-label={copy.ariaLabel}
 >
   <section class="time-zone-input-surface" aria-label={copy.ariaLabel}>
-    <div class="time-zone-converter-grid">
+    <div class="time-zone-date-row">
       <label class="time-zone-field time-zone-date-field">
         <span>{copy.sourceTime}</span>
         <input
@@ -37,7 +37,21 @@ const worldClockZones = new Set([
         <small id="time-zone-source-hint">{copy.sourceTimeHint}</small>
       </label>
 
-      <label class="time-zone-field">
+      <div class="time-zone-format-field">
+        <span>{copy.hourFormat}</span>
+        <div
+          class="time-zone-format-switch"
+          role="group"
+          aria-label={copy.hourFormat}
+        >
+          <button type="button" data-hour-format="12">{copy.hour12}</button>
+          <button type="button" data-hour-format="24">{copy.hour24}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-zone-zone-row">
+      <label class="time-zone-field time-zone-source-field">
         <span>{copy.sourceZone}</span>
         <select data-source-zone dir="ltr" aria-describedby="time-zone-status">
           <option value="UTC">UTC</option>
@@ -66,7 +80,7 @@ const worldClockZones = new Set([
         <UiIcon name="swap" size={18} />
       </button>
 
-      <label class="time-zone-field">
+      <label class="time-zone-field time-zone-target-field">
         <span>{copy.addZone}</span>
         <select data-target-zone dir="ltr" aria-describedby="time-zone-status">
           <option value="UTC">UTC</option>
@@ -77,18 +91,6 @@ const worldClockZones = new Set([
           }
         </select>
       </label>
-
-      <div class="time-zone-format-field">
-        <span>{copy.hourFormat}</span>
-        <div
-          class="time-zone-format-switch"
-          role="group"
-          aria-label={copy.hourFormat}
-        >
-          <button type="button" data-hour-format="12">{copy.hour12}</button>
-          <button type="button" data-hour-format="24">{copy.hour24}</button>
-        </div>
-      </div>
     </div>
 
     <div class="time-zone-source-actions">
@@ -119,8 +121,15 @@ const worldClockZones = new Set([
   <section class="world-clock-surface" aria-labelledby="world-clock-heading">
     <div class="world-clock-heading">
       <h2 id="world-clock-heading">{copy.worldClock}</h2>
-      <span class="world-clock-live" data-live-indicator>
-        <span aria-hidden="true"></span>{copy.live}
+      <span
+        class="world-clock-live"
+        data-live-indicator
+        data-live-label={copy.live}
+        data-converted-label={copy.converted}
+      >
+        <span class="world-clock-dot" aria-hidden="true"></span><span
+          data-clock-mode-label>{copy.live}</span
+        >
       </span>
     </div>
 
