@@ -26,6 +26,10 @@ const jsonFormatterUrl = new URL(
   "../apps/web/src/features/json/JsonFormatter.astro",
   import.meta.url,
 );
+const formatterWorkspaceUrl = new URL(
+  "../apps/web/src/components/FormatterWorkspace.astro",
+  import.meta.url,
+);
 const sourceFormatterUrls = [
   ["HTML", "../apps/web/src/features/html-formatter/HtmlFormatter.astro"],
   ["CSS", "../apps/web/src/features/css-formatter/CssFormatter.astro"],
@@ -35,6 +39,10 @@ const sourceFormatterUrls = [
   ],
   ["SQL", "../apps/web/src/features/sql-formatter/SqlFormatter.astro"],
 ].map(([name, path]) => [name, new URL(path, import.meta.url)]);
+const formatterLocaleUrl = new URL(
+  "../apps/web/src/lib/locale-data/new-tools/formatter-subnet.ts",
+  import.meta.url,
+);
 const previewToolPageUrl = new URL(
   "../apps/web/src/components/PreviewToolPage.astro",
   import.meta.url,
@@ -89,7 +97,9 @@ const [
   converter,
   faqSection,
   jsonFormatter,
+  formatterWorkspace,
   sourceFormatters,
+  formatterLocale,
   previewToolPage,
   tooltip,
   icon,
@@ -110,12 +120,14 @@ const [
   readFile(converterUrl, "utf8"),
   readFile(faqSectionUrl, "utf8"),
   readFile(jsonFormatterUrl, "utf8"),
+  readFile(formatterWorkspaceUrl, "utf8"),
   Promise.all(
     sourceFormatterUrls.map(async ([name, url]) => [
       name,
       await readFile(url, "utf8"),
     ]),
   ),
+  readFile(formatterLocaleUrl, "utf8"),
   readFile(previewToolPageUrl, "utf8"),
   readFile(tooltipUrl, "utf8"),
   readFile(iconUrl, "utf8"),
@@ -355,18 +367,26 @@ expectSource(
   "JSON indentation must use the shared formatter options panel.",
 );
 expectSource(
+  (jsonFormatter.match(/<FormatterWorkspace\b/g) ?? []).length === 1,
+  "JSON must use the shared formatter workspace exactly once.",
+);
+expectSource(
   !jsonFormatter.includes("primary-button") &&
     !jsonFormatter.includes("data-action="),
   "JSON operations must remain live modes instead of primary run actions.",
 );
 expectSource(
-  jsonFormatter.indexOf('<div class="converter-grid">') <
+  jsonFormatter.indexOf("<FormatterWorkspace") <
     jsonFormatter.indexOf("<ConverterStatus") &&
     jsonFormatter.indexOf("<ConverterStatus") <
       jsonFormatter.indexOf("<FormatterOptions"),
   "JSON must share the editor, status, then options formatter structure.",
 );
 for (const [name, formatter] of sourceFormatters) {
+  expectSource(
+    (formatter.match(/<FormatterWorkspace\b/g) ?? []).length === 1,
+    `${name} must use the shared formatter workspace exactly once.`,
+  );
   expectSource(
     (formatter.match(/<FormatterOptions\b/g) ?? []).length === 1,
     `${name} must use the shared formatter options panel exactly once.`,
@@ -376,7 +396,7 @@ for (const [name, formatter] of sourceFormatters) {
     `${name} must remain live instead of exposing a primary run button.`,
   );
   expectSource(
-    formatter.indexOf('<div class="converter-grid">') <
+    formatter.indexOf("<FormatterWorkspace") <
       formatter.indexOf("<ConverterStatus") &&
       formatter.indexOf("<ConverterStatus") <
         formatter.indexOf("<FormatterOptions"),
@@ -389,6 +409,25 @@ for (const [name, formatter] of sourceFormatters) {
     );
   }
 }
+for (const marker of [
+  "data-sample",
+  "data-open-file",
+  "data-clear",
+  "data-copy",
+  "data-download",
+  "data-stale-notice",
+  "readonly",
+]) {
+  expectSource(
+    formatterWorkspace.includes(marker),
+    `The shared formatter workspace must retain ${marker}.`,
+  );
+}
+expectSource(
+  formatterLocale.includes('formatted: "정리 완료"') &&
+    !formatterLocale.includes('formatted: "포맷 완료"'),
+  "Korean formatter completion copy must describe code cleanup, not disk formatting.",
+);
 expectSource(
   tooltip.includes('role="tooltip"'),
   "The shared Tooltip component must expose tooltip semantics.",

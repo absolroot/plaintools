@@ -37,6 +37,7 @@ function init(root: HTMLElement): void {
   const output = root.querySelector<HTMLTextAreaElement>("[data-output]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const badges = root.querySelector<HTMLElement>("[data-badges]")!;
+  const staleNotice = root.querySelector<HTMLElement>("[data-stale-notice]")!;
   const manualRunButton =
     root.querySelector<HTMLButtonElement>("[data-manual-run]")!;
   const optionsPanel =
@@ -66,11 +67,14 @@ function init(root: HTMLElement): void {
     committedResult = { kind: "none" };
     output.value = "";
     root.classList.remove("has-stale-result");
+    staleNotice.hidden = true;
     badges.replaceChildren();
     copyButton.disabled = downloadButton.disabled = true;
   };
   const markResultPending = () => {
-    root.classList.toggle("has-stale-result", Boolean(output.value));
+    const stale = Boolean(output.value);
+    root.classList.toggle("has-stale-result", stale);
+    staleNotice.hidden = !stale;
     copyButton.disabled = downloadButton.disabled = true;
   };
   const selectOperation = (operation: JsonOperation) => {
@@ -121,6 +125,7 @@ function init(root: HTMLElement): void {
     onReply: (reply, context) => {
       workingIndicator.end();
       root.classList.remove("has-stale-result");
+      staleNotice.hidden = true;
       badges.replaceChildren();
       const inspection = reply.inspection;
       if (!inspection.valid) {
@@ -221,6 +226,16 @@ function init(root: HTMLElement): void {
     }),
   );
   manualRunButton.addEventListener("click", () => run(selectedOperation, true));
+  root
+    .querySelector<HTMLButtonElement>("[data-sample]")!
+    .addEventListener("click", () => {
+      if (input.value) return;
+      window.clearTimeout(timer);
+      cancelPendingWork();
+      input.value = root.dataset.sampleInput ?? "";
+      scheduleSelectedOperation();
+      input.focus();
+    });
   root
     .querySelector<HTMLButtonElement>("[data-open-file]")!
     .addEventListener("click", () => fileInput.click());

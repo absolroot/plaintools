@@ -30,6 +30,7 @@
     "apps/web/src/lib/locale-data/new-tools/formatter-subnet.ts",
     "apps/web/src/lib/locale-data/new-tools/formatter-subnet-secondary.ts",
     "apps/web/src/features/new-tools/NewToolPreview.astro",
+    "apps/web/src/components/FormatterWorkspace.astro",
     "apps/web/src/features/html-formatter/HtmlFormatter.astro",
     "apps/web/src/features/css-formatter/CssFormatter.astro",
     "apps/web/src/features/javascript-formatter/JavaScriptFormatter.astro",
@@ -40,7 +41,7 @@
     "apps/web/src/pages/[locale]/sql-formatter/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyFingerprint": "sha256:5395040509f8090589582842e52daaa453f6525036e9613c5372c0f3911ceda9",
+  "copyFingerprint": "sha256:c0e32562cf63886332e315629fa3eb1fae7a7e3c3f562bc36c610c3ca96d7870",
   "locales": {
     "en": {
       "status": "adversarial-reviewed",
@@ -52,7 +53,7 @@
     },
     "ko": {
       "status": "adversarial-reviewed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-08-31",
       "referenceIds": [
         "ko-formatter-native-copy",
         "ko-formatter-technical-terms"

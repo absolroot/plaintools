@@ -1,7 +1,7 @@
 ---
-import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import FormatterOptions from "../../components/FormatterOptions.astro";
+import FormatterWorkspace from "../../components/FormatterWorkspace.astro";
 import ToolModeSwitch from "../../components/ToolModeSwitch.astro";
 import { localeBundles } from "../../lib/locale-data";
 import { previewCopy } from "../../lib/tool-i18n";
@@ -17,6 +17,7 @@ const c = previewCopy[locale].common;
 const t = jsonCopy[locale];
 const siteCopy = localeBundles[locale].site;
 const examples = toolExamples[locale];
+const formatterUi = localeBundles[locale].tools["html-formatter"].feature;
 const clientCopy = {
   ready: c.ready,
   working: c.working,
@@ -33,7 +34,12 @@ const clientCopy = {
 } satisfies JsonClientCopy;
 ---
 
-<section class="converter" data-json-tool aria-label={t.title}>
+<section
+  class="converter json-formatter"
+  data-json-tool
+  data-sample-input={'{"name":"AbsolTools","items":[1,2,3]}'}
+  aria-label={t.title}
+>
   <div class="converter-topbar">
     <ToolModeSwitch
       label={t.title}
@@ -44,48 +50,21 @@ const clientCopy = {
       ]}
     />
   </div>
-  <div class="converter-grid">
-    <section class="editor-pane">
-      <div class="pane-heading">
-        <label for="json-input">{t.inputLabel}</label><div class="pane-actions">
-          <button class="text-button" type="button" data-open-file
-            ><UiIcon name="folder-open" size={14} />{t.openFile}</button
-          ><input
-            id="json-file"
-            data-file
-            type="file"
-            accept="application/json,.json"
-            hidden
-          /><button class="text-button" type="button" data-clear
-            ><UiIcon name="x" size={14} />{c.clear}</button
-          >
-        </div>
-      </div><textarea
-        id="json-input"
-        data-input
-        dir="ltr"
-        spellcheck="false"
-        placeholder={examples.jsonInput}></textarea>
-    </section><section class="editor-pane output-pane">
-      <div class="pane-heading">
-        <label for="json-output">{t.outputLabel}</label><div
-          class="pane-actions"
-        >
-          <button class="text-button" type="button" data-copy disabled
-            ><UiIcon name="copy" size={14} />{c.copy}</button
-          ><button class="text-button" type="button" data-download disabled
-            ><UiIcon name="download" size={14} />{c.download}</button
-          >
-        </div>
-      </div><textarea
-        id="json-output"
-        data-output
-        dir="ltr"
-        readonly
-        spellcheck="false"
-        placeholder={t.outputPlaceholder}></textarea>
-    </section>
-  </div>
+  <FormatterWorkspace
+    inputId="json-input"
+    outputId="json-output"
+    inputLabel={t.inputLabel}
+    outputLabel={t.outputLabel}
+    inputPlaceholder={examples.jsonInput}
+    outputPlaceholder={t.outputPlaceholder}
+    loadSample={formatterUi.loadSample}
+    openFile={t.openFile}
+    clear={c.clear}
+    copy={c.copy}
+    download={c.download}
+    fileAccept="application/json,.json"
+    staleNotice={formatterUi.outdated}
+  />
   <ConverterStatus status={c.ready} badges>
     <button
       class="secondary-button formatter-manual-run"

@@ -1,0 +1,25 @@
+.converter.has-stale-result .formatter-workspace [data-output] {
+  opacity: 0.7;
+}
+
+.formatter-stale-notice,
+.formatter-scope-notice {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.formatter-stale-notice {
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.formatter-stale-notice[hidden] {
+  display: none;
+}
+
+.formatter-scope-notice {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--line);
+}

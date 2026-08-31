@@ -1,7 +1,7 @@
 ---
-import UiIcon from "../../components/UiIcon.astro";
 import ConverterStatus from "../../components/ConverterStatus.astro";
 import FormatterOptions from "../../components/FormatterOptions.astro";
+import FormatterWorkspace from "../../components/FormatterWorkspace.astro";
 import Tooltip from "../../components/Tooltip.astro";
 import type { ToolHelpCopy } from "../../lib/locale-data/tool-help";
 import type { ToolCommonCopy } from "../common-copy-contract";
@@ -23,54 +23,21 @@ const clientCopy = createCssFormatterClientCopy(copy, commonCopy);
   data-css-formatter
   aria-label={copy.ariaLabel}
 >
-  <div class="converter-grid">
-    <section class="editor-pane">
-      <div class="pane-heading">
-        <label for="css-formatter-input">{copy.inputLabel}</label>
-        <div class="pane-actions">
-          <button class="text-button" type="button" data-sample>
-            {copy.loadSample}
-          </button>
-          <button class="text-button" type="button" data-open-file>
-            <UiIcon name="folder-open" size={14} />{copy.openFile}
-          </button>
-          <input data-file type="file" accept="text/css,.css" hidden />
-          <button class="text-button" type="button" data-clear>
-            <UiIcon name="x" size={14} />{commonCopy.clear}
-          </button>
-        </div>
-      </div>
-      <textarea
-        id="css-formatter-input"
-        data-input
-        dir="ltr"
-        spellcheck="false"
-        placeholder={copy.inputPlaceholder}></textarea>
-    </section>
-    <section class="editor-pane output-pane">
-      <div class="pane-heading">
-        <label for="css-formatter-output">{copy.outputLabel}</label>
-        <div class="pane-actions">
-          <button class="text-button" type="button" data-copy disabled>
-            <UiIcon name="copy" size={14} />{commonCopy.copy}
-          </button>
-          <button class="text-button" type="button" data-download disabled>
-            <UiIcon name="download" size={14} />{commonCopy.download}
-          </button>
-        </div>
-      </div>
-      <textarea
-        id="css-formatter-output"
-        data-output
-        dir="ltr"
-        readonly
-        spellcheck="false"
-        placeholder={copy.outputPlaceholder}></textarea>
-      <p class="css-stale-notice" data-stale-notice hidden>
-        {copy.outdated}
-      </p>
-    </section>
-  </div>
+  <FormatterWorkspace
+    inputId="css-formatter-input"
+    outputId="css-formatter-output"
+    inputLabel={copy.inputLabel}
+    outputLabel={copy.outputLabel}
+    inputPlaceholder={copy.inputPlaceholder}
+    outputPlaceholder={copy.outputPlaceholder}
+    loadSample={copy.loadSample}
+    openFile={copy.openFile}
+    clear={commonCopy.clear}
+    copy={commonCopy.copy}
+    download={commonCopy.download}
+    fileAccept="text/css,.css"
+    staleNotice={copy.outdated}
+  />
   <ConverterStatus status={commonCopy.ready}>
     <button
       class="secondary-button formatter-manual-run"
@@ -113,7 +80,7 @@ const clientCopy = createCssFormatterClientCopy(copy, commonCopy);
       </div>
     </div>
   </FormatterOptions>
-  <p class="css-scope-notice" role="note">{copy.scopeNotice}</p>
+  <p class="formatter-scope-notice" role="note">{copy.scopeNotice}</p>
   <script
     is:inline
     type="application/json"
