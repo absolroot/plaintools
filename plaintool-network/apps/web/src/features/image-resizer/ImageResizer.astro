@@ -1,0 +1,274 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { CommonToolCopy } from "../../lib/common-tool-i18n";
+import type { Locale } from "../../lib/site";
+import type { ImageResizerCopy } from "./contract";
+
+interface Props {
+  locale: Locale;
+  copy: ImageResizerCopy;
+  common: CommonToolCopy;
+}
+
+const { locale, copy, common } = Astro.props;
+const clientCopy = { ...copy, clear: common.clear, ready: common.ready };
+---
+
+<section
+  class="image-resizer"
+  data-image-resizer
+  data-locale={locale}
+  aria-label={copy.ariaLabel}
+>
+  <div class="resizer-filebar">
+    <button class="text-button" type="button" data-open-file>
+      <UiIcon name="folder-open" size={15} />
+      <span data-open-label>{copy.chooseImage}</span>
+    </button>
+    <div class="filebar-summary" data-file-summary>
+      <strong data-file-name>{copy.dropImage}</strong>
+      <span data-source-summary>{copy.formats}</span>
+    </div>
+    <button class="text-button" type="button" data-clear disabled>
+      <UiIcon name="x" size={14} />
+      {common.clear}
+    </button>
+    <input
+      data-file
+      type="file"
+      accept=".bmp,.png,.jpg,.jpeg,.gif,.webp,.heic,.heif,.avif,image/bmp,image/png,image/jpeg,image/gif,image/webp,image/heic,image/heif,image/avif"
+      hidden
+    />
+  </div>
+
+  <div class="resizer-workspace">
+    <aside class="resizer-settings" aria-label={copy.resizeBy}>
+      <fieldset data-settings disabled>
+        <legend>{copy.resizeBy}</legend>
+
+        <div class="mode-switch" data-mode-switch>
+          <label>
+            <input type="radio" name="resize-mode" value="pixels" checked />
+            <span>{copy.pixels}</span>
+          </label>
+          <label>
+            <input type="radio" name="resize-mode" value="percentage" />
+            <span>{copy.percentage}</span>
+          </label>
+        </div>
+
+        <div class="dimension-controls" data-pixel-controls>
+          <label>
+            <span>{copy.width}</span>
+            <span class="number-field">
+              <input
+                data-width
+                type="number"
+                min="1"
+                max="16384"
+                step="1"
+                inputmode="numeric"
+                dir="ltr"
+              />
+              <small>px</small>
+            </span>
+          </label>
+          <label>
+            <span>{copy.height}</span>
+            <span class="number-field">
+              <input
+                data-height
+                type="number"
+                min="1"
+                max="16384"
+                step="1"
+                inputmode="numeric"
+                dir="ltr"
+              />
+              <small>px</small>
+            </span>
+          </label>
+        </div>
+
+        <label class="percentage-control" data-percentage-control hidden>
+          <span>{copy.scale}</span>
+          <span class="number-field">
+            <input
+              data-percentage
+              type="number"
+              min="1"
+              max="500"
+              step="1"
+              value="100"
+              inputmode="numeric"
+              dir="ltr"
+            />
+            <small>%</small>
+          </span>
+        </label>
+
+        <label class="check-control">
+          <input data-keep-ratio type="checkbox" checked />
+          <span>{copy.keepRatio}</span>
+        </label>
+        <label class="check-control">
+          <input data-prevent-enlarge type="checkbox" checked />
+          <span>{copy.preventEnlarge}</span>
+        </label>
+
+        <div class="setting-divider"></div>
+
+        <div class="quick-size-group">
+          <strong>{copy.quickSizes}</strong>
+          <div class="quick-size-grid">
+            <button type="button" data-percent-preset="25">25%</button>
+            <button type="button" data-percent-preset="50">50%</button>
+            <button type="button" data-percent-preset="75">75%</button>
+            <button type="button" data-size-preset="1280x720">
+              {copy.fitHd}
+            </button>
+            <button type="button" data-size-preset="1920x1080">
+              {copy.fitFullHd}
+            </button>
+            <button type="button" data-size-preset="1080x1080">
+              {copy.fitSquare}
+            </button>
+            <button
+              class="quick-size-original"
+              type="button"
+              data-original-size
+            >
+              {copy.originalSize}
+            </button>
+          </div>
+        </div>
+
+        <div class="setting-divider"></div>
+
+        <label class="output-control">
+          <span>{copy.output}</span>
+          <select data-output-format>
+            <option value="same">{copy.sameFormat}</option>
+            <option value="jpg">JPG</option>
+            <option value="png">PNG</option>
+            <option value="webp">WebP</option>
+            <option value="avif">AVIF</option>
+          </select>
+        </label>
+
+        <label class="quality-control" data-quality-control>
+          <span>
+            <span>{copy.quality}</span>
+            <output data-quality-value>88%</output>
+          </span>
+          <input
+            data-quality
+            type="range"
+            min="40"
+            max="100"
+            step="1"
+            value="88"
+            dir="ltr"
+          />
+          <small
+            ><span>{copy.smallerFile}</span><span>{copy.betterQuality}</span
+            ></small
+          >
+        </label>
+
+        <output class="target-summary" data-target-summary aria-live="polite">
+          —
+        </output>
+      </fieldset>
+    </aside>
+
+    <div class="resizer-preview" data-drop-zone>
+      <section class="preview-pane preview-original">
+        <div class="preview-heading">
+          <strong>{copy.original}</strong>
+          <span data-original-dimensions>—</span>
+        </div>
+        <button
+          class="preview-stage preview-input"
+          type="button"
+          data-drop-target
+        >
+          <span class="preview-placeholder" data-input-placeholder>
+            <UiIcon name="image" size={30} />
+            <strong>{copy.dropImage}</strong>
+            <small>{copy.pasteHint}</small>
+          </span>
+          <img data-input-preview alt="" hidden />
+        </button>
+        <div class="preview-facts" data-input-facts hidden>
+          <span
+            ><small>{copy.dimensions}</small><strong data-input-dimensions
+            ></strong></span
+          >
+          <span
+            ><small>{copy.fileSize}</small><strong data-input-size
+            ></strong></span
+          >
+        </div>
+      </section>
+
+      <section class="preview-pane preview-result">
+        <div class="preview-heading">
+          <strong>{copy.result}</strong>
+          <span data-result-format>—</span>
+        </div>
+        <div class="preview-stage">
+          <span class="preview-placeholder" data-output-placeholder>
+            <UiIcon name="image" size={30} />
+            <strong>{copy.resultEmpty}</strong>
+            <small data-result-dimensions>—</small>
+          </span>
+          <img data-output-preview alt="" hidden />
+        </div>
+        <div class="preview-facts" data-output-facts hidden>
+          <span
+            ><small>{copy.dimensions}</small><strong data-output-dimensions
+            ></strong></span
+          >
+          <span
+            ><small>{copy.fileSize}</small><strong data-output-size
+            ></strong></span
+          >
+          <span
+            ><small data-size-result-label>{copy.saved}</small><strong
+              data-size-result></strong></span
+          >
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <ConverterStatus status={common.ready}>
+    <div class="resizer-warnings" data-warnings></div>
+    <button class="primary-button" type="button" data-run disabled>
+      {copy.resize}
+    </button>
+    <button
+      class="primary-button resizer-download"
+      type="button"
+      data-download
+      hidden
+      disabled
+    >
+      <UiIcon name="download" size={18} />
+      {common.download}
+    </button>
+  </ConverterStatus>
+
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+
+<script>
+  import "./client";
+</script>
