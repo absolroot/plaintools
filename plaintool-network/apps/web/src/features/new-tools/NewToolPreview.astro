@@ -25,6 +25,8 @@ import ImageUpscaler from "../image-upscaler/ImageUpscaler.astro";
 import imageUpscalerStylesheet from "../image-upscaler/styles.css?url";
 import ImageResizer from "../image-resizer/ImageResizer.astro";
 import imageResizerStylesheet from "../image-resizer/styles.css?url";
+import ImageCrop from "../image-crop/ImageCrop.astro";
+import imageCropStylesheet from "../image-crop/styles.css?url";
 import DateCalculator from "../date-calculator/DateCalculator.astro";
 import dateCalculatorStylesheet from "../date-calculator/styles.css?url";
 import UuidGenerator from "../uuid-generator/UuidGenerator.astro";
@@ -62,6 +64,7 @@ const featureStylesheets = {
   "background-remover": backgroundRemoverStylesheet,
   "image-upscaler": imageUpscalerStylesheet,
   "image-resizer": imageResizerStylesheet,
+  "image-crop": imageCropStylesheet,
   "csv-to-markdown": dataConverterStylesheet,
   "markdown-to-csv": dataConverterStylesheet,
   "json-to-csv": dataConverterStylesheet,
@@ -234,6 +237,7 @@ const dataModeLabels = Object.fromEntries(
       />
     )
   }
+  {page === "image-crop" && (<ImageCrop locale={locale} copy={bundle.tools[page].feature} common={bundle.common} />)}
   {
     dataMode && dataFeature && (
       <DataConverter

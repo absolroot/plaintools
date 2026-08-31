@@ -146,6 +146,7 @@ const toolMarks = {
   "bmi-calculator": "BMI",
   "image-upscaler": "4×",
   "image-resizer": "PX",
+  "image-crop": "✂",
   "date-calculator": "D±",
   "dday-calculator": "D",
   "age-calculator": "AGE",

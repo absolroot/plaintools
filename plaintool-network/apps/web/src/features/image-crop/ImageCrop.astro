@@ -1,0 +1,148 @@
+---
+import ConverterStatus from "../../components/ConverterStatus.astro";
+import UiIcon from "../../components/UiIcon.astro";
+import type { CommonToolCopy } from "../../lib/common-tool-i18n";
+import type { Locale } from "../../lib/site";
+import type { ImageCropCopy } from "./contract";
+const { locale, copy, common } = Astro.props as {
+  locale: Locale;
+  copy: ImageCropCopy;
+  common: CommonToolCopy;
+};
+const clientCopy = {
+  ...copy,
+  clear: common.clear,
+  ready: common.ready,
+  download: common.download,
+};
+---
+
+<section
+  class="image-crop"
+  data-image-crop
+  data-locale={locale}
+  aria-label={copy.ariaLabel}
+>
+  <div class="crop-filebar">
+    <button class="text-button" type="button" data-open-file
+      ><UiIcon name="folder-open" size={15} /><span data-open-label
+        >{copy.chooseImage}</span
+      ></button
+    >
+    <div class="crop-file-summary">
+      <strong data-file-name>{copy.dropImage}</strong><span
+        >{copy.formats}</span>
+    </div>
+    <button class="text-button" type="button" data-clear disabled
+      ><UiIcon name="x" size={14} />{common.clear}</button
+    >
+    <input
+      data-file
+      type="file"
+      accept="image/png,image/jpeg,image/webp,image/gif,image/avif,.png,.jpg,.jpeg,.webp,.gif,.avif"
+      hidden
+    />
+  </div>
+  <div class="crop-workspace">
+    <aside class="crop-controls">
+      <fieldset data-settings disabled>
+        <legend>{copy.crop}</legend>
+        <label
+          ><span>{copy.ratio}</span><select data-ratio
+            ><option value="">{copy.free}</option><option value="1"
+              >{copy.square} · 1:1</option
+            ><option value="1.7777778">{copy.landscape} · 16:9</option><option
+              value="0.8">{copy.portrait} · 4:5</option
+            ></select
+          ></label
+        >
+        <div class="crop-numbers" aria-label={copy.cropArea}>
+          <label
+            >X<input data-x type="number" min="0" step="1" dir="ltr" /></label
+          ><label
+            >Y<input data-y type="number" min="0" step="1" dir="ltr" /></label
+          ><label
+            >W<input
+              data-width
+              type="number"
+              min="1"
+              step="1"
+              dir="ltr"
+            /></label
+          ><label
+            >H<input
+              data-height
+              type="number"
+              min="1"
+              step="1"
+              dir="ltr"
+            /></label>
+        </div>
+        <div class="crop-divider"></div><strong>{copy.transform}</strong>
+        <div class="transform-grid">
+          <button type="button" data-rotate="-90">↶ {copy.rotateLeft}</button
+          ><button type="button" data-rotate="90">↷ {copy.rotateRight}</button
+          ><button type="button" data-flip="x">↔ {copy.flipHorizontal}</button
+          ><button type="button" data-flip="y">↕ {copy.flipVertical}</button>
+        </div>
+        <label class="straighten"
+          ><span>{copy.straighten} <output data-angle>0°</output></span><input
+            data-straighten
+            type="range"
+            min="-45"
+            max="45"
+            value="0"
+            dir="ltr"
+          /></label
+        >
+        <button class="text-button crop-reset" type="button" data-reset
+          >{copy.reset}</button
+        >
+        <div class="crop-divider"></div><label
+          ><span>{copy.output}</span><select data-output
+            ><option value="png">PNG</option><option value="jpg">JPG</option
+            ><option value="webp">WebP</option></select
+          ></label
+        >
+        <label class="straighten"
+          ><span>{copy.quality} <output data-quality>92%</output></span><input
+            data-quality-range
+            type="range"
+            min="40"
+            max="100"
+            value="92"
+            dir="ltr"
+          /><small>{copy.smallerFile} <b>{copy.betterQuality}</b></small></label
+        >
+      </fieldset>
+    </aside>
+    <div class="crop-stage" data-drop-zone>
+      <button class="crop-canvas-wrap" type="button" data-canvas-wrap
+        ><span class="crop-empty" data-empty
+          ><UiIcon name="image" size={32} /><strong>{copy.dropImage}</strong
+          ><small>{copy.pasteHint}</small></span
+        ><canvas data-canvas hidden></canvas><span
+          class="crop-selection"
+          data-selection
+          hidden><i></i><i></i><i></i><i></i></span
+        ></button>
+    </div>
+  </div>
+  <ConverterStatus status={common.ready}
+    ><button class="primary-button" type="button" data-save disabled
+      >{copy.save}</button
+    ><button class="primary-button" type="button" data-download hidden disabled
+      ><UiIcon name="download" size={18} />{common.download}</button
+    ></ConverterStatus
+  >
+  <img data-result hidden alt="" />
+  <script
+    is:inline
+    type="application/json"
+    data-client-copy
+    set:html={JSON.stringify(clientCopy).replace(/</gu, "\\u003c")}
+  />
+</section>
+<script>
+  import "./client";
+</script>

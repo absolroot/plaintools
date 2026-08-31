@@ -33,6 +33,7 @@ const newToolIds: NewToolId[] = [
   "background-remover",
   "image-upscaler",
   "image-resizer",
+  "image-crop",
   "date-calculator",
   "dday-calculator",
   "age-calculator",

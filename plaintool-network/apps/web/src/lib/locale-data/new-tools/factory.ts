@@ -18,6 +18,7 @@ import type { ImageUpscalerCopy } from "../../../features/image-upscaler/contrac
 import type { Locale } from "../../site";
 import { imageUpscalerFor } from "./image-upscaler";
 import type { ImageResizerLocalePack } from "./image-resizer";
+import { imageCropFor } from "./image-crop";
 import type {
   DateCalculatorLocaleSeed,
   DateCalculatorPageId,
@@ -429,6 +430,8 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
               ? seed.calculatorSuite.pages[id as CalculatorPageId]
               : id === "image-resizer"
                 ? seed.imageResizer.page
+                : id === "image-crop"
+                  ? imageCropFor(seed.locale).page
                 : id in seed.pages
                   ? seed.pages[id as LegacyNewToolId]
                   : seed.formatterSubnet.pages[id as FormatterSubnetToolId];
@@ -1035,6 +1038,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "background-remover": page("background-remover", background),
     "image-upscaler": page("image-upscaler", upscaler),
     "image-resizer": page("image-resizer", seed.imageResizer.copy),
+    "image-crop": page("image-crop", imageCropFor(seed.locale).copy),
     "date-calculator": page("date-calculator", {
       ...seed.dateCalculator.feature,
       ariaLabel: pageSeed("date-calculator").title,
@@ -1074,6 +1078,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
         id !== "bmi-calculator" &&
         id !== "image-upscaler" &&
         id !== "image-resizer" &&
+        id !== "image-crop" &&
         id !== "date-calculator" &&
         id !== "dday-calculator" &&
         id !== "age-calculator" &&
@@ -1086,6 +1091,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     "percentage-calculator",
     "bmi-calculator",
     "image-resizer",
+    "image-crop",
     "date-calculator",
     "dday-calculator",
     "age-calculator",
