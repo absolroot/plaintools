@@ -1,10 +1,17 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import type { Locale } from "../lib/site";
 import "../styles/travel-link-lab.css";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "ko" } = Astro.props;
 ---
 
 <SiteLayout
-  locale="ko"
+  locale={locale}
   title="아고다 호텔 혜택 링크 비교 | AbsolTools"
   description="호텔 URL 하나로 국가·카드·제휴 혜택 경로를 비교해 직접 확인하세요."
   noindex={true}
