@@ -46,8 +46,6 @@ export const localeReviewManifests = Object.freeze({
     "research/i18n/local-reviews/locale-review-manifests/source-formatter.json",
   "text-compare":
     "research/i18n/local-reviews/locale-review-manifests/text-compare.json",
-  "travel-link-lab":
-    "research/i18n/local-reviews/locale-review-manifests/travel-link-lab.json",
   "time-zone-converter":
     "research/i18n/local-reviews/locale-review-manifests/time-zone-converter.json",
   "unit-converter":

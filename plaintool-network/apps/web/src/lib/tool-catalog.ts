@@ -18,8 +18,7 @@ export type ToolCategory =
   | "pdf"
   | "data"
   | "calculator"
-  | "time"
-  | "travel";
+  | "time";
 
 type LocalizedText = Record<Locale, string>;
 type LocalizedSearchTerms = Record<Locale, readonly string[]>;
@@ -64,7 +63,7 @@ export type NetworkCopy = {
   reserve: string;
   breadcrumbLabel: string;
   encodingCategory: string;
-  categories: Record<Exclude<ToolCategory, "travel">, string>;
+  categories: Record<ToolCategory, string>;
   footerNote: string;
   catalogAria: string;
   useLightTheme: string;
@@ -165,33 +164,9 @@ const generatorToolMarks = {
   "password-generator": "PW",
 } as const;
 
-const travelToolMarks = {
-  "travel-link-lab": "TRAVEL",
-} as const;
-
 const unitConverterToolMarks = {
   "unit-converter": "↔",
 } as const;
-
-const travelCategoryNames = {
-  en: "Everyday",
-  ko: "생활",
-  es: "Vida diaria",
-  de: "Alltag",
-  ja: "暮らし",
-  fr: "Vie quotidienne",
-  "pt-BR": "Dia a dia",
-  it: "Vita quotidiana",
-  nl: "Dagelijks leven",
-  sv: "Vardag",
-  cs: "Každodenní život",
-  pl: "Codzienne życie",
-  da: "Hverdag",
-  no: "Hverdag",
-  ar: "الحياة اليومية",
-  "zh-TW": "生活",
-  tr: "Günlük yaşam",
-} as const satisfies LocalizedText;
 
 export type PdfToolkitToolId =
   | "compress-pdf"
@@ -208,8 +183,7 @@ export type RegisteredToolId =
   | ImageConverterToolId
   | GeneratorToolId
   | PdfToolkitToolId
-  | "unit-converter"
-  | keyof typeof travelToolMarks;
+  | "unit-converter";
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
   return Object.fromEntries(
@@ -225,7 +199,6 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   status: tool.publication === "indexable" ? "available" : "preview",
   mark:
     generatorToolMarks[tool.id as keyof typeof generatorToolMarks] ??
-    travelToolMarks[tool.id as keyof typeof travelToolMarks] ??
     unitConverterToolMarks[tool.id as keyof typeof unitConverterToolMarks] ??
     toolMarks[tool.id as keyof typeof toolMarks] ??
     tool.id.slice(0, tool.id.indexOf("-to-")).toUpperCase(),
@@ -380,13 +353,7 @@ export const homeDirectoryToolsInDisplayOrder =
     homeDirectoryToolsForCategory(category),
   );
 
-export const networkCopy = localize((locale) => ({
-  ...localeBundles[locale].network,
-  categories: {
-    ...localeBundles[locale].network.categories,
-    travel: travelCategoryNames[locale],
-  },
-}));
+export const networkCopy = localize((locale) => localeBundles[locale].network);
 
 export function toolPath(
   locale: Locale,

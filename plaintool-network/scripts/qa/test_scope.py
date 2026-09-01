@@ -47,7 +47,9 @@ class QaScopeTests(unittest.TestCase):
         feature_paths = (
             path
             for path in (root / "apps/web/src/features").iterdir()
-            if path.is_dir() and path.name != "new-tools"
+            if path.is_dir()
+            and path.name != "new-tools"
+            and not (path / ".local-only").is_file()
         )
         package_paths = (
             path for path in (root / "packages").iterdir() if path.is_dir()

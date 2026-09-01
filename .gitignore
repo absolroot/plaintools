@@ -90,3 +90,9 @@ Desktop.ini
 
 # Local-only travel-link research payload. This is intentionally not a release artifact.
 **/public/travel-catalog.local.js
+
+# Private local Agoda experiment. Keep it usable in this checkout, never publish it.
+/plaintool-network/apps/web/src/features/travel-link/
+/plaintool-network/apps/web/src/pages/travel-link-lab.astro
+/plaintool-network/apps/web/src/pages/[[]locale[]]/agoda/
+/plaintool-network/apps/web/src/styles/travel-link-lab.css

@@ -54,7 +54,6 @@ for (const tool of registeredTools) {
       "data",
       "calculator",
       "time",
-      "travel",
     ]).has(tool.category)
   )
     errors.push(`Invalid category for ${tool.slug}: ${tool.category}`);
@@ -86,7 +85,8 @@ for (const entry of routeEntries) {
     await access(routeFile);
     const source = await readFile(routeFile, "utf8");
     const isRedirectOnly = /return\s+Astro\.redirect\(/u.test(source);
-    if (!slugs.has(entry.name) && !isRedirectOnly)
+    const isLocalOnly = source.includes("// @local-only");
+    if (!slugs.has(entry.name) && !isRedirectOnly && !isLocalOnly)
       errors.push(
         `Implemented tool route is absent from the SEO registry: ${entry.name}`,
       );

@@ -60,7 +60,6 @@ FEATURE_PATH_ALIASES = {
     "time": "unix-timestamp-converter",
     "time-core": "unix-timestamp-converter",
     "time-zone-converter": "time-zone-converter",
-    "travel-link": "travel-link-lab",
     "unit-converter": "unit-converter",
     "unit-converter-core": "unit-converter",
     "url-codec": "url-codec",
