@@ -1041,7 +1041,7 @@ const localizedTitles: Record<Locale, Record<CalculatorPageId, string>> = {
     "fraction-calculator": "분수 계산기",
     "factor-calculator": "약수 계산기",
     "lcm-calculator": "최소공배수 계산기",
-    "percentage-calculator": "백분율 계산기",
+    "percentage-calculator": "퍼센트 계산기",
     "bmi-calculator": "BMI 계산기",
   },
   es: {
@@ -2893,48 +2893,1078 @@ const localizedMath: Record<
   }),
 };
 
-const koreanPercentage: PercentageCalculatorCopy = {
-  ...commonPercentage("백분율 계산기"),
-  modeSelectorLabel: "계산 종류",
-  modes: {
-    "percent-of": "~의 몇 %",
-    "what-percent": "몇 퍼센트",
-    "whole-from-percent": "전체 구하기",
-    "percentage-change": "변화율",
-  },
-  phrases: {
-    "percent-of": { start: "기준값", between: "의", end: "는 얼마인가요?" },
-    "what-percent": { start: "부분값", between: "는", end: "의 몇 %인가요?" },
-    "whole-from-percent": {
-      start: "부분값",
-      between: "는",
-      end: "%는 전체의 얼마인가요?",
+const localizedPercentagePacks: Record<
+  Exclude<Locale, "en">,
+  { page: Page; feature: PercentageCalculatorCopy }
+> = {
+  ko: {
+    page: {
+      title: "퍼센트 계산기",
+      description:
+        "값의 몇 %, 전체 중 비율, 원래 전체값, 증감률을 한 번에 계산하는 퍼센트 계산기입니다.",
+      mobileDescription: "퍼센트, 비율, 증감률을 빠르게 계산합니다.",
+      guide:
+        "질문에 맞는 계산식을 고르고 알려진 두 값을 입력하세요. 결과와 계산식을 함께 확인할 수 있습니다.",
+      terms: ["퍼센트 계산기", "백분율 계산기", "퍼센트 구하기", "증감률 계산"],
     },
-    "percentage-change": { start: "값", between: "에서", end: "로" },
+    feature: {
+      ariaLabel: "퍼센트 계산기",
+      modeSelectorLabel: "계산 종류",
+      modes: {
+        "percent-of": "~의 몇 %",
+        "what-percent": "몇 퍼센트",
+        "whole-from-percent": "전체 구하기",
+        "percentage-change": "증감률",
+      },
+      phrases: {
+        "percent-of": { start: "기준값", between: "의", end: "는 얼마인가요?" },
+        "what-percent": {
+          start: "부분값",
+          between: "는",
+          end: "의 몇 %인가요?",
+        },
+        "whole-from-percent": {
+          start: "부분값",
+          between: "는",
+          end: "%는 전체의 얼마인가요?",
+        },
+        "percentage-change": { start: "값", between: "에서", end: "로" },
+      },
+      fields: {
+        percent: "퍼센트",
+        base: "기준값",
+        part: "부분값",
+        oldValue: "이전 값",
+        newValue: "새 값",
+      },
+      calculate: "계산",
+      resultTitle: "결과",
+      resultLabels: {
+        "percent-of": "결과",
+        "what-percent": "퍼센트",
+        "whole-from-percent": "전체",
+        "percentage-change": "증감률",
+      },
+      formulaLabel: "계산식",
+      calculated: "계산했습니다.",
+      directions: {
+        increase: "증가",
+        decrease: "감소",
+        "no-change": "변화 없음",
+      },
+      errors: {
+        "missing-input": "두 값을 모두 입력하세요.",
+        "invalid-number": "올바른 숫자를 입력하세요.",
+        "zero-denominator": "이 값은 0일 수 없습니다.",
+        "non-finite-result": "지원 범위를 벗어난 결과입니다.",
+      },
+    },
   },
-  fields: {
-    percent: "퍼센트",
-    base: "기준값",
-    part: "부분값",
-    oldValue: "이전 값",
-    newValue: "새 값",
+  es: {
+    page: {
+      title: "Calculadora de porcentajes",
+      description:
+        "Calcula un porcentaje de una cantidad, qué porcentaje representa una parte, el total que falta o la variación porcentual.",
+      mobileDescription: "Resuelve cálculos de porcentaje cotidianos.",
+      guide:
+        "Elige la pregunta que necesitas resolver, introduce los dos valores conocidos y consulta el resultado y la fórmula.",
+      terms: [
+        "calculadora de porcentajes",
+        "sacar porcentaje",
+        "qué porcentaje es",
+        "variación porcentual",
+      ],
+    },
+    feature: {
+      ariaLabel: "Calculadora de porcentajes",
+      modeSelectorLabel: "Tipo de cálculo",
+      modes: {
+        "percent-of": "Porcentaje de una cantidad",
+        "what-percent": "Qué porcentaje es",
+        "whole-from-percent": "Hallar el total",
+        "percentage-change": "Variación porcentual",
+      },
+      phrases: {
+        "percent-of": { start: "¿Cuánto es", between: "de", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "es qué porcentaje de",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "es el",
+          end: "% de qué total?",
+        },
+        "percentage-change": { start: "Cambio de", between: "a", end: "" },
+      },
+      fields: {
+        percent: "Porcentaje",
+        base: "Total",
+        part: "Parte",
+        oldValue: "Valor inicial",
+        newValue: "Valor final",
+      },
+      calculate: "Calcular",
+      resultTitle: "Resultado",
+      resultLabels: {
+        "percent-of": "Resultado",
+        "what-percent": "Porcentaje",
+        "whole-from-percent": "Total",
+        "percentage-change": "Variación porcentual",
+      },
+      formulaLabel: "Fórmula",
+      calculated: "Cálculo realizado.",
+      directions: {
+        increase: "Aumento",
+        decrease: "Disminución",
+        "no-change": "Sin cambio",
+      },
+      errors: {
+        "missing-input": "Introduce los dos valores.",
+        "invalid-number": "Introduce números válidos.",
+        "zero-denominator": "Este valor no puede ser cero.",
+        "non-finite-result": "El resultado queda fuera del intervalo admitido.",
+      },
+    },
   },
-  calculate: "계산",
-  resultTitle: "결과",
-  resultLabels: {
-    "percent-of": "결과",
-    "what-percent": "퍼센트",
-    "whole-from-percent": "전체",
-    "percentage-change": "변화율",
+  de: {
+    page: {
+      title: "Prozentrechner",
+      description:
+        "Berechne einen Prozentsatz von einem Wert, den Anteil am Ganzen, ein fehlendes Ganzes oder die prozentuale Veränderung.",
+      mobileDescription: "Alltägliche Prozentrechnungen schnell lösen.",
+      guide:
+        "Wähle die passende Frage, gib die zwei bekannten Werte ein und prüfe Ergebnis und Formel.",
+      terms: [
+        "Prozentrechner",
+        "Prozent berechnen",
+        "wie viel Prozent",
+        "prozentuale Veränderung",
+      ],
+    },
+    feature: {
+      ariaLabel: "Prozentrechner",
+      modeSelectorLabel: "Rechenart",
+      modes: {
+        "percent-of": "Prozent von",
+        "what-percent": "Wie viel Prozent",
+        "whole-from-percent": "Grundwert berechnen",
+        "percentage-change": "Prozentuale Änderung",
+      },
+      phrases: {
+        "percent-of": { start: "Wie viel sind", between: "von", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "sind wie viel Prozent von",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "sind",
+          end: "% von welchem Grundwert?",
+        },
+        "percentage-change": { start: "Änderung von", between: "auf", end: "" },
+      },
+      fields: {
+        percent: "Prozent",
+        base: "Grundwert",
+        part: "Prozentwert",
+        oldValue: "Alter Wert",
+        newValue: "Neuer Wert",
+      },
+      calculate: "Berechnen",
+      resultTitle: "Ergebnis",
+      resultLabels: {
+        "percent-of": "Ergebnis",
+        "what-percent": "Prozentsatz",
+        "whole-from-percent": "Grundwert",
+        "percentage-change": "Prozentuale Änderung",
+      },
+      formulaLabel: "Formel",
+      calculated: "Berechnet.",
+      directions: {
+        increase: "Zunahme",
+        decrease: "Abnahme",
+        "no-change": "Keine Änderung",
+      },
+      errors: {
+        "missing-input": "Gib beide Werte ein.",
+        "invalid-number": "Gib gültige Zahlen ein.",
+        "zero-denominator": "Dieser Wert darf nicht null sein.",
+        "non-finite-result":
+          "Das Ergebnis liegt außerhalb des unterstützten Bereichs.",
+      },
+    },
   },
-  formulaLabel: "계산식",
-  calculated: "계산했습니다.",
-  directions: { increase: "증가", decrease: "감소", "no-change": "변화 없음" },
-  errors: {
-    "missing-input": "두 값을 모두 입력하세요.",
-    "invalid-number": "올바른 숫자를 입력하세요.",
-    "zero-denominator": "이 값은 0일 수 없습니다.",
-    "non-finite-result": "지원 범위를 벗어난 결과입니다.",
+  ja: {
+    page: {
+      title: "パーセント計算機",
+      description:
+        "ある数の何パーセントか、全体に占める割合、元の数、増減率を計算できます。",
+      mobileDescription: "割合・パーセント・増減率を計算します。",
+      guide:
+        "計算したい質問を選び、分かっている2つの値を入力してください。結果と計算式を確認できます。",
+      terms: ["パーセント計算機", "百分率 計算", "何パーセント", "増減率 計算"],
+    },
+    feature: {
+      ariaLabel: "パーセント計算機",
+      modeSelectorLabel: "計算の種類",
+      modes: {
+        "percent-of": "～の何パーセント",
+        "what-percent": "何パーセントか",
+        "whole-from-percent": "全体を求める",
+        "percentage-change": "増減率",
+      },
+      phrases: {
+        "percent-of": { start: "", between: "の", end: "は？" },
+        "what-percent": { start: "", between: "は", end: "の何パーセント？" },
+        "whole-from-percent": {
+          start: "",
+          between: "は",
+          end: "%のとき全体はいくつ？",
+        },
+        "percentage-change": { start: "", between: "から", end: "へ" },
+      },
+      fields: {
+        percent: "パーセント",
+        base: "基準の数",
+        part: "部分の数",
+        oldValue: "変更前",
+        newValue: "変更後",
+      },
+      calculate: "計算",
+      resultTitle: "結果",
+      resultLabels: {
+        "percent-of": "結果",
+        "what-percent": "割合",
+        "whole-from-percent": "全体",
+        "percentage-change": "増減率",
+      },
+      formulaLabel: "計算式",
+      calculated: "計算しました。",
+      directions: {
+        increase: "増加",
+        decrease: "減少",
+        "no-change": "変化なし",
+      },
+      errors: {
+        "missing-input": "2つの値を入力してください。",
+        "invalid-number": "有効な数値を入力してください。",
+        "zero-denominator": "この値は 0 にできません。",
+        "non-finite-result": "結果が対応範囲を超えています。",
+      },
+    },
+  },
+  fr: {
+    page: {
+      title: "Calculatrice de pourcentage",
+      description:
+        "Calculez un pourcentage d’une valeur, la part d’un total, un total manquant ou une variation en pourcentage.",
+      mobileDescription: "Résolvez les calculs de pourcentage courants.",
+      guide:
+        "Choisissez la question qui correspond à votre besoin, saisissez les deux valeurs connues, puis consultez le résultat et la formule.",
+      terms: [
+        "calculatrice de pourcentage",
+        "calcul de pourcentage",
+        "quel pourcentage",
+        "variation en pourcentage",
+      ],
+    },
+    feature: {
+      ariaLabel: "Calculatrice de pourcentage",
+      modeSelectorLabel: "Type de calcul",
+      modes: {
+        "percent-of": "Pourcentage d’une valeur",
+        "what-percent": "Quel pourcentage",
+        "whole-from-percent": "Trouver le total",
+        "percentage-change": "Variation en pourcentage",
+      },
+      phrases: {
+        "percent-of": { start: "Combien font", between: "de", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "représente quel pourcentage de",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "représente",
+          end: "% de quel total ?",
+        },
+        "percentage-change": { start: "Évolution de", between: "à", end: "" },
+      },
+      fields: {
+        percent: "Pourcentage",
+        base: "Total",
+        part: "Partie",
+        oldValue: "Valeur initiale",
+        newValue: "Valeur finale",
+      },
+      calculate: "Calculer",
+      resultTitle: "Résultat",
+      resultLabels: {
+        "percent-of": "Résultat",
+        "what-percent": "Pourcentage",
+        "whole-from-percent": "Total",
+        "percentage-change": "Variation en pourcentage",
+      },
+      formulaLabel: "Formule",
+      calculated: "Calcul effectué.",
+      directions: {
+        increase: "Hausse",
+        decrease: "Baisse",
+        "no-change": "Aucun changement",
+      },
+      errors: {
+        "missing-input": "Saisissez les deux valeurs.",
+        "invalid-number": "Saisissez des nombres valides.",
+        "zero-denominator": "Cette valeur ne peut pas être nulle.",
+        "non-finite-result":
+          "Le résultat est hors de la plage prise en charge.",
+      },
+    },
+  },
+  "pt-BR": {
+    page: {
+      title: "Calculadora de porcentagem",
+      description:
+        "Calcule porcentagem de um valor, qual porcentagem uma parte representa, o total que falta ou a variação percentual.",
+      mobileDescription: "Resolva cálculos de porcentagem do dia a dia.",
+      guide:
+        "Escolha a pergunta que você quer responder, informe os dois valores conhecidos e veja o resultado e a fórmula.",
+      terms: [
+        "calculadora de porcentagem",
+        "calcular porcentagem",
+        "quantos por cento",
+        "variação percentual",
+      ],
+    },
+    feature: {
+      ariaLabel: "Calculadora de porcentagem",
+      modeSelectorLabel: "Tipo de cálculo",
+      modes: {
+        "percent-of": "Porcentagem de um valor",
+        "what-percent": "Quantos por cento",
+        "whole-from-percent": "Encontrar o total",
+        "percentage-change": "Variação percentual",
+      },
+      phrases: {
+        "percent-of": { start: "Quanto é", between: "de", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "é quantos por cento de",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "é",
+          end: "% de qual total?",
+        },
+        "percentage-change": { start: "Variação de", between: "para", end: "" },
+      },
+      fields: {
+        percent: "Porcentagem",
+        base: "Total",
+        part: "Parte",
+        oldValue: "Valor inicial",
+        newValue: "Valor final",
+      },
+      calculate: "Calcular",
+      resultTitle: "Resultado",
+      resultLabels: {
+        "percent-of": "Resultado",
+        "what-percent": "Porcentagem",
+        "whole-from-percent": "Total",
+        "percentage-change": "Variação percentual",
+      },
+      formulaLabel: "Fórmula",
+      calculated: "Cálculo concluído.",
+      directions: {
+        increase: "Aumento",
+        decrease: "Redução",
+        "no-change": "Sem alteração",
+      },
+      errors: {
+        "missing-input": "Informe os dois valores.",
+        "invalid-number": "Informe números válidos.",
+        "zero-denominator": "Este valor não pode ser zero.",
+        "non-finite-result": "O resultado está fora do intervalo aceito.",
+      },
+    },
+  },
+  it: {
+    page: {
+      title: "Calcolatore percentuale",
+      description:
+        "Calcola la percentuale di un valore, quale percentuale rappresenta una parte, il totale mancante o la variazione percentuale.",
+      mobileDescription: "Risolvi i calcoli percentuali più comuni.",
+      guide:
+        "Scegli la domanda adatta, inserisci i due valori noti e controlla risultato e formula.",
+      terms: [
+        "calcolatore percentuale",
+        "calcolare percentuale",
+        "che percentuale è",
+        "variazione percentuale",
+      ],
+    },
+    feature: {
+      ariaLabel: "Calcolatore percentuale",
+      modeSelectorLabel: "Tipo di calcolo",
+      modes: {
+        "percent-of": "Percentuale di un valore",
+        "what-percent": "Che percentuale è",
+        "whole-from-percent": "Trova il totale",
+        "percentage-change": "Variazione percentuale",
+      },
+      phrases: {
+        "percent-of": { start: "Quanto fa", between: "di", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "è quale percentuale di",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "è il",
+          end: "% di quale totale?",
+        },
+        "percentage-change": { start: "Variazione da", between: "a", end: "" },
+      },
+      fields: {
+        percent: "Percentuale",
+        base: "Totale",
+        part: "Parte",
+        oldValue: "Valore iniziale",
+        newValue: "Valore finale",
+      },
+      calculate: "Calcola",
+      resultTitle: "Risultato",
+      resultLabels: {
+        "percent-of": "Risultato",
+        "what-percent": "Percentuale",
+        "whole-from-percent": "Totale",
+        "percentage-change": "Variazione percentuale",
+      },
+      formulaLabel: "Formula di calcolo",
+      calculated: "Calcolo completato.",
+      directions: {
+        increase: "Aumento",
+        decrease: "Diminuzione",
+        "no-change": "Nessuna variazione",
+      },
+      errors: {
+        "missing-input": "Inserisci entrambi i valori.",
+        "invalid-number": "Inserisci numeri validi.",
+        "zero-denominator": "Questo valore non può essere zero.",
+        "non-finite-result": "Il risultato è fuori dall’intervallo supportato.",
+      },
+    },
+  },
+  nl: {
+    page: {
+      title: "Percentagecalculator",
+      description:
+        "Bereken een percentage van een waarde, welk percentage een deel vormt, een ontbrekend totaal of de procentuele verandering.",
+      mobileDescription: "Los veelvoorkomende procentberekeningen op.",
+      guide:
+        "Kies de vraag die past, voer de twee bekende waarden in en bekijk resultaat en formule.",
+      terms: [
+        "percentagecalculator",
+        "percentage berekenen",
+        "hoeveel procent",
+        "procentuele verandering",
+      ],
+    },
+    feature: {
+      ariaLabel: "Percentagecalculator",
+      modeSelectorLabel: "Soort berekening",
+      modes: {
+        "percent-of": "Percentage van",
+        "what-percent": "Hoeveel procent",
+        "whole-from-percent": "Totaal berekenen",
+        "percentage-change": "Procentuele verandering",
+      },
+      phrases: {
+        "percent-of": { start: "Hoeveel is", between: "van", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "is hoeveel procent van",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "is",
+          end: "% van welk totaal?",
+        },
+        "percentage-change": {
+          start: "Verandering van",
+          between: "naar",
+          end: "",
+        },
+      },
+      fields: {
+        percent: "Percentage",
+        base: "Geheel",
+        part: "Deel",
+        oldValue: "Oude waarde",
+        newValue: "Nieuwe waarde",
+      },
+      calculate: "Berekenen",
+      resultTitle: "Resultaat",
+      resultLabels: {
+        "percent-of": "Resultaat",
+        "what-percent": "Percentage",
+        "whole-from-percent": "Geheel",
+        "percentage-change": "Procentuele verandering",
+      },
+      formulaLabel: "Formule",
+      calculated: "Berekend.",
+      directions: {
+        increase: "Toename",
+        decrease: "Afname",
+        "no-change": "Geen verandering",
+      },
+      errors: {
+        "missing-input": "Voer beide waarden in.",
+        "invalid-number": "Voer geldige getallen in.",
+        "zero-denominator": "Deze waarde mag niet nul zijn.",
+        "non-finite-result":
+          "Het resultaat valt buiten het ondersteunde bereik.",
+      },
+    },
+  },
+  sv: {
+    page: {
+      title: "Procenträknare",
+      description:
+        "Beräkna procent av ett värde, hur stor procentandel en del är, ett saknat heltal eller procentuell förändring.",
+      mobileDescription: "Lös vanliga procentberäkningar.",
+      guide:
+        "Välj frågan som passar, ange de två kända värdena och se resultat och formel.",
+      terms: [
+        "procenträknare",
+        "räkna procent",
+        "hur många procent",
+        "procentuell förändring",
+      ],
+    },
+    feature: {
+      ariaLabel: "Procenträknare",
+      modeSelectorLabel: "Beräkningstyp",
+      modes: {
+        "percent-of": "Procent av",
+        "what-percent": "Hur många procent",
+        "whole-from-percent": "Hitta helheten",
+        "percentage-change": "Procentuell förändring",
+      },
+      phrases: {
+        "percent-of": { start: "Hur mycket är", between: "av", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "är hur många procent av",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "är",
+          end: "% av vilken helhet?",
+        },
+        "percentage-change": {
+          start: "Förändring från",
+          between: "till",
+          end: "",
+        },
+      },
+      fields: {
+        percent: "Procent",
+        base: "Helhet",
+        part: "Del",
+        oldValue: "Gammalt värde",
+        newValue: "Nytt värde",
+      },
+      calculate: "Beräkna",
+      resultTitle: "Resultat",
+      resultLabels: {
+        "percent-of": "Resultat",
+        "what-percent": "Procent",
+        "whole-from-percent": "Helhet",
+        "percentage-change": "Procentuell förändring",
+      },
+      formulaLabel: "Formel",
+      calculated: "Beräknat.",
+      directions: {
+        increase: "Ökning",
+        decrease: "Minskning",
+        "no-change": "Ingen förändring",
+      },
+      errors: {
+        "missing-input": "Ange båda värdena.",
+        "invalid-number": "Ange giltiga tal.",
+        "zero-denominator": "Det här värdet får inte vara noll.",
+        "non-finite-result":
+          "Resultatet ligger utanför det tillåtna intervallet.",
+      },
+    },
+  },
+  cs: {
+    page: {
+      title: "Procentní kalkulačka",
+      description:
+        "Vypočítejte procento z hodnoty, jaké procento tvoří část, chybějící celek nebo procentní změnu.",
+      mobileDescription: "Vyřešte běžné procentní výpočty.",
+      guide:
+        "Vyberte otázku, která odpovídá vašemu výpočtu, zadejte dvě známé hodnoty a zobrazte výsledek i vzorec.",
+      terms: [
+        "procentní kalkulačka",
+        "výpočet procent",
+        "kolik procent",
+        "procentní změna",
+      ],
+    },
+    feature: {
+      ariaLabel: "Procentní kalkulačka",
+      modeSelectorLabel: "Typ výpočtu",
+      modes: {
+        "percent-of": "Procento z hodnoty",
+        "what-percent": "Kolik procent",
+        "whole-from-percent": "Najít celek",
+        "percentage-change": "Procentní změna",
+      },
+      phrases: {
+        "percent-of": { start: "Kolik je", between: "z", end: "?" },
+        "what-percent": { start: "", between: "je kolik procent z", end: "?" },
+        "whole-from-percent": {
+          start: "",
+          between: "je",
+          end: "% z jakého celku?",
+        },
+        "percentage-change": { start: "Změna z", between: "na", end: "" },
+      },
+      fields: {
+        percent: "Procento",
+        base: "Celek",
+        part: "Část",
+        oldValue: "Původní hodnota",
+        newValue: "Nová hodnota",
+      },
+      calculate: "Vypočítat",
+      resultTitle: "Výsledek",
+      resultLabels: {
+        "percent-of": "Výsledek",
+        "what-percent": "Procento",
+        "whole-from-percent": "Celek",
+        "percentage-change": "Procentní změna",
+      },
+      formulaLabel: "Vzorec",
+      calculated: "Vypočítáno.",
+      directions: {
+        increase: "Nárůst",
+        decrease: "Pokles",
+        "no-change": "Beze změny",
+      },
+      errors: {
+        "missing-input": "Zadejte obě hodnoty.",
+        "invalid-number": "Zadejte platná čísla.",
+        "zero-denominator": "Tato hodnota nemůže být nula.",
+        "non-finite-result": "Výsledek je mimo podporovaný rozsah.",
+      },
+    },
+  },
+  pl: {
+    page: {
+      title: "Kalkulator procentowy",
+      description:
+        "Oblicz procent z wartości, sprawdź, jaki procent całości stanowi część, wyznacz całość lub zmianę procentową.",
+      mobileDescription: "Wykonuj codzienne obliczenia procentowe.",
+      guide:
+        "Wybierz odpowiednie pytanie, wpisz dwie znane wartości i sprawdź wynik oraz wzór.",
+      terms: [
+        "kalkulator procentowy",
+        "oblicz procent",
+        "ile to procent",
+        "zmiana procentowa",
+      ],
+    },
+    feature: {
+      ariaLabel: "Kalkulator procentowy",
+      modeSelectorLabel: "Rodzaj obliczenia",
+      modes: {
+        "percent-of": "Procent z liczby",
+        "what-percent": "Ile to procent",
+        "whole-from-percent": "Oblicz całość",
+        "percentage-change": "Zmiana procentowa",
+      },
+      phrases: {
+        "percent-of": { start: "Ile to", between: "z", end: "?" },
+        "what-percent": { start: "", between: "to ile procent z", end: "?" },
+        "whole-from-percent": {
+          start: "",
+          between: "to",
+          end: "% jakiej całości?",
+        },
+        "percentage-change": { start: "Zmiana z", between: "na", end: "" },
+      },
+      fields: {
+        percent: "Procent",
+        base: "Całość",
+        part: "Część",
+        oldValue: "Stara wartość",
+        newValue: "Nowa wartość",
+      },
+      calculate: "Oblicz",
+      resultTitle: "Wynik",
+      resultLabels: {
+        "percent-of": "Wynik",
+        "what-percent": "Procent",
+        "whole-from-percent": "Całość",
+        "percentage-change": "Zmiana procentowa",
+      },
+      formulaLabel: "Wzór",
+      calculated: "Obliczono.",
+      directions: {
+        increase: "Wzrost",
+        decrease: "Spadek",
+        "no-change": "Bez zmiany",
+      },
+      errors: {
+        "missing-input": "Wpisz obie wartości.",
+        "invalid-number": "Wpisz prawidłowe liczby.",
+        "zero-denominator": "Ta wartość nie może być zerem.",
+        "non-finite-result": "Wynik jest poza obsługiwanym zakresem.",
+      },
+    },
+  },
+  da: {
+    page: {
+      title: "Procentberegner",
+      description:
+        "Beregn procent af en værdi, hvor mange procent en del udgør, en manglende helhed eller procentvis ændring.",
+      mobileDescription: "Løs almindelige procentberegninger.",
+      guide:
+        "Vælg det spørgsmål, der passer, indtast de to kendte værdier, og se resultat og formel.",
+      terms: [
+        "procentberegner",
+        "beregn procent",
+        "hvor mange procent",
+        "procentvis ændring",
+      ],
+    },
+    feature: {
+      ariaLabel: "Procentberegner",
+      modeSelectorLabel: "Beregningstype",
+      modes: {
+        "percent-of": "Procent af",
+        "what-percent": "Hvor mange procent",
+        "whole-from-percent": "Find helheden",
+        "percentage-change": "Procentvis ændring",
+      },
+      phrases: {
+        "percent-of": { start: "Hvor meget er", between: "af", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "er hvor mange procent af",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "er",
+          end: "% af hvilken helhed?",
+        },
+        "percentage-change": { start: "Ændring fra", between: "til", end: "" },
+      },
+      fields: {
+        percent: "Procent",
+        base: "Helhed",
+        part: "Del",
+        oldValue: "Gammel værdi",
+        newValue: "Ny værdi",
+      },
+      calculate: "Beregn",
+      resultTitle: "Resultat",
+      resultLabels: {
+        "percent-of": "Resultat",
+        "what-percent": "Procent",
+        "whole-from-percent": "Helhed",
+        "percentage-change": "Procentvis ændring",
+      },
+      formulaLabel: "Formel",
+      calculated: "Beregnet.",
+      directions: {
+        increase: "Stigning",
+        decrease: "Fald",
+        "no-change": "Ingen ændring",
+      },
+      errors: {
+        "missing-input": "Indtast begge værdier.",
+        "invalid-number": "Indtast gyldige tal.",
+        "zero-denominator": "Denne værdi må ikke være nul.",
+        "non-finite-result":
+          "Resultatet ligger uden for det understøttede område.",
+      },
+    },
+  },
+  no: {
+    page: {
+      title: "Prosentkalkulator",
+      description:
+        "Beregn prosent av en verdi, hvor stor prosentandel en del er, en manglende helhet eller prosentvis endring.",
+      mobileDescription: "Løs vanlige prosentberegninger.",
+      guide:
+        "Velg spørsmålet som passer, skriv inn de to kjente verdiene, og se resultat og formel.",
+      terms: [
+        "prosentkalkulator",
+        "regne prosent",
+        "hvor mange prosent",
+        "prosentvis endring",
+      ],
+    },
+    feature: {
+      ariaLabel: "Prosentkalkulator",
+      modeSelectorLabel: "Type beregning",
+      modes: {
+        "percent-of": "Prosent av",
+        "what-percent": "Hvor mange prosent",
+        "whole-from-percent": "Finn helheten",
+        "percentage-change": "Prosentvis endring",
+      },
+      phrases: {
+        "percent-of": { start: "Hvor mye er", between: "av", end: "?" },
+        "what-percent": {
+          start: "",
+          between: "er hvor mange prosent av",
+          end: "?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: "er",
+          end: "% av hvilken helhet?",
+        },
+        "percentage-change": { start: "Endring fra", between: "til", end: "" },
+      },
+      fields: {
+        percent: "Prosent",
+        base: "Helhet",
+        part: "Del",
+        oldValue: "Gammel verdi",
+        newValue: "Ny verdi",
+      },
+      calculate: "Beregn",
+      resultTitle: "Resultat",
+      resultLabels: {
+        "percent-of": "Resultat",
+        "what-percent": "Prosent",
+        "whole-from-percent": "Helhet",
+        "percentage-change": "Prosentvis endring",
+      },
+      formulaLabel: "Formel",
+      calculated: "Beregnet.",
+      directions: {
+        increase: "Økning",
+        decrease: "Nedgang",
+        "no-change": "Ingen endring",
+      },
+      errors: {
+        "missing-input": "Skriv inn begge verdiene.",
+        "invalid-number": "Skriv inn gyldige tall.",
+        "zero-denominator": "Denne verdien kan ikke være null.",
+        "non-finite-result": "Resultatet er utenfor det støttede området.",
+      },
+    },
+  },
+  ar: {
+    page: {
+      title: "حاسبة النسبة المئوية",
+      description:
+        "احسب نسبة من قيمة، أو نسبة جزء من الكل، أو الكل المفقود، أو نسبة التغير.",
+      mobileDescription: "احسب النسب المئوية والتغيرات بسرعة.",
+      guide:
+        "اختر السؤال المناسب، وأدخل القيمتين المعروفتين، ثم راجع النتيجة والمعادلة.",
+      terms: [
+        "حاسبة النسبة المئوية",
+        "حساب النسبة المئوية",
+        "كم بالمئة",
+        "نسبة التغير",
+      ],
+    },
+    feature: {
+      ariaLabel: "حاسبة النسبة المئوية",
+      modeSelectorLabel: "نوع الحساب",
+      modes: {
+        "percent-of": "نسبة من قيمة",
+        "what-percent": "كم بالمئة",
+        "whole-from-percent": "إيجاد الكل",
+        "percentage-change": "نسبة التغير",
+      },
+      phrases: {
+        "percent-of": { start: "كم تساوي", between: "من", end: "؟" },
+        "what-percent": { start: "", between: "تمثل كم بالمئة من", end: "؟" },
+        "whole-from-percent": {
+          start: "",
+          between: "تمثل",
+          end: "% من أي كل؟",
+        },
+        "percentage-change": { start: "التغير من", between: "إلى", end: "" },
+      },
+      fields: {
+        percent: "النسبة المئوية",
+        base: "الكل",
+        part: "الجزء",
+        oldValue: "القيمة القديمة",
+        newValue: "القيمة الجديدة",
+      },
+      calculate: "احسب",
+      resultTitle: "النتيجة",
+      resultLabels: {
+        "percent-of": "النتيجة",
+        "what-percent": "النسبة المئوية",
+        "whole-from-percent": "الكل",
+        "percentage-change": "نسبة التغير",
+      },
+      formulaLabel: "المعادلة",
+      calculated: "اكتمل الحساب.",
+      directions: {
+        increase: "زيادة",
+        decrease: "انخفاض",
+        "no-change": "لا تغير",
+      },
+      errors: {
+        "missing-input": "أدخل القيمتين.",
+        "invalid-number": "أدخل أرقامًا صالحة.",
+        "zero-denominator": "لا يمكن أن تكون هذه القيمة صفرًا.",
+        "non-finite-result": "النتيجة خارج النطاق المدعوم.",
+      },
+    },
+  },
+  "zh-TW": {
+    page: {
+      title: "百分比計算機",
+      description:
+        "計算一個數的百分比、部分占整體的比例、未知的整體數值或百分比變化。",
+      mobileDescription: "快速計算百分比、比例與漲跌幅。",
+      guide: "選擇符合問題的計算方式，輸入兩個已知數值，再查看結果與公式。",
+      terms: ["百分比計算機", "百分比怎麼算", "幾趴", "百分比變化"],
+    },
+    feature: {
+      ariaLabel: "百分比計算機",
+      modeSelectorLabel: "計算類型",
+      modes: {
+        "percent-of": "某數的百分比",
+        "what-percent": "占幾趴",
+        "whole-from-percent": "求整體",
+        "percentage-change": "百分比變化",
+      },
+      phrases: {
+        "percent-of": { start: "", between: "的", end: "是多少？" },
+        "what-percent": { start: "", between: "是", end: "的幾趴？" },
+        "whole-from-percent": {
+          start: "",
+          between: "是",
+          end: "% 時，整體是多少？",
+        },
+        "percentage-change": { start: "從", between: "變成", end: "" },
+      },
+      fields: {
+        percent: "百分比",
+        base: "整體",
+        part: "部分",
+        oldValue: "原始值",
+        newValue: "新值",
+      },
+      calculate: "計算",
+      resultTitle: "結果",
+      resultLabels: {
+        "percent-of": "結果",
+        "what-percent": "百分比",
+        "whole-from-percent": "整體",
+        "percentage-change": "百分比變化",
+      },
+      formulaLabel: "公式",
+      calculated: "計算完成。",
+      directions: {
+        increase: "增加",
+        decrease: "減少",
+        "no-change": "沒有變化",
+      },
+      errors: {
+        "missing-input": "請輸入兩個數值。",
+        "invalid-number": "請輸入有效數字。",
+        "zero-denominator": "這個數值不能是 0。",
+        "non-finite-result": "結果超出支援範圍。",
+      },
+    },
+  },
+  tr: {
+    page: {
+      title: "Yüzde hesaplayıcı",
+      description:
+        "Bir değerin yüzdesini, bir parçanın bütün içindeki yüzdesini, eksik bütünü veya yüzde değişimini hesaplayın.",
+      mobileDescription: "Günlük yüzde hesaplarını hızlıca çözün.",
+      guide:
+        "Sorunuza uygun işlemi seçin, bilinen iki değeri girin, ardından sonucu ve formülü inceleyin.",
+      terms: [
+        "yüzde hesaplayıcı",
+        "yüzde hesaplama",
+        "yüzde kaç",
+        "yüzde değişimi",
+      ],
+    },
+    feature: {
+      ariaLabel: "Yüzde hesaplayıcı",
+      modeSelectorLabel: "Hesaplama türü",
+      modes: {
+        "percent-of": "Bir sayının yüzdesi",
+        "what-percent": "Yüzde kaç",
+        "whole-from-percent": "Bütünü bul",
+        "percentage-change": "Yüzde değişimi",
+      },
+      phrases: {
+        "percent-of": { start: "", between: "sayısının", end: "kaçı?" },
+        "what-percent": {
+          start: "",
+          between: ",",
+          end: "sayısının yüzde kaçı?",
+        },
+        "whole-from-percent": {
+          start: "",
+          between: ",",
+          end: "% ise bütün kaçtır?",
+        },
+        "percentage-change": {
+          start: "",
+          between: "değerinden",
+          end: "değerine",
+        },
+      },
+      fields: {
+        percent: "Yüzde",
+        base: "Bütün",
+        part: "Parça",
+        oldValue: "Eski değer",
+        newValue: "Yeni değer",
+      },
+      calculate: "Hesapla",
+      resultTitle: "Sonuç",
+      resultLabels: {
+        "percent-of": "Sonuç",
+        "what-percent": "Yüzde",
+        "whole-from-percent": "Bütün",
+        "percentage-change": "Yüzde değişimi",
+      },
+      formulaLabel: "Formül",
+      calculated: "Hesaplandı.",
+      directions: {
+        increase: "Artış",
+        decrease: "Azalış",
+        "no-change": "Değişiklik yok",
+      },
+      errors: {
+        "missing-input": "İki değeri de girin.",
+        "invalid-number": "Geçerli sayılar girin.",
+        "zero-denominator": "Bu değer sıfır olamaz.",
+        "non-finite-result": "Sonuç desteklenen aralığın dışında.",
+      },
+    },
   },
 };
 
@@ -2947,27 +3977,32 @@ export function calculatorSuiteFor(locale: Locale): CalculatorSuiteLocaleSeed {
         ? page
         : id === "bmi-calculator"
           ? localizedBmiPacks[locale].page
-          : Object.hasOwn(localizedMathPages[locale], id)
-            ? localizedMathPages[locale][id as MathPageId]
-            : {
-                ...page,
-                title: titles[id as CalculatorPageId],
-                terms: [titles[id as CalculatorPageId], ...page.terms],
-              },
+          : id === "percentage-calculator"
+            ? localizedPercentagePacks[locale].page
+            : Object.hasOwn(localizedMathPages[locale], id)
+              ? localizedMathPages[locale][id as MathPageId]
+              : {
+                  ...page,
+                  title: titles[id as CalculatorPageId],
+                  terms: [titles[id as CalculatorPageId], ...page.terms],
+                },
     ]),
   ) as Record<CalculatorPageId, Page>;
   if (locale === "ko")
     return {
       pages,
       math: koreanMath,
-      percentage: koreanPercentage,
+      percentage: localizedPercentagePacks.ko.feature,
       bmi: localizedBmiPacks.ko.feature,
     };
   const suite = titles["fraction-calculator"];
   return {
     pages,
     math: locale === "en" ? commonMath(suite) : localizedMath[locale],
-    percentage: commonPercentage(suite),
+    percentage:
+      locale === "en"
+        ? commonPercentage(suite)
+        : localizedPercentagePacks[locale].feature,
     bmi: locale === "en" ? commonBmi(suite) : localizedBmiPacks[locale].feature,
   };
 }

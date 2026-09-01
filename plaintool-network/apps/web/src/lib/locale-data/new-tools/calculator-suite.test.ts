@@ -87,6 +87,33 @@ const criticalBmiPaths = [
   "errors.inches-out-of-range",
 ] as const;
 
+const criticalPercentagePaths = [
+  "ariaLabel",
+  "modeSelectorLabel",
+  "modes.percent-of",
+  "modes.what-percent",
+  "modes.whole-from-percent",
+  "modes.percentage-change",
+  "phrases.percent-of.start",
+  "phrases.percent-of.between",
+  "fields.percent",
+  "fields.base",
+  "fields.part",
+  "fields.oldValue",
+  "fields.newValue",
+  "calculate",
+  "resultTitle",
+  "resultLabels.percentage-change",
+  "formulaLabel",
+  "calculated",
+  "directions.increase",
+  "directions.decrease",
+  "errors.missing-input",
+  "errors.invalid-number",
+  "errors.zero-denominator",
+  "errors.non-finite-result",
+] as const;
+
 describe("calculator suite locale copy", () => {
   it("localizes the page copy for all three math calculators", () => {
     const english = calculatorSuiteFor("en");
@@ -151,6 +178,36 @@ describe("calculator suite locale copy", () => {
       );
       expect(page.guide, `${locale}:guide`).not.toBe(english.guide);
       expect(page.terms[0], `${locale}:terms`).not.toBe(english.terms[0]);
+    }
+  });
+
+  it("localizes percentage page copy instead of retaining the English fallback", () => {
+    const english = calculatorSuiteFor("en").pages["percentage-calculator"];
+    for (const locale of locales.filter((item) => item !== "en")) {
+      const page = calculatorSuiteFor(locale).pages["percentage-calculator"];
+      expect(page.title, `${locale}:title`).not.toBe(english.title);
+      expect(page.description, `${locale}:description`).not.toBe(
+        english.description,
+      );
+      expect(page.mobileDescription, `${locale}:mobileDescription`).not.toBe(
+        english.mobileDescription,
+      );
+      expect(page.guide, `${locale}:guide`).not.toBe(english.guide);
+      expect(page.terms, `${locale}:terms`).not.toEqual(english.terms);
+    }
+  });
+
+  it("does not reuse English percentage UI or error copy", () => {
+    const english = new Map(flattenCopy(calculatorSuiteFor("en").percentage));
+    for (const locale of locales.filter((item) => item !== "en")) {
+      const localized = new Map(
+        flattenCopy(calculatorSuiteFor(locale).percentage),
+      );
+      for (const path of criticalPercentagePaths) {
+        expect(localized.get(path), `${locale}:${path}`).not.toBe(
+          english.get(path),
+        );
+      }
     }
   });
 
