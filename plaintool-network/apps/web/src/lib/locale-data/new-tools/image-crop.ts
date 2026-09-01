@@ -67,7 +67,6 @@ const packs = {
         "rotate image",
         "straighten image",
         "perspective correction",
-        "image editor",
       ],
     },
   },
@@ -123,7 +122,6 @@ const packs = {
         "사진 자르기",
         "이미지 회전",
         "사진 기울기 보정",
-        "이미지 편집기",
       ],
     },
   },
@@ -179,7 +177,6 @@ const packs = {
         "recortar foto",
         "girar imagen",
         "enderezar foto",
-        "editor de imágenes",
       ],
     },
   },
@@ -236,7 +233,6 @@ const packs = {
         "Foto zuschneiden",
         "Bild drehen",
         "Foto begradigen",
-        "Bildeditor",
       ],
     },
   },
@@ -404,7 +400,6 @@ const packs = {
         "recortar foto",
         "girar imagem",
         "endireitar foto",
-        "editor de imagem",
       ],
     },
   },
@@ -517,7 +512,6 @@ const packs = {
         "foto bijsnijden",
         "afbeelding draaien",
         "foto rechtzetten",
-        "afbeeldingseditor",
       ],
     },
   },
@@ -568,13 +562,7 @@ const packs = {
       mobileDescription: "Beskär och räta upp en bild på din enhet.",
       guide:
         "Välj, släpp eller klistra in en bild. Ställ in område och bildförhållande och rotera, vänd eller räta upp före nedladdning.",
-      terms: [
-        "beskära bild",
-        "beskära foto",
-        "rotera bild",
-        "räta upp foto",
-        "bildredigerare",
-      ],
+      terms: ["beskära bild", "beskära foto", "rotera bild", "räta upp foto"],
     },
   },
   cs: {
@@ -629,7 +617,6 @@ const packs = {
         "oříznout fotku",
         "otočit obrázek",
         "narovnat fotku",
-        "editor obrázků",
       ],
     },
   },
@@ -685,7 +672,6 @@ const packs = {
         "kadrowanie zdjęcia",
         "obracanie obrazu",
         "prostowanie zdjęcia",
-        "edytor obrazów",
       ],
     },
   },
@@ -736,13 +722,7 @@ const packs = {
       mobileDescription: "Beskær og ret et billede op på din enhed.",
       guide:
         "Vælg, slip eller indsæt et billede. Angiv område og billedformat, og drej, spejlvend eller ret op før download.",
-      terms: [
-        "beskær billede",
-        "beskær foto",
-        "drej billede",
-        "ret foto op",
-        "billedredigering",
-      ],
+      terms: ["beskær billede", "beskær foto", "drej billede", "ret foto op"],
     },
   },
   no: {
@@ -792,13 +772,7 @@ const packs = {
       mobileDescription: "Beskjær og rett opp et bilde på enheten.",
       guide:
         "Velg, slipp eller lim inn et bilde. Angi område og sideforhold, og roter, speilvend eller rett opp før nedlasting.",
-      terms: [
-        "beskjær bilde",
-        "beskjær foto",
-        "roter bilde",
-        "rett opp foto",
-        "bilderedigering",
-      ],
+      terms: ["beskjær bilde", "beskjær foto", "roter bilde", "rett opp foto"],
     },
   },
   ar: {
@@ -848,13 +822,7 @@ const packs = {
       mobileDescription: "اقتصّ الصورة وصحّح ميلها على جهازك.",
       guide:
         "اختر صورة أو أفلتها أو الصقها. حدّد منطقة الاقتصاص والنسبة، ثم دوّر الصورة أو اقلبها أو صحّح ميلها قبل التنزيل.",
-      terms: [
-        "اقتصاص صورة",
-        "قص صورة",
-        "تدوير صورة",
-        "تصحيح ميل الصورة",
-        "محرر صور",
-      ],
+      terms: ["اقتصاص صورة", "قص صورة", "تدوير صورة", "تصحيح ميل الصورة"],
     },
   },
   "zh-TW": {
@@ -903,7 +871,7 @@ const packs = {
       mobileDescription: "在裝置上裁切圖片並校正傾斜。",
       guide:
         "選擇、拖放或貼上圖片。設定裁切範圍與長寬比，再視需要旋轉、翻轉或校正傾斜後下載。",
-      terms: ["圖片裁切", "照片裁切", "圖片旋轉", "照片校正", "圖片編輯器"],
+      terms: ["圖片裁切", "照片裁切", "圖片旋轉", "照片校正"],
     },
   },
   tr: {
@@ -958,7 +926,6 @@ const packs = {
         "fotoğraf kırpma",
         "görsel döndürme",
         "fotoğraf hizalama",
-        "görsel düzenleyici",
       ],
     },
   },

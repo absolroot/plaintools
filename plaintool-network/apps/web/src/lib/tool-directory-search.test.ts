@@ -126,6 +126,41 @@ describe("tool directory search catalog", () => {
       expect(tool?.searchTerms.ko).toContain(term);
     }
   });
+
+  it("keeps image search terms aligned with the specific editing task", () => {
+    const backgroundRemover = toolCatalog.find(
+      (tool) => tool.id === "background-remover",
+    );
+    const imageCrop = toolCatalog.find((tool) => tool.id === "image-crop");
+
+    if (!backgroundRemover || !imageCrop) {
+      throw new Error("Expected image search catalog entries.");
+    }
+
+    const genericCropEditorTerms = new Set([
+      "image editor",
+      "이미지 편집기",
+      "editor de imágenes",
+      "Bildeditor",
+      "editor de imagem",
+      "afbeeldingseditor",
+      "bildredigerare",
+      "editor obrázků",
+      "edytor obrazów",
+      "billedredigering",
+      "bilderedigering",
+      "محرر صور",
+      "圖片編輯器",
+      "görsel düzenleyici",
+    ]);
+
+    for (const locale of locales) {
+      expect(backgroundRemover.searchTerms[locale]).not.toContain("U2Net");
+      expect(imageCrop.searchTerms[locale]).not.toEqual(
+        expect.arrayContaining([...genericCropEditorTerms]),
+      );
+    }
+  });
 });
 
 describe("tool directory search matching", () => {
