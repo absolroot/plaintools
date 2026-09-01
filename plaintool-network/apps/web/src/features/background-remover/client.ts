@@ -41,6 +41,22 @@ const MODEL_ORDER: readonly BackgroundModelId[] = [
   "precision",
 ];
 const PREVIEW_EDGE = 512;
+const PRECISION_NOTICE_STORAGE_KEY =
+  "plaintool.background-remover.precision-notice.v1";
+
+function hasAcknowledgedPrecisionNotice(): boolean {
+  try {
+    return localStorage.getItem(PRECISION_NOTICE_STORAGE_KEY) === "seen";
+  } catch {
+    return false;
+  }
+}
+
+function acknowledgePrecisionNotice(): void {
+  try {
+    localStorage.setItem(PRECISION_NOTICE_STORAGE_KEY, "seen");
+  } catch {}
+}
 
 class Cancelled extends Error {}
 class InferenceFailure extends Error {
@@ -155,6 +171,7 @@ function init(root: HTMLElement): void {
   let workerKind: WorkerKind | undefined;
   let rejectActive: ((reason: Error) => void) | undefined;
   let precisionApproved = false;
+  let precisionNoticeAcknowledged = hasAcknowledgedPrecisionNotice();
   let precisionSupported = false;
   let previousModel: BackgroundRunMode = "fast";
   let consentIntent: ConsentIntent | undefined;
@@ -683,6 +700,8 @@ function init(root: HTMLElement): void {
       ? root.dataset.threeModelSummary!
       : copy.cancel;
     precisionConsent.showModal();
+    precisionNoticeAcknowledged = true;
+    acknowledgePrecisionNotice();
   }
 
   function handleConsentCancel(): void {
@@ -705,8 +724,11 @@ function init(root: HTMLElement): void {
       void runSingle(runMode);
       return;
     }
-    if (precisionSupported && !precisionApproved) showConsent("compare");
-    else void runComparison(precisionSupported && precisionApproved);
+    if (precisionSupported && !precisionNoticeAcknowledged) {
+      showConsent("compare");
+    } else {
+      void runComparison(precisionSupported);
+    }
   });
   trimButton.addEventListener("click", () => {
     const result = selectedResultModel
@@ -810,7 +832,11 @@ function init(root: HTMLElement): void {
   modelInputs.forEach((input) =>
     input.addEventListener("change", () => {
       const nextModel = input.value as BackgroundRunMode;
-      if (nextModel === "precision" && !precisionApproved) {
+      if (
+        nextModel === "precision" &&
+        !precisionApproved &&
+        !precisionNoticeAcknowledged
+      ) {
         input.checked = false;
         root.querySelector<HTMLInputElement>(
           `input[name="background-model"][value="${previousModel}"]`,

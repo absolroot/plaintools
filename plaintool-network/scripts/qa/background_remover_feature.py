@@ -56,6 +56,9 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             requested_resources.append(request.url)
 
     page.on("request", collect_background_resource)
+    page.add_init_script(
+        "localStorage.removeItem('plaintool.background-remover.precision-notice.v1');"
+    )
     page.goto(f"{BASE_URL}/en/background-remover/", wait_until="networkidle")
     upload_guidance = page.locator(
         "[data-background-remover] [data-upload-prompt] small"
@@ -614,7 +617,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
         "dialogOpened": False,
         "selectionDeferred": False,
         "cancelRestored": False,
-        "confirmed": False,
+        "remembered": False,
         "downloadBeforeRun": False,
         "disclosesFirstDownload": False,
     }
@@ -645,11 +648,11 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             """
         )
         precision_input.click()
-        page.locator("[data-consent-confirm]").click()
-        precision_consent["confirmed"] = page.evaluate(
+        precision_consent["remembered"] = page.evaluate(
             """
             () => !document.querySelector('[data-precision-consent]').open
               && document.querySelector('input[name="background-model"][value="precision"]').checked
+              && localStorage.getItem('plaintool.background-remover.precision-notice.v1') === 'seen'
             """
         )
         precision_consent["downloadBeforeRun"] = any(
@@ -659,7 +662,7 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
             not precision_consent["dialogOpened"]
             or not precision_consent["selectionDeferred"]
             or not precision_consent["cancelRestored"]
-            or not precision_consent["confirmed"]
+            or not precision_consent["remembered"]
             or precision_consent["downloadBeforeRun"]
             or not precision_consent["disclosesFirstDownload"]
         ):
