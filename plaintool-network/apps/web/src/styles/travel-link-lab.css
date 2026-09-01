@@ -1,5 +1,5 @@
 .travel-link-lab {
-  width: min(780px, 100%);
+  width: min(640px, 100%);
 }
 .travel-link-lab-input-panel {
   display: grid;
@@ -10,7 +10,7 @@
   padding: var(--space-4);
   display: grid;
   gap: var(--space-2);
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
   background: var(--base);
 }
 .travel-link-market-picker label {
@@ -59,7 +59,7 @@
 }
 
 .travel-link-results {
-  width: min(780px, 100%);
+  width: min(720px, 100%);
   min-width: 0;
   padding: var(--space-4);
   display: grid;
@@ -78,59 +78,6 @@
   margin: 4px 0;
   font-size: 18px;
 }
-.travel-link-results-heading p {
-  max-width: 720px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.travel-link-results-total {
-  flex: 0 0 auto;
-  color: var(--muted);
-  font-family: var(--code-font);
-  font-size: 12px;
-  white-space: nowrap;
-}
-.travel-link-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1px;
-  background: var(--line);
-  box-shadow: 0 0 0 1px var(--line);
-}
-.travel-link-filter-set {
-  display: grid;
-  gap: var(--space-3);
-}
-.travel-link-filter-set > div {
-  display: grid;
-  gap: var(--space-2);
-}
-.travel-link-filter-label {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 700;
-}
-.travel-link-filters button {
-  min-height: 36px;
-  padding: 0 var(--space-3);
-  border: 0;
-  color: var(--muted);
-  background: var(--base);
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-}
-.travel-link-filters button:hover,
-.travel-link-filters button.is-active {
-  color: var(--ink);
-  background: var(--tint);
-}
-.travel-link-filters button.is-active {
-  box-shadow: inset 0 -2px 0 var(--action);
-}
 .travel-link-result-list {
   display: grid;
   gap: var(--space-4);
@@ -144,20 +91,6 @@
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
-}
-.travel-link-market-list {
-  display: grid;
-  gap: var(--space-3);
-}
-.travel-link-market-group {
-  display: grid;
-  gap: var(--space-2);
-}
-.travel-link-market-group > h4 {
-  margin: 0;
-  color: var(--ink);
-  font-size: 13px;
-  line-height: 1.35;
 }
 .travel-link-card-list {
   display: grid;
@@ -205,13 +138,6 @@
     align-items: flex-start;
     flex-direction: column;
     gap: var(--space-2);
-  }
-  .travel-link-filters {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .travel-link-filters button {
-    min-height: 44px;
   }
   .travel-link-market-picker select {
     min-height: 44px;

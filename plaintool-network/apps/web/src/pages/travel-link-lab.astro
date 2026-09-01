@@ -73,17 +73,6 @@ const structuredData = [
       data-travel-copy={JSON.stringify(copy)}
     >
       <div class="travel-link-lab-input-panel">
-        <section class="travel-link-market-picker">
-          <label for="travel-market">{copy.marketLabel}</label>
-          <select id="travel-market" data-travel-market>
-            <option value="">{copy.marketPlaceholder}</option>
-            {
-              marketOptions.map(([value, code]) => (
-                <option value={value}>{copy.markets[code]}</option>
-              ))
-            }
-          </select>
-        </section>
         <section class="editor-pane travel-link-lab-input">
           <div class="pane-heading">
             <label for="travel-url">{copy.hotelUrlLabel}</label>
@@ -101,6 +90,17 @@ const structuredData = [
             type="url"
             placeholder={copy.urlPlaceholder}
           />
+        </section>
+        <section class="travel-link-market-picker">
+          <label for="travel-market">{copy.marketLabel}</label>
+          <select id="travel-market" data-travel-market>
+            <option value="">{copy.marketPlaceholder}</option>
+            {
+              marketOptions.map(([value, code]) => (
+                <option value={value}>{copy.markets[code]}</option>
+              ))
+            }
+          </select>
         </section>
       </div>
       <div class="converter-commandbar">
