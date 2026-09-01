@@ -11,14 +11,22 @@ def run_unit_converter_desktop(page, report: dict, _inventory) -> None:
     value = root.locator("[data-value]")
     result = root.locator("[data-result]")
 
-    default_result = result.inner_text()
+    default_result = result.input_value()
     if abs(float(default_result) - 3.280839895013123) > 1e-10:
         report["ui_detail_failures"].append(
             f"Unit converter default 1 m to ft was {default_result!r}."
         )
 
+    result.fill("6.561679790026246")
+    reverse_result = value.input_value()
+    if reverse_result != "2":
+        report["ui_detail_failures"].append(
+            f"Unit converter target-side editing returned {reverse_result!r}, not '2'."
+        )
+    value.fill("1")
+
     root.locator("[data-swap]").click()
-    swapped_result = result.inner_text()
+    swapped_result = result.input_value()
     if swapped_result != "0.3048":
         report["ui_detail_failures"].append(
             f"Unit converter swap did not reverse the conversion: {swapped_result!r}."
@@ -26,7 +34,7 @@ def run_unit_converter_desktop(page, report: dict, _inventory) -> None:
 
     root.locator("[data-category]").select_option("temperature")
     value.fill("100")
-    temperature_result = result.inner_text()
+    temperature_result = result.input_value()
     if temperature_result != "212":
         report["ui_detail_failures"].append(
             f"Unit converter 100 C to F was {temperature_result!r}."
@@ -36,7 +44,7 @@ def run_unit_converter_desktop(page, report: dict, _inventory) -> None:
     root.locator("[data-from]").select_option("uk-gallon")
     root.locator("[data-to]").select_option("liter")
     value.fill("1")
-    volume_result = result.inner_text()
+    volume_result = result.input_value()
     if volume_result != "4.54609":
         report["ui_detail_failures"].append(
             f"Unit converter UK gallon to litre was {volume_result!r}."
@@ -44,18 +52,29 @@ def run_unit_converter_desktop(page, report: dict, _inventory) -> None:
 
     value.fill("not-a-number")
     invalid_state = {
-        "result": result.inner_text(),
+        "result": result.input_value(),
         "class": root.get_attribute("class") or "",
+        "commandbarBackground": root.locator(".converter-commandbar").evaluate(
+            "node => getComputedStyle(node).backgroundColor"
+        ),
     }
     if invalid_state["result"] or "has-error" not in invalid_state["class"]:
         report["ui_detail_failures"].append(
             f"Unit converter invalid input state failed: {invalid_state}."
         )
+    value.fill("1")
+    neutral_background = root.locator(".converter-commandbar").evaluate(
+        "node => getComputedStyle(node).backgroundColor"
+    )
+    if invalid_state["commandbarBackground"] != neutral_background:
+        report["ui_detail_failures"].append(
+            "Unit converter changed the command-bar background for an invalid value."
+        )
 
     page.goto(f"{BASE_URL}/de/unit-converter/", wait_until="networkidle")
     root = page.locator("[data-unit-converter]")
     root.locator("[data-value]").fill("1,5")
-    localized_result = root.locator("[data-result]").inner_text()
+    localized_result = root.locator("[data-result]").input_value()
     root.locator("[data-category]").select_option("area")
     localized_units = root.locator("[data-from] option").all_text_contents()
     if "," not in localized_result or not any(
@@ -68,6 +87,7 @@ def run_unit_converter_desktop(page, report: dict, _inventory) -> None:
 
     report["unit_converter_desktop"] = {
         "default": default_result,
+        "reverse": reverse_result,
         "swapped": swapped_result,
         "temperature": temperature_result,
         "volume": volume_result,
@@ -94,7 +114,7 @@ def run_unit_converter_mobile(page, report: dict, _inventory) -> None:
             inputDirection: getComputedStyle(root.querySelector('[data-value]')).direction,
             minControlHeight: Math.min(...controls.map((node) => node.getBoundingClientRect().height)),
             visible: root.getBoundingClientRect().width > 0,
-            result: root.querySelector('[data-result]').textContent,
+            result: root.querySelector('[data-result]').value,
             unitLabels: [...root.querySelectorAll('[data-from] option')].map((node) => node.textContent),
           };
         }"""

@@ -37,6 +37,13 @@
   font-size: 13px;
 }
 
+.math-field input {
+  height: 72px;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 600;
+  text-align: center;
+}
+
 .math-field input[aria-invalid="true"],
 .fraction-input-group input[aria-invalid="true"],
 .fraction-operation select[aria-invalid="true"] {
@@ -85,9 +92,9 @@
 }
 
 .fraction-input-group input {
-  height: 44px;
+  height: 56px;
   text-align: center;
-  font-size: 16px;
+  font-size: 22px;
 }
 
 .fraction-rule {
@@ -300,7 +307,10 @@
   }
 
   .math-field input,
-  .fraction-input-group input,
+  .fraction-input-group input {
+    min-height: 60px;
+  }
+
   .fraction-operation select,
   .math-actions .primary-button,
   .math-actions .secondary-button,

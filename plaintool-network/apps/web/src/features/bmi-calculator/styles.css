@@ -46,7 +46,7 @@
 .bmi-field input {
   min-width: 0;
   width: 100%;
-  height: 36px;
+  height: 68px;
   padding: 0 var(--space-3);
   border: 0;
   border-radius: var(--radius-control);
@@ -54,7 +54,9 @@
   background: var(--control);
   box-shadow: 0 0 0 1px var(--control-line);
   font-family: var(--code-font);
-  font-size: 13px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  text-align: center;
   direction: ltr;
 }
 
@@ -221,7 +223,10 @@
     grid-column: 1 / -1;
   }
 
-  .bmi-field input,
+  .bmi-field input {
+    min-height: 60px;
+  }
+
   .bmi-actions .primary-button,
   .bmi-actions .secondary-button {
     min-height: 44px;

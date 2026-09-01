@@ -23,7 +23,7 @@ const initialUnits = unitsFor(initialCategory);
 >
   <div class="unit-category-bar">
     <label class="unit-category-field">
-      <span>{copy.category}</span>
+      <span class="visually-hidden">{copy.category}</span>
       <select data-category aria-label={copy.category}>
         {
           unitCategories.map((category) => (
@@ -36,29 +36,58 @@ const initialUnits = unitsFor(initialCategory);
     </label>
   </div>
   <div class="unit-workspace">
-    <label class="unit-value-field">
-      <span>{copy.from}</span>
-      <input
-        data-value
-        inputmode="decimal"
-        autocomplete="off"
-        dir="ltr"
-        value="1"
-        aria-describedby="unit-converter-status"
-      />
-    </label>
-    <label class="unit-select-field">
-      <span>{copy.from}</span>
-      <select data-from aria-describedby="unit-converter-status">
-        {
-          initialUnits.map((unit) => (
-            <option value={unit.id} selected={unit.id === "meter"}>
-              {copy.unitNames[unit.id] ?? unit.name} ({unit.symbol})
-            </option>
-          ))
-        }
-      </select>
-    </label>
+    <div class="unit-side">
+      <label class="unit-value-field">
+        <span class="visually-hidden">{copy.from}</span>
+        <input
+          data-value
+          inputmode="decimal"
+          autocomplete="off"
+          dir="ltr"
+          value="1"
+          aria-describedby="unit-converter-status"
+        />
+      </label>
+      <label class="unit-select-field">
+        <span class="visually-hidden">{copy.from}</span>
+        <select data-from aria-describedby="unit-converter-status">
+          {
+            initialUnits.map((unit) => (
+              <option value={unit.id} selected={unit.id === "meter"}>
+                {copy.unitNames[unit.id] ?? unit.name} ({unit.symbol})
+              </option>
+            ))
+          }
+        </select>
+      </label>
+    </div>
+    <div class="unit-equation" aria-hidden="true">=</div>
+    <div class="unit-side">
+      <label class="unit-select-field">
+        <span class="visually-hidden">{copy.to}</span>
+        <select data-to aria-describedby="unit-converter-status">
+          {
+            initialUnits.map((unit) => (
+              <option value={unit.id} selected={unit.id === "foot"}>
+                {copy.unitNames[unit.id] ?? unit.name} ({unit.symbol})
+              </option>
+            ))
+          }
+        </select>
+      </label>
+      <label class="unit-value-field unit-result-field">
+        <span class="visually-hidden">{copy.to}</span>
+        <input
+          data-result
+          inputmode="decimal"
+          autocomplete="off"
+          dir="ltr"
+          aria-describedby="unit-converter-status"
+        />
+      </label>
+    </div>
+  </div>
+  <div class="unit-actions">
     <button
       class="unit-swap"
       type="button"
@@ -66,23 +95,8 @@ const initialUnits = unitsFor(initialCategory);
       aria-label={copy.swap}
       title={copy.swap}><UiIcon name="swap" size={16} /></button
     >
-    <label class="unit-select-field">
-      <span>{copy.to}</span>
-      <select data-to aria-describedby="unit-converter-status">
-        {
-          initialUnits.map((unit) => (
-            <option value={unit.id} selected={unit.id === "foot"}>
-              {copy.unitNames[unit.id] ?? unit.name} ({unit.symbol})
-            </option>
-          ))
-        }
-      </select>
-    </label>
-    <div class="unit-result-field">
-      <span>{copy.result}</span>
-      <output data-result dir="ltr" aria-live="polite"></output>
-      <small data-result-unit></small>
-    </div>
+    <output class="unit-formula" data-formula dir="ltr" aria-live="polite"
+    ></output>
   </div>
   <ConverterStatus status={copy.ready} statusId="unit-converter-status" />
   <script

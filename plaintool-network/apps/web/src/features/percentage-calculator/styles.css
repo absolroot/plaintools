@@ -19,7 +19,7 @@
 }
 
 .percentage-equation {
-  min-height: 112px;
+  min-height: 132px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -27,7 +27,7 @@
 }
 
 .percentage-phrase {
-  min-height: 36px;
+  min-height: 64px;
   display: inline-flex;
   align-items: center;
   color: var(--muted);
@@ -56,7 +56,7 @@
 
 .percentage-input-shell {
   min-width: 0;
-  height: 36px;
+  height: 64px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
@@ -70,6 +70,11 @@
   box-shadow: 0 0 0 1px var(--focus);
 }
 
+.percentage-input-shell input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
 .percentage-input-shell:has(input[aria-invalid="true"]) {
   box-shadow: 0 0 0 1px var(--danger);
 }
@@ -77,21 +82,22 @@
 .percentage-input-shell input {
   min-width: 0;
   width: 100%;
-  height: 36px;
+  height: 64px;
   padding: 0 var(--space-3);
   border: 0;
   outline: 0;
   color: var(--ink);
   background: transparent;
   font-family: var(--code-font);
-  font-size: 15px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
   text-align: end;
 }
 
 .percentage-input-shell > span {
   padding-inline-end: var(--space-3);
   font-family: var(--code-font);
-  font-size: 13px;
+  font-size: 18px;
 }
 
 .percentage-actions {
@@ -232,7 +238,7 @@
 
   .percentage-input-shell,
   .percentage-input-shell input {
-    height: 44px;
+    height: 60px;
   }
 
   .percentage-actions {

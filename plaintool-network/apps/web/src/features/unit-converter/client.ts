@@ -15,8 +15,8 @@ function init(root: HTMLElement): void {
   const value = root.querySelector<HTMLInputElement>("[data-value]")!;
   const from = root.querySelector<HTMLSelectElement>("[data-from]")!;
   const to = root.querySelector<HTMLSelectElement>("[data-to]")!;
-  const result = root.querySelector<HTMLOutputElement>("[data-result]")!;
-  const resultUnit = root.querySelector<HTMLElement>("[data-result-unit]")!;
+  const result = root.querySelector<HTMLInputElement>("[data-result]")!;
+  const formula = root.querySelector<HTMLOutputElement>("[data-formula]")!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const populate = (select: HTMLSelectElement, selected: string) => {
     select.replaceChildren(
@@ -29,13 +29,20 @@ function init(root: HTMLElement): void {
       }),
     );
   };
+  let activeInput: HTMLInputElement = value;
+  const clearInvalid = () => {
+    value.removeAttribute("aria-invalid");
+    result.removeAttribute("aria-invalid");
+  };
   const run = () => {
-    const raw = value.value.trim();
+    const raw = activeInput.value.trim();
     const parsed = parseLocalizedNumber(raw, copy.numberLocale);
+    const otherInput = activeInput === value ? result : value;
     if (parsed === null) {
-      result.value = "";
-      resultUnit.textContent = "";
-      value.toggleAttribute("aria-invalid", Boolean(raw));
+      otherInput.value = "";
+      formula.value = "";
+      activeInput.toggleAttribute("aria-invalid", Boolean(raw));
+      otherInput.removeAttribute("aria-invalid");
       setToolStatus(
         root,
         status,
@@ -45,18 +52,29 @@ function init(root: HTMLElement): void {
       return;
     }
     try {
-      const converted = convertUnit(parsed, from.value, to.value);
-      const unit = unitsFor(category.value as UnitCategory).find(
-        (item) => item.id === to.value,
+      const sourceUnit = activeInput === value ? from.value : to.value;
+      const targetUnit = activeInput === value ? to.value : from.value;
+      const converted = convertUnit(parsed, sourceUnit, targetUnit);
+      const source = unitsFor(category.value as UnitCategory).find(
+        (item) => item.id === sourceUnit,
       )!;
-      result.value = formatLocalizedNumber(converted, copy.numberLocale);
-      resultUnit.textContent = unit.symbol;
-      value.removeAttribute("aria-invalid");
-      setToolStatus(root, status, copy.ready, "success");
+      const target = unitsFor(category.value as UnitCategory).find(
+        (item) => item.id === targetUnit,
+      )!;
+      const formattedSource = formatLocalizedNumber(parsed, copy.numberLocale);
+      const formattedTarget = formatLocalizedNumber(
+        converted,
+        copy.numberLocale,
+      );
+      otherInput.value = formattedTarget;
+      formula.value = `${formattedSource} ${source.symbol} = ${formattedTarget} ${target.symbol}`;
+      clearInvalid();
+      setToolStatus(root, status, copy.ready, "idle");
     } catch {
-      result.value = "";
-      resultUnit.textContent = "";
-      value.setAttribute("aria-invalid", "true");
+      otherInput.value = "";
+      formula.value = "";
+      activeInput.setAttribute("aria-invalid", "true");
+      otherInput.removeAttribute("aria-invalid");
       setToolStatus(root, status, copy.invalid, "error");
     }
   };
@@ -74,21 +92,32 @@ function init(root: HTMLElement): void {
     const [fromDefault, toDefault] = defaults[category.value as UnitCategory];
     populate(from, fromDefault);
     populate(to, toDefault);
+    activeInput = value;
     run();
   });
-  [value, from, to].forEach((control) =>
-    control.addEventListener("input", run),
-  );
+  value.addEventListener("input", () => {
+    activeInput = value;
+    run();
+  });
+  result.addEventListener("input", () => {
+    activeInput = result;
+    run();
+  });
+  [from, to].forEach((control) => control.addEventListener("change", run));
   root
     .querySelector<HTMLButtonElement>("[data-swap]")!
     .addEventListener("click", () => {
       const oldFrom = from.value;
       from.value = to.value;
       to.value = oldFrom;
+      activeInput = value;
       run();
     });
   root.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && event.target === value) {
+    if (
+      event.key === "Enter" &&
+      (event.target === value || event.target === result)
+    ) {
       event.preventDefault();
       run();
     }

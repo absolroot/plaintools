@@ -1,50 +1,86 @@
 .unit-category-bar {
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--line);
+  padding: var(--space-4);
   background: var(--input-surface);
 }
-.unit-category-field,
-.unit-value-field,
-.unit-select-field,
-.unit-result-field {
-  min-width: 0;
-  display: grid;
-  gap: var(--space-2);
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 500;
-}
 .unit-category-field {
-  width: min(100%, 260px);
+  display: block;
 }
-.unit-category-field select,
-.unit-select-field select,
-.unit-value-field input {
+.unit-category-field select {
   width: 100%;
-  height: 36px;
+  height: 48px;
   padding: 0 var(--space-3);
   border: 0;
   border-radius: var(--radius-control);
   color: var(--ink);
   background: var(--control);
   box-shadow: 0 0 0 1px var(--control-line);
+  font-size: 16px;
+  font-weight: 650;
+}
+.unit-value-field,
+.unit-select-field {
+  min-width: 0;
+  display: grid;
+  gap: 0;
+}
+.unit-select-field select,
+.unit-value-field input {
+  width: 100%;
+  border: 0;
+  color: var(--ink);
+  background: var(--control);
+  box-shadow: 0 0 0 1px var(--control-line);
 }
 .unit-value-field input {
+  height: 94px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-control) var(--radius-control) 0 0;
   font-family: var(--code-font);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 560;
+  line-height: 1;
+  text-align: center;
+}
+.unit-select-field select {
+  height: 52px;
+  padding: 0 var(--space-3);
+  border-top: 1px solid var(--control-line);
+  border-radius: 0 0 var(--radius-control) var(--radius-control);
+  font-size: 16px;
+  font-weight: 650;
 }
 .unit-workspace {
   display: grid;
-  grid-template-columns:
-    minmax(110px, 0.75fr) minmax(180px, 1fr) 36px minmax(180px, 1fr)
-    minmax(150px, 0.8fr);
-  align-items: end;
-  gap: var(--space-3);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(var(--space-3), 3vw, var(--space-6));
   padding: var(--space-4);
   background: var(--input-surface);
 }
+.unit-side {
+  min-width: 0;
+  display: grid;
+}
+.unit-result-field {
+  order: -1;
+}
+.unit-equation {
+  color: var(--muted);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 500;
+  line-height: 1;
+}
+.unit-actions {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-4) var(--space-4);
+  background: var(--input-surface);
+}
 .unit-swap {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border: 0;
@@ -58,51 +94,49 @@
   color: var(--ink);
   background: var(--recessed);
 }
-.unit-result-field {
-  min-height: 56px;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-control);
-  background: var(--output-surface);
-  box-shadow: inset 0 0 0 1px var(--control-line);
-}
-.unit-result-field output {
+.unit-formula {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--ink);
-  font-family: var(--code-font);
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.1;
-}
-.unit-result-field small {
   color: var(--muted);
   font-family: var(--code-font);
-  font-size: 11px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.unit-converter.converter.is-success .converter-commandbar,
+.unit-converter.converter.has-error .converter-commandbar {
+  background: var(--elevated);
 }
 @media (max-width: 760px) {
   .unit-category-bar {
     padding: var(--space-3);
   }
   .unit-workspace {
-    grid-template-columns: 1fr 44px 1fr;
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+    gap: var(--space-2);
     padding: var(--space-3);
-  }
-  .unit-value-field,
-  .unit-result-field {
-    grid-column: 1 / -1;
   }
   .unit-swap {
     width: 44px;
     height: 44px;
   }
-  .unit-category-field select,
-  .unit-select-field select,
-  .unit-value-field input {
+  .unit-category-field select {
     height: 44px;
   }
-  .unit-result-field {
-    min-height: 62px;
+  .unit-value-field input {
+    height: 82px;
+    min-width: 0;
+    padding-inline: var(--space-2);
+    font-size: 30px;
+  }
+  .unit-select-field select {
+    height: 48px;
+    min-width: 0;
+    padding-inline: var(--space-2);
+    font-size: 14px;
+  }
+  .unit-actions {
+    min-height: 48px;
+    padding: 0 var(--space-3) var(--space-3);
   }
 }

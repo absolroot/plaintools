@@ -48,6 +48,13 @@
   font-family: var(--code-font);
 }
 
+.date-amount-grid .date-field input {
+  height: 64px;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600;
+  text-align: center;
+}
+
 .date-field input[aria-invalid="true"],
 .date-field select[aria-invalid="true"] {
   box-shadow: 0 0 0 1px var(--danger);
@@ -203,6 +210,10 @@
   .date-calculator-actions .secondary-button,
   .date-result-heading .text-button {
     min-height: 44px;
+  }
+
+  .date-amount-grid .date-field input {
+    min-height: 56px;
   }
 
   .date-calculator-actions {
