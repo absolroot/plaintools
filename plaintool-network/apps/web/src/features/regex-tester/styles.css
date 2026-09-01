@@ -137,14 +137,40 @@
   border-bottom: 1px solid var(--line);
 }
 .regex-match-inspector {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
+  display: grid;
+  gap: 10px;
   min-height: 54px;
   padding: 10px 16px;
   background: var(--recessed);
   font: 0.8rem/1.45 var(--font-mono);
+}
+.regex-match-nav {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 1px;
+}
+.regex-match-button {
+  flex: 0 0 auto;
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  padding: 4px 8px;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.regex-match-button.is-active {
+  border-color: var(--brand);
+  background: color-mix(in oklch, var(--brand), var(--base) 86%);
+  color: var(--ink-strong);
+}
+.regex-match-inspector [data-match-inspector] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
 }
 .regex-match-inspector strong {
   color: var(--muted);

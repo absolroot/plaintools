@@ -77,8 +77,9 @@ const t = localeBundles[locale].tools["regex-tester"]
   >
     <div class="regex-results-heading">
       <strong>{t.resultsLabel}</strong><span data-result-count>{t.ready}</span>
-    </div><div class="regex-match-inspector" data-match-inspector>
-      {t.ready}
+    </div><div class="regex-match-inspector">
+      <div class="regex-match-nav" data-match-nav></div>
+      <div data-match-inspector>{t.ready}</div>
     </div>
   </section>
   <details class="regex-replacement-panel">

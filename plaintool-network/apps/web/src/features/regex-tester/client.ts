@@ -47,6 +47,7 @@ function init(root: HTMLElement): void {
   const expression = root.querySelector<HTMLInputElement>("[data-expression]")!;
   const text = root.querySelector<HTMLTextAreaElement>("[data-text]")!;
   const highlight = root.querySelector<HTMLElement>("[data-highlight]")!;
+  const matchNav = root.querySelector<HTMLElement>("[data-match-nav]")!;
   const inspector = root.querySelector<HTMLElement>("[data-match-inspector]")!;
   const replacement =
     root.querySelector<HTMLInputElement>("[data-replacement]")!;
@@ -82,6 +83,7 @@ function init(root: HTMLElement): void {
   const clearResults = (message: string) => {
     visibleMatches = [];
     highlight.replaceChildren();
+    matchNav.replaceChildren();
     inspector.textContent = message;
     resultCount.textContent = message;
   };
@@ -114,6 +116,25 @@ function init(root: HTMLElement): void {
       return;
     }
     inspector.replaceChildren();
+    matchNav.replaceChildren(
+      ...visibleMatches.map((candidate, candidateIndex) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "regex-match-button";
+        button.classList.toggle("is-active", candidateIndex === index);
+        button.textContent = candidate.index + ": " + (candidate.value || "∅");
+        button.ariaLabel = fill(t.matchAt, { index: candidate.index });
+        button.addEventListener("click", () => {
+          text.focus();
+          text.setSelectionRange(
+            candidate.index,
+            candidate.index + candidate.value.length,
+          );
+          renderInspector(candidateIndex);
+        });
+        return button;
+      }),
+    );
     const label = document.createElement("strong");
     label.textContent = fill(t.matchAt, { index: match.index });
     const value = document.createElement("code");
