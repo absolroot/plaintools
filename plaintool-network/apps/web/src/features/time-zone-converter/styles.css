@@ -45,6 +45,16 @@
   font-family: var(--code-font);
 }
 
+.time-zone-date-field input,
+.time-zone-date-row .time-zone-format-switch {
+  height: 60px;
+}
+
+.time-zone-date-field input {
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: 600;
+}
+
 .time-zone-field input[aria-invalid="true"],
 .time-zone-field select[aria-invalid="true"] {
   box-shadow: 0 0 0 1px var(--danger);
@@ -297,6 +307,11 @@
   .time-zone-source-actions .secondary-button,
   .time-zone-swap-button {
     min-height: 44px;
+  }
+
+  .time-zone-date-field input,
+  .time-zone-date-row .time-zone-format-switch {
+    min-height: 56px;
   }
 
   .time-zone-swap-button {
