@@ -1,19 +1,5 @@
-.travel-link-lab-topbar {
-  justify-content: space-between;
-}
-.travel-link-lab-topbar > div {
-  min-width: 0;
-  display: grid;
-  gap: 2px;
-}
-.travel-link-lab-topbar strong {
-  font-size: 13px;
-}
-.travel-link-lab-topbar span {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
+.travel-link-lab {
+  width: min(780px, 100%);
 }
 .travel-link-lab-input-panel {
   display: grid;
@@ -218,10 +204,6 @@
 }
 
 @media (max-width: 680px) {
-  .travel-link-lab-topbar {
-    align-items: flex-start;
-    flex-direction: column;
-  }
   .travel-link-results {
     padding: var(--space-3);
   }
@@ -247,5 +229,11 @@
   .travel-link-card .secondary-button {
     width: 100%;
     min-height: 44px;
+  }
+  .travel-link-lab .primary-actions {
+    width: 100%;
+  }
+  .travel-link-lab .primary-button {
+    width: 100%;
   }
 }

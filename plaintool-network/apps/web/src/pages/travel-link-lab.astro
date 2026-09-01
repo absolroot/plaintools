@@ -72,12 +72,6 @@ const structuredData = [
       aria-label={copy.heading}
       data-travel-copy={JSON.stringify(copy)}
     >
-      <div class="converter-topbar travel-link-lab-topbar">
-        <div>
-          <strong>{copy.workspaceTitle}</strong>
-          <span>{copy.workspaceDescription}</span>
-        </div>
-      </div>
       <div class="travel-link-lab-input-panel">
         <section class="travel-link-market-picker">
           <label for="travel-market">{copy.marketLabel}</label>
@@ -132,11 +126,6 @@ const structuredData = [
         </div>
       </div>
       <div class="travel-link-result-list" data-travel-grid></div>
-    </section>
-  </div>
-  <div class="content-sections">
-    <section class="content-section">
-      <h2>{copy.paymentTitle}</h2><p>{copy.paymentDescription}</p>
     </section>
   </div>
 </SiteLayout>
