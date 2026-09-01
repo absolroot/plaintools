@@ -9,10 +9,17 @@ SAMPLE_HOTEL_URL = (
 
 def run_travel_link_desktop(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/en/travel-link-lab/", wait_until="networkidle")
-    page.locator("[data-travel-market]").select_option("일본")
+    default_market = page.locator("[data-travel-market]").input_value()
+    input_top = page.locator("[data-travel-url]").bounding_box()["y"]
+    market_top = page.locator("[data-travel-market]").bounding_box()["y"]
     page.locator("[data-travel-url]").fill(SAMPLE_HOTEL_URL)
     page.locator("[data-generate]").click()
     page.wait_for_function("!document.querySelector('[data-travel-results]').hidden")
+    global_href = page.locator("[data-travel-card] a").first.get_attribute("href")
+    page.locator("[data-travel-market]").select_option("일본")
+    page.wait_for_function(
+        "document.querySelector('[data-travel-card] a')?.href.includes('cid=1642201')"
+    )
 
     state = page.evaluate(
         """
@@ -30,10 +37,15 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
             firstHref: firstLink?.href ?? '',
             inputBackground: getComputedStyle(input).backgroundColor,
             inputHeight: Math.round(input.getBoundingClientRect().height),
+            defaultMarket: document.querySelector('[data-travel-market]')?.value,
           };
         }
         """
     )
+    state["defaultMarketOnLoad"] = default_market
+    state["globalHref"] = global_href
+    state["inputTop"] = round(input_top)
+    state["marketTop"] = round(market_top)
     report["travel_link_desktop"] = state
     if (
         state["title"] != "Find the lowest Agoda hotel price | AbsolTools"
@@ -46,6 +58,9 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
         or "cid=-1" in state["firstHref"]
         or state["inputBackground"] != "rgb(255, 255, 255)"
         or state["inputHeight"] < 44
+        or default_market != "글로벌"
+        or "cid=1889319" not in (global_href or "")
+        or input_top >= market_top
     ):
         report["ui_detail_failures"].append(
             f"Travel price comparison desktop behavior failed: {state}"

@@ -80,6 +80,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Eligibility, payment currency, property and booking dates vary by route.",
     markets: {
+      GLOBAL: "Global",
       KR: "South Korea",
       JP: "Japan",
       CN: "Mainland China",
@@ -97,20 +98,20 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
   ko: {
     title: "아고다 최저가 찾기 | AbsolTools",
     description:
-      "호텔 링크 하나로 카드·제휴 경로를 비교해 아고다 최저가를 찾아보세요.",
+      "아고다 호텔 URL 하나로 카드·제휴 경로별 가격을 비교해 최저가를 찾아보세요.",
     heading: "아고다 최저가 찾기",
     intro:
-      "카드 발급 국가를 고르고, 여러 경로에서 표시 가격을 직접 비교하세요.",
+      "호텔 URL 하나로 여러 카드·제휴 경로를 열어 아고다 최저가를 비교하세요.",
     workspaceTitle: "최저가 비교 시작",
     workspaceDescription: "호텔 링크 하나로 카드·제휴 경로를 모아 비교합니다.",
     marketLabel: "카드 발급 국가·지역",
     marketPlaceholder: "국가·지역 선택",
-    hotelUrlLabel: "아고다 호텔 URL",
+    hotelUrlLabel: "아고다 호텔 URL 붙여넣기",
     clear: "지우기",
     urlPlaceholder: "아고다 호텔 URL 붙여넣기 (agoda.com/...)",
     urlNote: "기존 CID와 추적값은 새 링크에 포함하지 않습니다.",
-    generate: "최저가 비교하기",
-    resultsTitle: "아고다 가격 비교",
+    generate: "아고다 최저가 비교",
+    resultsTitle: "아고다 최저가 비교",
     resultsDescription:
       "각 경로를 열어 표시 가격과 예약 조건을 직접 비교하세요.",
     routeLabel: "경로 방식",
@@ -135,6 +136,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "카드 대상, 결제 통화, 숙소와 예약 기간은 경로마다 다릅니다.",
     markets: {
+      GLOBAL: "글로벌",
       KR: "대한민국",
       JP: "일본",
       CN: "중국 본토",
@@ -191,6 +193,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "La elegibilidad, moneda, alojamiento y fechas cambian según la ruta.",
     markets: {
+      GLOBAL: "Global",
       KR: "Corea del Sur",
       JP: "Japón",
       CN: "China continental",
@@ -246,6 +249,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Berechtigung, Währung, Unterkunft und Termine unterscheiden sich je Route.",
     markets: {
+      GLOBAL: "Global",
       KR: "Südkorea",
       JP: "Japan",
       CN: "Festlandchina",
@@ -301,6 +305,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "対象カード、決済通貨、施設、予約期間は経路ごとに異なります。",
     markets: {
+      GLOBAL: "グローバル",
       KR: "韓国",
       JP: "日本",
       CN: "中国本土",
@@ -357,6 +362,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "L’éligibilité, la devise, l’hébergement et les dates diffèrent selon le parcours.",
     markets: {
+      GLOBAL: "Mondial",
       KR: "Corée du Sud",
       JP: "Japon",
       CN: "Chine continentale",
@@ -413,6 +419,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Elegibilidade, moeda, hotel e datas variam conforme a rota.",
     markets: {
+      GLOBAL: "Global",
       KR: "Coreia do Sul",
       JP: "Japão",
       CN: "China continental",
@@ -468,6 +475,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Idoneità, valuta, struttura e date variano in base al percorso.",
     markets: {
+      GLOBAL: "Globale",
       KR: "Corea del Sud",
       JP: "Giappone",
       CN: "Cina continentale",
@@ -523,6 +531,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Geschiktheid, valuta, accommodatie en data verschillen per route.",
     markets: {
+      GLOBAL: "Wereldwijd",
       KR: "Zuid-Korea",
       JP: "Japan",
       CN: "China",
@@ -577,6 +586,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Behörighet, valuta, boende och datum varierar mellan vägar.",
     markets: {
+      GLOBAL: "Globalt",
       KR: "Sydkorea",
       JP: "Japan",
       CN: "Fastlandskina",
@@ -631,6 +641,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Způsobilost, měna, ubytování i termíny se liší podle cesty.",
     markets: {
+      GLOBAL: "Globální",
       KR: "Jižní Korea",
       JP: "Japonsko",
       CN: "Pevninská Čína",
@@ -685,6 +696,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Uprawnienia, waluta, obiekt i terminy różnią się zależnie od ścieżki.",
     markets: {
+      GLOBAL: "Globalnie",
       KR: "Korea Południowa",
       JP: "Japonia",
       CN: "Chiny kontynentalne",
@@ -738,6 +750,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Berettigelse, valuta, overnatningssted og datoer varierer efter rute.",
     markets: {
+      GLOBAL: "Global",
       KR: "Sydkorea",
       JP: "Japan",
       CN: "Kina",
@@ -792,6 +805,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Kvalifisering, valuta, overnatting og datoer varierer etter rute.",
     markets: {
+      GLOBAL: "Globalt",
       KR: "Sør-Korea",
       JP: "Japan",
       CN: "Fastlands-Kina",
@@ -845,6 +859,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "تختلف الأهلية والعملة ومكان الإقامة والتواريخ حسب المسار.",
     markets: {
+      GLOBAL: "عالمي",
       KR: "كوريا الجنوبية",
       JP: "اليابان",
       CN: "الصين القارية",
@@ -895,6 +910,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentTitle: "預訂前確認",
     paymentDescription: "資格、付款幣別、住宿和預訂日期會因路徑而異。",
     markets: {
+      GLOBAL: "全球",
       KR: "韓國",
       JP: "日本",
       CN: "中國大陸",
@@ -951,6 +967,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     paymentDescription:
       "Uygunluk, para birimi, tesis ve tarihler yola göre değişir.",
     markets: {
+      GLOBAL: "Küresel",
       KR: "Güney Kore",
       JP: "Japonya",
       CN: "Çin ana karası",

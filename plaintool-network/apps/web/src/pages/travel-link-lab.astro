@@ -11,6 +11,7 @@ interface Props {
 const { locale = "ko" } = Astro.props;
 const copy = travelLinkCopy[locale];
 const marketOptions = [
+  ["글로벌", "GLOBAL"],
   ["대한민국", "KR"],
   ["일본", "JP"],
   ["중국 본토", "CN"],
@@ -73,23 +74,23 @@ const structuredData = [
       data-travel-copy={JSON.stringify(copy)}
     >
       <div class="travel-link-lab-input-panel">
-        <section class="editor-pane travel-link-lab-input">
-          <div class="pane-heading">
-            <label for="travel-url">{copy.hotelUrlLabel}</label>
-            <div class="pane-actions">
-              <button class="text-button" type="button" data-clear hidden
-                >{copy.clear}</button
-              >
-            </div>
+        <section class="travel-link-lab-input">
+          <label class="visually-hidden" for="travel-url"
+            >{copy.hotelUrlLabel}</label
+          >
+          <div class="travel-link-url-row">
+            <input
+              id="travel-url"
+              data-travel-url
+              spellcheck="false"
+              autocomplete="off"
+              type="url"
+              placeholder={copy.urlPlaceholder}
+            />
+            <button class="text-button" type="button" data-clear hidden
+              >{copy.clear}</button
+            >
           </div>
-          <input
-            id="travel-url"
-            data-travel-url
-            spellcheck="false"
-            autocomplete="off"
-            type="url"
-            placeholder={copy.urlPlaceholder}
-          />
         </section>
         <section class="travel-link-market-picker">
           <label for="travel-market">{copy.marketLabel}</label>
@@ -452,6 +453,20 @@ const structuredData = [
       status: "observed",
     });
     const regionalCidCandidates: Candidate[] = [
+      observedCid(
+        "global-visa",
+        "글로벌",
+        "Visa",
+        "1889319",
+        "Visa 카드 또는 제휴 자격 확인",
+      ),
+      observedCid(
+        "global-mc",
+        "글로벌",
+        "Mastercard",
+        "1889572",
+        "Mastercard 카드 또는 제휴 자격 확인",
+      ),
       observedCid("jp-jcb", "일본", "JCB", "1642201", "일본 발급 JCB 카드"),
       observedCid("jp-visa", "일본", "Visa", "1889316", "일본 발급 Visa 카드"),
       observedCid(
@@ -820,18 +835,11 @@ const structuredData = [
       "fil-ph": "필리핀",
       "tl-ph": "필리핀",
     };
-    const preferredLanguages = [
-      document.documentElement.lang,
-      ...navigator.languages,
-    ].map((value) => value.toLowerCase());
-    const preferredMarket = preferredLanguages
-      .map(
-        (language) =>
-          marketByLanguage[language] ??
-          marketByLanguage[language.split("-")[0]],
-      )
-      .find(Boolean);
-    market.value = preferredMarket ?? "";
+    const routeLanguage = document.documentElement.lang.toLowerCase();
+    const preferredMarket =
+      marketByLanguage[routeLanguage] ??
+      marketByLanguage[routeLanguage.split("-")[0]];
+    market.value = preferredMarket ?? "글로벌";
     status.textContent = candidates.length ? "" : copy.catalogUnavailable;
     generate.disabled = candidates.length === 0;
     const safeHotelUrl = (value: string): URL | null => {
