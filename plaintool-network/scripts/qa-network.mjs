@@ -588,6 +588,8 @@ function verifyMetadata(
 for (const locale of locales) {
   const directoryRoute = `${locale}/`;
   const directory = await readFile(join(dist, locale, "index.html"), "utf8");
+  const indexableTitles = new Map();
+  const indexableDescriptions = new Map();
   verifyMetadata(
     directory,
     locale,
@@ -617,6 +619,23 @@ for (const locale of locales) {
       tool.structuredData,
       routeName,
     );
+    if (tool.publication === "indexable") {
+      const title = metaContent(html, "property", "og:title")?.trim();
+      const description = metaContent(html, "name", "description")?.trim();
+      for (const [label, value, seen] of [
+        ["Open Graph title", title, indexableTitles],
+        ["meta description", description, indexableDescriptions],
+      ]) {
+        if (!value) continue;
+        const previousRoute = seen.get(value);
+        if (previousRoute) {
+          throw new Error(
+            `${routeName} duplicates the ${label} used by ${previousRoute}.`,
+          );
+        }
+        seen.set(value, routeName);
+      }
+    }
     const toolPromiseCount = (html.match(/class="tool-promise"/gu) ?? [])
       .length;
     if (toolPromiseCount !== 1)
