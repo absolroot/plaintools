@@ -5,19 +5,16 @@ import type {
   UpscaleScale,
 } from "./contract";
 
-export const MAX_FILE_BYTES = 10_000_000;
+export const MAX_FILE_BYTES = 20_000_000;
 export const MAX_OUTPUT_PIXELS = 16_777_216;
 export const MAX_OUTPUT_EDGE = 4096;
-// The model always produces a native 4x RGBA surface before an optional 2x
-// downsample. Bound that real allocation rather than rejecting ordinary images
-// at the old 512x512 threshold.
-export const MAX_NATIVE_INPUT_PIXELS = Math.floor(MAX_OUTPUT_PIXELS / 16);
 
 export function inputPixelLimit(
   _mode: UpscalerMode,
   _backend: UpscaleBackend,
+  scale: UpscaleScale,
 ): number {
-  return MAX_NATIVE_INPUT_PIXELS;
+  return Math.floor(MAX_OUTPUT_PIXELS / (scale * scale));
 }
 
 export function validateOutputDimensions(
@@ -80,10 +77,11 @@ function halfScaleSamples(
   return tables;
 }
 
-export function resampleHalfLanczos3(
-  source: Uint8ClampedArray<ArrayBuffer>,
+export function resampleHalfLanczos3Channels(
+  source: Uint8Array<ArrayBufferLike> | Uint8ClampedArray<ArrayBufferLike>,
   width: number,
   height: number,
+  channels: 3 | 4,
 ): Uint8ClampedArray<ArrayBuffer> {
   if (width % 2 !== 0 || height % 2 !== 0) {
     throw new RangeError("Lanczos half-scale input must have even dimensions");
@@ -93,22 +91,23 @@ export function resampleHalfLanczos3(
   const horizontal = halfScaleSamples(outputWidth, width);
   const vertical = halfScaleSamples(outputHeight, height);
   const rowCache = new Map<number, Float32Array>();
-  const result = new Uint8ClampedArray(outputWidth * outputHeight * 4);
+  const result = new Uint8ClampedArray(outputWidth * outputHeight * channels);
 
   const horizontalRow = (sourceY: number): Float32Array => {
     const cached = rowCache.get(sourceY);
     if (cached) return cached;
-    const row = new Float32Array(outputWidth * 4);
+    const row = new Float32Array(outputWidth * channels);
     for (let x = 0; x < outputWidth; x += 1) {
       const table = horizontal[x];
-      for (let channel = 0; channel < 4; channel += 1) {
+      for (let channel = 0; channel < channels; channel += 1) {
         let value = 0;
         for (let tap = 0; tap < table.indices.length; tap += 1) {
           value +=
-            source[(sourceY * width + table.indices[tap]) * 4 + channel] *
-            table.weights[tap];
+            source[
+              (sourceY * width + table.indices[tap]) * channels + channel
+            ] * table.weights[tap];
         }
-        row[x * 4 + channel] = value;
+        row[x * channels + channel] = value;
       }
     }
     rowCache.set(sourceY, row);
@@ -122,18 +121,26 @@ export function resampleHalfLanczos3(
       if (!needed.has(cachedY)) rowCache.delete(cachedY);
     }
     for (let x = 0; x < outputWidth; x += 1) {
-      for (let channel = 0; channel < 4; channel += 1) {
+      for (let channel = 0; channel < channels; channel += 1) {
         let value = 0;
         for (let tap = 0; tap < table.indices.length; tap += 1) {
           value +=
-            horizontalRow(table.indices[tap])[x * 4 + channel] *
+            horizontalRow(table.indices[tap])[x * channels + channel] *
             table.weights[tap];
         }
-        result[(y * outputWidth + x) * 4 + channel] = Math.round(value);
+        result[(y * outputWidth + x) * channels + channel] = Math.round(value);
       }
     }
   }
   return result;
+}
+
+export function resampleHalfLanczos3(
+  source: Uint8ClampedArray<ArrayBuffer>,
+  width: number,
+  height: number,
+): Uint8ClampedArray<ArrayBuffer> {
+  return resampleHalfLanczos3Channels(source, width, height, 4);
 }
 
 export function outputFilename(

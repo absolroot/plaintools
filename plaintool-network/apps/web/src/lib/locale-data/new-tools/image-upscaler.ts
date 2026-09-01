@@ -22,23 +22,25 @@ type LocalCopy = Omit<
 type LocalPack = { copy: LocalCopy; page: PageSeed };
 
 const supportedTypes: Record<Locale, string> = {
-  en: "JPG/JPEG, PNG, WebP · max 10 MB",
-  ko: "JPG/JPEG, PNG, WebP · 최대 10MB",
-  es: "JPG/JPEG, PNG, WebP · máx. 10 MB",
-  de: "JPG/JPEG, PNG, WebP · max. 10 MB",
-  ja: "JPG/JPEG、PNG、WebP・最大10 MB",
-  fr: "JPG/JPEG, PNG, WebP · 10 Mo max.",
-  "pt-BR": "JPG/JPEG, PNG, WebP · máx. 10 MB",
-  it: "JPG/JPEG, PNG, WebP · max 10 MB",
-  nl: "JPG/JPEG, PNG, WebP · max. 10 MB",
-  sv: "JPG/JPEG, PNG, WebP · max 10 MB",
-  cs: "JPG/JPEG, PNG, WebP · max. 10 MB",
-  pl: "JPG/JPEG, PNG, WebP · maks. 10 MB",
-  da: "JPG/JPEG, PNG, WebP · maks. 10 MB",
-  no: "JPG/JPEG, PNG, WebP · maks. 10 MB",
-  ar: "JPG/JPEG وPNG وWebP · الحد الأقصى 10 MB",
-  "zh-TW": "JPG/JPEG、PNG、WebP · 上限 10 MB",
-  tr: "JPG/JPEG, PNG, WebP · en fazla 10 MB",
+  en: "JPG/JPEG, PNG, WebP · max 20 MB · 2×: 2048 px/side · 4×: 1024 px/side",
+  ko: "JPG/JPEG, PNG, WebP · 최대 20MB · 2배: 변당 2048px · 4배: 변당 1024px",
+  es: "JPG/JPEG, PNG, WebP · máx. 20 MB · 2×: 2048 px/lado · 4×: 1024 px/lado",
+  de: "JPG/JPEG, PNG, WebP · max. 20 MB · 2×: 2048 px/Seite · 4×: 1024 px/Seite",
+  ja: "JPG/JPEG、PNG、WebP・最大20 MB・2倍：各辺2048 px・4倍：各辺1024 px",
+  fr: "JPG/JPEG, PNG, WebP · 20 Mo max. · 2× : 2048 px/côté · 4× : 1024 px/côté",
+  "pt-BR":
+    "JPG/JPEG, PNG, WebP · máx. 20 MB · 2×: 2048 px/lado · 4×: 1024 px/lado",
+  it: "JPG/JPEG, PNG, WebP · max 20 MB · 2×: 2048 px/lato · 4×: 1024 px/lato",
+  nl: "JPG/JPEG, PNG, WebP · max. 20 MB · 2×: 2048 px/zijde · 4×: 1024 px/zijde",
+  sv: "JPG/JPEG, PNG, WebP · max 20 MB · 2×: 2048 px/sida · 4×: 1024 px/sida",
+  cs: "JPG/JPEG, PNG, WebP · max. 20 MB · 2×: 2048 px/stranu · 4×: 1024 px/stranu",
+  pl: "JPG/JPEG, PNG, WebP · maks. 20 MB · 2×: 2048 px/bok · 4×: 1024 px/bok",
+  da: "JPG/JPEG, PNG, WebP · maks. 20 MB · 2×: 2048 px/side · 4×: 1024 px/side",
+  no: "JPG/JPEG, PNG, WebP · maks. 20 MB · 2×: 2048 px/side · 4×: 1024 px/side",
+  ar: "JPG/JPEG وPNG وWebP · حتى 20 MB · ‏2×: 2048 px لكل ضلع · ‏4×: 1024 px لكل ضلع",
+  "zh-TW":
+    "JPG/JPEG、PNG、WebP · 上限 20 MB · 2×：每邊 2048 px · 4×：每邊 1024 px",
+  tr: "JPG/JPEG, PNG, WebP · en fazla 20 MB · 2×: 2048 px/kenar · 4×: 1024 px/kenar",
 };
 
 function pack(
@@ -100,9 +102,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Retrying with smaller tiles…",
       comparisonLabel: "Before and after comparison",
       comparisonHelp: "Move to compare the original and upscaled result",
-      fileTooLarge: "Choose an image no larger than 10 MB.",
+      fileTooLarge: "Choose an image no larger than 20 MB.",
       imageTooLarge:
-        "This image is too large for the selected model on this browser.",
+        "For 2×, use up to 2048 × 2048 px (4.19 MP); for 4×, up to 1024 × 1024 px (1.05 MP).",
       outputTooLarge:
         "The selected scale would exceed the 4096 px or 16 megapixel output limit.",
       invalidImage: "Choose a valid JPG/JPEG, PNG, or WebP image.",
@@ -171,9 +173,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "더 작은 타일로 다시 처리하는 중…",
       comparisonLabel: "원본과 결과 비교",
       comparisonHelp: "원본과 해상도를 높인 결과를 비교하려면 움직이세요",
-      fileTooLarge: "10MB 이하 이미지를 선택하세요.",
+      fileTooLarge: "20MB 이하 이미지를 선택하세요.",
       imageTooLarge:
-        "이 브라우저에서 선택한 모델로 처리하기에는 이미지가 너무 큽니다.",
+        "2배는 최대 2048 × 2048px(약 419만 화소), 4배는 최대 1024 × 1024px(약 105만 화소)까지 처리할 수 있습니다.",
       outputTooLarge:
         "선택한 배율은 결과 제한인 4096px 또는 1,600만 화소를 넘습니다.",
       invalidImage: "올바른 JPG/JPEG, PNG 또는 WebP 이미지를 선택하세요.",
@@ -243,9 +245,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Reintentando con bloques más pequeños…",
       comparisonLabel: "Comparación antes y después",
       comparisonHelp: "Mueve para comparar la imagen original y el resultado",
-      fileTooLarge: "Elige una imagen de hasta 10 MB.",
+      fileTooLarge: "Elige una imagen de hasta 20 MB.",
       imageTooLarge:
-        "La imagen es demasiado grande para el modelo elegido en este navegador.",
+        "Para 2×, usa hasta 2048 × 2048 px (4,19 MP); para 4×, hasta 1024 × 1024 px (1,05 MP).",
       outputTooLarge: "La escala supera el límite de 4096 px o 16 megapíxeles.",
       invalidImage: "Elige una imagen JPG/JPEG, PNG o WebP válida.",
       modelFailed:
@@ -315,9 +317,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Neuer Versuch mit kleineren Kacheln…",
       comparisonLabel: "Vorher-Nachher-Vergleich",
       comparisonHelp: "Bewegen, um Original und Ergebnis zu vergleichen",
-      fileTooLarge: "Ein Bild mit höchstens 10 MB auswählen.",
+      fileTooLarge: "Ein Bild mit höchstens 20 MB auswählen.",
       imageTooLarge:
-        "Das Bild ist für das gewählte Modell in diesem Browser zu groß.",
+        "Für 2× sind bis zu 2048 × 2048 px (4,19 MP) möglich, für 4× bis zu 1024 × 1024 px (1,05 MP).",
       outputTooLarge: "Die Skalierung überschreitet 4096 px oder 16 Megapixel.",
       invalidImage: "Ein gültiges JPG-/JPEG-, PNG- oder WebP-Bild auswählen.",
       modelFailed:
@@ -385,8 +387,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "小さいタイルで再試行中…",
       comparisonLabel: "元画像と結果の比較",
       comparisonHelp: "動かして元画像と高解像度の結果を比較",
-      fileTooLarge: "10 MB以下の画像を選択してください。",
-      imageTooLarge: "このブラウザーの選択モデルでは画像が大きすぎます。",
+      fileTooLarge: "20 MB以下の画像を選択してください。",
+      imageTooLarge:
+        "2倍は最大2048 × 2048 px（419万画素）、4倍は最大1024 × 1024 px（105万画素）まで処理できます。",
       outputTooLarge: "選択した倍率は4096 pxまたは1600万画素の上限を超えます。",
       invalidImage: "有効なJPG/JPEG、PNG、WebP画像を選択してください。",
       modelFailed:
@@ -452,9 +455,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Nouvel essai avec des tuiles plus petites…",
       comparisonLabel: "Comparaison avant-après",
       comparisonHelp: "Déplacer pour comparer l’original et le résultat",
-      fileTooLarge: "Choisissez une image de 10 Mo maximum.",
+      fileTooLarge: "Choisissez une image de 20 Mo maximum.",
       imageTooLarge:
-        "L’image est trop grande pour le modèle choisi dans ce navigateur.",
+        "Pour 2×, utilisez jusqu’à 2048 × 2048 px (4,19 Mpx) ; pour 4×, jusqu’à 1024 × 1024 px (1,05 Mpx).",
       outputTooLarge:
         "Le facteur dépasse la limite de 4096 px ou 16 mégapixels.",
       invalidImage: "Choisissez une image JPG/JPEG, PNG ou WebP valide.",
@@ -525,9 +528,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Tentando novamente com blocos menores…",
       comparisonLabel: "Comparação antes e depois",
       comparisonHelp: "Mova para comparar o original e o resultado",
-      fileTooLarge: "Escolha uma imagem de até 10 MB.",
+      fileTooLarge: "Escolha uma imagem de até 20 MB.",
       imageTooLarge:
-        "A imagem é grande demais para o modelo escolhido neste navegador.",
+        "Para 2×, use até 2048 × 2048 px (4,19 MP); para 4×, até 1024 × 1024 px (1,05 MP).",
       outputTooLarge:
         "A escala ultrapassa o limite de 4096 px ou 16 megapixels.",
       invalidImage: "Escolha uma imagem JPG/JPEG, PNG ou WebP válida.",
@@ -595,9 +598,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Nuovo tentativo con riquadri più piccoli…",
       comparisonLabel: "Confronto prima e dopo",
       comparisonHelp: "Sposta per confrontare originale e risultato",
-      fileTooLarge: "Scegli un’immagine non superiore a 10 MB.",
+      fileTooLarge: "Scegli un’immagine non superiore a 20 MB.",
       imageTooLarge:
-        "L’immagine è troppo grande per il modello scelto in questo browser.",
+        "Per 2× usa fino a 2048 × 2048 px (4,19 MP); per 4× fino a 1024 × 1024 px (1,05 MP).",
       outputTooLarge: "La scala supera il limite di 4096 px o 16 megapixel.",
       invalidImage: "Scegli un’immagine JPG/JPEG, PNG o WebP valida.",
       modelFailed:
@@ -665,9 +668,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Opnieuw proberen met kleinere tegels…",
       comparisonLabel: "Vergelijking voor en na",
       comparisonHelp: "Beweeg om origineel en resultaat te vergelijken",
-      fileTooLarge: "Kies een afbeelding van maximaal 10 MB.",
+      fileTooLarge: "Kies een afbeelding van maximaal 20 MB.",
       imageTooLarge:
-        "De afbeelding is te groot voor het gekozen model in deze browser.",
+        "Gebruik voor 2× maximaal 2048 × 2048 px (4,19 MP) en voor 4× maximaal 1024 × 1024 px (1,05 MP).",
       outputTooLarge: "De schaal overschrijdt 4096 px of 16 megapixels.",
       invalidImage: "Kies een geldige JPG-/JPEG-, PNG- of WebP-afbeelding.",
       modelFailed:
@@ -735,8 +738,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Försöker igen med mindre rutor…",
       comparisonLabel: "Jämförelse före och efter",
       comparisonHelp: "Flytta för att jämföra original och resultat",
-      fileTooLarge: "Välj en bild på högst 10 MB.",
-      imageTooLarge: "Bilden är för stor för vald modell i denna webbläsare.",
+      fileTooLarge: "Välj en bild på högst 20 MB.",
+      imageTooLarge:
+        "För 2× kan du använda högst 2048 × 2048 px (4,19 MP), för 4× högst 1024 × 1024 px (1,05 MP).",
       outputTooLarge: "Skalan överskrider 4096 px eller 16 megapixlar.",
       invalidImage: "Välj en giltig JPG-/JPEG-, PNG- eller WebP-bild.",
       modelFailed:
@@ -803,9 +807,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Nový pokus s menšími dlaždicemi…",
       comparisonLabel: "Porovnání před a po",
       comparisonHelp: "Posunutím porovnáte originál a výsledek",
-      fileTooLarge: "Vyberte obrázek do 10 MB.",
+      fileTooLarge: "Vyberte obrázek do 20 MB.",
       imageTooLarge:
-        "Obrázek je pro zvolený model v tomto prohlížeči příliš velký.",
+        "Pro 2× použijte nejvýše 2048 × 2048 px (4,19 Mpx), pro 4× nejvýše 1024 × 1024 px (1,05 Mpx).",
       outputTooLarge: "Měřítko překračuje limit 4096 px nebo 16 megapixelů.",
       invalidImage: "Vyberte platný obrázek JPG/JPEG, PNG nebo WebP.",
       modelFailed:
@@ -872,9 +876,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Ponowna próba z mniejszymi kafelkami…",
       comparisonLabel: "Porównanie przed i po",
       comparisonHelp: "Przesuń, aby porównać oryginał i wynik",
-      fileTooLarge: "Wybierz obraz o rozmiarze do 10 MB.",
+      fileTooLarge: "Wybierz obraz o rozmiarze do 20 MB.",
       imageTooLarge:
-        "Obraz jest za duży dla wybranego modelu w tej przeglądarce.",
+        "Dla 2× użyj maksymalnie 2048 × 2048 px (4,19 MP), a dla 4× maksymalnie 1024 × 1024 px (1,05 MP).",
       outputTooLarge: "Skala przekracza limit 4096 px lub 16 megapikseli.",
       invalidImage: "Wybierz prawidłowy obraz JPG/JPEG, PNG lub WebP.",
       modelFailed:
@@ -942,9 +946,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Prøver igen med mindre felter…",
       comparisonLabel: "Sammenligning før og efter",
       comparisonHelp: "Flyt for at sammenligne original og resultat",
-      fileTooLarge: "Vælg et billede på højst 10 MB.",
+      fileTooLarge: "Vælg et billede på højst 20 MB.",
       imageTooLarge:
-        "Billedet er for stort til den valgte model i denne browser.",
+        "Brug højst 2048 × 2048 px (4,19 MP) ved 2× og 1024 × 1024 px (1,05 MP) ved 4×.",
       outputTooLarge: "Skaleringen overskrider 4096 px eller 16 megapixel.",
       invalidImage: "Vælg et gyldigt JPG-/JPEG-, PNG- eller WebP-billede.",
       modelFailed:
@@ -1013,9 +1017,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Prøver igjen med mindre ruter…",
       comparisonLabel: "Sammenligning før og etter",
       comparisonHelp: "Flytt for å sammenligne original og resultat",
-      fileTooLarge: "Velg et bilde på maksimalt 10 MB.",
+      fileTooLarge: "Velg et bilde på maksimalt 20 MB.",
       imageTooLarge:
-        "Bildet er for stort for valgt modell i denne nettleseren.",
+        "Bruk opptil 2048 × 2048 px (4,19 MP) ved 2× og 1024 × 1024 px (1,05 MP) ved 4×.",
       outputTooLarge: "Skalaen overskrider 4096 px eller 16 megapiksler.",
       invalidImage: "Velg et gyldig JPG-/JPEG-, PNG- eller WebP-bilde.",
       modelFailed:
@@ -1083,8 +1087,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "إعادة المحاولة بمربعات أصغر…",
       comparisonLabel: "مقارنة قبل وبعد",
       comparisonHelp: "حرّك للمقارنة بين الأصل والنتيجة",
-      fileTooLarge: "اختر صورة لا تتجاوز 10 MB.",
-      imageTooLarge: "الصورة كبيرة جدًا للنموذج المختار في هذا المتصفح.",
+      fileTooLarge: "اختر صورة لا تتجاوز 20 MB.",
+      imageTooLarge:
+        "للتكبير 2× استخدم حتى 2048 × 2048 px ‏(4.19 MP)، وللتكبير 4× حتى 1024 × 1024 px ‏(1.05 MP).",
       outputTooLarge: "يتجاوز المقياس حد 4096 px أو 16 ميغابكسل.",
       invalidImage: "اختر صورة JPG/JPEG أو PNG أو WebP صالحة.",
       modelFailed:
@@ -1147,8 +1152,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "正在以較小區塊重試…",
       comparisonLabel: "原圖與結果比較",
       comparisonHelp: "移動以比較原圖與放大結果",
-      fileTooLarge: "請選擇不超過 10 MB 的圖片。",
-      imageTooLarge: "這張圖片對目前瀏覽器與所選模型而言太大。",
+      fileTooLarge: "請選擇不超過 20 MB 的圖片。",
+      imageTooLarge:
+        "2× 最多可處理 2048 × 2048 px（419 萬畫素），4× 最多可處理 1024 × 1024 px（105 萬畫素）。",
       outputTooLarge: "所選倍率會超過 4096 px 或 1600 萬像素限制。",
       invalidImage: "請選擇有效的 JPG/JPEG、PNG 或 WebP 圖片。",
       modelFailed: "無法載入已驗證的模型，請檢查連線後再試一次。",
@@ -1211,8 +1217,9 @@ const packs: Record<Locale, LocalPack> = {
       retryingSmallerTiles: "Daha küçük parçalarla yeniden deneniyor…",
       comparisonLabel: "Önce ve sonra karşılaştırması",
       comparisonHelp: "Orijinal ile sonucu karşılaştırmak için hareket ettirin",
-      fileTooLarge: "En fazla 10 MB bir resim seçin.",
-      imageTooLarge: "Resim, bu tarayıcıdaki seçili model için çok büyük.",
+      fileTooLarge: "En fazla 20 MB bir resim seçin.",
+      imageTooLarge:
+        "2× için en fazla 2048 × 2048 px (4,19 MP), 4× için en fazla 1024 × 1024 px (1,05 MP) kullanın.",
       outputTooLarge: "Ölçek 4096 px veya 16 megapiksel sınırını aşıyor.",
       invalidImage: "Geçerli bir JPG/JPEG, PNG veya WebP resmi seçin.",
       modelFailed:

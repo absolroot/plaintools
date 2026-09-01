@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  MAX_FILE_BYTES,
   createInputTensor,
   joinByteParts,
   maskCropBounds,
@@ -10,6 +11,10 @@ import {
 } from "./image";
 
 describe("background remover image operations", () => {
+  it("accepts uploads up to the 20 MB file limit", () => {
+    expect(MAX_FILE_BYTES).toBe(20_000_000);
+  });
+
   it("creates planar normalized RGB input", () => {
     const tensor = createInputTensor(
       new Uint8ClampedArray([255, 0, 127, 255, 0, 255, 255, 255]),

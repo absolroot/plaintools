@@ -57,6 +57,13 @@ def run_background_remover_desktop(page, report: dict, _inventory) -> None:
 
     page.on("request", collect_background_resource)
     page.goto(f"{BASE_URL}/en/background-remover/", wait_until="networkidle")
+    upload_guidance = page.locator(
+        "[data-background-remover] [data-upload-prompt] small"
+    ).inner_text()
+    if not all(value in upload_guidance for value in ("20 MB", "20 megapixels")):
+        report["ui_detail_failures"].append(
+            f"Background remover upload limits are not explicit: {upload_guidance}"
+        )
     page.wait_for_function(
         """
         () => document.querySelector('[data-background-remover]').dataset.precisionSupport !== 'checking'

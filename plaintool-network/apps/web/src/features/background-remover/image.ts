@@ -4,7 +4,7 @@ import type {
   BackgroundModelOutput,
 } from "./contract";
 
-export const MAX_FILE_BYTES = 10_000_000;
+export const MAX_FILE_BYTES = 20_000_000;
 export const MAX_IMAGE_PIXELS = 20_000_000;
 export const MAX_OUTPUT_EDGE = 4096;
 export const MASK_ALPHA_THRESHOLD = 8;

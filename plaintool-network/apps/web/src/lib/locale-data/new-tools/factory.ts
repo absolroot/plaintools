@@ -368,6 +368,7 @@ export type NewToolLocaleSeed = {
     trimUnavailable: string;
     completed: string;
     scaled: string;
+    fileTooLarge: string;
     imageTooLarge: string;
     invalid: string;
     modelFailed: string;
@@ -744,7 +745,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
     trimmed: seed.background.trimmed,
     trimUnavailable: seed.background.trimUnavailable,
     scaledImage: seed.background.scaled,
-    fileTooLarge: ui.tooLarge,
+    fileTooLarge: seed.background.fileTooLarge,
     imageTooLarge: seed.background.imageTooLarge,
     invalidImage: seed.background.invalid,
     modelFailed: seed.background.modelFailed,

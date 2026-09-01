@@ -13,7 +13,7 @@ import type {
   UpscaleScale,
   UpscaleWorkerResponse,
 } from "./contract";
-import { resampleHalfLanczos3 } from "./image";
+import { resampleHalfLanczos3Channels } from "./image";
 import { loadVerifiedModelPart } from "./model-cache";
 import { upscalerModelEntry } from "./model-manifest";
 
@@ -31,7 +31,7 @@ export type InferenceProgress =
   | { phase: "model" | "composition" }
   | { phase: "inference"; completedTiles: number; totalTiles: number };
 
-type Tile = {
+export type UpscalerTile = {
   coreX: number;
   coreY: number;
   coreWidth: number;
@@ -44,8 +44,12 @@ type Tile = {
 
 let loadedPipeline: LoadedPipeline | undefined;
 
-function tilesFor(width: number, height: number, tileSize: number): Tile[] {
-  const tiles: Tile[] = [];
+export function tilesFor(
+  width: number,
+  height: number,
+  tileSize: number,
+): UpscalerTile[] {
+  const tiles: UpscalerTile[] = [];
   for (let coreY = 0; coreY < height; coreY += tileSize) {
     for (let coreX = 0; coreX < width; coreX += tileSize) {
       const coreWidth = Math.min(tileSize, width - coreX);
@@ -69,7 +73,7 @@ function tilesFor(width: number, height: number, tileSize: number): Tile[] {
   return tiles;
 }
 
-function tileImage(request: UpscaleRequest, tile: Tile): RawImage {
+function tileImage(request: UpscaleRequest, tile: UpscalerTile): RawImage {
   const rgb = new Uint8ClampedArray(
     tile.extendedWidth * tile.extendedHeight * 3,
   );
@@ -109,28 +113,43 @@ function alphaAt(
   );
 }
 
-function writeTile(
+export function writeTile(
   destination: Uint8ClampedArray<ArrayBuffer>,
   request: UpscaleRequest,
-  tile: Tile,
-  output: RawImage,
+  tile: UpscalerTile,
+  output: Pick<RawImage, "channels" | "data" | "height" | "width">,
   nativeScale: UpscaleScale,
 ): void {
-  const outputWidth = request.width * nativeScale;
-  const cropX = (tile.coreX - tile.extendedX) * nativeScale;
-  const cropY = (tile.coreY - tile.extendedY) * nativeScale;
-  const coreWidth = tile.coreWidth * nativeScale;
-  const coreHeight = tile.coreHeight * nativeScale;
+  if (output.channels !== 3 && output.channels !== 4) {
+    throw new Error("upscaler-output-channels");
+  }
+  const channels = output.channels;
+  const outputScale = request.scale;
+  const tileData =
+    outputScale < nativeScale
+      ? resampleHalfLanczos3Channels(
+          output.data,
+          output.width,
+          output.height,
+          channels,
+        )
+      : output.data;
+  const tileWidth = output.width / (nativeScale / outputScale);
+  const outputWidth = request.width * outputScale;
+  const cropX = (tile.coreX - tile.extendedX) * outputScale;
+  const cropY = (tile.coreY - tile.extendedY) * outputScale;
+  const coreWidth = tile.coreWidth * outputScale;
+  const coreHeight = tile.coreHeight * outputScale;
   for (let y = 0; y < coreHeight; y += 1) {
     for (let x = 0; x < coreWidth; x += 1) {
-      const source = ((cropY + y) * output.width + cropX + x) * output.channels;
-      const outputX = tile.coreX * nativeScale + x;
-      const outputY = tile.coreY * nativeScale + y;
+      const source = ((cropY + y) * tileWidth + cropX + x) * channels;
+      const outputX = tile.coreX * outputScale + x;
+      const outputY = tile.coreY * outputScale + y;
       const target = (outputY * outputWidth + outputX) * 4;
-      destination[target] = output.data[source];
-      destination[target + 1] = output.data[source + 1];
-      destination[target + 2] = output.data[source + 2];
-      destination[target + 3] = alphaAt(request, nativeScale, outputX, outputY);
+      destination[target] = tileData[source];
+      destination[target + 1] = tileData[source + 1];
+      destination[target + 2] = tileData[source + 2];
+      destination[target + 3] = alphaAt(request, outputScale, outputX, outputY);
     }
   }
 }
@@ -243,8 +262,8 @@ export async function runTransformersUpscale(
   );
   if (!shouldContinue()) throw new DOMException("Cancelled", "AbortError");
   const tiles = tilesFor(request.width, request.height, request.tileSize);
-  let output = new Uint8ClampedArray(
-    request.width * request.height * nativeScale * nativeScale * 4,
+  const output = new Uint8ClampedArray(
+    request.width * request.height * request.scale * request.scale * 4,
   );
   for (let index = 0; index < tiles.length; index += 1) {
     if (!shouldContinue()) throw new DOMException("Cancelled", "AbortError");
@@ -259,16 +278,11 @@ export async function runTransformersUpscale(
     });
   }
 
-  let width = request.width * nativeScale;
-  let height = request.height * nativeScale;
-  if (request.scale < nativeScale) {
-    if (!shouldContinue()) throw new DOMException("Cancelled", "AbortError");
-    onProgress({ phase: "composition" });
-    output = resampleHalfLanczos3(output, width, height);
-    width /= 2;
-    height /= 2;
-  }
-  return { rgba: output, width, height };
+  return {
+    rgba: output,
+    width: request.width * request.scale,
+    height: request.height * request.scale,
+  };
 }
 
 export function startTransformersUpscalerWorker(): void {

@@ -41,7 +41,7 @@ The checked-in `references/emn178-online-tools` snapshot contains no image-upsca
 
 ### Primary flow
 
-1. Select or drop one PNG, JPEG, or WebP up to 10 MB.
+1. Select or drop one PNG, JPEG, or WebP up to 20 MB.
 2. See the original preview and exact source dimensions before running.
 3. Choose `Compact` or `Quality`, and `2×` or `4×`; defaults are `Compact` and `2×`.
 4. Immediately before the first model download, show the exact transfer size and ask for confirmation.
@@ -50,11 +50,12 @@ The checked-in `references/emn178-online-tools` snapshot contains no image-upsca
 
 ### Limits
 
-- Maximum upload: 10 MB.
+- Maximum upload: 20 MB.
 - Maximum decoded output: 16,777,216 pixels and 4096 px on either edge.
-- Compact/WASM and Quality/WebGPU maximum input: 262,144 pixels.
+- Maximum input at 2×: 4,194,304 pixels, further bounded to 2048 px on either edge by the output limit.
+- Maximum input at 4×: 1,048,576 pixels, further bounded to 1024 px on either edge by the output limit.
 - Quality is disabled when WebGPU is unavailable; there is no silent backend downgrade.
-- Compact 2× uses the official Swin2SR Lightweight x2 model directly. Compact 4× and both Quality choices use the Realworld x4 model; Quality 2× is deterministically reduced from the native 4× output with Lanczos3.
+- Compact 2× uses the official Swin2SR Lightweight x2 model directly. Compact 4× and both Quality choices use the Realworld x4 model; Quality 2× is deterministically reduced per overlapped tile with Lanczos3 and written directly into the final 2× surface to avoid a full-image 4× temporary buffer.
 - Initial tiles: Compact 2× 256 px, Compact 4× 64 px, and Quality 256 px, with 16 px overlap. Quality uses WebGPU on the main browser context because Chromium's worker WebGPU session initialization stalled in repeatable tests.
 
 ## Model provenance and license decision

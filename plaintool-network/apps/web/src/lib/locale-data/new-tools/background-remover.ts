@@ -2,6 +2,7 @@ import type { Locale } from "../../site";
 import type { NewToolLocaleSeed } from "./factory";
 
 type BackgroundCopy = NewToolLocaleSeed["background"];
+type BackgroundSourceCopy = Omit<BackgroundCopy, "fileTooLarge">;
 type BackgroundPage = {
   title: string;
   description: string;
@@ -10,6 +11,30 @@ type BackgroundPage = {
 };
 
 type BackgroundLocalePack = { copy: BackgroundCopy; page: BackgroundPage };
+type BackgroundSourceLocalePack = {
+  copy: BackgroundSourceCopy;
+  page: BackgroundPage;
+};
+
+const fileTooLarge: Record<Locale, string> = {
+  en: "Choose an image no larger than 20 MB.",
+  ko: "20MB 이하 이미지를 선택하세요.",
+  es: "Elige una imagen de hasta 20 MB.",
+  de: "Wähle ein Bild mit höchstens 20 MB aus.",
+  ja: "20 MB以下の画像を選択してください。",
+  fr: "Choisissez une image de 20 Mo maximum.",
+  "pt-BR": "Escolha uma imagem de até 20 MB.",
+  it: "Scegli un’immagine non superiore a 20 MB.",
+  nl: "Kies een afbeelding van maximaal 20 MB.",
+  sv: "Välj en bild på högst 20 MB.",
+  cs: "Vyberte obrázek do 20 MB.",
+  pl: "Wybierz obraz o rozmiarze do 20 MB.",
+  da: "Vælg et billede på højst 20 MB.",
+  no: "Velg et bilde på maksimalt 20 MB.",
+  ar: "اختر صورة لا تتجاوز 20 MB.",
+  "zh-TW": "請選擇不超過 20 MB 的圖片。",
+  tr: "En fazla 20 MB bir resim seçin.",
+};
 
 type ResultFeatureCopy = Pick<
   BackgroundCopy,
@@ -381,7 +406,7 @@ const packs = {
       original: "Original",
       result: "Result",
       uploadHint: "Drop an image here, or choose one from your device.",
-      formats: "JPG/JPEG, PNG, or WebP up to 10 MB and 20 megapixels",
+      formats: "JPG/JPEG, PNG, or WebP up to 20 MB and 20 megapixels",
       options: "Options",
       model: "AI model",
       fast: "Fast",
@@ -443,7 +468,7 @@ const packs = {
       original: "원본",
       result: "결과",
       uploadHint: "이미지를 여기에 놓거나 기기에서 선택하세요.",
-      formats: "JPG/JPEG, PNG, WebP · 최대 10MB, 2천만 화소",
+      formats: "JPG/JPEG, PNG, WebP · 최대 20MB, 2천만 화소",
       options: "옵션",
       model: "AI 모델",
       fast: "빠른 처리",
@@ -505,7 +530,7 @@ const packs = {
       original: "Original",
       result: "Resultado",
       uploadHint: "Suelta una imagen aquí o elígela en tu dispositivo.",
-      formats: "JPG/JPEG, PNG o WebP de hasta 10 MB y 20 megapíxeles",
+      formats: "JPG/JPEG, PNG o WebP de hasta 20 MB y 20 megapíxeles",
       options: "Opciones",
       model: "Modelo de IA",
       fast: "Rápido",
@@ -568,7 +593,7 @@ const packs = {
       original: "Original",
       result: "Ergebnis",
       uploadHint: "Bild hier ablegen oder vom Gerät auswählen.",
-      formats: "JPG/JPEG, PNG oder WebP bis 10 MB und 20 Megapixel",
+      formats: "JPG/JPEG, PNG oder WebP bis 20 MB und 20 Megapixel",
       options: "Optionen",
       model: "KI-Modell",
       fast: "Schnell",
@@ -632,7 +657,7 @@ const packs = {
       original: "元画像",
       result: "結果",
       uploadHint: "画像をここにドロップするか、端末から選択してください。",
-      formats: "JPG/JPEG・PNG・WebP、最大10 MB・2,000万画素",
+      formats: "JPG/JPEG・PNG・WebP、最大20 MB・2,000万画素",
       options: "オプション",
       model: "AIモデル",
       fast: "高速",
@@ -688,7 +713,7 @@ const packs = {
       original: "Original",
       result: "Résultat",
       uploadHint: "Déposez une image ici ou choisissez-la sur votre appareil.",
-      formats: "JPG/JPEG, PNG ou WebP, 10 Mo et 20 mégapixels maximum",
+      formats: "JPG/JPEG, PNG ou WebP, 20 Mo et 20 mégapixels maximum",
       options: "Options",
       model: "Modèle d’IA",
       fast: "Rapide",
@@ -751,7 +776,7 @@ const packs = {
       original: "Original",
       result: "Resultado",
       uploadHint: "Solte uma imagem aqui ou escolha uma no dispositivo.",
-      formats: "JPG/JPEG, PNG ou WebP de até 10 MB e 20 megapixels",
+      formats: "JPG/JPEG, PNG ou WebP de até 20 MB e 20 megapixels",
       options: "Opções",
       model: "Modelo de IA",
       fast: "Rápido",
@@ -813,7 +838,7 @@ const packs = {
       original: "Originale",
       result: "Risultato",
       uploadHint: "Trascina qui un’immagine o sceglila dal dispositivo.",
-      formats: "JPG/JPEG, PNG o WebP fino a 10 MB e 20 megapixel",
+      formats: "JPG/JPEG, PNG o WebP fino a 20 MB e 20 megapixel",
       options: "Opzioni",
       model: "Modello IA",
       fast: "Veloce",
@@ -876,7 +901,7 @@ const packs = {
       result: "Resultaat",
       uploadHint:
         "Sleep een afbeelding hierheen of kies er een op je apparaat.",
-      formats: "JPG/JPEG, PNG of WebP tot 10 MB en 20 megapixel",
+      formats: "JPG/JPEG, PNG of WebP tot 20 MB en 20 megapixel",
       options: "Opties",
       model: "AI-model",
       fast: "Snel",
@@ -939,7 +964,7 @@ const packs = {
       original: "Original",
       result: "Resultat",
       uploadHint: "Släpp en bild här eller välj en från enheten.",
-      formats: "JPG/JPEG, PNG eller WebP upp till 10 MB och 20 megapixel",
+      formats: "JPG/JPEG, PNG eller WebP upp till 20 MB och 20 megapixel",
       options: "Alternativ",
       model: "AI-modell",
       fast: "Snabb",
@@ -1001,7 +1026,7 @@ const packs = {
       original: "Originál",
       result: "Výsledek",
       uploadHint: "Přetáhněte obrázek sem nebo jej vyberte ze zařízení.",
-      formats: "JPG/JPEG, PNG nebo WebP do 10 MB a 20 megapixelů",
+      formats: "JPG/JPEG, PNG nebo WebP do 20 MB a 20 megapixelů",
       options: "Možnosti",
       model: "Model AI",
       fast: "Rychlý",
@@ -1063,7 +1088,7 @@ const packs = {
       original: "Oryginał",
       result: "Wynik",
       uploadHint: "Upuść obraz tutaj lub wybierz go z urządzenia.",
-      formats: "JPG/JPEG, PNG lub WebP do 10 MB i 20 megapikseli",
+      formats: "JPG/JPEG, PNG lub WebP do 20 MB i 20 megapikseli",
       options: "Opcje",
       model: "Model AI",
       fast: "Szybki",
@@ -1125,7 +1150,7 @@ const packs = {
       original: "Original",
       result: "Resultat",
       uploadHint: "Slip et billede her, eller vælg et fra enheden.",
-      formats: "JPG/JPEG, PNG eller WebP op til 10 MB og 20 megapixel",
+      formats: "JPG/JPEG, PNG eller WebP op til 20 MB og 20 megapixel",
       options: "Indstillinger",
       model: "AI-model",
       fast: "Hurtig",
@@ -1187,7 +1212,7 @@ const packs = {
       original: "Original",
       result: "Resultat",
       uploadHint: "Slipp et bilde her, eller velg et fra enheten.",
-      formats: "JPG/JPEG, PNG eller WebP opptil 10 MB og 20 megapiksler",
+      formats: "JPG/JPEG, PNG eller WebP opptil 20 MB og 20 megapiksler",
       options: "Alternativer",
       model: "AI-modell",
       fast: "Rask",
@@ -1249,7 +1274,7 @@ const packs = {
       original: "الصورة الأصلية",
       result: "النتيجة",
       uploadHint: "أسقط صورة هنا أو اخترها من جهازك.",
-      formats: "JPG/JPEG أو PNG أو WebP حتى 10 ميجابايت و20 ميجابكسل",
+      formats: "JPG/JPEG أو PNG أو WebP حتى 20 ميجابايت و20 ميجابكسل",
       options: "الخيارات",
       model: "نموذج الذكاء الاصطناعي",
       fast: "سريع",
@@ -1310,7 +1335,7 @@ const packs = {
       original: "原始圖片",
       result: "結果",
       uploadHint: "將圖片拖放到這裡，或從裝置選取。",
-      formats: "JPG/JPEG、PNG 或 WebP，最多 10 MB、2,000 萬畫素",
+      formats: "JPG/JPEG、PNG 或 WebP，最多 20 MB、2,000 萬畫素",
       options: "選項",
       model: "AI 模型",
       fast: "快速",
@@ -1364,7 +1389,7 @@ const packs = {
       original: "Orijinal",
       result: "Sonuç",
       uploadHint: "Bir resmi buraya bırakın veya cihazınızdan seçin.",
-      formats: "En fazla 10 MB ve 20 megapiksel JPG/JPEG, PNG veya WebP",
+      formats: "En fazla 20 MB ve 20 megapiksel JPG/JPEG, PNG veya WebP",
       options: "Seçenekler",
       model: "Yapay zekâ modeli",
       fast: "Hızlı",
@@ -1420,8 +1445,12 @@ const packs = {
       ],
     },
   },
-} as const satisfies Record<Locale, BackgroundLocalePack>;
+} as const satisfies Record<Locale, BackgroundSourceLocalePack>;
 
 export function backgroundRemoverFor(locale: Locale): BackgroundLocalePack {
-  return packs[locale];
+  const source = packs[locale];
+  return {
+    page: source.page,
+    copy: { ...source.copy, fileTooLarge: fileTooLarge[locale] },
+  };
 }

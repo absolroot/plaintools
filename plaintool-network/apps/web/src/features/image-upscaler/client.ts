@@ -437,7 +437,7 @@ document
       }
       if (
         sourcePixels.width * sourcePixels.height >
-        inputPixelLimit(mode, backend)
+        inputPixelLimit(mode, backend, selectedScale())
       ) {
         setStatus(copy.imageTooLarge, "error");
         return false;

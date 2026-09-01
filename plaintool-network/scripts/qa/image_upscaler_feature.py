@@ -28,6 +28,13 @@ def _user_size_fixture() -> bytes:
     return output.getvalue()
 
 
+def _full_hd_fixture() -> bytes:
+    image = Image.effect_noise((1920, 1080), 70).convert("L")
+    output = BytesIO()
+    image.save(output, format="PNG")
+    return output.getvalue()
+
+
 def run_image_upscaler_desktop(page, report: dict, _inventory) -> None:
     model_requests = []
     page.on(
@@ -38,6 +45,11 @@ def run_image_upscaler_desktop(page, report: dict, _inventory) -> None:
     )
     page.goto(f"{BASE_URL}/en/image-upscaler/", wait_until="networkidle")
     root = page.locator("[data-image-upscaler]")
+    upload_guidance = root.locator("[data-upload-prompt] small").inner_text()
+    if not all(value in upload_guidance for value in ("20 MB", "2048", "1024")):
+        report["ui_detail_failures"].append(
+            f"Image upscaler upload limits are not explicit: {upload_guidance}"
+        )
     root.locator("[data-file-input]").set_input_files(
         {
             "name": "odd-alpha.png",
@@ -93,6 +105,31 @@ def run_image_upscaler_desktop(page, report: dict, _inventory) -> None:
     ):
         report["ui_detail_failures"].append(
             f"Image upscaler consent or lazy loading is invalid: {consent}, model requests: {model_requests}"
+        )
+
+    full_hd_fixture = _full_hd_fixture()
+    root.locator("[data-file-input]").set_input_files(
+        {
+            "name": "full-hd-1920x1080.png",
+            "mimeType": "image/png",
+            "buffer": full_hd_fixture,
+        }
+    )
+    root.locator('input[name="upscaler-scale"][value="2"]').check(force=True)
+    root.locator("[data-upscale]").click()
+    root.locator("[data-consent]").wait_for(state="visible")
+    accepted_full_hd = root.locator("[data-input-details]").inner_text().strip()
+    root.locator("[data-consent-cancel]").click()
+    report["image_upscaler_1920x1080_2x"] = {
+        "input": accepted_full_hd,
+        "inputBytes": len(full_hd_fixture),
+        "consentOpened": True,
+        "modelRequests": list(model_requests),
+    }
+    if accepted_full_hd != "1920 × 1080 px" or model_requests:
+        report["ui_detail_failures"].append(
+            "Image upscaler rejected a Full HD image before consent: "
+            f"{report['image_upscaler_1920x1080_2x']}"
         )
 
     root.locator('input[name="upscaler-scale"][value="4"]').check(force=True)
