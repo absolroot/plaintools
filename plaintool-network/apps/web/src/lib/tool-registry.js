@@ -393,6 +393,15 @@ export const toolRegistry = /** @type {const} */ ([
     publication: "indexable",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
+  {
+    id: "travel-link-lab",
+    featureId: "travel-link-lab",
+    slug: "travel-link-lab",
+    category: "generator",
+    publication: "preview",
+    topToolPromise: false,
+    structuredData: ["SoftwareApplication", "BreadcrumbList"],
+  },
 ]);
 
 export const toolPages = toolRegistry.map((tool) => tool.slug);

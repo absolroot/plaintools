@@ -7,6 +7,7 @@ import {
   type ImageConverterToolId,
 } from "../features/image-converter/formats";
 import type { GeneratorToolId } from "./locale-data/generator-tools";
+import { travelLinkCopy } from "../features/travel-link/copy";
 
 export type ToolStatus = "available" | "preview" | "reserve";
 export type ToolCategory =
@@ -162,7 +163,8 @@ const toolMarks = {
 const generatorToolMarks = {
   "barcode-generator": "BAR",
   "password-generator": "PW",
-} as const satisfies Record<GeneratorToolId, string>;
+  "travel-link-lab": "↗",
+} as const;
 
 const unitConverterToolMarks = {
   "unit-converter": "↔",
@@ -198,15 +200,16 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   category: tool.category as ToolCategory,
   status: tool.publication === "indexable" ? "available" : "preview",
   mark:
-    generatorToolMarks[tool.id as GeneratorToolId] ??
+    generatorToolMarks[tool.id as keyof typeof generatorToolMarks] ??
     unitConverterToolMarks[tool.id as keyof typeof unitConverterToolMarks] ??
     toolMarks[tool.id as keyof typeof toolMarks] ??
     tool.id.slice(0, tool.id.indexOf("-to-")).toUpperCase(),
-  name: localize(
-    (locale) =>
-      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
-        tool.id
-      ]!.name,
+  name: localize((locale) =>
+    tool.id === "travel-link-lab"
+      ? travelLinkCopy[locale].heading
+      : (
+          localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>
+        )[tool.id]!.name,
   ),
   subtitle:
     tool.id === "background-remover"
@@ -214,17 +217,19 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
       : tool.id === "image-upscaler"
         ? localize(() => "2× · 4×")
         : undefined,
-  summary: localize(
-    (locale) =>
-      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
-        tool.id
-      ]!.summary,
+  summary: localize((locale) =>
+    tool.id === "travel-link-lab"
+      ? travelLinkCopy[locale].description
+      : (
+          localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>
+        )[tool.id]!.summary,
   ),
-  searchTerms: localize(
-    (locale) =>
-      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
-        tool.id
-      ]!.searchTerms,
+  searchTerms: localize((locale) =>
+    tool.id === "travel-link-lab"
+      ? [travelLinkCopy[locale].heading]
+      : (
+          localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>
+        )[tool.id]!.searchTerms,
   ),
 }));
 

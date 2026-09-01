@@ -1,7 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { travelLinkCopy } from "../features/travel-link/copy";
-import type { Locale } from "../lib/site";
+import { absoluteUrl, type Locale } from "../lib/site";
 import "../styles/travel-link-lab.css";
 
 interface Props {
@@ -24,14 +24,40 @@ const marketOptions = [
   ["필리핀", "PH"],
   ["호주·뉴질랜드", "ANZ"],
 ] as const;
+const canonical = absoluteUrl(`/${locale}/travel-link-lab/`);
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: copy.heading,
+    applicationCategory: "TravelApplication",
+    operatingSystem: "Any",
+    isAccessibleForFree: true,
+    url: canonical,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "AbsolTools",
+        item: absoluteUrl(`/${locale}/`),
+      },
+      { "@type": "ListItem", position: 2, name: copy.heading, item: canonical },
+    ],
+  },
+];
 ---
 
 <SiteLayout
   locale={locale}
+  page="travel-link-lab"
   title={copy.title}
   description={copy.description}
   noindex={true}
-  canonicalize={false}
+  structuredData={structuredData}
 >
   <section class="tool-intro">
     <div class="tool-intro-copy">
