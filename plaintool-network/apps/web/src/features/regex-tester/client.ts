@@ -49,6 +49,13 @@ function init(root: HTMLElement): void {
   const highlight = root.querySelector<HTMLElement>("[data-highlight]")!;
   const matchNav = root.querySelector<HTMLElement>("[data-match-nav]")!;
   const inspector = root.querySelector<HTMLElement>("[data-match-inspector]")!;
+  const results = root.querySelector<HTMLElement>("[data-results]")!;
+  const showReplacement = root.querySelector<HTMLButtonElement>(
+    "[data-show-replacement]",
+  )!;
+  const replacementPanel = root.querySelector<HTMLDetailsElement>(
+    ".regex-replacement-panel",
+  )!;
   const replacement =
     root.querySelector<HTMLInputElement>("[data-replacement]")!;
   const replacementOutput = root.querySelector<HTMLTextAreaElement>(
@@ -86,6 +93,13 @@ function init(root: HTMLElement): void {
     matchNav.replaceChildren();
     inspector.textContent = message;
     resultCount.textContent = message;
+  };
+
+  const hideRunPanels = () => {
+    results.hidden = true;
+    showReplacement.hidden = true;
+    replacementPanel.hidden = true;
+    replacementPanel.open = false;
   };
 
   const invalidateReplacement = () => {
@@ -152,8 +166,12 @@ function init(root: HTMLElement): void {
   };
 
   const renderEvaluation = (result: RegexEvaluation) => {
+    results.hidden = false;
     if (!result.valid) {
       clearResults(t.invalid);
+      showReplacement.hidden = true;
+      replacementPanel.hidden = true;
+      replacementPanel.open = false;
       replace.disabled = true;
       setToolStatus(root, status, t.invalid, "error");
       return;
@@ -169,6 +187,7 @@ function init(root: HTMLElement): void {
       ? count + " · " + t.tooManyMatches
       : count;
     replace.disabled = result.matches.length === 0;
+    showReplacement.hidden = result.matches.length === 0;
     setToolStatus(
       root,
       status,
@@ -220,6 +239,7 @@ function init(root: HTMLElement): void {
       activeOperation = undefined;
       clearTimers();
       clearResults(t.processingFailed);
+      results.hidden = false;
       replace.disabled = true;
       setToolStatus(root, status, t.processingFailed, "error");
     },
@@ -268,6 +288,7 @@ function init(root: HTMLElement): void {
     clearTimers();
     runner.cancel();
     invalidateReplacement();
+    hideRunPanels();
     visibleMatches = [];
     highlight.replaceChildren();
     inspector.textContent = t.evaluating;
@@ -324,12 +345,6 @@ function init(root: HTMLElement): void {
       text.value = "Hello, world! hello again.";
       replacement.value = "[$1]";
       queueEvaluation();
-      const sampleRevision = revision;
-      root.querySelector<HTMLDetailsElement>(".regex-replacement-panel")!.open =
-        true;
-      window.setTimeout(() => {
-        if (revision === sampleRevision) replace.click();
-      }, EVALUATION_DEBOUNCE_MS + 30);
       expression.focus();
     });
 
@@ -343,6 +358,7 @@ function init(root: HTMLElement): void {
       expression.value = text.value = replacement.value = "";
       invalidateReplacement();
       clearResults(t.ready);
+      hideRunPanels();
       textCount.textContent = "0";
       replace.disabled = true;
       setToolStatus(root, status, t.ready);
@@ -359,6 +375,13 @@ function init(root: HTMLElement): void {
     activeOperation = "replace";
     runner.submit(currentContext("replace"));
     setToolStatus(root, status, t.evaluating, "working");
+  });
+
+  showReplacement.addEventListener("click", () => {
+    replacementPanel.hidden = false;
+    replacementPanel.open = true;
+    if (replacement.value) replace.click();
+    else replacement.focus();
   });
 
   copy.addEventListener("click", async () => {

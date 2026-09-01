@@ -136,6 +136,16 @@
   padding: 0 16px;
   border-bottom: 1px solid var(--line);
 }
+.regex-results-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.regex-show-replacement {
+  min-height: 32px;
+  padding: 5px 8px;
+  font-size: 0.78rem;
+}
 .regex-match-inspector {
   display: grid;
   gap: 10px;
@@ -245,6 +255,15 @@
     min-height: 240px;
   }
   .regex-replace-actions {
+    flex-wrap: wrap;
+  }
+  .regex-results-heading {
+    align-items: flex-start;
+    gap: 10px;
+    padding-block: 8px;
+  }
+  .regex-results-actions {
+    justify-content: flex-end;
     flex-wrap: wrap;
   }
 }
