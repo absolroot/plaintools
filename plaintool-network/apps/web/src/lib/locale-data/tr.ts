@@ -618,8 +618,11 @@ const bundle: LocaleBundle = {
       summary:
         "Kelimeleri, karakterleri, satırları ve paragrafları çevrim içi sayın.",
       searchTerms: [
+        "kelime sayacı",
+        "kelime sayma",
         "kelime sayısı",
         "karakter sayısı",
+        "metin karakter sayacı",
         "boşluksuz",
         "satır sayısı",
         "paragraf",
@@ -642,6 +645,8 @@ const bundle: LocaleBundle = {
       summary:
         "Unix saniye veya milisaniyelerini tarih ve saate, tarih ve saati de geri dönüştürün.",
       searchTerms: [
+        "Unix zaman damgası dönüştürücü",
+        "epoch zamanı dönüştürme",
         "Unix zamanı",
         "epoch",
         "zaman damgası",
@@ -655,6 +660,8 @@ const bundle: LocaleBundle = {
       summary: "İki metni satır satır karşılaştırın ve farkları vurgulayın.",
       searchTerms: [
         "metin karşılaştırma",
+        "metin fark karşılaştırma",
+        "metin diff",
         "metin farkı",
         "farklar",
         "satır karşılaştırma",
@@ -666,6 +673,9 @@ const bundle: LocaleBundle = {
       summary:
         "Metni büyük, küçük, cümle veya kelime başı büyük biçime dönüştürün.",
       searchTerms: [
+        "büyük küçük harf dönüştürücü",
+        "büyük harfe çevir",
+        "küçük harfe çevir",
         "büyük harf",
         "küçük harf",
         "cümle düzeni",

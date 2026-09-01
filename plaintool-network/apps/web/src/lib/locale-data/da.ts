@@ -619,6 +619,8 @@ const daBundle = {
       name: "Ord- og tegnoptæller",
       summary: "Tæl ord, tegn, linjer og afsnit online.",
       searchTerms: [
+        "ordtæller",
+        "tæl ord",
         "ordtælling",
         "tegnoptælling",
         "bogstaver",
@@ -644,6 +646,7 @@ const daBundle = {
       summary:
         "Konverter Unix-tidsstempler i sekunder eller millisekunder til datoer og tidspunkter, og tilbage.",
       searchTerms: [
+        "Unix-tidsstempelkonverter",
         "Unix tid",
         "epoke",
         "epoketid",
@@ -658,6 +661,8 @@ const daBundle = {
       summary:
         "Sammenlign to tekster linje for linje og fremhæv deres forskelle.",
       searchTerms: [
+        "sammenlign tekster",
+        "tekstsammenligning",
         "tekstforskel",
         "sammenlign tekst",
         "forskelle",
@@ -669,6 +674,7 @@ const daBundle = {
       summary:
         "Konverter tekst til store bogstaver, små bogstaver, sætningsform eller ord med store begyndelsesbogstaver.",
       searchTerms: [
+        "skift mellem store og små bogstaver",
         "store bogstaver",
         "små bogstaver",
         "sætningstype",

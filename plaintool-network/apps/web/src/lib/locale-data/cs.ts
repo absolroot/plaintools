@@ -617,7 +617,9 @@ const csBundle = {
       name: "Počítadlo slov a znaků",
       summary: "Počítat slova, znaky, řádky a odstavce online.",
       searchTerms: [
+        "počítadlo slov",
         "počet slov",
+        "počet slov a znaků",
         "počet znaků",
         "dopisy",
         "linky",
@@ -642,6 +644,7 @@ const csBundle = {
       summary:
         "Převeďte časová razítka Unix v sekundách nebo milisekundách na datum a čas a zpět.",
       searchTerms: [
+        "převod Unix timestampu",
         "Unix čas",
         "éra",
         "epocha času",
@@ -656,6 +659,8 @@ const csBundle = {
       summary:
         "Porovnejte dva texty řádek po řádku a zvýrazněte jejich rozdíly.",
       searchTerms: [
+        "porovnat texty",
+        "porovnání textů",
         "rozdíl textu",
         "porovnat text",
         "rozdíly",
@@ -667,6 +672,8 @@ const csBundle = {
       summary:
         "Převést text na velká písmena, malá písmena, větný zápis nebo slova s velkým počátečním písmenem.",
       searchTerms: [
+        "převod velkých a malých písmen",
+        "velká malá písmena",
         "velká písmena",
         "malá písmena",
         "větný tvar",

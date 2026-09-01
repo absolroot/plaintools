@@ -616,6 +616,7 @@ export const itBundle: LocaleBundle = {
       name: "Contatore di parole e caratteri",
       summary: "Conta parole, caratteri, righe e paragrafi online.",
       searchTerms: [
+        "contatore di parole",
         "contare parole",
         "contatore caratteri",
         "conta caratteri",
@@ -640,6 +641,7 @@ export const itBundle: LocaleBundle = {
       summary:
         "Converti timestamp Unix in data e ora, in secondi o millisecondi, e viceversa.",
       searchTerms: [
+        "convertitore timestamp Unix",
         "tempo Unix",
         "timestamp",
         "epoch",
@@ -654,6 +656,7 @@ export const itBundle: LocaleBundle = {
       summary: "Confronta due testi riga per riga e mostra le differenze.",
       searchTerms: [
         "confrontare testi",
+        "confronto testi",
         "comparatore testo",
         "differenze",
         "confronto righe",
@@ -665,6 +668,8 @@ export const itBundle: LocaleBundle = {
       summary:
         "Converti testo in maiuscolo, minuscolo, stile frase o iniziali maiuscole.",
       searchTerms: [
+        "convertire maiuscole e minuscole",
+        "lettere maiuscole minuscole",
         "maiuscolo minuscolo",
         "convertire in maiuscolo",
         "convertire in minuscolo",

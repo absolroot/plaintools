@@ -610,7 +610,17 @@ const bundle: LocaleBundle = {
     "word-counter": {
       name: "文字数・単語数カウンター",
       summary: "文字、単語、行、段落の数をオンラインで集計します。",
-      searchTerms: ["文字数", "単語数", "空白を除く", "行数", "段落数", "文章"],
+      searchTerms: [
+        "文字数カウント",
+        "文字数チェッカー",
+        "文字数計算",
+        "文字数",
+        "単語数",
+        "空白を除く",
+        "行数",
+        "段落数",
+        "文章",
+      ],
     },
     "json-formatter": {
       name: "JSON 整形・検証",
@@ -627,6 +637,9 @@ const bundle: LocaleBundle = {
       name: "Unix タイムスタンプ変換",
       summary: "Unix 時刻の秒・ミリ秒と日時を相互に変換します。",
       searchTerms: [
+        "Unix タイムスタンプ 変換",
+        "エポックタイム変換",
+        "タイムスタンプ 日時変換",
         "Unix 時間",
         "エポック",
         "タイムスタンプ",
@@ -638,12 +651,22 @@ const bundle: LocaleBundle = {
     "text-compare": {
       name: "テキスト比較",
       summary: "2つの文章を行単位で比較して差分を表示します。",
-      searchTerms: ["テキスト比較", "文章比較", "差分", "行比較", "diff"],
+      searchTerms: [
+        "テキスト比較",
+        "テキスト差分比較",
+        "差分チェック",
+        "文章比較",
+        "差分",
+        "行比較",
+        "diff",
+      ],
     },
     "case-converter": {
       name: "大文字・小文字変換",
       summary: "文章の大文字、小文字、文頭、単語先頭の形式を変換します。",
       searchTerms: [
+        "大文字 小文字 変換",
+        "英字 大文字 小文字 変換",
         "大文字",
         "小文字",
         "文頭",

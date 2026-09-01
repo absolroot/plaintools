@@ -77,6 +77,38 @@ describe("tool directory search catalog", () => {
     expect(htmlFormatter.searchTerms.ko).toContain("HTML formatter");
     expect(htmlFormatter.searchTerms.ja).toContain("HTML formatter");
   });
+
+  it("uses locale-native task queries for text and timestamp tools", () => {
+    const wordCounter = toolCatalog.find((tool) => tool.id === "word-counter");
+    const textCompare = toolCatalog.find((tool) => tool.id === "text-compare");
+    const caseConverter = toolCatalog.find(
+      (tool) => tool.id === "case-converter",
+    );
+    const timestamp = toolCatalog.find(
+      (tool) => tool.id === "unix-timestamp-converter",
+    );
+
+    if (!wordCounter || !textCompare || !caseConverter || !timestamp) {
+      throw new Error(
+        "Expected the localized text and timestamp catalog entries.",
+      );
+    }
+
+    expect(wordCounter.searchTerms.ko).toContain("단어 수 세기");
+    expect(wordCounter.searchTerms.ja).toContain("文字数カウント");
+    expect(wordCounter.searchTerms.de).toContain("Wortzähler");
+    expect(wordCounter.searchTerms.ar).toContain("عداد الكلمات");
+    expect(textCompare.searchTerms.fr).toContain("comparer des textes");
+    expect(textCompare.searchTerms["zh-TW"]).toContain("文字差異比較");
+    expect(caseConverter.searchTerms.ko).toContain("대문자 소문자 변환");
+    expect(caseConverter.searchTerms.tr).toContain(
+      "büyük küçük harf dönüştürücü",
+    );
+    expect(timestamp.searchTerms.ja).toContain("Unix タイムスタンプ 変換");
+    expect(timestamp.searchTerms["pt-BR"]).toContain(
+      "conversor de timestamp Unix",
+    );
+  });
 });
 
 describe("tool directory search matching", () => {

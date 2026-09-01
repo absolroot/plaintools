@@ -638,7 +638,9 @@ const bundle: LocaleBundle = {
       name: "Contador de palabras y caracteres",
       summary: "Cuenta palabras, caracteres, líneas y párrafos en línea.",
       searchTerms: [
+        "contador de palabras",
         "contar palabras",
+        "contador de caracteres",
         "contar caracteres",
         "letras",
         "líneas",
@@ -663,6 +665,8 @@ const bundle: LocaleBundle = {
       summary:
         "Convierte timestamps Unix en segundos o milisegundos a fechas y horas, y viceversa.",
       searchTerms: [
+        "convertidor de timestamp Unix",
+        "convertir timestamp a fecha",
         "tiempo Unix",
         "epoch",
         "época Unix",
@@ -677,6 +681,8 @@ const bundle: LocaleBundle = {
       summary: "Compara dos textos línea por línea y resalta sus diferencias.",
       searchTerms: [
         "comparar textos",
+        "comparación de textos",
+        "comparar dos textos",
         "diferencias",
         "comparar líneas",
         "diff",
@@ -687,6 +693,8 @@ const bundle: LocaleBundle = {
       summary:
         "Convierte texto a mayúsculas, minúsculas, estilo oración o palabras con inicial mayúscula.",
       searchTerms: [
+        "convertir mayúsculas y minúsculas",
+        "cambiar mayúsculas a minúsculas",
         "mayúsculas",
         "minúsculas",
         "mayúscula inicial de oración",

@@ -634,7 +634,9 @@ const bundle: LocaleBundle = {
       name: "Word & character counter",
       summary: "Count words, characters, lines, and paragraphs online.",
       searchTerms: [
+        "word counter",
         "word count",
+        "word count checker",
         "character count",
         "letters",
         "lines",
@@ -664,6 +666,9 @@ const bundle: LocaleBundle = {
       summary:
         "Convert Unix timestamps in seconds or milliseconds to dates and times, and back.",
       searchTerms: [
+        "Unix timestamp converter",
+        "epoch converter",
+        "timestamp to date",
         "Unix time",
         "epoch",
         "epoch time",
@@ -678,7 +683,9 @@ const bundle: LocaleBundle = {
       summary:
         "Compare two texts line by line and highlight their differences.",
       searchTerms: [
+        "text compare",
         "text diff",
+        "compare text online",
         "compare text",
         "differences",
         "line comparison",
@@ -689,6 +696,9 @@ const bundle: LocaleBundle = {
       summary:
         "Convert text to uppercase, lowercase, sentence case, or capitalized words.",
       searchTerms: [
+        "case converter",
+        "uppercase converter",
+        "lowercase converter",
         "uppercase",
         "lowercase",
         "sentence case",

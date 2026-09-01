@@ -621,7 +621,9 @@ export const ptBRBundle: LocaleBundle = {
       name: "Contador de palavras e caracteres",
       summary: "Conte palavras, caracteres, linhas e parágrafos online.",
       searchTerms: [
+        "contador de palavras",
         "contar palavras",
+        "contador de caracteres",
         "contar caracteres",
         "letras",
         "linhas",
@@ -646,6 +648,7 @@ export const ptBRBundle: LocaleBundle = {
       summary:
         "Converta timestamps Unix em segundos ou milissegundos para data e hora, e vice-versa.",
       searchTerms: [
+        "conversor de timestamp Unix",
         "tempo Unix",
         "timestamp",
         "epoch",
@@ -658,13 +661,22 @@ export const ptBRBundle: LocaleBundle = {
     "text-compare": {
       name: "Comparador de textos",
       summary: "Compare dois textos linha por linha e destaque as diferenças.",
-      searchTerms: ["comparar textos", "diferenças", "comparar linhas", "diff"],
+      searchTerms: [
+        "comparar textos",
+        "comparação de textos",
+        "comparar dois textos",
+        "diferenças",
+        "comparar linhas",
+        "diff",
+      ],
     },
     "case-converter": {
       name: "Conversor de maiúsculas e minúsculas",
       summary:
         "Converta texto para maiúsculas, minúsculas, formato de frase ou iniciais maiúsculas.",
       searchTerms: [
+        "converter maiúsculas e minúsculas",
+        "letras maiúsculas minúsculas",
         "maiúsculas",
         "minúsculas",
         "formato de frase",

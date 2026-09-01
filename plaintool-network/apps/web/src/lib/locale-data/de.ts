@@ -622,6 +622,7 @@ export const deBundle: LocaleBundle = {
       name: "Wort- und Zeichenzähler",
       summary: "Wörter, Zeichen, Zeilen und Absätze online zählen.",
       searchTerms: [
+        "Wortzähler",
         "Wörter zählen",
         "Zeichen zählen",
         "Buchstaben zählen",
@@ -647,6 +648,8 @@ export const deBundle: LocaleBundle = {
       summary:
         "Unix-Zeitstempel in Sekunden oder Millisekunden in Datum und Uhrzeit umwandeln und zurück.",
       searchTerms: [
+        "Unix-Timestamp umrechnen",
+        "Timestamp umrechnen",
         "Unixzeit",
         "Unix Zeitstempel",
         "Timestamp",
@@ -664,6 +667,7 @@ export const deBundle: LocaleBundle = {
       searchTerms: [
         "Texte vergleichen",
         "Textvergleich",
+        "Text vergleichen",
         "Unterschiede",
         "Zeilen vergleichen",
         "Diff",
@@ -674,6 +678,8 @@ export const deBundle: LocaleBundle = {
       summary:
         "Text in Großbuchstaben, Kleinbuchstaben oder andere Schreibweisen umwandeln.",
       searchTerms: [
+        "Groß- und Kleinschreibung umwandeln",
+        "Großbuchstaben in Kleinbuchstaben",
         "Groß Kleinschreibung",
         "Großbuchstaben",
         "Kleinbuchstaben",

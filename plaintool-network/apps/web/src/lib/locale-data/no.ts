@@ -620,6 +620,8 @@ const noBundle = {
       name: "Ord- og tegnteller",
       summary: "Tell ord, tegn, linjer og avsnitt på nettet.",
       searchTerms: [
+        "ordteller",
+        "telle ord",
         "ordtelling",
         "tegnantall",
         "bokstaver",
@@ -645,6 +647,7 @@ const noBundle = {
       summary:
         "Konverter Unix-tidsstempler i sekunder eller millisekunder til datoer og klokkeslett, og tilbake.",
       searchTerms: [
+        "Unix-tidsstempelkonverter",
         "Unix tid",
         "epoke",
         "epoketid",
@@ -659,6 +662,8 @@ const noBundle = {
       summary:
         "Sammenlign to tekster linje for linje og fremhev deres forskjeller.",
       searchTerms: [
+        "sammenligne tekster",
+        "tekstsammenligning",
         "tekstforskjell",
         "sammenligne tekst",
         "forskjeller",
@@ -670,6 +675,7 @@ const noBundle = {
       summary:
         "Konverter tekst til store bokstaver, små bokstaver, setningsform eller ord med store forbokstaver.",
       searchTerms: [
+        "endre store og små bokstaver",
         "stor bokstav",
         "små bokstaver",
         "setningsskrift",

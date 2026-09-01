@@ -624,6 +624,7 @@ export const frBundle: LocaleBundle = {
       name: "Compteur de mots et de caractères",
       summary: "Comptez les mots, caractères, lignes et paragraphes en ligne.",
       searchTerms: [
+        "compteur de mots",
         "compter les mots",
         "compteur de caractères",
         "nombre de signes",
@@ -650,6 +651,7 @@ export const frBundle: LocaleBundle = {
       summary:
         "Convertissez un timestamp Unix en date et heure, en secondes ou millisecondes, et inversement.",
       searchTerms: [
+        "convertisseur de timestamp Unix",
         "temps Unix",
         "timestamp",
         "horodatage",
@@ -665,8 +667,10 @@ export const frBundle: LocaleBundle = {
       summary:
         "Comparez deux textes ligne par ligne et repérez les différences.",
       searchTerms: [
+        "comparer des textes",
         "comparer deux textes",
         "comparaison de texte",
+        "comparaison de textes",
         "différences",
         "comparer des lignes",
         "diff",
@@ -677,6 +681,9 @@ export const frBundle: LocaleBundle = {
       summary:
         "Transformez du texte en majuscules, minuscules ou autres casses.",
       searchTerms: [
+        "convertir les majuscules et minuscules",
+        "mettre en majuscules",
+        "mettre en minuscules",
         "convertisseur de casse",
         "majuscules",
         "minuscules",

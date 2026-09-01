@@ -623,6 +623,7 @@ export const nlBundle: LocaleBundle = {
       name: "Woorden- en tekenteller",
       summary: "Tel woorden, tekens, regels en alinea’s online.",
       searchTerms: [
+        "woordenteller",
         "woorden tellen",
         "tekens tellen",
         "karakterteller",
@@ -647,6 +648,7 @@ export const nlBundle: LocaleBundle = {
       summary:
         "Zet Unix-timestamps in seconden of milliseconden om naar datum en tijd, en omgekeerd.",
       searchTerms: [
+        "Unix-timestamp omrekenen",
         "Unix-tijd",
         "timestamp",
         "epoch",
@@ -661,6 +663,7 @@ export const nlBundle: LocaleBundle = {
       summary: "Vergelijk twee teksten regel voor regel en toon verschillen.",
       searchTerms: [
         "teksten vergelijken",
+        "tekstvergelijking",
         "tekstvergelijker",
         "verschillen",
         "regels vergelijken",
@@ -672,6 +675,8 @@ export const nlBundle: LocaleBundle = {
       summary:
         "Zet tekst om naar hoofdletters, kleine letters, zinsopmaak of beginhoofdletters.",
       searchTerms: [
+        "hoofdletters en kleine letters omzetten",
+        "hoofdletters naar kleine letters omzetten",
         "hoofdletters kleine letters",
         "tekst naar hoofdletters",
         "tekst naar kleine letters",

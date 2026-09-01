@@ -620,6 +620,8 @@ const svBundle = {
       name: "Ord- och teckenräknare",
       summary: "Räkna ord, tecken, rader och stycken online.",
       searchTerms: [
+        "ordräknare",
+        "räkna ord",
         "ordantal",
         "teckenräkning",
         "brev",
@@ -645,6 +647,7 @@ const svBundle = {
       summary:
         "Konvertera Unix-tidsstämplar i sekunder eller millisekunder till datum och tider, och tillbaka.",
       searchTerms: [
+        "Unix-tidsstämpelkonverterare",
         "Unix tid",
         "epok",
         "epoktid",
@@ -658,6 +661,8 @@ const svBundle = {
       name: "Textjämförelse",
       summary: "Jämför två texter rad för rad och markera deras skillnader.",
       searchTerms: [
+        "jämföra texter",
+        "textjämförelse",
         "text skillnad",
         "jämför text",
         "skillnader",
@@ -669,6 +674,8 @@ const svBundle = {
       summary:
         "Konvertera text till versaler, gemener, meningstil eller versala ord.",
       searchTerms: [
+        "ändra stora och små bokstäver",
+        "stora till små bokstäver",
         "versaler",
         "gemener",
         "meningsstil",

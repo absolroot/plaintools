@@ -621,7 +621,9 @@ const plBundle = {
       name: "Licznik słów i znaków",
       summary: "Liczenie słów, znaków, linii i akapitów online.",
       searchTerms: [
+        "licznik słów",
         "liczba słów",
+        "licznik znaków",
         "liczba znaków",
         "litery",
         "linie",
@@ -646,6 +648,7 @@ const plBundle = {
       summary:
         "Konwertuj znaczniki czasu Unix w sekundach lub milisekundach na daty i godziny, i odwrotnie.",
       searchTerms: [
+        "konwerter znacznika czasu Unix",
         "czas Unix",
         "epoka",
         "czas epoki",
@@ -659,6 +662,8 @@ const plBundle = {
       name: "Porównywarka tekstu",
       summary: "Porównaj dwa teksty linia po linii i podkreśl ich różnice.",
       searchTerms: [
+        "porównywanie tekstów",
+        "porównaj teksty",
         "różnica tekstu",
         "porównaj tekst",
         "różnice",
@@ -670,6 +675,8 @@ const plBundle = {
       summary:
         "Konwertuj tekst na wielkie litery, małe litery, pierwszą literę zdania wielką lub każde słowo z wielkiej litery.",
       searchTerms: [
+        "zamiana wielkości liter",
+        "wielkie małe litery",
         "wielka litera",
         "małe litery",
         "wielkość liter w zdaniu",
