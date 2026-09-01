@@ -60,6 +60,23 @@ describe("image converter localization", () => {
     }
   });
 
+  it("keeps each locale's conversion title ahead of English supporting queries", () => {
+    for (const locale of locales) {
+      const localeCopy = imageConverterLocales[locale];
+      for (const { id, source, target } of imageConversionModes) {
+        const catalog = localeCopy.catalog[id];
+        const from = localeCopy.formatNames[source];
+        const to = localeCopy.formatNames[target];
+
+        expect(catalog.searchTerms[0]).toBe(catalog.name);
+        if (locale !== "en") {
+          expect(catalog.searchTerms).toContain(`${from} to ${to}`);
+          expect(catalog.searchTerms).toContain(`${from} ${to} converter`);
+        }
+      }
+    }
+  });
+
   it("explains the format-specific engines without a superiority claim", () => {
     const page = imageConverterLocales.en.tools["png-to-webp"];
     expect(page.safetyBody).toContain("MozJPEG");

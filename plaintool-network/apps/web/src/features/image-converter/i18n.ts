@@ -1318,16 +1318,17 @@ export function createImageConverterLocale(locale: ImageConverterLocale): {
     imageConversionModes.map(({ id, source, target }) => {
       const from = text.formats[source];
       const to = text.formats[target];
+      const localTitle = fill(text.title, from, to);
       return [
         id,
         {
-          name: fill(text.title, from, to),
+          name: localTitle,
           summary: fill(text.catalog, from, to),
           searchTerms: [
+            localTitle,
             `${from} to ${to}`,
             `${from} ${to} converter`,
-            fill(text.title, from, to),
-          ],
+          ].filter((term, index, terms) => terms.indexOf(term) === index),
         },
       ];
     }),
