@@ -231,13 +231,12 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AI watermark & hidden character remover",
+      title: "Invisible Unicode character remover",
       description:
         "Find and remove hidden Unicode characters commonly introduced when copying text from GPT, Claude, PDFs, or web pages. This tool does not detect AI authorship.",
       guide:
         "Paste text and review the cleaned result first, then inspect the exact character names, counts, and U+ code points. Risky script-shaping options stay off by default.",
       terms: [
-        "AI watermark remover",
         "GPT hidden characters",
         "Claude hidden characters",
         "zero width space",

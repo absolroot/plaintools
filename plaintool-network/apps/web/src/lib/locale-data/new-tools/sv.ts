@@ -238,13 +238,12 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Borttagare för AI-vattenstämplar och dolda tecken",
+      title: "Borttagare av osynliga Unicode-tecken",
       description:
         "Hittar och tar bort faktiska dolda Unicode-rester som kan följa med från GPT, Claude, PDF-filer eller webbsidor. Verktyget avgör inte om en AI har skrivit texten.",
       guide:
         "Klistra in texten och granska först det rensade resultatet. Kontrollera sedan exakta teckennamn, antal och U+-kodpunkter. Riskfyllda alternativ som kan påverka skriftens formning är avstängda som standard.",
       terms: [
-        "ta bort AI-vattenstämpel",
         "dolda GPT-tecken",
         "dolda Claude-tecken",
         "blanksteg med nollbredd",

@@ -288,9 +288,8 @@ const bundle: LocaleBundle = {
   },
   preview: {
     word: {
-      title: "字數與單字計算器",
-      description:
-        "不需上傳文字，即可計算單字、字元、不含空白的字元、行與段落數。",
+      title: "字數統計與單字計算器",
+      description: "線上統計字數、字元、英文單字、行與段落數。",
       inputLabel: "文字",
       words: "單字",
       characters: "字元",
@@ -579,13 +578,14 @@ const bundle: LocaleBundle = {
       ],
     },
     "word-counter": {
-      name: "字數與單字計算器",
-      summary: "線上計算單字、字元、行與段落數。",
+      name: "字數統計與單字計算器",
+      summary: "線上統計字數、字元、英文單字、行與段落數。",
       searchTerms: [
-        "字數計算",
+        "字數統計",
+        "字數計算器",
+        "中文字數",
+        "英文字數",
         "字元數",
-        "單字數",
-        "不含空白",
         "行數",
         "段落數",
       ],

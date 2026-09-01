@@ -253,13 +253,12 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AI 워터마크 제거기 - GPT·Claude·Gemini 숨은 문자 정리",
+      title: "숨은 Unicode 문자 정리 - GPT·Claude·Gemini 텍스트",
       description:
         "GPT·Claude·Gemini 텍스트에 섞인 실제 숨은 유니코드 문자를 찾아 제거합니다. AI 작성 여부를 판별하는 기능은 아닙니다.",
       guide:
         "원문을 붙여넣고 정제된 텍스트를 먼저 확인한 뒤, 제거한 문자 이름·개수·U+ 코드 포인트를 검토하세요. 문자 모양을 바꿀 수 있는 고급 옵션은 기본으로 꺼져 있습니다.",
       terms: [
-        "AI 워터마크 제거기",
         "숨은 유니코드 제거",
         "클로드 숨은 문자",
         "Gemini 숨은 문자",

@@ -232,13 +232,12 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AI-watermerk en verborgen tekens verwijderen",
+      title: "Verwijderaar voor onzichtbare Unicode-tekens",
       description:
         "Vindt en verwijdert daadwerkelijk verborgen Unicode-artefacten die vaak uit GPT, Claude, pdf-bestanden of webpagina’s worden gekopieerd. Deze tool detecteert niet of tekst door AI is geschreven.",
       guide:
         "Plak de tekst en bekijk eerst het opgeschoonde resultaat. Controleer daarna de exacte namen, aantallen en U+-codepunten van de verwijderde tekens. Opties die de schriftweergave kunnen wijzigen, staan standaard uit.",
       terms: [
-        "AI watermerk verwijderen",
         "GPT verborgen tekens",
         "Claude verborgen tekens",
         "zero width space verwijderen",

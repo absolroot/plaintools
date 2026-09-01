@@ -232,13 +232,12 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Fjerner til AI-vandmærker og skjulte tegn",
+      title: "Fjern usynlige Unicode-tegn",
       description:
         "Finder og fjerner faktiske skjulte Unicode-rester, som kan følge med fra GPT, Claude, PDF-filer eller websider. Værktøjet afgør ikke, om en AI har skrevet teksten.",
       guide:
         "Indsæt teksten, og gennemgå først det rensede resultat. Kontrollér derefter de nøjagtige tegnnavne, antal og U+-kodepunkter. Risikable indstillinger, der kan påvirke skriftens formning, er slået fra som standard.",
       terms: [
-        "fjern AI-vandmærke",
         "skjulte GPT-tegn",
         "skjulte Claude-tegn",
         "mellemrum uden bredde",

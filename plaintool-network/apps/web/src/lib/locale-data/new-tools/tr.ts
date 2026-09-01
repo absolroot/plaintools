@@ -233,17 +233,17 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AI filigranı ve gizli karakter temizleyici",
+      title: "Gizli Unicode karakter temizleyici",
       description:
         "GPT, Claude, PDF veya web sayfalarından kopyalanabilen gerçek gizli Unicode kalıntılarını bulup kaldırır. Bu araç metnin AI tarafından yazılıp yazılmadığını belirlemez.",
       guide:
         "Metni yapıştırıp önce temizlenmiş sonucu gözden geçirin, ardından tam karakter adlarını, sayılarını ve U+ kod noktalarını inceleyin. Yazı biçimlenmesini etkileyebilecek riskli seçenekler varsayılan olarak kapalıdır.",
       terms: [
-        "AI filigranı temizleme",
+        "gizli karakter temizleme",
         "GPT gizli karakterleri",
         "Claude gizli karakterleri",
-        "sıfır genişlikli boşluk",
-        "Unicode temizleyici",
+        "sıfır genişlikli karakter",
+        "Unicode karakter",
       ],
     },
     "url-encode": {
@@ -273,12 +273,20 @@ const seed = {
       ],
     },
     "hash-generator": {
-      title: "Karma oluşturucu",
+      title: "Hash oluşturucu",
       description:
         "Metin veya dosyalar için SHA-256, SHA-512, SHA-1 ve MD5 sağlama toplamlarını yerel olarak hesaplar.",
       guide:
         "Metin girin veya dosya seçin, ardından gereken algoritmanın değerini tam olarak karşılaştırın. Karmalar eşitliği denetler; tek başlarına veriyi şifrelemez veya parolaları güvenle saklamaz.",
-      terms: ["SHA-256", "SHA-512", "MD5", "sağlama toplamı", "dosya karması"],
+      terms: [
+        "hash oluşturucu",
+        "SHA-256 hash",
+        "dosya hash",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+        "sağlama toplamı",
+      ],
     },
     "jwt-decoder": {
       title: "JWT kod çözücü",

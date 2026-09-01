@@ -205,9 +205,9 @@ describe("locale bundles", () => {
     }
   });
 
-  it("keeps the AI cleaner claim literal and non-attributional", () => {
+  it("keeps the AI cleaner claim accurate and non-attributional", () => {
     expect(localeBundles.ko.tools["ai-watermark-remover"].title).toBe(
-      "AI 워터마크 제거기 - GPT·Claude·Gemini 숨은 문자 정리",
+      "숨은 Unicode 문자 정리 - GPT·Claude·Gemini 텍스트",
     );
     expect(
       localeBundles.ko.tools["ai-watermark-remover"].description,

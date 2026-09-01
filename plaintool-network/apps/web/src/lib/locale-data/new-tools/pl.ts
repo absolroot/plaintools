@@ -240,7 +240,7 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Usuwanie znaków wodnych AI i ukrytych znaków",
+      title: "Usuwanie niewidocznych znaków Unicode",
       description:
         "Wyszukuje i usuwa rzeczywiste ukryte znaki Unicode, często kopiowane z GPT, Claude, plików PDF lub stron internetowych. To narzędzie nie wykrywa autorstwa AI.",
       guide:

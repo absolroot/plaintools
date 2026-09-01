@@ -492,10 +492,16 @@ function verifyMetadata(
   ).toString();
   if (metaContent(html, "property", "og:image") !== expectedSocialImage)
     throw new Error(`${route} has an incorrect Open Graph image.`);
+  if (
+    metaContent(html, "property", "og:image:secure_url") !== expectedSocialImage
+  )
+    throw new Error(`${route} has an incorrect secure Open Graph image.`);
   if (metaContent(html, "name", "twitter:image") !== expectedSocialImage)
     throw new Error(`${route} has an incorrect Twitter image.`);
   if (metaContent(html, "name", "twitter:card") !== "summary_large_image")
     throw new Error(`${route} must use a large-image Twitter card.`);
+  if (metaContent(html, "name", "twitter:url") !== canonical)
+    throw new Error(`${route} Twitter URL does not match its canonical.`);
   if (metaContent(html, "name", "robots") !== expectedRobots(publication))
     throw new Error(`${route} has the wrong robots directive for ${target}.`);
   verifyAlternates(html, page, route);
@@ -733,6 +739,45 @@ if (redirectLines.some((line) => line.split(/\s+/u)[0] === "/")) {
 }
 if (!rootIndex.includes('<link rel="license" href="/third-party-notices.txt">'))
   throw new Error("Root index does not expose its third-party notices.");
+const rootCanonical = expectedUrl("en");
+const expectedSocialImage = new URL(
+  "/brand/absoltools-social.png",
+  config.origin,
+).toString();
+if (canonicalUrl(rootIndex) !== rootCanonical)
+  throw new Error(
+    "Root index must canonically identify the English directory.",
+  );
+if (!metaContent(rootIndex, "name", "description"))
+  throw new Error("Root index has an empty share description.");
+for (const [attribute, name, expected] of [
+  ["property", "og:type", "website"],
+  ["property", "og:site_name", "AbsolTools"],
+  ["property", "og:url", rootCanonical],
+  ["property", "og:image", expectedSocialImage],
+  ["property", "og:image:secure_url", expectedSocialImage],
+  ["property", "og:image:type", "image/png"],
+  ["property", "og:image:width", "1200"],
+  ["property", "og:image:height", "630"],
+  ["name", "twitter:card", "summary_large_image"],
+  ["name", "twitter:url", rootCanonical],
+  ["name", "twitter:image", expectedSocialImage],
+]) {
+  if (metaContent(rootIndex, attribute, name) !== expected) {
+    throw new Error(`Root index has invalid ${name} share metadata.`);
+  }
+}
+for (const [attribute, name] of [
+  ["property", "og:title"],
+  ["property", "og:description"],
+  ["property", "og:image:alt"],
+  ["name", "twitter:title"],
+  ["name", "twitter:description"],
+  ["name", "twitter:image:alt"],
+]) {
+  if (!metaContent(rootIndex, attribute, name))
+    throw new Error(`Root index has empty ${name} share metadata.`);
+}
 if (
   metaContent(notFound, "name", "robots") !==
   (target === "production" ? "noindex,follow" : "noindex,nofollow")

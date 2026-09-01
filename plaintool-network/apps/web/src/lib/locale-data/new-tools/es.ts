@@ -241,7 +241,7 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Eliminador de marcas de agua de IA y caracteres ocultos",
+      title: "Eliminador de caracteres Unicode invisibles",
       description:
         "Encuentra y elimina caracteres Unicode invisibles que pueden copiarse desde GPT, Claude, archivos PDF o páginas web. Esta herramienta no detecta si un texto fue escrito por IA.",
       guide:

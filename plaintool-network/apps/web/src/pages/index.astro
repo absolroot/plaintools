@@ -1,3 +1,13 @@
+---
+import { absoluteUrl } from "../lib/site";
+
+const canonical = absoluteUrl("/en/");
+const socialImageUrl = absoluteUrl("/brand/absoltools-social.png");
+const title = "AbsolTools | Useful Tools, Ready When You Need Them";
+const description =
+  "Format, convert, encode, decode, compare, and inspect text, data, and code directly in your browser. Tool inputs and results are not uploaded.";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -12,13 +22,31 @@
       )
     }
     <meta name="robots" content="noindex,follow" />
-    <title>AbsolTools</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="canonical" href="/en/" />
+    <link rel="canonical" href={canonical} />
     <link rel="license" href="/third-party-notices.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AbsolTools" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:secure_url" content={socialImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AbsolTools" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content="AbsolTools" />
     <script>
       import { detectPreferredLocale } from "../lib/locale-detection";
 

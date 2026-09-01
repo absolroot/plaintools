@@ -235,17 +235,18 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AIウォーターマーク・非表示文字除去",
+      title: "不可視 Unicode 文字クリーナー",
       description:
         "GPTやClaude、PDF、ウェブページからテキストをコピーした際に混入する不可視のUnicode文字を検出して除去します。AIによる文章かどうかを判定するツールではありません。",
       guide:
         "テキストを貼り付け、まずクリーニング結果を確認してから、除去した文字名、件数、U+コードポイントを確認してください。文字の字形に影響する危険性のあるオプションは初期状態では無効です。",
       terms: [
-        "AIウォーターマーク除去",
+        "不可視文字 削除",
         "GPT 非表示文字",
         "Claude 非表示文字",
         "ゼロ幅スペース",
-        "Unicodeクリーナー",
+        "不可視文字チェッカー",
+        "Unicode",
       ],
     },
     "url-encode": {

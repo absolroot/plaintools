@@ -33,10 +33,17 @@
     "apps/web/src/pages/[locale]/ai-watermark-remover/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
+  "copyEvidence": [
+    "https://miniwebtool.com/de/unsichtbare-zeichen-entferner/",
+    "https://www.moreonlinetools.com/fr/tools/invisible-char-detector/",
+    "https://temoto.app/invisible-char-checker/",
+    "https://tools.jarvisbox.app/ja/text2/unicode-invisible-char-detector/",
+    "https://aitextwatermarkremover.com/zh-TW/zero-width-character-remover"
+  ],
   "locales": {
     "en": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "en-mark-ai-cleaner-native-copy",
         "en-unicode-hidden-controls"
@@ -44,7 +51,7 @@
     },
     "ko": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "ko-mark-ai-cleaner-native-copy",
         "ko-unicode-hidden-controls"
@@ -52,7 +59,7 @@
     },
     "es": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "es-mark-ai-cleaner-native-copy",
         "es-unicode-hidden-controls"
@@ -60,7 +67,7 @@
     },
     "de": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "de-mark-ai-cleaner-native-copy",
         "de-unicode-hidden-controls"
@@ -68,7 +75,7 @@
     },
     "ja": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "ja-mark-ai-cleaner-native-copy",
         "ja-unicode-hidden-controls"
@@ -76,7 +83,7 @@
     },
     "fr": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "fr-mark-ai-cleaner-native-copy",
         "fr-unicode-hidden-controls"
@@ -84,7 +91,7 @@
     },
     "pt-BR": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "pt-br-mark-ai-cleaner-native-copy",
         "pt-br-unicode-hidden-controls"
@@ -92,7 +99,7 @@
     },
     "it": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "it-mark-ai-cleaner-native-copy",
         "it-unicode-hidden-controls"
@@ -100,7 +107,7 @@
     },
     "nl": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "nl-mark-ai-cleaner-native-copy",
         "nl-unicode-hidden-controls"
@@ -108,7 +115,7 @@
     },
     "sv": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "sv-mark-ai-cleaner-native-copy",
         "sv-unicode-hidden-controls"
@@ -116,7 +123,7 @@
     },
     "cs": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "cs-mark-ai-cleaner-native-copy",
         "cs-unicode-hidden-controls"
@@ -124,7 +131,7 @@
     },
     "pl": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "pl-mark-ai-cleaner-native-copy",
         "pl-unicode-hidden-controls"
@@ -132,7 +139,7 @@
     },
     "da": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "da-mark-ai-cleaner-native-copy",
         "da-unicode-hidden-controls"
@@ -140,7 +147,7 @@
     },
     "no": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "no-mark-ai-cleaner-native-copy",
         "no-unicode-hidden-controls"
@@ -148,7 +155,7 @@
     },
     "ar": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "ar-mark-ai-cleaner-native-copy",
         "ar-unicode-hidden-controls"
@@ -156,7 +163,7 @@
     },
     "zh-TW": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "zh-tw-mark-ai-cleaner-native-copy",
         "zh-tw-unicode-hidden-controls"
@@ -164,7 +171,7 @@
     },
     "tr": {
       "status": "reference-backed",
-      "reviewedAt": "2026-08-30",
+      "reviewedAt": "2026-09-01",
       "referenceIds": [
         "tr-mark-ai-cleaner-native-copy",
         "tr-unicode-hidden-controls"

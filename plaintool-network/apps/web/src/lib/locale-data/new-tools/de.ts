@@ -239,13 +239,12 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Entferner für KI-Wasserzeichen und unsichtbare Zeichen",
+      title: "Entferner für unsichtbare Unicode-Zeichen",
       description:
         "Findet und entfernt unsichtbare Unicode-Zeichen, die beim Kopieren aus GPT, Claude, PDF-Dateien oder Webseiten übernommen werden können. Dieses Tool erkennt nicht, ob ein Text von einer KI stammt.",
       guide:
         "Fügen Sie den Text ein und prüfen Sie zuerst das bereinigte Ergebnis. Kontrollieren Sie danach die genauen Zeichennamen, Anzahlen und U+-Codepunkte. Optionen, die die Schriftdarstellung verändern können, sind standardmäßig deaktiviert.",
       terms: [
-        "KI-Wasserzeichen entfernen",
         "GPT unsichtbare Zeichen",
         "Claude unsichtbare Zeichen",
         "Zero Width Space entfernen",
