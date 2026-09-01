@@ -2,6 +2,7 @@ import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { locales, toolRegistry } from "../apps/web/src/lib/content-registry.js";
+import { localeReviewManifests } from "./locale-review-manifests.mjs";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestRoot = resolve(
@@ -26,14 +27,10 @@ async function exportedLocales(file) {
 
 const featureManifests = new Map();
 for (const tool of toolRegistry) {
-  const existing = featureManifests.get(tool.featureId);
-  if (existing && existing !== tool.localeReviewManifest) {
-    console.error(
-      `Locale review gate failed: ${tool.featureId} has conflicting manifests.`,
-    );
-    process.exit(1);
-  }
-  featureManifests.set(tool.featureId, tool.localeReviewManifest);
+  featureManifests.set(
+    tool.featureId,
+    localeReviewManifests[tool.featureId],
+  );
 }
 
 if (selfTest === "missing-manifest") {

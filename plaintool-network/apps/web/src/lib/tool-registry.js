@@ -25,8 +25,6 @@ const imageConverterRegistry = imageInputFormats.flatMap((source) =>
       slug: `${source}-to-${target}`,
       category: "converter",
       publication: "indexable",
-      localeReviewManifest:
-        "apps/web/src/lib/locale-review-manifests/image-converter.json",
       structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
     })),
 );
@@ -45,8 +43,6 @@ const pdfToolkitRegistry = pdfToolSlugs.map((slug) => ({
   slug,
   category: "pdf",
   publication: "indexable",
-  localeReviewManifest:
-    "apps/web/src/lib/locale-review-manifests/pdf-toolkit.json",
   structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
 }));
 
@@ -57,8 +53,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "base64-decode",
     category: "encoding",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/base64-codec.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -67,8 +61,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "base64-encode",
     category: "encoding",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/base64-codec.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -77,8 +69,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "word-counter",
     category: "text",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/word-counter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -87,8 +77,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "json-formatter",
     category: "data",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/json-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -97,8 +85,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "unix-timestamp-converter",
     category: "time",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/unix-timestamp-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -107,8 +93,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "text-compare",
     category: "text",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/text-compare.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -117,8 +101,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "case-converter",
     category: "text",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/case-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -127,8 +109,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "ai-watermark-remover",
     category: "text",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/ai-text-cleaner.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -137,8 +117,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "url-encode",
     category: "encoding",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/url-codec.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -147,8 +125,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "url-decode",
     category: "encoding",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/url-codec.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -157,8 +133,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "hash-generator",
     category: "generator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/hash-generator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -167,8 +141,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "uuid-generator",
     category: "generator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/uuid-generator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -177,8 +149,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "regex-tester",
     category: "text",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/regex-tester.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -187,8 +157,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "jwt-decoder",
     category: "encoding",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/jwt-decoder.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -197,8 +165,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "qr-code-generator",
     category: "generator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/qr-code.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -207,8 +173,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "qr-code-scanner",
     category: "generator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/qr-code.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -217,8 +181,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "csv-to-markdown",
     category: "converter",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -227,8 +189,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "markdown-to-csv",
     category: "converter",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -237,8 +197,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "json-to-csv",
     category: "converter",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -247,8 +205,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "csv-to-json",
     category: "converter",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -257,8 +213,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "html-to-markdown",
     category: "converter",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -267,8 +221,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "markdown-to-html",
     category: "converter",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/data-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -277,8 +229,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "html-formatter",
     category: "data",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -287,8 +237,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "css-formatter",
     category: "data",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -297,8 +245,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "javascript-formatter",
     category: "data",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -307,8 +253,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "sql-formatter",
     category: "data",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/source-formatter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -317,8 +261,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "ip-subnet-calculator",
     category: "data",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/ip-subnet.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -327,8 +269,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "background-remover",
     category: "image",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/background-remover.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -337,8 +277,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "image-upscaler",
     category: "image",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/image-upscaler.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -347,8 +285,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "fraction-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/math-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -357,8 +293,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "factor-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/math-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -367,8 +301,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "lcm-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/math-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -377,8 +309,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "percentage-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/percentage-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -387,8 +317,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "bmi-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/bmi-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -397,8 +325,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "image-resizer",
     category: "image",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/image-resizer.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -407,8 +333,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "image-crop",
     category: "image",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/image-crop.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -417,8 +341,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "date-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/date-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -427,8 +349,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "dday-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/date-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -437,8 +357,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "age-calculator",
     category: "calculator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/date-calculator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -447,8 +365,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "time-zone-converter",
     category: "time",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/time-zone-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   ...pdfToolkitRegistry,
@@ -459,8 +375,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "barcode-generator",
     category: "generator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/barcode-generator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -469,8 +383,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "password-generator",
     category: "generator",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/password-generator.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
   {
@@ -479,8 +391,6 @@ export const toolRegistry = /** @type {const} */ ([
     slug: "unit-converter",
     category: "converter",
     publication: "indexable",
-    localeReviewManifest:
-      "apps/web/src/lib/locale-review-manifests/unit-converter.json",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },
 ]);
