@@ -38,10 +38,6 @@ const koreanFaqs = [
     a: "아니요. 이 도구는 가격을 수집하거나 표시하지 않습니다. 생성된 링크를 새 창에서 열어, 아고다에 표시되는 가격과 조건을 직접 비교합니다.",
   },
   {
-    q: "기존 CID가 포함된 링크도 사용할 수 있나요?",
-    a: "가능합니다. 호텔, 날짜, 객실 조건을 읽어 새 링크에 반영하며, 붙여넣은 링크의 기존 CID와 추적 매개변수는 유지하지 않습니다.",
-  },
-  {
     q: "카드 할인은 누구나 적용되나요?",
     a: "아니요. 카드 발급 국가·지역, 대상 카드, 결제 통화와 예약 조건에 따라 달라질 수 있으므로 각 링크의 할인 조건을 확인해야 합니다.",
   },
@@ -940,6 +936,7 @@ const structuredData = [
     };
     let activeHotel: URL | null = null;
     let activeMarket = market.value;
+    const openedRouteKeys = new Set<string>();
     const groupLabels: Record<"hotel" | "search" | "official", string> = {
       hotel: copy.hotelGroup,
       search: copy.searchGroup,
@@ -1019,6 +1016,8 @@ const structuredData = [
           const card = document.createElement("article");
           card.className = "travel-link-card";
           card.dataset.travelCard = candidate.id;
+          const key = candidateKey(candidate);
+          card.classList.toggle("is-opened", openedRouteKeys.has(key));
           const cardCopy = document.createElement("div");
           cardCopy.className = "travel-link-card-copy";
           const title = document.createElement("h4");
@@ -1042,6 +1041,10 @@ const structuredData = [
             link.href = url.toString();
             link.replaceChildren(copy.openAgoda, makeExternalIcon());
           }
+          link.addEventListener("click", () => {
+            openedRouteKeys.add(key);
+            card.classList.add("is-opened");
+          });
           card.append(cardCopy, link);
           list.append(card);
         });

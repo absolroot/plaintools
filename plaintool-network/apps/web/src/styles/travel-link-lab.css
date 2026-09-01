@@ -165,6 +165,10 @@
   border: 1px solid var(--line);
   background: var(--elevated);
 }
+.travel-link-card.is-opened {
+  border-color: var(--success);
+  background: color-mix(in oklch, var(--success-tint), var(--elevated) 45%);
+}
 .travel-link-card-copy {
   min-width: 0;
 }

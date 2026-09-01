@@ -19,6 +19,10 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
     page.locator("[data-generate]").click()
     page.wait_for_function("!document.querySelector('[data-travel-results]').hidden")
     global_href = page.locator("[data-travel-card] a").first.get_attribute("href")
+    page.locator("[data-travel-card] a").first.click()
+    first_card_opened = page.locator("[data-travel-card]").first.evaluate(
+        "(card) => card.classList.contains('is-opened')"
+    )
     page.locator(".travel-link-market-options summary").click()
     page.locator("[data-travel-market]").select_option("일본")
     page.wait_for_function(
@@ -57,6 +61,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
     state["defaultMarketOnLoad"] = default_market
     state["activeAfterInput"] = active_after_input
     state["globalHref"] = global_href
+    state["firstCardOpened"] = first_card_opened
     state["inputTop"] = round(input_top)
     state["marketTop"] = round(market_top)
     report["travel_link_desktop"] = state
@@ -78,6 +83,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
         or state["resultsWidth"] < 1100
         or state["marketBackground"] != "rgb(255, 255, 255)"
         or not state["activeAfterInput"]
+        or not state["firstCardOpened"]
         or input_top >= market_top
     ):
         report["ui_detail_failures"].append(
@@ -155,7 +161,7 @@ def run_travel_link_support_content(page, report: dict, _inventory) -> None:
     if (
         state["shellLeft"] != state["supportLeft"]
         or len(state["guide"]) != 3
-        or len(state["faqs"]) != 3
+        or len(state["faqs"]) != 2
         or state["faqs"][0]["question"] != "가격을 자동으로 비교해 주나요?"
         or "가격을 수집하거나 표시하지 않습니다" not in state["faqs"][0]["answer"]
     ):
