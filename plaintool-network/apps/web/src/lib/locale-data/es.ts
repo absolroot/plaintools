@@ -396,6 +396,10 @@ const bundle: LocaleBundle = {
           q: "¿Se repara automáticamente el JSON no válido?",
           a: "No. Se indican los comentarios, comas finales, comillas simples y otros errores para que puedas corregir el origen de forma deliberada.",
         },
+        {
+          q: "¿Se parece a formatear JSON con Prettier?",
+          a: "Ambos usan sangría y saltos de línea para que un JSON válido sea más fácil de leer. Esta herramienta procesa JSON estricto en el navegador; no afirma ejecutar Prettier, conservar comentarios ni ordenar las claves de los objetos.",
+        },
       ],
     },
     time: {

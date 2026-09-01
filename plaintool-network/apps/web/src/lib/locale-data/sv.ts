@@ -395,6 +395,10 @@ const svBundle = {
           q: "Reparerar formateraren ogiltig JSON?",
           a: "Nej. Kommentarer, avslutande kommatecken, enkla citattecken och annan ogiltig syntax rapporteras så att du kan rätta källan medvetet.",
         },
+        {
+          q: "Liknar detta att formatera JSON med Prettier?",
+          a: "Båda gör giltig JSON lättare att läsa med indrag och radbrytningar. Verktyget hanterar strikt JSON i webbläsaren; det påstår inte att det kör Prettier, bevarar kommentarer eller sorterar objektnycklar.",
+        },
       ],
     },
     time: {

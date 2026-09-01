@@ -397,6 +397,10 @@ export const itBundle: LocaleBundle = {
           q: "Il formattatore corregge il JSON non valido?",
           a: "No. Commenti, virgole finali, apici singoli e altre sintassi non valide vengono segnalati per consentire una correzione consapevole della fonte.",
         },
+        {
+          q: "È simile a formattare JSON con Prettier?",
+          a: "Entrambi rendono un JSON valido più leggibile con rientri e interruzioni di riga. Questo strumento elabora JSON rigoroso nel browser; non dichiara di eseguire Prettier, conservare commenti o ordinare le chiavi degli oggetti.",
+        },
       ],
     },
     time: {

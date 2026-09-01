@@ -393,6 +393,10 @@ const csBundle = {
           q: "Opravuje formátovač neplatný JSON?",
           a: "Ne. Komentáře, závěrečné čárky, jednoduché uvozovky a další neplatná syntaxe jsou hlášeny, abyste mohli zdroj úmyslně opravit.",
         },
+        {
+          q: "Je to podobné formátování JSON pomocí Prettieru?",
+          a: "Oba způsoby zpřehlední platný JSON odsazením a zalomením řádků. Tento nástroj zpracovává v prohlížeči striktní JSON; netvrdí, že spouští Prettier, zachovává komentáře nebo řadí klíče objektů.",
+        },
       ],
     },
     time: {

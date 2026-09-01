@@ -332,7 +332,7 @@ const bundle: LocaleBundle = {
     json: {
       title: "JSON formatter",
       description:
-        "Format JSON to make it easier to read, check it for errors, or minify it to one line.",
+        "Open a JSON file or paste JSON to format it for reading, check syntax errors, or minify it to one line.",
       inputLabel: "JSON input",
       outputLabel: "Result",
       placeholder: "Paste JSON here…",
@@ -392,6 +392,10 @@ const bundle: LocaleBundle = {
         {
           q: "Does the formatter repair invalid JSON?",
           a: "No. Comments, trailing commas, single quotes, and other invalid syntax are reported so you can correct the source deliberately.",
+        },
+        {
+          q: "Is this similar to formatting JSON with Prettier?",
+          a: "Both make valid JSON easier to read with indentation and line breaks. This tool works on strict JSON in the browser; it does not claim to run Prettier, preserve comments, or sort object keys.",
         },
       ],
     },
@@ -645,11 +649,16 @@ const bundle: LocaleBundle = {
     "json-formatter": {
       name: "JSON formatter",
       summary:
-        "Make JSON easier to read, check it for errors, or minify it to one line.",
+        "Open a JSON file or paste JSON to format it for reading, check syntax errors, or minify it to one line.",
       searchTerms: [
         "format JSON",
         "validate JSON",
         "minify JSON",
+        "JSON parser",
+        "JSON file formatter",
+        "JSON prettier",
+        "JSON sort",
+        "JSON comments",
         "pretty print",
         "data",
       ],
