@@ -47,7 +47,8 @@ const seed = {
   ai: {
     input: "Özgün metin",
     output: "Temizlenmiş metin",
-    placeholder: "İstenmeyen görünmez karakterler içerebilecek kopyalanmış metni yapıştırın.",
+    placeholder:
+      "İstenmeyen görünmez karakterler içerebilecek kopyalanmış metni yapıştırın.",
     run: "Gizli karakterleri temizle",
     report: "Kaldırma raporu",
     removed: "Kaldırılan karakterler",

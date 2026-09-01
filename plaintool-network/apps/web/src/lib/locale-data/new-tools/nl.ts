@@ -48,7 +48,8 @@ const seed = {
   ai: {
     input: "Oorspronkelijke tekst",
     output: "Opgeschoonde tekst",
-    placeholder: "Plak gekopieerde tekst die ongewenste onzichtbare tekens kan bevatten.",
+    placeholder:
+      "Plak gekopieerde tekst die ongewenste onzichtbare tekens kan bevatten.",
     run: "Verborgen tekens verwijderen",
     report: "Verwijderingsrapport",
     removed: "Verwijderde tekens",

@@ -47,7 +47,8 @@ const seed = {
   ai: {
     input: "Oprindelig tekst",
     output: "Renset tekst",
-    placeholder: "Indsæt kopieret tekst, der kan indeholde uønskede usynlige tegn.",
+    placeholder:
+      "Indsæt kopieret tekst, der kan indeholde uønskede usynlige tegn.",
     run: "Rens skjulte tegn",
     report: "Rapport over fjernelse",
     removed: "Fjernede tegn",

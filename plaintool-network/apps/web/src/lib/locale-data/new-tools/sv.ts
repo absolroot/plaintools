@@ -47,7 +47,8 @@ const seed = {
   ai: {
     input: "Originaltext",
     output: "Rensad text",
-    placeholder: "Klistra in kopierad text som kan innehålla oönskade osynliga tecken.",
+    placeholder:
+      "Klistra in kopierad text som kan innehålla oönskade osynliga tecken.",
     run: "Rensa dolda tecken",
     report: "Borttagningsrapport",
     removed: "Borttagna tecken",

@@ -47,7 +47,8 @@ const seed = {
   ai: {
     input: "Texto original",
     output: "Texto limpo",
-    placeholder: "Cole um texto copiado que possa conter caracteres invisíveis indesejados.",
+    placeholder:
+      "Cole um texto copiado que possa conter caracteres invisíveis indesejados.",
     run: "Remover caracteres ocultos",
     report: "Relatório de remoção",
     removed: "Caracteres removidos",

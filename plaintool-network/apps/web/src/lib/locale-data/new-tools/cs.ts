@@ -47,7 +47,8 @@ const seed = {
   ai: {
     input: "Původní text",
     output: "Vyčištěný text",
-    placeholder: "Vložte zkopírovaný text, který může obsahovat nežádoucí neviditelné znaky.",
+    placeholder:
+      "Vložte zkopírovaný text, který může obsahovat nežádoucí neviditelné znaky.",
     run: "Odstranit skryté znaky",
     report: "Přehled odstranění",
     removed: "Odstraněné znaky",

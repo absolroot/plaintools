@@ -48,7 +48,8 @@ const seed = {
   ai: {
     input: "Tekst oryginalny",
     output: "Tekst oczyszczony",
-    placeholder: "Wklej skopiowany tekst, który może zawierać niechciane niewidoczne znaki.",
+    placeholder:
+      "Wklej skopiowany tekst, który może zawierać niechciane niewidoczne znaki.",
     run: "Usuń ukryte znaki",
     report: "Raport usuwania",
     removed: "Usunięte znaki",
