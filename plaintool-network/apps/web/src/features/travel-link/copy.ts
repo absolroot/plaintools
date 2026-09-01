@@ -107,7 +107,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     marketPlaceholder: "국가·지역 선택",
     hotelUrlLabel: "아고다 호텔 URL",
     clear: "지우기",
-    urlPlaceholder: "agoda.com/... 또는 https://www.agoda.com/...",
+    urlPlaceholder: "아고다 호텔 URL 붙여넣기 (agoda.com/...)",
     urlNote: "기존 CID와 추적값은 새 링크에 포함하지 않습니다.",
     generate: "최저가 비교하기",
     resultsTitle: "아고다 가격 비교",

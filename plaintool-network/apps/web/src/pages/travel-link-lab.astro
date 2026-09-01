@@ -88,7 +88,7 @@ const structuredData = [
           <div class="pane-heading">
             <label for="travel-url">{copy.hotelUrlLabel}</label>
             <div class="pane-actions">
-              <button class="text-button" type="button" data-clear
+              <button class="text-button" type="button" data-clear hidden
                 >{copy.clear}</button
               >
             </div>
@@ -981,6 +981,7 @@ const structuredData = [
     });
     clear.addEventListener("click", () => {
       input.value = "";
+      clear.hidden = true;
       results.hidden = true;
       grid.replaceChildren();
       activeHotel = null;
@@ -1001,6 +1002,7 @@ const structuredData = [
     });
     input.addEventListener("input", () => {
       root.classList.remove("has-error");
+      clear.hidden = input.value.trim().length === 0;
     });
   }
 </script>

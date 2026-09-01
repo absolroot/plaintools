@@ -58,6 +58,7 @@
 }
 
 .travel-link-results {
+  width: min(780px, 100%);
   min-width: 0;
   padding: var(--space-4);
   display: grid;
