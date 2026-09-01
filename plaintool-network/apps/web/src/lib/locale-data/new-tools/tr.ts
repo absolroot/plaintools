@@ -281,6 +281,8 @@ const seed = {
         "Metin girin veya dosya seçin, ardından gereken algoritmanın değerini tam olarak karşılaştırın. Karmalar eşitliği denetler; tek başlarına veriyi şifrelemez veya parolaları güvenle saklamaz.",
       terms: [
         "hash oluşturucu",
+        "SHA-256 hash oluşturma",
+        "hash hesaplama",
         "SHA-256 hash",
         "dosya hash",
         "SHA-256",

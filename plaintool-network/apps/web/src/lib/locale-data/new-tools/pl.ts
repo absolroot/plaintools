@@ -288,7 +288,14 @@ const seed = {
         "Lokalnie oblicza sumy kontrolne SHA-256, SHA-512, SHA-1 i MD5 dla tekstu lub plików.",
       guide:
         "Wprowadź tekst lub wybierz plik, a następnie dokładnie porównaj wymagany algorytm. Skróty sprawdzają zgodność; same nie szyfrują danych ani bezpiecznie nie przechowują haseł.",
-      terms: ["SHA-256", "SHA-512", "MD5", "suma kontrolna", "skrót pliku"],
+      terms: [
+        "generator hashy",
+        "hash pliku",
+        "suma kontrolna",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+      ],
     },
     "jwt-decoder": {
       title: "Dekoder JWT",

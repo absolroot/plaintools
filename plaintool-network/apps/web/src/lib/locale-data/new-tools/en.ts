@@ -279,7 +279,16 @@ const seed = {
         "Calculate SHA-256, SHA-512, SHA-1, and MD5 checksums for text or files locally.",
       guide:
         "Enter text or choose a file, then compare the required algorithm exactly. Hashes check equality; they do not encrypt data or safely store passwords by themselves.",
-      terms: ["SHA-256", "SHA-512", "MD5", "checksum", "file hash"],
+      terms: [
+        "hash generator",
+        "SHA-256 hash generator",
+        "MD5 hash generator",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+        "checksum",
+        "file hash",
+      ],
     },
     "jwt-decoder": {
       title: "JWT decoder",

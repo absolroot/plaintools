@@ -286,7 +286,15 @@ const seed = {
         "Beräknar kontrollsummor med SHA-256, SHA-512, SHA-1 och MD5 för text eller filer lokalt.",
       guide:
         "Ange text eller välj en fil och jämför sedan exakt med rätt algoritm. Hashar kontrollerar om data är lika; de krypterar inte data och lagrar inte lösenord säkert på egen hand.",
-      terms: ["SHA-256", "SHA-512", "MD5", "kontrollsumma", "filhash"],
+      terms: [
+        "hashgenerator",
+        "SHA-256-hash",
+        "filhash",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+        "kontrollsumma",
+      ],
     },
     "jwt-decoder": {
       title: "JWT-avkodare",

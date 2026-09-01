@@ -285,7 +285,14 @@ const seed = {
         "Místně vypočítá kontrolní součty SHA-256, SHA-512, SHA-1 a MD5 pro text nebo soubory.",
       guide:
         "Zadejte text nebo vyberte soubor a přesně porovnejte požadovaný algoritmus. Hash ověřuje shodu; sám data nešifruje ani bezpečně neukládá hesla.",
-      terms: ["SHA-256", "SHA-512", "MD5", "kontrolní součet", "hash souboru"],
+      terms: [
+        "generátor hashů",
+        "SHA-256",
+        "hash souboru",
+        "kontrolní součet",
+        "SHA-512",
+        "MD5",
+      ],
     },
     "jwt-decoder": {
       title: "Dekodér JWT",

@@ -291,6 +291,9 @@ const seed = {
       guide:
         "Saisissez du texte ou choisissez un fichier, puis comparez exactement l’algorithme requis. Les condensats servent à vérifier l’identité des données ; ils ne les chiffrent pas et ne sécurisent pas à eux seuls les mots de passe.",
       terms: [
+        "générateur de hash",
+        "empreinte SHA-256",
+        "hash de fichier",
         "SHA-256",
         "SHA-512",
         "MD5",

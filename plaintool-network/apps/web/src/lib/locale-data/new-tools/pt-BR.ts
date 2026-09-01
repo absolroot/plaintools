@@ -286,7 +286,15 @@ const seed = {
         "Calcula localmente os checksums SHA-256, SHA-512, SHA-1 e MD5 de textos ou arquivos.",
       guide:
         "Digite um texto ou escolha um arquivo e compare exatamente o algoritmo necessário. Hashes verificam igualdade; sozinhos, não criptografam dados nem armazenam senhas com segurança.",
-      terms: ["SHA-256", "SHA-512", "MD5", "checksum", "hash de arquivo"],
+      terms: [
+        "gerador de hash",
+        "hash SHA-256",
+        "hash de arquivo",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+        "checksum",
+      ],
     },
     "jwt-decoder": {
       title: "Decodificador de JWT",

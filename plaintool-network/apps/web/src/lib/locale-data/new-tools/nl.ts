@@ -280,7 +280,15 @@ const seed = {
         "Berekent lokaal SHA-256-, SHA-512-, SHA-1- en MD5-controlesommen voor tekst of bestanden.",
       guide:
         "Voer tekst in of kies een bestand en vergelijk exact het vereiste algoritme. Hashes controleren gelijkheid; ze versleutelen zelf geen gegevens en slaan wachtwoorden niet veilig op.",
-      terms: ["SHA-256", "SHA-512", "MD5", "controlesom", "bestandshash"],
+      terms: [
+        "hashgenerator",
+        "SHA-256-hash",
+        "bestandshash",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+        "controlesom",
+      ],
     },
     "jwt-decoder": {
       title: "JWT-decoder",

@@ -290,6 +290,9 @@ const seed = {
       guide:
         "Introduce texto o elige un archivo y compara exactamente el algoritmo necesario. Los hashes sirven para comprobar la igualdad; por sí solos no cifran datos ni almacenan contraseñas de forma segura.",
       terms: [
+        "generador de hash",
+        "hash SHA-256",
+        "hash de archivo",
         "SHA-256",
         "SHA-512",
         "MD5",

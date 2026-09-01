@@ -287,7 +287,15 @@ const seed = {
         "Berechnet SHA-256-, SHA-512-, SHA-1- und MD5-Prüfsummen für Text oder Dateien lokal im Browser.",
       guide:
         "Geben Sie Text ein oder wählen Sie eine Datei und vergleichen Sie den benötigten Algorithmus exakt. Hashes prüfen Gleichheit; sie verschlüsseln keine Daten und speichern Passwörter nicht eigenständig sicher.",
-      terms: ["SHA-256", "SHA-512", "MD5", "Prüfsumme", "Datei-Hash"],
+      terms: [
+        "Hash-Generator",
+        "SHA-256-Hash",
+        "Datei-Hash",
+        "Prüfsumme",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+      ],
     },
     "jwt-decoder": {
       title: "JWT-Decoder",

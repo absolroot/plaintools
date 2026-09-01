@@ -280,7 +280,15 @@ const seed = {
         "Beregner SHA-256-, SHA-512-, SHA-1- og MD5-kontrolsummer for tekst eller filer lokalt.",
       guide:
         "Indtast tekst, eller vælg en fil, og sammenlign derefter den ønskede algoritme nøjagtigt. Hashværdier kontrollerer lighed; de krypterer ikke data og opbevarer ikke adgangskoder sikkert alene.",
-      terms: ["SHA-256", "SHA-512", "MD5", "kontrolsum", "filhash"],
+      terms: [
+        "hashgenerator",
+        "SHA-256-hash",
+        "filhash",
+        "kontrolsum",
+        "SHA-256",
+        "SHA-512",
+        "MD5",
+      ],
     },
     "jwt-decoder": {
       title: "JWT-afkoder",
