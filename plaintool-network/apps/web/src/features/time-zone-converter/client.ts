@@ -36,6 +36,45 @@ const MODERN_ZONE_IDS = new Map([
   ["Pacific/Truk", "Pacific/Chuuk"],
 ]);
 
+const REPRESENTATIVE_LOCATIONS = new Map<string, readonly [string, string]>([
+  ["Pacific/Midway", ["Midway", "UM"]],
+  ["Pacific/Honolulu", ["Honolulu", "US"]],
+  ["Pacific/Marquesas", ["Marquesas", "PF"]],
+  ["America/Adak", ["Adak", "US"]],
+  ["America/Anchorage", ["Anchorage", "US"]],
+  ["America/Los_Angeles", ["Los Angeles", "US"]],
+  ["America/Bahia_Banderas", ["Bahía de Banderas", "MX"]],
+  ["America/Bogota", ["Bogotá", "CO"]],
+  ["America/New_York", ["New York", "US"]],
+  ["America/Araguaina", ["Araguaína", "BR"]],
+  ["America/St_Johns", ["St. John's", "CA"]],
+  ["America/Miquelon", ["Saint-Pierre", "PM"]],
+  ["America/Nuuk", ["Nuuk", "GL"]],
+  ["Europe/London", ["London", "GB"]],
+  ["Europe/Paris", ["Paris", "FR"]],
+  ["Africa/Addis_Ababa", ["Addis Ababa", "ET"]],
+  ["Asia/Tehran", ["Tehran", "IR"]],
+  ["Asia/Baku", ["Baku", "AZ"]],
+  ["Asia/Kabul", ["Kabul", "AF"]],
+  ["Antarctica/Mawson", ["Mawson", "AQ"]],
+  ["Asia/Kolkata", ["Kolkata", "IN"]],
+  ["Asia/Kathmandu", ["Kathmandu", "NP"]],
+  ["Asia/Bishkek", ["Bishkek", "KG"]],
+  ["Asia/Rangoon", ["Yangon", "MM"]],
+  ["Antarctica/Davis", ["Davis", "AQ"]],
+  ["Asia/Shanghai", ["Shanghai", "CN"]],
+  ["Australia/Eucla", ["Eucla", "AU"]],
+  ["Asia/Seoul", ["Seoul", "KR"]],
+  ["Australia/Adelaide", ["Adelaide", "AU"]],
+  ["Australia/Sydney", ["Sydney", "AU"]],
+  ["Australia/Lord_Howe", ["Lord Howe", "AU"]],
+  ["Asia/Magadan", ["Magadan", "RU"]],
+  ["Pacific/Auckland", ["Auckland", "NZ"]],
+  ["Pacific/Chatham", ["Chatham", "NZ"]],
+  ["Pacific/Apia", ["Apia", "WS"]],
+  ["Pacific/Kiritimati", ["Kiritimati", "KI"]],
+] as const);
+
 function init(root: HTMLElement): void {
   if (root.dataset.initialized) return;
   root.dataset.initialized = "true";
@@ -110,18 +149,14 @@ function init(root: HTMLElement): void {
   const conciseLabel = (label: string): string =>
     label.split(/\s+[—·]\s+/u)[0]?.trim() || label;
 
-  const genericZoneName = (zone: string): string | undefined => {
-    if (zone === "UTC") return "UTC";
-    try {
-      return new Intl.DateTimeFormat(locale, {
-        timeZone: zone,
-        timeZoneName: "longGeneric",
-      })
-        .formatToParts(new Date())
-        .find((part) => part.type === "timeZoneName")?.value;
-    } catch {
-      return undefined;
-    }
+  const locationLabel = (zone: string): string | undefined => {
+    const location = REPRESENTATIVE_LOCATIONS.get(zone);
+    if (!location) return undefined;
+    const [city, territory] = location;
+    const territoryName = new Intl.DisplayNames(locale, { type: "region" }).of(
+      territory,
+    );
+    return territoryName ? `${city}, ${territoryName}` : city;
   };
 
   for (const option of sourceZone.options) {
@@ -198,9 +233,8 @@ function init(root: HTMLElement): void {
       ),
     );
     const options = compactZones.map(({ offset, zone }) => {
-      const generic = genericZoneName(zone);
-      const label = zoneLabels.get(zone) ?? generic ?? zone;
-      zoneLabels.set(zone, baseLabel(label));
+      const label = zoneLabels.get(zone) ?? locationLabel(zone) ?? zone;
+      zoneLabels.set(zone, label);
       const option = document.createElement("option");
       option.value = zone;
       option.textContent =

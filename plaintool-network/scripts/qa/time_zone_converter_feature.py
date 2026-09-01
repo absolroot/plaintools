@@ -13,7 +13,7 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
     desktop.locator("[data-source-time]").fill("2026-08-31T00:00")
     desktop.locator("[data-convert]").click()
     desktop.wait_for_function(
-        "document.querySelector('[data-conversion-zone]').textContent === 'Nepal Time'"
+        "document.querySelector('[data-conversion-zone]').textContent === 'Kathmandu, Nepal'"
     )
 
     state = desktop.evaluate(
@@ -111,7 +111,7 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
         or not state["worldTimes"]
         or state["worldTimes"][0] != "09:00"
         or not state["resultVisible"]
-        or state["resultZone"] != "Nepal Time"
+        or state["resultZone"] != "Kathmandu, Nepal"
         or "05:45" not in (state["resultTime"] or "")
         or state["resultOffset"] != "UTC+05:45"
         or state["filterPresent"]
