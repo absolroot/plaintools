@@ -145,22 +145,21 @@ const clientCopy = {
       </fieldset>
     </aside>
     <div class="crop-stage" data-drop-zone>
-      <button class="crop-canvas-wrap" type="button" data-canvas-wrap
-        ><span class="crop-empty" data-empty
-          ><UiIcon class="crop-empty-icon" name="crop" size={36} /><strong
-            >{copy.dropImage}</strong
-          ><small>{copy.pasteHint}</small></span
-        ><canvas data-canvas hidden></canvas><span
-          class="crop-selection"
-          data-selection
-          hidden
-          ><i data-crop-handle="nw"></i><i data-crop-handle="n"></i><i
-            data-crop-handle="ne"></i><i data-crop-handle="e"></i><i
-            data-crop-handle="se"></i><i data-crop-handle="s"></i><i
-            data-crop-handle="sw"></i><i data-crop-handle="w"></i></span
-        ><img data-result hidden alt="" />
-        ></button
-      >
+      <button class="crop-canvas-wrap" type="button" data-canvas-wrap>
+        <span class="crop-empty" data-empty>
+          <UiIcon class="crop-empty-icon" name="crop" size={36} />
+          <strong>{copy.dropImage}</strong>
+          <small>{copy.pasteHint}</small>
+        </span>
+        <canvas data-canvas hidden></canvas>
+        <span class="crop-selection" data-selection hidden>
+          <i data-crop-handle="nw"></i><i data-crop-handle="n"></i>
+          <i data-crop-handle="ne"></i><i data-crop-handle="e"></i>
+          <i data-crop-handle="se"></i><i data-crop-handle="s"></i>
+          <i data-crop-handle="sw"></i><i data-crop-handle="w"></i>
+        </span>
+        <img data-result hidden alt="" />
+      </button>
     </div>
   </div>
   <ConverterStatus status={common.ready}
