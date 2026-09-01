@@ -206,7 +206,7 @@ def _path_feature(path: str, inventory: RouteInventory) -> str | None:
         return tool.feature_id if tool else None
 
     manifest_match = re.match(
-        r"apps/web/src/lib/locale-review-manifests/([^/]+)\.json$", path
+        r"research/i18n/local-reviews/locale-review-manifests/([^/]+)\.json$", path
     )
     if manifest_match and manifest_match.group(1) in inventory.feature_ids:
         return manifest_match.group(1)

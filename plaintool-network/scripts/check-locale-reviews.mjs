@@ -7,7 +7,7 @@ import { localeReviewManifests } from "./locale-review-manifests.mjs";
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestRoot = resolve(
   projectRoot,
-  "apps/web/src/lib/locale-review-manifests",
+  "research/i18n/local-reviews/locale-review-manifests",
 );
 const args = process.argv.slice(2);
 const production = args.includes("--production");
@@ -33,7 +33,7 @@ for (const tool of toolRegistry) {
 if (selfTest === "missing-manifest") {
   featureManifests.set(
     "missing-gate-fixture",
-    "apps/web/src/lib/locale-review-manifests/missing-gate-fixture.json",
+    "research/i18n/local-reviews/locale-review-manifests/missing-gate-fixture.json",
   );
 }
 
