@@ -76,7 +76,11 @@ from .uuid_generator_feature import (
     run_uuid_generator_desktop,
     run_uuid_generator_mobile,
 )
-from .travel_link_feature import run_travel_link_desktop, run_travel_link_mobile
+from .travel_link_feature import (
+    run_travel_link_desktop,
+    run_travel_link_mobile,
+    run_travel_link_support_content,
+)
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -97,6 +101,13 @@ def _run_case_converter_mobile(page, report: dict, _inventory: RouteInventory) -
 
 def _run_word_desktop(page, report: dict, _inventory: RouteInventory) -> None:
     run_word_desktop(page, report)
+
+
+def _run_travel_link_desktop(
+    page, report: dict, inventory: RouteInventory
+) -> None:
+    run_travel_link_desktop(page, report, inventory)
+    run_travel_link_support_content(page, report, inventory)
 
 
 def _run_word_mobile(page, _report: dict, _inventory: RouteInventory) -> None:
@@ -331,7 +342,7 @@ FEATURE_COVERAGE = {
         exercise_faq=True,
     ),
     "travel-link-lab": FeatureCoverage(
-        desktop=run_travel_link_desktop,
+        desktop=_run_travel_link_desktop,
         mobile=run_travel_link_mobile,
         focus_targets=(("action", "[data-generate]"),),
     ),

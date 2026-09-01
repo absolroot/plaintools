@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import FaqSection from "../components/FaqSection.astro";
 import { travelLinkCopy } from "../features/travel-link/copy";
 import { absoluteUrl, type Locale } from "../lib/site";
 import "../styles/travel-link-lab.css";
@@ -26,6 +27,25 @@ const marketOptions = [
   ["호주·뉴질랜드", "ANZ"],
 ] as const;
 const canonical = absoluteUrl(`/${locale}/agoda/`);
+const koreanGuide = [
+  "날짜와 객실 조건이 설정된 아고다 호텔 상세 페이지 링크를 복사합니다.",
+  "링크를 붙여넣고, 필요하면 카드 발급 국가·지역을 선택한 뒤 ‘최저가 찾기’를 누릅니다.",
+  "열린 경유 링크에서 표시 가격과 카드 적용 조건을 직접 비교합니다.",
+];
+const koreanFaqs = [
+  {
+    q: "가격을 자동으로 비교해 주나요?",
+    a: "아니요. 이 도구는 가격을 수집하거나 표시하지 않습니다. 생성된 링크를 새 창에서 열어, 아고다에 표시되는 가격과 조건을 직접 비교합니다.",
+  },
+  {
+    q: "기존 CID가 포함된 링크도 사용할 수 있나요?",
+    a: "가능합니다. 호텔, 날짜, 객실 조건을 읽어 새 링크에 반영하며, 붙여넣은 링크의 기존 CID와 추적 매개변수는 유지하지 않습니다.",
+  },
+  {
+    q: "카드 할인은 누구나 적용되나요?",
+    a: "아니요. 카드 발급 국가·지역, 대상 카드, 결제 통화와 예약 조건에 따라 달라질 수 있으므로 각 링크의 할인 조건을 확인해야 합니다.",
+  },
+];
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -131,6 +151,21 @@ const structuredData = [
       <div class="travel-link-result-list" data-travel-grid></div>
     </section>
   </div>
+  {
+    locale === "ko" && (
+      <div class="content-sections travel-link-support">
+        <section class="content-section">
+          <h2>이용 방법</h2>
+          <ol>
+            {koreanGuide.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+        </section>
+        <FaqSection title="자주 묻는 질문" faqs={koreanFaqs} />
+      </div>
+    )
+  }
 </SiteLayout>
 
 <script is:inline src="/travel-catalog.local.js"></script>

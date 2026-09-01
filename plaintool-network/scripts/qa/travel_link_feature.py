@@ -126,3 +126,39 @@ def run_travel_link_mobile(page, report: dict, _inventory) -> None:
         report["ui_detail_failures"].append(
             f"Travel price comparison Arabic mobile layout failed: {state}"
         )
+
+
+def run_travel_link_support_content(page, report: dict, _inventory) -> None:
+    page.goto(f"{BASE_URL}/ko/agoda/", wait_until="networkidle")
+    state = page.evaluate(
+        """
+        () => {
+          const shell = document.querySelector('.tool-shell');
+          const support = document.querySelector('.travel-link-support');
+          const guide = [...document.querySelectorAll('.travel-link-support ol li')]
+            .map((item) => item.textContent?.trim());
+          const faqs = [...document.querySelectorAll('.travel-link-support details')]
+            .map((item) => ({
+              question: item.querySelector('[data-faq-question]')?.textContent?.trim(),
+              answer: item.querySelector('[data-faq-answer]')?.textContent?.trim(),
+            }));
+          return {
+            shellLeft: Math.round(shell?.getBoundingClientRect().left ?? -1),
+            supportLeft: Math.round(support?.getBoundingClientRect().left ?? -1),
+            guide,
+            faqs,
+          };
+        }
+        """
+    )
+    report["travel_link_support_content"] = state
+    if (
+        state["shellLeft"] != state["supportLeft"]
+        or len(state["guide"]) != 3
+        or len(state["faqs"]) != 3
+        or state["faqs"][0]["question"] != "가격을 자동으로 비교해 주나요?"
+        or "가격을 수집하거나 표시하지 않습니다" not in state["faqs"][0]["answer"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Travel price comparison support content failed: {state}"
+        )
