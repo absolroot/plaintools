@@ -32,6 +32,7 @@ import {
   unitConverterLocales,
   type UnitConverterLocale,
 } from "../../features/unit-converter/i18n";
+import { travelLinkCopy } from "../../features/travel-link/copy";
 
 const baseLocaleBundles = {
   en,
@@ -54,6 +55,11 @@ const baseLocaleBundles = {
 } as const;
 
 export type LocaleBundleId = keyof typeof baseLocaleBundles;
+type TravelLinkCatalogCopy = {
+  name: string;
+  summary: string;
+  searchTerms: readonly string[];
+};
 
 export const localeBundles = Object.fromEntries(
   Object.entries(baseLocaleBundles).map(([locale, bundle]) => [
@@ -66,6 +72,14 @@ export const localeBundles = Object.fromEntries(
         ...imageConverterLocales[locale as ImageConverterLocale].catalog,
         ...generatorToolLocales[locale as LocaleBundleId].catalog,
         ...unitConverterLocales[locale as UnitConverterLocale].catalog,
+        "travel-link-lab": {
+          name: travelLinkCopy[locale as LocaleBundleId].heading,
+          summary: travelLinkCopy[locale as LocaleBundleId].description,
+          searchTerms: [
+            travelLinkCopy[locale as LocaleBundleId].heading,
+            travelLinkCopy[locale as LocaleBundleId].resultsTitle,
+          ],
+        },
       },
       tools: {
         ...bundle.tools,
@@ -77,13 +91,15 @@ export const localeBundles = Object.fromEntries(
       help: toolHelpCopy[locale as LocaleBundleId],
     },
   ]),
-) as {
+) as unknown as {
   [Key in LocaleBundleId]: (typeof baseLocaleBundles)[Key] & {
     catalog: (typeof baseLocaleBundles)[Key]["catalog"] &
       (typeof imageConverterLocales)[Key]["catalog"] &
       GeneratorToolLocale["catalog"] &
       (typeof unitConverterLocales)[Key]["catalog"] &
-      (typeof pdfToolkitLocales)[Key]["catalog"];
+      (typeof pdfToolkitLocales)[Key]["catalog"] & {
+        "travel-link-lab": TravelLinkCatalogCopy;
+      };
     tools: (typeof baseLocaleBundles)[Key]["tools"] &
       (typeof imageConverterLocales)[Key]["tools"] &
       GeneratorToolLocale["tools"] &

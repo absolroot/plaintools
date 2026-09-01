@@ -216,7 +216,7 @@ def run_route_matrix(
                     report["ui_detail_failures"].append(f"{surface} {path} has {entry['h1_count']} h1 elements.")
                 if entry["scroll_width"] > width:
                     report["ui_detail_failures"].append(f"{surface} {path} overflows at {entry['scroll_width']}px.")
-                if tool:
+                if tool and tool.top_tool_promise:
                     promise = page.locator(".tool-promise")
                     promise_count = promise.count()
                     entry["tool_promise_count"] = promise_count

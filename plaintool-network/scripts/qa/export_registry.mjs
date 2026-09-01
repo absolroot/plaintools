@@ -9,12 +9,13 @@ const payload = {
   locales: [...locales],
   legalPages: [...legalPages],
   tools: toolRegistry.map(
-    ({ id, featureId, slug, publication, structuredData }) => ({
+    ({ id, featureId, slug, publication, structuredData, topToolPromise }) => ({
       id,
       featureId,
       slug,
       publication,
       structuredData: [...structuredData],
+      topToolPromise: topToolPromise !== false,
     }),
   ),
 };

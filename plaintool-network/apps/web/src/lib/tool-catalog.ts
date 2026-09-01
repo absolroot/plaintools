@@ -205,12 +205,11 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
     unitConverterToolMarks[tool.id as keyof typeof unitConverterToolMarks] ??
     toolMarks[tool.id as keyof typeof toolMarks] ??
     tool.id.slice(0, tool.id.indexOf("-to-")).toUpperCase(),
-  name: localize((locale) =>
-    tool.id === "travel-link-lab"
-      ? travelLinkCopy[locale].heading
-      : (
-          localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>
-        )[tool.id]!.name,
+  name: localize(
+    (locale) =>
+      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
+        tool.id
+      ]!.name,
   ),
   subtitle:
     tool.id === "background-remover"
@@ -218,19 +217,17 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
       : tool.id === "image-upscaler"
         ? localize(() => "2× · 4×")
         : undefined,
-  summary: localize((locale) =>
-    tool.id === "travel-link-lab"
-      ? travelLinkCopy[locale].description
-      : (
-          localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>
-        )[tool.id]!.summary,
+  summary: localize(
+    (locale) =>
+      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
+        tool.id
+      ]!.summary,
   ),
-  searchTerms: localize((locale) =>
-    tool.id === "travel-link-lab"
-      ? [travelLinkCopy[locale].heading]
-      : (
-          localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>
-        )[tool.id]!.searchTerms,
+  searchTerms: localize(
+    (locale) =>
+      (localeBundles[locale].catalog as Record<string, LocaleCatalogToolCopy>)[
+        tool.id
+      ]!.searchTerms,
   ),
 }));
 

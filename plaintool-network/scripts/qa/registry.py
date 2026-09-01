@@ -17,6 +17,7 @@ class ToolRoute:
     slug: str
     publication: str
     structured_data: tuple[str, ...]
+    top_tool_promise: bool = True
 
 
 @dataclass(frozen=True)
@@ -82,6 +83,11 @@ def parse_registry_export(source: str) -> RouteInventory:
             raise ValueError(
                 f"Registry export tool {index} has invalid fields: {', '.join(invalid)}."
             )
+        top_tool_promise = raw_tool.get("topToolPromise", True)
+        if not isinstance(top_tool_promise, bool):
+            raise ValueError(
+                f"Registry export tool {index} has invalid topToolPromise."
+            )
         tools.append(
             ToolRoute(
                 id=values["id"],
@@ -92,6 +98,7 @@ def parse_registry_export(source: str) -> RouteInventory:
                     raw_tool.get("structuredData"),
                     f"tools[{index}].structuredData",
                 ),
+                top_tool_promise=top_tool_promise,
             )
         )
 

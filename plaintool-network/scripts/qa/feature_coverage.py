@@ -76,6 +76,7 @@ from .uuid_generator_feature import (
     run_uuid_generator_desktop,
     run_uuid_generator_mobile,
 )
+from .travel_link_feature import run_travel_link_desktop, run_travel_link_mobile
 
 
 def _run_base64_desktop(page, report: dict, _inventory: RouteInventory) -> None:
@@ -328,5 +329,10 @@ FEATURE_COVERAGE = {
         mobile=run_uuid_generator_mobile,
         focus_targets=(("input", "[data-uuid-generator] [data-generate]"),),
         exercise_faq=True,
+    ),
+    "travel-link-lab": FeatureCoverage(
+        desktop=run_travel_link_desktop,
+        mobile=run_travel_link_mobile,
+        focus_targets=(("action", "[data-generate]"),),
     ),
 }

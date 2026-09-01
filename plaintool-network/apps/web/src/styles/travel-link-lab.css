@@ -3,6 +3,7 @@
 }
 .travel-link-lab-input-panel {
   display: grid;
+  border: 1px solid var(--line);
   background: var(--base);
 }
 .travel-link-market-picker {
