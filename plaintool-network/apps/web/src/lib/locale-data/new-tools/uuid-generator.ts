@@ -121,6 +121,7 @@ const localized = {
       guide:
         "Choose v4 for general random IDs, v7 for time-ordered database IDs, or v5 for repeatable namespace-and-name IDs. Set the quantity and output format, then generate, copy, or download.",
       terms: [
+        "UUID-generator",
         "UUID generator",
         "GUID generator",
         "UUID v4",
