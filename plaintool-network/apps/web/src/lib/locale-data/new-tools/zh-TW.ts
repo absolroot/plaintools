@@ -272,11 +272,12 @@ const seed = {
       terms: ["JWT解碼器", "JSON Web Token", "JWT酬載", "JWT標頭"],
     },
     "qr-code-generator": {
-      title: "QR Code產生器",
-      description: "為文字或URL建立符合標準的靜態QR Code，並下載成PNG或SVG。",
+      title: "QR Code 產生器",
+      description:
+        "為文字或 URL 建立符合標準的靜態 QR Code，並下載成 PNG 或 SVG。",
       guide:
         "輸入正確內容，並保留四個模組的靜區以提高掃描可靠度。如果圖碼可能部分被遮擋，請提高錯誤修正等級。",
-      terms: ["QR Code產生器", "QR PNG", "QR SVG", "靜態QR Code"],
+      terms: ["QR Code 產生器", "QR PNG", "QR SVG", "靜態 QR Code"],
     },
     "qr-code-scanner": {
       title: "QR Code掃描器",

@@ -867,7 +867,7 @@ export const generatedPdfLocaleTexts = {
         ],
       },
       "merge-pdf": {
-        title: "Mesclar PDF",
+        title: "Juntar PDF",
         description:
           "Junte vários PDFs em um único arquivo na ordem que você escolher.",
         guide:
@@ -875,7 +875,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Posso mudar a ordem das páginas dentro de um PDF?",
         faqAnswer:
           "Esta primeira versão organiza arquivos completos. Divida ou reorganize o PDF de origem primeiro quando páginas individuais precisarem de uma ordem diferente.",
-        searchTerms: ["mesclar PDF", "combinar PDFs", "fusão de PDF"],
+        searchTerms: ["juntar PDF", "unir PDF", "mesclar PDF"],
       },
       "split-pdf": {
         title: "Dividir PDF",
@@ -1233,7 +1233,7 @@ export const generatedPdfLocaleTexts = {
         ],
       },
       "merge-pdf": {
-        title: "Voeg PDF samen",
+        title: "PDF samenvoegen",
         description:
           "Voeg meerdere PDF’s in de gewenste volgorde samen tot één bestand.",
         guide:
@@ -1241,7 +1241,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Kan ik de pagina volgorde binnen één PDF veranderen?",
         faqAnswer:
           "Deze eerste versie rangschikt hele bestanden. Splits of herschik de bron PDF eerst als individuele pagina's een andere volgorde nodig hebben.",
-        searchTerms: ["voeg PDF samen", "combineer PDF's", "PDF fusie"],
+        searchTerms: ["PDF samenvoegen", "PDF combineren", "PDF fusie"],
       },
       "split-pdf": {
         title: "Split PDF",
@@ -2594,7 +2594,7 @@ export const generatedPdfLocaleTexts = {
       "PDF render işlem, piksel başına birkaç bayt bellek kullanabilir. Bu sınırlamalar, büyük işlerin donmasını veya tarayıcı sekmesini kapatmasını engeller.",
     pages: {
       "compress-pdf": {
-        title: "Sıkıştır PDF",
+        title: "PDF sıkıştır",
         description:
           "Bir PDF dosyasını küçültün ve belge özelliklerinin korunup korunmayacağını seçin.",
         guide:
@@ -2602,11 +2602,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Sıkıştırma metin ve bağlantıları seçebilir mi koruyacak?",
         faqAnswer:
           "Preserve belgesi sayfa içeriğini korur. Dengeli ve daha küçük modlar sayfaları görse dönüştürür, böylece seçim, arama, bağlantılar, formlar, açıklamalar, katmanlar ve erişilebilirlik yapısı kaldırılır.",
-        searchTerms: [
-          "sıkıştırma PDF",
-          "PDF boyutunu küçült",
-          "PDF sıkıştırıcı",
-        ],
+        searchTerms: ["PDF sıkıştır", "PDF boyutunu küçült", "PDF sıkıştırıcı"],
       },
       "merge-pdf": {
         title: "PDF birleştir",

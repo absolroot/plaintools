@@ -301,7 +301,7 @@ const bundle: LocaleBundle = {
     word: {
       title: "단어·글자 수 세기",
       description:
-        "텍스트를 서버에 업로드하지 않고 단어, 글자, 공백 제외 글자, 줄, 문단 수를 셉니다.",
+        "텍스트를 올리지 않고 단어, 글자 수(공백 포함·제외), 줄, 문단을 셉니다.",
       inputLabel: "텍스트",
       words: "단어",
       characters: "글자",
@@ -328,9 +328,9 @@ const bundle: LocaleBundle = {
       ],
     },
     json: {
-      title: "JSON 포매터",
+      title: "JSON 포맷터",
       description:
-        "JSON을 보기 좋게 정리하고, 오류를 검사하거나 한 줄로 압축하세요.",
+        "JSON을 보기 좋게 포맷하고 오류를 검증하거나 한 줄로 압축합니다.",
       inputLabel: "JSON 입력",
       outputLabel: "결과",
       placeholder: "JSON을 붙여 넣으세요…",
@@ -628,10 +628,12 @@ const bundle: LocaleBundle = {
     },
     "word-counter": {
       name: "단어·글자 수 세기",
-      summary: "단어, 글자, 줄, 문단 수를 온라인에서 셉니다.",
+      summary: "단어, 글자 수(공백 포함·제외), 줄, 문단을 셉니다.",
       searchTerms: [
         "단어 수",
         "글자 수",
+        "글자수 세기",
+        "공백 포함 글자수",
         "공백 제외",
         "줄 수",
         "문단 수",
@@ -639,11 +641,13 @@ const bundle: LocaleBundle = {
       ],
     },
     "json-formatter": {
-      name: "JSON 포매터",
-      summary: "JSON 오류를 검사하고 정리·압축합니다.",
+      name: "JSON 포맷터",
+      summary:
+        "JSON을 보기 좋게 포맷하고 오류를 검증하거나 한 줄로 압축합니다.",
       searchTerms: [
         "JSON 정리",
-        "JSON 검사",
+        "JSON 포맷터",
+        "JSON 검증",
         "JSON 압축",
         "JSON 포맷",
         "데이터",
