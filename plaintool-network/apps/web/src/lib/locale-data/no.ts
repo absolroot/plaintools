@@ -21,7 +21,7 @@ const noBundle = {
     encodeSubheading:
       "Skriv inn tekst eller åpne en fil. Konverter UTF-8-tekst og binærfiler til standard Base64 eller Base64URL uten å laste dem opp.",
     decode: "Dekode",
-    encode: "Koding",
+    encode: "Kode",
     inputLabel: "Base64 input",
     outputLabel: "Dekodet utdata",
     encodeInputLabel: "Tekst- eller filinndata",
@@ -31,7 +31,7 @@ const noBundle = {
     outputPlaceholder: "Resultatet vises her.",
     openFile: "Åpne fil",
     runDecode: "Dekod nå",
-    runEncode: "Kodings nå",
+    runEncode: "Kod nå",
     options: "Alternativer",
     detected: "Oppdaget",
     decodeComplete: "Dekoding fullført",

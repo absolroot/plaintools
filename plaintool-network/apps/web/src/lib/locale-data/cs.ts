@@ -48,7 +48,7 @@ const csBundle = {
     outputView: "Formát výstupu",
     text: "Text",
     hex: "Hex",
-    includePadding: "Include = odsazení",
+    includePadding: "Zahrnout výplň =",
     mimeWrap: "Zalomit na 76 znacích",
     dataUri: "Přidejte předponu Data URI",
     dropHint: "Přetáhněte textový nebo binární soubor kamkoli do převodníku.",

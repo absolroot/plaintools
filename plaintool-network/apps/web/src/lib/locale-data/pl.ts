@@ -20,10 +20,10 @@ const plBundle = {
     encodeHeading: "Koduj tekst lub pliki jako Base64 online.",
     encodeSubheading:
       "Wprowadź tekst lub otwórz plik. Konwertuj tekst UTF-8 i pliki binarne na standardowe Base64 lub Base64URL bez ich przesyłania.",
-    decode: "Odszyfrować",
+    decode: "Dekoduj",
     encode: "Koduj",
     inputLabel: "Base64 wejście",
-    outputLabel: "Odszyfrowane wyjście",
+    outputLabel: "Zdekodowany wynik",
     encodeInputLabel: "Wprowadzenie tekstu lub pliku",
     encodeOutputLabel: "Wyjście Base64",
     decodePlaceholder: "Przykład: SGVsbG8sIFBsYWluVG9vbCE=",
@@ -48,7 +48,7 @@ const plBundle = {
     outputView: "Format wyjściowy",
     text: "Tekst",
     hex: "Sześciokąt",
-    includePadding: "Include = wypełnienie",
+    includePadding: "Dodaj wypełnienie =",
     mimeWrap: "Zawijaj co 76 znaków",
     dataUri: "Dodaj prefiks Data URI",
     dropHint:

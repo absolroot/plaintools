@@ -48,7 +48,7 @@ const daBundle = {
     outputView: "Outputformat",
     text: "Tekst",
     hex: "Heks",
-    includePadding: "Include = polstring",
+    includePadding: "Medtag polstring =",
     mimeWrap: "Bryd ved 76 tegn",
     dataUri: "Tilføj Data URI-præfiks",
     dropHint: "Slip en tekst- eller binærfil hvor som helst i konverteren.",
