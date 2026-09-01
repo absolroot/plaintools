@@ -1,0 +1,9 @@
+{
+  "mode": "preview",
+  "origin": "https://preview.invalid",
+  "catalogSource": "private-build-input",
+  "integrations": {
+    "analytics": false,
+    "ads": false
+  }
+}

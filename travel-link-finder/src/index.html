@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agoda lowest-price link finder</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Direct-check link finder</p>
+      <h1>Find Agoda price-check links</h1>
+      <p class="lede">We do not fetch prices. Choose documented routes, then check the final room, taxes, cancellation terms, and payment total on Agoda.</p>
+      <form id="finder-form">
+        <label for="hotel-url">Agoda hotel URL</label>
+        <input id="hotel-url" type="url" inputmode="url" autocomplete="off" placeholder="https://www.agoda.com/.../hotel/..." required />
+        <label for="market">Your relevant market</label>
+        <select id="market">
+          <option value="all">All verified routes</option>
+          <option value="kr">Korea</option><option value="jp">Japan</option><option value="tw-hk">Taiwan / Hong Kong</option>
+          <option value="sea">Southeast Asia</option><option value="na">North America</option><option value="eu">Europe</option>
+        </select>
+        <button type="submit">Prepare links</button>
+      </form>
+      <p id="status" role="status">Loading verified route catalogue…</p>
+      <section id="results" hidden>
+        <h2>Hotel-preserving routes</h2>
+        <p>Only the allowed stay parameters are carried into these links. Eligibility may still depend on your card, currency, market, or promotion dates.</p>
+        <p id="no-direct" hidden>No officially verified hotel-preserving CID routes are available for this market yet.</p>
+        <div id="direct-results" class="route-grid"></div>
+        <h2>General official promotions</h2>
+        <p>These do not receive your hotel URL or stay details.</p>
+        <p id="no-promotions" hidden>No current official general promotions are available for this market.</p>
+        <div id="promotion-results" class="route-grid"></div>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "travel-link-finder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "catalog:build": "node scripts/build-catalog.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "npm run test && node scripts/validate-catalog.mjs",
+    "build": "npm run catalog:build && node scripts/build.mjs",
+    "build:production": "npm run build && node scripts/verify-production.mjs"
+  }
+}
