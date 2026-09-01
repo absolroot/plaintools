@@ -54,8 +54,8 @@ The checked-in `references/emn178-online-tools` snapshot contains no image-upsca
 - Maximum decoded output: 16,777,216 pixels and 4096 px on either edge.
 - Compact/WASM and Quality/WebGPU maximum input: 262,144 pixels.
 - Quality is disabled when WebGPU is unavailable; there is no silent backend downgrade.
-- Native inference is 4×. The 2× result is deterministically reduced from the 4× tile output with Lanczos3; copy must not claim that 2× inference is faster.
-- Initial tiles: Compact 64 px and Quality 256 px, with 16 px overlap. The smaller compatibility tiles keep WASM cancellation responsive; Quality uses WebGPU on the main browser context because Chromium's worker WebGPU session initialization stalled in repeatable tests.
+- Compact 2× uses the official Swin2SR Lightweight x2 model directly. Compact 4× and both Quality choices use the Realworld x4 model; Quality 2× is deterministically reduced from the native 4× output with Lanczos3.
+- Initial tiles: Compact 2× 256 px, Compact 4× 64 px, and Quality 256 px, with 16 px overlap. Quality uses WebGPU on the main browser context because Chromium's worker WebGPU session initialization stalled in repeatable tests.
 
 ## Model provenance and license decision
 
@@ -63,11 +63,13 @@ The release implementation uses Swin2SR's official real-world x4 model through a
 
 | Mode | Artifact | Bytes | SHA-256 | Runtime intent |
 | --- | --- | ---: | --- | --- |
-| Compact | `model_quantized.onnx` | 21,438,622 | `9e9bae06e1c280a1f2f5ab093312ee1ec39186afc8912259bb9e3de838f85fb8` | Q8, cancellable WASM worker |
+| Compact 2× | Lightweight x2 `model_quantized.onnx` | 7,082,844 | `8be384ae3a1483833996886278022f94d332813e8d08f03a1e315ea4a412b3c2` | Q8, cancellable WASM worker |
+| Compact 4× | Realworld x4 `model_quantized.onnx` | 21,438,622 | `9e9bae06e1c280a1f2f5ab093312ee1ec39186afc8912259bb9e3de838f85fb8` | Q8, cancellable WASM worker |
 | Quality | reconstructed `model.onnx` | 52,772,645 | `f496dc73dcc01d778b1a12eb4c4038d6b27cd1c0b5bcd4258455ed6d7816c835` | FP32, WebGPU |
 
 - Official source and pretrained-model repository: [mv-lab/swin2sr](https://github.com/mv-lab/swin2sr)
 - Pinned conversion repository: [Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr](https://huggingface.co/Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr), revision `d0e9926970c93e472ce2392373d72597fc849027`
+- Pinned Lightweight x2 conversion: [Xenova/swin2SR-lightweight-x2-64](https://huggingface.co/Xenova/swin2SR-lightweight-x2-64), revision `a51d47c7097597910c7656b60d9f0f942644fad7`
 - License: [Apache 2.0](https://github.com/mv-lab/swin2sr/blob/main/LICENSE). The official repository explicitly covers its code and pretrained models.
 - Runtime: `@huggingface/transformers@4.2.0`, with its ONNX Runtime Web assets bundled from the pinned lockfile rather than fetched from a third-party CDN.
 - Delivery: model parts are same-origin, individually SHA-256 checked, cached only after verification, and disclosed with exact model bytes immediately before consent. The quality file is reconstructed from three sub-20 MB verified parts.
@@ -127,6 +129,9 @@ Do not claim:
   seconds on a cold model/session path.
 - Compact worker cancellation returned immediately at 3 seconds. Quality
   logical cancellation at 0.5 seconds discarded the later model result.
+- 2026-09-01 correction: the exact reported 592×574, 484,484-byte PNG completed
+  Compact 2× in 45.7 seconds with the direct Lightweight x2 model and 256 px
+  tiles. The previous Realworld x4-then-downsample path exceeded five minutes.
 - Changing model, scale, format, or JPEG quality invalidated the result and
   disabled download.
 - Chromium 1440×1000 and 390×844 checks found no comparison geometry drift or

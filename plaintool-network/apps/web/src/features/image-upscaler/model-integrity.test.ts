@@ -2,9 +2,24 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { upscalerModelManifest } from "./model-manifest";
+import { upscalerModelEntry } from "./model-manifest";
 
 describe("image upscaler model assets", () => {
+  it("uses the direct lightweight model only for compact 2x output", () => {
+    expect(upscalerModelEntry("fast", 2)).toMatchObject({
+      modelId: "swin2sr-lightweight-x2",
+      nativeScale: 2,
+      bytes: 7_082_844,
+    });
+    expect(upscalerModelEntry("fast", 4)).toMatchObject({
+      modelId: "swin2sr-realworld-x4",
+      nativeScale: 4,
+    });
+    expect(upscalerModelEntry("quality", 2)).toBe(
+      upscalerModelEntry("quality", 4),
+    );
+  });
+
   it("matches every built part and reconstructed model hash", async () => {
     const rawManifest = JSON.parse(
       await readFile(
@@ -27,9 +42,15 @@ describe("image upscaler model assets", () => {
       >;
     };
 
-    for (const mode of ["fast", "quality"] as const) {
-      const built = upscalerModelManifest[mode];
-      const raw = rawManifest.variants[mode === "fast" ? "compact" : mode];
+    const variants = [
+      { mode: "fast", scale: 2, manifestId: "compact-2x" },
+      { mode: "fast", scale: 4, manifestId: "compact" },
+      { mode: "quality", scale: 2, manifestId: "quality" },
+    ] as const;
+
+    for (const { mode, scale, manifestId } of variants) {
+      const built = upscalerModelEntry(mode, scale);
+      const raw = rawManifest.variants[manifestId];
       expect(built.bytes).toBe(raw.bytes);
       const combined = createHash("sha256");
       let bytes = 0;

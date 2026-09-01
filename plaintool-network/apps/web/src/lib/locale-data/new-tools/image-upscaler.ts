@@ -70,7 +70,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AI model",
       modeOptions: { fast: "Compact", quality: "Quality" },
       modeHints: {
-        fast: "21.4 MB · compact model for broad browser support",
+        fast: "Lightweight model matched to 2× or 4× · broad browser support",
         quality: "52.8 MB · more detail, WebGPU only",
       },
       qualityUnavailable:
@@ -142,7 +142,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AI 모델",
       modeOptions: { fast: "경량", quality: "고화질" },
       modeHints: {
-        fast: "21.4MB · 폭넓은 브라우저 호환용 경량 모델",
+        fast: "2배·4배에 맞는 경량 모델 · 폭넓은 브라우저 호환",
         quality: "52.8MB · 더 세밀한 결과, WebGPU 전용",
       },
       qualityUnavailable:
@@ -213,7 +213,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "Modelo de IA",
       modeOptions: { fast: "Ligero", quality: "Calidad" },
       modeHints: {
-        fast: "21,4 MB · modelo ligero y compatible",
+        fast: "Modelo ligero para 2× o 4× · amplia compatibilidad",
         quality: "52,8 MB · más detalle, solo WebGPU",
       },
       qualityUnavailable:
@@ -284,7 +284,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "KI-Modell",
       modeOptions: { fast: "Kompakt", quality: "Qualität" },
       modeHints: {
-        fast: "21,4 MB · kompaktes, breit kompatibles Modell",
+        fast: "Leichtes Modell für 2× oder 4× · breite Browser-Unterstützung",
         quality: "52,8 MB · mehr Details, nur WebGPU",
       },
       qualityUnavailable:
@@ -356,7 +356,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AIモデル",
       modeOptions: { fast: "軽量", quality: "高画質" },
       modeHints: {
-        fast: "21.4 MB・幅広いブラウザに対応する軽量モデル",
+        fast: "2倍・4倍に合わせた軽量モデル・幅広いブラウザに対応",
         quality: "52.8 MB・より細かい結果、WebGPU専用",
       },
       qualityUnavailable:
@@ -423,7 +423,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "Modèle d’IA",
       modeOptions: { fast: "Léger", quality: "Qualité" },
       modeHints: {
-        fast: "21,4 Mo · modèle léger et largement compatible",
+        fast: "Modèle léger pour 2× ou 4× · large compatibilité",
         quality: "52,8 Mo · plus de détails, WebGPU uniquement",
       },
       qualityUnavailable:
@@ -495,7 +495,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "Modelo de IA",
       modeOptions: { fast: "Leve", quality: "Qualidade" },
       modeHints: {
-        fast: "21,4 MB · modelo leve e amplamente compatível",
+        fast: "Modelo leve para 2× ou 4× · ampla compatibilidade",
         quality: "52,8 MB · mais detalhes, somente WebGPU",
       },
       qualityUnavailable:
@@ -566,7 +566,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "Modello IA",
       modeOptions: { fast: "Leggero", quality: "Qualità" },
       modeHints: {
-        fast: "21,4 MB · modello leggero e ampiamente compatibile",
+        fast: "Modello leggero per 2× o 4× · ampia compatibilità",
         quality: "52,8 MB · più dettagli, solo WebGPU",
       },
       qualityUnavailable:
@@ -636,7 +636,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AI-model",
       modeOptions: { fast: "Compact", quality: "Kwaliteit" },
       modeHints: {
-        fast: "21,4 MB · compact en breed compatibel model",
+        fast: "Licht model voor 2× of 4× · brede browserondersteuning",
         quality: "52,8 MB · meer detail, alleen WebGPU",
       },
       qualityUnavailable:
@@ -706,7 +706,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AI-modell",
       modeOptions: { fast: "Kompakt", quality: "Kvalitet" },
       modeHints: {
-        fast: "21,4 MB · kompakt modell med bred kompatibilitet",
+        fast: "Lätt modell för 2× eller 4× · brett webbläsarstöd",
         quality: "52,8 MB · mer detalj, endast WebGPU",
       },
       qualityUnavailable:
@@ -774,7 +774,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "Model AI",
       modeOptions: { fast: "Kompaktní", quality: "Kvalitní" },
       modeHints: {
-        fast: "21,4 MB · lehký a široce kompatibilní model",
+        fast: "Lehký model pro 2× nebo 4× · široká podpora prohlížečů",
         quality: "52,8 MB · více detailů, jen WebGPU",
       },
       qualityUnavailable:
@@ -843,7 +843,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "Model AI",
       modeOptions: { fast: "Lekki", quality: "Jakość" },
       modeHints: {
-        fast: "21,4 MB · lekki i szeroko zgodny model",
+        fast: "Lekki model dla 2× lub 4× · szeroka obsługa przeglądarek",
         quality: "52,8 MB · więcej szczegółów, tylko WebGPU",
       },
       qualityUnavailable:
@@ -912,7 +912,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AI-model",
       modeOptions: { fast: "Let", quality: "Kvalitet" },
       modeHints: {
-        fast: "21,4 MB · let model med bred kompatibilitet",
+        fast: "Let model til 2× eller 4× · bred browserunderstøttelse",
         quality: "52,8 MB · flere detaljer, kun WebGPU",
       },
       qualityUnavailable:
@@ -983,7 +983,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AI-modell",
       modeOptions: { fast: "Lett", quality: "Kvalitet" },
       modeHints: {
-        fast: "21,4 MB · lett modell med bred kompatibilitet",
+        fast: "Lett modell for 2× eller 4× · bred nettleserstøtte",
         quality: "52,8 MB · flere detaljer, bare WebGPU",
       },
       qualityUnavailable:
@@ -1054,7 +1054,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "نموذج الذكاء الاصطناعي",
       modeOptions: { fast: "خفيف", quality: "جودة" },
       modeHints: {
-        fast: "21.4 MB · نموذج خفيف ومتوافق على نطاق واسع",
+        fast: "نموذج خفيف مناسب لـ 2× أو 4× · دعم واسع للمتصفحات",
         quality: "52.8 MB · تفاصيل أكثر، WebGPU فقط",
       },
       qualityUnavailable:
@@ -1120,7 +1120,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "AI 模型",
       modeOptions: { fast: "輕量", quality: "高品質" },
       modeHints: {
-        fast: "21.4 MB · 廣泛相容的輕量模型",
+        fast: "依 2× 或 4× 選用輕量模型 · 廣泛支援瀏覽器",
         quality: "52.8 MB · 更多細節，僅支援 WebGPU",
       },
       qualityUnavailable: "高品質模式需要 WebGPU，此瀏覽器無法使用。",
@@ -1182,7 +1182,7 @@ const packs: Record<Locale, LocalPack> = {
       modeLabel: "Yapay zekâ modeli",
       modeOptions: { fast: "Hafif", quality: "Kaliteli" },
       modeHints: {
-        fast: "21,4 MB · geniş uyumlu hafif model",
+        fast: "2× veya 4× için hafif model · geniş tarayıcı desteği",
         quality: "52,8 MB · daha fazla ayrıntı, yalnızca WebGPU",
       },
       qualityUnavailable:

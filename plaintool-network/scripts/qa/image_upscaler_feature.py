@@ -54,6 +54,11 @@ def run_image_upscaler_desktop(page, report: dict, _inventory) -> None:
           downloadDisabled: root.querySelector('[data-download]').disabled,
           qualityDisabled: root.querySelector('[data-quality-option] input').disabled,
           qualityNoticeHidden: root.querySelector('[data-quality-unavailable]').hidden,
+          selectedStyles: [...root.querySelectorAll('.upscaler-segmented label:has(input:checked)')]
+            .map(label => ({
+              background: getComputedStyle(label).backgroundColor,
+              color: getComputedStyle(label).color,
+            })),
         })"""
     )
     report["image_upscaler_initial_state"] = state
@@ -63,6 +68,11 @@ def run_image_upscaler_desktop(page, report: dict, _inventory) -> None:
         or not state["resultHidden"]
         or not state["downloadDisabled"]
         or state["qualityDisabled"] == state["qualityNoticeHidden"]
+        or any(
+            style["background"] == "rgba(0, 0, 0, 0)"
+            or style["color"] == "rgba(0, 0, 0, 0)"
+            for style in state["selectedStyles"]
+        )
         or model_requests
     ):
         report["ui_detail_failures"].append(
@@ -77,8 +87,8 @@ def run_image_upscaler_desktop(page, report: dict, _inventory) -> None:
     }
     root.locator("[data-consent-cancel]").click()
     if (
-        "21.4 MB (21,438,622 B)" not in consent["body"]
-        or "21.4 MB (21,438,622 B)" not in consent["eyebrow"]
+        "7.1 MB (7,082,844 B)" not in consent["body"]
+        or "7.1 MB (7,082,844 B)" not in consent["eyebrow"]
         or model_requests
     ):
         report["ui_detail_failures"].append(

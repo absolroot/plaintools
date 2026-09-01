@@ -10,19 +10,19 @@ import type {
   UpscaleBackend,
   UpscaleRequest,
   UpscalerMode,
+  UpscaleScale,
   UpscaleWorkerResponse,
 } from "./contract";
 import { resampleHalfLanczos3 } from "./image";
 import { loadVerifiedModelPart } from "./model-cache";
-import { upscalerModelManifest } from "./model-manifest";
+import { upscalerModelEntry } from "./model-manifest";
 
-const MODEL_ID = "swin2sr-realworld-x4";
-const NATIVE_SCALE = 4;
 const TILE_OVERLAP = 16;
 
 type LoadedPipeline = {
-  mode: UpscalerMode;
+  modelId: string;
   backend: UpscaleBackend;
+  dtype: "q8" | "fp32";
   value: ImageToImagePipeline;
 };
 
@@ -43,14 +43,6 @@ type Tile = {
 };
 
 let loadedPipeline: LoadedPipeline | undefined;
-
-function modelFile(mode: UpscalerMode): string {
-  return mode === "fast" ? "model_quantized.onnx" : "model.onnx";
-}
-
-function modelDtype(mode: UpscalerMode): "q8" | "fp32" {
-  return mode === "fast" ? "q8" : "fp32";
-}
 
 function tilesFor(width: number, height: number, tileSize: number): Tile[] {
   const tiles: Tile[] = [];
@@ -94,9 +86,14 @@ function tileImage(request: UpscaleRequest, tile: Tile): RawImage {
   return new RawImage(rgb, tile.extendedWidth, tile.extendedHeight, 3);
 }
 
-function alphaAt(request: UpscaleRequest, outputX: number, outputY: number) {
-  const sourceX = (outputX + 0.5) / NATIVE_SCALE - 0.5;
-  const sourceY = (outputY + 0.5) / NATIVE_SCALE - 0.5;
+function alphaAt(
+  request: UpscaleRequest,
+  nativeScale: UpscaleScale,
+  outputX: number,
+  outputY: number,
+) {
+  const sourceX = (outputX + 0.5) / nativeScale - 0.5;
+  const sourceY = (outputY + 0.5) / nativeScale - 0.5;
   const x0 = Math.max(0, Math.min(request.width - 1, Math.floor(sourceX)));
   const y0 = Math.max(0, Math.min(request.height - 1, Math.floor(sourceY)));
   const x1 = Math.min(request.width - 1, x0 + 1);
@@ -117,22 +114,23 @@ function writeTile(
   request: UpscaleRequest,
   tile: Tile,
   output: RawImage,
+  nativeScale: UpscaleScale,
 ): void {
-  const outputWidth = request.width * NATIVE_SCALE;
-  const cropX = (tile.coreX - tile.extendedX) * NATIVE_SCALE;
-  const cropY = (tile.coreY - tile.extendedY) * NATIVE_SCALE;
-  const coreWidth = tile.coreWidth * NATIVE_SCALE;
-  const coreHeight = tile.coreHeight * NATIVE_SCALE;
+  const outputWidth = request.width * nativeScale;
+  const cropX = (tile.coreX - tile.extendedX) * nativeScale;
+  const cropY = (tile.coreY - tile.extendedY) * nativeScale;
+  const coreWidth = tile.coreWidth * nativeScale;
+  const coreHeight = tile.coreHeight * nativeScale;
   for (let y = 0; y < coreHeight; y += 1) {
     for (let x = 0; x < coreWidth; x += 1) {
       const source = ((cropY + y) * output.width + cropX + x) * output.channels;
-      const outputX = tile.coreX * NATIVE_SCALE + x;
-      const outputY = tile.coreY * NATIVE_SCALE + y;
+      const outputX = tile.coreX * nativeScale + x;
+      const outputY = tile.coreY * nativeScale + y;
       const target = (outputY * outputWidth + outputX) * 4;
       destination[target] = output.data[source];
       destination[target + 1] = output.data[source + 1];
       destination[target + 2] = output.data[source + 2];
-      destination[target + 3] = alphaAt(request, outputX, outputY);
+      destination[target + 3] = alphaAt(request, nativeScale, outputX, outputY);
     }
   }
 }
@@ -140,9 +138,15 @@ function writeTile(
 async function ensurePipeline(
   mode: UpscalerMode,
   backend: UpscaleBackend,
+  scale: UpscaleScale,
   onProgress: (progress: InferenceProgress) => void,
 ): Promise<ImageToImagePipeline> {
-  if (loadedPipeline?.mode === mode && loadedPipeline.backend === backend) {
+  const manifest = upscalerModelEntry(mode, scale);
+  if (
+    loadedPipeline?.modelId === manifest.modelId &&
+    loadedPipeline.backend === backend &&
+    loadedPipeline.dtype === manifest.dtype
+  ) {
     return loadedPipeline.value;
   }
   if (loadedPipeline) {
@@ -150,7 +154,6 @@ async function ensurePipeline(
     loadedPipeline = undefined;
   }
 
-  const manifest = upscalerModelManifest[mode];
   const bytes = new Uint8Array(manifest.bytes);
   let completed = 0;
   onProgress({ phase: "model" });
@@ -164,8 +167,9 @@ async function ensurePipeline(
     );
     completed += part.bytes;
   }
+  onProgress({ phase: "model" });
 
-  const expectedSuffix = `/onnx/${modelFile(mode)}`;
+  const expectedSuffix = `/onnx/${manifest.dtype === "q8" ? "model_quantized.onnx" : "model.onnx"}`;
   const originalFetch = env.fetch ?? globalThis.fetch.bind(globalThis);
   env.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input instanceof Request ? input.url : input);
@@ -202,12 +206,17 @@ async function ensurePipeline(
     env.allowRemoteModels = false;
     env.localModelPath = "/models/image-upscaler/v2/";
     env.useBrowserCache = false;
-    const value = await pipeline("image-to-image", MODEL_ID, {
+    const value = await pipeline("image-to-image", manifest.modelId, {
       device: backend,
-      dtype: modelDtype(mode),
+      dtype: manifest.dtype,
       local_files_only: true,
     });
-    loadedPipeline = { mode, backend, value };
+    loadedPipeline = {
+      modelId: manifest.modelId,
+      backend,
+      dtype: manifest.dtype,
+      value,
+    };
     return value;
   } finally {
     env.fetch = originalFetch;
@@ -224,18 +233,25 @@ export async function runTransformersUpscale(
   width: number;
   height: number;
 }> {
-  const upscaler = await ensurePipeline(request.mode, backend, onProgress);
+  const manifest = upscalerModelEntry(request.mode, request.scale);
+  const nativeScale = manifest.nativeScale;
+  const upscaler = await ensurePipeline(
+    request.mode,
+    backend,
+    request.scale,
+    onProgress,
+  );
   if (!shouldContinue()) throw new DOMException("Cancelled", "AbortError");
   const tiles = tilesFor(request.width, request.height, request.tileSize);
   let output = new Uint8ClampedArray(
-    request.width * request.height * NATIVE_SCALE * NATIVE_SCALE * 4,
+    request.width * request.height * nativeScale * nativeScale * 4,
   );
   for (let index = 0; index < tiles.length; index += 1) {
     if (!shouldContinue()) throw new DOMException("Cancelled", "AbortError");
     const tile = tiles[index];
     const result = await upscaler(tileImage(request, tile));
     if (!shouldContinue()) throw new DOMException("Cancelled", "AbortError");
-    writeTile(output, request, tile, result);
+    writeTile(output, request, tile, result, nativeScale);
     onProgress({
       phase: "inference",
       completedTiles: index + 1,
@@ -243,9 +259,9 @@ export async function runTransformersUpscale(
     });
   }
 
-  let width = request.width * NATIVE_SCALE;
-  let height = request.height * NATIVE_SCALE;
-  if (request.scale === 2) {
+  let width = request.width * nativeScale;
+  let height = request.height * nativeScale;
+  if (request.scale < nativeScale) {
     if (!shouldContinue()) throw new DOMException("Cancelled", "AbortError");
     onProgress({ phase: "composition" });
     output = resampleHalfLanczos3(output, width, height);

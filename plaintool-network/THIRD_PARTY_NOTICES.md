@@ -83,10 +83,14 @@ distributed under Apache License 2.0.
 
 ## Swin2SR model artifacts
 
-The image upscaler serves pinned Q8 and FP32 ONNX conversions of
+The image upscaler serves pinned ONNX conversions of
+[Swin2SR Lightweight x2](https://huggingface.co/caidas/swin2SR-lightweight-x2-64)
+and
 [Swin2SR Realworld SR x4](https://huggingface.co/caidas/swin2SR-realworld-sr-x4-64-bsrgan-psnr)
-from the
-[Xenova conversion repository](https://huggingface.co/Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr).
+from their corresponding Xenova conversion repositories:
+[Lightweight x2](https://huggingface.co/Xenova/swin2SR-lightweight-x2-64)
+and
+[Realworld x4](https://huggingface.co/Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr).
 The exact revision, byte sizes, and checksums are published in
 `/models/image-upscaler/v2/manifest.json`.
 

@@ -7,6 +7,25 @@
   "upstream": "https://huggingface.co/Xenova/swin2SR-realworld-sr-x4-64-bsrgan-psnr/tree/d0e9926970c93e472ce2392373d72597fc849027",
   "runtime": "@huggingface/transformers@4.2.0",
   "variants": {
+    "compact-2x": {
+      "model": "Swin2SR Lightweight x2 64",
+      "baseModel": "caidas/swin2SR-lightweight-x2-64",
+      "conversionRepository": "Xenova/swin2SR-lightweight-x2-64",
+      "conversionRevision": "a51d47c7097597910c7656b60d9f0f942644fad7",
+      "upstream": "https://huggingface.co/Xenova/swin2SR-lightweight-x2-64/tree/a51d47c7097597910c7656b60d9f0f942644fad7",
+      "nativeScale": 2,
+      "dtype": "q8",
+      "backend": "wasm",
+      "bytes": 7082844,
+      "sha256": "8be384ae3a1483833996886278022f94d332813e8d08f03a1e315ea4a412b3c2",
+      "parts": [
+        {
+          "path": "swin2sr-lightweight-x2/onnx/model_quantized.onnx",
+          "bytes": 7082844,
+          "sha256": "8be384ae3a1483833996886278022f94d332813e8d08f03a1e315ea4a412b3c2"
+        }
+      ]
+    },
     "compact": {
       "dtype": "q8",
       "backend": "wasm",

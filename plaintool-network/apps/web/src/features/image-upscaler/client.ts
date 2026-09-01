@@ -19,7 +19,7 @@ import {
   outputFilename,
   validateOutputDimensions,
 } from "./image";
-import { modelTransferLabel, upscalerModelManifest } from "./model-manifest";
+import { modelTransferLabel, upscalerModelEntry } from "./model-manifest";
 import {
   runTransformersUpscale,
   type InferenceProgress,
@@ -326,7 +326,8 @@ document
             rgba: fallbackPixels,
             width: sourcePixels.width,
             height: sourcePixels.height,
-            tileSize: upscalerModelManifest[selectedMode()].initialTileSize,
+            tileSize: upscalerModelEntry(selectedMode(), selectedScale())
+              .initialTileSize,
           },
           "wasm",
           revision,
@@ -459,7 +460,7 @@ document
         rgba: pixels,
         width: sourcePixels.width,
         height: sourcePixels.height,
-        tileSize: upscalerModelManifest[mode].initialTileSize,
+        tileSize: upscalerModelEntry(mode, selectedScale()).initialTileSize,
       };
       if (backend === "wasm") {
         ensureWorker().postMessage(request, [pixels.buffer]);
@@ -472,12 +473,13 @@ document
       if (!validateCurrentSelection()) return;
       const mode = selectedMode();
       const backend = selectedBackend();
-      const approval = `${mode}:${backend}:v1`;
+      const scale = selectedScale();
+      const approval = `${mode}:${backend}:${scale}:v2`;
       if (approvedModels.has(approval)) {
         startRun();
         return;
       }
-      const size = modelTransferLabel(mode);
+      const size = modelTransferLabel(mode, scale);
       consent.dataset.approval = approval;
       consentEyebrow.textContent = `${copy.modeOptions[mode]} · ${size}`;
       consentBody.textContent = template(copy.consentBody, {
