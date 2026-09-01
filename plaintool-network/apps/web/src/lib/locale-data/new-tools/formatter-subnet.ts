@@ -655,6 +655,43 @@ export const compact = ({ f, sc, j, q, s, sem, cl, er, pages }: Compact) =>
 
 export type FormatterPage = [string, string, string, string, string, string?];
 export type SubnetPage = [string, string, string, string];
+const javascriptSearchTerms: Readonly<Record<string, readonly string[]>> = {
+  "Formateador JavaScript": [
+    "formatear JavaScript",
+    "minificar JavaScript",
+    "embellecer JavaScript",
+  ],
+  "JavaScript-Formatierer": [
+    "JavaScript formatieren",
+    "JavaScript minifizieren",
+    "JavaScript verschönern",
+  ],
+  "Formateur JavaScript": [
+    "formater JavaScript",
+    "minifier JavaScript",
+    "embellir JavaScript",
+  ],
+  "Formatador JavaScript": [
+    "formatar JavaScript",
+    "minificar JavaScript",
+    "embelezar JavaScript",
+  ],
+  "Formattatore JavaScript": [
+    "formattare JavaScript",
+    "minificare JavaScript",
+    "beautifier JavaScript",
+  ],
+  "JavaScript-formatter": [
+    "JavaScript formatteren",
+    "JavaScript minificeren",
+    "JavaScript beautifier",
+  ],
+  "JavaScript-formaterare": [
+    "formatera JavaScript",
+    "minifiera JavaScript",
+    "JavaScript formatterare",
+  ],
+};
 export const pageSet = (
   h: FormatterPage,
   c: FormatterPage,
@@ -687,7 +724,11 @@ export const pageSet = (
     inputLabel: j[3],
     outputLabel: j[4],
     inputPlaceholder: "const greet=(name)=>console.log(name);",
-    terms: [j[0], "JavaScript formatter", "JS minifier"],
+    terms: javascriptSearchTerms[j[0]] ?? [
+      j[0],
+      "JavaScript formatter",
+      "JS minifier",
+    ],
   },
   "sql-formatter": {
     title: q[0],

@@ -376,7 +376,11 @@ const seed = {
       inputLabel: "HTML girdisi",
       outputLabel: "Markdown çıktısı",
       inputPlaceholder: "<h1>Başlık</h1><p>Merhaba <strong>dünya</strong>.</p>",
-      terms: ["HTML'den Markdown'a", "HTML dönüştürücü", "Turndown"],
+      terms: [
+        "HTML'den Markdown'a",
+        "HTML'i Markdown'a dönüştür",
+        "HTML Markdown dönüştürücü",
+      ],
     },
     "markdown-to-html": {
       title: "Markdown'dan HTML'ye dönüştürücü",

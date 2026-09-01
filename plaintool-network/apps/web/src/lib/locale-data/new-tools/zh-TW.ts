@@ -336,7 +336,7 @@ const seed = {
       inputLabel: "HTML輸入",
       outputLabel: "Markdown輸出",
       inputPlaceholder: "<h1>標題</h1><p><strong>內容</strong>文字。</p>",
-      terms: ["HTML轉Markdown", "HTML轉換器", "Turndown"],
+      terms: ["HTML轉Markdown", "HTML 轉 Markdown", "HTML Markdown 轉換器"],
     },
     "markdown-to-html": {
       title: "Markdown轉HTML",

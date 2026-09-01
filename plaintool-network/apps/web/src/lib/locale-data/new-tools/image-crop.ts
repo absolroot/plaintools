@@ -15,7 +15,7 @@ type Pack = {
 const packs = {
   en: {
     copy: {
-      ariaLabel: "Image editor",
+      ariaLabel: "Crop & straighten images",
       chooseImage: "Choose image",
       replaceImage: "Replace image",
       dropImage: "Drop an image here",
@@ -54,7 +54,7 @@ const packs = {
       encodeFailed: "The cropped image could not be prepared.",
     },
     page: {
-      title: "Image editor",
+      title: "Crop & straighten images",
       description:
         "Crop, rotate, flip, fine-tune, and adjust an image's perspective in your browser without uploading it.",
       mobileDescription:
@@ -73,7 +73,7 @@ const packs = {
   },
   ko: {
     copy: {
-      ariaLabel: "이미지 편집기",
+      ariaLabel: "이미지 자르기·회전·기울기 보정",
       chooseImage: "이미지 선택",
       replaceImage: "이미지 바꾸기",
       dropImage: "여기에 이미지 놓기",
@@ -112,7 +112,7 @@ const packs = {
       encodeFailed: "자른 이미지를 만들 수 없습니다.",
     },
     page: {
-      title: "이미지 편집기",
+      title: "이미지 자르기·회전·기울기 보정",
       description:
         "이미지를 업로드하지 않고 브라우저에서 자르고 회전·반전·기울기 보정하세요.",
       mobileDescription: "기기에서 이미지를 자르고 기울기를 보정하세요.",
@@ -129,7 +129,7 @@ const packs = {
   },
   es: {
     copy: {
-      ariaLabel: "Editor de fotos",
+      ariaLabel: "Recortar y enderezar imágenes",
       chooseImage: "Elegir imagen",
       replaceImage: "Cambiar imagen",
       dropImage: "Suelta una imagen aquí",
@@ -168,7 +168,7 @@ const packs = {
       encodeFailed: "No se pudo preparar la imagen recortada.",
     },
     page: {
-      title: "Editor de fotos",
+      title: "Recortar y enderezar imágenes",
       description:
         "Recorta, gira, voltea y endereza una imagen en el navegador sin subirla.",
       mobileDescription: "Recorta y endereza una imagen en tu dispositivo.",
@@ -185,7 +185,7 @@ const packs = {
   },
   de: {
     copy: {
-      ariaLabel: "Bildbearbeitung",
+      ariaLabel: "Bilder zuschneiden und begradigen",
       chooseImage: "Bild auswählen",
       replaceImage: "Bild ersetzen",
       dropImage: "Bild hier ablegen",
@@ -224,7 +224,7 @@ const packs = {
       encodeFailed: "Das zugeschnittene Bild konnte nicht erstellt werden.",
     },
     page: {
-      title: "Bildbearbeitung",
+      title: "Bilder zuschneiden und begradigen",
       description:
         "Schneide ein Bild im Browser zu, drehe, spiegele und begradige es – ohne Upload.",
       mobileDescription:
@@ -242,7 +242,7 @@ const packs = {
   },
   ja: {
     copy: {
-      ariaLabel: "画像編集",
+      ariaLabel: "画像トリミング・傾き補正",
       chooseImage: "画像を選択",
       replaceImage: "画像を変更",
       dropImage: "ここに画像をドロップ",
@@ -281,7 +281,7 @@ const packs = {
       encodeFailed: "切り抜いた画像を作成できませんでした。",
     },
     page: {
-      title: "画像編集",
+      title: "画像トリミング・傾き補正",
       description:
         "画像をアップロードせず、ブラウザで切り抜き、回転、反転、傾き補正ができます。",
       mobileDescription: "端末上で画像を切り抜き、傾きを補正します。",
@@ -298,7 +298,7 @@ const packs = {
   },
   fr: {
     copy: {
-      ariaLabel: "Éditeur d’images",
+      ariaLabel: "Recadrer et redresser des images",
       chooseImage: "Choisir une image",
       replaceImage: "Changer l’image",
       dropImage: "Déposez une image ici",
@@ -337,7 +337,7 @@ const packs = {
       encodeFailed: "L’image recadrée n’a pas pu être préparée.",
     },
     page: {
-      title: "Éditeur d’images",
+      title: "Recadrer et redresser des images",
       description:
         "Recadrez, faites pivoter, retournez et redressez une image dans le navigateur, sans l’envoyer.",
       mobileDescription: "Recadrez et redressez une image sur votre appareil.",
@@ -354,7 +354,7 @@ const packs = {
   },
   "pt-BR": {
     copy: {
-      ariaLabel: "Editor de fotos",
+      ariaLabel: "Recortar e endireitar imagens",
       chooseImage: "Escolher imagem",
       replaceImage: "Trocar imagem",
       dropImage: "Solte uma imagem aqui",
@@ -393,7 +393,7 @@ const packs = {
       encodeFailed: "Não foi possível preparar a imagem cortada.",
     },
     page: {
-      title: "Editor de fotos",
+      title: "Recortar e endireitar imagens",
       description:
         "Corte, gire, espelhe e endireite uma imagem no navegador sem fazer upload.",
       mobileDescription: "Corte e endireite uma imagem no seu dispositivo.",
@@ -410,7 +410,7 @@ const packs = {
   },
   it: {
     copy: {
-      ariaLabel: "Editor foto",
+      ariaLabel: "Ritagliare e raddrizzare immagini",
       chooseImage: "Scegli immagine",
       replaceImage: "Cambia immagine",
       dropImage: "Trascina qui un’immagine",
@@ -449,7 +449,7 @@ const packs = {
       encodeFailed: "Non è stato possibile preparare l’immagine ritagliata.",
     },
     page: {
-      title: "Editor foto",
+      title: "Ritagliare e raddrizzare immagini",
       description:
         "Ritaglia, ruota, rifletti e raddrizza un’immagine nel browser senza caricarla online.",
       mobileDescription: "Ritaglia e raddrizza un’immagine sul dispositivo.",
@@ -466,7 +466,7 @@ const packs = {
   },
   nl: {
     copy: {
-      ariaLabel: "Foto-editor",
+      ariaLabel: "Afbeeldingen bijsnijden en rechtzetten",
       chooseImage: "Afbeelding kiezen",
       replaceImage: "Afbeelding vervangen",
       dropImage: "Zet hier een afbeelding neer",
@@ -505,7 +505,7 @@ const packs = {
       encodeFailed: "De bijgesneden afbeelding kon niet worden gemaakt.",
     },
     page: {
-      title: "Foto-editor",
+      title: "Afbeeldingen bijsnijden en rechtzetten",
       description:
         "Snijd een afbeelding bij, draai, spiegel en zet haar recht in de browser zonder upload.",
       mobileDescription:
@@ -523,7 +523,7 @@ const packs = {
   },
   sv: {
     copy: {
-      ariaLabel: "Bildredigerare",
+      ariaLabel: "Beskär och räta upp bilder",
       chooseImage: "Välj bild",
       replaceImage: "Byt bild",
       dropImage: "Släpp en bild här",
@@ -562,7 +562,7 @@ const packs = {
       encodeFailed: "Den beskurna bilden kunde inte skapas.",
     },
     page: {
-      title: "Bildredigerare",
+      title: "Beskär och räta upp bilder",
       description:
         "Beskär, rotera, vänd och räta upp en bild i webbläsaren utan uppladdning.",
       mobileDescription: "Beskär och räta upp en bild på din enhet.",
@@ -579,7 +579,7 @@ const packs = {
   },
   cs: {
     copy: {
-      ariaLabel: "Editor obrázků",
+      ariaLabel: "Oříznout a narovnat obrázky",
       chooseImage: "Vybrat obrázek",
       replaceImage: "Změnit obrázek",
       dropImage: "Přetáhněte obrázek sem",
@@ -618,7 +618,7 @@ const packs = {
       encodeFailed: "Oříznutý obrázek se nepodařilo vytvořit.",
     },
     page: {
-      title: "Editor obrázků",
+      title: "Oříznout a narovnat obrázky",
       description:
         "Ořízněte, otočte, převraťte a narovnejte obrázek v prohlížeči bez nahrávání.",
       mobileDescription: "Ořízněte a narovnejte obrázek ve svém zařízení.",
@@ -635,7 +635,7 @@ const packs = {
   },
   pl: {
     copy: {
-      ariaLabel: "Edytor zdjęć",
+      ariaLabel: "Przytnij i wyprostuj obrazy",
       chooseImage: "Wybierz obraz",
       replaceImage: "Zmień obraz",
       dropImage: "Upuść obraz tutaj",
@@ -674,7 +674,7 @@ const packs = {
       encodeFailed: "Nie udało się przygotować przyciętego obrazu.",
     },
     page: {
-      title: "Edytor zdjęć",
+      title: "Przytnij i wyprostuj obrazy",
       description:
         "Przycinaj, obracaj, odbijaj i prostuj obraz w przeglądarce bez przesyłania go.",
       mobileDescription: "Przytnij i wyprostuj obraz na swoim urządzeniu.",
@@ -691,7 +691,7 @@ const packs = {
   },
   da: {
     copy: {
-      ariaLabel: "Billedredigering",
+      ariaLabel: "Beskær og ret billeder op",
       chooseImage: "Vælg billede",
       replaceImage: "Skift billede",
       dropImage: "Slip et billede her",
@@ -730,7 +730,7 @@ const packs = {
       encodeFailed: "Det beskårne billede kunne ikke oprettes.",
     },
     page: {
-      title: "Billedredigering",
+      title: "Beskær og ret billeder op",
       description:
         "Beskær, drej, spejlvend og ret et billede op i browseren uden upload.",
       mobileDescription: "Beskær og ret et billede op på din enhed.",
@@ -747,7 +747,7 @@ const packs = {
   },
   no: {
     copy: {
-      ariaLabel: "Bilderedigerer",
+      ariaLabel: "Beskjær og rett opp bilder",
       chooseImage: "Velg bilde",
       replaceImage: "Bytt bilde",
       dropImage: "Slipp et bilde her",
@@ -786,7 +786,7 @@ const packs = {
       encodeFailed: "Det beskårne bildet kunne ikke opprettes.",
     },
     page: {
-      title: "Bilderedigerer",
+      title: "Beskjær og rett opp bilder",
       description:
         "Beskjær, roter, speilvend og rett opp et bilde i nettleseren uten opplasting.",
       mobileDescription: "Beskjær og rett opp et bilde på enheten.",
@@ -803,7 +803,7 @@ const packs = {
   },
   ar: {
     copy: {
-      ariaLabel: "محرر الصور",
+      ariaLabel: "أداة قص وتعديل الصور",
       chooseImage: "اختيار صورة",
       replaceImage: "استبدال الصورة",
       dropImage: "أفلت صورة هنا",
@@ -842,7 +842,7 @@ const packs = {
       encodeFailed: "تعذر تجهيز الصورة المقصوصة.",
     },
     page: {
-      title: "محرر الصور",
+      title: "أداة قص وتعديل الصور",
       description:
         "اقتصّ الصورة ودوّرها واقلبها وصحّح ميلها في المتصفح من دون رفعها.",
       mobileDescription: "اقتصّ الصورة وصحّح ميلها على جهازك.",
@@ -859,7 +859,7 @@ const packs = {
   },
   "zh-TW": {
     copy: {
-      ariaLabel: "圖片編輯器",
+      ariaLabel: "圖片裁切與編輯工具",
       chooseImage: "選擇圖片",
       replaceImage: "更換圖片",
       dropImage: "將圖片拖放到這裡",
@@ -898,7 +898,7 @@ const packs = {
       encodeFailed: "無法準備裁切後的圖片。",
     },
     page: {
-      title: "圖片編輯器",
+      title: "圖片裁切與編輯工具",
       description: "不必上傳圖片，直接在瀏覽器中裁切、旋轉、翻轉及校正傾斜。",
       mobileDescription: "在裝置上裁切圖片並校正傾斜。",
       guide:
@@ -908,7 +908,7 @@ const packs = {
   },
   tr: {
     copy: {
-      ariaLabel: "Görsel düzenleyici",
+      ariaLabel: "Görsel kırpma ve düzenleme aracı",
       chooseImage: "Görsel seç",
       replaceImage: "Görseli değiştir",
       dropImage: "Görseli buraya bırakın",
@@ -947,7 +947,7 @@ const packs = {
       encodeFailed: "Kırpılan görsel hazırlanamadı.",
     },
     page: {
-      title: "Görsel düzenleyici",
+      title: "Görsel kırpma ve düzenleme aracı",
       description:
         "Görseli yüklemeden tarayıcıda kırpın, döndürün, çevirin ve hizalayın.",
       mobileDescription: "Görseli cihazınızda kırpın ve hizalayın.",

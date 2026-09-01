@@ -27,10 +27,7 @@ async function exportedLocales(file) {
 
 const featureManifests = new Map();
 for (const tool of toolRegistry) {
-  featureManifests.set(
-    tool.featureId,
-    localeReviewManifests[tool.featureId],
-  );
+  featureManifests.set(tool.featureId, localeReviewManifests[tool.featureId]);
 }
 
 if (selfTest === "missing-manifest") {

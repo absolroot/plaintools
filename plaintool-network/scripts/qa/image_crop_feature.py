@@ -243,7 +243,7 @@ def run_image_crop_mobile(page, report: dict, _inventory) -> None:
     if (
         state["direction"] != "rtl"
         or state["scrollWidth"] > state["clientWidth"]
-        or state["title"] != "محرر الصور"
+        or state["title"] != "أداة قص وتعديل الصور"
         or any(direction != "ltr" for direction in state["technicalDirections"])
         or min(state["touchHeights"]) < 43.5
     ):

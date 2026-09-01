@@ -370,7 +370,11 @@ const seed = {
       inputLabel: "HTML-indata",
       outputLabel: "Markdown-resultat",
       inputPlaceholder: "<h1>Rubrik</h1><p>Hej <strong>världen</strong>.</p>",
-      terms: ["HTML till Markdown", "HTML-konverterare", "Turndown"],
+      terms: [
+        "HTML till Markdown",
+        "konvertera HTML till Markdown",
+        "HTML till MD",
+      ],
     },
     "markdown-to-html": {
       title: "Markdown till HTML",

@@ -365,7 +365,11 @@ const seed = {
       outputLabel: "Markdown-output",
       inputPlaceholder:
         "<h1>Overskrift</h1><p>Hej <strong>verden</strong>.</p>",
-      terms: ["HTML til Markdown", "HTML-konverter", "Turndown"],
+      terms: [
+        "HTML til Markdown",
+        "konverter HTML til Markdown",
+        "HTML til MD",
+      ],
     },
     "markdown-to-html": {
       title: "Markdown til HTML",

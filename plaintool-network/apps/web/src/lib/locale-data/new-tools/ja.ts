@@ -370,7 +370,7 @@ const seed = {
       inputLabel: "HTML入力",
       outputLabel: "Markdown出力",
       inputPlaceholder: "<h1>タイトル</h1><p><strong>本文</strong>です。</p>",
-      terms: ["HTMLからMarkdown", "HTML変換", "Turndown"],
+      terms: ["HTMLからMarkdown", "HTMLをMarkdownに変換", "HTML Markdown変換"],
     },
     "markdown-to-html": {
       title: "MarkdownからHTMLへの変換",

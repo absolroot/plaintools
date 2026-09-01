@@ -19,6 +19,24 @@ type L = {
   cl: StringTuple<15>;
   er: StringTuple<8>;
   p: [PageTuple, PageTuple, PageTuple, PageTuple, PageTuple];
+  jsTerms?: readonly string[];
+};
+const javascriptSearchTerms: Readonly<Record<string, readonly string[]>> = {
+  "JavaScript-formatering": [
+    "formatér JavaScript",
+    "minificér JavaScript",
+    "JavaScript-formater",
+  ],
+  "Formátovač JavaScriptu": [
+    "formátovat JavaScript",
+    "minimalizovat JavaScript",
+    "JavaScript formátovač",
+  ],
+  "Formatowanie JavaScript": [
+    "formatowanie JavaScript",
+    "minimalizacja JavaScript",
+    "formatator JavaScript",
+  ],
 };
 const make = (x: L): FormatterSubnetLocaleSeed => ({
   formatter: {
@@ -117,7 +135,8 @@ const make = (x: L): FormatterSubnetLocaleSeed => ({
       inputLabel: x.p[2]![3],
       outputLabel: x.p[2]![4],
       inputPlaceholder: "const value=1;",
-      terms: [x.p[2]![0], "JavaScript"],
+      terms: x.jsTerms ??
+        javascriptSearchTerms[x.p[2]![0]] ?? [x.p[2]![0], "JavaScript"],
     },
     "sql-formatter": {
       title: x.p[3]![0],
@@ -281,6 +300,11 @@ const da = make({
 });
 
 const no = make({
+  jsTerms: [
+    "formater JavaScript",
+    "minifiser JavaScript",
+    "JavaScript-formaterer",
+  ],
   sc: [
     "Formaterer bare HTML; innebygd CSS og JavaScript formateres ikke separat, og innhold der mellomrom har betydning, kan endres.",
     "Formaterer bare vanlig CSS; laster ingen ressurser fra URL-er, bruker ikke CSS-koden, minifiserer ikke og garanterer ikke identisk oppførsel.",
