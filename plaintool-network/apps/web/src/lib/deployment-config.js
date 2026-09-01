@@ -49,6 +49,8 @@ const requiredProductionKeys = /** @type {const} */ ([
 ]);
 
 const previewOrigin = "https://preview.invalid";
+const legacyContactEmail = "superphil722@gmail.com";
+const publicContactEmail = "admin@absoltools.com";
 
 /** @param {unknown} value */
 function clean(value) {
@@ -300,6 +302,10 @@ export function resolveDeploymentConfig(env, target, capabilities) {
   const resolvedOrigin = productionReady
     ? new URL(values.PUBLIC_SITE_ORIGIN).origin
     : previewOrigin;
+  const resolvedContactEmail =
+    values.PUBLIC_CONTACT_EMAIL === legacyContactEmail
+      ? publicContactEmail
+      : values.PUBLIC_CONTACT_EMAIL || publicContactEmail;
 
   return {
     target,
@@ -310,7 +316,7 @@ export function resolveDeploymentConfig(env, target, capabilities) {
     operator: {
       name:
         values.PUBLIC_OPERATOR_NAME || "[Operator name required before launch]",
-      email: values.PUBLIC_CONTACT_EMAIL || "admin@absoltools.com",
+      email: resolvedContactEmail,
       region:
         values.PUBLIC_OPERATOR_REGION ||
         "[Operator region required before launch]",

@@ -41,6 +41,20 @@ describe("deployment configuration", () => {
     expect(config.integrations.active).toBe(false);
   });
 
+  it("replaces the retired public Gmail contact address", () => {
+    const config = resolveDeploymentConfig(
+      {
+        ...completeEnvironment,
+        PUBLIC_CONTACT_EMAIL: "superphil722@gmail.com",
+      },
+      "production",
+      implementedIntegrationCapabilities,
+    );
+
+    expect(config.productionReady).toBe(true);
+    expect(config.operator.email).toBe("admin@absoltools.com");
+  });
+
   it("fails closed when required production facts or URLs are invalid", () => {
     const config = resolveDeploymentConfig(
       {
