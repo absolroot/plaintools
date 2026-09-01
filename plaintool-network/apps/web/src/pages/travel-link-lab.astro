@@ -50,7 +50,8 @@ import "../styles/travel-link-lab.css";
             rows="6"
             spellcheck="false"
             autocomplete="off"
-            placeholder="https://www.agoda.com/ko-kr/..."></textarea>
+            placeholder="agoda.com/ko-kr/... 또는 https://www.agoda.com/..."
+          ></textarea>
           <p class="travel-link-lab-input-note">
             입력값은 이 브라우저 탭 안에서만 처리합니다. 기존 CID·추적값은 새
             링크에 포함하지 않습니다.
@@ -501,7 +502,10 @@ import "../styles/travel-link-lab.css";
     generate.disabled = candidates.length === 0;
     const safeHotelUrl = (value: string): URL | null => {
       try {
-        const source = new URL(value.trim());
+        const pasted = value.trim().replace(/^[\s"'“”‘’]+|[\s"'“”‘’]+$/g, "");
+        const source = new URL(
+          /^https?:\/\//i.test(pasted) ? pasted : `https://${pasted}`,
+        );
         if (
           source.protocol !== "https:" ||
           !(
