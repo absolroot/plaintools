@@ -141,23 +141,80 @@ function init(root: HTMLElement): void {
       ),
     ),
   ];
+  const detectedZone =
+    MODERN_ZONE_IDS.get(
+      Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
+    ) ??
+    Intl.DateTimeFormat().resolvedOptions().timeZone ??
+    "UTC";
+  const popularZoneRank = new Map(
+    Array.from(sourceZone.options, ({ value }, index) => [value, index]),
+  );
+  const referenceInstant = new Date();
 
-  const appendLongTailOptions = (select: HTMLSelectElement) => {
-    const existing = new Set(Array.from(select.options, ({ value }) => value));
-    for (const zone of supportedZones) {
-      if (existing.has(zone)) continue;
-      const generic = genericZoneName(zone);
-      const option = document.createElement("option");
-      option.value = zone;
-      zoneLabels.set(zone, generic && generic !== zone ? generic : zone);
-      option.textContent =
-        generic && generic !== zone ? `${zone} — ${generic}` : zone;
-      select.append(option);
-    }
+  const offsetMinutes = (offset: string): number => {
+    if (offset === "UTC") return 0;
+    const match = offset.match(/^UTC([+-])(\d{2}):(\d{2})$/u);
+    if (!match) return 0;
+    const minutes = Number(match[2]) * 60 + Number(match[3]);
+    return match[1] === "+" ? minutes : -minutes;
   };
 
-  appendLongTailOptions(sourceZone);
-  appendLongTailOptions(targetZone);
+  const preferredZone = (candidate: string, current: string): boolean => {
+    if (candidate === detectedZone) return true;
+    if (current === detectedZone) return false;
+    const candidateRank = popularZoneRank.get(candidate) ?? Infinity;
+    const currentRank = popularZoneRank.get(current) ?? Infinity;
+    return (
+      candidateRank < currentRank ||
+      (candidateRank === currentRank && candidate.localeCompare(current) < 0)
+    );
+  };
+
+  const compactZonesByOffset = new Map<string, string>();
+  for (const zone of supportedZones) {
+    const offset = zoneOffset(zone, referenceInstant);
+    const current = compactZonesByOffset.get(offset);
+    if (!current || preferredZone(zone, current)) {
+      compactZonesByOffset.set(offset, zone);
+    }
+  }
+  const compactZones = Array.from(compactZonesByOffset, ([offset, zone]) => ({
+    offset,
+    zone,
+  })).sort(
+    (left, right) =>
+      offsetMinutes(left.offset) - offsetMinutes(right.offset) ||
+      left.zone.localeCompare(right.zone),
+  );
+
+  const replaceWithCompactOptions = (select: HTMLSelectElement) => {
+    const worldClockZoneValues = new Set(
+      Array.from(
+        select.querySelectorAll<HTMLOptionElement>(
+          "option[data-world-clock-zone]",
+        ),
+        ({ value }) => value,
+      ),
+    );
+    const options = compactZones.map(({ offset, zone }) => {
+      const generic = genericZoneName(zone);
+      const label = zoneLabels.get(zone) ?? generic ?? zone;
+      zoneLabels.set(zone, baseLabel(label));
+      const option = document.createElement("option");
+      option.value = zone;
+      option.textContent =
+        zone === "UTC" ? "UTC" : `${baseLabel(label)} · ${offset}`;
+      if (worldClockZoneValues.has(zone)) {
+        option.dataset.worldClockZone = "true";
+      }
+      return option;
+    });
+    select.replaceChildren(...options);
+  };
+
+  replaceWithCompactOptions(sourceZone);
+  replaceWithCompactOptions(targetZone);
 
   const renderOptionOffsets = () => {
     for (const select of [sourceZone, targetZone]) {
@@ -166,23 +223,15 @@ function init(root: HTMLElement): void {
         option.textContent =
           option.value === "UTC"
             ? "UTC"
-            : `${label} · ${zoneOffset(option.value)}`;
+            : `${label} · ${zoneOffset(option.value, referenceInstant)}`;
       }
     }
   };
 
   renderOptionOffsets();
 
-  const availableWorldZones = new Set(
-    Array.from(
-      sourceZone.querySelectorAll<HTMLOptionElement>(
-        "option[data-world-clock-zone]",
-      ),
-      ({ value }) => value,
-    ),
-  );
   const worldZones = WORLD_CLOCK_ZONES.filter((zone) =>
-    availableWorldZones.has(zone),
+    supportedZones.includes(zone),
   );
 
   const formatTime = (value: ZonedTimeValue, instant: Date) =>
@@ -401,14 +450,8 @@ function init(root: HTMLElement): void {
       }),
     );
 
-  const detectedZone =
-    MODERN_ZONE_IDS.get(
-      Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
-    ) ??
-    Intl.DateTimeFormat().resolvedOptions().timeZone ??
-    "UTC";
   sourceZone.value = "UTC";
-  targetZone.value = supportedZones.includes(detectedZone)
+  targetZone.value = compactZones.some(({ zone }) => zone === detectedZone)
     ? detectedZone
     : "Asia/Seoul";
   if (targetZone.value === sourceZone.value) targetZone.value = "Asia/Seoul";

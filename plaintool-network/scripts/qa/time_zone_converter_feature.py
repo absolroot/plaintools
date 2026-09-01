@@ -17,18 +17,32 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
     )
 
     state = desktop.evaluate(
-        """
+        r"""
         () => {
           const visibleControls = [...document.querySelectorAll('[data-time-zone-converter] button:not([hidden]), [data-time-zone-converter] input, [data-time-zone-converter] select')]
             .filter((element) => element.getClientRects().length);
           const worldRows = [...document.querySelectorAll('[data-world-clock-list] [data-zone]')];
           const sourceTime = document.querySelector('[data-source-time]').getBoundingClientRect();
           const now = document.querySelector('[data-now]').getBoundingClientRect();
+          const optionOffsets = [...document.querySelector('[data-source-zone]').options]
+            .map((option) => option.textContent.match(/UTC(?:[+-]\d{2}:\d{2})?/)?.[0] ?? '');
+          const offsetMinutes = (offset) => {
+            if (offset === 'UTC') return 0;
+            const match = offset.match(/^UTC([+-])(\d{2}):(\d{2})$/);
+            if (!match) return Number.NaN;
+            const minutes = Number(match[2]) * 60 + Number(match[3]);
+            return match[1] === '+' ? minutes : -minutes;
+          };
           return {
             clientWidth: document.documentElement.clientWidth,
             scrollWidth: document.documentElement.scrollWidth,
             sourceOptions: document.querySelector('[data-source-zone]').options.length,
             targetOptions: document.querySelector('[data-target-zone]').options.length,
+            optionOffsets,
+            hasUniqueOffsets: new Set(optionOffsets).size === optionOffsets.length,
+            offsetsAreAscending: optionOffsets.every((offset, index) =>
+              index === 0 || offsetMinutes(optionOffsets[index - 1]) <= offsetMinutes(offset)
+            ),
             rowCount: worldRows.length,
             worldZones: worldRows.map((row) => row.dataset.zone),
             worldTimes: worldRows.map((row) => row.querySelector('[data-zone-time]')?.textContent),
@@ -77,8 +91,11 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
     report["time_zone_converter_desktop"] = {**state, "swapped": swapped}
     if (
         state["scrollWidth"] != state["clientWidth"]
-        or state["sourceOptions"] < 300
-        or state["targetOptions"] < 300
+        or state["sourceOptions"] < 30
+        or state["sourceOptions"] > 45
+        or state["targetOptions"] != state["sourceOptions"]
+        or not state["hasUniqueOffsets"]
+        or not state["offsetsAreAscending"]
         or state["rowCount"] != 6
         or state["worldZones"]
         != [
