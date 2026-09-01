@@ -397,10 +397,6 @@ export const frBundle: LocaleBundle = {
           q: "Le formateur corrige-t-il le JSON non valide ?",
           a: "Non. Les commentaires, virgules finales, apostrophes et autres syntaxes non valides sont signalés afin que vous corrigiez la source en connaissance de cause.",
         },
-        {
-          q: "Est-ce similaire au formatage de JSON avec Prettier ?",
-          a: "Les deux rendent un JSON valide plus lisible grâce à l’indentation et aux retours à la ligne. Cet outil traite du JSON strict dans le navigateur ; il ne prétend pas exécuter Prettier, conserver les commentaires ni trier les clés d’objet.",
-        },
       ],
     },
     time: {

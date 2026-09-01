@@ -397,10 +397,6 @@ export const ptBRBundle: LocaleBundle = {
           q: "O formatador corrige JSON inválido?",
           a: "Não. Comentários, vírgulas finais, aspas simples e outras sintaxes inválidas são informados para que você corrija a origem de forma consciente.",
         },
-        {
-          q: "É parecido com formatar JSON usando o Prettier?",
-          a: "Ambos usam indentação e quebras de linha para tornar um JSON válido mais fácil de ler. Esta ferramenta processa JSON estrito no navegador; ela não afirma executar o Prettier, preservar comentários ou ordenar chaves de objetos.",
-        },
       ],
     },
     time: {

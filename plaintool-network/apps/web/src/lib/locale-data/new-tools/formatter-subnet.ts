@@ -305,7 +305,13 @@ const ko = define({
       inputLabel: "HTML 소스",
       outputLabel: "정리된 HTML",
       inputPlaceholder: "<main><h1>제목</h1><p>내용</p></main>",
-      terms: ["HTML 포매터", "HTML 정리", "HTML 포맷"],
+      terms: [
+        "HTML 포매터",
+        "HTML formatter",
+        "HTML 정렬",
+        "HTML 정리",
+        "HTML 포맷",
+      ],
     },
     "css-formatter": {
       title: "CSS 포매터",
@@ -316,7 +322,13 @@ const ko = define({
       inputLabel: "CSS 소스",
       outputLabel: "정리된 CSS",
       inputPlaceholder: ".card{display:grid;gap:1rem}",
-      terms: ["CSS 포매터", "CSS 정리", "CSS 포맷"],
+      terms: [
+        "CSS 포매터",
+        "CSS formatter",
+        "CSS 정렬",
+        "CSS 정리",
+        "CSS 포맷",
+      ],
     },
     "javascript-formatter": {
       title: "JavaScript 포매터",
@@ -327,7 +339,13 @@ const ko = define({
       inputLabel: "JavaScript 소스",
       outputLabel: "처리된 JavaScript",
       inputPlaceholder: "const greet=(name)=>console.log(name);",
-      terms: ["JavaScript 포매터", "JS 정리", "JavaScript 코드 경량화"],
+      terms: [
+        "JavaScript 포매터",
+        "JavaScript formatter",
+        "JavaScript 정렬",
+        "JS 정리",
+        "JavaScript 코드 경량화",
+      ],
     },
     "sql-formatter": {
       title: "SQL 포매터",
@@ -338,7 +356,13 @@ const ko = define({
       inputLabel: "SQL 소스",
       outputLabel: "정리된 SQL",
       inputPlaceholder: "select id,name from users where active=true;",
-      terms: ["SQL 포매터", "SQL 정리", "PostgreSQL 포맷"],
+      terms: [
+        "SQL 포매터",
+        "SQL formatter",
+        "SQL 정렬",
+        "SQL 정리",
+        "PostgreSQL 포맷",
+      ],
     },
     "ip-subnet-calculator": {
       title: "IPv4 서브넷 계산기",
@@ -466,7 +490,7 @@ const ja = define({
       inputLabel: "HTMLソース",
       outputLabel: "整形済みHTML",
       inputPlaceholder: "<main><h1>見出し</h1><p>本文</p></main>",
-      terms: ["HTML整形", "HTMLフォーマッター", "HTML beautifier"],
+      terms: ["HTML整形", "HTMLフォーマット", "HTML formatter"],
     },
     "css-formatter": {
       title: "CSS整形ツール",
@@ -477,7 +501,7 @@ const ja = define({
       inputLabel: "CSSソース",
       outputLabel: "整形済みCSS",
       inputPlaceholder: ".card{display:grid;gap:1rem}",
-      terms: ["CSS整形", "CSSフォーマッター", "CSS beautifier"],
+      terms: ["CSS整形", "CSSフォーマット", "CSS formatter"],
     },
     "javascript-formatter": {
       title: "JavaScript整形ツール",
@@ -488,7 +512,12 @@ const ja = define({
       inputLabel: "JavaScriptソース",
       outputLabel: "処理済みJavaScript",
       inputPlaceholder: "const greet=(name)=>console.log(name);",
-      terms: ["JavaScript整形", "JSフォーマッター", "JavaScriptミニファイ"],
+      terms: [
+        "JavaScript整形",
+        "JavaScriptフォーマット",
+        "JavaScript圧縮",
+        "JavaScript formatter",
+      ],
     },
     "sql-formatter": {
       title: "SQL整形ツール",
@@ -499,7 +528,7 @@ const ja = define({
       inputLabel: "SQLソース",
       outputLabel: "整形済みSQL",
       inputPlaceholder: "select id,name from users where active=true;",
-      terms: ["SQL整形", "SQLフォーマッター", "PostgreSQL整形"],
+      terms: ["SQL整形", "SQLフォーマット", "SQL formatter"],
     },
     "ip-subnet-calculator": {
       title: "IPv4サブネット計算機",
@@ -655,44 +684,243 @@ export const compact = ({ f, sc, j, q, s, sem, cl, er, pages }: Compact) =>
 
 export type FormatterPage = [string, string, string, string, string, string?];
 export type SubnetPage = [string, string, string, string];
-const javascriptSearchTerms: Readonly<Record<string, readonly string[]>> = {
-  "Formateador JavaScript": [
-    "formatear JavaScript",
-    "minificar JavaScript",
-    "embellecer JavaScript",
-  ],
-  "JavaScript-Formatierer": [
-    "JavaScript formatieren",
-    "JavaScript minifizieren",
-    "JavaScript verschönern",
-  ],
-  "Formateur JavaScript": [
-    "formater JavaScript",
-    "minifier JavaScript",
-    "embellir JavaScript",
-  ],
-  "Formatador JavaScript": [
-    "formatar JavaScript",
-    "minificar JavaScript",
-    "embelezar JavaScript",
-  ],
-  "Formattatore JavaScript": [
-    "formattare JavaScript",
-    "minificare JavaScript",
-    "beautifier JavaScript",
-  ],
-  "JavaScript-formatter": [
-    "JavaScript formatteren",
-    "JavaScript minificeren",
-    "JavaScript beautifier",
-  ],
-  "JavaScript-formaterare": [
-    "formatera JavaScript",
-    "minifiera JavaScript",
-    "JavaScript formatterare",
-  ],
+export type FormatterSearchTerms = {
+  html: readonly string[];
+  css: readonly string[];
+  javascript: readonly string[];
+  sql: readonly string[];
+  subnet: readonly string[];
 };
+
+// Dated autocomplete and native-tool reviews select these per market; English
+// developer terms are supplemental where that market's evidence supports them.
+export const formatterSearchTerms: Readonly<
+  Record<Locale, FormatterSearchTerms>
+> = {
+  en: {
+    html: ["HTML formatter", "HTML beautifier", "format HTML"],
+    css: ["CSS formatter", "CSS beautifier", "format CSS"],
+    javascript: [
+      "JavaScript formatter",
+      "JS formatter",
+      "JavaScript beautifier",
+      "JS minifier",
+    ],
+    sql: ["SQL formatter", "format SQL", "SQL pretty printer"],
+    subnet: [
+      "IPv4 subnet calculator",
+      "CIDR calculator",
+      "subnet mask calculator",
+    ],
+  },
+  ko: {
+    html: ["HTML 포매터", "HTML 정렬", "HTML 정리", "HTML formatter"],
+    css: ["CSS 포매터", "CSS 정렬", "CSS 정리", "CSS formatter"],
+    javascript: [
+      "JavaScript 포매터",
+      "JavaScript 정렬",
+      "JS 정리",
+      "JavaScript formatter",
+    ],
+    sql: ["SQL 포매터", "SQL 정렬", "SQL 쿼리 정리", "SQL formatter"],
+    subnet: ["IPv4 서브넷 계산기", "CIDR 계산기", "서브넷 마스크"],
+  },
+  es: {
+    html: ["Formateador HTML", "formatear HTML", "HTML formatter"],
+    css: ["Formateador CSS", "formatear CSS", "CSS formatter"],
+    javascript: [
+      "Formateador JavaScript",
+      "formatear JavaScript",
+      "minificar JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formateador SQL", "formatear SQL", "SQL formatter"],
+    subnet: [
+      "Calculadora de subred IPv4",
+      "calculadora CIDR",
+      "máscara de subred",
+    ],
+  },
+  de: {
+    html: ["HTML-Formatierer", "HTML formatieren", "HTML formatter"],
+    css: ["CSS-Formatierer", "CSS formatieren", "CSS formatter"],
+    javascript: [
+      "JavaScript-Formatierer",
+      "JavaScript formatieren",
+      "JavaScript minifizieren",
+      "JavaScript formatter",
+    ],
+    sql: ["SQL-Formatierer", "SQL formatieren", "SQL formatter"],
+    subnet: ["IPv4-Subnetzrechner", "CIDR-Rechner", "Subnetzmaske"],
+  },
+  fr: {
+    html: ["Formateur HTML", "formater HTML", "HTML formatter"],
+    css: ["Formateur CSS", "formater CSS", "CSS formatter"],
+    javascript: [
+      "Formateur JavaScript",
+      "formater JavaScript",
+      "minifier JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formateur SQL", "formater SQL", "SQL formatter"],
+    subnet: [
+      "Calculateur de sous-réseau IPv4",
+      "calculateur CIDR",
+      "masque de sous-réseau",
+    ],
+  },
+  "pt-BR": {
+    html: ["Formatador HTML", "formatar HTML", "HTML formatter"],
+    css: ["Formatador CSS", "formatar CSS", "CSS formatter"],
+    javascript: [
+      "Formatador JavaScript",
+      "formatar JavaScript",
+      "minificar JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formatador SQL", "formatar SQL", "SQL formatter"],
+    subnet: [
+      "Calculadora de sub-rede IPv4",
+      "calculadora CIDR",
+      "máscara de sub-rede",
+    ],
+  },
+  it: {
+    html: ["Formattatore HTML", "formattare HTML", "HTML formatter"],
+    css: ["Formattatore CSS", "formattare CSS", "CSS formatter"],
+    javascript: [
+      "Formattatore JavaScript",
+      "formattare JavaScript",
+      "minificare JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formattatore SQL", "formattare SQL", "SQL formatter"],
+    subnet: [
+      "Calcolatore subnet IPv4",
+      "calcolatore CIDR",
+      "maschera di sottorete",
+    ],
+  },
+  ja: {
+    html: ["HTML整形", "HTMLフォーマット", "HTML formatter"],
+    css: ["CSS整形", "CSSフォーマット", "CSS formatter"],
+    javascript: [
+      "JavaScript整形",
+      "JavaScriptフォーマット",
+      "JavaScript圧縮",
+      "JavaScript formatter",
+    ],
+    sql: ["SQL整形", "SQLフォーマット", "SQL formatter"],
+    subnet: ["IPv4サブネット計算", "CIDR計算", "サブネットマスク"],
+  },
+  nl: {
+    html: ["HTML formatter", "HTML opmaken"],
+    css: ["CSS formatter", "CSS opmaken"],
+    javascript: [
+      "JavaScript formatter",
+      "JavaScript formatteren",
+      "JavaScript minificeren",
+    ],
+    sql: ["SQL formatter", "SQL formatteren"],
+    subnet: ["IPv4 subnet calculator", "CIDR calculator", "subnetmasker"],
+  },
+  sv: {
+    html: ["HTML-formaterare", "formatera HTML", "HTML formatter"],
+    css: ["CSS-formaterare", "formatera CSS", "CSS formatter"],
+    javascript: [
+      "JavaScript-formaterare",
+      "formatera JavaScript",
+      "minifiera JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["SQL-formaterare", "formatera SQL", "SQL formatter"],
+    subnet: ["IPv4-subnätberäknare", "CIDR-kalkylator", "subnätmask"],
+  },
+  cs: {
+    html: ["Formátovač HTML", "formátovat HTML", "HTML formatter"],
+    css: ["Formátovač CSS", "formátovat CSS", "CSS formatter"],
+    javascript: [
+      "Formátovač JavaScriptu",
+      "formátovat JavaScript",
+      "minimalizovat JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formátovač SQL", "formátovat SQL", "SQL formatter"],
+    subnet: ["Kalkulačka podsítě IPv4", "CIDR kalkulačka", "maska podsítě"],
+  },
+  pl: {
+    html: ["Formatowanie HTML", "formatowanie kodu HTML", "HTML formatter"],
+    css: ["Formatowanie CSS", "formatowanie kodu CSS", "CSS formatter"],
+    javascript: [
+      "Formatowanie JavaScript",
+      "minimalizacja JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formatowanie SQL", "formatowanie zapytań SQL", "SQL formatter"],
+    subnet: ["Kalkulator podsieci IPv4", "kalkulator CIDR", "maska podsieci"],
+  },
+  da: {
+    html: ["HTML-formatering", "formatér HTML"],
+    css: ["CSS-formatering", "formatér CSS"],
+    javascript: [
+      "JavaScript-formatering",
+      "formatér JavaScript",
+      "minificér JavaScript",
+    ],
+    sql: ["SQL-formatering", "formatér SQL"],
+    subnet: ["IPv4-undernetberegner", "CIDR-beregner", "netmaske"],
+  },
+  no: {
+    html: ["HTML-formatering", "formater HTML"],
+    css: ["CSS-formatering", "formater CSS"],
+    javascript: [
+      "JavaScript-formatering",
+      "formater JavaScript",
+      "minifiser JavaScript",
+    ],
+    sql: ["SQL-formatering", "formater SQL"],
+    subnet: ["IPv4-subnettberegner", "CIDR-kalkulator", "subnettmaske"],
+  },
+  ar: {
+    html: ["منسق HTML", "تنسيق HTML", "HTML formatter"],
+    css: ["منسق CSS", "تنسيق CSS", "CSS formatter"],
+    javascript: [
+      "منسق JavaScript",
+      "تنسيق JavaScript",
+      "تصغير JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["منسق SQL", "تنسيق SQL", "SQL formatter"],
+    subnet: ["حاسبة الشبكة الفرعية IPv4", "حاسبة CIDR", "قناع الشبكة الفرعية"],
+  },
+  "zh-TW": {
+    html: ["HTML 格式化", "HTML 美化", "HTML formatter"],
+    css: ["CSS 格式化", "CSS 美化", "CSS formatter"],
+    javascript: [
+      "JavaScript 格式化",
+      "JavaScript 美化",
+      "JavaScript 壓縮",
+      "JavaScript formatter",
+    ],
+    sql: ["SQL 格式化", "SQL 排版", "SQL formatter"],
+    subnet: ["IPv4 子網路計算機", "CIDR 計算機", "子網路遮罩"],
+  },
+  tr: {
+    html: ["HTML Biçimlendirici", "HTML biçimlendir", "HTML formatter"],
+    css: ["CSS Biçimlendirici", "CSS biçimlendir", "CSS formatter"],
+    javascript: [
+      "JavaScript Biçimlendirici",
+      "JavaScript biçimlendir",
+      "JavaScript küçült",
+      "JavaScript formatter",
+    ],
+    sql: ["SQL Biçimlendirici", "SQL biçimlendir", "SQL formatter"],
+    subnet: ["IPv4 Alt Ağ Hesaplayıcı", "CIDR hesaplayıcı", "alt ağ maskesi"],
+  },
+};
+
 export const pageSet = (
+  locale: Locale,
   h: FormatterPage,
   c: FormatterPage,
   j: FormatterPage,
@@ -706,7 +934,7 @@ export const pageSet = (
     inputLabel: h[3],
     outputLabel: h[4],
     inputPlaceholder: h[5] ?? "<main><h1>Title</h1><p>Text</p></main>",
-    terms: [h[0], "HTML formatter"],
+    terms: formatterSearchTerms[locale].html,
   },
   "css-formatter": {
     title: c[0],
@@ -715,7 +943,7 @@ export const pageSet = (
     inputLabel: c[3],
     outputLabel: c[4],
     inputPlaceholder: ".card{display:grid;gap:1rem}",
-    terms: [c[0], "CSS formatter"],
+    terms: formatterSearchTerms[locale].css,
   },
   "javascript-formatter": {
     title: j[0],
@@ -724,11 +952,7 @@ export const pageSet = (
     inputLabel: j[3],
     outputLabel: j[4],
     inputPlaceholder: "const greet=(name)=>console.log(name);",
-    terms: javascriptSearchTerms[j[0]] ?? [
-      j[0],
-      "JavaScript formatter",
-      "JS minifier",
-    ],
+    terms: formatterSearchTerms[locale].javascript,
   },
   "sql-formatter": {
     title: q[0],
@@ -737,7 +961,7 @@ export const pageSet = (
     inputLabel: q[3],
     outputLabel: q[4],
     inputPlaceholder: "select id,name from users where active=true;",
-    terms: [q[0], "SQL formatter"],
+    terms: formatterSearchTerms[locale].sql,
   },
   "ip-subnet-calculator": {
     title: i[0],
@@ -745,7 +969,7 @@ export const pageSet = (
     guide: i[2],
     inputLabel: i[3],
     inputPlaceholder: "192.168.1.10/24",
-    terms: [i[0], "CIDR", "IPv4"],
+    terms: formatterSearchTerms[locale].subnet,
   },
 });
 
@@ -850,6 +1074,7 @@ const es = compact({
     "Los bits de la máscara deben ser contiguos.",
   ],
   pages: pageSet(
+    "es",
     [
       "Formateador HTML",
       "Formatea HTML localmente con sangría y ajuste previsibles.",
@@ -989,6 +1214,7 @@ const de = compact({
     "Die Bits der Netzmaske müssen zusammenhängend sein.",
   ],
   pages: pageSet(
+    "de",
     [
       "HTML-Formatierer",
       "Formatiert HTML lokal mit vorhersehbarer Einrückung.",
@@ -1128,6 +1354,7 @@ const fr = compact({
     "Les bits du masque doivent être contigus.",
   ],
   pages: pageSet(
+    "fr",
     [
       "Formateur HTML",
       "Formate le HTML localement avec une indentation prévisible.",
@@ -1267,6 +1494,7 @@ const ptBR = compact({
     "Os bits da máscara devem ser contíguos.",
   ],
   pages: pageSet(
+    "pt-BR",
     [
       "Formatador HTML",
       "Formata HTML localmente com recuo previsível.",
@@ -1406,6 +1634,7 @@ const it = compact({
     "I bit della netmask devono essere contigui.",
   ],
   pages: pageSet(
+    "it",
     [
       "Formattatore HTML",
       "Formatta HTML localmente con rientro prevedibile.",
@@ -1541,6 +1770,7 @@ const zhTW = compact({
     "遮罩位元必須連續。",
   ],
   pages: pageSet(
+    "zh-TW",
     [
       "HTML 格式化工具",
       "在本機以一致縮排格式化 HTML。",
@@ -1680,6 +1910,7 @@ const ar = compact({
     "يجب أن تكون بتات القناع متصلة.",
   ],
   pages: pageSet(
+    "ar",
     [
       "منسق HTML",
       "ينسق مصدر HTML محليًا بمسافات بادئة متسقة.",
@@ -1815,6 +2046,7 @@ const nl = compact({
     "De bits van het subnetmasker moeten aaneengesloten zijn.",
   ],
   pages: pageSet(
+    "nl",
     [
       "HTML-formatter",
       "Formatteert HTML lokaal met voorspelbare inspringing.",
@@ -1954,6 +2186,7 @@ const sv = compact({
     "Maskbitarna måste vara sammanhängande.",
   ],
   pages: pageSet(
+    "sv",
     [
       "HTML-formaterare",
       "Formaterar HTML lokalt med tydliga indrag.",

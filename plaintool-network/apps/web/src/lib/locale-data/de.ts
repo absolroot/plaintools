@@ -400,10 +400,6 @@ export const deBundle: LocaleBundle = {
           q: "Repariert der Formatter ungültiges JSON?",
           a: "Nein. Kommentare, nachgestellte Kommas, einfache Anführungszeichen und andere ungültige Syntax werden gemeldet, damit die Quelle bewusst korrigiert werden kann.",
         },
-        {
-          q: "Ist das vergleichbar mit dem Formatieren von JSON mit Prettier?",
-          a: "Beide machen gültiges JSON mit Einrückungen und Zeilenumbrüchen besser lesbar. Dieses Tool verarbeitet striktes JSON im Browser; es behauptet nicht, Prettier auszuführen, Kommentare zu erhalten oder Objektschlüssel zu sortieren.",
-        },
       ],
     },
     time: {

@@ -328,7 +328,7 @@ const bundle: LocaleBundle = {
       ],
     },
     json: {
-      title: "JSON 포맷터",
+      title: "JSON 포매터",
       description:
         "JSON 파일을 열거나 붙여넣어 보기 좋게 정렬하고, 문법 오류를 검증하거나 한 줄로 압축합니다.",
       inputLabel: "JSON 입력",
@@ -390,10 +390,6 @@ const bundle: LocaleBundle = {
         {
           q: "잘못된 JSON을 자동으로 고치나요?",
           a: "아니요. 주석, 후행 쉼표, 작은따옴표와 같은 잘못된 구문을 표시해 사용자가 원문을 직접 수정할 수 있게 합니다.",
-        },
-        {
-          q: "Prettier로 JSON을 정리하는 것과 비슷한가요?",
-          a: "둘 다 들여쓰기와 줄바꿈으로 유효한 JSON을 읽기 쉽게 정리합니다. 이 도구는 브라우저에서 표준 JSON을 처리하며, Prettier 엔진 사용·주석 보존·객체 키 정렬을 약속하지 않습니다.",
         },
       ],
     },
@@ -645,18 +641,19 @@ const bundle: LocaleBundle = {
       ],
     },
     "json-formatter": {
-      name: "JSON 포맷터",
+      name: "JSON 포매터",
       summary:
         "JSON 파일을 열거나 붙여넣어 보기 좋게 정렬하고, 문법 오류를 검증하거나 한 줄로 압축합니다.",
       searchTerms: [
         "JSON 정리",
-        "JSON 포맷터",
+        "JSON 포매터",
+        "JSON formatter",
         "JSON 검증",
         "JSON 압축",
         "JSON 포맷",
         "JSON 파서",
         "JSON 파일",
-        "JSON prettier",
+        "JSON Prettier",
         "JSON 정렬",
         "JSON 주석",
         "데이터",

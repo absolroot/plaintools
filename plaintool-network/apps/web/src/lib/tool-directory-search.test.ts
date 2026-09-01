@@ -38,6 +38,45 @@ describe("tool directory search catalog", () => {
     expect(base64Terms).not.toContain("복호화");
     expect(base64Terms).not.toContain("descifrar");
   });
+
+  it("keeps formatter terms specific to each locale rather than falling back to a shared English template", () => {
+    const htmlFormatter = toolCatalog.find(
+      (tool) => tool.id === "html-formatter",
+    );
+
+    if (!htmlFormatter) {
+      throw new Error("Expected the HTML formatter catalog entry.");
+    }
+
+    const expectedNativeTerms = {
+      ko: "HTML 정렬",
+      ja: "HTML整形",
+      es: "formatear HTML",
+      de: "HTML formatieren",
+      fr: "formater HTML",
+      "pt-BR": "formatar HTML",
+      it: "formattare HTML",
+      sv: "formatera HTML",
+      cs: "formátovat HTML",
+      pl: "formatowanie kodu HTML",
+      da: "formatér HTML",
+      no: "formater HTML",
+      ar: "تنسيق HTML",
+      "zh-TW": "HTML 美化",
+      tr: "HTML biçimlendir",
+    } as const;
+
+    for (const [locale, term] of Object.entries(expectedNativeTerms)) {
+      expect(
+        htmlFormatter.searchTerms[locale as keyof typeof expectedNativeTerms],
+      ).toContain(term);
+    }
+
+    // English technical wording is intentionally supplemental where it is a
+    // natural query in the locale, never the only localized search term.
+    expect(htmlFormatter.searchTerms.ko).toContain("HTML formatter");
+    expect(htmlFormatter.searchTerms.ja).toContain("HTML formatter");
+  });
 });
 
 describe("tool directory search matching", () => {
@@ -63,7 +102,7 @@ describe("tool directory search matching", () => {
   it("builds a current-locale corpus from name, summary, and search terms", () => {
     const corpus = buildToolDirectorySearchCorpus(jsonTool, "ko");
 
-    expect(corpus).toContain("json 포맷터");
+    expect(corpus).toContain("json 포매터");
     expect(corpus).toContain("오류를 검증");
     expect(corpus).toContain("json 압축");
     expect(corpus).not.toContain("pretty print");

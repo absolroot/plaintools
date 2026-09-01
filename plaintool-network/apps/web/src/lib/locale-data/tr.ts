@@ -394,10 +394,6 @@ const bundle: LocaleBundle = {
           q: "Biçimlendirici geçersiz JSON'u onarır mı?",
           a: "Hayır. Kaynağı bilinçli olarak düzeltebilmeniz için yorumlar, sondaki virgüller, tek tırnaklar ve diğer geçersiz sözdizimleri bildirilir.",
         },
-        {
-          q: "Bu, JSON'u Prettier ile biçimlendirmeye benzer mi?",
-          a: "Her ikisi de geçerli JSON'u girintiler ve satır sonlarıyla daha okunaklı yapar. Bu araç tarayıcıda katı JSON işler; Prettier çalıştırdığını, yorumları koruduğunu veya nesne anahtarlarını sıraladığını iddia etmez.",
-        },
       ],
     },
     time: {

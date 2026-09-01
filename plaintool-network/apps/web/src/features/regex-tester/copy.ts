@@ -975,5 +975,61 @@ export function regexTesterFor(
 }
 
 export function regexSearchTermsFor(locale: Locale): readonly string[] {
-  return [texts[locale].title, "regex", "regexp", "JavaScript regex"];
+  const terms: Readonly<Record<Locale, readonly string[]>> = {
+    en: ["regular expression tester", "JavaScript RegExp", "regex replace"],
+    ko: ["정규식 테스트", "정규표현식", "JavaScript RegExp", "정규식 치환"],
+    es: [
+      "probador de expresiones regulares",
+      "RegExp de JavaScript",
+      "reemplazar regex",
+    ],
+    de: [
+      "Tester für reguläre Ausdrücke",
+      "JavaScript RegExp",
+      "Regex ersetzen",
+    ],
+    ja: ["正規表現 テスター", "JavaScript RegExp", "正規表現 置換"],
+    fr: [
+      "testeur d’expressions régulières",
+      "RegExp JavaScript",
+      "remplacer avec regex",
+    ],
+    "pt-BR": [
+      "testador de expressões regulares",
+      "RegExp JavaScript",
+      "substituir regex",
+    ],
+    it: [
+      "tester di espressioni regolari",
+      "RegExp JavaScript",
+      "sostituzione regex",
+    ],
+    nl: [
+      "tester voor reguliere expressies",
+      "JavaScript RegExp",
+      "regex vervangen",
+    ],
+    sv: [
+      "testverktyg för reguljära uttryck",
+      "JavaScript RegExp",
+      "regex ersätt",
+    ],
+    cs: ["tester regulárních výrazů", "JavaScript RegExp", "nahrazení regexem"],
+    pl: ["tester wyrażeń regularnych", "JavaScript RegExp", "zamiana regex"],
+    da: [
+      "testværktøj til regulære udtryk",
+      "JavaScript RegExp",
+      "regex-erstatning",
+    ],
+    no: [
+      "tester for regulære uttrykk",
+      "JavaScript RegExp",
+      "regex-erstatning",
+    ],
+    ar: ["اختبار التعبيرات النمطية", "JavaScript RegExp", "استبدال Regex"],
+    "zh-TW": ["正規表示式 測試", "JavaScript RegExp", "正規表示式 取代"],
+    tr: ["düzenli ifade test aracı", "JavaScript RegExp", "regex değiştirme"],
+  };
+
+  return [texts[locale].title, ...terms[locale]];
 }

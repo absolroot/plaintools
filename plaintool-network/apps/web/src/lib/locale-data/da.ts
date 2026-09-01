@@ -394,10 +394,6 @@ const daBundle = {
           q: "Reparerer formatteren ugyldig JSON?",
           a: "Ingen kommentarer, afsluttende kommaer, enkelte anførselstegn og anden ugyldig syntaks rapporteres, så du kan rette kilden bevidst.",
         },
-        {
-          q: "Ligner det at formatere JSON med Prettier?",
-          a: "Begge gør gyldig JSON lettere at læse med indryk og linjeskift. Dette værktøj behandler strengt JSON i browseren; det hævder ikke at køre Prettier, bevare kommentarer eller sortere objektnøgler.",
-        },
       ],
     },
     time: {

@@ -398,10 +398,6 @@ export const nlBundle: LocaleBundle = {
           q: "Herstelt de formatter ongeldige JSON?",
           a: "Nee. Opmerkingen, afsluitende komma’s, enkele aanhalingstekens en andere ongeldige syntaxis worden gemeld, zodat je de bron bewust kunt corrigeren.",
         },
-        {
-          q: "Lijkt dit op JSON opmaken met Prettier?",
-          a: "Beide maken geldige JSON beter leesbaar met inspringing en regeleinden. Dit hulpmiddel verwerkt strikte JSON in de browser; het beweert niet Prettier uit te voeren, opmerkingen te behouden of objectsleutels te sorteren.",
-        },
       ],
     },
     time: {

@@ -397,10 +397,6 @@ const plBundle = {
           q: "Czy formatownik naprawia nieprawidłowy JSON?",
           a: "Nie. Komentarze, końcowe przecinki, pojedyncze cudzysłowy i inne nieprawidłowe składnie są zgłaszane, aby można było celowo poprawić źródło.",
         },
-        {
-          q: "Czy to działa podobnie do formatowania JSON za pomocą Prettiera?",
-          a: "Oba sposoby ułatwiają czytanie prawidłowego JSON dzięki wcięciom i podziałom wierszy. To narzędzie przetwarza ścisły JSON w przeglądarce; nie twierdzi, że uruchamia Prettiera, zachowuje komentarze ani sortuje klucze obiektów.",
-        },
       ],
     },
     time: {

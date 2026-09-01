@@ -10,6 +10,13 @@ type StringTuple<
 type PageTuple = [string, string, string, string, string, string?];
 
 type L = {
+  terms: {
+    html: readonly string[];
+    css: readonly string[];
+    javascript: readonly string[];
+    sql: readonly string[];
+    subnet: readonly string[];
+  };
   f: StringTuple<16>;
   sc: StringTuple<4>;
   j: StringTuple<7>;
@@ -19,24 +26,6 @@ type L = {
   cl: StringTuple<15>;
   er: StringTuple<8>;
   p: [PageTuple, PageTuple, PageTuple, PageTuple, PageTuple];
-  jsTerms?: readonly string[];
-};
-const javascriptSearchTerms: Readonly<Record<string, readonly string[]>> = {
-  "JavaScript-formatering": [
-    "formatér JavaScript",
-    "minificér JavaScript",
-    "JavaScript-formater",
-  ],
-  "Formátovač JavaScriptu": [
-    "formátovat JavaScript",
-    "minimalizovat JavaScript",
-    "JavaScript formátovač",
-  ],
-  "Formatowanie JavaScript": [
-    "formatowanie JavaScript",
-    "minimalizacja JavaScript",
-    "formatator JavaScript",
-  ],
 };
 const make = (x: L): FormatterSubnetLocaleSeed => ({
   formatter: {
@@ -117,7 +106,7 @@ const make = (x: L): FormatterSubnetLocaleSeed => ({
       inputLabel: x.p[0]![3],
       outputLabel: x.p[0]![4],
       inputPlaceholder: x.p[0]![5] ?? "<main><h1>Title</h1></main>",
-      terms: [x.p[0]![0], "HTML"],
+      terms: x.terms.html,
     },
     "css-formatter": {
       title: x.p[1]![0],
@@ -126,7 +115,7 @@ const make = (x: L): FormatterSubnetLocaleSeed => ({
       inputLabel: x.p[1]![3],
       outputLabel: x.p[1]![4],
       inputPlaceholder: ".card{display:grid}",
-      terms: [x.p[1]![0], "CSS"],
+      terms: x.terms.css,
     },
     "javascript-formatter": {
       title: x.p[2]![0],
@@ -135,8 +124,7 @@ const make = (x: L): FormatterSubnetLocaleSeed => ({
       inputLabel: x.p[2]![3],
       outputLabel: x.p[2]![4],
       inputPlaceholder: "const value=1;",
-      terms: x.jsTerms ??
-        javascriptSearchTerms[x.p[2]![0]] ?? [x.p[2]![0], "JavaScript"],
+      terms: x.terms.javascript,
     },
     "sql-formatter": {
       title: x.p[3]![0],
@@ -145,7 +133,7 @@ const make = (x: L): FormatterSubnetLocaleSeed => ({
       inputLabel: x.p[3]![3],
       outputLabel: x.p[3]![4],
       inputPlaceholder: "select id from users;",
-      terms: [x.p[3]![0], "SQL"],
+      terms: x.terms.sql,
     },
     "ip-subnet-calculator": {
       title: x.p[4]![0],
@@ -153,7 +141,7 @@ const make = (x: L): FormatterSubnetLocaleSeed => ({
       guide: x.p[4]![2],
       inputLabel: x.p[4]![3],
       inputPlaceholder: "192.168.1.10/24",
-      terms: [x.p[4]![0], "CIDR", "IPv4"],
+      terms: x.terms.subnet,
     },
   },
 });
@@ -176,6 +164,17 @@ const technical: StringTuple<15> = [
   "Begrænset broadcast",
 ];
 const da = make({
+  terms: {
+    html: ["HTML-formatering", "formatér HTML"],
+    css: ["CSS-formatering", "formatér CSS"],
+    javascript: [
+      "JavaScript-formatering",
+      "formatér JavaScript",
+      "minificér JavaScript",
+    ],
+    sql: ["SQL-formatering", "formatér SQL"],
+    subnet: ["IPv4-undernetberegner", "CIDR-beregner", "netmaske"],
+  },
   f: [
     "Tilstand",
     "Formatér",
@@ -300,11 +299,17 @@ const da = make({
 });
 
 const no = make({
-  jsTerms: [
-    "formater JavaScript",
-    "minifiser JavaScript",
-    "JavaScript-formaterer",
-  ],
+  terms: {
+    html: ["HTML-formatering", "formater HTML"],
+    css: ["CSS-formatering", "formater CSS"],
+    javascript: [
+      "JavaScript-formatering",
+      "formater JavaScript",
+      "minifiser JavaScript",
+    ],
+    sql: ["SQL-formatering", "formater SQL"],
+    subnet: ["IPv4-subnettberegner", "CIDR-kalkulator", "subnettmaske"],
+  },
   sc: [
     "Formaterer bare HTML; innebygd CSS og JavaScript formateres ikke separat, og innhold der mellomrom har betydning, kan endres.",
     "Formaterer bare vanlig CSS; laster ingen ressurser fra URL-er, bruker ikke CSS-koden, minifiserer ikke og garanterer ikke identisk oppførsel.",
@@ -441,6 +446,18 @@ const no = make({
 });
 
 const tr = make({
+  terms: {
+    html: ["HTML Biçimlendirici", "HTML biçimlendir", "HTML formatter"],
+    css: ["CSS Biçimlendirici", "CSS biçimlendir", "CSS formatter"],
+    javascript: [
+      "JavaScript Biçimlendirici",
+      "JavaScript biçimlendir",
+      "JavaScript küçült",
+      "JavaScript formatter",
+    ],
+    sql: ["SQL Biçimlendirici", "SQL biçimlendir", "SQL formatter"],
+    subnet: ["IPv4 Alt Ağ Hesaplayıcı", "CIDR hesaplayıcı", "alt ağ maskesi"],
+  },
   s: [
     "CIDR veya ağ maskesiyle IPv4 girin.",
     "Örnek yükle",
@@ -577,6 +594,18 @@ const tr = make({
 });
 
 const cs = make({
+  terms: {
+    html: ["Formátovač HTML", "formátovat HTML", "HTML formatter"],
+    css: ["Formátovač CSS", "formátovat CSS", "CSS formatter"],
+    javascript: [
+      "Formátovač JavaScriptu",
+      "formátovat JavaScript",
+      "minimalizovat JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formátovač SQL", "formátovat SQL", "SQL formatter"],
+    subnet: ["Kalkulačka podsítě IPv4", "CIDR kalkulačka", "maska podsítě"],
+  },
   f: [
     "Operace",
     "Formátovat",
@@ -713,6 +742,17 @@ const cs = make({
 });
 
 const pl = make({
+  terms: {
+    html: ["Formatowanie HTML", "formatowanie kodu HTML", "HTML formatter"],
+    css: ["Formatowanie CSS", "formatowanie kodu CSS", "CSS formatter"],
+    javascript: [
+      "Formatowanie JavaScript",
+      "minimalizacja JavaScript",
+      "JavaScript formatter",
+    ],
+    sql: ["Formatowanie SQL", "formatowanie zapytań SQL", "SQL formatter"],
+    subnet: ["Kalkulator podsieci IPv4", "kalkulator CIDR", "maska podsieci"],
+  },
   f: [
     "Operacja",
     "Formatuj",
