@@ -140,13 +140,13 @@ const packs: Record<Locale, LocalPack> = {
       newImage: "다른 이미지 열기",
       optionsLabel: "해상도 높이기 설정",
       modeLabel: "AI 모델",
-      modeOptions: { fast: "경량", quality: "고화질" },
+      modeOptions: { fast: "경량", quality: "정밀" },
       modeHints: {
         fast: "2배·4배에 맞는 경량 모델 · 폭넓은 브라우저 호환",
         quality: "52.8MB · 더 세밀한 결과, WebGPU 전용",
       },
       qualityUnavailable:
-        "고화질 모드는 WebGPU가 필요해 이 브라우저에서는 사용할 수 없습니다.",
+        "정밀 모드는 WebGPU가 필요해 이 브라우저에서는 사용할 수 없습니다.",
       scaleLabel: "확대 배율",
       formatLabel: "저장 형식",
       formatOptions: { png: "PNG", jpeg: "JPEG" },
@@ -192,7 +192,7 @@ const packs: Record<Locale, LocalPack> = {
         "AI 모델로 이미지 해상도를 2배 또는 4배 높이고, 비교한 뒤 결과를 내려받으세요.",
       mobileDescription: "AI 모델로 이미지를 2배 또는 4배 업스케일하세요.",
       guide:
-        "이미지 한 장을 선택하고 경량 또는 WebGPU 고화질 모델과 2배·4배 배율을 고르세요. 최초 모델 다운로드를 확인한 뒤 결과를 원본과 비교하고 PNG 또는 JPEG로 저장할 수 있습니다.",
+        "이미지 한 장을 선택하고 경량 또는 WebGPU 정밀 모델과 2배·4배 배율을 고르세요. 최초 모델 다운로드를 확인한 뒤 결과를 원본과 비교하고 PNG 또는 JPEG로 저장할 수 있습니다.",
       terms: [
         "이미지 해상도 높이기",
         "사진 해상도 높이기",
