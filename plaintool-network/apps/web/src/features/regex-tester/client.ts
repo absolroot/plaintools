@@ -64,13 +64,13 @@ function init(root: HTMLElement): void {
   const status = root.querySelector<HTMLElement>("[data-status]")!;
   const resultCount = root.querySelector<HTMLElement>("[data-result-count]")!;
   const textCount = root.querySelector<HTMLElement>("[data-text-count]")!;
-  const replace = root.querySelector<HTMLButtonElement>("[data-replace]")!;
   const copy = root.querySelector<HTMLButtonElement>("[data-copy-result]")!;
   const t = readClientCopy<RegexTesterCopy>(root);
 
   let revision = 0;
   let debounceTimer: number | undefined;
   let workingTimer: number | undefined;
+  let replacementTimer: number | undefined;
   let activeOperation: RegexRunContext["operation"] | undefined;
   let visibleMatches: RegexMatch[] = [];
 
@@ -83,8 +83,10 @@ function init(root: HTMLElement): void {
   const clearTimers = () => {
     if (debounceTimer !== undefined) window.clearTimeout(debounceTimer);
     if (workingTimer !== undefined) window.clearTimeout(workingTimer);
+    if (replacementTimer !== undefined) window.clearTimeout(replacementTimer);
     debounceTimer = undefined;
     workingTimer = undefined;
+    replacementTimer = undefined;
   };
 
   const clearResults = (message: string) => {
@@ -172,7 +174,6 @@ function init(root: HTMLElement): void {
       showReplacement.hidden = true;
       replacementPanel.hidden = true;
       replacementPanel.open = false;
-      replace.disabled = true;
       setToolStatus(root, status, t.invalid, "error");
       return;
     }
@@ -186,7 +187,6 @@ function init(root: HTMLElement): void {
     resultCount.textContent = result.truncated
       ? count + " · " + t.tooManyMatches
       : count;
-    replace.disabled = result.matches.length === 0;
     showReplacement.hidden = result.matches.length === 0;
     setToolStatus(
       root,
@@ -240,7 +240,6 @@ function init(root: HTMLElement): void {
       clearTimers();
       clearResults(t.processingFailed);
       results.hidden = false;
-      replace.disabled = true;
       setToolStatus(root, status, t.processingFailed, "error");
     },
   });
@@ -259,7 +258,6 @@ function init(root: HTMLElement): void {
   const validateInputs = (includeReplacement: boolean): boolean => {
     if (!expression.value) {
       clearResults(t.enterExpression);
-      replace.disabled = true;
       setToolStatus(root, status, t.enterExpression);
       return false;
     }
@@ -268,7 +266,6 @@ function init(root: HTMLElement): void {
       text.value.length > MAX_REGEX_TEXT_LENGTH
     ) {
       clearResults(t.inputTooLarge);
-      replace.disabled = true;
       setToolStatus(root, status, t.inputTooLarge, "error");
       return false;
     }
@@ -334,8 +331,17 @@ function init(root: HTMLElement): void {
       clearTimers();
       runner.cancel();
     }
-    if (replacement.value.length > MAX_REGEX_REPLACEMENT_LENGTH)
+    if (replacement.value.length > MAX_REGEX_REPLACEMENT_LENGTH) {
       setToolStatus(root, status, t.replacementTooLarge, "error");
+      return;
+    }
+    if (replacementTimer !== undefined) window.clearTimeout(replacementTimer);
+    if (!replacementPanel.hidden && visibleMatches.length) {
+      replacementTimer = window.setTimeout(() => {
+        replacementTimer = undefined;
+        if (!replacementPanel.hidden && visibleMatches.length) runReplacement();
+      }, EVALUATION_DEBOUNCE_MS);
+    }
   });
 
   root
@@ -343,7 +349,7 @@ function init(root: HTMLElement): void {
     .addEventListener("click", () => {
       expression.value = "\\b(hello|world)\\b";
       text.value = "Hello, world! hello again.";
-      replacement.value = "[$1]";
+      replacement.value = t.replacementSample;
       queueEvaluation();
       expression.focus();
     });
@@ -360,12 +366,11 @@ function init(root: HTMLElement): void {
       clearResults(t.ready);
       hideRunPanels();
       textCount.textContent = "0";
-      replace.disabled = true;
       setToolStatus(root, status, t.ready);
       expression.focus();
     });
 
-  replace.addEventListener("click", () => {
+  const runReplacement = () => {
     revision += 1;
     activeOperation = undefined;
     clearTimers();
@@ -375,12 +380,12 @@ function init(root: HTMLElement): void {
     activeOperation = "replace";
     runner.submit(currentContext("replace"));
     setToolStatus(root, status, t.evaluating, "working");
-  });
+  };
 
   showReplacement.addEventListener("click", () => {
     replacementPanel.hidden = false;
     replacementPanel.open = true;
-    if (replacement.value) replace.click();
+    if (replacement.value) runReplacement();
     else replacement.focus();
   });
 

@@ -35,9 +35,9 @@ export type RegexTesterCopy = {
   testTextPlaceholder: string;
   replacementLabel: string;
   replacementPlaceholder: string;
+  replacementSample: string;
   replacementOutputLabel: string;
   replacementOutputPlaceholder: string;
-  replaceAction: string;
   resultsLabel: string;
   ready: string;
   enterExpression: string;
