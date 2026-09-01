@@ -99,16 +99,14 @@ const structuredData = [
               >
             </div>
           </div>
-          <textarea
+          <input
             id="travel-url"
             data-travel-url
-            rows="6"
             spellcheck="false"
             autocomplete="off"
-            placeholder={copy.urlPlaceholder}></textarea>
-          <p class="travel-link-lab-input-note">
-            {copy.urlNote}
-          </p>
+            type="url"
+            placeholder={copy.urlPlaceholder}
+          />
         </section>
       </div>
       <div class="converter-commandbar">
@@ -131,32 +129,6 @@ const structuredData = [
         <div>
           <h2 id="travel-results-title">{copy.resultsTitle}</h2>
           <p data-travel-result-summary>{copy.resultsDescription}</p>
-        </div>
-      </div>
-      <div class="travel-link-filter-set">
-        <div>
-          <p class="travel-link-filter-label">{copy.routeLabel}</p>
-          <nav class="travel-link-filters" aria-label={copy.routeLabel}>
-            <button
-              type="button"
-              class="is-active"
-              data-route-filter="all"
-              aria-pressed="true">{copy.allRoutes}</button
-            >
-            <button type="button" data-route-filter="hotel" aria-pressed="false"
-              >{copy.hotelRoutes}</button
-            >
-            <button
-              type="button"
-              data-route-filter="official"
-              aria-pressed="false">{copy.officialRoutes}</button
-            >
-            <button
-              type="button"
-              data-route-filter="search"
-              aria-pressed="false">{copy.searchRoutes}</button
-            >
-          </nav>
         </div>
       </div>
       <div class="travel-link-result-list" data-travel-grid></div>
@@ -196,7 +168,7 @@ const structuredData = [
       string,
       string
     >;
-    const input = root.querySelector<HTMLTextAreaElement>("[data-travel-url]")!;
+    const input = root.querySelector<HTMLInputElement>("[data-travel-url]")!;
     const generate = root.querySelector<HTMLButtonElement>("[data-generate]")!;
     const clear = root.querySelector<HTMLButtonElement>("[data-clear]")!;
     const market = root.querySelector<HTMLSelectElement>(
@@ -207,9 +179,6 @@ const structuredData = [
       "[data-travel-results]",
     )!;
     const grid = document.querySelector<HTMLElement>("[data-travel-grid]")!;
-    const routeFilters = [
-      ...document.querySelectorAll<HTMLButtonElement>("[data-route-filter]"),
-    ];
     const decodeCatalog = (encoded?: string): Candidate[] => {
       if (!encoded) return [];
       try {
@@ -925,7 +894,6 @@ const structuredData = [
     };
     let activeHotel: URL | null = null;
     let activeMarket = market.value;
-    let activeRoute = "all";
     const groupLabels: Record<"hotel" | "search" | "official", string> = {
       hotel: copy.hotelGroup,
       search: copy.searchGroup,
@@ -933,12 +901,7 @@ const structuredData = [
     };
     const candidateMatches = (candidate: Candidate) => {
       const marketMatches = candidate.market === activeMarket;
-      const routeMatches =
-        activeRoute === "all" ||
-        (activeRoute === "hotel" && candidate.preservesHotel) ||
-        (activeRoute === "official" && candidate.routeKind === "official") ||
-        (activeRoute === "search" && candidate.routeKind === "search");
-      return marketMatches && routeMatches;
+      return marketMatches;
     };
     const renderResults = () => {
       if (!activeHotel) return;
@@ -1016,12 +979,6 @@ const structuredData = [
       }
       activeHotel = hotel;
       activeMarket = market.value;
-      activeRoute = "all";
-      routeFilters.forEach((button) => {
-        const active = button.dataset.routeFilter === activeRoute;
-        button.classList.toggle("is-active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
       renderResults();
       results.hidden = false;
       root.classList.remove("has-error", "is-success");
@@ -1056,17 +1013,5 @@ const structuredData = [
     input.addEventListener("input", () => {
       root.classList.remove("has-error");
     });
-    routeFilters.forEach((button) =>
-      button.addEventListener("click", () => {
-        if (!activeHotel) return;
-        activeRoute = button.dataset.routeFilter ?? "all";
-        routeFilters.forEach((candidate) => {
-          const active = candidate === button;
-          candidate.classList.toggle("is-active", active);
-          candidate.setAttribute("aria-pressed", String(active));
-        });
-        renderResults();
-      }),
-    );
   }
 </script>

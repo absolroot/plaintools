@@ -40,24 +40,24 @@ export type TravelLinkCopy = {
 
 export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
   en: {
-    title: "Compare Agoda hotel offer links | AbsolTools",
+    title: "Find the lowest Agoda hotel price | AbsolTools",
     description:
-      "Create Agoda hotel links for the selected card-issuing market. Prices are not fetched.",
-    heading: "Compare Agoda hotel offer links",
+      "Compare card and partner routes from one Agoda hotel link to find the lowest price.",
+    heading: "Find the lowest Agoda hotel price",
     intro:
-      "Choose the card-issuing market, then open the routes you want in Agoda.",
-    workspaceTitle: "Hotel links",
-    workspaceDescription: "No price lookup. Open only the routes you choose.",
+      "Choose your card market, then compare the displayed prices across Agoda routes.",
+    workspaceTitle: "Lowest-price comparison",
+    workspaceDescription: "One hotel link, multiple card and partner routes.",
     marketLabel: "Card issuing country or region",
     marketPlaceholder: "Choose country or region",
     hotelUrlLabel: "Agoda hotel URL",
     clear: "Clear",
     urlPlaceholder: "agoda.com/... or https://www.agoda.com/...",
     urlNote: "Existing CID and tracking parameters are not kept.",
-    generate: "Create links",
-    resultsTitle: "Hotel links",
+    generate: "Compare lowest prices",
+    resultsTitle: "Compare Agoda prices",
     resultsDescription:
-      "Open a route in Agoda and check the applicable terms there.",
+      "Open each route in Agoda to compare the displayed price and terms.",
     routeLabel: "Route type",
     allRoutes: "All",
     hotelRoutes: "Hotel links",
@@ -75,7 +75,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     doesNotPreserveHotel: "Does not keep the hotel URL",
     eligibility: "Check card eligibility and terms",
     openOfficial: "Open official offer",
-    openAgoda: "Open in Agoda",
+    openAgoda: "See Agoda price",
     paymentTitle: "Before you book",
     paymentDescription:
       "Eligibility, payment currency, property and booking dates vary by route.",
@@ -95,23 +95,24 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   ko: {
-    title: "아고다 호텔 혜택 링크 비교 | AbsolTools",
+    title: "아고다 최저가 찾기 | AbsolTools",
     description:
-      "카드 발급 국가·지역에 맞는 아고다 호텔 링크를 만듭니다. 가격은 조회하지 않습니다.",
-    heading: "아고다 호텔 혜택 링크 비교",
+      "호텔 링크 하나로 카드·제휴 경로를 비교해 아고다 최저가를 찾아보세요.",
+    heading: "아고다 최저가 찾기",
     intro:
-      "카드 발급 국가·지역을 고른 뒤 원하는 경로만 아고다에서 직접 확인하세요.",
-    workspaceTitle: "호텔 링크",
-    workspaceDescription: "가격 조회 없이, 원하는 경로만 직접 엽니다.",
+      "카드 발급 국가를 고르고, 여러 경로에서 표시 가격을 직접 비교하세요.",
+    workspaceTitle: "최저가 비교 시작",
+    workspaceDescription: "호텔 링크 하나로 카드·제휴 경로를 모아 비교합니다.",
     marketLabel: "카드 발급 국가·지역",
     marketPlaceholder: "국가·지역 선택",
     hotelUrlLabel: "아고다 호텔 URL",
     clear: "지우기",
     urlPlaceholder: "agoda.com/... 또는 https://www.agoda.com/...",
     urlNote: "기존 CID와 추적값은 새 링크에 포함하지 않습니다.",
-    generate: "링크 만들기",
-    resultsTitle: "호텔 링크",
-    resultsDescription: "아고다에서 경로를 열고 적용 조건을 직접 확인하세요.",
+    generate: "최저가 비교하기",
+    resultsTitle: "아고다 가격 비교",
+    resultsDescription:
+      "각 경로를 열어 표시 가격과 예약 조건을 직접 비교하세요.",
     routeLabel: "경로 방식",
     allRoutes: "전체",
     hotelRoutes: "호텔 링크",
@@ -129,7 +130,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     doesNotPreserveHotel: "입력한 호텔 URL 미유지",
     eligibility: "카드 대상과 조건 확인",
     openOfficial: "공식 혜택 보기",
-    openAgoda: "아고다에서 확인",
+    openAgoda: "아고다 가격 보기",
     paymentTitle: "예약 전 확인",
     paymentDescription:
       "카드 대상, 결제 통화, 숙소와 예약 기간은 경로마다 다릅니다.",
@@ -149,10 +150,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   es: {
-    title: "Compara enlaces de hoteles de Agoda | AbsolTools",
+    title: "Encuentra el precio más bajo en Agoda | AbsolTools",
     description:
       "Crea enlaces de hoteles de Agoda para el mercado emisor de tu tarjeta.",
-    heading: "Compara enlaces de hoteles de Agoda",
+    heading: "Encuentra el precio más bajo en Agoda",
     intro:
       "Elige el país emisor de la tarjeta y abre las rutas que quieras en Agoda.",
     workspaceTitle: "Enlaces de hotel",
@@ -205,10 +206,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   de: {
-    title: "Agoda-Hotellinks vergleichen | AbsolTools",
+    title: "Günstigsten Agoda-Hotelpreis finden | AbsolTools",
     description:
       "Erstellt Agoda-Hotellinks für das gewählte Kartenausgabeland.",
-    heading: "Agoda-Hotellinks vergleichen",
+    heading: "Günstigsten Agoda-Hotelpreis finden",
     intro:
       "Kartenausgabeland wählen und gewünschte Wege direkt bei Agoda öffnen.",
     workspaceTitle: "Hotellinks",
@@ -259,10 +260,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   ja: {
-    title: "アゴダ ホテル特典リンク比較 | AbsolTools",
+    title: "アゴダ最安値を探す | AbsolTools",
     description:
       "カード発行国・地域に合わせたアゴダのホテルリンクを作成します。価格は取得しません。",
-    heading: "アゴダ ホテル特典リンク比較",
+    heading: "アゴダ最安値を探す",
     intro: "カード発行国・地域を選び、必要な経路だけアゴダで直接確認できます。",
     workspaceTitle: "ホテルリンク",
     workspaceDescription: "価格は取得せず、選んだ経路だけを開きます。",
@@ -312,10 +313,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   fr: {
-    title: "Comparer les liens d’hôtels Agoda | AbsolTools",
+    title: "Trouver le meilleur prix Agoda | AbsolTools",
     description:
       "Créez des liens d’hôtels Agoda pour le pays émetteur de votre carte.",
-    heading: "Comparer les liens d’hôtels Agoda",
+    heading: "Trouver le meilleur prix Agoda",
     intro:
       "Choisissez le pays émetteur de la carte puis ouvrez les parcours souhaités dans Agoda.",
     workspaceTitle: "Liens d’hôtel",
@@ -368,10 +369,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   "pt-BR": {
-    title: "Compare links de hotéis da Agoda | AbsolTools",
+    title: "Encontre o menor preço na Agoda | AbsolTools",
     description:
       "Crie links de hotéis da Agoda para o país emissor do cartão selecionado.",
-    heading: "Compare links de hotéis da Agoda",
+    heading: "Encontre o menor preço na Agoda",
     intro:
       "Escolha o país emissor do cartão e abra as rotas desejadas na Agoda.",
     workspaceTitle: "Links de hotel",
@@ -423,10 +424,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   it: {
-    title: "Confronta i link degli hotel Agoda | AbsolTools",
+    title: "Trova il prezzo Agoda più basso | AbsolTools",
     description:
       "Crea link degli hotel Agoda per il paese di emissione della carta.",
-    heading: "Confronta i link degli hotel Agoda",
+    heading: "Trova il prezzo Agoda più basso",
     intro:
       "Scegli il paese di emissione della carta e apri i percorsi desiderati in Agoda.",
     workspaceTitle: "Link hotel",
@@ -479,10 +480,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   nl: {
-    title: "Agoda-hotellinks vergelijken | AbsolTools",
+    title: "Vind de laagste Agoda-hotelprijs | AbsolTools",
     description:
       "Maak Agoda-hotellinks voor het gekozen uitgifteland van de kaart.",
-    heading: "Agoda-hotellinks vergelijken",
+    heading: "Vind de laagste Agoda-hotelprijs",
     intro:
       "Kies het uitgifteland van de kaart en open gewenste routes in Agoda.",
     workspaceTitle: "Hotellinks",
@@ -534,9 +535,9 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   sv: {
-    title: "Jämför Agoda-hotellänkar | AbsolTools",
+    title: "Hitta lägsta Agoda-hotellpriset | AbsolTools",
     description: "Skapa Agoda-hotellänkar för valt kortutgivningsland.",
-    heading: "Jämför Agoda-hotellänkar",
+    heading: "Hitta lägsta Agoda-hotellpriset",
     intro: "Välj kortets utfärdandeland och öppna önskade vägar i Agoda.",
     workspaceTitle: "Hotellänkar",
     workspaceDescription: "Ingen prisuppslagning. Öppna bara valda vägar.",
@@ -586,10 +587,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   cs: {
-    title: "Porovnání odkazů na hotely Agoda | AbsolTools",
+    title: "Najděte nejnižší cenu hotelu na Agoda | AbsolTools",
     description:
       "Vytvořte odkazy na hotely Agoda pro zvolenou zemi vydání karty.",
-    heading: "Porovnání odkazů na hotely Agoda",
+    heading: "Najděte nejnižší cenu hotelu na Agoda",
     intro: "Zvolte zemi vydání karty a otevřete požadované cesty v Agoda.",
     workspaceTitle: "Odkazy na hotely",
     workspaceDescription: "Ceny nevyhledáváme. Otevřete jen vybrané cesty.",
@@ -639,10 +640,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   pl: {
-    title: "Porównaj linki do hoteli Agoda | AbsolTools",
+    title: "Znajdź najniższą cenę hotelu Agoda | AbsolTools",
     description:
       "Twórz linki do hoteli Agoda dla wybranego kraju wydania karty.",
-    heading: "Porównaj linki do hoteli Agoda",
+    heading: "Znajdź najniższą cenę hotelu Agoda",
     intro: "Wybierz kraj wydania karty i otwórz wybrane ścieżki w Agoda.",
     workspaceTitle: "Linki do hoteli",
     workspaceDescription: "Nie pobieramy cen. Otwieraj tylko wybrane ścieżki.",
@@ -691,9 +692,9 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   da: {
-    title: "Sammenlign Agoda-hotellinks | AbsolTools",
+    title: "Find den laveste Agoda-hotelpris | AbsolTools",
     description: "Opret Agoda-hotellinks for det valgte kortudstedelsesland.",
-    heading: "Sammenlign Agoda-hotellinks",
+    heading: "Find den laveste Agoda-hotelpris",
     intro: "Vælg kortets udstedelsesland og åbn de ønskede ruter i Agoda.",
     workspaceTitle: "Hotellinks",
     workspaceDescription: "Ingen prisopslag. Åbn kun de valgte ruter.",
@@ -742,9 +743,9 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   no: {
-    title: "Sammenlign Agoda-hotellenker | AbsolTools",
+    title: "Finn den laveste Agoda-hotellprisen | AbsolTools",
     description: "Opprett Agoda-hotellenker for valgt kortutstedelsesland.",
-    heading: "Sammenlign Agoda-hotellenker",
+    heading: "Finn den laveste Agoda-hotellprisen",
     intro: "Velg kortets utstedelsesland og åpne ønskede ruter i Agoda.",
     workspaceTitle: "Hotellenker",
     workspaceDescription: "Ingen prissjekk. Åpne bare rutene du velger.",
@@ -794,9 +795,9 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   ar: {
-    title: "مقارنة روابط عروض فنادق أجودا | AbsolTools",
+    title: "اعثر على أقل سعر لفندق أجودا | AbsolTools",
     description: "أنشئ روابط فنادق أجودا حسب بلد إصدار البطاقة المحدد.",
-    heading: "مقارنة روابط عروض فنادق أجودا",
+    heading: "اعثر على أقل سعر لفندق أجودا",
     intro: "اختر بلد إصدار البطاقة ثم افتح المسارات التي تريدها في أجودا.",
     workspaceTitle: "روابط الفندق",
     workspaceDescription: "لا نبحث عن الأسعار. افتح المسارات التي تختارها فقط.",
@@ -846,9 +847,9 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   "zh-TW": {
-    title: "Agoda 飯店優惠連結比較 | AbsolTools",
+    title: "尋找 Agoda 飯店最低價 | AbsolTools",
     description: "依選定的發卡國家或地區建立 Agoda 飯店連結，不查詢價格。",
-    heading: "Agoda 飯店優惠連結比較",
+    heading: "尋找 Agoda 飯店最低價",
     intro: "先選擇發卡國家或地區，再直接到 Agoda 查看需要的路徑。",
     workspaceTitle: "飯店連結",
     workspaceDescription: "不查價格，只開啟你選擇的路徑。",
@@ -896,10 +897,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   tr: {
-    title: "Agoda otel fırsat bağlantılarını karşılaştırın | AbsolTools",
+    title: "En düşük Agoda otel fiyatını bulun | AbsolTools",
     description:
       "Seçilen kart düzenleme ülkesi için Agoda otel bağlantıları oluşturun.",
-    heading: "Agoda otel fırsat bağlantılarını karşılaştırın",
+    heading: "En düşük Agoda otel fiyatını bulun",
     intro:
       "Kartın düzenlendiği ülkeyi seçin ve istediğiniz yolları Agoda’da açın.",
     workspaceTitle: "Otel bağlantıları",

@@ -9,8 +9,7 @@
 .travel-link-lab-topbar strong {
   font-size: 13px;
 }
-.travel-link-lab-topbar span,
-.travel-link-lab-input-note {
+.travel-link-lab-topbar span {
   margin: 0;
   color: var(--muted);
   font-size: 12px;
@@ -43,14 +42,20 @@
   font: inherit;
 }
 .travel-link-lab-input {
-  min-height: 280px;
-  background: var(--input-surface);
+  min-height: 0;
+  background: var(--elevated);
 }
-.travel-link-lab .editor-pane textarea {
-  min-height: 184px;
-}
-.travel-link-lab-input-note {
-  padding: 0 var(--space-4) var(--space-4);
+.travel-link-lab .editor-pane input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--control-line);
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--elevated);
+  font: inherit;
 }
 .travel-link-lab.converter.is-success .converter-commandbar,
 .travel-link-lab.converter.has-error .converter-commandbar {
@@ -216,9 +221,6 @@
   .travel-link-lab-topbar {
     align-items: flex-start;
     flex-direction: column;
-  }
-  .travel-link-lab .editor-pane textarea {
-    min-height: 176px;
   }
   .travel-link-results {
     padding: var(--space-3);
