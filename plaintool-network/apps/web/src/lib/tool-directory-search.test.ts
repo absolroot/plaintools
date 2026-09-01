@@ -109,6 +109,23 @@ describe("tool directory search catalog", () => {
       "conversor de timestamp Unix",
     );
   });
+
+  it("keeps Korean data-converter queries directional and task-specific", () => {
+    const expectedTerms = {
+      "csv-to-markdown": "CSV를 Markdown 표로 변환",
+      "markdown-to-csv": "Markdown 표를 CSV로 변환",
+      "json-to-csv": "JSON을 CSV로 변환",
+      "csv-to-json": "CSV를 JSON으로 변환",
+      "html-to-markdown": "HTML을 Markdown으로 변환",
+      "markdown-to-html": "Markdown을 HTML로 변환",
+    } as const;
+
+    for (const [id, term] of Object.entries(expectedTerms)) {
+      const tool = toolCatalog.find((candidate) => candidate.id === id);
+      expect(tool, `Expected ${id} catalog entry.`).toBeDefined();
+      expect(tool?.searchTerms.ko).toContain(term);
+    }
+  });
 });
 
 describe("tool directory search matching", () => {

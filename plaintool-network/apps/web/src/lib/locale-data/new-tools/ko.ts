@@ -344,7 +344,11 @@ const seed = {
       inputLabel: "CSV 입력",
       outputLabel: "Markdown 표",
       inputPlaceholder: "이름,점수\n민지,92",
-      terms: ["CSV to Markdown", "마크다운 표", "CSV 변환"],
+      terms: [
+        "CSV를 Markdown 표로 변환",
+        "마크다운 표 변환",
+        "CSV to Markdown",
+      ],
     },
     "markdown-to-csv": {
       title: "Markdown → CSV 변환기",
@@ -355,7 +359,11 @@ const seed = {
       inputLabel: "Markdown 표",
       outputLabel: "CSV 결과",
       inputPlaceholder: "| 이름 | 점수 |\n| --- | --- |\n| 민지 | 92 |",
-      terms: ["Markdown to CSV", "표 CSV 변환", "마크다운 변환"],
+      terms: [
+        "Markdown 표를 CSV로 변환",
+        "마크다운 표 CSV 변환",
+        "Markdown to CSV",
+      ],
     },
     "json-to-csv": {
       title: "JSON → CSV 변환기",
@@ -366,7 +374,7 @@ const seed = {
       inputLabel: "JSON 배열",
       outputLabel: "CSV 결과",
       inputPlaceholder: '[{"이름":"민지","점수":92}]',
-      terms: ["JSON to CSV", "JSON 배열 CSV", "데이터 변환"],
+      terms: ["JSON을 CSV로 변환", "JSON 배열 CSV 변환", "JSON to CSV"],
     },
     "csv-to-json": {
       title: "CSV → JSON 변환기",
@@ -377,7 +385,7 @@ const seed = {
       inputLabel: "CSV 입력",
       outputLabel: "JSON 배열",
       inputPlaceholder: "이름,점수\n민지,92",
-      terms: ["CSV to JSON", "CSV 파서", "JSON 배열"],
+      terms: ["CSV를 JSON으로 변환", "CSV JSON 변환", "CSV to JSON"],
     },
     "html-to-markdown": {
       title: "HTML → Markdown 변환기",
@@ -388,7 +396,11 @@ const seed = {
       inputLabel: "HTML 입력",
       outputLabel: "Markdown 결과",
       inputPlaceholder: "<h1>제목</h1><p><strong>내용</strong>입니다.</p>",
-      terms: ["HTML to Markdown", "HTML 변환", "마크다운 변환"],
+      terms: [
+        "HTML을 Markdown으로 변환",
+        "HTML 마크다운 변환",
+        "HTML to Markdown",
+      ],
     },
     "markdown-to-html": {
       title: "Markdown → HTML 변환기",
@@ -399,7 +411,11 @@ const seed = {
       inputLabel: "Markdown 입력",
       outputLabel: "HTML 결과",
       inputPlaceholder: "# 제목\n\n**내용**입니다.",
-      terms: ["Markdown to HTML", "마크다운 렌더러", "GFM"],
+      terms: [
+        "Markdown을 HTML로 변환",
+        "마크다운 HTML 변환",
+        "Markdown to HTML",
+      ],
     },
   },
 } satisfies NewToolLocaleSeed;
