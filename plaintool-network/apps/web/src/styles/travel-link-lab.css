@@ -1,5 +1,11 @@
+.travel-link-hero {
+  width: min(560px, 100%);
+  margin-inline: auto;
+  text-align: center;
+}
 .travel-link-lab {
   width: min(560px, 100%);
+  margin-inline: auto;
 }
 .travel-link-lab-input-panel {
   display: grid;
@@ -101,6 +107,7 @@
 .travel-link-results {
   width: min(720px, 100%);
   min-width: 0;
+  margin-inline: auto;
   padding: var(--space-4);
   display: grid;
   gap: var(--space-4);
