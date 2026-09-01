@@ -22,7 +22,7 @@ export const GET: APIRoute = () => {
     "## Policies and contact",
     `- [About](${absoluteUrl(localizedPath("en", "about"))})`,
     `- [Privacy](${absoluteUrl(localizedPath("en", "privacy"))})`,
-    `- [Contact](${absoluteUrl(localizedPath("en", "contact"))}) — independent developer: [superphil722@gmail.com](mailto:superphil722@gmail.com)`,
+    `- [Contact](${absoluteUrl(localizedPath("en", "contact"))}) — independent developer: [admin@absoltools.com](mailto:admin@absoltools.com)`,
     "",
     "## Full public inventory",
     `- [XML sitemap](${absoluteUrl("/sitemap.xml")}) contains the complete locale and public-tool inventory.`,

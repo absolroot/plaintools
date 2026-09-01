@@ -310,7 +310,7 @@ export function resolveDeploymentConfig(env, target, capabilities) {
     operator: {
       name:
         values.PUBLIC_OPERATOR_NAME || "[Operator name required before launch]",
-      email: values.PUBLIC_CONTACT_EMAIL || "superphil722@gmail.com",
+      email: values.PUBLIC_CONTACT_EMAIL || "admin@absoltools.com",
       region:
         values.PUBLIC_OPERATOR_REGION ||
         "[Operator region required before launch]",
