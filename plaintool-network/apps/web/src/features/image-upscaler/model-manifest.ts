@@ -1,5 +1,5 @@
 import type { BrowserModelPart } from "../../lib/browser-model/model-integrity";
-import type { UpscalerMode, UpscaleScale } from "./contract";
+import type { UpscaleBackend, UpscalerMode, UpscaleScale } from "./contract";
 
 type UpscalerManifestEntry = {
   name: string;
@@ -8,7 +8,7 @@ type UpscalerManifestEntry = {
   parts: readonly BrowserModelPart[];
   dtype: "q8" | "fp32";
   nativeScale: UpscaleScale;
-  initialTileSize: number;
+  tileSize: Record<UpscaleBackend, number>;
 };
 
 const lightweight2x = {
@@ -25,7 +25,7 @@ const lightweight2x = {
   ],
   dtype: "q8",
   nativeScale: 2,
-  initialTileSize: 256,
+  tileSize: { wasm: 256, webgpu: 512 },
 } as const satisfies UpscalerManifestEntry;
 
 const realworld4xCompact = {
@@ -42,7 +42,7 @@ const realworld4xCompact = {
   ],
   dtype: "q8",
   nativeScale: 4,
-  initialTileSize: 64,
+  tileSize: { wasm: 64, webgpu: 256 },
 } as const satisfies UpscalerManifestEntry;
 
 const realworld4xQuality = {
@@ -71,7 +71,7 @@ const realworld4xQuality = {
   ],
   dtype: "fp32",
   nativeScale: 4,
-  initialTileSize: 256,
+  tileSize: { wasm: 256, webgpu: 256 },
 } as const satisfies UpscalerManifestEntry;
 
 export const upscalerModelManifest = {
@@ -93,6 +93,14 @@ export function upscalerModelEntry(
   scale: UpscaleScale,
 ): UpscalerManifestEntry {
   return upscalerModelManifest[mode][scale];
+}
+
+export function upscalerTileSize(
+  mode: UpscalerMode,
+  scale: UpscaleScale,
+  backend: UpscaleBackend,
+): number {
+  return upscalerModelEntry(mode, scale).tileSize[backend];
 }
 
 export function modelTransferLabel(

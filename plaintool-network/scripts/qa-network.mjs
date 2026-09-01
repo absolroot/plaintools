@@ -42,7 +42,10 @@ const publicTools = indexableTools.map((tool) => tool.slug);
 const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
 const robots = await readFile(join(dist, "robots.txt"), "utf8");
 const llms = await readFile(join(dist, "llms.txt"), "utf8");
-const headers = await readFile(join(dist, "_headers"), "utf8");
+const headers = (await readFile(join(dist, "_headers"), "utf8")).replace(
+  /\r\n/gu,
+  "\n",
+);
 const redirects = await readFile(join(dist, "_redirects"), "utf8");
 const googleConsentInit = config.integrations.ga4MeasurementId
   ? await readFile(join(dist, "google-consent-init.js"), "utf8")

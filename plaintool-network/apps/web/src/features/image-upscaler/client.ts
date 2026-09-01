@@ -19,7 +19,10 @@ import {
   outputFilename,
   validateOutputDimensions,
 } from "./image";
-import { modelTransferLabel, upscalerModelEntry } from "./model-manifest";
+import {
+  modelTransferLabel,
+  upscalerTileSize,
+} from "./model-manifest";
 import {
   runTransformersUpscale,
   type InferenceProgress,
@@ -198,7 +201,7 @@ document
         'input[name="upscaler-format"]:checked',
       )!.value as UpscaleFormat;
     const selectedBackend = (): UpscaleBackend =>
-      selectedMode() === "quality" ? "webgpu" : "wasm";
+      webgpuSupported ? "webgpu" : "wasm";
 
     function hideProgress(): void {
       progressWrap.hidden = true;
@@ -270,6 +273,10 @@ document
       return worker;
     }
 
+    function runInWorker(request: UpscaleRequest): void {
+      ensureWorker().postMessage(request, [request.rgba.buffer]);
+    }
+
     async function runOnMain(
       request: UpscaleRequest,
       backend: UpscaleBackend,
@@ -293,6 +300,14 @@ document
         setStatus(copy.completed, "success");
       } catch {
         if (runRevision !== revision || request.requestId !== activeRequestId) {
+          return;
+        }
+        if (backend === "webgpu" && request.mode === "fast") {
+          setStatus(copy.processingImage, "working");
+          runInWorker({
+            ...request,
+            tileSize: upscalerTileSize(request.mode, request.scale, "wasm"),
+          });
           return;
         }
         finishFailure(copy.processingFailed);
@@ -326,8 +341,11 @@ document
             rgba: fallbackPixels,
             width: sourcePixels.width,
             height: sourcePixels.height,
-            tileSize: upscalerModelEntry(selectedMode(), selectedScale())
-              .initialTileSize,
+            tileSize: upscalerTileSize(
+              selectedMode(),
+              selectedScale(),
+              "wasm",
+            ),
           },
           "wasm",
           revision,
@@ -460,10 +478,10 @@ document
         rgba: pixels,
         width: sourcePixels.width,
         height: sourcePixels.height,
-        tileSize: upscalerModelEntry(mode, selectedScale()).initialTileSize,
+        tileSize: upscalerTileSize(mode, selectedScale(), backend),
       };
       if (backend === "wasm") {
-        ensureWorker().postMessage(request, [pixels.buffer]);
+        runInWorker(request);
       } else {
         void runOnMain(request, backend, runRevision);
       }

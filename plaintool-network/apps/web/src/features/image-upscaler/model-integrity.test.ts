@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { upscalerModelEntry } from "./model-manifest";
+import { upscalerModelEntry, upscalerTileSize } from "./model-manifest";
 
 describe("image upscaler model assets", () => {
   it("uses the direct lightweight model only for compact 2x output", () => {
@@ -18,6 +18,13 @@ describe("image upscaler model assets", () => {
     expect(upscalerModelEntry("quality", 2)).toBe(
       upscalerModelEntry("quality", 4),
     );
+  });
+
+  it("uses larger WebGPU tiles without relaxing the WASM memory bounds", () => {
+    expect(upscalerTileSize("fast", 2, "wasm")).toBe(256);
+    expect(upscalerTileSize("fast", 2, "webgpu")).toBe(512);
+    expect(upscalerTileSize("fast", 4, "wasm")).toBe(64);
+    expect(upscalerTileSize("fast", 4, "webgpu")).toBe(256);
   });
 
   it("matches every built part and reconstructed model hash", async () => {
