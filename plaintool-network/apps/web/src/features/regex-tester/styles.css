@@ -186,7 +186,7 @@
   overflow-wrap: anywhere;
 }
 .regex-replacement-panel {
-  margin: 18px 16px 0;
+  margin-top: 24px;
   border: 1px solid var(--line);
   background: var(--surface);
 }
@@ -201,7 +201,12 @@
 .regex-replacement-content {
   display: grid;
   gap: 8px;
-  padding: 0 16px 16px;
+  padding: 0 16px 24px;
+}
+.regex-replacement-help {
+  margin: 0;
+  color: var(--muted);
+  font: 0.8rem/1.45 var(--font-mono);
 }
 .regex-replacement-input,
 .regex-replacement-content textarea {
