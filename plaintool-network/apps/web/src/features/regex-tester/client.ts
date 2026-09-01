@@ -6,6 +6,7 @@ import {
 } from "../../scripts/shared/tool-dom";
 import type {
   RegexEvaluation,
+  RegexMatch,
   RegexTesterCopy,
   RegexWorkerReply,
   RegexWorkerRequest,
@@ -34,7 +35,7 @@ function fill(
   values: Record<string, string | number>,
 ): string {
   return Object.entries(values).reduce(
-    (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
+    (result, [key, value]) => result.replaceAll("{" + key + "}", String(value)),
     template,
   );
 }
@@ -45,14 +46,14 @@ function init(root: HTMLElement): void {
 
   const expression = root.querySelector<HTMLInputElement>("[data-expression]")!;
   const text = root.querySelector<HTMLTextAreaElement>("[data-text]")!;
+  const highlight = root.querySelector<HTMLElement>("[data-highlight]")!;
+  const inspector = root.querySelector<HTMLElement>("[data-match-inspector]")!;
   const replacement =
     root.querySelector<HTMLInputElement>("[data-replacement]")!;
   const replacementOutput = root.querySelector<HTMLTextAreaElement>(
     "[data-replacement-output]",
   )!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
-  const list = root.querySelector<HTMLOListElement>("[data-match-list]")!;
-  const empty = root.querySelector<HTMLElement>("[data-empty]")!;
   const resultCount = root.querySelector<HTMLElement>("[data-result-count]")!;
   const textCount = root.querySelector<HTMLElement>("[data-text-count]")!;
   const replace = root.querySelector<HTMLButtonElement>("[data-replace]")!;
@@ -63,6 +64,7 @@ function init(root: HTMLElement): void {
   let debounceTimer: number | undefined;
   let workingTimer: number | undefined;
   let activeOperation: RegexRunContext["operation"] | undefined;
+  let visibleMatches: RegexMatch[] = [];
 
   const flags = () =>
     Array.from(
@@ -78,9 +80,9 @@ function init(root: HTMLElement): void {
   };
 
   const clearResults = (message: string) => {
-    list.replaceChildren();
-    empty.hidden = false;
-    empty.textContent = message;
+    visibleMatches = [];
+    highlight.replaceChildren();
+    inspector.textContent = message;
     resultCount.textContent = message;
   };
 
@@ -89,40 +91,61 @@ function init(root: HTMLElement): void {
     copy.disabled = true;
   };
 
+  const renderHighlight = (matches: RegexMatch[], activeIndex = -1) => {
+    highlight.replaceChildren();
+    let cursor = 0;
+    matches.forEach((match, index) => {
+      highlight.append(
+        document.createTextNode(text.value.slice(cursor, match.index)),
+      );
+      const mark = document.createElement("mark");
+      mark.classList.toggle("is-active", index === activeIndex);
+      mark.textContent = match.value || "∅";
+      highlight.append(mark);
+      cursor = match.index + match.value.length;
+    });
+    highlight.append(document.createTextNode(text.value.slice(cursor)));
+  };
+
+  const renderInspector = (index: number) => {
+    const match = visibleMatches[index];
+    if (!match) {
+      inspector.textContent = t.noMatches;
+      return;
+    }
+    inspector.replaceChildren();
+    const label = document.createElement("strong");
+    label.textContent = fill(t.matchAt, { index: match.index });
+    const value = document.createElement("code");
+    value.textContent = match.value || "∅";
+    inspector.append(label, value);
+    match.groups.forEach((group, groupIndex) => {
+      const part = document.createElement("span");
+      part.textContent = fill(t.group, {
+        index: groupIndex + 1,
+        value: group ?? "∅",
+      });
+      inspector.append(part);
+    });
+    renderHighlight(visibleMatches, index);
+  };
+
   const renderEvaluation = (result: RegexEvaluation) => {
     if (!result.valid) {
       clearResults(t.invalid);
-      resultCount.textContent = t.invalid;
       replace.disabled = true;
       setToolStatus(root, status, t.invalid, "error");
       return;
     }
 
-    empty.hidden = result.matches.length > 0;
-    empty.textContent = t.noMatches;
-    list.replaceChildren(
-      ...result.matches.map((match) => {
-        const item = document.createElement("li");
-        const label = document.createElement("strong");
-        label.textContent = fill(t.matchAt, { index: match.index });
-        const value = document.createElement("code");
-        value.textContent = match.value || "∅";
-        item.append(label, value);
-        match.groups.forEach((group, groupIndex) => {
-          const part = document.createElement("span");
-          part.textContent = fill(t.group, {
-            index: groupIndex + 1,
-            value: group ?? "∅",
-          });
-          item.append(part);
-        });
-        return item;
-      }),
-    );
+    visibleMatches = result.matches;
+    renderHighlight(visibleMatches);
+    if (visibleMatches.length) renderInspector(0);
+    else inspector.textContent = t.noMatches;
 
     const count = fill(t.matchSummary, { count: result.matches.length });
     resultCount.textContent = result.truncated
-      ? `${count} · ${t.tooManyMatches}`
+      ? count + " · " + t.tooManyMatches
       : count;
     replace.disabled = result.matches.length === 0;
     setToolStatus(
@@ -176,7 +199,6 @@ function init(root: HTMLElement): void {
       activeOperation = undefined;
       clearTimers();
       clearResults(t.processingFailed);
-      resultCount.textContent = t.processingFailed;
       replace.disabled = true;
       setToolStatus(root, status, t.processingFailed, "error");
     },
@@ -196,7 +218,6 @@ function init(root: HTMLElement): void {
   const validateInputs = (includeReplacement: boolean): boolean => {
     if (!expression.value) {
       clearResults(t.enterExpression);
-      resultCount.textContent = t.enterExpression;
       replace.disabled = true;
       setToolStatus(root, status, t.enterExpression);
       return false;
@@ -206,7 +227,6 @@ function init(root: HTMLElement): void {
       text.value.length > MAX_REGEX_TEXT_LENGTH
     ) {
       clearResults(t.inputTooLarge);
-      resultCount.textContent = t.inputTooLarge;
       replace.disabled = true;
       setToolStatus(root, status, t.inputTooLarge, "error");
       return false;
@@ -227,6 +247,9 @@ function init(root: HTMLElement): void {
     clearTimers();
     runner.cancel();
     invalidateReplacement();
+    visibleMatches = [];
+    highlight.replaceChildren();
+    inspector.textContent = t.evaluating;
     textCount.textContent = String(text.value.length);
     if (!validateInputs(false)) return;
     const queuedRevision = revision;
@@ -242,10 +265,25 @@ function init(root: HTMLElement): void {
     }, EVALUATION_DEBOUNCE_MS);
   };
 
+  const showSelection = () => {
+    const selectedMatch = visibleMatches.findIndex(
+      (match) =>
+        text.selectionStart >= match.index &&
+        text.selectionStart <= match.index + match.value.length,
+    );
+    if (selectedMatch >= 0) renderInspector(selectedMatch);
+  };
+
   root
     .querySelectorAll<HTMLInputElement>("[data-expression], [data-flags] input")
     .forEach((input) => input.addEventListener("input", queueEvaluation));
   text.addEventListener("input", queueEvaluation);
+  text.addEventListener("select", showSelection);
+  text.addEventListener("click", showSelection);
+  text.addEventListener("scroll", () => {
+    highlight.scrollTop = text.scrollTop;
+    highlight.scrollLeft = text.scrollLeft;
+  });
   replacement.addEventListener("input", () => {
     invalidateReplacement();
     if (activeOperation === "replace") {
@@ -279,7 +317,6 @@ function init(root: HTMLElement): void {
       invalidateReplacement();
       clearResults(t.ready);
       textCount.textContent = "0";
-      resultCount.textContent = t.ready;
       replace.disabled = true;
       setToolStatus(root, status, t.ready);
       expression.focus();

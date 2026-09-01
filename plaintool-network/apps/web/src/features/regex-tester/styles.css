@@ -79,13 +79,48 @@
   color: var(--accent);
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
-.regex-text-pane textarea {
+.regex-text-editor {
+  position: relative;
   min-height: 330px;
-  resize: vertical;
+  overflow: hidden;
+}
+.regex-text-editor pre,
+.regex-text-editor textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 330px;
+  margin: 0;
+  padding: 14px 16px;
   border: 0;
   border-radius: 0;
-  background: transparent;
   font: 0.9rem/1.7 var(--font-mono);
+  letter-spacing: normal;
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.regex-text-editor pre {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: transparent;
+}
+.regex-text-editor pre mark {
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  color: transparent;
+}
+.regex-text-editor pre mark.is-active {
+  background: color-mix(in srgb, var(--accent) 52%, transparent);
+}
+.regex-text-editor textarea {
+  position: relative;
+  z-index: 1;
+  resize: vertical;
+  background: transparent;
+  color: var(--ink);
+  caret-color: var(--ink);
 }
 .pane-heading > span,
 .regex-results-heading > span {
@@ -103,33 +138,27 @@
   padding: 0 16px;
   border-bottom: 1px solid var(--line);
 }
-.regex-results > p {
-  padding: 0 16px;
-  color: var(--muted);
-}
-.regex-results ol {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
-  background: var(--line);
-}
-.regex-results li {
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  gap: 6px 10px;
-  padding: 10px;
-  background: var(--surface);
+.regex-match-inspector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  min-height: 54px;
+  padding: 10px 16px;
+  background: var(--recessed);
   font: 0.8rem/1.45 var(--font-mono);
 }
-.regex-results li span {
-  grid-column: 2;
+.regex-match-inspector strong {
   color: var(--muted);
 }
-.regex-results code {
+.regex-match-inspector span {
+  color: var(--muted);
+}
+.regex-match-inspector code {
+  padding: 2px 5px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  background: var(--surface);
+  color: var(--ink);
   overflow-wrap: anywhere;
 }
 .regex-replacement-panel {
@@ -179,17 +208,10 @@
     width: 44px;
     height: 44px;
   }
-  .regex-text-pane textarea {
+  .regex-text-editor,
+  .regex-text-editor pre,
+  .regex-text-editor textarea {
     min-height: 240px;
-  }
-  .regex-results ol {
-    grid-template-columns: 1fr;
-  }
-  .regex-results li {
-    grid-template-columns: 1fr;
-  }
-  .regex-results li span {
-    grid-column: auto;
   }
   .regex-replace-actions {
     flex-wrap: wrap;

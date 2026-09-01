@@ -60,13 +60,15 @@ const t = localeBundles[locale].tools["regex-tester"]
       <label for="regex-text">{t.testTextLabel}</label><span data-text-count
         >0</span
       >
-    </div><textarea
-      id="regex-text"
-      data-text
-      dir="auto"
-      spellcheck="false"
-      maxlength={MAX_REGEX_TEXT_LENGTH}
-      placeholder={t.testTextPlaceholder}></textarea>
+    </div><div class="regex-text-editor">
+      <pre data-highlight aria-hidden="true"></pre><textarea
+        id="regex-text"
+        data-text
+        dir="auto"
+        spellcheck="false"
+        maxlength={MAX_REGEX_TEXT_LENGTH}
+        placeholder={t.testTextPlaceholder}></textarea>
+    </div>
   </section>
   <p class="visually-hidden" data-status aria-live="polite">{t.ready}</p>
   <section
@@ -77,7 +79,9 @@ const t = localeBundles[locale].tools["regex-tester"]
   >
     <div class="regex-results-heading">
       <strong>{t.resultsLabel}</strong><span data-result-count>{t.ready}</span>
-    </div><p data-empty>{t.ready}</p><ol data-match-list></ol>
+    </div><div class="regex-match-inspector" data-match-inspector>
+      {t.ready}
+    </div>
   </section>
   <details class="regex-replacement-panel">
     <summary>{t.replacementLabel}</summary><div
