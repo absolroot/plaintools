@@ -22,9 +22,7 @@ const t = localeBundles[locale].tools["regex-tester"]
   aria-label={localeBundles[locale].tools["regex-tester"].title}
 >
   <div class="converter-topbar regex-actions">
-    <span class="regex-engine-note">{t.engineLabel}</span><div
-      class="regex-utility-actions"
-    >
+    <div class="regex-utility-actions">
       <button class="secondary-button" type="button" data-sample
         >{t.loadSample}</button
       ><button class="secondary-button" type="button" data-clear
@@ -87,7 +85,7 @@ const t = localeBundles[locale].tools["regex-tester"]
     <summary>{t.replacementLabel}</summary><div
       class="regex-replacement-content"
     >
-      <label for="regex-replacement">{t.replacementPlaceholder}</label><input
+      <label for="regex-replacement">{t.replacementLabel}</label><input
         id="regex-replacement"
         class="regex-replacement-input"
         data-replacement

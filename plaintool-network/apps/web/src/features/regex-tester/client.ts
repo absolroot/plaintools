@@ -303,6 +303,12 @@ function init(root: HTMLElement): void {
       text.value = "Hello, world! hello again.";
       replacement.value = "[$1]";
       queueEvaluation();
+      const sampleRevision = revision;
+      root.querySelector<HTMLDetailsElement>(".regex-replacement-panel")!.open =
+        true;
+      window.setTimeout(() => {
+        if (revision === sampleRevision) replace.click();
+      }, EVALUATION_DEBOUNCE_MS + 30);
       expression.focus();
     });
 

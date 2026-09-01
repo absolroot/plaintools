@@ -44,9 +44,6 @@ describe("regex tester localization", () => {
       expect(page.feature.invalid, `${locale}.invalid`).not.toBe(
         english.feature.invalid,
       );
-      expect(page.feature.engineLabel, `${locale}.engineLabel`).not.toBe(
-        english.feature.engineLabel,
-      );
     }
   });
 });
