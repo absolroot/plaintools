@@ -1,5 +1,4 @@
 ---
-import ConverterStatus from "../../components/ConverterStatus.astro";
 import UiIcon from "../../components/UiIcon.astro";
 import { localeBundles } from "../../lib/locale-data";
 import type { Locale } from "../../lib/site";
@@ -23,13 +22,14 @@ const t = localeBundles[locale].tools["regex-tester"]
   aria-label={localeBundles[locale].tools["regex-tester"].title}
 >
   <div class="converter-topbar regex-actions">
-    <span class="regex-engine-note">JavaScript RegExp</span><div
+    <span class="regex-engine-note">{t.engineLabel}</span><div
       class="regex-utility-actions"
     >
       <button class="secondary-button" type="button" data-sample
         >{t.loadSample}</button
       ><button class="secondary-button" type="button" data-clear
-        ><UiIcon name="x" size={14} />{t.clear}</button>
+        ><UiIcon name="x" size={14} />{t.clear}</button
+      >
     </div>
   </div>
   <div class="regex-expression-row">
@@ -58,7 +58,8 @@ const t = localeBundles[locale].tools["regex-tester"]
   <section class="editor-pane regex-text-pane">
     <div class="pane-heading">
       <label for="regex-text">{t.testTextLabel}</label><span data-text-count
-        >0</span>
+        >0</span
+      >
     </div><textarea
       id="regex-text"
       data-text
@@ -67,9 +68,7 @@ const t = localeBundles[locale].tools["regex-tester"]
       maxlength={MAX_REGEX_TEXT_LENGTH}
       placeholder={t.testTextPlaceholder}></textarea>
   </section>
-  <ConverterStatus status={t.ready} badges
-    ><span data-match-summary>{t.localNote}</span></ConverterStatus
-  >
+  <p class="visually-hidden" data-status aria-live="polite">{t.ready}</p>
   <section
     class="regex-results"
     data-results
@@ -107,7 +106,8 @@ const t = localeBundles[locale].tools["regex-tester"]
           class="secondary-button"
           type="button"
           data-copy-result
-          disabled>{t.copy}</button>
+          disabled>{t.copy}</button
+        >
       </div>
     </div>
   </details>

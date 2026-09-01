@@ -51,7 +51,6 @@ function init(root: HTMLElement): void {
     "[data-replacement-output]",
   )!;
   const status = root.querySelector<HTMLElement>("[data-status]")!;
-  const summary = root.querySelector<HTMLElement>("[data-match-summary]")!;
   const list = root.querySelector<HTMLOListElement>("[data-match-list]")!;
   const empty = root.querySelector<HTMLElement>("[data-empty]")!;
   const resultCount = root.querySelector<HTMLElement>("[data-result-count]")!;
@@ -93,7 +92,6 @@ function init(root: HTMLElement): void {
   const renderEvaluation = (result: RegexEvaluation) => {
     if (!result.valid) {
       clearResults(t.invalid);
-      summary.textContent = t.invalid;
       resultCount.textContent = t.invalid;
       replace.disabled = true;
       setToolStatus(root, status, t.invalid, "error");
@@ -123,15 +121,14 @@ function init(root: HTMLElement): void {
     );
 
     const count = fill(t.matchSummary, { count: result.matches.length });
-    summary.textContent = result.truncated
+    resultCount.textContent = result.truncated
       ? `${count} · ${t.tooManyMatches}`
       : count;
-    resultCount.textContent = summary.textContent;
     replace.disabled = result.matches.length === 0;
     setToolStatus(
       root,
       status,
-      result.matches.length ? summary.textContent : t.noMatches,
+      result.matches.length ? resultCount.textContent : t.noMatches,
       result.matches.length ? "success" : "idle",
     );
   };
@@ -179,7 +176,7 @@ function init(root: HTMLElement): void {
       activeOperation = undefined;
       clearTimers();
       clearResults(t.processingFailed);
-      summary.textContent = t.processingFailed;
+      resultCount.textContent = t.processingFailed;
       replace.disabled = true;
       setToolStatus(root, status, t.processingFailed, "error");
     },
@@ -199,7 +196,7 @@ function init(root: HTMLElement): void {
   const validateInputs = (includeReplacement: boolean): boolean => {
     if (!expression.value) {
       clearResults(t.enterExpression);
-      summary.textContent = t.localNote;
+      resultCount.textContent = t.enterExpression;
       replace.disabled = true;
       setToolStatus(root, status, t.enterExpression);
       return false;
@@ -209,7 +206,7 @@ function init(root: HTMLElement): void {
       text.value.length > MAX_REGEX_TEXT_LENGTH
     ) {
       clearResults(t.inputTooLarge);
-      summary.textContent = t.inputTooLarge;
+      resultCount.textContent = t.inputTooLarge;
       replace.disabled = true;
       setToolStatus(root, status, t.inputTooLarge, "error");
       return false;
@@ -282,7 +279,7 @@ function init(root: HTMLElement): void {
       invalidateReplacement();
       clearResults(t.ready);
       textCount.textContent = "0";
-      summary.textContent = t.localNote;
+      resultCount.textContent = t.ready;
       replace.disabled = true;
       setToolStatus(root, status, t.ready);
       expression.focus();

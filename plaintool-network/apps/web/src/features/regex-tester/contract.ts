@@ -28,6 +28,7 @@ export type RegexWorkerReply = {
 };
 
 export type RegexTesterCopy = {
+  engineLabel: string;
   expressionLabel: string;
   expressionPlaceholder: string;
   flagsLabel: string;

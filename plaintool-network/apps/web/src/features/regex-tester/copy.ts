@@ -72,6 +72,7 @@ const texts = {
       replacementResult: "Replacement output updated",
       loadSample: "Load sample",
       localNote: "Processed only in this browser",
+      engineLabel: "JavaScript regular expression",
     },
   },
   ko: {
@@ -126,6 +127,7 @@ const texts = {
       replacementResult: "바꾼 결과를 갱신했습니다",
       loadSample: "예제 불러오기",
       localNote: "이 브라우저에서만 처리됩니다",
+      engineLabel: "JavaScript 정규식",
     },
   },
   es: {
@@ -181,6 +183,7 @@ const texts = {
       replacementResult: "Resultado del reemplazo actualizado",
       loadSample: "Cargar ejemplo",
       localNote: "Se procesa solo en este navegador",
+      engineLabel: "Expresión regular de JavaScript",
     },
   },
   de: {
@@ -237,6 +240,7 @@ const texts = {
       replacementResult: "Ersetzungsausgabe aktualisiert",
       loadSample: "Beispiel laden",
       localNote: "Wird nur in diesem Browser verarbeitet",
+      engineLabel: "JavaScript-RegExp",
     },
   },
   ja: {
@@ -293,6 +297,7 @@ const texts = {
       replacementResult: "置換結果を更新しました",
       loadSample: "例を読み込む",
       localNote: "このブラウザ内だけで処理されます",
+      engineLabel: "JavaScript 正規表現",
     },
   },
   fr: {
@@ -348,6 +353,7 @@ const texts = {
       replacementResult: "Résultat du remplacement mis à jour",
       loadSample: "Charger un exemple",
       localNote: "Traitement effectué uniquement dans ce navigateur",
+      engineLabel: "Expression régulière JavaScript",
     },
   },
   "pt-BR": {
@@ -403,6 +409,7 @@ const texts = {
       replacementResult: "Resultado da substituição atualizado",
       loadSample: "Carregar exemplo",
       localNote: "Processado somente neste navegador",
+      engineLabel: "Expressão regular JavaScript",
     },
   },
   it: {
@@ -459,6 +466,7 @@ const texts = {
       replacementResult: "Risultato della sostituzione aggiornato",
       loadSample: "Carica esempio",
       localNote: "Elaborato solo in questo browser",
+      engineLabel: "Espressione regolare JavaScript",
     },
   },
   nl: {
@@ -515,6 +523,7 @@ const texts = {
       replacementResult: "Vervangingsuitvoer bijgewerkt",
       loadSample: "Voorbeeld laden",
       localNote: "Wordt alleen in deze browser verwerkt",
+      engineLabel: "JavaScript-reguliere expressie",
     },
   },
   sv: {
@@ -570,6 +579,7 @@ const texts = {
       replacementResult: "Det ersatta resultatet har uppdaterats",
       loadSample: "Läs in exempel",
       localNote: "Bearbetas endast i den här webbläsaren",
+      engineLabel: "JavaScript-reguljärt uttryck",
     },
   },
   cs: {
@@ -626,6 +636,7 @@ const texts = {
       replacementResult: "Výsledek náhrady byl aktualizován",
       loadSample: "Načíst příklad",
       localNote: "Zpracování probíhá pouze v tomto prohlížeči",
+      engineLabel: "Regulární výraz JavaScriptu",
     },
   },
   pl: {
@@ -680,6 +691,7 @@ const texts = {
       replacementResult: "Wynik zamiany został zaktualizowany",
       loadSample: "Wczytaj przykład",
       localNote: "Przetwarzanie odbywa się tylko w tej przeglądarce",
+      engineLabel: "Wyrażenie regularne JavaScript",
     },
   },
   da: {
@@ -736,6 +748,7 @@ const texts = {
       replacementResult: "Det erstattede resultat er opdateret",
       loadSample: "Indlæs eksempel",
       localNote: "Behandles kun i denne browser",
+      engineLabel: "JavaScript-regulært udtryk",
     },
   },
   no: {
@@ -792,6 +805,7 @@ const texts = {
       replacementResult: "Det erstattede resultatet er oppdatert",
       loadSample: "Last inn eksempel",
       localNote: "Behandles bare i denne nettleseren",
+      engineLabel: "JavaScript-regulært uttrykk",
     },
   },
   ar: {
@@ -845,6 +859,7 @@ const texts = {
       replacementResult: "تم تحديث ناتج الاستبدال",
       loadSample: "تحميل مثال",
       localNote: "تتم المعالجة في هذا المتصفح فقط",
+      engineLabel: "تعبير JavaScript النمطي",
     },
   },
   "zh-TW": {
@@ -897,6 +912,7 @@ const texts = {
       replacementResult: "取代結果已更新",
       loadSample: "載入範例",
       localNote: "只在這個瀏覽器中處理",
+      engineLabel: "JavaScript 正規表示式",
     },
   },
   tr: {
@@ -951,6 +967,7 @@ const texts = {
       replacementResult: "Değiştirme çıktısı güncellendi",
       loadSample: "Örnek yükle",
       localNote: "Yalnızca bu tarayıcıda işlenir",
+      engineLabel: "JavaScript düzenli ifadesi",
     },
   },
 } satisfies Record<Locale, RegexLocaleText>;
