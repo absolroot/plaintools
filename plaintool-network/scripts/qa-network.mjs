@@ -638,7 +638,7 @@ for (const locale of locales) {
     }
     const toolPromiseCount = (html.match(/class="tool-promise"/gu) ?? [])
       .length;
-    if (toolPromiseCount !== 1)
+    if (tool.topToolPromise !== false && toolPromiseCount !== 1)
       throw new Error(
         `${routeName} must render one top tool promise; found ${toolPromiseCount}.`,
       );
