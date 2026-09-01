@@ -151,9 +151,15 @@ def run_directory_desktop(
         "imageCount": len(image_hrefs),
         "uniqueImageRoutes": len(set(image_hrefs)),
         "imageFirst": image_hrefs[:8],
-        "representativeTitle": image_primary_cards.nth(7).locator(
+        "representativeTitle": image_primary_cards.nth(4).locator(
             "h3 > span"
         ).first.text_content().strip(),
+        "regexInData": desktop.locator(
+            '[data-directory-category="data"] a[href="/ko/regex-tester/"]'
+        ).count(),
+        "regexInText": desktop.locator(
+            '[data-directory-category="text"] a[href="/ko/regex-tester/"]'
+        ).count(),
         "calculatorFirst": calculator_hrefs[:4],
         "separateImageConverterCategory": desktop.locator(
             '[data-directory-category="image-converter"]'
@@ -167,12 +173,14 @@ def run_directory_desktop(
             "/ko/image-resizer/",
             "/ko/image-upscaler/",
             "/ko/image-crop/",
+            "/ko/png-to-webp/",
             "/ko/png-to-jpg/",
             "/ko/jpg-to-png/",
             "/ko/webp-to-png/",
-            "/ko/png-to-webp/",
         ],
         "representativeTitle": "이미지 포맷 변환",
+        "regexInData": 1,
+        "regexInText": 0,
         "calculatorFirst": [
             "/ko/date-calculator/",
             "/ko/dday-calculator/",

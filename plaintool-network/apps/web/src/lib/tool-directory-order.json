@@ -11,7 +11,8 @@
     "data"
   ],
   "featureCategoryOverrides": {
-    "image-converter": "image"
+    "image-converter": "image",
+    "regex-tester": "data"
   },
   "initiallyVisibleToolCounts": {
     "image": 7
@@ -27,7 +28,7 @@
       "webp-to-png"
     ],
     "pdf": [],
-    "text": ["ai-watermark-remover", "regex-tester"],
+    "text": ["ai-watermark-remover"],
     "generator": [
       "qr-code-generator",
       "qr-code-scanner",
@@ -44,6 +45,6 @@
     "time": [],
     "converter": ["unit-converter"],
     "encoding": [],
-    "data": []
+    "data": ["regex-tester"]
   }
 }

@@ -33,6 +33,11 @@ const {
 } = Astro.props;
 const initiallyVisibleTools = tools.slice(0, initiallyVisibleToolCount);
 const collapsedTools = tools.slice(initiallyVisibleToolCount);
+const representativeInsertIndex = representativeCard
+  ? initiallyVisibleTools.findIndex(
+      (tool) => tool.featureId === representativeCard.tool.featureId,
+    )
+  : -1;
 if (collapsedTools.length > 0 && !collapsedLabel) {
   throw new Error(`Missing collapsed tool label for ${category}.`);
 }
@@ -56,12 +61,25 @@ if (collapsedTools.length > 0 && !collapsedLabel) {
     ]}
   >
     {
-      initiallyVisibleTools.map((tool) => (
-        <ToolDirectoryCard tool={tool} locale={locale} />
+      initiallyVisibleTools.map((tool, index) => (
+        <>
+          {representativeCard && index === representativeInsertIndex && (
+            <ToolDirectoryCard
+              tool={representativeCard.tool}
+              locale={locale}
+              displayName={representativeCard.displayName}
+              subtitle={representativeCard.subtitle}
+              mark={representativeCard.mark}
+              markId={representativeCard.markId}
+              searchable={false}
+            />
+          )}
+          <ToolDirectoryCard tool={tool} locale={locale} />
+        </>
       ))
     }
     {
-      representativeCard && (
+      representativeCard && representativeInsertIndex === -1 && (
         <ToolDirectoryCard
           tool={representativeCard.tool}
           locale={locale}

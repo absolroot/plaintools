@@ -23,10 +23,21 @@ describe("home tool directory order", () => {
   });
 
   it("merges image format conversion into the image category", () => {
-    expect(directoryOrder.featureCategoryOverrides).toEqual({
-      "image-converter": "image",
-    });
+    expect(directoryOrder.featureCategoryOverrides["image-converter"]).toBe(
+      "image",
+    );
     expect(directoryOrder.categoryOrder).not.toContain("image-converter");
+  });
+
+  it("places the regex tester in the data section", () => {
+    expect(directoryOrder.featureCategoryOverrides["regex-tester"]).toBe(
+      "data",
+    );
+    expect(directoryOrder.pinnedToolOrder.text).not.toContain("regex-tester");
+    expect(directoryOrder.pinnedToolOrder.data[0]).toBe("regex-tester");
+    expect(
+      homeDirectoryToolsForCategory("data").map((tool) => tool.id),
+    ).toContain("regex-tester");
   });
 
   it("pins the requested image, generator, and calculator cards", () => {
@@ -53,7 +64,6 @@ describe("home tool directory order", () => {
       "bmi-calculator",
       "age-calculator",
     ]);
-    expect(directoryOrder.pinnedToolOrder.text).toContain("regex-tester");
     expect(directoryOrder.pinnedToolOrder.converter[0]).toBe("unit-converter");
   });
 
