@@ -63,8 +63,8 @@ describe("tool directory search matching", () => {
   it("builds a current-locale corpus from name, summary, and search terms", () => {
     const corpus = buildToolDirectorySearchCorpus(jsonTool, "ko");
 
-    expect(corpus).toContain("json 포매터");
-    expect(corpus).toContain("오류를 검사");
+    expect(corpus).toContain("json 포맷터");
+    expect(corpus).toContain("오류를 검증");
     expect(corpus).toContain("json 압축");
     expect(corpus).not.toContain("pretty print");
   });

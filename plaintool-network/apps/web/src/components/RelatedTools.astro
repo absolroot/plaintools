@@ -15,25 +15,27 @@ const copy = networkCopy[locale];
 const tools = getRelatedTools(currentPage);
 ---
 
-<section class="related-tools" aria-labelledby="related-tools-heading">
-  <header class="related-tools-header">
-    <h2 id="related-tools-heading">{copy.relatedTools}</h2>
-    <a href={localizedPath(locale)}>
-      <span>{copy.allTools}</span>
-      <UiIcon name="arrow-right" size={14} />
-    </a>
-  </header>
-  <nav class="related-tools-grid" aria-label={copy.relatedTools}>
-    {
-      tools.map((tool) => (
-        <a class="related-tool-link" href={toolPath(locale, tool)}>
-          <ToolMark toolId={tool.id} mark={tool.mark} />
-          <span>
-            <bdi dir="auto">{toolCardName(tool, locale)}</bdi>
-          </span>
-          <UiIcon name="chevron-right" size={14} />
+{
+  tools.length > 0 && (
+    <section class="related-tools" aria-labelledby="related-tools-heading">
+      <header class="related-tools-header">
+        <h2 id="related-tools-heading">{copy.relatedTools}</h2>
+        <a href={localizedPath(locale)}>
+          <span>{copy.allTools}</span>
+          <UiIcon name="arrow-right" size={14} />
         </a>
-      ))
-    }
-  </nav>
-</section>
+      </header>
+      <nav class="related-tools-grid" aria-label={copy.relatedTools}>
+        {tools.map((tool) => (
+          <a class="related-tool-link" href={toolPath(locale, tool)}>
+            <ToolMark toolId={tool.id} mark={tool.mark} />
+            <span>
+              <bdi dir="auto">{toolCardName(tool, locale)}</bdi>
+            </span>
+            <UiIcon name="chevron-right" size={14} />
+          </a>
+        ))}
+      </nav>
+    </section>
+  )
+}
