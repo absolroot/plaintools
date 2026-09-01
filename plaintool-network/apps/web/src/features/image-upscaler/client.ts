@@ -134,6 +134,9 @@ document
     )!;
     const qualityInput =
       qualityOption.querySelector<HTMLInputElement>("input")!;
+    const fastInput = root.querySelector<HTMLInputElement>(
+      'input[name="upscaler-mode"][value="fast"]',
+    )!;
     const qualityUnavailable = root.querySelector<HTMLElement>(
       "[data-quality-unavailable]",
     )!;
@@ -674,6 +677,9 @@ document
       qualityInput.disabled = !webgpuSupported;
       qualityOption.classList.toggle("is-unavailable", !webgpuSupported);
       qualityUnavailable.hidden = webgpuSupported;
+      if (!webgpuSupported && qualityInput.checked) {
+        fastInput.checked = true;
+      }
       root.dataset.webgpuSupport = webgpuSupported
         ? "available"
         : "unavailable";

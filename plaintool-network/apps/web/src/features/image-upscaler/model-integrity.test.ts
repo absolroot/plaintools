@@ -5,6 +5,19 @@ import { describe, expect, it } from "vitest";
 import { upscalerModelEntry, upscalerTileSize } from "./model-manifest";
 
 describe("image upscaler model assets", () => {
+  it("defaults to the WebGPU precision model, with compact retained for unavailable WebGPU", async () => {
+    const source = await readFile(
+      fileURLToPath(new URL("./ImageUpscaler.astro", import.meta.url)),
+      "utf8",
+    );
+    expect(source).toMatch(
+      /name="upscaler-mode"\s+value="quality"\s+checked\s+disabled/u,
+    );
+    expect(source).not.toMatch(
+      /name="upscaler-mode"\s+value="fast"\s+checked/u,
+    );
+  });
+
   it("uses the direct lightweight model only for compact 2x output", () => {
     expect(upscalerModelEntry("fast", 2)).toMatchObject({
       modelId: "swin2sr-lightweight-x2",

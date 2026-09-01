@@ -86,7 +86,7 @@ const { copy } = Astro.props;
       <fieldset>
         <legend>{copy.modeLabel}</legend>
         <label class="upscaler-choice">
-          <input type="radio" name="upscaler-mode" value="fast" checked />
+          <input type="radio" name="upscaler-mode" value="fast" />
           <span
             ><strong>{copy.modeOptions.fast}</strong><small
               >{copy.modeHints.fast}</small
@@ -94,7 +94,13 @@ const { copy } = Astro.props;
           >
         </label>
         <label class="upscaler-choice" data-quality-option>
-          <input type="radio" name="upscaler-mode" value="quality" disabled />
+          <input
+            type="radio"
+            name="upscaler-mode"
+            value="quality"
+            checked
+            disabled
+          />
           <span
             ><strong>{copy.modeOptions.quality}</strong><small
               >{copy.modeHints.quality}</small
