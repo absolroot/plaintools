@@ -593,6 +593,7 @@ const seeds = {
         "호환성 조건을 고르고 길고 고유한 무작위 비밀번호를 기기에서 만듭니다.",
       terms: [
         "비밀번호 생성기",
+        "안전한 비밀번호 만들기",
         "랜덤 비밀번호",
         "강력한 비밀번호",
         "무작위 비밀번호",
@@ -1262,6 +1263,7 @@ const seeds = {
         "Générateur de mots de passe",
         "Créez localement des mots de passe aléatoires longs et uniques avec des réglages de compatibilité.",
         [
+          "générateur de mots de passe",
           "générateur mot de passe",
           "mot de passe aléatoire",
           "mot de passe fort",
@@ -1467,7 +1469,12 @@ const seeds = {
     w: {
       name: "Generatore di password",
       summary: "Crea localmente password casuali lunghe e uniche.",
-      terms: ["generatore password", "password casuale", "password sicura"],
+      terms: [
+        "generatore di password",
+        "generatore password",
+        "password casuale",
+        "password sicura",
+      ],
       description:
         "Genera localmente una password con Web Crypto e scegli lunghezza e caratteri consentiti.",
       mobileDescription: "Genera una password casuale lunga in questa scheda.",
@@ -2254,9 +2261,14 @@ const seeds = {
       ],
     },
     w: {
-      name: "Parola oluşturucu",
+      name: "Şifre Oluşturucu",
       summary: "Uzun, benzersiz rastgele parolaları yerel olarak oluşturun.",
-      terms: ["parola oluşturucu", "rastgele parola", "güçlü parola"],
+      terms: [
+        "şifre oluşturucu",
+        "parola oluşturucu",
+        "rastgele parola",
+        "güçlü parola",
+      ],
       description:
         "Web Crypto ile yerel oluşturun; uzunluk ve izin verilen karakterleri seçin.",
       mobileDescription: "Bu sekmede uzun bir rastgele parola oluşturun.",

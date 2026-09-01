@@ -161,6 +161,35 @@ describe("tool directory search catalog", () => {
       );
     }
   });
+
+  it("keeps generator terminology native while retaining useful technical variants", () => {
+    const passwordGenerator = toolCatalog.find(
+      (tool) => tool.id === "password-generator",
+    );
+    const uuidGenerator = toolCatalog.find(
+      (tool) => tool.id === "uuid-generator",
+    );
+
+    if (!passwordGenerator || !uuidGenerator) {
+      throw new Error("Expected generator search catalog entries.");
+    }
+
+    expect(passwordGenerator.searchTerms.ko).toContain(
+      "안전한 비밀번호 만들기",
+    );
+    expect(passwordGenerator.searchTerms.fr).toContain(
+      "générateur de mots de passe",
+    );
+    expect(passwordGenerator.searchTerms.it).toContain(
+      "generatore di password",
+    );
+    expect(passwordGenerator.searchTerms.tr).toContain("şifre oluşturucu");
+    expect(uuidGenerator.searchTerms.de).toContain("UUID-Generator");
+    expect(uuidGenerator.searchTerms.fr).toContain("générateur d’UUID");
+    for (const locale of ["sv", "da", "no"] as const) {
+      expect(uuidGenerator.searchTerms[locale]).toContain("UUID-generator");
+    }
+  });
 });
 
 describe("tool directory search matching", () => {

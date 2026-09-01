@@ -356,6 +356,7 @@ const localized = {
       guide:
         "Wähle v4 für zufällige Kennungen, v7 für zeitlich sortierbare Datenbankschlüssel oder v5 für wiederholbare Namensraum-und-Name-Kennungen. Menge und Format einstellen, erzeugen, kopieren oder herunterladen.",
       terms: [
+        "UUID-Generator",
         "UUID Generator",
         "GUID Generator",
         "UUID v4",
@@ -506,6 +507,7 @@ const localized = {
       guide:
         "Choisissez v4 pour des identifiants aléatoires, v7 pour des clés de base de données ordonnées dans le temps ou v5 pour des identifiants reproductibles. Réglez la quantité et le format, puis générez, copiez ou téléchargez.",
       terms: [
+        "générateur d’UUID",
         "générateur UUID",
         "générateur GUID",
         "UUID v4",
@@ -740,6 +742,7 @@ const localized = {
       guide:
         "Kies v4 voor willekeurige ID's, v7 voor tijdgesorteerde databasesleutels of v5 voor herhaalbare ID's uit naamruimte en naam. Stel aantal en formaat in en genereer, kopieer of download.",
       terms: [
+        "UUID-generator",
         "UUID generator",
         "GUID generator",
         "UUID v4",
@@ -818,6 +821,7 @@ const localized = {
       guide:
         "Välj v4 för slumpmässiga ID:n, v7 för tidsordnade databasnycklar eller v5 för repeterbara ID:n från namnrymd och namn. Ange antal och format och skapa, kopiera eller hämta.",
       terms: [
+        "UUID-generator",
         "UUID generator",
         "GUID generator",
         "UUID v4",
@@ -1053,6 +1057,7 @@ const localized = {
       guide:
         "Vælg v4 til tilfældige id'er, v7 til tidsordnede databasenøgler eller v5 til gentagelige id'er fra navnerum og navn. Angiv antal og format, og generér, kopiér eller hent.",
       terms: [
+        "UUID-generator",
         "UUID generator",
         "GUID generator",
         "UUID v4",
