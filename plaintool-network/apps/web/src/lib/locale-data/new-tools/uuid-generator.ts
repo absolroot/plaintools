@@ -1137,6 +1137,7 @@ const localized = {
       guide:
         "Velg v4 for tilfeldige ID-er, v7 for tidsordnede databasenøkler eller v5 for repeterbare ID-er fra navnerom og navn. Angi antall og format, og generer, kopier eller last ned.",
       terms: [
+        "UUID-generator",
         "UUID generator",
         "GUID generator",
         "UUID v4",
