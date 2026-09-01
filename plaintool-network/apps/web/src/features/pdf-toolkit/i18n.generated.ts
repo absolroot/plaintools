@@ -344,7 +344,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Führt das Teilen zu Qualitätsverlusten bei den Seiten?",
         faqAnswer:
           "Für das Teilen wird keine Rasterisierung verwendet. Bestehende PDF-Seiten werden in neue Dateien kopiert, obwohl erweiterte dokumentweite Funktionen möglicherweise nicht übernommen werden.",
-        searchTerms: ["PDF teilen", "PDF Seiten extrahieren", "PDF-Teiler"],
+        searchTerms: ["PDF teilen", "PDF Seiten extrahieren", "PDF aufteilen"],
       },
       "pdf-to-image": {
         title: "PDF zu Bild",
@@ -708,7 +708,7 @@ export const generatedPdfLocaleTexts = {
         searchTerms: [
           "diviser PDF",
           "extraire les pages de PDF",
-          "séparateur de PDF",
+          "diviser un PDF",
         ],
       },
       "pdf-to-image": {
@@ -1070,11 +1070,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "La divisione riduce la qualità delle pagine?",
         faqAnswer:
           "Non viene utilizzata rasterizzazione per la divisione. Le pagine esistenti del PDF vengono copiate nei nuovi file, anche se alcune funzionalità avanzate del documento potrebbero non essere trasferite.",
-        searchTerms: [
-          "dividi PDF",
-          "estrai pagine da PDF",
-          "separatore di PDF",
-        ],
+        searchTerms: ["dividi PDF", "estrai pagine da PDF", "dividere PDF"],
       },
       "pdf-to-image": {
         title: "PDF in immagine",
@@ -1241,10 +1237,14 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Kan ik de pagina volgorde binnen één PDF veranderen?",
         faqAnswer:
           "Deze eerste versie rangschikt hele bestanden. Splits of herschik de bron PDF eerst als individuele pagina's een andere volgorde nodig hebben.",
-        searchTerms: ["PDF samenvoegen", "PDF combineren", "PDF fusie"],
+        searchTerms: [
+          "PDF samenvoegen",
+          "PDF combineren",
+          "PDF samenvoegen online",
+        ],
       },
       "split-pdf": {
-        title: "Split PDF",
+        title: "PDF splitsen",
         description:
           "Haal de gewenste pagina’s uit een PDF of splits deze in meerdere bestanden.",
         guide:
@@ -1252,7 +1252,11 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Vermindert splitsen de pagina kwaliteit?",
         faqAnswer:
           "Voor splitsen wordt geen rasterisatie gebruikt. Bestaande PDF-pagina's worden in nieuwe bestanden gekopieerd, hoewel geavanceerde document-brede functies mogelijk niet worden overgenomen.",
-        searchTerms: ["split PDF", "extraheer PDF pagina's", "PDF splitter"],
+        searchTerms: [
+          "PDF splitsen",
+          "PDF pagina's extraheren",
+          "PDF splitter",
+        ],
       },
       "pdf-to-image": {
         title: "PDF naar Afbeelding",
@@ -1603,7 +1607,7 @@ export const generatedPdfLocaleTexts = {
         searchTerms: [
           "rozdělit PDF",
           "extrahovat stránky z PDF",
-          "rozdělovač PDF",
+          "rozdělit PDF",
         ],
       },
       "pdf-to-image": {
@@ -1781,7 +1785,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Czy dzielenie zmniejsza jakość stron?",
         faqAnswer:
           "Do dzielenia nie używa się rasteryzacji. Istniejące strony PDF są kopiowane do nowych plików, choć zaawansowane funkcje dokumentu mogą nie zostać zachowane.",
-        searchTerms: ["podziel PDF", "wyodrębnij strony PDF", "dzielnik PDF"],
+        searchTerms: ["podziel PDF", "wyodrębnij strony PDF", "dziel PDF"],
       },
       "pdf-to-image": {
         title: "PDF na obraz",
@@ -1945,7 +1949,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Kan jeg ændre siderekkefølgen inde i én PDF?",
         faqAnswer:
           "Denne første version ordner hele filer. Del eller rearranger kildens PDF først, når individuelle sider skal have en anden rækkefølge.",
-        searchTerms: ["sammenflet PDF", "kombiner PDFer", "PDF fusion"],
+        searchTerms: ["sammenflet PDF", "flet PDF", "kombiner PDFer"],
       },
       "split-pdf": {
         title: "Opdel PDF",
@@ -2616,7 +2620,7 @@ export const generatedPdfLocaleTexts = {
         searchTerms: ["PDF birleştir", "PDFleri birleştir", "PDF birleştirme"],
       },
       "split-pdf": {
-        title: "PDFi böl",
+        title: "PDF'yi böl",
         description:
           "İstediğiniz sayfaları çıkarın veya bir PDF’yi birden fazla dosyaya bölün.",
         guide:
@@ -2624,7 +2628,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Bölme sayfa kalitesini düşürür mü?",
         faqAnswer:
           "Bölme sırasında rasterleştirme kullanılmaz. Mevcut PDF sayfaları yeni dosyalara kopyalanır, ancak gelişmiş belge genel özellikleri aktarılmayabilir.",
-        searchTerms: ["PDFi böl", "PDF sayfalarını çıkar", "PDF bölücü"],
+        searchTerms: ["PDF bölme", "PDF'yi böl", "PDF sayfalarını çıkar"],
       },
       "pdf-to-image": {
         title: "PDF'yi Görüntüye çevir",
