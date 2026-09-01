@@ -19,7 +19,8 @@ export type ToolCategory =
   | "pdf"
   | "data"
   | "calculator"
-  | "time";
+  | "time"
+  | "travel";
 
 type LocalizedText = Record<Locale, string>;
 type LocalizedSearchTerms = Record<Locale, readonly string[]>;
@@ -64,7 +65,7 @@ export type NetworkCopy = {
   reserve: string;
   breadcrumbLabel: string;
   encodingCategory: string;
-  categories: Record<ToolCategory, string>;
+  categories: Record<Exclude<ToolCategory, "travel">, string>;
   footerNote: string;
   catalogAria: string;
   useLightTheme: string;
@@ -358,7 +359,13 @@ export const homeDirectoryToolsInDisplayOrder =
     homeDirectoryToolsForCategory(category),
   );
 
-export const networkCopy = localize((locale) => localeBundles[locale].network);
+export const networkCopy = localize((locale) => ({
+  ...localeBundles[locale].network,
+  categories: {
+    ...localeBundles[locale].network.categories,
+    travel: travelLinkCopy[locale].workspaceTitle,
+  },
+}));
 
 export function toolPath(
   locale: Locale,

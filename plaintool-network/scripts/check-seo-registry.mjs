@@ -54,6 +54,7 @@ for (const tool of registeredTools) {
       "data",
       "calculator",
       "time",
+      "travel",
     ]).has(tool.category)
   )
     errors.push(`Invalid category for ${tool.slug}: ${tool.category}`);

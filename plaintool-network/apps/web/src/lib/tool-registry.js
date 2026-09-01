@@ -131,7 +131,7 @@ export const toolRegistry = /** @type {const} */ ([
     id: "hash-generator",
     featureId: "hash-generator",
     slug: "hash-generator",
-    category: "generator",
+    category: "travel",
     publication: "indexable",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],
   },

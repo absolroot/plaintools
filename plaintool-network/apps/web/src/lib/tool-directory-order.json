@@ -4,6 +4,7 @@
     "pdf",
     "text",
     "generator",
+    "travel",
     "calculator",
     "time",
     "converter",
@@ -35,6 +36,7 @@
       "barcode-generator",
       "password-generator"
     ],
+    "travel": [],
     "calculator": [
       "date-calculator",
       "dday-calculator",
