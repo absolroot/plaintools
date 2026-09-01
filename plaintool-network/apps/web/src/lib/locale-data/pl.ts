@@ -30,7 +30,7 @@ const plBundle = {
     encodePlaceholder: "Przykład: Cześć, AbsolTools!",
     outputPlaceholder: "Wynik pojawia się tutaj.",
     openFile: "Otwórz plik",
-    runDecode: "Odszyfruj teraz",
+    runDecode: "Dekoduj teraz",
     runEncode: "Zakoduj teraz",
     options: "Opcje",
     detected: "Wykryto",
@@ -42,7 +42,7 @@ const plBundle = {
     standard: "Standard",
     urlSafe: "Bezpieczny dla URL",
     strict: "Weryfikuj ściśle",
-    lineByLine: "Odszyfruj każdą linię osobno",
+    lineByLine: "Dekoduj każdą linię osobno",
     autoRepair: "Napraw odstępy i wypełnienie",
     lenientRepair: "Usuń pozostałe nieprawidłowe znaki",
     outputView: "Format wyjściowy",
@@ -57,7 +57,7 @@ const plBundle = {
     binaryOutput:
       "Wykryto dane binarne. Sprawdź typ pliku, a następnie pobierz go zamiast uruchamiać bezpośrednio.",
     executableWarning:
-      "Wykryto plik wykonywalny. Nie uruchamiaj plików odszyfrowanych z niezaufanego źródła.",
+      "Wykryto plik wykonywalny. Nie uruchamiaj plików zdekodowanych z niezaufanego źródła.",
     imagePreview: "Podgląd obrazu",
     errors: {
       "empty-input": "Wpisz jakiś tekst lub najpierw otwórz plik.",
@@ -65,7 +65,7 @@ const plBundle = {
         "Ta wartość zawiera znak, który nie jest prawidłowy Base64.",
       "invalid-length":
         "Wartość Base64 jest przycięta lub ma niemożliwą długość.",
-      "decode-failed": "Nie można było odszyfrować wartości.",
+      "decode-failed": "Nie można było zdekodować wartości.",
       "encode-failed": "Nie można zakodować pliku.",
       "unsupported-charset":
         "To kodowanie znaków nie jest obsługiwane przez Twoją przeglądarkę.",
@@ -78,9 +78,9 @@ const plBundle = {
       "padding-added": "Dodano brakujące wypełnienie",
       "invalid-characters-removed": "Usunięto nieprawidłowe znaki",
     },
-    guideTitle: "Jak odszyfrować Base64",
+    guideTitle: "Jak dekodować Base64",
     guideIntro:
-      "Base64 to format kodowania, a nie szyfrowania. Każdy, kto posiada tę wartość, może ją odszyfrować.",
+      "Base64 to format kodowania, a nie szyfrowania. Każdy, kto posiada tę wartość, może ją zdekodować.",
     guideSteps: [
       "Wklej wartość Base64 lub otwórz plik, który ją zawiera.",
       "Narzędzie wykrywa format i stosuje typowe poprawki, takie jak usuwanie spacji lub przywracanie brakującego wypełnienia.",
@@ -593,7 +593,7 @@ const plBundle = {
   catalog: {
     "base64-decode": {
       name: "Dekoder Base64",
-      summary: "Odszyfruj tekst lub pliki Base64 online.",
+      summary: "Dekoduj tekst lub pliki Base64 online.",
       searchTerms: [
         "dekodować",
         "dekoder",
