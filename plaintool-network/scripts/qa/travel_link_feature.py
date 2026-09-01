@@ -16,6 +16,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
     page.locator("[data-generate]").click()
     page.wait_for_function("!document.querySelector('[data-travel-results]').hidden")
     global_href = page.locator("[data-travel-card] a").first.get_attribute("href")
+    page.locator(".travel-link-market-options summary").click()
     page.locator("[data-travel-market]").select_option("일본")
     page.wait_for_function(
         "document.querySelector('[data-travel-card] a')?.href.includes('cid=1642201')"
@@ -69,6 +70,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
 
 def run_travel_link_mobile(page, report: dict, _inventory) -> None:
     page.goto(f"{BASE_URL}/ar/travel-link-lab/", wait_until="networkidle")
+    page.locator(".travel-link-market-options summary").click()
     page.locator("[data-travel-market]").select_option("일본")
     page.locator("[data-travel-url]").fill(SAMPLE_HOTEL_URL)
     page.locator("[data-generate]").click()

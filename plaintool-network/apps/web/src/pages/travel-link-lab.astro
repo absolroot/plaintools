@@ -92,17 +92,22 @@ const structuredData = [
             >
           </div>
         </section>
-        <section class="travel-link-market-picker">
-          <label for="travel-market">{copy.marketLabel}</label>
-          <select id="travel-market" data-travel-market>
-            <option value="">{copy.marketPlaceholder}</option>
-            {
-              marketOptions.map(([value, code]) => (
-                <option value={value}>{copy.markets[code]}</option>
-              ))
-            }
-          </select>
-        </section>
+        <details class="travel-link-market-options">
+          <summary data-market-summary>{copy.marketLabel}</summary>
+          <div class="travel-link-market-picker">
+            <label class="visually-hidden" for="travel-market"
+              >{copy.marketLabel}</label
+            >
+            <select id="travel-market" data-travel-market>
+              <option value="">{copy.marketPlaceholder}</option>
+              {
+                marketOptions.map(([value, code]) => (
+                  <option value={value}>{copy.markets[code]}</option>
+                ))
+              }
+            </select>
+          </div>
+        </details>
       </div>
       <div class="converter-commandbar">
         <p class="travel-link-lab-error" data-travel-status aria-live="polite">
@@ -163,6 +168,9 @@ const structuredData = [
     const market = root.querySelector<HTMLSelectElement>(
       "[data-travel-market]",
     )!;
+    const marketSummary = root.querySelector<HTMLElement>(
+      "[data-market-summary]",
+    );
     const status = root.querySelector<HTMLElement>("[data-travel-status]")!;
     const results = document.querySelector<HTMLElement>(
       "[data-travel-results]",
@@ -840,6 +848,15 @@ const structuredData = [
       marketByLanguage[routeLanguage] ??
       marketByLanguage[routeLanguage.split("-")[0]];
     market.value = preferredMarket ?? "글로벌";
+    const updateMarketSummary = () => {
+      const selected = market.selectedOptions[0]?.textContent?.trim();
+      marketSummary?.replaceChildren(
+        document.createTextNode(
+          selected ? `${copy.marketLabel}: ${selected}` : copy.marketLabel,
+        ),
+      );
+    };
+    updateMarketSummary();
     status.textContent = candidates.length ? "" : copy.catalogUnavailable;
     generate.disabled = candidates.length === 0;
     const safeHotelUrl = (value: string): URL | null => {
@@ -995,6 +1012,7 @@ const structuredData = [
     });
     market.addEventListener("change", () => {
       activeMarket = market.value;
+      updateMarketSummary();
       if (activeHotel && activeMarket) {
         renderResults();
         results.hidden = false;
