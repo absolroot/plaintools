@@ -20,6 +20,8 @@ export type ImageCropCopy = {
   flipHorizontal: string;
   flipVertical: string;
   straighten: string;
+  horizontalPerspective: string;
+  verticalPerspective: string;
   reset: string;
   output: string;
   quality: string;

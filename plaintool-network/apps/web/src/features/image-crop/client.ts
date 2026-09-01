@@ -6,6 +6,7 @@ import {
   clampCrop,
   cropDimensionsValid,
   cropForRatio,
+  perspectiveDimensions,
   previewDimensions,
   transformedDimensions,
 } from "./core";
@@ -24,6 +25,45 @@ type Source = {
   width: number;
   height: number;
 };
+
+type Point = { x: number; y: number };
+
+function drawImageTriangle(
+  context: CanvasRenderingContext2D,
+  image: CanvasImageSource,
+  source: readonly [Point, Point, Point],
+  destination: readonly [Point, Point, Point],
+) {
+  const [s0, s1, s2] = source;
+  const [d0, d1, d2] = destination;
+  const determinant =
+    s0.x * (s1.y - s2.y) + s1.x * (s2.y - s0.y) + s2.x * (s0.y - s1.y);
+  if (Math.abs(determinant) < 0.000001) return;
+  const a =
+    (d0.x * (s1.y - s2.y) + d1.x * (s2.y - s0.y) + d2.x * (s0.y - s1.y)) /
+    determinant;
+  const b =
+    (d0.y * (s1.y - s2.y) + d1.y * (s2.y - s0.y) + d2.y * (s0.y - s1.y)) /
+    determinant;
+  const c =
+    (d0.x * (s2.x - s1.x) + d1.x * (s0.x - s2.x) + d2.x * (s1.x - s0.x)) /
+    determinant;
+  const d =
+    (d0.y * (s2.x - s1.x) + d1.y * (s0.x - s2.x) + d2.y * (s1.x - s0.x)) /
+    determinant;
+  const e = d0.x - a * s0.x - c * s0.y;
+  const f = d0.y - b * s0.x - d * s0.y;
+  context.save();
+  context.beginPath();
+  context.moveTo(d0.x, d0.y);
+  context.lineTo(d1.x, d1.y);
+  context.lineTo(d2.x, d2.y);
+  context.closePath();
+  context.clip();
+  context.transform(a, b, c, d, e, f);
+  context.drawImage(image, 0, 0);
+  context.restore();
+}
 
 function init(root: HTMLElement) {
   const copy = JSON.parse(
@@ -47,6 +87,12 @@ function init(root: HTMLElement) {
     "[data-quality-control]",
   )!;
   const angle = root.querySelector<HTMLInputElement>("[data-straighten]")!;
+  const perspectiveX = root.querySelector<HTMLInputElement>(
+    "[data-perspective-x-range]",
+  )!;
+  const perspectiveY = root.querySelector<HTMLInputElement>(
+    "[data-perspective-y-range]",
+  )!;
   const resultImage = root.querySelector<HTMLImageElement>("[data-result]")!;
   const numberInputs = ["x", "y", "width", "height"].map(
     (name) => root.querySelector<HTMLInputElement>(`[data-${name}]`)!,
@@ -89,9 +135,22 @@ function init(root: HTMLElement) {
     save.hidden = false;
   };
   const totalAngle = () => rotation + Number(angle.value || 0);
+  const perspectiveSize = () =>
+    source
+      ? perspectiveDimensions(
+          source.width,
+          source.height,
+          Number(perspectiveX.value),
+          Number(perspectiveY.value),
+        )
+      : { width: 1, height: 1 };
   const transformedSize = () =>
     source
-      ? transformedDimensions(source.width, source.height, totalAngle())
+      ? transformedDimensions(
+          perspectiveSize().width,
+          perspectiveSize().height,
+          totalAngle(),
+        )
       : { width: 1, height: 1 };
   const syncQuality = () => {
     const applies = output.value !== "png";
@@ -103,8 +162,12 @@ function init(root: HTMLElement) {
     flipX = false;
     flipY = false;
     angle.value = "0";
+    perspectiveX.value = "0";
+    perspectiveY.value = "0";
     ratio.value = "";
     root.querySelector<HTMLOutputElement>("[data-angle]")!.value = "0°";
+    root.querySelector<HTMLOutputElement>("[data-perspective-x]")!.value = "0";
+    root.querySelector<HTMLOutputElement>("[data-perspective-y]")!.value = "0";
   };
   const resetOutputControls = () => {
     output.value = "png";
@@ -120,14 +183,81 @@ function init(root: HTMLElement) {
     offsetY = 0,
   ) => {
     if (!source) return;
+    const sourceImage = source;
     const bounds = transformedSize();
+    const perspective = perspectiveSize();
     context.save();
     context.translate(offsetX, offsetY);
     context.scale(targetWidth / bounds.width, targetHeight / bounds.height);
     context.translate(bounds.width / 2, bounds.height / 2);
     context.rotate((totalAngle() * Math.PI) / 180);
     context.scale(flipX ? -1 : 1, flipY ? -1 : 1);
-    context.drawImage(source.image, -source.width / 2, -source.height / 2);
+    const horizontal = Number(perspectiveX.value) / 100;
+    const vertical = Number(perspectiveY.value) / 100;
+    if (horizontal === 0 && vertical === 0) {
+      context.drawImage(
+        sourceImage.image,
+        -sourceImage.width / 2,
+        -sourceImage.height / 2,
+      );
+    } else {
+      const origin = { x: -perspective.width / 2, y: -perspective.height / 2 };
+      const segments = 10;
+      const pointAt = (u: number, v: number): Point => {
+        const scaleX = 1 + vertical * (1 - v * 2);
+        const scaleY = 1 + horizontal * (1 - u * 2);
+        return {
+          x:
+            origin.x +
+            perspective.width / 2 +
+            (u - 0.5) * sourceImage.width * scaleX,
+          y:
+            origin.y +
+            perspective.height / 2 +
+            (v - 0.5) * sourceImage.height * scaleY,
+        };
+      };
+      for (let row = 0; row < segments; row += 1) {
+        for (let column = 0; column < segments; column += 1) {
+          const u0 = column / segments;
+          const u1 = (column + 1) / segments;
+          const v0 = row / segments;
+          const v1 = (row + 1) / segments;
+          const s00 = {
+            x: u0 * sourceImage.width,
+            y: v0 * sourceImage.height,
+          };
+          const s10 = {
+            x: u1 * sourceImage.width,
+            y: v0 * sourceImage.height,
+          };
+          const s01 = {
+            x: u0 * sourceImage.width,
+            y: v1 * sourceImage.height,
+          };
+          const s11 = {
+            x: u1 * sourceImage.width,
+            y: v1 * sourceImage.height,
+          };
+          const d00 = pointAt(u0, v0);
+          const d10 = pointAt(u1, v0);
+          const d01 = pointAt(u0, v1);
+          const d11 = pointAt(u1, v1);
+          drawImageTriangle(
+            context,
+            sourceImage.image,
+            [s00, s10, s11],
+            [d00, d10, d11],
+          );
+          drawImageTriangle(
+            context,
+            sourceImage.image,
+            [s00, s11, s01],
+            [d00, d11, d01],
+          );
+        }
+      }
+    }
     context.restore();
   };
   const sync = () => {
@@ -369,6 +499,16 @@ function init(root: HTMLElement) {
       `${angle.value}°`;
     resetCropForTransform();
   });
+  [perspectiveX, perspectiveY].forEach((input) =>
+    input.addEventListener("input", () => {
+      root.querySelector<HTMLOutputElement>(
+        input === perspectiveX
+          ? "[data-perspective-x]"
+          : "[data-perspective-y]",
+      )!.value = input.value;
+      resetCropForTransform();
+    }),
+  );
   output.addEventListener("change", () => {
     syncQuality();
     invalidate();

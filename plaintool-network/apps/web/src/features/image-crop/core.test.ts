@@ -3,6 +3,7 @@ import {
   clampCrop,
   cropDimensionsValid,
   cropForRatio,
+  perspectiveDimensions,
   previewDimensions,
   transformedDimensions,
 } from "./core";
@@ -37,6 +38,11 @@ describe("image crop geometry", () => {
     expect(transformedDimensions(100, 100, 45)).toEqual({
       width: 142,
       height: 142,
+    }));
+  it("allocates room for horizontal and vertical perspective", () =>
+    expect(perspectiveDimensions(1_000, 500, 20, -30)).toEqual({
+      width: 1_300,
+      height: 600,
     }));
   it("bounds preview canvas allocation independently of source size", () => {
     const preview = previewDimensions(16_384, 2_440);

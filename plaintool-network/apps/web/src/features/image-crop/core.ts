@@ -91,6 +91,25 @@ export function transformedDimensions(
   };
 }
 
+export function perspectiveDimensions(
+  width: number,
+  height: number,
+  horizontal: number,
+  vertical: number,
+): { width: number; height: number } {
+  const safeWidth = Math.max(1, finiteOr(width, 1));
+  const safeHeight = Math.max(1, finiteOr(height, 1));
+  const horizontalAmount = Math.min(
+    0.45,
+    Math.abs(finiteOr(horizontal, 0)) / 100,
+  );
+  const verticalAmount = Math.min(0.45, Math.abs(finiteOr(vertical, 0)) / 100);
+  return {
+    width: stableCeil(safeWidth * (1 + verticalAmount)),
+    height: stableCeil(safeHeight * (1 + horizontalAmount)),
+  };
+}
+
 export function previewDimensions(
   width: number,
   height: number,

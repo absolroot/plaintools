@@ -95,6 +95,34 @@ const clientCopy = {
             dir="ltr"
           /></label
         >
+        <div class="perspective-controls">
+          <label
+            ><span
+              >{copy.horizontalPerspective}
+              <output data-perspective-x>0</output></span
+            ><input
+              data-perspective-x-range
+              type="range"
+              min="-35"
+              max="35"
+              value="0"
+              dir="ltr"
+            /></label
+          >
+          <label
+            ><span
+              >{copy.verticalPerspective}
+              <output data-perspective-y>0</output></span
+            ><input
+              data-perspective-y-range
+              type="range"
+              min="-35"
+              max="35"
+              value="0"
+              dir="ltr"
+            /></label
+          >
+        </div>
         <button class="text-button crop-reset" type="button" data-reset
           >{copy.reset}</button
         >
