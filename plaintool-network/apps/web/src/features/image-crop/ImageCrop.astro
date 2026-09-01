@@ -46,7 +46,6 @@ const clientCopy = {
   <div class="crop-workspace">
     <aside class="crop-controls">
       <fieldset data-settings disabled>
-        <legend>{copy.crop}</legend>
         <label
           ><span>{copy.ratio}</span><select data-ratio
             ><option value="">{copy.free}</option><option value="1"
@@ -86,7 +85,7 @@ const clientCopy = {
           ><button type="button" data-flip="x">↔ {copy.flipHorizontal}</button
           ><button type="button" data-flip="y">↕ {copy.flipVertical}</button>
         </div>
-        <label class="straighten" data-quality-control hidden
+        <label class="straighten"
           ><span>{copy.straighten} <output data-angle>0°</output></span><input
             data-straighten
             type="range"
