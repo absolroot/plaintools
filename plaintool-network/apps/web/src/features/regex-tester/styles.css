@@ -118,7 +118,7 @@
   caret-color: var(--ink);
 }
 .regex-text-editor textarea::selection {
-  background: color-mix(in oklch, var(--brand), transparent 64%);
+  background: transparent;
 }
 .pane-heading > span,
 .regex-results-heading > span {
@@ -186,7 +186,9 @@
   overflow-wrap: anywhere;
 }
 .regex-replacement-panel {
-  border-top: 1px solid var(--line);
+  margin: 18px 16px 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
 }
 .regex-replacement-panel summary {
   min-height: 48px;
