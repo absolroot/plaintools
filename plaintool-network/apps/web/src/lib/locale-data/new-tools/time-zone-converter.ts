@@ -30,7 +30,7 @@ const locales = {
         "world clock",
         "world time converter",
         "city time",
-        "international meeting time",
+        "convert time zones",
         "UTC offset",
       ],
       faqs: [
@@ -93,10 +93,11 @@ const locales = {
       terms: [
         "시간대 변환기",
         "타임존 변환",
+        "세계 시간 변환",
         "세계 시계",
         "세계 시간",
         "도시별 현재 시간",
-        "해외 회의 시간",
+        "미국 시간대 변환",
         "UTC 시차",
       ],
       faqs: [
@@ -158,6 +159,7 @@ const locales = {
         "Elige la fecha, la hora y la zona de origen y, después, la zona de destino. Se aplican automáticamente las reglas de horario de verano de la fecha elegida. Alterna entre el formato de 12 y 24 horas y consulta abajo la hora actual de ciudades representativas.",
       terms: [
         "conversor de zonas horarias",
+        "convertidor de zona horaria",
         "reloj mundial",
         "hora mundial",
         "hora en ciudades",
@@ -223,6 +225,7 @@ const locales = {
         "Wählen Sie Datum, Uhrzeit und Ausgangszeitzone und danach die Zielzeitzone. Die Sommerzeitregeln des gewählten Datums werden automatisch angewendet. Wechseln Sie zwischen 12- und 24-Stunden-Anzeige und prüfen Sie darunter die aktuelle Uhrzeit ausgewählter Städte.",
       terms: [
         "Zeitzonenrechner",
+        "Zeitzonen Umrechner",
         "Weltzeituhr",
         "Weltzeit",
         "Uhrzeit Städte",
@@ -354,6 +357,7 @@ const locales = {
         "Choisissez la date, l’heure et le fuseau de départ, puis le fuseau d’arrivée. Les règles d’heure d’été de la date choisie sont appliquées automatiquement. Passez du format 12 h au format 24 h et consultez ci-dessous l’heure actuelle de villes représentatives.",
       terms: [
         "convertisseur fuseau horaire",
+        "convertisseur de fuseau horaire",
         "horloge mondiale",
         "heure mondiale",
         "heure ville",
@@ -484,6 +488,7 @@ const locales = {
         "Scegli data, ora e fuso di partenza, quindi il fuso di destinazione. Le regole dell’ora legale della data scelta vengono applicate automaticamente. Passa dal formato 12 a quello 24 ore e controlla sotto l’ora attuale di alcune città rappresentative.",
       terms: [
         "convertitore fuso orario",
+        "convertitore di fuso orario",
         "orologio mondiale",
         "ora mondiale",
         "ora città",
@@ -549,6 +554,7 @@ const locales = {
         "Kies de brondatum, tijd en tijdzone en daarna de doeltijdzone. De zomertijdregels voor de gekozen datum worden automatisch toegepast. Wissel tussen 12- en 24-uursnotatie en bekijk hieronder de huidige tijd in enkele representatieve steden.",
       terms: [
         "tijdzone converter",
+        "tijdzone omrekenen",
         "wereldklok",
         "wereldtijd",
         "tijd steden",
@@ -614,6 +620,7 @@ const locales = {
         "Välj datum, tid och tidszon som utgångspunkt och därefter tidszon för destinationen. Reglerna för sommartid på det valda datumet används automatiskt. Växla mellan 12- och 24-timmarsformat och se aktuell tid i några representativa städer nedan.",
       terms: [
         "tidszonsomvandlare",
+        "tidszon omvandlare",
         "världsklocka",
         "världstid",
         "tid städer",
@@ -679,6 +686,7 @@ const locales = {
         "Zvolte zdrojové datum, čas a časové pásmo a poté cílové pásmo. Pravidla letního času pro vybrané datum se použijí automaticky. Přepínejte mezi 12- a 24hodinovým formátem a níže zkontrolujte aktuální čas ve vybraných městech.",
       terms: [
         "převodník časových pásem",
+        "převod časového pásma",
         "světové hodiny",
         "světový čas",
         "čas ve městech",
@@ -809,6 +817,7 @@ const locales = {
         "Vælg kildedato, klokkeslæt og tidszone og derefter destinationstidszonen. Reglerne for sommertid på den valgte dato anvendes automatisk. Skift mellem 12- og 24-timers format, og se den aktuelle tid i udvalgte byer nedenfor.",
       terms: [
         "tidszone omregner",
+        "tidszone konverter",
         "verdensure",
         "verdens tid",
         "tid i byer",
@@ -874,6 +883,7 @@ const locales = {
         "Velg kildedato, klokkeslett og tidssone og deretter destinasjonstidssonen. Reglene for sommertid på valgt dato brukes automatisk. Bytt mellom 12- og 24-timersformat, og se gjeldende tid i utvalgte byer nedenfor.",
       terms: [
         "tidssone konverterer",
+        "tidssone konverter",
         "verdensur",
         "verdens tid",
         "tid i byer",
@@ -939,6 +949,7 @@ const locales = {
         "اختر تاريخ المصدر ووقته ومنطقته الزمنية، ثم اختر المنطقة الزمنية المستهدفة. تُطبّق تلقائيًا قواعد التوقيت الصيفي الخاصة بالتاريخ المحدد. بدّل بين تنسيقي 12 و24 ساعة، وراجع أدناه الوقت الحالي في مدن مختارة.",
       terms: [
         "محول المناطق الزمنية",
+        "محول المنطقة الزمنية",
         "الساعة العالمية",
         "التوقيت العالمي",
         "وقت المدن",
@@ -1004,6 +1015,7 @@ const locales = {
         "選擇來源日期、時間和時區，再選擇目標時區。系統會自動套用所選日期的日光節約時間規則。你可以切換 12 小時制或 24 小時制，並在下方查看代表城市的目前時間。",
       terms: [
         "時區轉換器",
+        "時區轉換",
         "世界時鐘",
         "世界時間",
         "城市時間",
