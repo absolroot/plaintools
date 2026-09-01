@@ -2987,16 +2987,20 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "¿Cuánto es", between: "de", end: "?" },
         "what-percent": {
-          start: "",
+          start: "La parte",
           between: "es qué porcentaje de",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "La parte",
           between: "es el",
           end: "% de qué total?",
         },
-        "percentage-change": { start: "Cambio de", between: "a", end: "" },
+        "percentage-change": {
+          start: "Cambio porcentual de",
+          between: "a",
+          end: "?",
+        },
       },
       fields: {
         percent: "Porcentaje",
@@ -3055,16 +3059,20 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Wie viel sind", between: "von", end: "?" },
         "what-percent": {
-          start: "",
+          start: "Der Teil",
           between: "sind wie viel Prozent von",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "Der Teil",
           between: "sind",
           end: "% von welchem Grundwert?",
         },
-        "percentage-change": { start: "Änderung von", between: "auf", end: "" },
+        "percentage-change": {
+          start: "Prozentuale Änderung von",
+          between: "auf",
+          end: "?",
+        },
       },
       fields: {
         percent: "Prozent",
@@ -3117,14 +3125,18 @@ const localizedPercentagePacks: Record<
         "percentage-change": "増減率",
       },
       phrases: {
-        "percent-of": { start: "", between: "の", end: "は？" },
-        "what-percent": { start: "", between: "は", end: "の何パーセント？" },
+        "percent-of": { start: "計算:", between: "の", end: "は？" },
+        "what-percent": {
+          start: "計算:",
+          between: "は",
+          end: "の何パーセント？",
+        },
         "whole-from-percent": {
-          start: "",
+          start: "計算:",
           between: "は",
           end: "%のとき全体はいくつ？",
         },
-        "percentage-change": { start: "", between: "から", end: "へ" },
+        "percentage-change": { start: "変化:", between: "から", end: "へ" },
       },
       fields: {
         percent: "パーセント",
@@ -3183,16 +3195,20 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Combien font", between: "de", end: "?" },
         "what-percent": {
-          start: "",
+          start: "La partie",
           between: "représente quel pourcentage de",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "La partie",
           between: "représente",
           end: "% de quel total ?",
         },
-        "percentage-change": { start: "Évolution de", between: "à", end: "" },
+        "percentage-change": {
+          start: "Variation en pourcentage de",
+          between: "à",
+          end: "?",
+        },
       },
       fields: {
         percent: "Pourcentage",
@@ -3252,16 +3268,20 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Quanto é", between: "de", end: "?" },
         "what-percent": {
-          start: "",
+          start: "A parte",
           between: "é quantos por cento de",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "A parte",
           between: "é",
           end: "% de qual total?",
         },
-        "percentage-change": { start: "Variação de", between: "para", end: "" },
+        "percentage-change": {
+          start: "Variação percentual de",
+          between: "para",
+          end: "?",
+        },
       },
       fields: {
         percent: "Porcentagem",
@@ -3320,16 +3340,20 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Quanto fa", between: "di", end: "?" },
         "what-percent": {
-          start: "",
+          start: "La parte",
           between: "è quale percentuale di",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "La parte",
           between: "è il",
           end: "% di quale totale?",
         },
-        "percentage-change": { start: "Variazione da", between: "a", end: "" },
+        "percentage-change": {
+          start: "Variazione percentuale da",
+          between: "a",
+          end: "?",
+        },
       },
       fields: {
         percent: "Percentuale",
@@ -3388,19 +3412,19 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Hoeveel is", between: "van", end: "?" },
         "what-percent": {
-          start: "",
+          start: "Het deel",
           between: "is hoeveel procent van",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "Het deel",
           between: "is",
           end: "% van welk totaal?",
         },
         "percentage-change": {
           start: "Verandering van",
           between: "naar",
-          end: "",
+          end: "?",
         },
       },
       fields: {
@@ -3461,19 +3485,19 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Hur mycket är", between: "av", end: "?" },
         "what-percent": {
-          start: "",
+          start: "Delen",
           between: "är hur många procent av",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "Delen",
           between: "är",
           end: "% av vilken helhet?",
         },
         "percentage-change": {
           start: "Förändring från",
           between: "till",
-          end: "",
+          end: "?",
         },
       },
       fields: {
@@ -3533,13 +3557,21 @@ const localizedPercentagePacks: Record<
       },
       phrases: {
         "percent-of": { start: "Kolik je", between: "z", end: "?" },
-        "what-percent": { start: "", between: "je kolik procent z", end: "?" },
+        "what-percent": {
+          start: "Část",
+          between: "je kolik procent z",
+          end: "?",
+        },
         "whole-from-percent": {
-          start: "",
+          start: "Část",
           between: "je",
           end: "% z jakého celku?",
         },
-        "percentage-change": { start: "Změna z", between: "na", end: "" },
+        "percentage-change": {
+          start: "Procentní změna z",
+          between: "na",
+          end: "?",
+        },
       },
       fields: {
         percent: "Procento",
@@ -3597,13 +3629,21 @@ const localizedPercentagePacks: Record<
       },
       phrases: {
         "percent-of": { start: "Ile to", between: "z", end: "?" },
-        "what-percent": { start: "", between: "to ile procent z", end: "?" },
+        "what-percent": {
+          start: "Część",
+          between: "to ile procent z",
+          end: "?",
+        },
         "whole-from-percent": {
-          start: "",
+          start: "Część",
           between: "to",
           end: "% jakiej całości?",
         },
-        "percentage-change": { start: "Zmiana z", between: "na", end: "" },
+        "percentage-change": {
+          start: "Zmiana procentowa z",
+          between: "na",
+          end: "?",
+        },
       },
       fields: {
         percent: "Procent",
@@ -3662,16 +3702,20 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Hvor meget er", between: "af", end: "?" },
         "what-percent": {
-          start: "",
+          start: "Delen",
           between: "er hvor mange procent af",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "Delen",
           between: "er",
           end: "% af hvilken helhed?",
         },
-        "percentage-change": { start: "Ændring fra", between: "til", end: "" },
+        "percentage-change": {
+          start: "Procentvis ændring fra",
+          between: "til",
+          end: "?",
+        },
       },
       fields: {
         percent: "Procent",
@@ -3731,16 +3775,20 @@ const localizedPercentagePacks: Record<
       phrases: {
         "percent-of": { start: "Hvor mye er", between: "av", end: "?" },
         "what-percent": {
-          start: "",
+          start: "Delen",
           between: "er hvor mange prosent av",
           end: "?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "Delen",
           between: "er",
           end: "% av hvilken helhet?",
         },
-        "percentage-change": { start: "Endring fra", between: "til", end: "" },
+        "percentage-change": {
+          start: "Prosentvis endring fra",
+          between: "til",
+          end: "?",
+        },
       },
       fields: {
         percent: "Prosent",
@@ -3798,13 +3846,21 @@ const localizedPercentagePacks: Record<
       },
       phrases: {
         "percent-of": { start: "كم تساوي", between: "من", end: "؟" },
-        "what-percent": { start: "", between: "تمثل كم بالمئة من", end: "؟" },
+        "what-percent": {
+          start: "الجزء",
+          between: "تمثل كم بالمئة من",
+          end: "؟",
+        },
         "whole-from-percent": {
-          start: "",
+          start: "الجزء",
           between: "تمثل",
           end: "% من أي كل؟",
         },
-        "percentage-change": { start: "التغير من", between: "إلى", end: "" },
+        "percentage-change": {
+          start: "نسبة التغير من",
+          between: "إلى",
+          end: "؟",
+        },
       },
       fields: {
         percent: "النسبة المئوية",
@@ -3855,14 +3911,18 @@ const localizedPercentagePacks: Record<
         "percentage-change": "百分比變化",
       },
       phrases: {
-        "percent-of": { start: "", between: "的", end: "是多少？" },
-        "what-percent": { start: "", between: "是", end: "的幾趴？" },
+        "percent-of": { start: "數值", between: "的", end: "是多少？" },
+        "what-percent": { start: "部分", between: "是", end: "的幾趴？" },
         "whole-from-percent": {
-          start: "",
+          start: "部分",
           between: "是",
           end: "% 時，整體是多少？",
         },
-        "percentage-change": { start: "從", between: "變成", end: "" },
+        "percentage-change": {
+          start: "變化：",
+          between: "變成",
+          end: "是多少？",
+        },
       },
       fields: {
         percent: "百分比",
@@ -3919,21 +3979,21 @@ const localizedPercentagePacks: Record<
         "percentage-change": "Yüzde değişimi",
       },
       phrases: {
-        "percent-of": { start: "", between: "sayısının", end: "kaçı?" },
+        "percent-of": { start: "Sayı", between: "sayısının", end: "kaçı?" },
         "what-percent": {
-          start: "",
+          start: "Parça",
           between: ",",
           end: "sayısının yüzde kaçı?",
         },
         "whole-from-percent": {
-          start: "",
+          start: "Parça",
           between: ",",
           end: "% ise bütün kaçtır?",
         },
         "percentage-change": {
-          start: "",
+          start: "Yüzde değişim:",
           between: "değerinden",
-          end: "değerine",
+          end: "nedir?",
         },
       },
       fields: {
