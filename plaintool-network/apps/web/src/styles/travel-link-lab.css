@@ -78,20 +78,12 @@
   height: 48px;
   border-left: 1px solid var(--line);
 }
-.travel-link-lab.converter.is-success .converter-commandbar,
-.travel-link-lab.converter.has-error .converter-commandbar {
-  background: var(--elevated);
-}
-.travel-link-lab .converter-commandbar {
-  min-height: 0;
-  padding: var(--space-3);
-}
-.travel-link-lab .primary-actions,
-.travel-link-lab .primary-button {
-  width: 100%;
-}
-.travel-link-lab .primary-button {
-  min-height: 44px;
+.travel-link-url-row .primary-button {
+  flex: 0 0 auto;
+  min-height: 48px;
+  padding-inline: var(--space-4);
+  border: 0;
+  border-radius: 0;
 }
 .travel-link-lab-error {
   margin: 0;
@@ -101,6 +93,9 @@
 }
 .travel-link-lab-error:empty {
   display: none;
+}
+.travel-link-lab-error:not(:empty) {
+  margin-top: var(--space-2);
 }
 
 .travel-link-results {
@@ -194,10 +189,7 @@
   .travel-link-card .secondary-button {
     min-height: 44px;
   }
-  .travel-link-lab .primary-actions {
-    width: 100%;
-  }
-  .travel-link-lab .primary-button {
-    width: 100%;
+  .travel-link-url-row .primary-button {
+    padding-inline: var(--space-3);
   }
 }
