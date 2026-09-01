@@ -62,7 +62,9 @@ function init(root: HTMLElement) {
   let resultUrl = "";
   let pendingUrl = "";
   let revision = 0;
-  let drag: { x: number; y: number; crop: CropRect } | undefined;
+  let drag:
+    | { x: number; y: number; crop: CropRect; handle?: string }
+    | undefined;
 
   const state = (
     message: string,
@@ -392,15 +394,20 @@ function init(root: HTMLElement) {
       );
   });
   wrap.addEventListener("pointerdown", (event) => {
-    if (!source || !crop || event.target !== canvas) return;
+    if (!source || !crop) return;
+    const handle = (event.target as HTMLElement).closest<HTMLElement>(
+      "[data-crop-handle]",
+    )?.dataset.cropHandle;
+    if (event.target !== canvas && !handle) return;
     const rect = canvas.getBoundingClientRect();
     const bounds = transformedSize();
     drag = {
       x: ((event.clientX - rect.left) * bounds.width) / rect.width,
       y: ((event.clientY - rect.top) * bounds.height) / rect.height,
       crop: { ...crop },
+      handle,
     };
-    canvas.setPointerCapture(event.pointerId);
+    wrap.setPointerCapture(event.pointerId);
   });
   wrap.addEventListener("pointermove", (event) => {
     if (!source || !drag) return;
@@ -408,11 +415,24 @@ function init(root: HTMLElement) {
     const bounds = transformedSize();
     const x = ((event.clientX - rect.left) * bounds.width) / rect.width;
     const y = ((event.clientY - rect.top) * bounds.height) / rect.height;
-    setCrop({
-      ...drag.crop,
-      x: drag.crop.x + x - drag.x,
-      y: drag.crop.y + y - drag.y,
-    });
+    const dx = x - drag.x;
+    const dy = y - drag.y;
+    if (!drag.handle) {
+      setCrop({ ...drag.crop, x: drag.crop.x + dx, y: drag.crop.y + dy });
+      return;
+    }
+    const next = { ...drag.crop };
+    if (drag.handle.includes("w")) {
+      next.x += dx;
+      next.width -= dx;
+    }
+    if (drag.handle.includes("e")) next.width += dx;
+    if (drag.handle.includes("n")) {
+      next.y += dy;
+      next.height -= dy;
+    }
+    if (drag.handle.includes("s")) next.height += dy;
+    setCrop(next);
   });
   const stopDrag = () => {
     drag = undefined;

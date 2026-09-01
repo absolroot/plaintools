@@ -149,11 +149,14 @@
   background: repeating-conic-gradient(#eef0f2 0% 25%, #fff 0% 50%) 50% / 20px
     20px;
 }
+.crop-stage:has(canvas:not([hidden])) {
+  background: #5b616b;
+}
 .crop-canvas-wrap {
   position: relative;
   min-width: 0;
   min-height: 0;
-  padding: var(--space-4);
+  padding: var(--space-2);
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -171,6 +174,8 @@
   max-height: 440px;
   object-fit: contain;
   touch-action: none;
+  background: repeating-conic-gradient(#e5e7ea 0% 25%, #f6f7f8 0% 50%) 50% /
+    16px 16px;
   box-shadow: 0 8px 32px var(--shadow-layer);
 }
 .crop-empty {
@@ -193,10 +198,68 @@
   z-index: 1;
   box-sizing: border-box;
   pointer-events: none;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   box-shadow:
     0 0 0 9999px rgb(0 0 0 / 0.48),
     0 0 0 1px rgb(0 0 0 / 0.32);
+}
+.crop-selection i {
+  position: absolute;
+  z-index: 2;
+  width: 13px;
+  height: 13px;
+  background: #fff;
+  border: 2px solid #14161a;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.55);
+  pointer-events: auto;
+  transition:
+    transform 120ms ease,
+    background 120ms ease;
+}
+.crop-selection i:hover {
+  background: var(--brand);
+  transform: scale(1.16);
+}
+.crop-selection i[data-crop-handle="nw"] {
+  left: -8px;
+  top: -8px;
+  cursor: nwse-resize;
+}
+.crop-selection i[data-crop-handle="n"] {
+  left: calc(50% - 7px);
+  top: -8px;
+  cursor: ns-resize;
+}
+.crop-selection i[data-crop-handle="ne"] {
+  right: -8px;
+  top: -8px;
+  cursor: nesw-resize;
+}
+.crop-selection i[data-crop-handle="e"] {
+  right: -8px;
+  top: calc(50% - 7px);
+  cursor: ew-resize;
+}
+.crop-selection i[data-crop-handle="se"] {
+  right: -8px;
+  bottom: -8px;
+  cursor: nwse-resize;
+}
+.crop-selection i[data-crop-handle="s"] {
+  left: calc(50% - 7px);
+  bottom: -8px;
+  cursor: ns-resize;
+}
+.crop-selection i[data-crop-handle="sw"] {
+  left: -8px;
+  bottom: -8px;
+  cursor: nesw-resize;
+}
+.crop-selection i[data-crop-handle="w"] {
+  left: -8px;
+  top: calc(50% - 7px);
+  cursor: ew-resize;
 }
 .crop-selection::before,
 .crop-selection::after {
