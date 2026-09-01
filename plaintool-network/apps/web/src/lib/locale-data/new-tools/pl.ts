@@ -48,7 +48,7 @@ const seed = {
   ai: {
     input: "Tekst oryginalny",
     output: "Tekst oczyszczony",
-    placeholder: "Wklej tekst, który może zawierać ukryte znaki Unicode.",
+    placeholder: "Wklej skopiowany tekst, który może zawierać niechciane niewidoczne znaki.",
     run: "Usuń ukryte znaki",
     report: "Raport usuwania",
     removed: "Usunięte znaki",
@@ -240,20 +240,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Usuwanie znaków wodnych AI i ukrytych znaków",
+      title: "Wyczyść tekst AI",
       description:
-        "Czyści tekst skopiowany z ChatGPT, Claude, Gemini i innych źródeł przez usuwanie obsługiwanych ukrytych znaków, często nazywanych znakami wodnymi AI; nie potwierdza autorstwa ani nie gwarantuje obejścia detektorów AI.",
+        "Czyści obsługiwane niechciane niewidoczne znaki, które mogą znaleźć się w tekście skopiowanym z ChatGPT, Claude, Gemini i innych źródeł. Nie potwierdza autorstwa, nie rozpoznaje tekstu AI ani nie gwarantuje obejścia detektorów AI.",
       guide:
         "Wklej tekst i najpierw sprawdź oczyszczony wynik, a następnie dokładne nazwy znaków, ich liczbę oraz punkty kodowe U+. Ryzykowne opcje wpływające na łączenie znaków są domyślnie wyłączone.",
       terms: [
-        "usunąć znak wodny AI z tekstu",
-        "usuwanie znaków wodnych AI",
+        "wyczyść tekst AI",
+        "wyczyść skopiowany tekst AI",
+        "usuń niewidoczne znaki",
         "ukryte znaki ChatGPT",
         "ukryte znaki Claude",
         "ukryte znaki Gemini",
-        "niewidoczne znaki",
-        "usunąć spację o zerowej szerokości",
-        "wyczyścić tekst Unicode",
+        "usuń znak wodny AI z tekstu",
       ],
     },
     "url-encode": {

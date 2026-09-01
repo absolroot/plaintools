@@ -207,7 +207,7 @@ describe("locale bundles", () => {
 
   it("keeps the AI cleaner claim accurate and non-attributional", () => {
     expect(localeBundles.ko.tools["ai-watermark-remover"].title).toBe(
-      "AI 워터마크 제거기 - ChatGPT·Claude·Gemini 텍스트",
+      "AI 텍스트 정리 - ChatGPT·Claude·Gemini 복사 글",
     );
     expect(
       localeBundles.ko.tools["ai-watermark-remover"].description,
@@ -215,6 +215,14 @@ describe("locale bundles", () => {
     expect(
       localeBundles.en.tools["ai-watermark-remover"].description,
     ).toContain("does not prove authorship");
+    for (const [locale, bundle] of Object.entries(localeBundles)) {
+      expect(
+        bundle.tools["ai-watermark-remover"].title,
+        `${locale}:cleaner title`,
+      ).not.toMatch(
+        /watermark|워터마크|透かし|浮水印|العلامة المائية|filigran|vodoznak|vandmærke|vannmerke|vattenstämpel|znak wodny/u,
+      );
+    }
   });
 
   it("separates Korean date, D-Day, and full-age search intents", () => {

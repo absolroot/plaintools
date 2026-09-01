@@ -46,7 +46,7 @@ const seed = {
   ai: {
     input: "原始文字",
     output: "清理後的文字",
-    placeholder: "貼上可能含有隱藏Unicode字元的文字。",
+    placeholder: "貼上可能夾帶不必要不可見字元的複製文字。",
     run: "清除隱藏字元",
     report: "移除報告",
     removed: "已移除字元",
@@ -226,18 +226,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AI 文字浮水印清理工具",
+      title: "AI 文字清理工具",
       description:
-        "找出並清理從 ChatGPT、Claude、Gemini 或網頁複製文字時可能夾帶的隱藏字元；不判定內容是否由 AI 生成，也不保證規避 AI 偵測工具。",
+        "找出並清理從 ChatGPT、Claude、Gemini 或網頁複製文字時可能夾帶的不必要不可見字元；不判定內容是否由 AI 生成、不規避 AI 偵測工具，也不證明內容來源。",
       guide:
         "貼上文字後，先檢查清理結果，再查看移除的確切字元名稱、數量和U+碼位。可能影響文字塑形的高風險選項預設為關閉。",
       terms: [
-        "AI 浮水印移除",
-        "AI 文字浮水印",
-        "ChatGPT 隱藏字元",
+        "AI 文字清理",
+        "清理 AI 複製文字",
+        "移除不可見字元",
+        "ChatGPT 複製文字整理",
         "Claude 隱藏字元",
         "Gemini 隱藏字元",
-        "零寬字元清除",
+        "AI 浮水印移除 文字",
       ],
     },
     "url-encode": {

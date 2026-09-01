@@ -49,7 +49,7 @@ const seed = {
     input: "Originaltext",
     output: "Bereinigter Text",
     placeholder:
-      "Fügen Sie Text ein, der unsichtbare Unicode-Zeichen enthalten könnte.",
+      "Fügen Sie kopierten Text ein, der unerwünschte unsichtbare Zeichen enthalten könnte.",
     run: "Unsichtbare Zeichen entfernen",
     report: "Entfernungsbericht",
     removed: "Entfernte Zeichen",
@@ -239,20 +239,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "KI-Wasserzeichen- und Unsichtbare-Zeichen-Entferner",
+      title: "KI-Text bereinigen",
       description:
-        "Bereinigt kopierten Text aus ChatGPT, Claude, Gemini und anderen Quellen, indem unterstützte unsichtbare Zeichen entfernt werden, die oft als KI-Wasserzeichen bezeichnet werden; das Tool weist keine Urheberschaft nach und garantiert keine Umgehung von KI-Detektoren.",
+        "Bereinigt kopierten Text aus ChatGPT, Claude, Gemini und anderen Quellen, indem unterstützte unerwünschte unsichtbare Zeichen entfernt werden. Das Tool weist keine Urheberschaft nach, erkennt keinen KI-Text und garantiert keine Umgehung von KI-Detektoren.",
       guide:
         "Fügen Sie den Text ein und prüfen Sie zuerst das bereinigte Ergebnis. Kontrollieren Sie danach die genauen Zeichennamen, Anzahlen und U+-Codepunkte. Optionen, die die Schriftdarstellung verändern können, sind standardmäßig deaktiviert.",
       terms: [
-        "KI Wasserzeichen entfernen Text",
-        "KI Wasserzeichen Entferner",
+        "KI Text bereinigen",
+        "kopierten KI Text bereinigen",
+        "unsichtbare Zeichen entfernen",
         "ChatGPT unsichtbare Zeichen",
         "Claude unsichtbare Zeichen",
         "Gemini unsichtbare Zeichen",
-        "versteckte Zeichen entfernen",
-        "Nullbreite Leerzeichen entfernen",
-        "Unicode Text bereinigen",
+        "KI Wasserzeichen Text entfernen",
       ],
     },
     "url-encode": {

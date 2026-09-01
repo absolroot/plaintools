@@ -47,7 +47,7 @@ const seed = {
   ai: {
     input: "Texto original",
     output: "Texto limpo",
-    placeholder: "Cole um texto que possa conter caracteres Unicode ocultos.",
+    placeholder: "Cole um texto copiado que possa conter caracteres invisíveis indesejados.",
     run: "Remover caracteres ocultos",
     report: "Relatório de remoção",
     removed: "Caracteres removidos",
@@ -238,20 +238,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Removedor de marca-d’água de IA e caracteres ocultos",
+      title: "Limpador de texto de IA",
       description:
-        "Limpa texto copiado do ChatGPT, Claude, Gemini e de outras fontes ao remover caracteres ocultos compatíveis, muitas vezes chamados de marcas d’água de IA; não comprova autoria nem garante burlar detectores de IA.",
+        "Limpa caracteres invisíveis indesejados compatíveis que podem vir em texto copiado do ChatGPT, Claude, Gemini e de outras fontes. Não comprova autoria, não identifica texto gerado por IA nem garante burlar detectores de IA.",
       guide:
         "Cole o texto e confira primeiro o resultado limpo; depois, verifique os nomes exatos, as quantidades e os pontos de código U+ removidos. As opções que podem alterar a escrita ficam desativadas por padrão.",
       terms: [
-        "remover marca d'água IA do texto",
-        "removedor de marca d'água IA",
+        "limpar texto de IA",
+        "limpar texto de IA copiado",
+        "remover caracteres invisíveis",
         "caracteres ocultos ChatGPT",
         "caracteres ocultos Claude",
         "caracteres ocultos Gemini",
-        "caracteres invisíveis",
-        "remover espaço de largura zero",
-        "limpar texto Unicode",
+        "remover marca d'água IA do texto",
       ],
     },
     "url-encode": {

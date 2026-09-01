@@ -48,7 +48,7 @@ const seed = {
     input: "Testo originale",
     output: "Testo ripulito",
     placeholder:
-      "Incolla un testo che potrebbe contenere caratteri Unicode nascosti.",
+      "Incolla testo copiato che potrebbe contenere caratteri invisibili indesiderati.",
     run: "Rimuovi caratteri nascosti",
     report: "Resoconto delle rimozioni",
     removed: "Caratteri rimossi",
@@ -236,20 +236,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Rimuovi filigrane IA e caratteri invisibili",
+      title: "Pulire testo IA",
       description:
-        "Pulisce il testo copiato da ChatGPT, Claude, Gemini e altre fonti rimuovendo caratteri invisibili supportati, spesso chiamati filigrane IA; non dimostra l’autore del testo né garantisce di aggirare i rilevatori di IA.",
+        "Pulisce i caratteri invisibili indesiderati supportati che possono comparire nel testo copiato da ChatGPT, Claude, Gemini e altre fonti. Non dimostra l’autore, non identifica testo generato dall’IA e non garantisce di aggirare i rilevatori di IA.",
       guide:
         "Incolla il testo e controlla prima il risultato ripulito, quindi verifica nomi esatti, quantità e code point U+ dei caratteri rimossi. Le opzioni che possono alterare la scrittura sono disattivate per impostazione predefinita.",
       terms: [
-        "rimuovere filigrana IA dal testo",
-        "rimuovi filigrana IA",
+        "pulire testo IA",
+        "pulire testo IA copiato",
+        "rimuovere caratteri invisibili",
         "caratteri invisibili ChatGPT",
         "caratteri invisibili Claude",
         "caratteri invisibili Gemini",
-        "caratteri nascosti",
-        "rimuovere spazio a larghezza zero",
-        "pulire testo Unicode",
+        "rimuovere filigrana IA dal testo",
       ],
     },
     "url-encode": {

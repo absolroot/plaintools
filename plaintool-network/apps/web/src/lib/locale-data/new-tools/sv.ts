@@ -47,7 +47,7 @@ const seed = {
   ai: {
     input: "Originaltext",
     output: "Rensad text",
-    placeholder: "Klistra in text som kan innehålla dolda Unicode-tecken.",
+    placeholder: "Klistra in kopierad text som kan innehålla oönskade osynliga tecken.",
     run: "Rensa dolda tecken",
     report: "Borttagningsrapport",
     removed: "Borttagna tecken",
@@ -238,20 +238,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Ta bort AI-vattenstämplar och dolda tecken",
+      title: "Rensa AI-text",
       description:
-        "Rensar kopierad text från ChatGPT, Claude, Gemini och andra källor genom att ta bort dolda tecken som stöds och ofta kallas AI-vattenstämplar; verktyget bevisar inte upphov och garanterar inte att AI-detektorer kan kringgås.",
+        "Rensar bort oönskade osynliga tecken som stöds och kan följa med kopierad text från ChatGPT, Claude, Gemini och andra källor. Verktyget bevisar inte upphov, avgör inte om texten är AI-skriven och garanterar inte att AI-detektorer kan kringgås.",
       guide:
         "Klistra in texten och granska först det rensade resultatet. Kontrollera sedan exakta teckennamn, antal och U+-kodpunkter. Riskfyllda alternativ som kan påverka skriftens formning är avstängda som standard.",
       terms: [
-        "ta bort AI-vattenstämpel från text",
-        "AI-vattenstämpelborttagare",
+        "rensa AI-text",
+        "rensa kopierad AI-text",
+        "ta bort osynliga tecken",
         "dolda tecken ChatGPT",
         "dolda tecken Claude",
         "dolda tecken Gemini",
-        "osynliga tecken",
-        "ta bort zero-width space",
-        "rensa Unicode-text",
+        "ta bort AI-vattenstämpel från text",
       ],
     },
     "url-encode": {

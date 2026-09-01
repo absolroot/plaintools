@@ -49,7 +49,7 @@ const seed = {
     input: "Texte d’origine",
     output: "Texte nettoyé",
     placeholder:
-      "Collez un texte susceptible de contenir des caractères Unicode invisibles.",
+      "Collez un texte copié susceptible de contenir des caractères invisibles indésirables.",
     run: "Supprimer les caractères invisibles",
     report: "Rapport de suppression",
     removed: "Caractères supprimés",
@@ -242,20 +242,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Suppresseur de filigranes IA et de caractères invisibles",
+      title: "Nettoyer un texte IA",
       description:
-        "Nettoie le texte copié depuis ChatGPT, Claude, Gemini et d’autres sources en supprimant les caractères invisibles pris en charge, souvent appelés filigranes IA ; il ne prouve pas l’auteur du texte et ne garantit pas de contourner les détecteurs d’IA.",
+        "Nettoie les caractères invisibles indésirables pris en charge dans le texte copié depuis ChatGPT, Claude, Gemini et d’autres sources. L’outil ne prouve pas l’auteur, ne reconnaît pas un texte IA et ne garantit pas de contourner les détecteurs d’IA.",
       guide:
         "Collez le texte et examinez d’abord le résultat nettoyé, puis vérifiez le nom exact, le nombre et le point de code U+ de chaque caractère retiré. Les options susceptibles de modifier l’écriture sont désactivées par défaut.",
       terms: [
-        "supprimer filigrane IA texte",
-        "suppresseur de filigrane IA",
+        "nettoyer un texte IA",
+        "nettoyer un texte IA copié",
+        "supprimer les caractères invisibles",
         "caractères invisibles ChatGPT",
         "caractères invisibles Claude",
         "caractères invisibles Gemini",
-        "caractères cachés",
-        "supprimer espace insécable",
-        "nettoyer texte Unicode",
+        "supprimer filigrane IA texte",
       ],
     },
     "url-encode": {

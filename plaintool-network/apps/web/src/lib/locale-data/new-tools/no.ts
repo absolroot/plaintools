@@ -47,7 +47,7 @@ const seed = {
   ai: {
     input: "Originaltekst",
     output: "Renset tekst",
-    placeholder: "Lim inn tekst som kan inneholde skjulte Unicode-tegn.",
+    placeholder: "Lim inn kopiert tekst som kan inneholde uønskede usynlige tegn.",
     run: "Fjern skjulte tegn",
     report: "Fjerningsrapport",
     removed: "Fjernede tegn",
@@ -231,20 +231,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Fjern AI-vannmerker og skjulte tegn",
+      title: "Rense AI-tekst",
       description:
-        "Rydder opp i tekst kopiert fra ChatGPT, Claude, Gemini og andre kilder ved å fjerne støttede skjulte tegn som ofte kalles AI-vannmerker; verktøyet beviser ikke opphav og garanterer ikke å omgå KI-detektorer.",
+        "Renser støttede uønskede usynlige tegn som kan følge med kopiert tekst fra ChatGPT, Claude, Gemini og andre kilder. Verktøyet beviser ikke opphav, avgjør ikke om teksten er KI-skrevet og garanterer ikke å omgå KI-detektorer.",
       guide:
         "Lim inn tekst og kontroller først det rensede resultatet. Se deretter de nøyaktige tegnnavnene, antallene og U+-kodepunktene. Risikable alternativer som kan endre skriftforming, er slått av som standard.",
       terms: [
-        "fjern AI-vannmerke fra tekst",
-        "AI-vannmerkefjerner",
+        "rense AI-tekst",
+        "rense kopiert AI-tekst",
+        "fjern usynlige tegn",
         "skjulte tegn ChatGPT",
         "skjulte tegn Claude",
         "skjulte tegn Gemini",
-        "usynlige tegn",
-        "fjern nullbredde-mellomrom",
-        "rydd Unicode-tekst",
+        "fjern AI-vannmerke fra tekst",
       ],
     },
     "url-encode": {

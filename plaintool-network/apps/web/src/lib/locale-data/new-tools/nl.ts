@@ -48,7 +48,7 @@ const seed = {
   ai: {
     input: "Oorspronkelijke tekst",
     output: "Opgeschoonde tekst",
-    placeholder: "Plak tekst die verborgen Unicode-tekens kan bevatten.",
+    placeholder: "Plak gekopieerde tekst die ongewenste onzichtbare tekens kan bevatten.",
     run: "Verborgen tekens verwijderen",
     report: "Verwijderingsrapport",
     removed: "Verwijderde tekens",
@@ -232,20 +232,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AI-watermerken en verborgen tekens verwijderen",
+      title: "AI-tekst opschonen",
       description:
-        "Schoont gekopieerde tekst van ChatGPT, Claude, Gemini en andere bronnen op door ondersteunde verborgen tekens te verwijderen die vaak AI-watermerken worden genoemd; het bewijst geen auteurschap en garandeert niet dat AI-detectoren worden omzeild.",
+        "Schoont ondersteunde ongewenste onzichtbare tekens op die kunnen meekomen in gekopieerde tekst van ChatGPT, Claude, Gemini en andere bronnen. Het bewijst geen auteurschap, herkent geen AI-tekst en garandeert niet dat AI-detectoren worden omzeild.",
       guide:
         "Plak de tekst en bekijk eerst het opgeschoonde resultaat. Controleer daarna de exacte namen, aantallen en U+-codepunten van de verwijderde tekens. Opties die de schriftweergave kunnen wijzigen, staan standaard uit.",
       terms: [
-        "AI-watermerk uit tekst verwijderen",
-        "AI-watermerkverwijderaar",
+        "AI-tekst opschonen",
+        "gekopieerde AI-tekst opschonen",
+        "onzichtbare tekens verwijderen",
         "verborgen tekens ChatGPT",
         "verborgen tekens Claude",
         "verborgen tekens Gemini",
-        "onzichtbare tekens",
-        "zero-width-spatie verwijderen",
-        "Unicode-tekst opschonen",
+        "AI-watermerk uit tekst verwijderen",
       ],
     },
     "url-encode": {

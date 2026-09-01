@@ -47,7 +47,7 @@ const seed = {
   ai: {
     input: "Původní text",
     output: "Vyčištěný text",
-    placeholder: "Vložte text, který může obsahovat skryté znaky Unicode.",
+    placeholder: "Vložte zkopírovaný text, který může obsahovat nežádoucí neviditelné znaky.",
     run: "Odstranit skryté znaky",
     report: "Přehled odstranění",
     removed: "Odstraněné znaky",
@@ -237,20 +237,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Odstranění vodoznaků AI a skrytých znaků",
+      title: "Vyčistit text AI",
       description:
-        "Vyčistí text zkopírovaný z ChatGPT, Claude, Gemini a dalších zdrojů odstraněním podporovaných skrytých znaků, kterým se často říká vodoznaky AI; neprokazuje autorství ani nezaručuje obejití detektorů AI.",
+        "Vyčistí podporované nežádoucí neviditelné znaky, které mohou být v textu zkopírovaném z ChatGPT, Claude, Gemini a dalších zdrojů. Nástroj neprokazuje autorství, neurčuje text vytvořený AI ani nezaručuje obejití detektorů AI.",
       guide:
         "Vložte text, nejprve zkontrolujte vyčištěný výsledek a poté přesné názvy znaků, jejich počty a kódové body U+. Rizikové možnosti ovlivňující tvarování písma jsou ve výchozím nastavení vypnuté.",
       terms: [
-        "odstranit AI vodoznak z textu",
-        "odstraňovač AI vodoznaků",
+        "vyčistit text AI",
+        "vyčistit zkopírovaný text AI",
+        "odstranit neviditelné znaky",
         "skryté znaky ChatGPT",
         "skryté znaky Claude",
         "skryté znaky Gemini",
-        "neviditelné znaky",
-        "odstranit mezeru s nulovou šířkou",
-        "vyčistit text Unicode",
+        "odstranit AI vodoznak z textu",
       ],
     },
     "url-encode": {

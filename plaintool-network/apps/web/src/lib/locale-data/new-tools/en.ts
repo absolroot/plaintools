@@ -47,7 +47,7 @@ const seed = {
   ai: {
     input: "Original text",
     output: "Cleaned text",
-    placeholder: "Paste text that may contain hidden Unicode characters.",
+    placeholder: "Paste copied text that may contain unwanted invisible characters.",
     run: "Clean hidden characters",
     report: "Removal report",
     removed: "Removed characters",
@@ -231,20 +231,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "AI Watermark & Hidden Character Remover",
+      title: "AI Text Cleaner",
       description:
-        "Clean copied text from ChatGPT, Claude, Gemini, and other sources by removing supported hidden characters often described as AI watermarks; it does not prove authorship or guarantee that AI detectors can be bypassed.",
+        "Clean copied text from ChatGPT, Claude, Gemini, and other sources by removing supported unwanted invisible characters. It does not prove authorship, identify AI-written text, or guarantee that AI detectors can be bypassed.",
       guide:
         "Paste text and review the cleaned result first, then inspect the exact character names, counts, and U+ code points. Risky script-shaping options stay off by default.",
       terms: [
-        "AI watermark remover",
-        "remove AI watermark from text",
+        "AI text cleaner",
+        "clean copied AI text",
+        "remove invisible characters from text",
         "ChatGPT hidden characters",
         "Claude hidden characters",
         "Gemini hidden characters",
-        "invisible text characters",
-        "zero-width space remover",
-        "clean Unicode text",
+        "AI watermark remover text",
       ],
     },
     "url-encode": {
