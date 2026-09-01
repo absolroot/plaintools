@@ -14,14 +14,17 @@
     "image-converter": "image"
   },
   "initiallyVisibleToolCounts": {
-    "image": 4
+    "image": 7
   },
   "pinnedToolOrder": {
     "image": [
       "background-remover",
       "image-resizer",
       "image-upscaler",
-      "image-crop"
+      "image-crop",
+      "png-to-jpg",
+      "jpg-to-png",
+      "webp-to-png"
     ],
     "pdf": [],
     "text": ["ai-watermark-remover", "regex-tester"],

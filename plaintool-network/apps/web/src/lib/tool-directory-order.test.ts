@@ -30,11 +30,14 @@ describe("home tool directory order", () => {
   });
 
   it("pins the requested image, generator, and calculator cards", () => {
-    expect(directoryOrder.pinnedToolOrder.image.slice(0, 4)).toEqual([
+    expect(directoryOrder.pinnedToolOrder.image.slice(0, 7)).toEqual([
       "background-remover",
       "image-resizer",
       "image-upscaler",
       "image-crop",
+      "png-to-jpg",
+      "jpg-to-png",
+      "webp-to-png",
     ]);
     expect(directoryOrder.pinnedToolOrder.image[1]).toBe("image-resizer");
     expect(directoryOrder.pinnedToolOrder.generator.slice(0, 4)).toEqual([
@@ -114,18 +117,21 @@ describe("home tool directory order", () => {
   it("puts image converters after the primary image tools", () => {
     const imageTools = homeDirectoryToolsForCategory("image");
 
-    expect(imageTools.slice(0, 4).map((tool) => tool.id)).toEqual([
+    expect(imageTools.slice(0, 7).map((tool) => tool.id)).toEqual([
       "background-remover",
       "image-resizer",
       "image-upscaler",
       "image-crop",
+      "png-to-jpg",
+      "jpg-to-png",
+      "webp-to-png",
     ]);
     expect(
       imageTools
         .filter((tool) => tool.featureId === "image-converter")
         .every((tool) => imageTools.indexOf(tool) > 3),
     ).toBe(true);
-    expect(homeDirectoryInitiallyVisibleToolCount("image")).toBe(4);
+    expect(homeDirectoryInitiallyVisibleToolCount("image")).toBe(7);
     expect(
       homeDirectoryInitiallyVisibleToolCount("calculator"),
     ).toBeUndefined();
