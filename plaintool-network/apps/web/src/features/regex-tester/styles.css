@@ -95,25 +95,30 @@
 .regex-text-editor pre {
   position: absolute;
   inset: 0;
+  z-index: 1;
   overflow: hidden;
   pointer-events: none;
-  color: transparent;
+  color: var(--ink);
 }
 .regex-text-editor pre mark {
   border-radius: 3px;
   background: color-mix(in oklch, var(--brand), var(--base) 72%);
-  color: transparent;
+  color: var(--ink);
 }
 .regex-text-editor pre mark.is-active {
   background: color-mix(in oklch, var(--brand), var(--base) 48%);
 }
 .regex-text-editor textarea {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   resize: vertical;
   background: transparent;
-  color: var(--ink);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
   caret-color: var(--ink);
+}
+.regex-text-editor textarea::selection {
+  background: color-mix(in oklch, var(--brand), transparent 64%);
 }
 .pane-heading > span,
 .regex-results-heading > span {

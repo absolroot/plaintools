@@ -59,7 +59,7 @@ const t = localeBundles[locale].tools["regex-tester"]
         >0</span
       >
     </div><div class="regex-text-editor">
-      <pre data-highlight aria-hidden="true"></pre><textarea
+      <pre data-highlight dir="auto" aria-hidden="true"></pre><textarea
         id="regex-text"
         data-text
         dir="auto"
@@ -85,10 +85,11 @@ const t = localeBundles[locale].tools["regex-tester"]
     <summary>{t.replacementLabel}</summary><div
       class="regex-replacement-content"
     >
-      <label for="regex-replacement">{t.replacementLabel}</label><input
+      <input
         id="regex-replacement"
         class="regex-replacement-input"
         data-replacement
+        aria-label={t.replacementLabel}
         dir="auto"
         spellcheck="false"
         maxlength={MAX_REGEX_REPLACEMENT_LENGTH}
