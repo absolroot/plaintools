@@ -122,7 +122,6 @@ const structuredData = [
       <div class="travel-link-results-heading">
         <div>
           <h2 id="travel-results-title">{copy.resultsTitle}</h2>
-          <p data-travel-result-summary>{copy.resultsDescription}</p>
         </div>
       </div>
       <div class="travel-link-result-list" data-travel-grid></div>
@@ -923,10 +922,7 @@ const structuredData = [
           cardCopy.className = "travel-link-card-copy";
           const title = document.createElement("h4");
           title.textContent = candidate.label;
-          const detail = document.createElement("p");
-          detail.className = "travel-link-card-detail";
-          detail.textContent = `${candidate.preservesHotel ? copy.preservesHotel : copy.doesNotPreserveHotel} · ${copy.eligibility}`;
-          cardCopy.append(title, detail);
+          cardCopy.append(title);
           const link = document.createElement("a");
           link.className = "secondary-button";
           link.target = "_blank";

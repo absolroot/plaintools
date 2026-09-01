@@ -118,7 +118,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     hotelRoutes: "호텔 링크",
     officialRoutes: "공식 혜택",
     searchRoutes: "검색 경유",
-    hotelGroup: "호텔 링크",
+    hotelGroup: "카드·제휴 경로",
     searchGroup: "검색 경유 링크",
     officialGroup: "공식 혜택 페이지",
     empty: "선택한 국가·지역과 경로 방식에 맞는 링크가 없습니다.",

@@ -177,14 +177,6 @@
 }
 .travel-link-card-copy {
   min-width: 0;
-  display: grid;
-  gap: 3px;
-}
-.travel-link-card-detail {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
 }
 .travel-link-empty {
   margin: 0;
@@ -223,12 +215,7 @@
   .travel-link-market-picker select {
     min-height: 44px;
   }
-  .travel-link-card {
-    align-items: stretch;
-    flex-direction: column;
-  }
   .travel-link-card .secondary-button {
-    width: 100%;
     min-height: 44px;
   }
   .travel-link-lab .primary-actions {
