@@ -1,0 +1,227 @@
+.travel-link-lab-topbar {
+  justify-content: space-between;
+}
+.travel-link-lab-topbar > div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+.travel-link-lab-topbar strong {
+  font-size: 13px;
+}
+.travel-link-lab-topbar span,
+.travel-link-lab-input-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.travel-link-lab-count {
+  flex: 0 0 auto;
+  padding: 2px 6px;
+  background: var(--recessed);
+  box-shadow: inset 0 0 0 1px var(--control-line);
+  font-family: var(--code-font);
+  white-space: nowrap;
+}
+.travel-link-lab-input-panel {
+  background: var(--line);
+}
+.travel-link-lab-input {
+  min-height: 280px;
+  background: var(--input-surface);
+}
+.travel-link-lab .editor-pane textarea {
+  min-height: 184px;
+}
+.travel-link-lab-input-note {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.travel-link-results {
+  min-width: 0;
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+  border: 1px solid var(--line);
+  background: var(--base);
+  box-shadow: 0 2px 8px var(--shadow-layer);
+}
+.travel-link-results-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.travel-link-results-heading h2 {
+  margin: 4px 0;
+  font-size: 18px;
+}
+.travel-link-results-heading p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.travel-link-results-total {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-family: var(--code-font);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.travel-link-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  background: var(--line);
+  box-shadow: 0 0 0 1px var(--line);
+}
+.travel-link-filter-set {
+  display: grid;
+  gap: var(--space-3);
+}
+.travel-link-filter-set > div {
+  display: grid;
+  gap: var(--space-2);
+}
+.travel-link-filter-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.travel-link-filters button {
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  border: 0;
+  color: var(--muted);
+  background: var(--base);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+.travel-link-filters button:hover,
+.travel-link-filters button.is-active {
+  color: var(--ink);
+  background: var(--tint);
+}
+.travel-link-filters button.is-active {
+  box-shadow: inset 0 -2px 0 var(--action);
+}
+.travel-link-result-list {
+  display: grid;
+  gap: var(--space-4);
+}
+.travel-link-result-group {
+  display: grid;
+  gap: var(--space-2);
+}
+.travel-link-result-group > h3 {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.travel-link-market-list {
+  display: grid;
+  gap: var(--space-3);
+}
+.travel-link-market-group {
+  display: grid;
+  gap: var(--space-2);
+}
+.travel-link-market-group > h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.travel-link-card-list {
+  display: grid;
+  border: 1px solid var(--line);
+}
+.travel-link-card {
+  min-width: 0;
+  padding: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-top: 1px solid var(--line);
+  background: var(--elevated);
+}
+.travel-link-card:first-child {
+  border-top: 0;
+}
+.travel-link-card-copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+.travel-link-card-meta,
+.travel-link-card-eligibility,
+.travel-link-card-route {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.travel-link-card-route {
+  color: var(--ink-soft);
+}
+.travel-link-empty {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px dashed var(--control-line);
+  color: var(--muted);
+  font-size: 13px;
+}
+.travel-link-card-meta {
+  font-family: var(--code-font);
+  font-size: 11px;
+}
+.travel-link-card h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.35;
+}
+.travel-link-card .secondary-button {
+  flex: 0 0 auto;
+  text-decoration: none;
+}
+
+@media (max-width: 680px) {
+  .travel-link-lab-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .travel-link-lab .editor-pane textarea {
+    min-height: 176px;
+  }
+  .travel-link-results {
+    padding: var(--space-3);
+  }
+  .travel-link-results-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .travel-link-filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .travel-link-filters button {
+    min-height: 44px;
+  }
+  .travel-link-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .travel-link-card .secondary-button {
+    width: 100%;
+    min-height: 44px;
+  }
+}

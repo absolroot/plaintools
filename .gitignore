@@ -87,3 +87,6 @@ Desktop.ini
 
 # Third-party inspection snapshots and provenance remain local.
 /references/
+
+# Local-only travel-link research payload. This is intentionally not a release artifact.
+**/public/travel-catalog.local.js

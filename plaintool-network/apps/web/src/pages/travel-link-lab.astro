@@ -1,0 +1,743 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import ToolPromise from "../components/ToolPromise.astro";
+import "../styles/travel-link-lab.css";
+---
+
+<SiteLayout
+  locale="ko"
+  title="Agoda 링크 후보 확인 | AbsolTools"
+  description="로컬 전용 Agoda CID 후보 링크 생성 연구 화면"
+  noindex={true}
+  canonicalize={false}
+>
+  <section class="tool-intro">
+    <div class="tool-intro-copy">
+      <h1>Agoda 링크 후보 확인</h1>
+      <p class="hero-subheading">
+        Agoda 호텔 URL 하나로 연구용 CID 후보 링크를 만듭니다. 가격은 불러오지
+        않으며, 각 링크는 직접 열어 확인합니다.
+      </p>
+      <ToolPromise locale="ko" />
+    </div>
+  </section>
+  <div class="tool-shell">
+    <section
+      class="converter travel-link-lab"
+      data-travel-lab
+      aria-label="Agoda 링크 후보 생성기"
+    >
+      <div class="converter-topbar travel-link-lab-topbar">
+        <div>
+          <strong>연구 후보 카탈로그</strong>
+          <span>공개 배포 전 검토 상태 · 가격 조회 및 자동 탭 열기 없음</span>
+        </div>
+        <span class="travel-link-lab-count" data-travel-count>준비 중</span>
+      </div>
+      <div class="travel-link-lab-input-panel">
+        <section class="editor-pane travel-link-lab-input">
+          <div class="pane-heading">
+            <label for="travel-url">Agoda 호텔 URL</label>
+            <div class="pane-actions">
+              <button class="text-button" type="button" data-clear
+                >지우기</button
+              >
+            </div>
+          </div>
+          <textarea
+            id="travel-url"
+            data-travel-url
+            rows="6"
+            spellcheck="false"
+            autocomplete="off"
+            placeholder="https://www.agoda.com/ko-kr/..."></textarea>
+          <p class="travel-link-lab-input-note">
+            입력값은 이 브라우저 탭 안에서만 처리합니다. 기존 CID·추적값은 새
+            링크에 포함하지 않습니다.
+          </p>
+        </section>
+      </div>
+      <div class="converter-commandbar">
+        <div class="tool-status">
+          <div class="status-copy">
+            <span class="status-dot" aria-hidden="true"></span><span
+              data-travel-status
+              aria-live="polite">로컬 후보 카탈로그를 불러오는 중입니다.</span
+            >
+          </div>
+        </div>
+        <div class="primary-actions">
+          <button class="primary-button" type="button" data-generate
+            >후보 링크 만들기</button
+          >
+        </div>
+      </div>
+    </section>
+    <section
+      class="travel-link-results"
+      data-travel-results
+      hidden
+      aria-labelledby="travel-results-title"
+    >
+      <div class="travel-link-results-heading">
+        <div>
+          <p class="eyebrow">RESULTS <span>·</span> manual check</p>
+          <h2 id="travel-results-title">국가·제휴 유형별 확인 링크</h2>
+          <p data-travel-result-summary>
+            아래 경로는 입력한 호텔 URL을 유지하는지, 별도 제휴 페이지인지
+            구분해 표시합니다.
+          </p>
+        </div>
+        <span class="travel-link-results-total" data-travel-total></span>
+      </div>
+      <div class="travel-link-filter-set">
+        <div>
+          <p class="travel-link-filter-label">카드 발급·이용 시장</p>
+          <nav
+            class="travel-link-filters"
+            aria-label="카드 발급·이용 시장 필터"
+            data-travel-market-filters
+          >
+          </nav>
+        </div>
+        <div>
+          <p class="travel-link-filter-label">경로 방식</p>
+          <nav class="travel-link-filters" aria-label="경로 방식 필터">
+            <button
+              type="button"
+              class="is-active"
+              data-route-filter="all"
+              aria-pressed="true">전체</button
+            >
+            <button type="button" data-route-filter="hotel" aria-pressed="false"
+              >호텔 URL 유지</button
+            >
+            <button
+              type="button"
+              data-route-filter="official"
+              aria-pressed="false">공식 제휴 혜택</button
+            >
+            <button
+              type="button"
+              data-route-filter="search"
+              aria-pressed="false">검색·지도 경유</button
+            >
+          </nav>
+        </div>
+      </div>
+      <div class="travel-link-result-list" data-travel-grid></div>
+    </section>
+  </div>
+  <div class="content-sections">
+    <section class="content-section">
+      <h2>사용 방식</h2><p>
+        호텔 상세 페이지 주소를 붙여 넣고 후보 링크를 만든 다음, 조건에 맞는
+        경로를 하나씩 Agoda에서 확인합니다. 이 도구는 가격·할인·예약 가능 여부를
+        판단하지 않습니다.
+      </p>
+    </section>
+    <section class="content-section">
+      <h2>후보 데이터의 상태</h2><p>
+        표시되는 CID는 공개 비교 서비스에서 관찰한 연구 후보입니다. 카드 발급
+        국가, 결제수단, 숙박 조건 등에 따라 적용되지 않을 수 있으며, 공식 확인이
+        끝난 경로만 별도 공개 카탈로그로 승격합니다.
+      </p>
+    </section>
+  </div>
+</SiteLayout>
+
+<script is:inline src="/travel-catalog.local.js"></script>
+<script>
+  type Candidate = {
+    id: string;
+    label: string;
+    region: string;
+    kind: string;
+    cid?: string;
+    market?: string;
+    eligibility?: string;
+    routeKind?: "hotel" | "search" | "official";
+    preservesHotel?: boolean;
+    status?: "observed" | "official";
+    url?: string;
+  };
+  declare global {
+    interface Window {
+      __ABSOL_TRAVEL_CATALOG__?: string;
+      __ABSOL_TRAVEL_DISCOVERY__?: string;
+    }
+  }
+  const root = document.querySelector<HTMLElement>("[data-travel-lab]");
+  if (root) {
+    const input = root.querySelector<HTMLTextAreaElement>("[data-travel-url]")!;
+    const generate = root.querySelector<HTMLButtonElement>("[data-generate]")!;
+    const clear = root.querySelector<HTMLButtonElement>("[data-clear]")!;
+    const status = root.querySelector<HTMLElement>("[data-travel-status]")!;
+    const results = document.querySelector<HTMLElement>(
+      "[data-travel-results]",
+    )!;
+    const grid = document.querySelector<HTMLElement>("[data-travel-grid]")!;
+    const count = root.querySelector<HTMLElement>("[data-travel-count]")!;
+    const total = document.querySelector<HTMLElement>("[data-travel-total]")!;
+    const marketFilters = document.querySelector<HTMLElement>(
+      "[data-travel-market-filters]",
+    )!;
+    const routeFilters = [
+      ...document.querySelectorAll<HTMLButtonElement>("[data-route-filter]"),
+    ];
+    const decodeCatalog = (encoded?: string): Candidate[] => {
+      if (!encoded) return [];
+      try {
+        return JSON.parse(
+          decodeURIComponent(
+            Array.from(
+              atob(encoded),
+              (c) => `%${c.charCodeAt(0).toString(16).padStart(2, "0")}`,
+            ).join(""),
+          ),
+        ) as Candidate[];
+      } catch {
+        return [];
+      }
+    };
+    const directMetadata: Record<
+      string,
+      Pick<
+        Candidate,
+        "market" | "eligibility" | "routeKind" | "preservesHotel" | "status"
+      >
+    > = {
+      kb: {
+        market: "대한민국",
+        eligibility: "국내 발급 대상 카드 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      woori: {
+        market: "대한민국",
+        eligibility: "국내 발급 대상 카드 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      "woori-mc": {
+        market: "대한민국",
+        eligibility: "우리 Mastercard 대상 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      bc: {
+        market: "대한민국",
+        eligibility: "국내 발급 대상 카드 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      shinhan: {
+        market: "대한민국",
+        eligibility: "국내 발급 대상 카드 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      "shinhan-mc": {
+        market: "대한민국",
+        eligibility: "신한 Mastercard 대상 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      toss: {
+        market: "대한민국",
+        eligibility: "국내 발급 대상 카드 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      hana: {
+        market: "대한민국",
+        eligibility: "국내 발급 대상 카드 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      visa: {
+        market: "글로벌",
+        eligibility: "발급 국가와 카드 등급별 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      mastercard: {
+        market: "글로벌",
+        eligibility: "발급 국가와 카드 등급별 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      keair: {
+        market: "글로벌",
+        eligibility: "대한항공 제휴·마일 적립 대상과 발권 국가 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      asiana: {
+        market: "글로벌",
+        eligibility: "아시아나 제휴·마일 적립 대상과 발권 국가 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+      airseoul: {
+        market: "대한민국",
+        eligibility: "항공사 제휴 예약 조건 확인",
+        routeKind: "hotel",
+        preservesHotel: true,
+        status: "observed",
+      },
+    };
+    const regionalOffers: Candidate[] = [
+      {
+        id: "visa-jp",
+        label: "Visa Infinite Japan",
+        region: "Japan",
+        kind: "official offer",
+        market: "일본",
+        eligibility: "일본 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/VisaInfiniteJP",
+      },
+      {
+        id: "visa-tw",
+        label: "Visa Infinite Taiwan",
+        region: "Taiwan",
+        kind: "official offer",
+        market: "대만",
+        eligibility: "대만 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/VisaInfiniteTW",
+      },
+      {
+        id: "visa-tw-standard",
+        label: "Visa Taiwan Agoda offer",
+        region: "Taiwan",
+        kind: "official offer",
+        market: "대만",
+        eligibility:
+          "대만 발급 Visa 대상. 숙소·결제·예약 기간 제한은 Visa 공식 약관에서 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.visa.com.tw/zh_tw/visa-offers-and-perks/agoda/177864?category=18&redemptionCountry=119",
+      },
+      {
+        id: "visa-hk",
+        label: "Visa Infinite Hong Kong",
+        region: "Hong Kong",
+        kind: "official offer",
+        market: "홍콩",
+        eligibility: "홍콩 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/VisaInfiniteHK",
+      },
+      {
+        id: "visa-sg",
+        label: "Visa Infinite Singapore",
+        region: "Singapore",
+        kind: "official offer",
+        market: "싱가포르",
+        eligibility: "싱가포르 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/VisaInfiniteSG",
+      },
+      {
+        id: "visa-my",
+        label: "Visa Infinite Malaysia",
+        region: "Malaysia",
+        kind: "official offer",
+        market: "말레이시아",
+        eligibility: "말레이시아 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/VisaInfiniteMY",
+      },
+      {
+        id: "visa-my-standard",
+        label: "Visa Malaysia Agoda offer",
+        region: "Malaysia",
+        kind: "official offer",
+        market: "말레이시아",
+        eligibility:
+          "말레이시아 발급 Visa 대상. 대상 숙소·선결제·카드 등급과 예약·숙박 기간을 공식 약관에서 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/visamy",
+      },
+      {
+        id: "amex-tw",
+        label: "American Express Taiwan",
+        region: "Taiwan",
+        kind: "official offer",
+        market: "대만",
+        eligibility: "대만 발급 American Express 및 공식 혜택 조건 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/amextw",
+      },
+      {
+        id: "amex-hk",
+        label: "American Express Hong Kong",
+        region: "Hong Kong",
+        kind: "official offer",
+        market: "홍콩",
+        eligibility: "홍콩 발급 American Express 및 공식 혜택 조건 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/amexhk",
+      },
+      {
+        id: "jal-jp",
+        label: "JAL Mileage Bank Agoda",
+        region: "Japan",
+        kind: "official partner guide",
+        market: "일본",
+        eligibility:
+          "JAL Mileage Bank 회원 대상. 마일 적립 대상·예약 흐름은 JAL 공식 안내에서 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.jal.co.jp/jp/ja/inter/option/hotel/agoda/",
+      },
+    ];
+    const discoveryMetadata: Record<
+      string,
+      Pick<
+        Candidate,
+        "market" | "eligibility" | "routeKind" | "preservesHotel" | "status"
+      >
+    > = {
+      "maps-1": {
+        market: "글로벌",
+        eligibility: "Google Maps 유입 경로로 공개 관찰된 CID 후보",
+        routeKind: "search",
+        preservesHotel: true,
+        status: "observed",
+      },
+      "maps-2": {
+        market: "글로벌",
+        eligibility: "Google Maps 유입 경로로 공개 관찰된 CID 후보",
+        routeKind: "search",
+        preservesHotel: true,
+        status: "observed",
+      },
+      "maps-3": {
+        market: "글로벌",
+        eligibility: "Google Maps 유입 경로로 공개 관찰된 CID 후보",
+        routeKind: "search",
+        preservesHotel: true,
+        status: "observed",
+      },
+      "search-1": {
+        market: "글로벌",
+        eligibility: "Google Search 유입 경로로 공개 관찰된 CID 후보",
+        routeKind: "search",
+        preservesHotel: true,
+        status: "observed",
+      },
+      "search-2": {
+        market: "글로벌",
+        eligibility: "Google Search 유입 경로로 공개 관찰된 CID 후보",
+        routeKind: "search",
+        preservesHotel: true,
+        status: "observed",
+      },
+      "search-3": {
+        market: "글로벌",
+        eligibility: "Google Search 유입 경로로 공개 관찰된 CID 후보",
+        routeKind: "search",
+        preservesHotel: true,
+        status: "observed",
+      },
+      naver: {
+        market: "대한민국",
+        eligibility: "Naver Search 유입 경로로 공개 관찰된 CID 후보",
+        routeKind: "search",
+        preservesHotel: true,
+        status: "observed",
+      },
+    };
+    const candidates = [
+      ...decodeCatalog(window.__ABSOL_TRAVEL_CATALOG__).map((candidate) => ({
+        ...candidate,
+        ...directMetadata[candidate.id],
+      })),
+      ...decodeCatalog(window.__ABSOL_TRAVEL_DISCOVERY__).map((candidate) => ({
+        ...candidate,
+        ...discoveryMetadata[candidate.id],
+      })),
+      ...regionalOffers,
+    ];
+    status.textContent = candidates.length
+      ? `${candidates.length}개 연구 후보가 준비되었습니다. URL은 저장되지 않습니다.`
+      : "로컬 후보 카탈로그가 없습니다. 배포용 화면에는 후보 CID를 포함하지 않습니다.";
+    count.textContent = candidates.length
+      ? `${candidates.length}개 후보`
+      : "카탈로그 없음";
+    generate.disabled = candidates.length === 0;
+    const safeHotelUrl = (value: string): URL | null => {
+      try {
+        const source = new URL(value.trim());
+        if (
+          source.protocol !== "https:" ||
+          !(
+            source.hostname === "agoda.com" ||
+            source.hostname.endsWith(".agoda.com")
+          )
+        )
+          return null;
+        const output = new URL(source.origin + source.pathname);
+        [
+          "countryId",
+          "finalPriceView",
+          "isShowMobileAppPrice",
+          "numberOfBedrooms",
+          "familyMode",
+          "adults",
+          "children",
+          "rooms",
+          "maxRooms",
+          "checkIn",
+          "checkOut",
+          "isCalendarCallout",
+          "childAges",
+          "numberOfGuest",
+          "missingChildAges",
+          "travellerType",
+          "showReviewSubmissionEntry",
+          "currencyCode",
+          "isFreeOccSearch",
+          "tspTypes",
+          "los",
+        ].forEach((key) => {
+          const parameter = source.searchParams.get(key);
+          if (parameter !== null) output.searchParams.set(key, parameter);
+        });
+        return output;
+      } catch {
+        return null;
+      }
+    };
+    let activeHotel: URL | null = null;
+    let activeMarket = "all";
+    let activeRoute = "all";
+    const groupLabels: Record<"hotel" | "search" | "official", string> = {
+      hotel: "입력한 호텔 URL을 유지하는 CID 후보",
+      search: "검색·지도 유입 CID 후보",
+      official: "국가별 공식 제휴 혜택",
+    };
+    const routeLabel = (candidate: Candidate) =>
+      candidate.routeKind === "official"
+        ? "공식 제휴 조건"
+        : candidate.routeKind === "search"
+          ? "검색·지도 경유"
+          : "호텔 URL 유지";
+    const renderMarketFilters = () => {
+      const markets = [
+        "all",
+        ...[
+          ...new Set(
+            candidates.map((candidate) => candidate.market).filter(Boolean),
+          ),
+        ],
+      ] as string[];
+      marketFilters.replaceChildren(
+        ...markets.map((market) => {
+          const button = document.createElement("button");
+          const active = market === activeMarket;
+          button.type = "button";
+          button.dataset.marketFilter = market;
+          button.classList.toggle("is-active", active);
+          button.setAttribute("aria-pressed", String(active));
+          const marketCount = candidates.filter(
+            (candidate) => market === "all" || candidate.market === market,
+          ).length;
+          button.textContent = `${market === "all" ? "전체 시장" : market} · ${marketCount}개`;
+          button.addEventListener("click", () => {
+            if (!activeHotel) return;
+            activeMarket = market;
+            renderMarketFilters();
+            renderResults();
+          });
+          return button;
+        }),
+      );
+    };
+    const candidateMatches = (candidate: Candidate) => {
+      const marketMatches =
+        activeMarket === "all" || candidate.market === activeMarket;
+      const routeMatches =
+        activeRoute === "all" ||
+        (activeRoute === "hotel" && candidate.preservesHotel) ||
+        (activeRoute === "official" && candidate.routeKind === "official") ||
+        (activeRoute === "search" && candidate.routeKind === "search");
+      return marketMatches && routeMatches;
+    };
+    const renderResults = () => {
+      if (!activeHotel) return;
+      const visible = candidates.filter(candidateMatches);
+      const groups = new Map<string, Map<string, Candidate[]>>();
+      visible.forEach((candidate) => {
+        const group = candidate.routeKind ?? "hotel";
+        const market = candidate.market ?? candidate.region;
+        const marketGroups =
+          groups.get(group) ?? new Map<string, Candidate[]>();
+        marketGroups.set(market, [
+          ...(marketGroups.get(market) ?? []),
+          candidate,
+        ]);
+        groups.set(group, marketGroups);
+      });
+      const fragment = document.createDocumentFragment();
+      if (!groups.size) {
+        const empty = document.createElement("p");
+        empty.className = "travel-link-empty";
+        empty.textContent = "선택한 시장과 경로 방식에 맞는 후보가 없습니다.";
+        fragment.append(empty);
+      }
+      groups.forEach((marketGroups, group) => {
+        const section = document.createElement("section");
+        section.className = "travel-link-result-group";
+        const heading = document.createElement("h3");
+        heading.textContent =
+          groupLabels[group as "hotel" | "search" | "official"] ?? group;
+        const marketList = document.createElement("div");
+        marketList.className = "travel-link-market-list";
+        marketGroups.forEach((groupCandidates, market) => {
+          const marketSection = document.createElement("section");
+          marketSection.className = "travel-link-market-group";
+          const marketHeading = document.createElement("h4");
+          marketHeading.textContent = market;
+          const list = document.createElement("div");
+          list.className = "travel-link-card-list";
+          groupCandidates.forEach((candidate) => {
+            const card = document.createElement("article");
+            card.className = "travel-link-card";
+            card.dataset.travelCard = candidate.id;
+            const copy = document.createElement("div");
+            copy.className = "travel-link-card-copy";
+            const meta = document.createElement("p");
+            meta.className = "travel-link-card-meta";
+            meta.textContent = `${candidate.market ?? candidate.region} · ${routeLabel(candidate)} · ${candidate.status === "official" ? "공식 확인" : "공개 관찰 후보"}`;
+            const title = document.createElement("h4");
+            title.textContent = candidate.label;
+            const eligibility = document.createElement("p");
+            eligibility.className = "travel-link-card-eligibility";
+            eligibility.textContent =
+              candidate.eligibility ?? "적용 조건을 Agoda에서 확인";
+            const routeNote = document.createElement("p");
+            routeNote.className = "travel-link-card-route";
+            routeNote.textContent = candidate.preservesHotel
+              ? "입력한 호텔·날짜·인원 조건을 유지한 새 링크입니다."
+              : "호텔 URL은 전달되지 않습니다. 공식 조건을 확인한 뒤 해당 제휴 흐름에서 다시 검색하세요.";
+            copy.append(meta, title, eligibility, routeNote);
+            const link = document.createElement("a");
+            link.className = "secondary-button";
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            if (candidate.routeKind === "official") {
+              link.href = candidate.url!;
+              link.textContent = "공식 혜택 보기";
+            } else {
+              const url = new URL(activeHotel!);
+              url.searchParams.set("cid", candidate.cid!);
+              link.href = url.toString();
+              link.textContent = "Agoda에서 확인";
+            }
+            card.append(copy, link);
+            list.append(card);
+          });
+          marketSection.append(marketHeading, list);
+          marketList.append(marketSection);
+        });
+        section.append(heading, marketList);
+        fragment.append(section);
+      });
+      grid.replaceChildren(fragment);
+      total.textContent = `${visible.length}개 경로`;
+    };
+    const render = () => {
+      const hotel = safeHotelUrl(input.value);
+      if (!hotel) {
+        results.hidden = true;
+        root.classList.remove("is-success");
+        root.classList.add("has-error");
+        status.textContent =
+          "https://www.agoda.com/ 형식의 호텔 URL을 붙여 넣어 주세요.";
+        input.focus();
+        return;
+      }
+      activeHotel = hotel;
+      activeMarket = "all";
+      activeRoute = "all";
+      renderMarketFilters();
+      routeFilters.forEach((button) => {
+        const active = button.dataset.routeFilter === activeRoute;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      renderResults();
+      results.hidden = false;
+      root.classList.remove("has-error");
+      root.classList.add("is-success");
+      status.textContent =
+        "결과를 만들었습니다. 시장과 경로 방식을 고른 뒤 링크를 하나씩 열어 조건을 직접 확인하세요.";
+      if (window.matchMedia("(max-width: 680px)").matches)
+        results.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    generate.addEventListener("click", render);
+    input.addEventListener("keydown", (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "Enter") render();
+    });
+    clear.addEventListener("click", () => {
+      input.value = "";
+      results.hidden = true;
+      grid.replaceChildren();
+      activeHotel = null;
+      root.classList.remove("is-success", "has-error");
+      status.textContent = candidates.length
+        ? "입력을 지웠습니다. URL은 저장되지 않습니다."
+        : "로컬 후보 카탈로그가 없습니다.";
+      input.focus();
+    });
+    input.addEventListener("input", () => {
+      root.classList.remove("has-error");
+    });
+    routeFilters.forEach((button) =>
+      button.addEventListener("click", () => {
+        if (!activeHotel) return;
+        activeRoute = button.dataset.routeFilter ?? "all";
+        routeFilters.forEach((candidate) => {
+          const active = candidate === button;
+          candidate.classList.toggle("is-active", active);
+          candidate.setAttribute("aria-pressed", String(active));
+        });
+        renderResults();
+      }),
+    );
+  }
+</script>
