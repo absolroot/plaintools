@@ -96,10 +96,10 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   ko: {
-    title: "아고다 호텔 최저가 찾기 - CID·카드 할인 가격 비교 | AbsolTools",
+    title: "아고다 최저가 찾기 - CID·카드 할인 가격 비교 | AbsolTools",
     description:
       "아고다 호텔 URL 하나로 카드 할인·CID·제휴 경로를 열어 가격을 비교하고 최저가를 찾아보세요.",
-    heading: "아고다 호텔 최저가 찾기",
+    heading: "아고다 최저가 찾기",
     intro:
       "호텔 URL 하나로 카드 할인·제휴 경로까지 열어 가장 저렴한 가격을 찾아보세요.",
     workspaceTitle: "아고다 최저가 찾기",

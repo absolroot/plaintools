@@ -50,7 +50,7 @@
   border: 1px solid var(--control-line);
   border-radius: 0;
   color: var(--ink);
-  background: var(--input-surface);
+  background: var(--elevated);
   font: inherit;
 }
 .travel-link-lab-input {
@@ -60,11 +60,6 @@
 .travel-link-url-row {
   display: flex;
   align-items: stretch;
-}
-.travel-link-url-row:has(input:focus) {
-  position: relative;
-  z-index: 1;
-  box-shadow: inset 0 0 0 2px var(--focus-ring);
 }
 .travel-link-lab-input input {
   width: 100%;
@@ -76,8 +71,11 @@
   background: var(--elevated);
   font: inherit;
 }
-.travel-link-lab-input input:focus {
-  outline: 0;
+.travel-link-lab-input input:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
 }
 .travel-link-url-row .text-button {
   flex: 0 0 auto;
@@ -111,7 +109,7 @@
 }
 
 .travel-link-results {
-  width: min(720px, 100%);
+  width: 100%;
   min-width: 0;
   margin-inline: auto;
   padding: var(--space-4);

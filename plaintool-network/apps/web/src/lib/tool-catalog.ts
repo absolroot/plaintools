@@ -7,7 +7,6 @@ import {
   type ImageConverterToolId,
 } from "../features/image-converter/formats";
 import type { GeneratorToolId } from "./locale-data/generator-tools";
-import { travelLinkCopy } from "../features/travel-link/copy";
 
 export type ToolStatus = "available" | "preview" | "reserve";
 export type ToolCategory =
@@ -164,12 +163,35 @@ const toolMarks = {
 const generatorToolMarks = {
   "barcode-generator": "BAR",
   "password-generator": "PW",
-  "travel-link-lab": "↗",
+} as const;
+
+const travelToolMarks = {
+  "travel-link-lab": "TRAVEL",
 } as const;
 
 const unitConverterToolMarks = {
   "unit-converter": "↔",
 } as const;
+
+const travelCategoryNames = {
+  en: "Everyday",
+  ko: "생활",
+  es: "Vida diaria",
+  de: "Alltag",
+  ja: "暮らし",
+  fr: "Vie quotidienne",
+  "pt-BR": "Dia a dia",
+  it: "Vita quotidiana",
+  nl: "Dagelijks leven",
+  sv: "Vardag",
+  cs: "Každodenní život",
+  pl: "Codzienne życie",
+  da: "Hverdag",
+  no: "Hverdag",
+  ar: "الحياة اليومية",
+  "zh-TW": "生活",
+  tr: "Günlük yaşam",
+} as const satisfies LocalizedText;
 
 export type PdfToolkitToolId =
   | "compress-pdf"
@@ -186,7 +208,8 @@ export type RegisteredToolId =
   | ImageConverterToolId
   | GeneratorToolId
   | PdfToolkitToolId
-  | "unit-converter";
+  | "unit-converter"
+  | keyof typeof travelToolMarks;
 
 function localize<T>(select: (locale: Locale) => T): Record<Locale, T> {
   return Object.fromEntries(
@@ -202,6 +225,7 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
   status: tool.publication === "indexable" ? "available" : "preview",
   mark:
     generatorToolMarks[tool.id as keyof typeof generatorToolMarks] ??
+    travelToolMarks[tool.id as keyof typeof travelToolMarks] ??
     unitConverterToolMarks[tool.id as keyof typeof unitConverterToolMarks] ??
     toolMarks[tool.id as keyof typeof toolMarks] ??
     tool.id.slice(0, tool.id.indexOf("-to-")).toUpperCase(),
@@ -360,7 +384,7 @@ export const networkCopy = localize((locale) => ({
   ...localeBundles[locale].network,
   categories: {
     ...localeBundles[locale].network.categories,
-    travel: travelLinkCopy[locale].workspaceTitle,
+    travel: travelCategoryNames[locale],
   },
 }));
 

@@ -8,11 +8,14 @@ SAMPLE_HOTEL_URL = (
 
 
 def run_travel_link_desktop(page, report: dict, _inventory) -> None:
-    page.goto(f"{BASE_URL}/en/travel-link-lab/", wait_until="networkidle")
+    page.goto(f"{BASE_URL}/en/agoda/", wait_until="networkidle")
     default_market = page.locator("[data-travel-market]").input_value()
     input_top = page.locator("[data-travel-url]").bounding_box()["y"]
     market_top = page.locator("[data-travel-market]").bounding_box()["y"]
     page.locator("[data-travel-url]").fill(SAMPLE_HOTEL_URL)
+    active_after_input = page.locator("[data-travel-url]").evaluate(
+        "(input) => document.activeElement === input"
+    )
     page.locator("[data-generate]").click()
     page.wait_for_function("!document.querySelector('[data-travel-results]').hidden")
     global_href = page.locator("[data-travel-card] a").first.get_attribute("href")
@@ -29,6 +32,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
           const firstLink = document.querySelector('[data-travel-card] a');
           const results = document.querySelector('[data-travel-results]');
           const links = [...document.querySelectorAll('[data-travel-card] a')];
+          const market = document.querySelector('[data-travel-market]');
           return {
             title: document.title,
             heading: document.querySelector('h1')?.textContent?.trim(),
@@ -38,8 +42,11 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
             cardCount: document.querySelectorAll('[data-travel-card]').length,
             firstHref: firstLink?.href ?? '',
             japanHref: links.find((link) => link.href.includes('cid=1642201'))?.href ?? '',
-            globalHref: links.find((link) => link.href.includes('cid=1889319'))?.href ?? '',
+            selectedGlobalCardHref: links.find((link) => link.href.includes('cid=1889319'))?.href ?? '',
             externalIconCount: document.querySelectorAll('[data-travel-card] a svg[aria-hidden="true"]').length,
+            groupOrder: [...document.querySelectorAll('[data-travel-grid] h3')].map((heading) => heading.textContent?.trim()),
+            resultsWidth: Math.round(results?.getBoundingClientRect().width ?? 0),
+            marketBackground: getComputedStyle(market).backgroundColor,
             inputBackground: getComputedStyle(input).backgroundColor,
             inputHeight: Math.round(input.getBoundingClientRect().height),
             defaultMarket: document.querySelector('[data-travel-market]')?.value,
@@ -48,6 +55,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
         """
     )
     state["defaultMarketOnLoad"] = default_market
+    state["activeAfterInput"] = active_after_input
     state["globalHref"] = global_href
     state["inputTop"] = round(input_top)
     state["marketTop"] = round(market_top)
@@ -60,13 +68,16 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
         or not state["resultsVisible"]
         or state["cardCount"] < 3
         or "cid=1642201" not in state["japanHref"]
-        or "cid=1889319" not in state["globalHref"]
+        or "cid=1889319" not in state["selectedGlobalCardHref"]
         or "cid=-1" in state["firstHref"]
         or state["inputBackground"] != "rgb(255, 255, 255)"
         or state["inputHeight"] < 44
         or default_market != "글로벌"
-        or "cid=1889319" not in (global_href or "")
         or state["externalIconCount"] != state["cardCount"]
+        or state["groupOrder"][:2] != ["Search routes", "Hotel links"]
+        or state["resultsWidth"] < 1100
+        or state["marketBackground"] != "rgb(255, 255, 255)"
+        or not state["activeAfterInput"]
         or input_top >= market_top
     ):
         report["ui_detail_failures"].append(
@@ -75,7 +86,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
 
 
 def run_travel_link_mobile(page, report: dict, _inventory) -> None:
-    page.goto(f"{BASE_URL}/ar/travel-link-lab/", wait_until="networkidle")
+    page.goto(f"{BASE_URL}/ar/agoda/", wait_until="networkidle")
     page.locator(".travel-link-market-options summary").click()
     page.locator("[data-travel-market]").select_option("일본")
     page.locator("[data-travel-url]").fill(SAMPLE_HOTEL_URL)

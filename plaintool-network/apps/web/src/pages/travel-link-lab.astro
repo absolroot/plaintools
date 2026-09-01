@@ -25,7 +25,7 @@ const marketOptions = [
   ["필리핀", "PH"],
   ["호주·뉴질랜드", "ANZ"],
 ] as const;
-const canonical = absoluteUrl(`/${locale}/travel-link-lab/`);
+const canonical = absoluteUrl(`/${locale}/agoda/`);
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -54,7 +54,7 @@ const structuredData = [
 
 <SiteLayout
   locale={locale}
-  page="travel-link-lab"
+  page="agoda"
   title={copy.title}
   description={copy.description}
   noindex={true}
@@ -970,7 +970,9 @@ const structuredData = [
         empty.textContent = copy.empty;
         fragment.append(empty);
       }
-      groups.forEach((groupCandidates, group) => {
+      (["search", "hotel", "official"] as const).forEach((group) => {
+        const groupCandidates = groups.get(group);
+        if (!groupCandidates?.length) return;
         const section = document.createElement("section");
         section.className = "travel-link-result-group";
         const heading = document.createElement("h3");

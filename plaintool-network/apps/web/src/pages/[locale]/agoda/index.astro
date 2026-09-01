@@ -1,0 +1,12 @@
+---
+import TravelLinkLab from "../../travel-link-lab.astro";
+import { locales, type Locale } from "../../../lib/site";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+const { locale } = Astro.props as { locale: Locale };
+---
+
+<TravelLinkLab locale={locale} />

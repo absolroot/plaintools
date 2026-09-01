@@ -36,7 +36,7 @@
       "barcode-generator",
       "password-generator"
     ],
-    "travel": [],
+    "travel": ["travel-link-lab"],
     "calculator": [
       "date-calculator",
       "dday-calculator",
