@@ -813,18 +813,28 @@ import "../styles/travel-link-lab.css";
       "zh-cn": "중국 본토",
       "zh-tw": "대만",
       "zh-hk": "홍콩",
-      en: "싱가포르",
-      ms: "말레이시아",
-      th: "태국",
-      vi: "베트남",
-      id: "인도네시아",
-      fil: "필리핀",
-      tl: "필리핀",
+      "en-sg": "싱가포르",
+      "en-my": "말레이시아",
+      "en-ph": "필리핀",
+      "en-au": "호주·뉴질랜드",
+      "en-nz": "호주·뉴질랜드",
+      "ms-my": "말레이시아",
+      "th-th": "태국",
+      "vi-vn": "베트남",
+      "id-id": "인도네시아",
+      "fil-ph": "필리핀",
+      "tl-ph": "필리핀",
     };
-    const preferredLanguage = navigator.language.toLowerCase();
-    const preferredMarket =
-      marketByLanguage[preferredLanguage] ??
-      marketByLanguage[preferredLanguage.split("-")[0]];
+    const preferredLanguages = navigator.languages.map((value) =>
+      value.toLowerCase(),
+    );
+    const preferredMarket = preferredLanguages
+      .map(
+        (language) =>
+          marketByLanguage[language] ??
+          marketByLanguage[language.split("-")[0]],
+      )
+      .find(Boolean);
     if (preferredMarket) market.value = preferredMarket;
     status.textContent = candidates.length
       ? ""
