@@ -571,12 +571,7 @@ const packs = {
         "La IA detecta el sujeto y elimina el fondo automáticamente para descargarlo como PNG transparente o de color sólido.",
       guide:
         "Elige una imagen PNG, JPEG o WebP, selecciona el modelo adecuado para el sujeto y quita el fondo. Los sujetos bien definidos y con buen contraste suelen dar mejores resultados.",
-      terms: [
-        "quitar fondo",
-        "fondo transparente",
-        "PNG transparente",
-        "recortar foto",
-      ],
+      terms: ["quitar fondo", "fondo transparente", "PNG transparente"],
     },
   },
   de: {
@@ -813,12 +808,7 @@ const packs = {
         "A IA identifica o elemento principal e remove o fundo automaticamente para gerar um PNG transparente ou com cor sólida.",
       guide:
         "Escolha uma imagem PNG, JPEG ou WebP, selecione o modelo adequado ao objeto e remova o fundo. Objetos bem definidos e com bom contraste costumam produzir o melhor recorte.",
-      terms: [
-        "remover fundo",
-        "fundo transparente",
-        "PNG transparente",
-        "recortar foto",
-      ],
+      terms: ["remover fundo", "fundo transparente", "PNG transparente"],
     },
   },
   it: {
@@ -874,12 +864,7 @@ const packs = {
         "L’IA rileva il soggetto e rimuove automaticamente lo sfondo per creare un PNG trasparente o a tinta unita.",
       guide:
         "Scegli un’immagine PNG, JPEG o WebP, seleziona il modello adatto al soggetto e rimuovi lo sfondo. Contorni netti e buon contrasto producono in genere il ritaglio migliore.",
-      terms: [
-        "rimuovi sfondo",
-        "scontorno immagine",
-        "PNG trasparente",
-        "ritaglia foto",
-      ],
+      terms: ["rimuovi sfondo", "scontorno immagine", "PNG trasparente"],
     },
   },
   nl: {
@@ -941,7 +926,6 @@ const packs = {
         "achtergrond verwijderen",
         "afbeelding vrijstaand",
         "transparante PNG",
-        "foto uitsnijden",
       ],
     },
   },
@@ -998,12 +982,7 @@ const packs = {
         "AI känner igen motivet och tar bort bakgrunden automatiskt för en transparent eller enfärgad PNG.",
       guide:
         "Välj en PNG-, JPEG- eller WebP-bild, välj modellen som passar motivet och ta bort bakgrunden. Tydliga motivkanter och god kontrast ger oftast bäst resultat.",
-      terms: [
-        "ta bort bakgrund",
-        "frilägg bild",
-        "transparent PNG",
-        "klipp ut foto",
-      ],
+      terms: ["ta bort bakgrund", "frilägg bild", "transparent PNG"],
     },
   },
   cs: {
@@ -1059,12 +1038,7 @@ const packs = {
         "AI rozpozná hlavní objekt a automaticky odstraní pozadí. Výsledek stáhnete jako průhledné nebo jednobarevné PNG.",
       guide:
         "Vyberte obrázek PNG, JPEG nebo WebP, zvolte model vhodný pro daný objekt a odstraňte pozadí. Nejlépe fungují jasné obrysy a kontrastní pozadí.",
-      terms: [
-        "odstranit pozadí",
-        "výřez obrázku",
-        "průhledné PNG",
-        "ořez fotografie",
-      ],
+      terms: ["odstranit pozadí", "výřez obrázku", "průhledné PNG"],
     },
   },
   pl: {
@@ -1242,12 +1216,7 @@ const packs = {
         "KI gjenkjenner motivet og fjerner bakgrunnen automatisk, slik at du kan laste ned en gjennomsiktig eller ensfarget PNG.",
       guide:
         "Velg et PNG-, JPEG- eller WebP-bilde, velg modellen som passer motivet, og fjern bakgrunnen. Tydelige kanter og god kontrast gir vanligvis best resultat.",
-      terms: [
-        "fjern bakgrunn",
-        "frilegg bilde",
-        "gjennomsiktig PNG",
-        "klipp ut foto",
-      ],
+      terms: ["fjern bakgrunn", "frilegg bilde", "gjennomsiktig PNG"],
     },
   },
   ar: {
@@ -1412,12 +1381,7 @@ const packs = {
         "Yapay zekâ nesneyi algılar ve arka planı otomatik olarak kaldırır; sonucu şeffaf veya düz renkli PNG olarak indirebilirsiniz.",
       guide:
         "PNG, JPEG veya WebP resmi seçin, nesneye uygun modeli belirleyin ve arka planı kaldırın. Net nesne kenarları ve güçlü kontrast genellikle en iyi sonucu verir.",
-      terms: [
-        "arka plan kaldır",
-        "resim kesme",
-        "şeffaf PNG",
-        "fotoğraf arka planı",
-      ],
+      terms: ["arka plan kaldır", "şeffaf PNG", "fotoğraf arka planı"],
     },
   },
 } as const satisfies Record<Locale, BackgroundSourceLocalePack>;

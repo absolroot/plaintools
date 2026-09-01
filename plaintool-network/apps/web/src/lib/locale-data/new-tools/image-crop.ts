@@ -283,13 +283,7 @@ const packs = {
       mobileDescription: "端末上で画像を切り抜き、傾きを補正します。",
       guide:
         "画像を選択、ドロップ、または貼り付けます。切り抜き範囲と縦横比を決め、必要に応じて回転、反転、傾き補正をして保存してください。",
-      terms: [
-        "画像 切り抜き",
-        "画像 トリミング",
-        "画像 回転",
-        "写真 傾き補正",
-        "画像編集",
-      ],
+      terms: ["画像 切り抜き", "画像 トリミング", "画像 回転", "写真 傾き補正"],
     },
   },
   fr: {
@@ -344,7 +338,6 @@ const packs = {
         "rogner photo",
         "pivoter image",
         "redresser photo",
-        "éditeur image",
       ],
     },
   },
@@ -455,7 +448,6 @@ const packs = {
         "tagliare foto",
         "ruotare immagine",
         "raddrizzare foto",
-        "editor immagini",
       ],
     },
   },
