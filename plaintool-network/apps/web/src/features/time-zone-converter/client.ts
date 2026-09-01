@@ -85,6 +85,28 @@ function init(root: HTMLElement): void {
   const offsetLabel = (offset: string) =>
     offset === "+00:00" ? "UTC" : `UTC${offset}`;
 
+  const zoneOffset = (zone: string, instant = new Date()): string => {
+    if (zone === "UTC") return "UTC";
+    try {
+      const name = new Intl.DateTimeFormat("en-US", {
+        timeZone: zone,
+        timeZoneName: "longOffset",
+      })
+        .formatToParts(instant)
+        .find((part) => part.type === "timeZoneName")?.value;
+      const offset = name?.match(/^GMT([+-]\d{2}:\d{2})$/u)?.[1];
+      return offset ? offsetLabel(offset) : "UTC";
+    } catch {
+      return "UTC";
+    }
+  };
+
+  const baseLabel = (label: string): string =>
+    label
+      .replace(/\s+[—–-]\s+.*$/u, "")
+      .replace(/\s+·\s+UTC(?:[+-]\d{2}:\d{2})?$/u, "")
+      .trim() || label;
+
   const conciseLabel = (label: string): string =>
     label.split(/\s+[—·]\s+/u)[0]?.trim() || label;
 
@@ -105,7 +127,7 @@ function init(root: HTMLElement): void {
   for (const option of sourceZone.options) {
     zoneLabels.set(
       option.value,
-      conciseLabel(option.textContent ?? option.value),
+      baseLabel(conciseLabel(option.textContent ?? option.value)),
     );
   }
 
@@ -127,6 +149,7 @@ function init(root: HTMLElement): void {
       const generic = genericZoneName(zone);
       const option = document.createElement("option");
       option.value = zone;
+      zoneLabels.set(zone, generic && generic !== zone ? generic : zone);
       option.textContent =
         generic && generic !== zone ? `${zone} — ${generic}` : zone;
       select.append(option);
@@ -135,6 +158,20 @@ function init(root: HTMLElement): void {
 
   appendLongTailOptions(sourceZone);
   appendLongTailOptions(targetZone);
+
+  const renderOptionOffsets = () => {
+    for (const select of [sourceZone, targetZone]) {
+      for (const option of select.options) {
+        const label = zoneLabels.get(option.value) ?? option.value;
+        option.textContent =
+          option.value === "UTC"
+            ? "UTC"
+            : `${label} · ${zoneOffset(option.value)}`;
+      }
+    }
+  };
+
+  renderOptionOffsets();
 
   const availableWorldZones = new Set(
     Array.from(

@@ -13,7 +13,7 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
     desktop.locator("[data-source-time]").fill("2026-08-31T00:00")
     desktop.locator("[data-convert]").click()
     desktop.wait_for_function(
-        "document.querySelector('[data-conversion-zone]').textContent === 'Asia/Kathmandu'"
+        "document.querySelector('[data-conversion-zone]').textContent === 'Nepal Time'"
     )
 
     state = desktop.evaluate(
@@ -22,6 +22,8 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
           const visibleControls = [...document.querySelectorAll('[data-time-zone-converter] button:not([hidden]), [data-time-zone-converter] input, [data-time-zone-converter] select')]
             .filter((element) => element.getClientRects().length);
           const worldRows = [...document.querySelectorAll('[data-world-clock-list] [data-zone]')];
+          const sourceTime = document.querySelector('[data-source-time]').getBoundingClientRect();
+          const now = document.querySelector('[data-now]').getBoundingClientRect();
           return {
             clientWidth: document.documentElement.clientWidth,
             scrollWidth: document.documentElement.scrollWidth,
@@ -37,6 +39,19 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
             resultTime: document.querySelector('[data-conversion-time]').textContent,
             resultOffset: document.querySelector('[data-conversion-offset]').textContent,
             filterPresent: Boolean(document.querySelector('[data-zone-filter]')),
+            sourceOffsets: [...document.querySelector('[data-source-zone]').options]
+              .slice(1, 8)
+              .map((option) => option.textContent),
+            targetOffsets: [...document.querySelector('[data-target-zone]').options]
+              .slice(1, 8)
+              .map((option) => option.textContent),
+            nowAlignment: {
+              topDelta: Math.abs(sourceTime.top - now.top),
+              heightDelta: Math.abs(sourceTime.height - now.height),
+            },
+            hourFormatFontSize: Number.parseFloat(
+              getComputedStyle(document.querySelector('[data-hour-format="12"]')).fontSize
+            ),
             controlHeights: visibleControls.map((element) => element.getBoundingClientRect().height),
           };
         }
@@ -79,10 +94,15 @@ def run_time_zone_converter_desktop(desktop, report: dict, _inventory) -> None:
         or not state["worldTimes"]
         or state["worldTimes"][0] != "09:00"
         or not state["resultVisible"]
-        or state["resultZone"] != "Asia/Kathmandu"
+        or state["resultZone"] != "Nepal Time"
         or "05:45" not in (state["resultTime"] or "")
         or state["resultOffset"] != "UTC+05:45"
         or state["filterPresent"]
+        or not all("UTC" in label for label in state["sourceOffsets"])
+        or not all("UTC" in label for label in state["targetOffsets"])
+        or state["nowAlignment"]["topDelta"] > 1
+        or state["nowAlignment"]["heightDelta"] > 1
+        or state["hourFormatFontSize"] < 15
         or swapped["source"] != "Asia/Kathmandu"
         or swapped["target"] != "UTC"
         or not swapped["resultHidden"]

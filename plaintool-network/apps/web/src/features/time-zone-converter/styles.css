@@ -14,7 +14,7 @@
 }
 
 .time-zone-date-row {
-  grid-template-columns: minmax(240px, 1fr) minmax(150px, 220px);
+  grid-template-columns: minmax(240px, 1fr) auto minmax(150px, 220px);
 }
 
 .time-zone-zone-row {
@@ -22,7 +22,8 @@
 }
 
 .time-zone-field,
-.time-zone-format-field {
+.time-zone-format-field,
+.time-zone-now-field {
   min-width: 0;
   display: grid;
   gap: var(--space-2);
@@ -48,6 +49,22 @@
 .time-zone-date-field input,
 .time-zone-date-row .time-zone-format-switch {
   height: 60px;
+}
+
+.time-zone-now-field {
+  grid-template-rows: 17px 60px 17px;
+}
+
+.time-zone-now-field::before,
+.time-zone-now-field::after {
+  content: "";
+  display: block;
+}
+
+.time-zone-now-field .secondary-button {
+  min-width: 64px;
+  height: 60px;
+  align-self: center;
 }
 
 .time-zone-date-field input {
@@ -109,6 +126,8 @@
   background: transparent;
   cursor: pointer;
   font: inherit;
+  font-size: 15px;
+  font-weight: 650;
 }
 
 .time-zone-format-switch button.is-active {
@@ -285,7 +304,7 @@
 
 @media (max-width: 1040px) {
   .time-zone-date-row {
-    grid-template-columns: minmax(0, 1fr) minmax(140px, 190px);
+    grid-template-columns: minmax(0, 1fr) auto minmax(140px, 190px);
   }
 }
 
@@ -293,6 +312,15 @@
   .time-zone-date-row,
   .time-zone-zone-row {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .time-zone-now-field {
+    grid-template-rows: 56px;
+  }
+
+  .time-zone-now-field::before,
+  .time-zone-now-field::after {
+    display: none;
   }
 
   .time-zone-zone-row .time-zone-field::after,
@@ -305,6 +333,7 @@
   .time-zone-format-switch,
   .time-zone-source-actions .primary-button,
   .time-zone-source-actions .secondary-button,
+  .time-zone-now-field .secondary-button,
   .time-zone-swap-button {
     min-height: 44px;
   }
@@ -312,6 +341,12 @@
   .time-zone-date-field input,
   .time-zone-date-row .time-zone-format-switch {
     min-height: 56px;
+  }
+
+  .time-zone-now-field .secondary-button,
+  .time-zone-format-switch button {
+    min-height: 56px;
+    font-size: 16px;
   }
 
   .time-zone-swap-button {
@@ -334,7 +369,7 @@
 
   .time-zone-source-actions {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .time-zone-source-actions button {

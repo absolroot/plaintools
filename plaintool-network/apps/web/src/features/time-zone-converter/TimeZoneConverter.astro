@@ -37,6 +37,12 @@ const worldClockZones = new Set([
         <small id="time-zone-source-hint">{copy.sourceTimeHint}</small>
       </label>
 
+      <div class="time-zone-now-field">
+        <button class="secondary-button" type="button" data-now>
+          {copy.now}
+        </button>
+      </div>
+
       <div class="time-zone-format-field">
         <span>{copy.hourFormat}</span>
         <div
@@ -94,9 +100,6 @@ const worldClockZones = new Set([
     </div>
 
     <div class="time-zone-source-actions">
-      <button class="secondary-button" type="button" data-now>
-        {copy.now}
-      </button>
       <button class="primary-button" type="button" data-convert>
         {copy.convert}
       </button>
