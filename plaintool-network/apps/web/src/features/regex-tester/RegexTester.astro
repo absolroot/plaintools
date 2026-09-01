@@ -9,11 +9,9 @@ import {
   MAX_REGEX_REPLACEMENT_LENGTH,
   MAX_REGEX_TEXT_LENGTH,
 } from "./evaluate";
-
 interface Props {
   locale: Locale;
 }
-
 const { locale } = Astro.props;
 const t = localeBundles[locale].tools["regex-tester"]
   .feature as RegexTesterCopy;
@@ -25,32 +23,31 @@ const t = localeBundles[locale].tools["regex-tester"]
   aria-label={localeBundles[locale].tools["regex-tester"].title}
 >
   <div class="converter-topbar regex-actions">
-    <button class="secondary-button" type="button" data-sample>
-      {t.loadSample}
-    </button>
-    <button class="secondary-button" type="button" data-clear>
-      <UiIcon name="x" size={14} />{t.clear}
-    </button>
+    <span class="regex-engine-note">JavaScript RegExp</span><div
+      class="regex-utility-actions"
+    >
+      <button class="secondary-button" type="button" data-sample
+        >{t.loadSample}</button
+      ><button class="secondary-button" type="button" data-clear
+        ><UiIcon name="x" size={14} />{t.clear}</button>
+    </div>
   </div>
   <div class="regex-expression-row">
-    <label for="regex-expression">{t.expressionLabel}</label>
-    <div class="regex-expression-input">
-      <span aria-hidden="true">/</span>
-      <input
+    <label for="regex-expression">{t.expressionLabel}</label><div
+      class="regex-expression-input"
+    >
+      <span aria-hidden="true">/</span><input
         id="regex-expression"
         data-expression
         dir="ltr"
         spellcheck="false"
         maxlength={MAX_REGEX_EXPRESSION_LENGTH}
         placeholder={t.expressionPlaceholder}
-      />
-      <span aria-hidden="true">/</span>
-    </div>
-    <fieldset class="regex-flags" data-flags>
-      <legend>{t.flagsLabel}</legend>
-      {
+      /><span aria-hidden="true">/</span>
+    </div><fieldset class="regex-flags" data-flags>
+      <legend>{t.flagsLabel}</legend>{
         ["g", "i", "m", "s", "u", "y"].map((flag) => (
-          <label>
+          <label title={flag}>
             <input type="checkbox" value={flag} checked={flag === "g"} />
             {flag}
           </label>
@@ -58,22 +55,36 @@ const t = localeBundles[locale].tools["regex-tester"]
       }
     </fieldset>
   </div>
-  <div class="converter-grid regex-editor-grid">
-    <section class="editor-pane">
-      <div class="pane-heading">
-        <label for="regex-text">{t.testTextLabel}</label>
-      </div>
-      <textarea
-        id="regex-text"
-        data-text
-        dir="auto"
-        spellcheck="false"
-        maxlength={MAX_REGEX_TEXT_LENGTH}
-        placeholder={t.testTextPlaceholder}></textarea>
-    </section>
-    <section class="editor-pane output-pane regex-replacement-pane">
-      <label for="regex-replacement">{t.replacementLabel}</label>
-      <input
+  <section class="editor-pane regex-text-pane">
+    <div class="pane-heading">
+      <label for="regex-text">{t.testTextLabel}</label><span data-text-count
+        >0</span>
+    </div><textarea
+      id="regex-text"
+      data-text
+      dir="auto"
+      spellcheck="false"
+      maxlength={MAX_REGEX_TEXT_LENGTH}
+      placeholder={t.testTextPlaceholder}></textarea>
+  </section>
+  <ConverterStatus status={t.ready} badges
+    ><span data-match-summary>{t.localNote}</span></ConverterStatus
+  >
+  <section
+    class="regex-results"
+    data-results
+    aria-live="polite"
+    aria-label={t.resultsLabel}
+  >
+    <div class="regex-results-heading">
+      <strong>{t.resultsLabel}</strong><span data-result-count>{t.ready}</span>
+    </div><p data-empty>{t.ready}</p><ol data-match-list></ol>
+  </section>
+  <details class="regex-replacement-panel">
+    <summary>{t.replacementLabel}</summary><div
+      class="regex-replacement-content"
+    >
+      <label for="regex-replacement">{t.replacementPlaceholder}</label><input
         id="regex-replacement"
         class="regex-replacement-input"
         data-replacement
@@ -81,36 +92,25 @@ const t = localeBundles[locale].tools["regex-tester"]
         spellcheck="false"
         maxlength={MAX_REGEX_REPLACEMENT_LENGTH}
         placeholder={t.replacementPlaceholder}
-      />
-      <label for="regex-replacement-output">{t.replacementOutputLabel}</label>
-      <textarea
+      /><label for="regex-replacement-output">{t.replacementOutputLabel}</label
+      ><textarea
         id="regex-replacement-output"
         data-replacement-output
         dir="auto"
         readonly
-        placeholder={t.replacementOutputPlaceholder}></textarea>
-      <div class="regex-replace-actions">
-        <button class="secondary-button" type="button" data-replace disabled>
-          {t.replaceAction}
-        </button>
-        <button class="secondary-button" type="button" data-copy-result disabled
-          >{t.copy}</button
-        >
+        placeholder={t.replacementOutputPlaceholder}></textarea><div
+        class="regex-replace-actions"
+      >
+        <button class="secondary-button" type="button" data-replace disabled
+          >{t.replaceAction}</button
+        ><button
+          class="secondary-button"
+          type="button"
+          data-copy-result
+          disabled>{t.copy}</button>
       </div>
-    </section>
-  </div>
-  <ConverterStatus status={t.ready} badges>
-    <span data-match-summary>{t.localNote}</span>
-  </ConverterStatus>
-  <section
-    class="regex-results"
-    data-results
-    aria-live="polite"
-    aria-label={t.resultsLabel}
-  >
-    <p data-empty>{t.ready}</p>
-    <ol data-match-list></ol>
-  </section>
+    </div>
+  </details>
   <script
     is:inline
     type="application/json"

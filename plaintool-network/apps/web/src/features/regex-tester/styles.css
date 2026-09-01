@@ -1,47 +1,59 @@
+.regex-actions {
+  justify-content: space-between;
+  min-height: 54px;
+}
+.regex-engine-note {
+  border: 1px solid var(--line);
+  padding: 5px 8px;
+  color: var(--muted);
+  font: 700 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.04em;
+}
+.regex-utility-actions,
+.regex-replace-actions {
+  display: flex;
+  gap: 8px;
+}
 .regex-expression-row {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: 132px minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
-  padding: 14px;
-  border-bottom: 1px solid var(--line);
+  padding: 16px;
+  border-block: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
 }
-
 .regex-expression-input {
   display: flex;
   align-items: center;
   min-width: 0;
   border: 1px solid var(--line);
   background: var(--surface);
-  padding-inline: 10px;
-  font-family: var(--font-mono);
+  padding-inline: 12px;
+  font: 600 1rem/1 var(--font-mono);
 }
-
 .regex-expression-input:focus-within {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent);
 }
-
 .regex-expression-input input {
   width: 100%;
   min-width: 0;
   border: 0;
   outline: 0;
   background: transparent;
-  padding: 10px 6px;
+  padding: 14px 8px;
   color: inherit;
   font: inherit;
 }
-
 .regex-flags {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   margin: 0;
   padding: 0;
   border: 0;
   font-family: var(--font-mono);
 }
-
 .regex-flags legend {
   position: absolute;
   width: 1px;
@@ -49,114 +61,137 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
 }
-
 .regex-flags label {
-  display: flex;
-  gap: 3px;
-  align-items: center;
-  min-height: 36px;
-  cursor: pointer;
-}
-
-.regex-editor-grid textarea {
-  min-height: 240px;
-}
-
-.regex-replacement-pane {
   display: grid;
-  grid-template-rows: auto 36px auto minmax(0, 1fr) auto;
-  gap: 8px;
-}
-
-.regex-replacement-input {
-  width: 100%;
-  min-width: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--line);
-  background: var(--surface);
-  padding-inline: 10px;
-  color: var(--ink);
-  font-family: var(--font-mono);
+  cursor: pointer;
+  text-transform: uppercase;
 }
-
-.regex-replacement-pane textarea[readonly] {
-  background: var(--recessed);
+.regex-flags input {
+  position: absolute;
+  opacity: 0;
 }
-
-.regex-replace-actions {
-  display: flex;
-  gap: 8px;
+.regex-flags label:has(input:checked) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
-
+.regex-text-pane textarea {
+  min-height: 330px;
+  resize: vertical;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font: 0.9rem/1.7 var(--font-mono);
+}
+.pane-heading > span,
+.regex-results-heading > span {
+  color: var(--muted);
+  font: 0.75rem/1 var(--font-mono);
+}
 .regex-results {
-  padding: 14px;
   border-top: 1px solid var(--line);
 }
-
+.regex-results-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+.regex-results > p {
+  padding: 0 16px;
+  color: var(--muted);
+}
 .regex-results ol {
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
   margin: 0;
   padding: 0;
   list-style: none;
+  border-top: 1px solid var(--line);
+  background: var(--line);
 }
-
 .regex-results li {
   display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 6px 12px;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 6px 10px;
   padding: 10px;
-  border-inline-start: 3px solid var(--accent);
   background: var(--surface);
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
+  font: 0.8rem/1.45 var(--font-mono);
 }
-
 .regex-results li span {
   grid-column: 2;
   color: var(--muted);
 }
-
 .regex-results code {
   overflow-wrap: anywhere;
 }
-
+.regex-replacement-panel {
+  border-top: 1px solid var(--line);
+}
+.regex-replacement-panel summary {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.regex-replacement-content {
+  display: grid;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+.regex-replacement-input,
+.regex-replacement-content textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 10px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+}
+.regex-replacement-content textarea {
+  min-height: 110px;
+  background: var(--recessed);
+}
 @media (max-width: 720px) {
+  .regex-actions {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
   .regex-expression-row {
     grid-template-columns: 1fr;
     gap: 8px;
   }
-
   .regex-flags {
-    flex-wrap: wrap;
     min-height: 44px;
     align-items: center;
   }
-
   .regex-flags label {
-    min-height: 44px;
+    width: 44px;
+    height: 44px;
   }
-
-  .regex-editor-grid textarea {
-    min-height: 180px;
+  .regex-text-pane textarea {
+    min-height: 240px;
   }
-
-  .regex-replacement-pane {
-    grid-template-rows: auto 44px auto minmax(180px, 1fr) auto;
+  .regex-results ol {
+    grid-template-columns: 1fr;
   }
-
-  .regex-replace-actions {
-    flex-direction: column;
-  }
-
-  .regex-replace-actions .secondary-button {
-    min-height: 44px;
-  }
-
   .regex-results li {
     grid-template-columns: 1fr;
   }
-
   .regex-results li span {
     grid-column: auto;
+  }
+  .regex-replace-actions {
+    flex-wrap: wrap;
   }
 }

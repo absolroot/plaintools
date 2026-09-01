@@ -54,6 +54,8 @@ function init(root: HTMLElement): void {
   const summary = root.querySelector<HTMLElement>("[data-match-summary]")!;
   const list = root.querySelector<HTMLOListElement>("[data-match-list]")!;
   const empty = root.querySelector<HTMLElement>("[data-empty]")!;
+  const resultCount = root.querySelector<HTMLElement>("[data-result-count]")!;
+  const textCount = root.querySelector<HTMLElement>("[data-text-count]")!;
   const replace = root.querySelector<HTMLButtonElement>("[data-replace]")!;
   const copy = root.querySelector<HTMLButtonElement>("[data-copy-result]")!;
   const t = readClientCopy<RegexTesterCopy>(root);
@@ -80,6 +82,7 @@ function init(root: HTMLElement): void {
     list.replaceChildren();
     empty.hidden = false;
     empty.textContent = message;
+    resultCount.textContent = message;
   };
 
   const invalidateReplacement = () => {
@@ -91,6 +94,7 @@ function init(root: HTMLElement): void {
     if (!result.valid) {
       clearResults(t.invalid);
       summary.textContent = t.invalid;
+      resultCount.textContent = t.invalid;
       replace.disabled = true;
       setToolStatus(root, status, t.invalid, "error");
       return;
@@ -122,6 +126,7 @@ function init(root: HTMLElement): void {
     summary.textContent = result.truncated
       ? `${count} · ${t.tooManyMatches}`
       : count;
+    resultCount.textContent = summary.textContent;
     replace.disabled = result.matches.length === 0;
     setToolStatus(
       root,
@@ -225,6 +230,7 @@ function init(root: HTMLElement): void {
     clearTimers();
     runner.cancel();
     invalidateReplacement();
+    textCount.textContent = String(text.value.length);
     if (!validateInputs(false)) return;
     const queuedRevision = revision;
     debounceTimer = window.setTimeout(() => {
@@ -275,6 +281,7 @@ function init(root: HTMLElement): void {
       expression.value = text.value = replacement.value = "";
       invalidateReplacement();
       clearResults(t.ready);
+      textCount.textContent = "0";
       summary.textContent = t.localNote;
       replace.disabled = true;
       setToolStatus(root, status, t.ready);
