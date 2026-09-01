@@ -163,7 +163,7 @@ function init(root: HTMLElement): void {
             ? `D−${number.format(result.dDayOffset)}`
             : result.dDayOffset < 0
               ? `D+${number.format(Math.abs(result.dDayOffset))}`
-              : "D-Day",
+              : copy.feature.dDay,
         );
       } else if (mode === "math") {
         const amount = (key: string) =>
