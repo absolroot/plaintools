@@ -214,17 +214,17 @@ const translations = {
     page: {
       title: "日付計算・日数計算・年齢計算",
       description:
-        "2つの日付の日数差やD-Day、日付の加算・減算、生年月日と基準日から満年齢と次の誕生日までの日数を計算します。",
+        "2つの日付の日数差や日付まであと何日か、日付の加算・減算、生年月日と基準日から満年齢と次の誕生日までの日数を計算します。",
       mobileDescription: "日数差、日付の加減算、満年齢をまとめて計算できます。",
       guide:
-        "「日付の差」では2つの日付の間の日数とD-Dayを、「加算・減算」では年月週日を足し引きした日付を、「満年齢」では基準日時点の満年齢と次の誕生日までの日数を確認できます。時刻を使わないため、夏時間で結果が1日ずれることはありません。",
+        "「日付の差」では2つの日付の間の日数と日付まであと何日かを、「加算・減算」では年月週日を足し引きした日付を、「満年齢」では基準日時点の満年齢と次の誕生日までの日数を確認できます。時刻を使わないため、夏時間で結果が1日ずれることはありません。",
       terms: [
         "日付計算",
         "日付計算機",
         "日数計算",
         "日数カウント",
         "2つの日付の差",
-        "D-Day計算",
+        "日付まであと何日",
         "日付加算",
         "日付減算",
         "年齢計算",
@@ -270,7 +270,7 @@ const translations = {
       totalDays: "合計日数",
       calendarDifference: "暦上の差",
       weeksAndDays: "週と日",
-      dDay: "D-Day",
+      dDay: "日付まであと何日",
       resultingDate: "計算後の日付",
       fullAge: "満年齢",
       exactAge: "正確な年齢",
@@ -295,10 +295,10 @@ const translations = {
     page: {
       title: "日期計算機：相差天數、日期加減與年齡",
       description:
-        "計算兩個日期相差幾天與 D-Day、日期加減年月週日，並依出生日期與基準日計算實歲和距離下次生日的天數。",
+        "計算兩個日期相差幾天與倒數日、日期加減年月週日，並依出生日期與基準日計算實歲和距離下次生日的天數。",
       mobileDescription: "計算相差天數、日期加減與實歲。",
       guide:
-        "「日期差」可算相隔天數與 D-Day；「日期加減」可從基準日期增減年、月、週、日；「年齡」會顯示基準日當天的實歲與下次生日。所有運算只使用公曆日期，不受時區或日光節約時間影響。",
+        "「日期差」可算相隔天數與倒數日；「日期加減」可從基準日期增減年、月、週、日；「年齡」會顯示基準日當天的實歲與下次生日。所有運算只使用公曆日期，不受時區或日光節約時間影響。",
       terms: [
         "日期計算機",
         "日期計算器",
@@ -350,7 +350,7 @@ const translations = {
       totalDays: "總天數",
       calendarDifference: "公曆年月日差",
       weeksAndDays: "週數與天數",
-      dDay: "D-Day",
+      dDay: "倒數日",
       resultingDate: "計算後日期",
       fullAge: "實歲",
       exactAge: "完整年齡",
@@ -1504,11 +1504,11 @@ const routeCopy = {
       terms: ["日付計算", "日付計算機", "日付加算", "日付減算"],
     },
     "dday-calculator": {
-      title: "日数・D-Day計算機",
+      title: "日数・日付まであと何日計算機",
       description:
-        "2つの日付の間の日数とD-Dayを計算し、終了日を含めるか選べます。",
-      mobileDescription: "2つの日付の差とD-Dayを計算します。",
-      terms: ["日数計算", "日付差", "D-Day計算", "日数カウント"],
+        "2つの日付の間の日数と日付まであと何日かを計算し、終了日を含めるか選べます。",
+      mobileDescription: "2つの日付の差と日付まであと何日かを計算します。",
+      terms: ["日数計算", "日付差", "日付まであと何日", "日数カウント"],
     },
     "age-calculator": {
       title: "年齢計算機",
@@ -1552,7 +1552,12 @@ const routeCopy = {
       description:
         "Tage zwischen zwei Daten und den Countdown berechnen; das Enddatum kann mitgezählt werden.",
       mobileDescription: "Tage zwischen Daten und den Countdown berechnen.",
-      terms: ["Tagerechner", "Tage zwischen Daten", "Countdown Rechner"],
+      terms: [
+        "Tagerechner",
+        "Tage Rechner",
+        "Tage zwischen Daten",
+        "Countdown Rechner",
+      ],
     },
     "age-calculator": {
       title: "Altersrechner",
@@ -1713,7 +1718,13 @@ const routeCopy = {
       description:
         "Dodaj lub odejmij lata, miesiące, tygodnie i dni od daty początkowej.",
       mobileDescription: "Dodaj lub odejmij czas kalendarzowy od daty.",
-      terms: ["kalkulator dat", "dodawanie dni", "odejmowanie dni"],
+      terms: [
+        "kalkulator dat",
+        "kalkulator daty",
+        "kalkulator dat od do",
+        "dodawanie dni",
+        "odejmowanie dni",
+      ],
     },
     "dday-calculator": {
       title: "Kalkulator dni i odliczania",
@@ -1828,7 +1839,13 @@ const routeCopy = {
       description:
         "Başlangıç tarihine yıl, ay, hafta ve gün ekleyin veya çıkarın.",
       mobileDescription: "Bir tarihe takvim süresi ekleyin veya çıkarın.",
-      terms: ["tarih hesaplama", "tarihe gün ekleme", "tarihten gün çıkarma"],
+      terms: [
+        "tarih hesaplama",
+        "tarih hesaplama gün ekleme",
+        "tarih hesaplama gün çıkarma",
+        "tarihe gün ekleme",
+        "tarihten gün çıkarma",
+      ],
     },
     "dday-calculator": {
       title: "Gün ve geri sayım hesaplama",
