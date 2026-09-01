@@ -19,10 +19,7 @@ import {
   outputFilename,
   validateOutputDimensions,
 } from "./image";
-import {
-  modelTransferLabel,
-  upscalerTileSize,
-} from "./model-manifest";
+import { modelTransferLabel, upscalerTileSize } from "./model-manifest";
 import {
   runTransformersUpscale,
   type InferenceProgress,
@@ -344,11 +341,7 @@ document
             rgba: fallbackPixels,
             width: sourcePixels.width,
             height: sourcePixels.height,
-            tileSize: upscalerTileSize(
-              selectedMode(),
-              selectedScale(),
-              "wasm",
-            ),
+            tileSize: upscalerTileSize(selectedMode(), selectedScale(), "wasm"),
           },
           "wasm",
           revision,
