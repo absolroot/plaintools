@@ -61,7 +61,7 @@
   display: flex;
   align-items: stretch;
 }
-.travel-link-url-row:focus-within {
+.travel-link-url-row:has(input:focus) {
   position: relative;
   z-index: 1;
   box-shadow: inset 0 0 0 2px var(--focus-ring);
@@ -83,6 +83,12 @@
   flex: 0 0 auto;
   height: 48px;
   border-left: 1px solid var(--line);
+  border-radius: 0;
+}
+.travel-link-url-row .text-button:focus-visible {
+  position: relative;
+  z-index: 2;
+  outline-offset: -2px;
 }
 .travel-link-url-row .primary-button {
   flex: 0 0 auto;
@@ -180,6 +186,9 @@
 .travel-link-card .secondary-button {
   flex: 0 0 auto;
   text-decoration: none;
+}
+.travel-link-external-icon {
+  flex: 0 0 auto;
 }
 
 @media (max-width: 680px) {

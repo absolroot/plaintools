@@ -19,7 +19,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
     page.locator(".travel-link-market-options summary").click()
     page.locator("[data-travel-market]").select_option("일본")
     page.wait_for_function(
-        "document.querySelector('[data-travel-card] a')?.href.includes('cid=1642201')"
+        "[...document.querySelectorAll('[data-travel-card] a')].some((link) => link.href.includes('cid=1642201'))"
     )
 
     state = page.evaluate(
@@ -28,6 +28,7 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
           const input = document.querySelector('[data-travel-url]');
           const firstLink = document.querySelector('[data-travel-card] a');
           const results = document.querySelector('[data-travel-results]');
+          const links = [...document.querySelectorAll('[data-travel-card] a')];
           return {
             title: document.title,
             heading: document.querySelector('h1')?.textContent?.trim(),
@@ -36,6 +37,9 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
             resultsVisible: results ? !results.hidden : false,
             cardCount: document.querySelectorAll('[data-travel-card]').length,
             firstHref: firstLink?.href ?? '',
+            japanHref: links.find((link) => link.href.includes('cid=1642201'))?.href ?? '',
+            globalHref: links.find((link) => link.href.includes('cid=1889319'))?.href ?? '',
+            externalIconCount: document.querySelectorAll('[data-travel-card] a svg[aria-hidden="true"]').length,
             inputBackground: getComputedStyle(input).backgroundColor,
             inputHeight: Math.round(input.getBoundingClientRect().height),
             defaultMarket: document.querySelector('[data-travel-market]')?.value,
@@ -55,12 +59,14 @@ def run_travel_link_desktop(page, report: dict, _inventory) -> None:
         or state["resultTitle"] != "Compare Agoda prices"
         or not state["resultsVisible"]
         or state["cardCount"] < 3
-        or "cid=1642201" not in state["firstHref"]
+        or "cid=1642201" not in state["japanHref"]
+        or "cid=1889319" not in state["globalHref"]
         or "cid=-1" in state["firstHref"]
         or state["inputBackground"] != "rgb(255, 255, 255)"
         or state["inputHeight"] < 44
         or default_market != "글로벌"
         or "cid=1889319" not in (global_href or "")
+        or state["externalIconCount"] != state["cardCount"]
         or input_top >= market_top
     ):
         report["ui_detail_failures"].append(

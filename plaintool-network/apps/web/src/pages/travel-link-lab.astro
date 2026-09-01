@@ -283,16 +283,16 @@ const structuredData = [
       },
       keair: {
         label: "대한항공",
-        market: "글로벌",
-        eligibility: "마일 적립·발권 국가 확인",
+        market: "대한민국",
+        eligibility: "스카이패스 회원·예약 조건 확인",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       asiana: {
         label: "아시아나항공",
-        market: "글로벌",
-        eligibility: "마일 적립·발권 국가 확인",
+        market: "대한민국",
+        eligibility: "아시아나클럽 회원·예약 조건 확인",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
@@ -910,13 +910,54 @@ const structuredData = [
       search: copy.searchGroup,
       official: copy.officialGroup,
     };
-    const candidateMatches = (candidate: Candidate) => {
-      const marketMatches = candidate.market === activeMarket;
-      return marketMatches;
+    const globalMarket = "글로벌";
+    const candidateMatches = (candidate: Candidate) =>
+      candidate.market === activeMarket ||
+      (activeMarket !== globalMarket && candidate.market === globalMarket);
+    const candidateKey = (candidate: Candidate) =>
+      candidate.routeKind === "official"
+        ? `official:${candidate.url}`
+        : `${candidate.routeKind ?? "hotel"}:${candidate.cid}`;
+    const makeExternalIcon = () => {
+      const namespace = "http://www.w3.org/2000/svg";
+      const icon = document.createElementNS(namespace, "svg");
+      icon.classList.add("travel-link-external-icon");
+      icon.setAttribute("width", "14");
+      icon.setAttribute("height", "14");
+      icon.setAttribute("viewBox", "0 0 24 24");
+      icon.setAttribute("fill", "none");
+      icon.setAttribute("stroke", "currentColor");
+      icon.setAttribute("stroke-width", "1.75");
+      icon.setAttribute("stroke-linecap", "round");
+      icon.setAttribute("stroke-linejoin", "round");
+      icon.setAttribute("aria-hidden", "true");
+      icon.setAttribute("focusable", "false");
+      [
+        "M14 4h6v6",
+        "m20 4-9 9",
+        "M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6",
+      ].forEach((d) => {
+        const path = document.createElementNS(namespace, "path");
+        path.setAttribute("d", d);
+        icon.append(path);
+      });
+      return icon;
     };
     const renderResults = () => {
       if (!activeHotel) return;
-      const visible = candidates.filter(candidateMatches);
+      const unique = new Map<string, Candidate>();
+      candidates.filter(candidateMatches).forEach((candidate) => {
+        unique.set(candidateKey(candidate), candidate);
+      });
+      const visible = [...unique.values()];
+      const labelCounts = new Map<string, number>();
+      visible.forEach((candidate) => {
+        labelCounts.set(
+          candidate.label,
+          (labelCounts.get(candidate.label) ?? 0) + 1,
+        );
+      });
+      const labelIndexes = new Map<string, number>();
       const groups = new Map<string, Candidate[]>();
       visible.forEach((candidate) => {
         const group = candidate.routeKind ?? "hotel";
@@ -944,7 +985,12 @@ const structuredData = [
           const cardCopy = document.createElement("div");
           cardCopy.className = "travel-link-card-copy";
           const title = document.createElement("h4");
-          title.textContent = candidate.label;
+          const labelIndex = (labelIndexes.get(candidate.label) ?? 0) + 1;
+          labelIndexes.set(candidate.label, labelIndex);
+          title.textContent =
+            (labelCounts.get(candidate.label) ?? 0) > 1
+              ? `${candidate.label} ${labelIndex}`
+              : candidate.label;
           cardCopy.append(title);
           const link = document.createElement("a");
           link.className = "secondary-button";
@@ -952,12 +998,12 @@ const structuredData = [
           link.rel = "noopener noreferrer";
           if (candidate.routeKind === "official") {
             link.href = candidate.url!;
-            link.textContent = copy.openOfficial;
+            link.replaceChildren(copy.openOfficial, makeExternalIcon());
           } else {
             const url = new URL(activeHotel!);
             url.searchParams.set("cid", candidate.cid!);
             link.href = url.toString();
-            link.textContent = copy.openAgoda;
+            link.replaceChildren(copy.openAgoda, makeExternalIcon());
           }
           card.append(cardCopy, link);
           list.append(card);
