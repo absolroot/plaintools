@@ -32,9 +32,25 @@ import "../styles/travel-link-lab.css";
           <strong>호텔 링크 비교</strong>
           <span>가격 조회 없이, 원하는 경로만 직접 엽니다.</span>
         </div>
-        <span class="travel-link-lab-count" data-travel-count>준비 중</span>
       </div>
       <div class="travel-link-lab-input-panel">
+        <section class="travel-link-market-picker">
+          <label for="travel-market">카드 발급 국가·지역</label>
+          <select id="travel-market" data-travel-market>
+            <option value="대한민국">대한민국</option>
+            <option value="일본">일본</option>
+            <option value="중국 본토">중국 본토</option>
+            <option value="홍콩">홍콩</option>
+            <option value="대만">대만</option>
+            <option value="싱가포르">싱가포르</option>
+            <option value="말레이시아">말레이시아</option>
+            <option value="태국">태국</option>
+            <option value="베트남">베트남</option>
+            <option value="인도네시아">인도네시아</option>
+            <option value="필리핀">필리핀</option>
+            <option value="호주·뉴질랜드">호주·뉴질랜드</option>
+          </select>
+        </section>
         <section class="editor-pane travel-link-lab-input">
           <div class="pane-heading">
             <label for="travel-url">Agoda 호텔 URL</label>
@@ -58,14 +74,8 @@ import "../styles/travel-link-lab.css";
         </section>
       </div>
       <div class="converter-commandbar">
-        <div class="tool-status">
-          <div class="status-copy">
-            <span class="status-dot" aria-hidden="true"></span><span
-              data-travel-status
-              aria-live="polite">링크를 준비하는 중입니다.</span
-            >
-          </div>
-        </div>
+        <p class="travel-link-lab-error" data-travel-status aria-live="polite">
+        </p>
         <div class="primary-actions">
           <button class="primary-button" type="button" data-generate
             >링크 만들기</button
@@ -86,18 +96,8 @@ import "../styles/travel-link-lab.css";
             원하는 경로를 열어 아고다에서 조건을 확인하세요.
           </p>
         </div>
-        <span class="travel-link-results-total" data-travel-total></span>
       </div>
       <div class="travel-link-filter-set">
-        <div>
-          <p class="travel-link-filter-label">카드 발급·이용 시장</p>
-          <nav
-            class="travel-link-filters"
-            aria-label="카드 발급·이용 시장 필터"
-            data-travel-market-filters
-          >
-          </nav>
-        </div>
         <div>
           <p class="travel-link-filter-label">경로 방식</p>
           <nav class="travel-link-filters" aria-label="경로 방식 필터">
@@ -161,16 +161,14 @@ import "../styles/travel-link-lab.css";
     const input = root.querySelector<HTMLTextAreaElement>("[data-travel-url]")!;
     const generate = root.querySelector<HTMLButtonElement>("[data-generate]")!;
     const clear = root.querySelector<HTMLButtonElement>("[data-clear]")!;
+    const market = root.querySelector<HTMLSelectElement>(
+      "[data-travel-market]",
+    )!;
     const status = root.querySelector<HTMLElement>("[data-travel-status]")!;
     const results = document.querySelector<HTMLElement>(
       "[data-travel-results]",
     )!;
     const grid = document.querySelector<HTMLElement>("[data-travel-grid]")!;
-    const count = root.querySelector<HTMLElement>("[data-travel-count]")!;
-    const total = document.querySelector<HTMLElement>("[data-travel-total]")!;
-    const marketFilters = document.querySelector<HTMLElement>(
-      "[data-travel-market-filters]",
-    )!;
     const routeFilters = [
       ...document.querySelectorAll<HTMLButtonElement>("[data-route-filter]"),
     ];
@@ -520,12 +518,28 @@ import "../styles/travel-link-lab.css";
       })),
       ...regionalOffers,
     ];
+    const marketByLanguage: Record<string, string> = {
+      ko: "대한민국",
+      ja: "일본",
+      "zh-cn": "중국 본토",
+      "zh-tw": "대만",
+      "zh-hk": "홍콩",
+      en: "싱가포르",
+      ms: "말레이시아",
+      th: "태국",
+      vi: "베트남",
+      id: "인도네시아",
+      fil: "필리핀",
+      tl: "필리핀",
+    };
+    const preferredLanguage = navigator.language.toLowerCase();
+    const preferredMarket =
+      marketByLanguage[preferredLanguage] ??
+      marketByLanguage[preferredLanguage.split("-")[0]];
+    if (preferredMarket) market.value = preferredMarket;
     status.textContent = candidates.length
-      ? `${candidates.length}개 링크를 준비했습니다.`
+      ? ""
       : "링크 데이터를 불러오지 못했습니다.";
-    count.textContent = candidates.length
-      ? `${candidates.length}개 링크`
-      : "준비되지 않음";
     generate.disabled = candidates.length === 0;
     const safeHotelUrl = (value: string): URL | null => {
       try {
@@ -574,47 +588,15 @@ import "../styles/travel-link-lab.css";
       }
     };
     let activeHotel: URL | null = null;
-    let activeMarket = "all";
+    let activeMarket = market.value;
     let activeRoute = "all";
     const groupLabels: Record<"hotel" | "search" | "official", string> = {
       hotel: "호텔 URL 유지 링크",
       search: "검색·지도 경유 링크",
       official: "공식 혜택 페이지",
     };
-    const renderMarketFilters = () => {
-      const markets = [
-        "all",
-        ...[
-          ...new Set(
-            candidates.map((candidate) => candidate.market).filter(Boolean),
-          ),
-        ],
-      ] as string[];
-      marketFilters.replaceChildren(
-        ...markets.map((market) => {
-          const button = document.createElement("button");
-          const active = market === activeMarket;
-          button.type = "button";
-          button.dataset.marketFilter = market;
-          button.classList.toggle("is-active", active);
-          button.setAttribute("aria-pressed", String(active));
-          const marketCount = candidates.filter(
-            (candidate) => market === "all" || candidate.market === market,
-          ).length;
-          button.textContent = `${market === "all" ? "전체 시장" : market} · ${marketCount}개`;
-          button.addEventListener("click", () => {
-            if (!activeHotel) return;
-            activeMarket = market;
-            renderMarketFilters();
-            renderResults();
-          });
-          return button;
-        }),
-      );
-    };
     const candidateMatches = (candidate: Candidate) => {
-      const marketMatches =
-        activeMarket === "all" || candidate.market === activeMarket;
+      const marketMatches = candidate.market === activeMarket;
       const routeMatches =
         activeRoute === "all" ||
         (activeRoute === "hotel" && candidate.preservesHotel) ||
@@ -694,7 +676,6 @@ import "../styles/travel-link-lab.css";
         fragment.append(section);
       });
       grid.replaceChildren(fragment);
-      total.textContent = `${visible.length}개 경로`;
     };
     const render = () => {
       const hotel = safeHotelUrl(input.value);
@@ -708,9 +689,8 @@ import "../styles/travel-link-lab.css";
         return;
       }
       activeHotel = hotel;
-      activeMarket = "all";
+      activeMarket = market.value;
       activeRoute = "all";
-      renderMarketFilters();
       routeFilters.forEach((button) => {
         const active = button.dataset.routeFilter === activeRoute;
         button.classList.toggle("is-active", active);
@@ -718,9 +698,8 @@ import "../styles/travel-link-lab.css";
       });
       renderResults();
       results.hidden = false;
-      root.classList.remove("has-error");
-      root.classList.add("is-success");
-      status.textContent = `${candidates.length}개 링크를 만들었습니다.`;
+      root.classList.remove("has-error", "is-success");
+      status.textContent = "";
       if (window.matchMedia("(max-width: 680px)").matches)
         results.scrollIntoView({ behavior: "smooth", block: "start" });
     };
@@ -735,9 +714,13 @@ import "../styles/travel-link-lab.css";
       activeHotel = null;
       root.classList.remove("is-success", "has-error");
       status.textContent = candidates.length
-        ? "입력을 지웠습니다."
+        ? ""
         : "링크 데이터를 불러오지 못했습니다.";
       input.focus();
+    });
+    market.addEventListener("change", () => {
+      activeMarket = market.value;
+      if (activeHotel) renderResults();
     });
     input.addEventListener("input", () => {
       root.classList.remove("has-error");

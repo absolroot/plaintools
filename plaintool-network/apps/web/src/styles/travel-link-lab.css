@@ -16,16 +16,31 @@
   font-size: 12px;
   line-height: 1.5;
 }
-.travel-link-lab-count {
-  flex: 0 0 auto;
-  padding: 2px 6px;
-  background: var(--recessed);
-  box-shadow: inset 0 0 0 1px var(--control-line);
-  font-family: var(--code-font);
-  white-space: nowrap;
-}
 .travel-link-lab-input-panel {
-  background: var(--line);
+  display: grid;
+  background: var(--base);
+}
+.travel-link-market-picker {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--line);
+  background: var(--base);
+}
+.travel-link-market-picker label {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+.travel-link-market-picker select {
+  width: min(360px, 100%);
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--control-line);
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--input-surface);
+  font: inherit;
 }
 .travel-link-lab-input {
   min-height: 280px;
@@ -36,6 +51,19 @@
 }
 .travel-link-lab-input-note {
   padding: 0 var(--space-4) var(--space-4);
+}
+.travel-link-lab.converter.is-success .converter-commandbar,
+.travel-link-lab.converter.has-error .converter-commandbar {
+  background: var(--elevated);
+}
+.travel-link-lab-error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.travel-link-lab-error:empty {
+  display: none;
 }
 
 .travel-link-results {
@@ -205,6 +233,9 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .travel-link-filters button {
+    min-height: 44px;
+  }
+  .travel-link-market-picker select {
     min-height: 44px;
   }
   .travel-link-card {
