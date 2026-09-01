@@ -133,6 +133,7 @@ function init(root: HTMLElement) {
     download.hidden = true;
     download.disabled = true;
     save.hidden = false;
+    if (source) canvas.hidden = false;
   };
   const totalAngle = () => rotation + Number(angle.value || 0);
   const perspectiveSize = () =>
@@ -420,6 +421,8 @@ function init(root: HTMLElement) {
       resultUrl = URL.createObjectURL(blob);
       resultImage.src = resultUrl;
       resultImage.hidden = false;
+      canvas.hidden = true;
+      selection.hidden = true;
       save.hidden = true;
       download.hidden = false;
       download.disabled = false;

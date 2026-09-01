@@ -168,7 +168,8 @@
   background: repeating-conic-gradient(#eef0f2 0% 25%, #fff 0% 50%) 50% / 20px
     20px;
 }
-.crop-stage:has(canvas:not([hidden])) {
+.crop-stage:has(canvas:not([hidden])),
+.crop-stage:has([data-result]:not([hidden])) {
   background: #5b616b;
 }
 .crop-canvas-wrap {
@@ -193,6 +194,15 @@
   max-height: 440px;
   object-fit: contain;
   touch-action: none;
+  background: repeating-conic-gradient(#e5e7ea 0% 25%, #f6f7f8 0% 50%) 50% /
+    16px 16px;
+  box-shadow: 0 8px 32px var(--shadow-layer);
+}
+.crop-canvas-wrap [data-result] {
+  display: block;
+  max-width: 100%;
+  max-height: 440px;
+  object-fit: contain;
   background: repeating-conic-gradient(#e5e7ea 0% 25%, #f6f7f8 0% 50%) 50% /
     16px 16px;
   box-shadow: 0 8px 32px var(--shadow-layer);
@@ -314,9 +324,6 @@
   min-width: 180px;
   height: 44px;
   font-weight: 700;
-}
-.image-crop [data-result] {
-  display: none;
 }
 @media (max-width: 760px) {
   .crop-workspace {
