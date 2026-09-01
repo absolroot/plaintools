@@ -644,7 +644,7 @@ for (const locale of locales) {
       );
     if (
       tool.featureId === "image-converter" &&
-      !/data-conversion-fact="[a-z-]+"/u.test(html)
+      !/data-conversion-fact="[a-z -]+"/u.test(html)
     ) {
       throw new Error(
         `${routeName} is missing its route-specific conversion fact.`,
@@ -726,13 +726,13 @@ for (const route of previews) {
       `${route} leaked into llms.txt before its indexability review.`,
     );
 }
-for (const route of publicTools) {
+if (!llms.includes("## Recommended starting points"))
+  throw new Error("llms.txt is missing its curated starting-point section.");
+if (!llms.includes(new URL("/sitemap.xml", config.origin).toString()))
+  throw new Error("llms.txt is missing the full XML sitemap link.");
+for (const route of ["invisible-character-remover", "png-to-jpg"]) {
   if (!llms.includes(`/${route}/`))
-    throw new Error(`${route} is missing from llms.txt.`);
-}
-for (const legalPage of legalPages) {
-  if (!llms.includes(`/${legalPage}/`))
-    throw new Error(`${legalPage} is missing from llms.txt.`);
+    throw new Error(`${route} is missing from curated llms.txt links.`);
 }
 
 const notFound = await readFile(join(dist, "404.html"), "utf8");

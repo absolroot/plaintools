@@ -2,7 +2,7 @@ from .registry import RouteInventory
 
 
 NEW_TOOL_ROUTES = (
-    "ai-watermark-remover",
+    "invisible-character-remover",
     "url-encode",
     "url-decode",
     "hash-generator",
@@ -27,7 +27,7 @@ NEW_TOOL_ROUTES = (
 )
 
 NEW_TOOL_FEATURES = {
-    "ai-watermark-remover": "ai-text-cleaner",
+    "invisible-character-remover": "ai-text-cleaner",
     "url-encode": "url-codec",
     "url-decode": "url-codec",
     "hash-generator": "hash-generator",

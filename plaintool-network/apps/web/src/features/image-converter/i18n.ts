@@ -1262,17 +1262,19 @@ function fill(template: string, from: string, to: string): string {
   return template.replaceAll("{from}", from).replaceAll("{to}", to);
 }
 
-export function imageConversionRouteFactKind(
+export function imageConversionRouteFactKinds(
   source: ImageInputFormat,
   target: string,
-): ImageConversionRouteFactKind {
-  if (source === "svg") return "svg-rasterized";
-  if (source === "gif") return "gif-still";
-  if (target === "jpg") return "jpg-white-background";
-  if (target === "gif") return "gif-palette";
-  if (target === "bmp") return "bmp-uncompressed";
-  if (target === "png") return "png-no-further-loss";
-  return "quality-profile";
+): ImageConversionRouteFactKind[] {
+  const kinds: ImageConversionRouteFactKind[] = [];
+  if (source === "svg") kinds.push("svg-rasterized");
+  if (source === "gif") kinds.push("gif-still");
+  if (target === "jpg") kinds.push("jpg-white-background");
+  else if (target === "gif") kinds.push("gif-palette");
+  else if (target === "bmp") kinds.push("bmp-uncompressed");
+  else if (target === "png") kinds.push("png-no-further-loss");
+  else kinds.push("quality-profile");
+  return kinds;
 }
 
 export function createImageConverterLocale(locale: ImageConverterLocale): {
@@ -1286,12 +1288,8 @@ export function createImageConverterLocale(locale: ImageConverterLocale): {
       const from = text.formats[source];
       const to = text.formats[target];
       const description = fill(text.description, from, to);
-      const routeFact = fill(
-        imageConversionRouteFacts[locale][
-          imageConversionRouteFactKind(source, target)
-        ],
-        from,
-        to,
+      const routeFacts = imageConversionRouteFactKinds(source, target).map(
+        (kind) => fill(imageConversionRouteFacts[locale][kind], from, to),
       );
       return [
         id,
@@ -1300,7 +1298,7 @@ export function createImageConverterLocale(locale: ImageConverterLocale): {
           description,
           mobileDescription: description,
           guideTitle: fill(text.guideTitle, from, to),
-          guideBody: `${routeFact} ${fill(text.guide, from, to)}`,
+          guideBody: `${routeFacts.join(" ")} ${fill(text.guide, from, to)}`,
           safetyTitle: text.technologyTitle,
           safetyBody: text.technology,
           faqs: [

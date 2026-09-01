@@ -1,12 +1,12 @@
 ---
-import NewToolPreview from "../../../features/new-tools/NewToolPreview.astro";
-import { locales, type Locale } from "../../../lib/site";
+import { locales } from "../../../lib/site";
 
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale }, props: { locale } }));
 }
 
-const { locale } = Astro.props as { locale: Locale };
+return Astro.redirect(
+  `/${Astro.params.locale}/invisible-character-remover/`,
+  301,
+);
 ---
-
-<NewToolPreview locale={locale} page="ai-watermark-remover" />

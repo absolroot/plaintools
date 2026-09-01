@@ -6,7 +6,7 @@ def run_ai_text_cleaner_desktop(page, report: dict, _inventory) -> None:
     sample = "A\u200bB\u202eC\u2060D👩\u200d💻"
     for locale in ("en", "ko", "ar"):
         page.goto(
-            f"{BASE_URL}/{locale}/ai-watermark-remover/", wait_until="networkidle"
+            f"{BASE_URL}/{locale}/invisible-character-remover/", wait_until="networkidle"
         )
         if page.locator("[data-ai-text-cleaner] [data-run]").count():
             report["ui_detail_failures"].append(
@@ -48,7 +48,7 @@ def run_ai_text_cleaner_desktop(page, report: dict, _inventory) -> None:
 
 
 def run_ai_text_cleaner_mobile(page, report: dict, _inventory) -> None:
-    page.goto(f"{BASE_URL}/ar/ai-watermark-remover/", wait_until="networkidle")
+    page.goto(f"{BASE_URL}/ar/invisible-character-remover/", wait_until="networkidle")
     page.locator("[data-ai-text-cleaner] [data-input]").fill("مرح\u200bبا")
     page.wait_for_function(
         "document.querySelector('[data-ai-text-cleaner] [data-output]').value === 'مرحبا'"

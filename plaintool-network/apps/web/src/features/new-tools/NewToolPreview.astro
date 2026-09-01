@@ -43,6 +43,8 @@ import bmiCalculatorStylesheet from "../bmi-calculator/styles.css?url";
 import { localeBundles, localeMetadata } from "../../lib/locale-data";
 import type { NewToolId } from "../../lib/locale-data/bundle";
 import { localizedPath, type Locale } from "../../lib/site";
+import { toolRegistry } from "../../lib/tool-registry.js";
+import { invisibleCharacterRemoverSources } from "../../lib/source-references";
 
 interface Props {
   locale: Locale;
@@ -52,6 +54,8 @@ interface Props {
 const { locale, page } = Astro.props;
 const bundle = localeBundles[locale];
 const content = bundle.tools[page];
+const route = toolRegistry.find((tool) => tool.id === page);
+if (!route) throw new Error(`Missing public route for ${page}`);
 const technicalDirection = localeMetadata[locale].technicalDirection;
 const featureStylesheets = {
   "ai-watermark-remover": aiTextCleanerStylesheet,
@@ -145,7 +149,7 @@ const dataModeLabels = Object.fromEntries(
 
 <PreviewToolPage
   locale={locale}
-  page={page}
+  page={route.slug}
   title={content.title}
   heading={content.heading}
   description={content.description}
@@ -154,6 +158,9 @@ const dataModeLabels = Object.fromEntries(
   safetyTitle={content.safetyTitle}
   safetyBody={content.safetyBody}
   faqs={content.faqs}
+  sources={page === "ai-watermark-remover"
+    ? invisibleCharacterRemoverSources
+    : undefined}
   featureStylesheet={featureStylesheets[page]}
 >
   {

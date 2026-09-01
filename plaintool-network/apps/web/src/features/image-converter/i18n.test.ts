@@ -1,7 +1,11 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { imageConversionModes } from "./formats";
-import { imageConverterLocales, type ImageConverterLocale } from "./i18n";
+import {
+  imageConversionRouteFactKinds,
+  imageConverterLocales,
+  type ImageConverterLocale,
+} from "./i18n";
 import { imageConversionRouteFacts, routeFactKinds } from "./route-facts";
 
 const locales = Object.keys(imageConverterLocales) as ImageConverterLocale[];
@@ -44,7 +48,7 @@ describe("image converter localization", () => {
     expect(source).not.toMatch(/\.\.\.\s*en(?:\.|\b)/u);
   });
 
-  it("adds a locale-owned, route-direction fact to every conversion guide", () => {
+  it("combines every applicable locale-owned route consequence", () => {
     expect(Object.keys(imageConversionRouteFacts)).toEqual(locales);
     for (const locale of locales) {
       const facts = imageConversionRouteFacts[locale];
@@ -57,6 +61,22 @@ describe("image converter localization", () => {
         ({ id }) => imageConverterLocales[locale].tools[id].guideBody,
       );
       expect(new Set(guides).size, locale).toBe(imageConversionModes.length);
+
+      for (const { source, target, id } of imageConversionModes) {
+        const guide = imageConverterLocales[locale].tools[id].guideBody;
+        for (const kind of imageConversionRouteFactKinds(source, target)) {
+          const fact = imageConversionRouteFacts[locale][kind]
+            .replaceAll(
+              "{from}",
+              imageConverterLocales[locale].formatNames[source],
+            )
+            .replaceAll(
+              "{to}",
+              imageConverterLocales[locale].formatNames[target],
+            );
+          expect(guide, `${locale}:${id}:${kind}`).toContain(fact);
+        }
+      }
     }
   });
 

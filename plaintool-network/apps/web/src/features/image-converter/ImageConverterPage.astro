@@ -3,8 +3,9 @@ import PreviewToolPage from "../../components/PreviewToolPage.astro";
 import { localeBundles } from "../../lib/locale-data";
 import type { Locale } from "../../lib/site";
 import ImageConverter from "./ImageConverter.astro";
-import { imageConversionRouteFactKind, imageConverterLocales } from "./i18n";
+import { imageConversionRouteFactKinds, imageConverterLocales } from "./i18n";
 import { parseImageConversionMode, type ImageConverterToolId } from "./formats";
+import { imageConversionSources } from "../../lib/source-references";
 import stylesheet from "./styles.css?url";
 
 interface Props {
@@ -28,10 +29,13 @@ const converterLocale = imageConverterLocales[locale];
   description={content.description}
   guideTitle={content.guideTitle}
   guideBody={content.guideBody}
-  guideFactKind={imageConversionRouteFactKind(mode.source, mode.target)}
+  guideFactKind={imageConversionRouteFactKinds(mode.source, mode.target).join(
+    " ",
+  )}
   safetyTitle={content.safetyTitle}
   safetyBody={content.safetyBody}
   faqs={content.faqs}
+  sources={imageConversionSources(mode)}
   featureStylesheet={stylesheet}
 >
   <ImageConverter

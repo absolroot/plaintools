@@ -106,7 +106,7 @@ export const toolRegistry = /** @type {const} */ ([
   {
     id: "ai-watermark-remover",
     featureId: "ai-text-cleaner",
-    slug: "ai-watermark-remover",
+    slug: "invisible-character-remover",
     category: "text",
     publication: "indexable",
     structuredData: ["SoftwareApplication", "BreadcrumbList", "FAQPage"],

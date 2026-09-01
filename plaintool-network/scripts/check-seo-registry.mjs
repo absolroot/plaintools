@@ -1,4 +1,4 @@
-import { access, readdir } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { locales, toolRegistry } from "../apps/web/src/lib/content-registry.js";
@@ -81,8 +81,11 @@ const routeEntries = await readdir(routeRoot, { withFileTypes: true });
 for (const entry of routeEntries) {
   if (!entry.isDirectory() || entry.name === "tools") continue;
   try {
-    await access(resolve(routeRoot, entry.name, "index.astro"));
-    if (!slugs.has(entry.name))
+    const routeFile = resolve(routeRoot, entry.name, "index.astro");
+    await access(routeFile);
+    const source = await readFile(routeFile, "utf8");
+    const isRedirectOnly = /return\s+Astro\.redirect\(/u.test(source);
+    if (!slugs.has(entry.name) && !isRedirectOnly)
       errors.push(
         `Implemented tool route is absent from the SEO registry: ${entry.name}`,
       );
