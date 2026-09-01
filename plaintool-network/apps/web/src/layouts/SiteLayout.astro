@@ -29,6 +29,7 @@ interface Props {
   canonicalize?: boolean;
   structuredData?: StructuredData[];
   featureStylesheet?: string;
+  showRelatedTools?: boolean;
 }
 
 const {
@@ -40,6 +41,7 @@ const {
   canonicalize = true,
   structuredData = [],
   featureStylesheet,
+  showRelatedTools = true,
 } = Astro.props;
 const t = getCopy(locale);
 const n = networkCopy[locale];
@@ -286,7 +288,7 @@ const contentSecurityPolicy = integrationActive
     <main id="main">
       <slot />
       {
-        currentTool && page && (
+        showRelatedTools && currentTool && page && (
           <RelatedTools locale={locale} currentPage={page as ToolPage} />
         )
       }
