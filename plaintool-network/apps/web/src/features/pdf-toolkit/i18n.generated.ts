@@ -1607,7 +1607,7 @@ export const generatedPdfLocaleTexts = {
         ],
       },
       "pdf-to-image": {
-        title: "PDF na obraz",
+        title: "PDF na obrazy",
         description: "Převeďte vybrané stránky PDF na obrázky JPG nebo PNG.",
         guide:
           "Vyberte PDF, požadované stránky, formát obrázku a rozlišení. Více stránek se stáhne jako ZIP.",
@@ -1791,7 +1791,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Czy powinienem wybrać JPG czy PNG?",
         faqAnswer:
           "JPG jest zazwyczaj mniejszy dla zdjęć i skanów. PNG jest bezstratny i często lepszy dla diagramów, ostrego tekstu lub przezroczystości, ale może być znacznie większy.",
-        searchTerms: ["PDF na obraz", "PDF JPG", "PDF PNG"],
+        searchTerms: ["PDF na obrazy", "PDF na JPG", "PDF na PNG"],
       },
       "image-to-pdf": {
         title: "Obraz do PDF",
@@ -2279,17 +2279,17 @@ export const generatedPdfLocaleTexts = {
         searchTerms: ["ضغط PDF", "تقليل حجم PDF", "ضاغط PDF"],
       },
       "merge-pdf": {
-        title: "دمج PDF",
+        title: "دمج ملفات PDF",
         description: "ادمج عدة ملفات PDF في ملف واحد بالترتيب الذي تختاره.",
         guide:
           "أضف ملفي PDF على الأقل، ورتّبهما كما تريد، ثم نزّل الملف المدمج.",
         faqQuestion: "هل يمكنني تغيير ترتيب الصفحات داخل PDF واحد؟",
         faqAnswer:
           "هذا الإصدار الأول يرتب الملفات بالكامل. قم بتقسيم أو إعادة ترتيب PDF المصدر أولاً عندما تحتاج الصفحات الفردية إلى ترتيب مختلف.",
-        searchTerms: ["دمج PDF", "دمج PDFs", "دمج PDF"],
+        searchTerms: ["دمج ملفات PDF", "دمج PDF", "PDF merge"],
       },
       "split-pdf": {
-        title: "تقسيم PDF",
+        title: "تقسيم ملف PDF",
         description:
           "استخرج الصفحات التي تريدها أو قسّم ملف PDF إلى عدة ملفات.",
         guide:
@@ -2297,7 +2297,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "هل يقلل التقسيم من جودة الصفحات؟",
         faqAnswer:
           "لا يتم استخدام الترصيع (Rasterization) أثناء التقسيم. تُنسخ صفحات PDF الحالية إلى ملفات جديدة، على الرغم من أن الميزات المتقدمة على مستوى المستند قد لا تنتقل.",
-        searchTerms: ["تقسيم PDF", "استخراج صفحات PDF", "قسم PDF"],
+        searchTerms: ["تقسيم ملف PDF", "تقسيم PDF", "استخراج صفحات PDF"],
       },
       "pdf-to-image": {
         title: "تحويل PDF إلى صورة",
@@ -2445,7 +2445,7 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "我可以改變單個 PDF 中的頁面順序嗎？",
         faqAnswer:
           "此第一版本是對整個文件進行排序。當單個頁面需要不同順序時，請先分割或重新排列源 PDF。",
-        searchTerms: ["合併 PDF", "合併 PDF", "PDF 合併"],
+        searchTerms: ["合併 PDF", "合併 PDF 檔案", "PDF 合併"],
       },
       "split-pdf": {
         title: "分割 PDF",
@@ -2467,13 +2467,13 @@ export const generatedPdfLocaleTexts = {
         searchTerms: ["PDF 轉圖片", "PDF 轉換為 JPG", "PDF 轉換為 PNG"],
       },
       "image-to-pdf": {
-        title: "圖像轉 PDF",
+        title: "圖片轉 PDF",
         description: "依照你選擇的順序，將 JPG、PNG 或 WebP 圖片合成一個 PDF。",
         guide: "加入並排列圖片，選擇頁面配置，再建立並下載 PDF。",
         faqQuestion: "我的圖像會被裁剪或放大嗎？",
         faqAnswer:
           "不。圖像會置中，僅在需要時縮小。適應模式使用每個圖像自身比例來填充 PDF 頁面。",
-        searchTerms: ["圖像轉 PDF", "JPG 轉成 PDF", "PNG 轉成 PDF"],
+        searchTerms: ["圖片轉 PDF", "JPG 轉成 PDF", "PNG 轉成 PDF"],
       },
     },
   },
@@ -2642,7 +2642,7 @@ export const generatedPdfLocaleTexts = {
         ],
       },
       "image-to-pdf": {
-        title: "Görüntüyü PDF'ye dönüştür",
+        title: "Görüntüleri PDF'ye dönüştürün",
         description:
           "JPG, PNG veya WebP görüntülerini seçtiğiniz sırayla tek bir PDF’de birleştirin.",
         guide:
@@ -2650,7 +2650,11 @@ export const generatedPdfLocaleTexts = {
         faqQuestion: "Görüntülerim kırpılıyor ya da büyütülüyor mu?",
         faqAnswer:
           "Hayır. Görüntüler merkezlenir ve yalnızca gerektiğinde küçültülür. Sığdırma modu, PDF sayfası için her görüntünün kendi oranlarını kullanır.",
-        searchTerms: ["görüntüyü PDF'ye dönüştür", "JPG to PDF", "PNG to PDF"],
+        searchTerms: [
+          "görüntüleri PDF'ye dönüştürün",
+          "JPG'yi PDF'ye dönüştürme",
+          "PNG'yi PDF'ye dönüştürme",
+        ],
       },
     },
   },
