@@ -1119,9 +1119,7 @@ export function createNewToolLocale(seed: NewToolLocaleSeed): NewToolLocale {
         searchTerms:
           id === "regex-tester"
             ? regexSearchTermsFor(seed.locale)
-            : id === "date-calculator"
-              ? [...pageSeed(id).terms, "Date Calculator"]
-              : pageSeed(id).terms,
+            : pageSeed(id).terms,
       },
     ]),
   ) as Record<NewToolId, LocaleCatalogToolCopy>;
