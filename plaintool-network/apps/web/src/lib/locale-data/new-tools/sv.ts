@@ -238,16 +238,20 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Borttagare av osynliga Unicode-tecken",
+      title: "Ta bort AI-vattenstämplar och dolda tecken",
       description:
-        "Hittar och tar bort faktiska dolda Unicode-rester som kan följa med från GPT, Claude, PDF-filer eller webbsidor. Verktyget avgör inte om en AI har skrivit texten.",
+        "Rensar kopierad text från ChatGPT, Claude, Gemini och andra källor genom att ta bort dolda tecken som stöds och ofta kallas AI-vattenstämplar; verktyget bevisar inte upphov och garanterar inte att AI-detektorer kan kringgås.",
       guide:
         "Klistra in texten och granska först det rensade resultatet. Kontrollera sedan exakta teckennamn, antal och U+-kodpunkter. Riskfyllda alternativ som kan påverka skriftens formning är avstängda som standard.",
       terms: [
-        "dolda GPT-tecken",
-        "dolda Claude-tecken",
-        "blanksteg med nollbredd",
-        "Unicode-rensare",
+        "ta bort AI-vattenstämpel från text",
+        "AI-vattenstämpelborttagare",
+        "dolda tecken ChatGPT",
+        "dolda tecken Claude",
+        "dolda tecken Gemini",
+        "osynliga tecken",
+        "ta bort zero-width space",
+        "rensa Unicode-text",
       ],
     },
     "url-encode": {

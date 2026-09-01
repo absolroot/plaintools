@@ -240,17 +240,20 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Usuwanie niewidocznych znaków Unicode",
+      title: "Usuwanie znaków wodnych AI i ukrytych znaków",
       description:
-        "Wyszukuje i usuwa rzeczywiste ukryte znaki Unicode, często kopiowane z GPT, Claude, plików PDF lub stron internetowych. To narzędzie nie wykrywa autorstwa AI.",
+        "Czyści tekst skopiowany z ChatGPT, Claude, Gemini i innych źródeł przez usuwanie obsługiwanych ukrytych znaków, często nazywanych znakami wodnymi AI; nie potwierdza autorstwa ani nie gwarantuje obejścia detektorów AI.",
       guide:
         "Wklej tekst i najpierw sprawdź oczyszczony wynik, a następnie dokładne nazwy znaków, ich liczbę oraz punkty kodowe U+. Ryzykowne opcje wpływające na łączenie znaków są domyślnie wyłączone.",
       terms: [
-        "usuwanie znaku wodnego AI",
-        "ukryte znaki GPT",
+        "usunąć znak wodny AI z tekstu",
+        "usuwanie znaków wodnych AI",
+        "ukryte znaki ChatGPT",
         "ukryte znaki Claude",
-        "spacja o zerowej szerokości",
-        "czyszczenie Unicode",
+        "ukryte znaki Gemini",
+        "niewidoczne znaki",
+        "usunąć spację o zerowej szerokości",
+        "wyczyścić tekst Unicode",
       ],
     },
     "url-encode": {

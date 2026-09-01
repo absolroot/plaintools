@@ -232,16 +232,20 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Verwijderaar voor onzichtbare Unicode-tekens",
+      title: "AI-watermerken en verborgen tekens verwijderen",
       description:
-        "Vindt en verwijdert daadwerkelijk verborgen Unicode-artefacten die vaak uit GPT, Claude, pdf-bestanden of webpagina’s worden gekopieerd. Deze tool detecteert niet of tekst door AI is geschreven.",
+        "Schoont gekopieerde tekst van ChatGPT, Claude, Gemini en andere bronnen op door ondersteunde verborgen tekens te verwijderen die vaak AI-watermerken worden genoemd; het bewijst geen auteurschap en garandeert niet dat AI-detectoren worden omzeild.",
       guide:
         "Plak de tekst en bekijk eerst het opgeschoonde resultaat. Controleer daarna de exacte namen, aantallen en U+-codepunten van de verwijderde tekens. Opties die de schriftweergave kunnen wijzigen, staan standaard uit.",
       terms: [
-        "GPT verborgen tekens",
-        "Claude verborgen tekens",
-        "zero width space verwijderen",
-        "Unicode tekst opschonen",
+        "AI-watermerk uit tekst verwijderen",
+        "AI-watermerkverwijderaar",
+        "verborgen tekens ChatGPT",
+        "verborgen tekens Claude",
+        "verborgen tekens Gemini",
+        "onzichtbare tekens",
+        "zero-width-spatie verwijderen",
+        "Unicode-tekst opschonen",
       ],
     },
     "url-encode": {

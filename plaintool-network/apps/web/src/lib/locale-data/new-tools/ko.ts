@@ -19,7 +19,8 @@ const seed = {
   calculatorSuite: calculatorSuiteFor("ko"),
   uuidGenerator: uuidGeneratorFor("ko"),
   mobileDescriptions: {
-    "ai-watermark-remover": "텍스트의 숨은 유니코드 문자를 찾아 제거합니다.",
+    "ai-watermark-remover":
+      "ChatGPT·Claude·Gemini 텍스트의 AI 워터마크·숨은 문자 흔적을 정리합니다.",
     "url-encode": "텍스트와 URL을 퍼센트 인코딩합니다.",
     "url-decode": "퍼센트 인코딩된 URL을 디코딩합니다.",
     "hash-generator": "텍스트·파일의 해시 체크섬을 계산합니다.",
@@ -253,17 +254,18 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "숨은 Unicode 문자 정리 - GPT·Claude·Gemini 텍스트",
+      title: "AI 워터마크 제거기 - ChatGPT·Claude·Gemini 텍스트",
       description:
-        "GPT·Claude·Gemini 텍스트에 섞인 실제 숨은 유니코드 문자를 찾아 제거합니다. AI 작성 여부를 판별하는 기능은 아닙니다.",
+        "ChatGPT·Claude·Gemini 또는 웹에서 복사한 텍스트에 섞일 수 있는 숨은 문자 흔적을 찾아 정리합니다. AI 생성 여부를 판별하거나 AI 탐지 도구 우회를 보장하지 않습니다.",
       guide:
         "원문을 붙여넣고 정제된 텍스트를 먼저 확인한 뒤, 제거한 문자 이름·개수·U+ 코드 포인트를 검토하세요. 문자 모양을 바꿀 수 있는 고급 옵션은 기본으로 꺼져 있습니다.",
       terms: [
-        "숨은 유니코드 제거",
-        "클로드 숨은 문자",
+        "AI 워터마크 제거",
+        "AI 텍스트 워터마크",
+        "ChatGPT 숨은 문자",
+        "Claude 숨은 문자",
         "Gemini 숨은 문자",
-        "제로폭 공백 제거",
-        "AI 텍스트 정리",
+        "제로폭 문자 제거",
       ],
     },
     "url-encode": {

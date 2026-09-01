@@ -233,17 +233,18 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Gizli Unicode karakter temizleyici",
+      title: "AI metin filigranı temizleyici",
       description:
-        "GPT, Claude, PDF veya web sayfalarından kopyalanabilen gerçek gizli Unicode kalıntılarını bulup kaldırır. Bu araç metnin AI tarafından yazılıp yazılmadığını belirlemez.",
+        "ChatGPT, Claude, Gemini veya webden kopyalanan metne karışabilen gizli karakter izlerini bulur ve temizler; metnin yapay zekâ tarafından yazıldığını belirlemez ya da AI algılama araçlarını atlatmayı garanti etmez.",
       guide:
         "Metni yapıştırıp önce temizlenmiş sonucu gözden geçirin, ardından tam karakter adlarını, sayılarını ve U+ kod noktalarını inceleyin. Yazı biçimlenmesini etkileyebilecek riskli seçenekler varsayılan olarak kapalıdır.",
       terms: [
-        "gizli karakter temizleme",
-        "GPT gizli karakterleri",
-        "Claude gizli karakterleri",
-        "sıfır genişlikli karakter",
-        "Unicode karakter",
+        "AI filigran kaldırma",
+        "AI metin filigranı",
+        "ChatGPT gizli karakter",
+        "Claude gizli karakter",
+        "Gemini gizli karakter",
+        "sıfır genişlikli karakter temizleme",
       ],
     },
     "url-encode": {

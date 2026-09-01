@@ -238,15 +238,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Removedor de caracteres Unicode invisíveis",
+      title: "Removedor de marca-d’água de IA e caracteres ocultos",
       description:
-        "Encontra e remove artefatos Unicode realmente ocultos, muitas vezes copiados do GPT, Claude, PDFs ou páginas da web. Esta ferramenta não detecta se um texto foi escrito por IA.",
+        "Limpa texto copiado do ChatGPT, Claude, Gemini e de outras fontes ao remover caracteres ocultos compatíveis, muitas vezes chamados de marcas d’água de IA; não comprova autoria nem garante burlar detectores de IA.",
       guide:
         "Cole o texto e confira primeiro o resultado limpo; depois, verifique os nomes exatos, as quantidades e os pontos de código U+ removidos. As opções que podem alterar a escrita ficam desativadas por padrão.",
       terms: [
-        "caracteres ocultos GPT",
+        "remover marca d'água IA do texto",
+        "removedor de marca d'água IA",
+        "caracteres ocultos ChatGPT",
         "caracteres ocultos Claude",
-        "remover espaço largura zero",
+        "caracteres ocultos Gemini",
+        "caracteres invisíveis",
+        "remover espaço de largura zero",
         "limpar texto Unicode",
       ],
     },

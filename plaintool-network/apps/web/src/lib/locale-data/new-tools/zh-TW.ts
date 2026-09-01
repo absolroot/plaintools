@@ -226,18 +226,18 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "隱藏 Unicode 字元清理工具",
+      title: "AI 文字浮水印清理工具",
       description:
-        "尋找並移除從 GPT、Claude、PDF 或網頁複製時可能夾帶的隱藏 Unicode 字元。此工具不會判斷內容是否由 AI 撰寫。",
+        "找出並清理從 ChatGPT、Claude、Gemini 或網頁複製文字時可能夾帶的隱藏字元；不判定內容是否由 AI 生成，也不保證規避 AI 偵測工具。",
       guide:
         "貼上文字後，先檢查清理結果，再查看移除的確切字元名稱、數量和U+碼位。可能影響文字塑形的高風險選項預設為關閉。",
       terms: [
-        "清除隱藏字元",
-        "GPT隱藏字元",
-        "Claude隱藏字元",
-        "零寬字元",
-        "隱形字元清除",
-        "Unicode",
+        "AI 浮水印移除",
+        "AI 文字浮水印",
+        "ChatGPT 隱藏字元",
+        "Claude 隱藏字元",
+        "Gemini 隱藏字元",
+        "零寬字元清除",
       ],
     },
     "url-encode": {

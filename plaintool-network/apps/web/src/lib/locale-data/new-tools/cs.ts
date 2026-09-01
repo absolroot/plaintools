@@ -237,16 +237,20 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Odstraňovač neviditelných znaků Unicode",
+      title: "Odstranění vodoznaků AI a skrytých znaků",
       description:
-        "Vyhledá a odstraní skutečné skryté znaky Unicode, které se často zkopírují z GPT, Claude, PDF nebo webových stránek. Tento nástroj neurčuje, zda text vytvořila AI.",
+        "Vyčistí text zkopírovaný z ChatGPT, Claude, Gemini a dalších zdrojů odstraněním podporovaných skrytých znaků, kterým se často říká vodoznaky AI; neprokazuje autorství ani nezaručuje obejití detektorů AI.",
       guide:
         "Vložte text, nejprve zkontrolujte vyčištěný výsledek a poté přesné názvy znaků, jejich počty a kódové body U+. Rizikové možnosti ovlivňující tvarování písma jsou ve výchozím nastavení vypnuté.",
       terms: [
-        "skryté znaky GPT",
+        "odstranit AI vodoznak z textu",
+        "odstraňovač AI vodoznaků",
+        "skryté znaky ChatGPT",
         "skryté znaky Claude",
-        "mezera nulové šířky",
-        "čištění Unicode",
+        "skryté znaky Gemini",
+        "neviditelné znaky",
+        "odstranit mezeru s nulovou šířkou",
+        "vyčistit text Unicode",
       ],
     },
     "url-encode": {

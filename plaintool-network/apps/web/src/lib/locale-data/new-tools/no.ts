@@ -231,16 +231,20 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Fjern usynlige Unicode-tegn",
+      title: "Fjern AI-vannmerker og skjulte tegn",
       description:
-        "Finn og fjern konkrete, skjulte Unicode-tegn som ofte følger med tekst kopiert fra GPT, Claude, PDF-er eller nettsider. Verktøyet avgjør ikke om en tekst er skrevet av KI.",
+        "Rydder opp i tekst kopiert fra ChatGPT, Claude, Gemini og andre kilder ved å fjerne støttede skjulte tegn som ofte kalles AI-vannmerker; verktøyet beviser ikke opphav og garanterer ikke å omgå KI-detektorer.",
       guide:
         "Lim inn tekst og kontroller først det rensede resultatet. Se deretter de nøyaktige tegnnavnene, antallene og U+-kodepunktene. Risikable alternativer som kan endre skriftforming, er slått av som standard.",
       terms: [
-        "GPT skjulte tegn",
-        "Claude skjulte tegn",
-        "mellomrom uten bredde",
-        "Unicode-renser",
+        "fjern AI-vannmerke fra tekst",
+        "AI-vannmerkefjerner",
+        "skjulte tegn ChatGPT",
+        "skjulte tegn Claude",
+        "skjulte tegn Gemini",
+        "usynlige tegn",
+        "fjern nullbredde-mellomrom",
+        "rydd Unicode-tekst",
       ],
     },
     "url-encode": {

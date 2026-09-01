@@ -232,16 +232,20 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Fjern usynlige Unicode-tegn",
+      title: "Fjern AI-vandmærker og skjulte tegn",
       description:
-        "Finder og fjerner faktiske skjulte Unicode-rester, som kan følge med fra GPT, Claude, PDF-filer eller websider. Værktøjet afgør ikke, om en AI har skrevet teksten.",
+        "Renser kopieret tekst fra ChatGPT, Claude, Gemini og andre kilder ved at fjerne understøttede skjulte tegn, som ofte kaldes AI-vandmærker; værktøjet beviser ikke ophav og garanterer ikke omgåelse af AI-detektorer.",
       guide:
         "Indsæt teksten, og gennemgå først det rensede resultat. Kontrollér derefter de nøjagtige tegnnavne, antal og U+-kodepunkter. Risikable indstillinger, der kan påvirke skriftens formning, er slået fra som standard.",
       terms: [
-        "skjulte GPT-tegn",
-        "skjulte Claude-tegn",
-        "mellemrum uden bredde",
-        "Unicode-renser",
+        "fjern AI-vandmærke fra tekst",
+        "AI-vandmærkefjerner",
+        "skjulte tegn ChatGPT",
+        "skjulte tegn Claude",
+        "skjulte tegn Gemini",
+        "usynlige tegn",
+        "fjern nulbredde mellemrum",
+        "rens Unicode-tekst",
       ],
     },
     "url-encode": {

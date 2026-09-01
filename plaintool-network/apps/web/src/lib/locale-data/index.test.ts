@@ -207,14 +207,14 @@ describe("locale bundles", () => {
 
   it("keeps the AI cleaner claim accurate and non-attributional", () => {
     expect(localeBundles.ko.tools["ai-watermark-remover"].title).toBe(
-      "숨은 Unicode 문자 정리 - GPT·Claude·Gemini 텍스트",
+      "AI 워터마크 제거기 - ChatGPT·Claude·Gemini 텍스트",
     );
     expect(
       localeBundles.ko.tools["ai-watermark-remover"].description,
-    ).not.toMatch(/PDF|웹페이지/u);
+    ).not.toMatch(/PDF/u);
     expect(
       localeBundles.en.tools["ai-watermark-remover"].description,
-    ).toContain("does not detect AI authorship");
+    ).toContain("does not prove authorship");
   });
 
   it("separates Korean date, D-Day, and full-age search intents", () => {

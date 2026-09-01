@@ -34,6 +34,13 @@
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
   "copyEvidence": [
+    "https://intabtools.com/text/chatgpt-watermark-remover",
+    "https://month17.com/tools/ai-text-watermark-remover/",
+    "https://thewebgyver.com/tools/ai-watermark-remover/",
+    "https://watermarkcheck.com/es/",
+    "https://zeichenpruefer.de/chatgpt-wasserzeichen/",
+    "https://humantext.pro/ar/gemini-watermark-remover",
+    "https://aitextwatermarkremover.com/zh-TW/remove-ai-watermark-from-text",
     "https://miniwebtool.com/de/unsichtbare-zeichen-entferner/",
     "https://www.moreonlinetools.com/fr/tools/invisible-char-detector/",
     "https://temoto.app/invisible-char-checker/",

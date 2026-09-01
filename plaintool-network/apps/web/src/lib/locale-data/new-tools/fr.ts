@@ -242,15 +242,19 @@ const seed = {
   pages: {
     "background-remover": backgroundRemover.page,
     "ai-watermark-remover": {
-      title: "Suppresseur de caractères Unicode invisibles",
+      title: "Suppresseur de filigranes IA et de caractères invisibles",
       description:
-        "Détecte et supprime les caractères Unicode invisibles qui peuvent être ajoutés lors d’une copie depuis GPT, Claude, un PDF ou une page web. Cet outil ne détermine pas si un texte a été écrit par une IA.",
+        "Nettoie le texte copié depuis ChatGPT, Claude, Gemini et d’autres sources en supprimant les caractères invisibles pris en charge, souvent appelés filigranes IA ; il ne prouve pas l’auteur du texte et ne garantit pas de contourner les détecteurs d’IA.",
       guide:
         "Collez le texte et examinez d’abord le résultat nettoyé, puis vérifiez le nom exact, le nombre et le point de code U+ de chaque caractère retiré. Les options susceptibles de modifier l’écriture sont désactivées par défaut.",
       terms: [
-        "caractères invisibles GPT",
+        "supprimer filigrane IA texte",
+        "suppresseur de filigrane IA",
+        "caractères invisibles ChatGPT",
         "caractères invisibles Claude",
-        "supprimer espace sans chasse",
+        "caractères invisibles Gemini",
+        "caractères cachés",
+        "supprimer espace insécable",
         "nettoyer texte Unicode",
       ],
     },
