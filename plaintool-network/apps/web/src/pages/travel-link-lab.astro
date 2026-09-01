@@ -823,9 +823,10 @@ import "../styles/travel-link-lab.css";
       "fil-ph": "필리핀",
       "tl-ph": "필리핀",
     };
-    const preferredLanguages = navigator.languages.map((value) =>
-      value.toLowerCase(),
-    );
+    const preferredLanguages = [
+      document.documentElement.lang,
+      ...navigator.languages,
+    ].map((value) => value.toLowerCase());
     const preferredMarket = preferredLanguages
       .map(
         (language) =>
