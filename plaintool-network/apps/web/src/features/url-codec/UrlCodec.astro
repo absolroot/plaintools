@@ -120,7 +120,7 @@ const decodeSampleInput =
   </div>
   <ConverterStatus status={commonCopy.ready} badges />
   <FormatterOptions label={sharedCopy.options}>
-    <div class="formatter-options-grid">
+    <div class="formatter-options-grid" data-persist-options>
       <div class="formatter-option-field url-scope-field">
         <Tooltip
           id="url-scope-help"
@@ -151,6 +151,7 @@ const decodeSampleInput =
       <div
         class="url-decode-options"
         data-decode-options
+        data-persist-options
         hidden={initialMode !== "decode"}
       >
         <div class="formatter-check-row">

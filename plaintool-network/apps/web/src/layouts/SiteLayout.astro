@@ -326,6 +326,9 @@ const contentSecurityPolicy = integrationActive
       </div>
     </footer>
     <script>
+      import { bindPersistedToolOptions } from "../scripts/shared/persisted-tool-options";
+
+      bindPersistedToolOptions();
       const themeToggle = document.querySelector<HTMLButtonElement>(
         "[data-theme-toggle]",
       );
