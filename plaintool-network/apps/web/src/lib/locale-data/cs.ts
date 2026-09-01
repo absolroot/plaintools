@@ -622,7 +622,7 @@ const csBundle = {
         "počet slov a znaků",
         "počet znaků",
         "dopisy",
-        "linky",
+        "řádky",
         "odstavce",
         "text",
       ],
@@ -664,7 +664,7 @@ const csBundle = {
         "rozdíl textu",
         "porovnat text",
         "rozdíly",
-        "porovnání čar",
+        "porovnání řádků",
       ],
     },
     "case-converter": {

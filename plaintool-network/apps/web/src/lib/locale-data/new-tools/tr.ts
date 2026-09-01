@@ -315,13 +315,13 @@ const seed = {
       terms: ["QR kodu oluşturucu", "QR PNG", "QR SVG", "statik QR"],
     },
     "qr-code-scanner": {
-      title: "QR kodu tarayıcı",
+      title: "QR kod tarayıcı",
       description:
         "Bir görsel veya kameradaki QR kodunu yerel olarak okur ve çözülen bağlantıları otomatik açmaz.",
       guide:
         "Sessiz bölgenin tamamının göründüğü net ve iyi aydınlatılmış bir görsel kullanın. Bir URL'nin güvenli olup olmadığına karar vermeden önce çözülen değeri gözden geçirip kopyalayın.",
       terms: [
-        "QR kodu tarayıcı",
+        "QR kod tarayıcı",
         "QR görseli tara",
         "kameralı QR okuyucu",
         "QR kodu çözme",

@@ -680,7 +680,7 @@ const plBundle = {
         "wielka litera",
         "małe litery",
         "wielkość liter w zdaniu",
-        "zapitolić",
+        "kapitalizacja tekstu",
         "tekst",
       ],
     },

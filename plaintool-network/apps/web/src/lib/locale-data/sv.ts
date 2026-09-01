@@ -624,7 +624,7 @@ const svBundle = {
         "räkna ord",
         "ordantal",
         "teckenräkning",
-        "brev",
+        "bokstäver",
         "linjer",
         "stycken",
         "text",
