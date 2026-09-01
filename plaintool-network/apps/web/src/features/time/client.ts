@@ -247,11 +247,8 @@ function init(root: HTMLElement): void {
   );
   if (localOption)
     localOption.textContent = `${localOption.textContent} (${localZone})`;
-  const supportedValuesOf = (
-    Intl as typeof Intl & { supportedValuesOf?: (key: "timeZone") => string[] }
-  ).supportedValuesOf;
   const zoneList = root.querySelector<HTMLDataListElement>("#iana-zones");
-  if (supportedValuesOf && zoneList) {
+  if (zoneList) {
     const popularOptions = Array.from(zoneList.options);
     const popularValues = new Set(popularOptions.map((option) => option.value));
     const now = new Date();
@@ -268,7 +265,7 @@ function init(root: HTMLElement): void {
       if (offset && !option.label.includes(offset))
         option.label = `${option.label} · ${offset}`;
     });
-    const fallbackOptions = supportedValuesOf("timeZone")
+    const fallbackOptions = ([] as string[])
       .filter((value) => !popularValues.has(value))
       .map((value) => {
         const option = document.createElement("option");
