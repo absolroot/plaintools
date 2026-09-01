@@ -68,8 +68,8 @@ def run_time_desktop(desktop, report: dict, locales: tuple[str, ...]) -> None:
     if report["time_field_alignment"]["centerDelta"] > 1:
         report["ui_detail_failures"].append(f"Timestamp, unit, and time-zone controls are not aligned: {report['time_field_alignment']}")
     report["time_iana_option_count"] = desktop.locator("#iana-zones option").count()
-    if report["time_iana_option_count"] < 5:
-        report["ui_detail_failures"].append(f"The IANA time-zone list is incomplete: {report['time_iana_option_count']}")
+    if report["time_iana_option_count"] != 12:
+        report["ui_detail_failures"].append(f"The timestamp time-zone suggestions must stay on the concise 12-city set: {report['time_iana_option_count']}")
     report["time_offset_options"] = desktop.evaluate("""
         () => [...document.querySelectorAll('[data-zone-offset] option')].map((option) => option.value)
     """)
@@ -90,7 +90,6 @@ def run_time_desktop(desktop, report: dict, locales: tuple[str, ...]) -> None:
         "placeholder": desktop.locator("[data-zone]").get_attribute("placeholder"),
         "seoul_label": desktop.locator('#iana-zones option[value="Asia/Seoul"]').get_attribute("label"),
         "new_york_label": desktop.locator('#iana-zones option[value="America/New_York"]').get_attribute("label"),
-        "abidjan_label": desktop.locator('#iana-zones option[value="Africa/Abidjan"]').get_attribute("label"),
     }
     desktop.screenshot(path=str(QA_DIR / "plaintool-time-iana-desktop-ko.png"), full_page=False)
     desktop.locator("[data-zone]").fill("America/New_York")
@@ -99,7 +98,7 @@ def run_time_desktop(desktop, report: dict, locales: tuple[str, ...]) -> None:
     report["time_iana_result"] = desktop.locator('[data-result="zoned"]').input_value()
     if report["time_iana_initial_value"]:
         report["ui_detail_failures"].append(f"The IANA field must open unfiltered instead of being prefilled: {report['time_iana_initial_value']}")
-    if "도시" not in report["time_iana_search"]["label"] or "서울" not in report["time_iana_search"]["seoul_label"] or "UTC+09:00" not in report["time_iana_search"]["seoul_label"] or "New_York" not in report["time_iana_search"]["new_york_label"] or "Abidjan" not in report["time_iana_search"]["abidjan_label"] or "Africa" not in report["time_iana_search"]["abidjan_label"] or "UTC" not in report["time_iana_search"]["abidjan_label"]:
+    if "도시" not in report["time_iana_search"]["label"] or "서울" not in report["time_iana_search"]["seoul_label"] or "UTC+09:00" not in report["time_iana_search"]["seoul_label"] or "New_York" not in report["time_iana_search"]["new_york_label"] or "UTC" not in report["time_iana_search"]["new_york_label"]:
         report["ui_detail_failures"].append(f"IANA search must expose localized city/region labels, canonical identifiers, and current offsets: {report['time_iana_search']}")
     desktop.locator("[data-zone-mode]").select_option("offset")
     desktop.locator("[data-zone-offset]").select_option("+09:00")

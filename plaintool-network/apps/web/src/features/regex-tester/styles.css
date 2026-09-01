@@ -39,6 +39,10 @@
   color: inherit;
   font: inherit;
 }
+.regex-expression-input input:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+}
 .regex-flags {
   display: flex;
   gap: 4px;

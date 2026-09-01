@@ -13,12 +13,18 @@ def run_regex_tester_desktop(page, report: dict, _inventory) -> None:
 
     expression.fill("[Aa]")
     text.fill("Aa")
-    expect(root.locator("[data-match-list] li")).to_have_count(2)
+    match_buttons = root.locator("[data-match-nav] button")
+    expect(match_buttons).to_have_count(2)
+    expect(root.locator("[data-results]")).to_be_visible()
 
     root.locator('[data-flags] input[value="g"]').uncheck()
-    expect(root.locator("[data-match-list] li")).to_have_count(1)
+    expect(match_buttons).to_have_count(1)
+    root.locator('[data-flags] input[value="g"]').check()
+    expect(match_buttons).to_have_count(2)
+
+    root.locator("[data-show-replacement]").click()
+    expect(root.locator(".regex-replacement-panel")).to_be_visible()
     replacement.fill("[$&]")
-    root.locator("[data-replace]").click()
     expect(output).to_have_value("[A][a]")
     expect(replacement).to_have_value("[$&]")
 
@@ -37,6 +43,8 @@ def run_regex_tester_desktop(page, report: dict, _inventory) -> None:
     expect(output).to_have_value("")
     report["regex_tester"] = {
         "global_flag_honored": True,
+        "replacement_revealed_on_demand": True,
+        "replacement_auto_updated": True,
         "replacement_input_preserved": True,
         "invalid_state_clears_actions": True,
     }
@@ -55,7 +63,7 @@ def run_regex_tester_mobile(page, report: dict, _inventory) -> None:
             scrollWidth: document.documentElement.scrollWidth,
             clientWidth: document.documentElement.clientWidth,
             englishLabels: labels.filter((label) => ['Regular expression', 'Test text', 'Replacement template'].includes(label)),
-            minButtonHeight: Math.min(...[...root.querySelectorAll('button')].filter((button) => !button.hidden).map((button) => button.getBoundingClientRect().height)),
+            minButtonHeight: Math.min(...[...root.querySelectorAll('button')].filter((button) => button.getClientRects().length).map((button) => button.getBoundingClientRect().height)),
           };
         }"""
     )

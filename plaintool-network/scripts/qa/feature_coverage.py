@@ -315,7 +315,6 @@ FEATURE_COVERAGE = {
         desktop=run_regex_tester_desktop,
         mobile=run_regex_tester_mobile,
         focus_targets=(("input", "[data-regex-tester] [data-expression]"),),
-        focus_style="editor",
         exercise_faq=True,
     ),
     "unit-converter": FeatureCoverage(
