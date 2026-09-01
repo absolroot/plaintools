@@ -160,16 +160,11 @@
   display: grid;
   gap: 3px;
 }
-.travel-link-card-meta,
-.travel-link-card-eligibility,
-.travel-link-card-route {
+.travel-link-card-detail {
   margin: 0;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.45;
-}
-.travel-link-card-route {
-  color: var(--ink-soft);
 }
 .travel-link-empty {
   margin: 0;
@@ -177,10 +172,6 @@
   border: 1px dashed var(--control-line);
   color: var(--muted);
   font-size: 13px;
-}
-.travel-link-card-meta {
-  font-family: var(--code-font);
-  font-size: 11px;
 }
 .travel-link-card h4 {
   margin: 0;

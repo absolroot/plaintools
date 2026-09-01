@@ -6,17 +6,17 @@ import "../styles/travel-link-lab.css";
 
 <SiteLayout
   locale="ko"
-  title="Agoda 링크 후보 확인 | AbsolTools"
-  description="로컬 전용 Agoda CID 후보 링크 생성 연구 화면"
+  title="아고다 호텔 혜택 링크 비교 | AbsolTools"
+  description="호텔 URL 하나로 국가·카드·제휴 혜택 경로를 비교해 직접 확인하세요."
   noindex={true}
   canonicalize={false}
 >
   <section class="tool-intro">
     <div class="tool-intro-copy">
-      <h1>Agoda 링크 후보 확인</h1>
+      <h1>아고다 호텔 혜택 링크 비교</h1>
       <p class="hero-subheading">
-        Agoda 호텔 URL 하나로 연구용 CID 후보 링크를 만듭니다. 가격은 불러오지
-        않으며, 각 링크는 직접 열어 확인합니다.
+        호텔 URL 하나로 카드·국가별 혜택 경로를 만들고, 아고다에서 직접
+        확인하세요.
       </p>
       <ToolPromise locale="ko" />
     </div>
@@ -25,12 +25,12 @@ import "../styles/travel-link-lab.css";
     <section
       class="converter travel-link-lab"
       data-travel-lab
-      aria-label="Agoda 링크 후보 생성기"
+      aria-label="아고다 호텔 혜택 링크 비교"
     >
       <div class="converter-topbar travel-link-lab-topbar">
         <div>
-          <strong>연구 후보 카탈로그</strong>
-          <span>공개 배포 전 검토 상태 · 가격 조회 및 자동 탭 열기 없음</span>
+          <strong>호텔 링크 비교</strong>
+          <span>가격 조회 없이, 원하는 경로만 직접 엽니다.</span>
         </div>
         <span class="travel-link-lab-count" data-travel-count>준비 중</span>
       </div>
@@ -53,8 +53,7 @@ import "../styles/travel-link-lab.css";
             placeholder="agoda.com/ko-kr/... 또는 https://www.agoda.com/..."
           ></textarea>
           <p class="travel-link-lab-input-note">
-            입력값은 이 브라우저 탭 안에서만 처리합니다. 기존 CID·추적값은 새
-            링크에 포함하지 않습니다.
+            기존 CID·추적값은 새 링크에 포함하지 않습니다.
           </p>
         </section>
       </div>
@@ -63,13 +62,13 @@ import "../styles/travel-link-lab.css";
           <div class="status-copy">
             <span class="status-dot" aria-hidden="true"></span><span
               data-travel-status
-              aria-live="polite">로컬 후보 카탈로그를 불러오는 중입니다.</span
+              aria-live="polite">링크를 준비하는 중입니다.</span
             >
           </div>
         </div>
         <div class="primary-actions">
           <button class="primary-button" type="button" data-generate
-            >후보 링크 만들기</button
+            >링크 만들기</button
           >
         </div>
       </div>
@@ -82,11 +81,9 @@ import "../styles/travel-link-lab.css";
     >
       <div class="travel-link-results-heading">
         <div>
-          <p class="eyebrow">RESULTS <span>·</span> manual check</p>
-          <h2 id="travel-results-title">국가·제휴 유형별 확인 링크</h2>
+          <h2 id="travel-results-title">비교할 링크</h2>
           <p data-travel-result-summary>
-            아래 경로는 입력한 호텔 URL을 유지하는지, 별도 제휴 페이지인지
-            구분해 표시합니다.
+            원하는 경로를 열어 아고다에서 조건을 확인하세요.
           </p>
         </div>
         <span class="travel-link-results-total" data-travel-total></span>
@@ -131,17 +128,8 @@ import "../styles/travel-link-lab.css";
   </div>
   <div class="content-sections">
     <section class="content-section">
-      <h2>사용 방식</h2><p>
-        호텔 상세 페이지 주소를 붙여 넣고 후보 링크를 만든 다음, 조건에 맞는
-        경로를 하나씩 Agoda에서 확인합니다. 이 도구는 가격·할인·예약 가능 여부를
-        판단하지 않습니다.
-      </p>
-    </section>
-    <section class="content-section">
-      <h2>후보 데이터의 상태</h2><p>
-        표시되는 CID는 공개 비교 서비스에서 관찰한 연구 후보입니다. 카드 발급
-        국가, 결제수단, 숙박 조건 등에 따라 적용되지 않을 수 있으며, 공식 확인이
-        끝난 경로만 별도 공개 카탈로그로 승격합니다.
+      <h2>결제 전 확인</h2><p>
+        카드 발급 국가·결제 통화·대상 숙소·예약 기간은 경로마다 다릅니다.
       </p>
     </section>
   </div>
@@ -205,96 +193,114 @@ import "../styles/travel-link-lab.css";
       string,
       Pick<
         Candidate,
-        "market" | "eligibility" | "routeKind" | "preservesHotel" | "status"
+        | "label"
+        | "market"
+        | "eligibility"
+        | "routeKind"
+        | "preservesHotel"
+        | "status"
       >
     > = {
       kb: {
+        label: "KB국민카드",
         market: "대한민국",
-        eligibility: "국내 발급 대상 카드 조건 확인",
+        eligibility: "국내 발급 카드",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       woori: {
+        label: "우리카드",
         market: "대한민국",
-        eligibility: "국내 발급 대상 카드 조건 확인",
+        eligibility: "국내 발급 카드",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       "woori-mc": {
+        label: "우리카드 Mastercard",
         market: "대한민국",
-        eligibility: "우리 Mastercard 대상 조건 확인",
+        eligibility: "국내 발급 Mastercard",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       bc: {
+        label: "BC카드",
         market: "대한민국",
-        eligibility: "국내 발급 대상 카드 조건 확인",
+        eligibility: "국내 발급 카드",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       shinhan: {
+        label: "신한카드",
         market: "대한민국",
-        eligibility: "국내 발급 대상 카드 조건 확인",
+        eligibility: "국내 발급 카드",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       "shinhan-mc": {
+        label: "신한카드 Mastercard",
         market: "대한민국",
-        eligibility: "신한 Mastercard 대상 조건 확인",
+        eligibility: "국내 발급 Mastercard",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       toss: {
+        label: "토스뱅크",
         market: "대한민국",
-        eligibility: "국내 발급 대상 카드 조건 확인",
+        eligibility: "국내 발급 카드",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       hana: {
+        label: "하나카드",
         market: "대한민국",
-        eligibility: "국내 발급 대상 카드 조건 확인",
+        eligibility: "국내 발급 카드",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       visa: {
+        label: "Visa",
         market: "글로벌",
-        eligibility: "발급 국가와 카드 등급별 조건 확인",
+        eligibility: "발급 국가·카드 등급 확인",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       mastercard: {
+        label: "Mastercard",
         market: "글로벌",
-        eligibility: "발급 국가와 카드 등급별 조건 확인",
+        eligibility: "발급 국가·카드 등급 확인",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       keair: {
+        label: "대한항공",
         market: "글로벌",
-        eligibility: "대한항공 제휴·마일 적립 대상과 발권 국가 조건 확인",
+        eligibility: "마일 적립·발권 국가 확인",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       asiana: {
+        label: "아시아나항공",
         market: "글로벌",
-        eligibility: "아시아나 제휴·마일 적립 대상과 발권 국가 조건 확인",
+        eligibility: "마일 적립·발권 국가 확인",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
       },
       airseoul: {
+        label: "에어서울",
         market: "대한민국",
-        eligibility: "항공사 제휴 예약 조건 확인",
+        eligibility: "제휴 예약 조건 확인",
         routeKind: "hotel",
         preservesHotel: true,
         status: "observed",
@@ -302,12 +308,24 @@ import "../styles/travel-link-lab.css";
     };
     const regionalOffers: Candidate[] = [
       {
+        id: "visa-kr",
+        label: "Visa Korea Agoda 혜택",
+        region: "South Korea",
+        kind: "official offer",
+        market: "대한민국",
+        eligibility: "국내 발급 Visa 대상·기간 확인",
+        routeKind: "official",
+        preservesHotel: false,
+        status: "official",
+        url: "https://www.agoda.com/ko-kr/visakorea",
+      },
+      {
         id: "visa-jp",
-        label: "Visa Infinite Japan",
+        label: "Visa Infinite Japan Agoda 혜택",
         region: "Japan",
         kind: "official offer",
         market: "일본",
-        eligibility: "일본 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        eligibility: "일본 발급 Visa Infinite 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -315,11 +333,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "visa-tw",
-        label: "Visa Infinite Taiwan",
+        label: "Visa Infinite Taiwan Agoda 혜택",
         region: "Taiwan",
         kind: "official offer",
         market: "대만",
-        eligibility: "대만 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        eligibility: "대만 발급 Visa Infinite 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -327,12 +345,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "visa-tw-standard",
-        label: "Visa Taiwan Agoda offer",
+        label: "Visa Taiwan Agoda 혜택",
         region: "Taiwan",
         kind: "official offer",
         market: "대만",
-        eligibility:
-          "대만 발급 Visa 대상. 숙소·결제·예약 기간 제한은 Visa 공식 약관에서 확인",
+        eligibility: "대만 발급 Visa 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -340,11 +357,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "visa-hk",
-        label: "Visa Infinite Hong Kong",
+        label: "Visa Infinite Hong Kong Agoda 혜택",
         region: "Hong Kong",
         kind: "official offer",
         market: "홍콩",
-        eligibility: "홍콩 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        eligibility: "홍콩 발급 Visa Infinite 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -352,11 +369,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "visa-sg",
-        label: "Visa Infinite Singapore",
+        label: "Visa Infinite Singapore Agoda 혜택",
         region: "Singapore",
         kind: "official offer",
         market: "싱가포르",
-        eligibility: "싱가포르 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        eligibility: "싱가포르 발급 Visa Infinite 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -364,11 +381,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "visa-my",
-        label: "Visa Infinite Malaysia",
+        label: "Visa Infinite Malaysia Agoda 혜택",
         region: "Malaysia",
         kind: "official offer",
         market: "말레이시아",
-        eligibility: "말레이시아 발급 Visa Infinite 및 공식 혜택 조건 확인",
+        eligibility: "말레이시아 발급 Visa Infinite 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -376,12 +393,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "visa-my-standard",
-        label: "Visa Malaysia Agoda offer",
+        label: "Visa Malaysia Agoda 혜택",
         region: "Malaysia",
         kind: "official offer",
         market: "말레이시아",
-        eligibility:
-          "말레이시아 발급 Visa 대상. 대상 숙소·선결제·카드 등급과 예약·숙박 기간을 공식 약관에서 확인",
+        eligibility: "말레이시아 발급 Visa 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -389,11 +405,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "amex-tw",
-        label: "American Express Taiwan",
+        label: "American Express Taiwan Agoda 혜택",
         region: "Taiwan",
         kind: "official offer",
         market: "대만",
-        eligibility: "대만 발급 American Express 및 공식 혜택 조건 확인",
+        eligibility: "대만 발급 American Express 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -401,11 +417,11 @@ import "../styles/travel-link-lab.css";
       },
       {
         id: "amex-hk",
-        label: "American Express Hong Kong",
+        label: "American Express Hong Kong Agoda 혜택",
         region: "Hong Kong",
         kind: "official offer",
         market: "홍콩",
-        eligibility: "홍콩 발급 American Express 및 공식 혜택 조건 확인",
+        eligibility: "홍콩 발급 American Express 대상·기간 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -417,8 +433,7 @@ import "../styles/travel-link-lab.css";
         region: "Japan",
         kind: "official partner guide",
         market: "일본",
-        eligibility:
-          "JAL Mileage Bank 회원 대상. 마일 적립 대상·예약 흐름은 JAL 공식 안내에서 확인",
+        eligibility: "JAL Mileage Bank 회원·적립 조건 확인",
         routeKind: "official",
         preservesHotel: false,
         status: "official",
@@ -429,54 +444,66 @@ import "../styles/travel-link-lab.css";
       string,
       Pick<
         Candidate,
-        "market" | "eligibility" | "routeKind" | "preservesHotel" | "status"
+        | "label"
+        | "market"
+        | "eligibility"
+        | "routeKind"
+        | "preservesHotel"
+        | "status"
       >
     > = {
       "maps-1": {
+        label: "Google 지도 경로 1",
         market: "글로벌",
-        eligibility: "Google Maps 유입 경로로 공개 관찰된 CID 후보",
+        eligibility: "공개 지도 경로",
         routeKind: "search",
         preservesHotel: true,
         status: "observed",
       },
       "maps-2": {
+        label: "Google 지도 경로 2",
         market: "글로벌",
-        eligibility: "Google Maps 유입 경로로 공개 관찰된 CID 후보",
+        eligibility: "공개 지도 경로",
         routeKind: "search",
         preservesHotel: true,
         status: "observed",
       },
       "maps-3": {
+        label: "Google 지도 경로 3",
         market: "글로벌",
-        eligibility: "Google Maps 유입 경로로 공개 관찰된 CID 후보",
+        eligibility: "공개 지도 경로",
         routeKind: "search",
         preservesHotel: true,
         status: "observed",
       },
       "search-1": {
+        label: "Google 검색 경로 1",
         market: "글로벌",
-        eligibility: "Google Search 유입 경로로 공개 관찰된 CID 후보",
+        eligibility: "공개 검색 경로",
         routeKind: "search",
         preservesHotel: true,
         status: "observed",
       },
       "search-2": {
+        label: "Google 검색 경로 2",
         market: "글로벌",
-        eligibility: "Google Search 유입 경로로 공개 관찰된 CID 후보",
+        eligibility: "공개 검색 경로",
         routeKind: "search",
         preservesHotel: true,
         status: "observed",
       },
       "search-3": {
+        label: "Google 검색 경로 3",
         market: "글로벌",
-        eligibility: "Google Search 유입 경로로 공개 관찰된 CID 후보",
+        eligibility: "공개 검색 경로",
         routeKind: "search",
         preservesHotel: true,
         status: "observed",
       },
       naver: {
+        label: "네이버 검색 경로",
         market: "대한민국",
-        eligibility: "Naver Search 유입 경로로 공개 관찰된 CID 후보",
+        eligibility: "공개 검색 경로",
         routeKind: "search",
         preservesHotel: true,
         status: "observed",
@@ -494,11 +521,11 @@ import "../styles/travel-link-lab.css";
       ...regionalOffers,
     ];
     status.textContent = candidates.length
-      ? `${candidates.length}개 연구 후보가 준비되었습니다. URL은 저장되지 않습니다.`
-      : "로컬 후보 카탈로그가 없습니다. 배포용 화면에는 후보 CID를 포함하지 않습니다.";
+      ? `${candidates.length}개 링크를 준비했습니다.`
+      : "링크 데이터를 불러오지 못했습니다.";
     count.textContent = candidates.length
-      ? `${candidates.length}개 후보`
-      : "카탈로그 없음";
+      ? `${candidates.length}개 링크`
+      : "준비되지 않음";
     generate.disabled = candidates.length === 0;
     const safeHotelUrl = (value: string): URL | null => {
       try {
@@ -550,16 +577,10 @@ import "../styles/travel-link-lab.css";
     let activeMarket = "all";
     let activeRoute = "all";
     const groupLabels: Record<"hotel" | "search" | "official", string> = {
-      hotel: "입력한 호텔 URL을 유지하는 CID 후보",
-      search: "검색·지도 유입 CID 후보",
-      official: "국가별 공식 제휴 혜택",
+      hotel: "호텔 URL 유지 링크",
+      search: "검색·지도 경유 링크",
+      official: "공식 혜택 페이지",
     };
-    const routeLabel = (candidate: Candidate) =>
-      candidate.routeKind === "official"
-        ? "공식 제휴 조건"
-        : candidate.routeKind === "search"
-          ? "검색·지도 경유"
-          : "호텔 URL 유지";
     const renderMarketFilters = () => {
       const markets = [
         "all",
@@ -620,7 +641,7 @@ import "../styles/travel-link-lab.css";
       if (!groups.size) {
         const empty = document.createElement("p");
         empty.className = "travel-link-empty";
-        empty.textContent = "선택한 시장과 경로 방식에 맞는 후보가 없습니다.";
+        empty.textContent = "선택한 시장과 경로 방식에 맞는 링크가 없습니다.";
         fragment.append(empty);
       }
       groups.forEach((marketGroups, group) => {
@@ -644,21 +665,12 @@ import "../styles/travel-link-lab.css";
             card.dataset.travelCard = candidate.id;
             const copy = document.createElement("div");
             copy.className = "travel-link-card-copy";
-            const meta = document.createElement("p");
-            meta.className = "travel-link-card-meta";
-            meta.textContent = `${candidate.market ?? candidate.region} · ${routeLabel(candidate)} · ${candidate.status === "official" ? "공식 확인" : "공개 관찰 후보"}`;
             const title = document.createElement("h4");
             title.textContent = candidate.label;
-            const eligibility = document.createElement("p");
-            eligibility.className = "travel-link-card-eligibility";
-            eligibility.textContent =
-              candidate.eligibility ?? "적용 조건을 Agoda에서 확인";
-            const routeNote = document.createElement("p");
-            routeNote.className = "travel-link-card-route";
-            routeNote.textContent = candidate.preservesHotel
-              ? "입력한 호텔·날짜·인원 조건을 유지한 새 링크입니다."
-              : "호텔 URL은 전달되지 않습니다. 공식 조건을 확인한 뒤 해당 제휴 흐름에서 다시 검색하세요.";
-            copy.append(meta, title, eligibility, routeNote);
+            const detail = document.createElement("p");
+            detail.className = "travel-link-card-detail";
+            detail.textContent = `${candidate.preservesHotel ? "입력 URL 유지" : "입력 URL 미유지"} · ${candidate.eligibility ?? "조건 확인"}`;
+            copy.append(title, detail);
             const link = document.createElement("a");
             link.className = "secondary-button";
             link.target = "_blank";
@@ -708,8 +720,7 @@ import "../styles/travel-link-lab.css";
       results.hidden = false;
       root.classList.remove("has-error");
       root.classList.add("is-success");
-      status.textContent =
-        "결과를 만들었습니다. 시장과 경로 방식을 고른 뒤 링크를 하나씩 열어 조건을 직접 확인하세요.";
+      status.textContent = `${candidates.length}개 링크를 만들었습니다.`;
       if (window.matchMedia("(max-width: 680px)").matches)
         results.scrollIntoView({ behavior: "smooth", block: "start" });
     };
@@ -724,8 +735,8 @@ import "../styles/travel-link-lab.css";
       activeHotel = null;
       root.classList.remove("is-success", "has-error");
       status.textContent = candidates.length
-        ? "입력을 지웠습니다. URL은 저장되지 않습니다."
-        : "로컬 후보 카탈로그가 없습니다.";
+        ? "입력을 지웠습니다."
+        : "링크 데이터를 불러오지 못했습니다.";
       input.focus();
     });
     input.addEventListener("input", () => {
