@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { imageConversionModes } from "./formats";
 import { imageConverterLocales, type ImageConverterLocale } from "./i18n";
+import { imageConversionRouteFacts, routeFactKinds } from "./route-facts";
 
 const locales = Object.keys(imageConverterLocales) as ImageConverterLocale[];
 const supportKeys = [
@@ -41,6 +42,22 @@ describe("image converter localization", () => {
     }
     const source = readFileSync(new URL("./i18n.ts", import.meta.url), "utf8");
     expect(source).not.toMatch(/\.\.\.\s*en(?:\.|\b)/u);
+  });
+
+  it("adds a locale-owned, route-direction fact to every conversion guide", () => {
+    expect(Object.keys(imageConversionRouteFacts)).toEqual(locales);
+    for (const locale of locales) {
+      const facts = imageConversionRouteFacts[locale];
+      expect(Object.keys(facts)).toEqual(routeFactKinds);
+      for (const [kind, fact] of Object.entries(facts)) {
+        expect(fact, `${locale}:${kind}`).toContain("{to}");
+      }
+
+      const guides = imageConversionModes.map(
+        ({ id }) => imageConverterLocales[locale].tools[id].guideBody,
+      );
+      expect(new Set(guides).size, locale).toBe(imageConversionModes.length);
+    }
   });
 
   it("explains the format-specific engines without a superiority claim", () => {

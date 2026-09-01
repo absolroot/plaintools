@@ -3,7 +3,7 @@ import PreviewToolPage from "../../components/PreviewToolPage.astro";
 import { localeBundles } from "../../lib/locale-data";
 import type { Locale } from "../../lib/site";
 import ImageConverter from "./ImageConverter.astro";
-import { imageConverterLocales } from "./i18n";
+import { imageConversionRouteFactKind, imageConverterLocales } from "./i18n";
 import { parseImageConversionMode, type ImageConverterToolId } from "./formats";
 import stylesheet from "./styles.css?url";
 
@@ -28,6 +28,7 @@ const converterLocale = imageConverterLocales[locale];
   description={content.description}
   guideTitle={content.guideTitle}
   guideBody={content.guideBody}
+  guideFactKind={imageConversionRouteFactKind(mode.source, mode.target)}
   safetyTitle={content.safetyTitle}
   safetyBody={content.safetyBody}
   faqs={content.faqs}

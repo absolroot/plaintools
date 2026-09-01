@@ -6,6 +6,10 @@ import {
   type ImageConverterToolId,
   type ImageInputFormat,
 } from "./formats";
+import {
+  imageConversionRouteFacts,
+  type ImageConversionRouteFactKind,
+} from "./route-facts";
 
 export type ImageConverterLocale =
   | "en"
@@ -1258,6 +1262,19 @@ function fill(template: string, from: string, to: string): string {
   return template.replaceAll("{from}", from).replaceAll("{to}", to);
 }
 
+export function imageConversionRouteFactKind(
+  source: ImageInputFormat,
+  target: string,
+): ImageConversionRouteFactKind {
+  if (source === "svg") return "svg-rasterized";
+  if (source === "gif") return "gif-still";
+  if (target === "jpg") return "jpg-white-background";
+  if (target === "gif") return "gif-palette";
+  if (target === "bmp") return "bmp-uncompressed";
+  if (target === "png") return "png-no-further-loss";
+  return "quality-profile";
+}
+
 export function createImageConverterLocale(locale: ImageConverterLocale): {
   tools: Record<ImageConverterToolId, ToolPageCopy<ImageConverterCopy>>;
   catalog: Record<ImageConverterToolId, LocaleCatalogToolCopy>;
@@ -1269,6 +1286,13 @@ export function createImageConverterLocale(locale: ImageConverterLocale): {
       const from = text.formats[source];
       const to = text.formats[target];
       const description = fill(text.description, from, to);
+      const routeFact = fill(
+        imageConversionRouteFacts[locale][
+          imageConversionRouteFactKind(source, target)
+        ],
+        from,
+        to,
+      );
       return [
         id,
         {
@@ -1276,7 +1300,7 @@ export function createImageConverterLocale(locale: ImageConverterLocale): {
           description,
           mobileDescription: description,
           guideTitle: fill(text.guideTitle, from, to),
-          guideBody: fill(text.guide, from, to),
+          guideBody: `${routeFact} ${fill(text.guide, from, to)}`,
           safetyTitle: text.technologyTitle,
           safetyBody: text.technology,
           faqs: [

@@ -14,6 +14,7 @@ interface Props {
   description: string;
   guideTitle: string;
   guideBody: string;
+  guideFactKind?: string;
   safetyTitle?: string;
   safetyBody?: string;
   faqs: Array<{ q: string; a: string }>;
@@ -27,6 +28,7 @@ const {
   description,
   guideTitle,
   guideBody,
+  guideFactKind,
   safetyTitle,
   safetyBody,
   faqs,
@@ -76,7 +78,9 @@ const structuredData = [
   <div class="tool-shell"><slot /></div>
   <div class="content-sections">
     <section class="content-section">
-      <h2>{guideTitle}</h2><p>{guideBody}</p>
+      <h2>{guideTitle}</h2><p data-conversion-fact={guideFactKind}>
+        {guideBody}
+      </p>
     </section>
     {
       safetyTitle && safetyBody && (

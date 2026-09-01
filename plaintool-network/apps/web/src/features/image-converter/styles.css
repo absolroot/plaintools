@@ -256,7 +256,7 @@
 
   .image-drop-target,
   .image-result-stage {
-    min-height: 180px;
+    min-height: 150px;
   }
 
   .image-pane img {

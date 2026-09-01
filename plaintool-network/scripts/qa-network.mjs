@@ -642,6 +642,14 @@ for (const locale of locales) {
       throw new Error(
         `${routeName} must render one top tool promise; found ${toolPromiseCount}.`,
       );
+    if (
+      tool.featureId === "image-converter" &&
+      !/data-conversion-fact="[a-z-]+"/u.test(html)
+    ) {
+      throw new Error(
+        `${routeName} is missing its route-specific conversion fact.`,
+      );
+    }
     if (html.includes('class="privacy-note"'))
       throw new Error(
         `${routeName} duplicates the top local-processing notice.`,
