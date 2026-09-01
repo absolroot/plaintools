@@ -33,20 +33,6 @@
     "apps/web/src/pages/[locale]/ai-watermark-remover/index.astro"
   ],
   "copyDirectories": ["apps/web/src/lib/locale-data"],
-  "copyEvidence": [
-    "https://intabtools.com/text/chatgpt-watermark-remover",
-    "https://month17.com/tools/ai-text-watermark-remover/",
-    "https://thewebgyver.com/tools/ai-watermark-remover/",
-    "https://watermarkcheck.com/es/",
-    "https://zeichenpruefer.de/chatgpt-wasserzeichen/",
-    "https://humantext.pro/ar/gemini-watermark-remover",
-    "https://aitextwatermarkremover.com/zh-TW/remove-ai-watermark-from-text",
-    "https://miniwebtool.com/de/unsichtbare-zeichen-entferner/",
-    "https://www.moreonlinetools.com/fr/tools/invisible-char-detector/",
-    "https://temoto.app/invisible-char-checker/",
-    "https://tools.jarvisbox.app/ja/text2/unicode-invisible-char-detector/",
-    "https://aitextwatermarkremover.com/zh-TW/zero-width-character-remover"
-  ],
   "locales": {
     "en": {
       "status": "reference-backed",
