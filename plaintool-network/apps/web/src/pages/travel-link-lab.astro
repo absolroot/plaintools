@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { travelLinkCopy } from "../features/travel-link/copy";
 import type { Locale } from "../lib/site";
 import "../styles/travel-link-lab.css";
 
@@ -8,60 +9,67 @@ interface Props {
 }
 
 const { locale = "ko" } = Astro.props;
+const copy = travelLinkCopy[locale];
+const marketOptions = [
+  ["대한민국", "KR"],
+  ["일본", "JP"],
+  ["중국 본토", "CN"],
+  ["홍콩", "HK"],
+  ["대만", "TW"],
+  ["싱가포르", "SG"],
+  ["말레이시아", "MY"],
+  ["태국", "TH"],
+  ["베트남", "VN"],
+  ["인도네시아", "ID"],
+  ["필리핀", "PH"],
+  ["호주·뉴질랜드", "ANZ"],
+] as const;
 ---
 
 <SiteLayout
   locale={locale}
-  title="아고다 호텔 혜택 링크 비교 | AbsolTools"
-  description="호텔 URL 하나로 국가·카드·제휴 혜택 경로를 비교해 직접 확인하세요."
+  title={copy.title}
+  description={copy.description}
   noindex={true}
   canonicalize={false}
 >
   <section class="tool-intro">
     <div class="tool-intro-copy">
-      <h1>아고다 호텔 혜택 링크 비교</h1>
-      <p class="hero-subheading">
-        호텔 URL 하나로 카드·국가별 혜택 경로를 만들고, 아고다에서 직접
-        확인하세요.
-      </p>
+      <h1>{copy.heading}</h1>
+      <p class="hero-subheading">{copy.intro}</p>
     </div>
   </section>
   <div class="tool-shell">
     <section
       class="converter travel-link-lab"
       data-travel-lab
-      aria-label="아고다 호텔 혜택 링크 비교"
+      aria-label={copy.heading}
+      data-travel-copy={JSON.stringify(copy)}
     >
       <div class="converter-topbar travel-link-lab-topbar">
         <div>
-          <strong>호텔 링크 비교</strong>
-          <span>가격 조회 없이, 원하는 경로만 직접 엽니다.</span>
+          <strong>{copy.workspaceTitle}</strong>
+          <span>{copy.workspaceDescription}</span>
         </div>
       </div>
       <div class="travel-link-lab-input-panel">
         <section class="travel-link-market-picker">
-          <label for="travel-market">카드 발급 국가·지역</label>
+          <label for="travel-market">{copy.marketLabel}</label>
           <select id="travel-market" data-travel-market>
-            <option value="대한민국">대한민국</option>
-            <option value="일본">일본</option>
-            <option value="중국 본토">중국 본토</option>
-            <option value="홍콩">홍콩</option>
-            <option value="대만">대만</option>
-            <option value="싱가포르">싱가포르</option>
-            <option value="말레이시아">말레이시아</option>
-            <option value="태국">태국</option>
-            <option value="베트남">베트남</option>
-            <option value="인도네시아">인도네시아</option>
-            <option value="필리핀">필리핀</option>
-            <option value="호주·뉴질랜드">호주·뉴질랜드</option>
+            <option value="">{copy.marketPlaceholder}</option>
+            {
+              marketOptions.map(([value, code]) => (
+                <option value={value}>{copy.markets[code]}</option>
+              ))
+            }
           </select>
         </section>
         <section class="editor-pane travel-link-lab-input">
           <div class="pane-heading">
-            <label for="travel-url">Agoda 호텔 URL</label>
+            <label for="travel-url">{copy.hotelUrlLabel}</label>
             <div class="pane-actions">
               <button class="text-button" type="button" data-clear
-                >지우기</button
+                >{copy.clear}</button
               >
             </div>
           </div>
@@ -71,10 +79,9 @@ const { locale = "ko" } = Astro.props;
             rows="6"
             spellcheck="false"
             autocomplete="off"
-            placeholder="agoda.com/ko-kr/... 또는 https://www.agoda.com/..."
-          ></textarea>
+            placeholder={copy.urlPlaceholder}></textarea>
           <p class="travel-link-lab-input-note">
-            기존 CID·추적값은 새 링크에 포함하지 않습니다.
+            {copy.urlNote}
           </p>
         </section>
       </div>
@@ -83,7 +90,7 @@ const { locale = "ko" } = Astro.props;
         </p>
         <div class="primary-actions">
           <button class="primary-button" type="button" data-generate
-            >링크 만들기</button
+            >{copy.generate}</button
           >
         </div>
       </div>
@@ -96,34 +103,32 @@ const { locale = "ko" } = Astro.props;
     >
       <div class="travel-link-results-heading">
         <div>
-          <h2 id="travel-results-title">비교할 링크</h2>
-          <p data-travel-result-summary>
-            원하는 경로를 열어 아고다에서 조건을 확인하세요.
-          </p>
+          <h2 id="travel-results-title">{copy.resultsTitle}</h2>
+          <p data-travel-result-summary>{copy.resultsDescription}</p>
         </div>
       </div>
       <div class="travel-link-filter-set">
         <div>
-          <p class="travel-link-filter-label">경로 방식</p>
-          <nav class="travel-link-filters" aria-label="경로 방식 필터">
+          <p class="travel-link-filter-label">{copy.routeLabel}</p>
+          <nav class="travel-link-filters" aria-label={copy.routeLabel}>
             <button
               type="button"
               class="is-active"
               data-route-filter="all"
-              aria-pressed="true">전체</button
+              aria-pressed="true">{copy.allRoutes}</button
             >
             <button type="button" data-route-filter="hotel" aria-pressed="false"
-              >호텔 URL 유지</button
+              >{copy.hotelRoutes}</button
             >
             <button
               type="button"
               data-route-filter="official"
-              aria-pressed="false">공식 제휴 혜택</button
+              aria-pressed="false">{copy.officialRoutes}</button
             >
             <button
               type="button"
               data-route-filter="search"
-              aria-pressed="false">검색·지도 경유</button
+              aria-pressed="false">{copy.searchRoutes}</button
             >
           </nav>
         </div>
@@ -133,9 +138,7 @@ const { locale = "ko" } = Astro.props;
   </div>
   <div class="content-sections">
     <section class="content-section">
-      <h2>결제 전 확인</h2><p>
-        카드 발급 국가·결제 통화·대상 숙소·예약 기간은 경로마다 다릅니다.
-      </p>
+      <h2>{copy.paymentTitle}</h2><p>{copy.paymentDescription}</p>
     </section>
   </div>
 </SiteLayout>
@@ -163,6 +166,10 @@ const { locale = "ko" } = Astro.props;
   }
   const root = document.querySelector<HTMLElement>("[data-travel-lab]");
   if (root) {
+    const copy = JSON.parse(root.dataset.travelCopy ?? "{}") as Record<
+      string,
+      string
+    >;
     const input = root.querySelector<HTMLTextAreaElement>("[data-travel-url]")!;
     const generate = root.querySelector<HTMLButtonElement>("[data-generate]")!;
     const clear = root.querySelector<HTMLButtonElement>("[data-clear]")!;
@@ -312,7 +319,7 @@ const { locale = "ko" } = Astro.props;
     const regionalOffers: Candidate[] = [
       {
         id: "visa-kr",
-        label: "Visa Korea Agoda 혜택",
+        label: "Visa Korea",
         region: "South Korea",
         kind: "official offer",
         market: "대한민국",
@@ -324,7 +331,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "visa-jp",
-        label: "Visa Infinite Japan Agoda 혜택",
+        label: "Visa Infinite Japan",
         region: "Japan",
         kind: "official offer",
         market: "일본",
@@ -336,7 +343,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "visa-tw",
-        label: "Visa Infinite Taiwan Agoda 혜택",
+        label: "Visa Infinite Taiwan",
         region: "Taiwan",
         kind: "official offer",
         market: "대만",
@@ -348,7 +355,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "visa-tw-standard",
-        label: "Visa Taiwan Agoda 혜택",
+        label: "Visa Taiwan",
         region: "Taiwan",
         kind: "official offer",
         market: "대만",
@@ -360,7 +367,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "visa-hk",
-        label: "Visa Infinite Hong Kong Agoda 혜택",
+        label: "Visa Infinite Hong Kong",
         region: "Hong Kong",
         kind: "official offer",
         market: "홍콩",
@@ -372,7 +379,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "visa-sg",
-        label: "Visa Infinite Singapore Agoda 혜택",
+        label: "Visa Infinite Singapore",
         region: "Singapore",
         kind: "official offer",
         market: "싱가포르",
@@ -384,7 +391,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "visa-my",
-        label: "Visa Infinite Malaysia Agoda 혜택",
+        label: "Visa Infinite Malaysia",
         region: "Malaysia",
         kind: "official offer",
         market: "말레이시아",
@@ -396,7 +403,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "visa-my-standard",
-        label: "Visa Malaysia Agoda 혜택",
+        label: "Visa Malaysia",
         region: "Malaysia",
         kind: "official offer",
         market: "말레이시아",
@@ -408,7 +415,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "amex-tw",
-        label: "American Express Taiwan Agoda 혜택",
+        label: "American Express Taiwan",
         region: "Taiwan",
         kind: "official offer",
         market: "대만",
@@ -420,7 +427,7 @@ const { locale = "ko" } = Astro.props;
       },
       {
         id: "amex-hk",
-        label: "American Express Hong Kong Agoda 혜택",
+        label: "American Express Hong Kong",
         region: "Hong Kong",
         kind: "official offer",
         market: "홍콩",
@@ -841,10 +848,8 @@ const { locale = "ko" } = Astro.props;
           marketByLanguage[language.split("-")[0]],
       )
       .find(Boolean);
-    if (preferredMarket) market.value = preferredMarket;
-    status.textContent = candidates.length
-      ? ""
-      : "링크 데이터를 불러오지 못했습니다.";
+    market.value = preferredMarket ?? "";
+    status.textContent = candidates.length ? "" : copy.catalogUnavailable;
     generate.disabled = candidates.length === 0;
     const safeHotelUrl = (value: string): URL | null => {
       try {
@@ -896,9 +901,9 @@ const { locale = "ko" } = Astro.props;
     let activeMarket = market.value;
     let activeRoute = "all";
     const groupLabels: Record<"hotel" | "search" | "official", string> = {
-      hotel: "호텔 URL 유지 링크",
-      search: "검색·지도 경유 링크",
-      official: "공식 혜택 페이지",
+      hotel: copy.hotelGroup,
+      search: copy.searchGroup,
+      official: copy.officialGroup,
     };
     const candidateMatches = (candidate: Candidate) => {
       const marketMatches = candidate.market === activeMarket;
@@ -912,84 +917,74 @@ const { locale = "ko" } = Astro.props;
     const renderResults = () => {
       if (!activeHotel) return;
       const visible = candidates.filter(candidateMatches);
-      const groups = new Map<string, Map<string, Candidate[]>>();
+      const groups = new Map<string, Candidate[]>();
       visible.forEach((candidate) => {
         const group = candidate.routeKind ?? "hotel";
-        const market = candidate.market ?? candidate.region;
-        const marketGroups =
-          groups.get(group) ?? new Map<string, Candidate[]>();
-        marketGroups.set(market, [
-          ...(marketGroups.get(market) ?? []),
-          candidate,
-        ]);
-        groups.set(group, marketGroups);
+        groups.set(group, [...(groups.get(group) ?? []), candidate]);
       });
       const fragment = document.createDocumentFragment();
       if (!groups.size) {
         const empty = document.createElement("p");
         empty.className = "travel-link-empty";
-        empty.textContent = "선택한 시장과 경로 방식에 맞는 링크가 없습니다.";
+        empty.textContent = copy.empty;
         fragment.append(empty);
       }
-      groups.forEach((marketGroups, group) => {
+      groups.forEach((groupCandidates, group) => {
         const section = document.createElement("section");
         section.className = "travel-link-result-group";
         const heading = document.createElement("h3");
         heading.textContent =
           groupLabels[group as "hotel" | "search" | "official"] ?? group;
-        const marketList = document.createElement("div");
-        marketList.className = "travel-link-market-list";
-        marketGroups.forEach((groupCandidates, market) => {
-          const marketSection = document.createElement("section");
-          marketSection.className = "travel-link-market-group";
-          const marketHeading = document.createElement("h4");
-          marketHeading.textContent = market;
-          const list = document.createElement("div");
-          list.className = "travel-link-card-list";
-          groupCandidates.forEach((candidate) => {
-            const card = document.createElement("article");
-            card.className = "travel-link-card";
-            card.dataset.travelCard = candidate.id;
-            const copy = document.createElement("div");
-            copy.className = "travel-link-card-copy";
-            const title = document.createElement("h4");
-            title.textContent = candidate.label;
-            const detail = document.createElement("p");
-            detail.className = "travel-link-card-detail";
-            detail.textContent = `${candidate.preservesHotel ? "입력 URL 유지" : "입력 URL 미유지"} · ${candidate.eligibility ?? "조건 확인"}`;
-            copy.append(title, detail);
-            const link = document.createElement("a");
-            link.className = "secondary-button";
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            if (candidate.routeKind === "official") {
-              link.href = candidate.url!;
-              link.textContent = "공식 혜택 보기";
-            } else {
-              const url = new URL(activeHotel!);
-              url.searchParams.set("cid", candidate.cid!);
-              link.href = url.toString();
-              link.textContent = "Agoda에서 확인";
-            }
-            card.append(copy, link);
-            list.append(card);
-          });
-          marketSection.append(marketHeading, list);
-          marketList.append(marketSection);
+        const list = document.createElement("div");
+        list.className = "travel-link-card-list";
+        groupCandidates.forEach((candidate) => {
+          const card = document.createElement("article");
+          card.className = "travel-link-card";
+          card.dataset.travelCard = candidate.id;
+          const cardCopy = document.createElement("div");
+          cardCopy.className = "travel-link-card-copy";
+          const title = document.createElement("h4");
+          title.textContent = candidate.label;
+          const detail = document.createElement("p");
+          detail.className = "travel-link-card-detail";
+          detail.textContent = `${candidate.preservesHotel ? copy.preservesHotel : copy.doesNotPreserveHotel} · ${copy.eligibility}`;
+          cardCopy.append(title, detail);
+          const link = document.createElement("a");
+          link.className = "secondary-button";
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          if (candidate.routeKind === "official") {
+            link.href = candidate.url!;
+            link.textContent = copy.openOfficial;
+          } else {
+            const url = new URL(activeHotel!);
+            url.searchParams.set("cid", candidate.cid!);
+            link.href = url.toString();
+            link.textContent = copy.openAgoda;
+          }
+          card.append(cardCopy, link);
+          list.append(card);
         });
-        section.append(heading, marketList);
+        section.append(heading, list);
         fragment.append(section);
       });
       grid.replaceChildren(fragment);
     };
     const render = () => {
+      if (!market.value) {
+        results.hidden = true;
+        root.classList.remove("is-success");
+        root.classList.add("has-error");
+        status.textContent = copy.selectMarket;
+        market.focus();
+        return;
+      }
       const hotel = safeHotelUrl(input.value);
       if (!hotel) {
         results.hidden = true;
         root.classList.remove("is-success");
         root.classList.add("has-error");
-        status.textContent =
-          "https://www.agoda.com/ 형식의 호텔 URL을 붙여 넣어 주세요.";
+        status.textContent = copy.invalidUrl;
         input.focus();
         return;
       }
@@ -1018,14 +1013,19 @@ const { locale = "ko" } = Astro.props;
       grid.replaceChildren();
       activeHotel = null;
       root.classList.remove("is-success", "has-error");
-      status.textContent = candidates.length
-        ? ""
-        : "링크 데이터를 불러오지 못했습니다.";
+      status.textContent = candidates.length ? "" : copy.catalogUnavailable;
       input.focus();
     });
     market.addEventListener("change", () => {
       activeMarket = market.value;
-      if (activeHotel) renderResults();
+      if (activeHotel && activeMarket) {
+        renderResults();
+        results.hidden = false;
+      } else {
+        results.hidden = true;
+      }
+      root.classList.remove("has-error");
+      status.textContent = candidates.length ? "" : copy.catalogUnavailable;
     });
     input.addEventListener("input", () => {
       root.classList.remove("has-error");
