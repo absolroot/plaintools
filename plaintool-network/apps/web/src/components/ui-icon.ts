@@ -5,6 +5,7 @@ export type IconName =
   | "check"
   | "chevron-right"
   | "copy"
+  | "crop"
   | "download"
   | "folder-open"
   | "grid"

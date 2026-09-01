@@ -203,6 +203,10 @@
   gap: var(--space-2);
   color: var(--muted);
 }
+.crop-empty-icon {
+  color: var(--brand);
+  stroke-width: 1.9;
+}
 .crop-empty strong {
   color: var(--ink);
   font-size: 13px;
