@@ -96,13 +96,12 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     },
   },
   ko: {
-    title: "아고다 최저가 찾기 | AbsolTools",
+    title: "아고다 호텔 최저가 찾기 | AbsolTools",
     description:
       "아고다 호텔 URL 하나로 카드·제휴 경로별 가격을 비교해 최저가를 찾아보세요.",
-    heading: "아고다 최저가 찾기",
-    intro:
-      "호텔 URL 하나로 여러 카드·제휴 경로를 열어 아고다 최저가를 비교하세요.",
-    workspaceTitle: "최저가 비교 시작",
+    heading: "아고다 호텔 최저가 찾기",
+    intro: "아고다 호텔 URL을 붙여넣고 최저가를 찾아보세요.",
+    workspaceTitle: "아고다 최저가 찾기",
     workspaceDescription: "호텔 링크 하나로 카드·제휴 경로를 모아 비교합니다.",
     marketLabel: "카드 발급 국가·지역",
     marketPlaceholder: "국가·지역 선택",
@@ -110,8 +109,8 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     clear: "지우기",
     urlPlaceholder: "아고다 호텔 URL 붙여넣기 (agoda.com/...)",
     urlNote: "기존 CID와 추적값은 새 링크에 포함하지 않습니다.",
-    generate: "아고다 최저가 비교",
-    resultsTitle: "아고다 최저가 비교",
+    generate: "최저가 찾기",
+    resultsTitle: "아고다 가격 비교",
     resultsDescription:
       "각 경로를 열어 표시 가격과 예약 조건을 직접 비교하세요.",
     routeLabel: "경로 방식",
@@ -131,7 +130,7 @@ export const travelLinkCopy: Record<Locale, TravelLinkCopy> = {
     doesNotPreserveHotel: "입력한 호텔 URL 미유지",
     eligibility: "카드 대상과 조건 확인",
     openOfficial: "공식 혜택 보기",
-    openAgoda: "아고다 가격 보기",
+    openAgoda: "가격 확인",
     paymentTitle: "예약 전 확인",
     paymentDescription:
       "카드 대상, 결제 통화, 숙소와 예약 기간은 경로마다 다릅니다.",
