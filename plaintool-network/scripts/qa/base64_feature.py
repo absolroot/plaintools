@@ -119,9 +119,9 @@ def run_base64_desktop(desktop, report: dict) -> None:
         or alignment["tool_promise_count"] != 1
     ):
         report["ui_detail_failures"].append("Top tool promise is duplicated or missing.")
-    if report["action_icon_count"] != 4:
+    if report["action_icon_count"] != 5:
         report["ui_detail_failures"].append(
-            f"Expected four pane action icons: {report['action_icon_count']}"
+            f"Expected five pane action icons: {report['action_icon_count']}"
         )
 
     desktop.locator(".options summary").click()
@@ -151,6 +151,65 @@ def run_base64_desktop(desktop, report: dict) -> None:
     desktop.locator("#codec-output").wait_for(state="visible")
     desktop.wait_for_function("document.querySelector('#codec-output').value === 'Hello 한국어'")
     report["decode_output"] = desktop.locator("#codec-output").input_value()
+    decoded_url = "https://example.com/path?q=1"
+    desktop.locator("#codec-input").fill("aHR0cHM6Ly9leGFtcGxlLmNvbS9wYXRoP3E9MQ==")
+    desktop.wait_for_function(
+        f"document.querySelector('#codec-output').value === '{decoded_url}'"
+    )
+    report["base64_url_action"] = {
+        "badge": desktop.locator("[data-url-badge]").is_visible(),
+        "action": desktop.locator("[data-open-url]").is_visible(),
+        "disabled": desktop.locator("[data-open-url]").is_disabled(),
+        "page_url": desktop.url,
+        "stored": desktop.evaluate(
+            """() => Object.values(localStorage).some(value => value.includes('example.com/path'))"""
+        ),
+    }
+    if report["base64_url_action"] != {
+        "badge": True,
+        "action": True,
+        "disabled": False,
+        "page_url": f"{BASE_URL}/ko/base64-decode/",
+        "stored": False,
+    }:
+        report["ui_detail_failures"].append(
+            f"Decoded HTTP(S) URL action is unsafe or unavailable: {report['base64_url_action']}"
+        )
+    desktop.locator("[data-open-url]").click()
+    report["base64_url_dialog"] = desktop.evaluate(
+        """() => ({
+          open: document.querySelector('[data-url-dialog]').open,
+          destination: document.querySelector('[data-url-destination]').textContent,
+          active: document.activeElement?.matches('[data-cancel-url]')
+        })"""
+    )
+    if report["base64_url_dialog"] != {
+        "open": True,
+        "destination": decoded_url,
+        "active": True,
+    }:
+        report["ui_detail_failures"].append(
+            f"Decoded URL dialog did not present a safe confirmation state: {report['base64_url_dialog']}"
+        )
+    desktop.locator("[data-cancel-url]").click()
+    desktop.evaluate("window.__base64OpenedUrl = null; window.open = (...args) => { window.__base64OpenedUrl = args; return null; }")
+    desktop.locator("[data-open-url]").click()
+    desktop.locator("[data-confirm-url]").click()
+    report["base64_url_confirm"] = desktop.evaluate("() => window.__base64OpenedUrl")
+    if report["base64_url_confirm"] != [
+        decoded_url,
+        "_blank",
+        "noopener,noreferrer",
+    ]:
+        report["ui_detail_failures"].append(
+            f"Decoded URL confirmation did not use the isolated new-tab contract: {report['base64_url_confirm']}"
+        )
+    desktop.locator("#codec-input").fill("amF2YXNjcmlwdDphbGVydCgxKQ==")
+    desktop.wait_for_function(
+        "document.querySelector('#codec-output').value === 'javascript:alert(1)'"
+    )
+    if desktop.locator("[data-open-url]").is_visible():
+        report["ui_detail_failures"].append("Non-HTTP decoded URL exposed an open action.")
     report["base64_size_badges"] = desktop.locator(
         "[data-converter] [data-badges] > *"
     ).all_text_contents()

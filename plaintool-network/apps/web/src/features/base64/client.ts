@@ -34,6 +34,15 @@ const QUICK_AUTO_RUN_DELAY = 70;
 const LARGE_AUTO_RUN_DELAY = 140;
 const VERY_LARGE_AUTO_RUN_DELAY = 260;
 
+function toHttpUrl(value: string): URL | null {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:" ? url : null;
+  } catch {
+    return null;
+  }
+}
+
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KiB`;
@@ -69,12 +78,19 @@ function initConverter(root: HTMLElement): void {
   const recursiveOption = query<HTMLInputElement>('[data-option="recursive"]');
   const preview = query<HTMLElement>("[data-preview]");
   const previewImage = query<HTMLImageElement>("[data-preview-image]");
+  const urlBadge = query<HTMLElement>("[data-url-badge]");
+  const openUrlButton = query<HTMLButtonElement>("[data-open-url]");
+  const urlDialog = query<HTMLDialogElement>("[data-url-dialog]");
+  const urlDestination = query<HTMLElement>("[data-url-destination]");
+  const cancelUrlButton = query<HTMLButtonElement>("[data-cancel-url]");
+  const confirmUrlButton = query<HTMLButtonElement>("[data-confirm-url]");
   let mode: CodecMode =
     root.dataset.initialMode === "encode" ? "encode" : "decode";
   let revision = 0;
   let autoTimer = 0;
   let pendingFile: File | null = null;
   let result: CodecResult | null = null;
+  let resultUrl: URL | null = null;
   let previewUrl = "";
 
   const setStatus = (message: string, state: ToolState = "idle") =>
@@ -92,10 +108,23 @@ function initConverter(root: HTMLElement): void {
 
   function invalidateResult(): void {
     result = null;
+    resultUrl = null;
     output.value = "";
     badges.replaceChildren();
     clearPreview();
     copyButton.disabled = downloadButton.disabled = true;
+    urlBadge.hidden = true;
+    openUrlButton.hidden = true;
+    openUrlButton.disabled = true;
+    if (urlDialog.open) urlDialog.close();
+    urlDestination.textContent = "";
+  }
+
+  function openUrlDialog(): void {
+    if (!resultUrl) return;
+    urlDestination.textContent = resultUrl.href;
+    if (urlDialog.open) urlDialog.close();
+    urlDialog.showModal();
   }
 
   function markResultPending(): void {
@@ -300,6 +329,7 @@ function initConverter(root: HTMLElement): void {
 
   function renderResult(nextResult: CodecResult): void {
     result = nextResult;
+    resultUrl = mode === "decode" ? toHttpUrl(nextResult.text) : null;
     output.value = nextResult.text;
     badges.replaceChildren();
     if (nextResult.detectedVariant)
@@ -345,6 +375,9 @@ function initConverter(root: HTMLElement): void {
     }
     copyButton.disabled = !nextResult.text;
     downloadButton.disabled = !nextResult.text && !nextResult.bytes?.length;
+    urlBadge.hidden = !resultUrl;
+    openUrlButton.hidden = !resultUrl;
+    openUrlButton.disabled = !resultUrl;
     clearPreview();
     if (nextResult.signature?.preview === "image" && nextResult.bytes?.length) {
       const copiedBytes = Uint8Array.from(nextResult.bytes);
@@ -484,6 +517,15 @@ function initConverter(root: HTMLElement): void {
       copied ? copy.copied : copy.copyFailed,
       copied ? "success" : "error",
     );
+  });
+
+  openUrlButton.addEventListener("click", openUrlDialog);
+  cancelUrlButton.addEventListener("click", () => urlDialog.close("cancel"));
+  confirmUrlButton.addEventListener("click", () => {
+    if (!resultUrl) return;
+    const destination = resultUrl.href;
+    urlDialog.close("open");
+    window.open(destination, "_blank", "noopener,noreferrer");
   });
 
   downloadButton.addEventListener("click", () => {

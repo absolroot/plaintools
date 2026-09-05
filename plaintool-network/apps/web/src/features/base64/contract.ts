@@ -48,6 +48,12 @@ export type Base64ClientCopy = {
   hexLabel: string;
   recursive: string;
   recursiveApplied: string;
+  urlDetected: string;
+  openUrl: string;
+  urlDialogTitle: string;
+  urlDialogBody: string;
+  urlDialogDestination: string;
+  cancel: string;
   errors: Record<Base64ClientErrorCode, string>;
   repairs: Record<RepairCode, string>;
 };

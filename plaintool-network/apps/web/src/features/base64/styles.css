@@ -33,6 +33,91 @@
   background: var(--recessed);
 }
 
+.base64-url-badge {
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  color: var(--ink);
+  background: var(--success-tint);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.base64-url-dialog {
+  width: min(calc(100% - 32px), 500px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-panel);
+  color: var(--ink);
+  background: var(--elevated);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 24px 64px color-mix(in oklch, var(--ink-strong), transparent 78%);
+}
+
+.base64-url-dialog::backdrop {
+  background: color-mix(in oklch, var(--ink-strong), transparent 58%);
+  backdrop-filter: blur(2px);
+}
+
+.base64-url-dialog-content {
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.base64-url-dialog-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.base64-url-dialog-heading .ui-icon {
+  flex: 0 0 auto;
+  color: var(--brand);
+}
+
+.base64-url-dialog-heading h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.base64-url-dialog-content > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.base64-url-destination {
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-1);
+  border-radius: var(--radius-control);
+  background: var(--recessed);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.base64-url-destination span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.base64-url-destination code {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: start;
+}
+
+.base64-url-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
 .options {
   margin: 0;
   border-top: 1px solid var(--line);
@@ -142,6 +227,10 @@ html[dir="rtl"] .options[open] .options-chevron {
 }
 
 @media (max-width: 680px) {
+  .converter-commandbar {
+    margin-top: var(--space-3);
+  }
+
   .drop-hint {
     display: none;
   }
@@ -172,5 +261,32 @@ html[dir="rtl"] .options[open] .options-chevron {
     min-height: 44px;
     display: flex;
     align-items: center;
+  }
+
+  .base64-url-dialog-content {
+    padding: var(--space-4);
+  }
+
+  .base64-url-dialog-actions > button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 420px) {
+  .output-pane .pane-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: var(--space-2);
+  }
+
+  .output-pane .pane-actions {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .base64-url-dialog-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }

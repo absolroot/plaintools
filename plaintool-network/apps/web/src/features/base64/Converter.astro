@@ -56,6 +56,12 @@ const clientCopy = {
   hexLabel: t.hex,
   recursive: t.recursive,
   recursiveApplied: t.recursiveApplied,
+  urlDetected: t.urlDetected,
+  openUrl: t.openUrl,
+  urlDialogTitle: t.urlDialogTitle,
+  urlDialogBody: t.urlDialogBody,
+  urlDialogDestination: t.urlDialogDestination,
+  cancel: t.cancel,
   errors: t.errors,
   repairs: t.repairs,
 } satisfies Base64ClientCopy;
@@ -116,6 +122,18 @@ const clientCopy = {
       <div class="pane-heading">
         <label for="codec-output" data-output-label>{t.outputLabel}</label>
         <div class="pane-actions">
+          <span class="base64-url-badge" data-url-badge hidden
+            >{t.urlDetected}</span
+          >
+          <button
+            class="text-button"
+            type="button"
+            data-open-url
+            hidden
+            disabled
+          >
+            <UiIcon name="arrow-right" size={14} />{t.openUrl}
+          </button>
           <IconButton variant="text" icon="copy" data-copy disabled
             >{c.copy}</IconButton
           >
@@ -137,6 +155,38 @@ const clientCopy = {
       </div>
     </section>
   </div>
+
+  <dialog
+    class="base64-url-dialog"
+    data-url-dialog
+    aria-labelledby="base64-url-dialog-title"
+    aria-describedby="base64-url-dialog-description"
+  >
+    <div class="base64-url-dialog-content">
+      <div class="base64-url-dialog-heading">
+        <UiIcon name="shield" size={20} />
+        <h2 id="base64-url-dialog-title">{t.urlDialogTitle}</h2>
+      </div>
+      <p id="base64-url-dialog-description">{t.urlDialogBody}</p>
+      <div class="base64-url-destination">
+        <span>{t.urlDialogDestination}</span>
+        <code data-url-destination dir="ltr"></code>
+      </div>
+      <div class="base64-url-dialog-actions">
+        <button
+          class="secondary-button"
+          type="button"
+          data-cancel-url
+          autofocus
+        >
+          {t.cancel}
+        </button>
+        <button class="primary-button" type="button" data-confirm-url>
+          {t.openUrl}
+        </button>
+      </div>
+    </div>
+  </dialog>
 
   <ConverterStatus status={c.ready} badges />
 
