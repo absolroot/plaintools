@@ -38,6 +38,46 @@ def run_base64_mobile(mobile, report: dict, locales: tuple[str, ...]) -> None:
         report["ui_detail_failures"].append(
             f"Base64 mobile workspace rhythm is inconsistent: {report['mobile_workspace_spacing']}"
         )
+    mobile.locator("[data-options] summary").click()
+    mobile.evaluate(
+        """() => {
+          const trigger = document.querySelector('[aria-describedby="base64-charset-help"]');
+          const root = trigger.closest('[data-tooltip]');
+          root.style.position = 'fixed';
+          root.style.insetInlineStart = '16px';
+          root.style.insetBlockEnd = '16px';
+        }"""
+    )
+    mobile.evaluate(
+        """() => document.querySelector('[aria-describedby="base64-charset-help"]').click()"""
+    )
+    mobile.wait_for_timeout(50)
+    report["mobile_base64_tooltip_viewport"] = mobile.evaluate(
+        """() => {
+          const tooltip = document.querySelector('#base64-charset-help');
+          const root = tooltip.closest('[data-tooltip]');
+          const box = tooltip.getBoundingClientRect();
+          return {
+            placement: root.dataset.tooltipPlacement,
+            top: box.top,
+            bottom: box.bottom,
+            viewport: window.innerHeight
+          };
+        }"""
+    )
+    tooltip_state = report["mobile_base64_tooltip_viewport"]
+    if (
+        tooltip_state["placement"] != "top"
+        or tooltip_state["top"] < 0
+        or tooltip_state["bottom"] > tooltip_state["viewport"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Mobile Base64 option tooltip is clipped at the viewport edge: {tooltip_state}"
+        )
+    mobile.evaluate(
+        """() => document.querySelector('[aria-describedby="base64-charset-help"]')
+          .closest('[data-tooltip]').removeAttribute('style')"""
+    )
     report["mobile_base64_run_buttons"] = mobile.locator("[data-converter] [data-run]").count()
     if report["mobile_base64_run_buttons"] != 0:
         report["ui_detail_failures"].append("Base64 should not expose a redundant run button.")

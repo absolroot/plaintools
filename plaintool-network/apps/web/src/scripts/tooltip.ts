@@ -2,8 +2,24 @@ const roots = Array.from(
   document.querySelectorAll<HTMLElement>("[data-tooltip]"),
 );
 
+function updatePlacement(root: HTMLElement): void {
+  const content = root.querySelector<HTMLElement>("[role='tooltip']");
+  if (!content) return;
+
+  root.removeAttribute("data-tooltip-placement");
+  const triggerBounds = root.getBoundingClientRect();
+  const contentHeight = content.getBoundingClientRect().height;
+  const spaceBelow = window.innerHeight - triggerBounds.bottom;
+  const spaceAbove = triggerBounds.top;
+
+  if (spaceBelow < contentHeight && spaceAbove > spaceBelow) {
+    root.dataset.tooltipPlacement = "top";
+  }
+}
+
 function setOpen(root: HTMLElement, open: boolean): void {
   root.toggleAttribute("data-tooltip-open", open);
+  if (open) requestAnimationFrame(() => updatePlacement(root));
   root
     .querySelector<HTMLButtonElement>("[data-tooltip-trigger]")
     ?.setAttribute("aria-pressed", String(open));
@@ -32,6 +48,13 @@ for (const root of roots) {
     setOpen(root, shouldOpen);
   });
 
+  root.addEventListener("pointerenter", () =>
+    requestAnimationFrame(() => updatePlacement(root)),
+  );
+  root.addEventListener("focusin", () =>
+    requestAnimationFrame(() => updatePlacement(root)),
+  );
+
   root.addEventListener("pointerleave", () =>
     root.removeAttribute("data-tooltip-dismissed"),
   );
@@ -51,6 +74,26 @@ document.addEventListener("pointerdown", (event) => {
       setOpen(root, false);
   }
 });
+
+window.addEventListener("resize", () => {
+  for (const root of roots) {
+    if (root.matches(":hover") || root.hasAttribute("data-tooltip-open")) {
+      updatePlacement(root);
+    }
+  }
+});
+
+window.addEventListener(
+  "scroll",
+  () => {
+    for (const root of roots) {
+      if (root.matches(":hover") || root.hasAttribute("data-tooltip-open")) {
+        updatePlacement(root);
+      }
+    }
+  },
+  { passive: true },
+);
 
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;

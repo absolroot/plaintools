@@ -126,6 +126,43 @@ def run_base64_desktop(desktop, report: dict) -> None:
 
     desktop.locator(".options summary").click()
     desktop.wait_for_timeout(150)
+    desktop.evaluate(
+        """() => {
+          const trigger = document.querySelector('[aria-describedby="base64-charset-help"]');
+          const root = trigger.closest('[data-tooltip]');
+          root.style.position = 'fixed';
+          root.style.insetInlineStart = '16px';
+          root.style.insetBlockEnd = '16px';
+        }"""
+    )
+    desktop.locator('[aria-describedby="base64-charset-help"]').hover()
+    desktop.wait_for_timeout(50)
+    report["base64_tooltip_viewport"] = desktop.evaluate(
+        """() => {
+          const tooltip = document.querySelector('#base64-charset-help');
+          const root = tooltip.closest('[data-tooltip]');
+          const box = tooltip.getBoundingClientRect();
+          return {
+            placement: root.dataset.tooltipPlacement,
+            top: box.top,
+            bottom: box.bottom,
+            viewport: window.innerHeight
+          };
+        }"""
+    )
+    tooltip_state = report["base64_tooltip_viewport"]
+    if (
+        tooltip_state["placement"] != "top"
+        or tooltip_state["top"] < 0
+        or tooltip_state["bottom"] > tooltip_state["viewport"]
+    ):
+        report["ui_detail_failures"].append(
+            f"Base64 option tooltip is clipped at the viewport edge: {tooltip_state}"
+        )
+    desktop.evaluate(
+        """() => document.querySelector('[aria-describedby="base64-charset-help"]')
+          .closest('[data-tooltip]').removeAttribute('style')"""
+    )
     report["options_open_state"] = {
         "open": desktop.locator(".options").get_attribute("open") is not None,
         "chevron_transform": desktop.locator(".options-chevron").evaluate("element => getComputedStyle(element).transform")
