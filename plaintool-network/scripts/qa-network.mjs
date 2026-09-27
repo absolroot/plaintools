@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { runInNewContext } from "node:vm";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import {
@@ -472,6 +473,24 @@ function verifyMetadata(
 ) {
   verifyStaticContentPolicy(html, route);
   verifyFaviconLink(html, route);
+  const flags = [
+    ...html.matchAll(/<span class="locale-flag"[^>]*>\s*<img\s+([^>]+)>/gu),
+  ];
+  if (flags.length !== locales.length) {
+    throw new Error(
+      `${route} must retain every locale flag as a separate image.`,
+    );
+  }
+  for (const [, attributes] of flags) {
+    const asset = /src="\/_astro\/([^"]+\.svg)"/u.exec(attributes)?.[1];
+    if (
+      !asset ||
+      !builtAssets.includes(asset) ||
+      !attributes.includes('width="24" height="18"')
+    ) {
+      throw new Error(`${route} has an unresolved or unsized locale flag.`);
+    }
+  }
   const canonical = canonicalUrl(html);
   const expectedCanonical = expectedUrl(locale, page);
   if (canonical !== expectedCanonical)
@@ -741,10 +760,77 @@ verifyFaviconLink(notFound, "404");
 const rootIndex = await readFile(join(dist, "index.html"), "utf8");
 verifyStaticContentPolicy(rootIndex, "root index", false);
 verifyFaviconLink(rootIndex, "root index");
-if (rootIndex.includes("Continue to all tools")) {
+if (metaContent(rootIndex, "name", "robots") !== expectedRobots("indexable")) {
+  throw new Error(`Root entry has the wrong ${target} robots directive.`);
+}
+const rootNodes = structuredDataNodes(
+  structuredDataDocuments(rootIndex, "root"),
+);
+const rootWebsite = findStructuredNode(rootNodes, "WebSite");
+if (
+  rootWebsite?.url !== new URL("/", config.origin).href ||
+  rootWebsite?.name !== "AbsolTools"
+) {
+  throw new Error("Root entry must expose the site's WebSite identity.");
+}
+for (const locale of locales) {
+  if (!rootIndex.includes(`href="/${locale}/"`)) {
+    throw new Error(
+      `Root entry is missing a crawlable ${locale} directory link.`,
+    );
+  }
+}
+for (const slug of publicTools) {
+  if (!rootIndex.includes(`href="/en/${slug}/"`)) {
+    throw new Error(`Root entry is missing the crawlable ${slug} tool link.`);
+  }
+}
+if (!rootIndex.includes('<script src="/root-locale.js"></script>')) {
   throw new Error(
-    "The root entry exposes a visible English fallback before browser-language detection completes.",
+    "Root locale selection must execute before parsing the directory.",
   );
+}
+if (
+  rootIndex.includes("googletagmanager.com/gtag/js") ||
+  rootIndex.includes("adsbygoogle.js")
+) {
+  throw new Error(
+    "Root entry must not load integrations before the locale redirect.",
+  );
+}
+const localeScript = await readFile(join(dist, "root-locale.js"), "utf8");
+if (Buffer.byteLength(localeScript) > 4096) {
+  throw new Error(
+    "The blocking locale entry must not bundle the full tool registry.",
+  );
+}
+for (const [languages, expected] of [
+  [["ko-KR"], "/ko/"],
+  [["fr-CA"], "/fr/"],
+  [["pt-BR"], "/pt-BR/"],
+  [["nb-NO"], "/no/"],
+  [["zh-Hant-HK"], "/zh-TW/"],
+  [["pt-PT"], "/en/"],
+  [["zh-CN"], "/en/"],
+  [[], "/en/"],
+]) {
+  let destination;
+  runInNewContext(
+    localeScript,
+    {
+      navigator: { languages },
+      window: {
+        location: {
+          replace: (value) => {
+            destination = value;
+          },
+        },
+      },
+    },
+    { timeout: 1000 },
+  );
+  if (destination !== expected)
+    throw new Error(`Built locale entry misroutes ${languages}.`);
 }
 if (
   !/<noscript\b[^>]*>[\s\S]*?http-equiv=["']refresh["'][\s\S]*?url=\/en\/[\s\S]*?<\/noscript>/iu.test(
@@ -759,6 +845,13 @@ const redirectLines = redirects
   .split(/\r?\n/u)
   .map((line) => line.trim())
   .filter((line) => line && !line.startsWith("#"));
+for (const locale of locales) {
+  for (const suffix of ["tools", "tools/"]) {
+    if (!redirectLines.includes(`/${locale}/${suffix} /${locale}/ 301`)) {
+      throw new Error(`Missing HTTP redirect for /${locale}/${suffix}.`);
+    }
+  }
+}
 if (redirectLines.some((line) => line.split(/\s+/u)[0] === "/")) {
   throw new Error(
     "The root entry must remain available for browser-language detection instead of forcing a static locale redirect.",

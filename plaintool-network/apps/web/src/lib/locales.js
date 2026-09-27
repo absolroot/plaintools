@@ -1,0 +1,20 @@
+// Keep locale detection independent of the full tool registry.
+export const locales = /** @type {const} */ ([
+  "en",
+  "ko",
+  "es",
+  "de",
+  "ja",
+  "fr",
+  "pt-BR",
+  "it",
+  "nl",
+  "sv",
+  "cs",
+  "pl",
+  "da",
+  "no",
+  "ar",
+  "zh-TW",
+  "tr",
+]);

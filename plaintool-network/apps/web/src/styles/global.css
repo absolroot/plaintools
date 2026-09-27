@@ -531,7 +531,7 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   border-radius: 2px;
   box-shadow: 0 0 0 1px color-mix(in oklch, var(--ink), transparent 76%);
 }
-.locale-flag svg {
+.locale-flag img {
   display: block;
   width: 100%;
   height: 100%;

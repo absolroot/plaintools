@@ -1,0 +1,93 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import ToolDirectorySearch from "./ToolDirectorySearch.astro";
+import ToolDirectorySection from "./ToolDirectorySection.astro";
+import { imageConverterLocales } from "../features/image-converter/i18n";
+import {
+  homeDirectoryCategoryOrder,
+  homeDirectoryInitiallyVisibleToolCount,
+  homeDirectoryToolsForCategory,
+  homeDirectoryToolsInDisplayOrder,
+  networkCopy,
+} from "../lib/tool-catalog";
+import {
+  absoluteUrl,
+  type Locale,
+  localizedPath,
+  type ToolPage,
+} from "../lib/site";
+import { itemListSchema } from "../lib/seo";
+
+interface Props {
+  locale: Locale;
+  includeIntegrations?: boolean;
+}
+const { locale, includeIntegrations = true } = Astro.props;
+const n = networkCopy[locale];
+const directoryCategoriesId = "tool-directory-categories";
+const imageConverterEntryTool = homeDirectoryToolsForCategory("image").find(
+  (tool) => tool.id === "png-to-webp",
+);
+if (!imageConverterEntryTool) {
+  throw new Error("Missing image format converter directory entry tool.");
+}
+const imageConverterRepresentativeCard = {
+  tool: imageConverterEntryTool,
+  displayName:
+    imageConverterLocales[locale].tools["png-to-webp"].feature.ariaLabel,
+  subtitle: "",
+  mark: "IMG",
+  markId: "image-converter",
+};
+const publicItems = homeDirectoryToolsInDisplayOrder
+  .filter((tool) => tool.status === "available" && tool.slug)
+  .map((tool) => ({
+    name: tool.name[locale],
+    url: absoluteUrl(localizedPath(locale, tool.slug as ToolPage)),
+  }));
+---
+
+<SiteLayout
+  locale={locale}
+  includeIntegrations={includeIntegrations}
+  title={n.directoryMetaTitle}
+  description={n.directoryMetaDescription}
+  structuredData={[itemListSchema(publicItems)]}
+>
+  <slot name="head" slot="head" />
+  <article class="tool-directory">
+    <header class="directory-header">
+      <h1>{n.directoryTitle}</h1><p>{n.directoryIntro}</p>
+    </header>
+    <ToolDirectorySearch
+      locale={locale}
+      targetId={directoryCategoriesId}
+      totalCount={homeDirectoryToolsInDisplayOrder.length}
+    />
+    <div
+      class="directory-categories"
+      id={directoryCategoriesId}
+      aria-label={n.catalogAria}
+    >
+      {
+        homeDirectoryCategoryOrder.map((category) => (
+          <ToolDirectorySection
+            category={category}
+            title={n.categories[category]}
+            tools={homeDirectoryToolsForCategory(category)}
+            locale={locale}
+            initiallyVisibleToolCount={homeDirectoryInitiallyVisibleToolCount(
+              category,
+            )}
+            collapsedLabel={n.allTools}
+            representativeCard={
+              category === "image"
+                ? imageConverterRepresentativeCard
+                : undefined
+            }
+          />
+        ))
+      }
+    </div>
+  </article>
+</SiteLayout>

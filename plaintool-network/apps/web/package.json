@@ -53,6 +53,7 @@
     "pdfjs-dist": "6.3.289"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4"
+    "@astrojs/check": "^0.9.4",
+    "esbuild": "0.28.2"
   }
 }

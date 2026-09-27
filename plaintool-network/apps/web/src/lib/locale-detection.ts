@@ -1,4 +1,5 @@
-import { locales, type Locale } from "./site";
+import { locales } from "./locales.js";
+import type { Locale } from "./site";
 
 const localeByTag = new Map(
   locales.map((locale) => [locale.toLowerCase(), locale]),

@@ -84,7 +84,7 @@ const tooltipScriptUrl = new URL(
   import.meta.url,
 );
 const directoryPageUrl = new URL(
-  "../apps/web/src/pages/[locale]/index.astro",
+  "../apps/web/src/components/ToolDirectoryPage.astro",
   import.meta.url,
 );
 const directorySearchUrl = new URL(

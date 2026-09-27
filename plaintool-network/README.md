@@ -70,6 +70,14 @@ python scripts/qa-redesign.py --feature data-converter --routes representative
 
 The generated site includes 17 complete locale route families: `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`. On the first visit to `/`, the root document chooses the closest supported `navigator.languages` value and falls back to `/en/`; it does not use IP lookup, storage, or a third-party request. Explicit locale routes are never replaced. Legacy `/{locale}/tools/` routes redirect to the locale directory.
 
+The root also serves the complete static English directory, crawlable locale and
+tool links, and the shared `WebSite` structured data before JavaScript runs.
+Production permits indexing and keeps `/en/` canonical; preview remains
+`noindex,nofollow`. A small same-origin script built from the tested locale
+detector runs in the head before the English content paints. The root does not
+load analytics or ads before that redirect. Retired `/{locale}/tools` URLs have
+explicit Cloudflare Pages 301 rules as well as static HTML fallbacks.
+
 ## What is implemented
 
 - Text and file Base64 decode/encode, Base64URL, Data URI stripping, padding and whitespace repair
