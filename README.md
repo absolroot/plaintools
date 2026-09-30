@@ -49,31 +49,17 @@ Reference snapshots remain local because they are third-party source, not AbsolT
 
 ## Current project
 
-The implemented network prototype is [plaintool-network](./plaintool-network/README.md). It provides:
+The [plaintool-network](./plaintool-network/README.md) app implements 97 tool routes across 30 feature families and 17 locales at this revision. The [tool registry](./plaintool-network/apps/web/src/lib/tool-registry.js) is the source of truth for publication state; all current entries are indexable in a valid production build. Families include text, encoding, developer utilities, calculators, dates, images, and PDF tools. These counts describe implementation, not measured demand or search-engine indexing.
 
-- a localized tool directory at each locale root;
-- dedicated Base64 decode and encode routes with the existing worker optimizations;
-- full preview routes for word/character counting, strict JSON formatting, and Unix timestamp conversion;
-- browser-only Web Worker processing for text and files;
-- standard/Base64URL handling, visible repair notices, legacy character sets, binary detection, safe-by-signature raster preview, and downloads;
-- 17 complete locale route families: `en`, `ko`, `es`, `de`, `ja`, `fr`, `pt-BR`, `it`, `nl`, `sv`, `cs`, `pl`, `da`, `no`, `ar`, `zh-TW`, and `tr`;
-- localized About, Privacy, Cookies, Terms, and Contact pages;
-- static SEO files and fail-closed production configuration.
+Each locale has a tool directory and About, Privacy, Cookies, Terms, and Contact pages. Static output includes canonical URLs, reciprocal hreflang, structured data, robots.txt, and sitemap.xml. Preview builds remain non-indexable and disable optional integrations. New tools must remain preview-only until their publication review is complete.
 
-The three new tools are intentionally preview-only: they are linked for local review, carry `noindex`, stay out of the sitemap, and make `npm run build:production` fail until locale and SEO approval is promoted. The ordinary build also verifies those boundaries and route-level bundle isolation.
-
-Rendered UI changes also pass the repository-local Cloudflare product UI review contract: one shared desktop axis, one authoritative local-processing message, equivalent-control center alignment, and computed browser measurements through `npm run ui:check` and `npm run ui:qa`.
-
-The current feature ownership, registry boundaries, async state rules, and
-known regression patterns are recorded in the project
-[architecture contract](./plaintool-network/ARCHITECTURE.md). That document,
-not folder-name intuition, is the starting point for future refactors.
+Rendered UI changes must pass the shared desktop-axis, local-processing-message, control-alignment, and browser measurement contracts. Feature ownership, async state rules, and known regression patterns are recorded in the [architecture contract](./plaintool-network/ARCHITECTURE.md).
 
 ## Continue work
 
 ```powershell
 Set-Location .\plaintool-network
-npm install
+npm ci
 npm test
 npm run check
 npm run build
@@ -82,10 +68,10 @@ npm run dev
 
 ## Release boundary
 
-The prototype is ready for local evaluation, not an indexed ad-supported launch. `absoltools.com` is selected and intended for purchase, but it is not yet recorded as purchased or controlled. Before public release, verify ownership and the final host; enter the real operator/contact/host/retention/law values; obtain legal review; run the complete browser and large-file matrix; and rebuild with `npm run build:production`.
+The production configuration targets `https://absoltools.com` and Cloudflare Pages. Use Node.js 22.19.x and npm 11, then follow the [production gate](./plaintool-network/README.md#production-gate). The output directory is `plaintool-network/apps/web/dist/`. A successful local build does not prove which revision or environment is currently deployed.
 
-Cookiebot, GA4, and AdSense tags are currently absent. When AdSense is introduced, Google's CMP must be implemented with the required disclosure, `ads.txt`, consent behavior, and placement review before the integration is enabled.
+Production source includes GA4, the AdSense publisher script, Consent Mode v2 defaults, and `ads.txt`. Google Privacy & messaging supplies the intended CMP; its account-side publication and live behavior require separate verification. Cookiebot is not implemented. Source identifiers and tags do not establish analytics account access, collection accuracy, AdSense approval, or revenue.
 
-The selected network identity is `AbsolTools` at the planned domain `absoltools.com`, using localized function paths such as `/en/base64-decode/`. No domain purchase, DNS control, or production connection is represented by the default source configuration.
+Verify operator and hosting facts, localized disclosures, consent controls, and the rendered release before deployment. Private locale-review evidence is excluded from the repository; the clean-checkout locale gate explicitly skips that evidence, so its success alone does not prove native-language review.
 
-The market screen narrows future implementation. Word/character counting, JSON formatting/validation, and Unix timestamp conversion now exist as non-indexed previews. Text diff and case conversion remain reserves. URL encode/decode, hash, UUID, and password generation do not currently justify separate public routes on the available traffic evidence.
+Establish a measured baseline before adding tools: confirm the GA4 metric and date range, examine landing pages and completed workflows, verify search indexing, and obtain the exact AdSense rejection reason. Do not infer demand or earnings from route count or unqualified visitor totals. No GitHub Actions workflow is currently committed; source validation commands and host-side deployment configuration must be reconciled before relying on automated releases.
