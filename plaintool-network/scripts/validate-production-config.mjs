@@ -3,6 +3,9 @@ import {
   productionIntegrationDefaults,
   resolveDeploymentConfig,
 } from "../apps/web/src/lib/deployment-config.js";
+import { loadDeploymentEnv } from "./load-deployment-env.mjs";
+
+loadDeploymentEnv();
 
 const config = resolveDeploymentConfig(
   { ...productionIntegrationDefaults, ...process.env },

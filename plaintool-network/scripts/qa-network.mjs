@@ -13,9 +13,11 @@ import {
   resolveDeploymentConfig,
 } from "../apps/web/src/lib/deployment-config.js";
 import { parseQaNetworkTarget } from "./qa-network-args.mjs";
+import { loadDeploymentEnv } from "./load-deployment-env.mjs";
 
 const args = process.argv.slice(2);
 const target = parseQaNetworkTarget(args);
+if (target === "production") loadDeploymentEnv();
 
 const config = resolveDeploymentConfig(
   target === "production"

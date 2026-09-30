@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { loadDeploymentEnv } from "./load-deployment-env.mjs";
 
 const args = process.argv.slice(2);
 const targetIndex = args.indexOf("--target");
@@ -10,6 +11,8 @@ if (target !== "preview" && target !== "production") {
   );
   process.exit(1);
 }
+
+if (target === "production") loadDeploymentEnv();
 
 const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 const child = spawn(
