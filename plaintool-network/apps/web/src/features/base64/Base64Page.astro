@@ -1,10 +1,9 @@
 ---
-import AdSlot from "../../components/AdSlot.astro";
 import FaqSection from "../../components/FaqSection.astro";
 import ToolPromise from "../../components/ToolPromise.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { networkCopy, toolCatalog } from "../../lib/tool-catalog";
-import { siteConfig, type Locale } from "../../lib/site";
+import { type Locale } from "../../lib/site";
 import {
   breadcrumbSchema,
   faqSchema,
@@ -40,10 +39,6 @@ const mobileDescriptions = {
     toolCatalog.find((tool) => tool.id === "base64-encode")?.summary[locale] ??
     definition.encode.description,
 };
-const integrationsEnabled = Boolean(
-  siteConfig.integrations.adsensePublisherId &&
-    siteConfig.integrations.googleCmpEnabled,
-);
 const structuredData = [
   breadcrumbSchema({
     locale,
@@ -91,12 +86,9 @@ const faqJsonLd = JSON.stringify({
       <ToolPromise locale={locale} />
     </div>
   </section>
-  <div class:list={["tool-shell", { "has-rail": integrationsEnabled }]}>
-    <Converter locale={locale} initialMode={mode} /><AdSlot
-      placement="rail"
-      locale={locale}
-    />
-  </div><AdSlot placement="after-tool" locale={locale} />
+  <div class="tool-shell">
+    <Converter locale={locale} initialMode={mode} />
+  </div>
   <div class="content-sections">
     <section class="content-section">
       <h2 data-guide-title>{guideTitle}</h2><div>

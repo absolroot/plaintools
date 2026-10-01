@@ -1005,23 +1005,6 @@ html[dir="rtl"] .language-menu[open] .language-menu-chevron {
   line-height: 1.5;
 }
 
-.ad-slot {
-  display: grid;
-  place-items: center;
-  min-height: 250px;
-  color: var(--muted);
-  border: 1px dashed var(--line);
-  background: var(--base);
-  font-size: 10px;
-}
-.ad-slot--rail {
-  display: none;
-}
-.ad-slot--after-tool {
-  width: var(--page);
-  margin: 24px auto;
-}
-
 .content-sections {
   width: var(--page);
   margin: 64px auto 0;
@@ -1480,25 +1463,6 @@ a.tool-directory-card:focus-visible {
 .footer-links a:hover,
 .footer-languages a:hover {
   color: var(--ink);
-}
-
-@media (min-width: 1860px) {
-  .tool-shell.has-rail {
-    position: relative;
-    width: var(--page);
-    grid-template-columns: minmax(0, 1180px);
-  }
-  .tool-shell.has-rail > .ad-slot--rail {
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: calc(100% + 24px);
-    width: 300px;
-    display: grid;
-    min-height: 600px;
-  }
-  .ad-slot--after-tool {
-    display: none;
-  }
 }
 
 @media (max-width: 1000px) {

@@ -384,6 +384,11 @@ function verifyStaticContentPolicy(
   route,
   integrationActive = config.integrations.active,
 ) {
+  if (html.includes("data-ad-slot") || html.includes('class="ad-slot')) {
+    throw new Error(
+      `${route} renders an empty manual advertising placeholder.`,
+    );
+  }
   const metaPolicy = integrationActive
     ? "default-src 'self'; script-src 'self' blob: 'wasm-unsafe-eval' 'unsafe-eval' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://*.gstatic.com; worker-src 'self' blob:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.google.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net; frame-src 'self' https://fundingchoicesmessages.google.com https://*.fundingchoicesmessages.google.com https://*.adtrafficquality.google https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'none'"
     : "default-src 'self'; script-src 'self' blob: 'wasm-unsafe-eval' 'unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
