@@ -1456,9 +1456,23 @@ a.tool-directory-card:focus-visible {
   gap: 8px 16px;
 }
 .footer-links a,
+.footer-links .privacy-choices,
 .footer-languages a {
   color: var(--muted);
   font-size: 12px;
+}
+.privacy-choices {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  text-align: start;
+  min-height: 36px;
+}
+.privacy-choices:hover {
+  color: var(--ink);
 }
 .footer-links a:hover,
 .footer-languages a:hover {
@@ -1508,6 +1522,9 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 680px) {
+  .privacy-choices {
+    min-height: 44px;
+  }
   .site-header.is-scroll-hidden {
     transform: translateY(calc(-100% - 1px));
   }

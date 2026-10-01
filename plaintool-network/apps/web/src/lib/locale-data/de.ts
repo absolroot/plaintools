@@ -131,8 +131,9 @@ export const deBundle: LocaleBundle = {
       },
     ],
     advertisement: "Werbung",
+    privacyChoices: "Datenschutzeinstellungen",
     integrationState: {
-      enabled: "mit Einwilligungssteuerung aktiviert",
+      enabled: "aktiviert",
       disabled: "deaktiviert",
     },
     legalNav: {
@@ -182,7 +183,7 @@ export const deBundle: LocaleBundle = {
           {
             title: "Analyse und Werbung",
             body: [
-              "Google Analytics und Google AdSense sind derzeit {{integration_state}}. Bei einer Aktivierung werden Angaben zu Gerät, Nutzung, Cookies, Einwilligung, Aufbewahrung und internationalen Übermittlungen hier erläutert und über die Datenschutzeinstellungen gesteuert. Werkzeug-Eingaben und -Ergebnisse sind standardmäßig von Analyse- und Werbeereignissen ausgeschlossen.",
+              "Google Analytics und Google AdSense sind derzeit {{integration_state}}. Google-Tags können Geräte-, Nutzungs- und Cookie-Daten verarbeiten. Wenn Googles Einwilligungsdienst eine erteilte oder nicht erforderliche Analyse-Einwilligung meldet, werden bestimmte Aktionen (Abschluss, Kopieren, Download und Fehler) nur mit Werkzeugname und Sprache gezählt. Eingaben, Ergebnisse, Dateinamen und Fehlerdetails sind ausgeschlossen.",
             ],
           },
           {
@@ -200,7 +201,7 @@ export const deBundle: LocaleBundle = {
           {
             title: "Empfänger und internationale Übermittlungen",
             body: [
-              "Der gewählte Hoster kann Anfragedaten außerhalb des eigenen Landes an den Orten und mit den Garantien verarbeiten, die in seiner Datenschutzerklärung beschrieben sind. Vor der Aktivierung von Analyse, Werbung, einer Einwilligungsplattform oder anderen Empfängern nennt dieser Abschnitt die nach anwendbarem Recht erforderlichen Empfänger, Länder, Zwecke, Daten, Zeitpunkte, Verfahren, Aufbewahrungsfristen und Übermittlungsgrundlagen.",
+              "Der Hosting-Anbieter und Google können Website-Daten gemäß ihren Datenschutzerklärungen außerhalb Ihres Landes verarbeiten. Googles Erklärung: https://policies.google.com/privacy. Werkzeugeingaben und Ergebnisse werden nicht an diese Dienste gesendet. Fragen zur Datenverarbeitung: {{email}}.",
             ],
           },
           {
@@ -231,7 +232,7 @@ export const deBundle: LocaleBundle = {
           {
             title: "Bei Aktivierung von Integrationen",
             body: [
-              "Eine Einwilligungsplattform steuert dann erforderlichen Präferenz-, Analyse- und Werbespeicher. Über eine dauerhafte Datenschutzoption lässt sich die Einwilligung prüfen oder widerrufen.",
+              "Googles Datenschutznachricht verwaltet die Einwilligung, sofern verfügbar. Wenn die europäischen Einwilligungseinstellungen verfügbar sind, öffnet Datenschutzeinstellungen im Fußbereich die Nachricht erneut. Auch im Browser können Cookies eingeschränkt werden.",
             ],
           },
         ],

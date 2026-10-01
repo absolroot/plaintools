@@ -130,8 +130,9 @@ const noBundle = {
       },
     ],
     advertisement: "Reklame",
+    privacyChoices: "Personvernvalg",
     integrationState: {
-      enabled: "aktivert med samtykkekontroller",
+      enabled: "aktivert",
       disabled: "deaktivert",
     },
     legalNav: {
@@ -181,7 +182,7 @@ const noBundle = {
           {
             title: "Analyse og annonsering",
             body: [
-              "Google Analytics og Google AdSense er for øyeblikket {{integration_state}}. Når de er aktivert, vil deres enhets-, bruk-, cookie-, samtykke-, lagrings- og internasjonale overføringsdetaljer bli oppgitt her og administrert gjennom personvernvalg. Verktøyinnspill og resultater er utelukket fra analyse- og reklamehendelser etter design.",
+              "Google Analytics og Google AdSense er for øyeblikket {{integration_state}}. Google-tagger kan behandle opplysninger om enhet, bruk og informasjonskapsler. Når Googles samtykketjeneste angir at analysesamtykke er gitt eller ikke påkrevd, telles utvalgte handlinger (fullføring, kopiering, nedlasting og feil) bare med verktøynavn og språk. Inndata, resultater, filnavn og feildetaljer utelates.",
             ],
           },
           {
@@ -199,7 +200,7 @@ const noBundle = {
           {
             title: "Mottakere og internasjonale overføringer",
             body: [
-              "Den valgte verten kan behandle forespørselsdata utenfor ditt land på de stedene og under de sikkerhetstiltakene som er beskrevet i dens policy. Før analyse, annonsering, en samtykkebehandler eller en annen mottaker aktiveres, må denne delen identifisere mottakeren, landene, formålet, dataene, tidspunktet, metoden, lagringsperioden og overføringsgrunnlaget som kreves av gjeldende lov.",
+              "Hostingleverandøren og Google kan behandle nettstedsdata utenfor landet ditt i henhold til sine personvernregler. Googles regler: https://policies.google.com/privacy. Verktøyenes inndata og resultater sendes ikke til disse tjenestene. Spørsmål om databehandling: {{email}}.",
             ],
           },
           {
@@ -230,7 +231,7 @@ const noBundle = {
           {
             title: "Hvis integrasjoner er aktivert",
             body: [
-              "En samtykkeplattform vil kontrollere pålagt lagring av preferanser, lagring av analyser og lagring av annonsering. En permanent personvernkontroll vil la besøkende gjennomgå eller trekke tilbake samtykke.",
+              "Googles personvernmelding håndterer samtykke når den er tilgjengelig. Hvis de europeiske samtykkeinnstillingene er tilgjengelige, åpner Personvernvalg i bunnteksten meldingen på nytt. Du kan også begrense informasjonskapsler i nettleserinnstillingene.",
             ],
           },
         ],

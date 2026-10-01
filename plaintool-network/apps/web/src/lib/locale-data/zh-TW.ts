@@ -124,7 +124,8 @@ const bundle: LocaleBundle = {
       },
     ],
     advertisement: "廣告",
-    integrationState: { enabled: "已啟用並提供同意控制", disabled: "未啟用" },
+    privacyChoices: "隱私權選擇",
+    integrationState: { enabled: "已啟用", disabled: "未啟用" },
     legalNav: {
       about: "關於我們",
       privacy: "隱私權",
@@ -169,7 +170,7 @@ const bundle: LocaleBundle = {
           {
             title: "分析與廣告",
             body: [
-              "Google Analytics 與 Google AdSense 目前為 {{integration_state}}。若日後啟用，這裡會揭露裝置、使用情形、Cookie、同意、保留期間與跨境傳輸細節，並透過「隱私權選擇」管理。依系統設計，工具輸入與結果不會進入分析或廣告事件。",
+              "Google Analytics 與 Google AdSense 目前{{integration_state}}。Google 標籤可能處理裝置、使用情形與 Cookie 資訊。當 Google 同意服務確認已取得分析同意或不需要同意時，部分工具操作（完成、複製、下載與錯誤）僅以工具名稱和語言進行計數。這些事件不包含輸入、結果、檔案名稱或錯誤詳細資訊。",
             ],
           },
           {
@@ -187,7 +188,7 @@ const bundle: LocaleBundle = {
           {
             title: "接收者與跨境傳輸",
             body: [
-              "所選網站主機可能依其政策所述地點與保護措施，在您的國家或地區以外處理請求資料。啟用分析、廣告、同意管理平台或其他接收者之前，本節會依適用法律列明接收者、國家、目的、資料、時間、方式、保留期間與傳輸依據。",
+              "主機服務商與 Google 可能依各自的隱私權政策，在您所在國家以外處理網站資料。Google 政策：https://policies.google.com/privacy。工具輸入與結果不會傳送至這些服務。網站資料處理問題請聯絡：{{email}}。",
             ],
           },
           {
@@ -217,7 +218,7 @@ const bundle: LocaleBundle = {
           {
             title: "若啟用整合服務",
             body: [
-              "同意管理平台將控制必要的偏好設定儲存、分析儲存與廣告儲存。訪客可透過永久顯示的隱私權控制，檢視或撤回同意。",
+              "Google 隱私權訊息可用時，會透過該訊息管理同意。如果歐洲地區同意設定可用，頁尾的「隱私權選擇」可重新開啟訊息。您也可以透過瀏覽器設定限制 Cookie。",
             ],
           },
         ],

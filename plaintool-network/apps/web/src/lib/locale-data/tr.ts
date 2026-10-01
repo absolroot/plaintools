@@ -129,8 +129,9 @@ const bundle: LocaleBundle = {
       },
     ],
     advertisement: "Reklam",
+    privacyChoices: "Gizlilik tercihleri",
     integrationState: {
-      enabled: "izin denetimleriyle etkin",
+      enabled: "etkin",
       disabled: "devre dışı",
     },
     legalNav: {
@@ -180,7 +181,7 @@ const bundle: LocaleBundle = {
           {
             title: "Analiz ve reklam",
             body: [
-              "Google Analytics ve Google AdSense şu anda {{integration_state}}. Etkinleştirildiklerinde cihaz, kullanım, çerez, izin, saklama ve uluslararası aktarım ayrıntıları burada açıklanacak ve Gizlilik seçenekleri üzerinden yönetilecektir. Araç girdileri ve sonuçları tasarım gereği analiz ve reklam etkinliklerinin dışında tutulur.",
+              "Google Analytics ve Google AdSense şu anda {{integration_state}}. Google etiketleri cihaz, kullanım ve çerez bilgilerini işleyebilir. Google izin hizmeti analiz izninin verildiğini veya gerekmediğini bildirdiğinde bazı işlemler (tamamlama, kopyalama, indirme ve hata) yalnızca araç adı ve dil ile sayılır. Girdiler, sonuçlar, dosya adları ve hata ayrıntıları bu olaylara dahil edilmez.",
             ],
           },
           {
@@ -198,7 +199,7 @@ const bundle: LocaleBundle = {
           {
             title: "Alıcılar ve uluslararası aktarımlar",
             body: [
-              "Seçilen barındırma sağlayıcısı, istek verilerini kendi politikasında belirtilen konum ve güvenceler kapsamında ülkeniz dışında işleyebilir. Analiz, reklam, izin yöneticisi veya başka bir alıcı etkinleştirilmeden önce bu bölüm; yürürlükteki hukukun gerektirdiği alıcıyı, ülkeleri, amacı, veriyi, zamanı, yöntemi, saklama süresini ve aktarım dayanağını belirtecektir.",
+              "Barındırma sağlayıcısı ve Google, site verilerini kendi gizlilik politikaları kapsamında ülkeniz dışında işleyebilir. Google politikası: https://policies.google.com/privacy. Araç girdileri ve sonuçları bu hizmetlere gönderilmez. Veri işleme soruları için: {{email}}.",
             ],
           },
           {
@@ -228,7 +229,7 @@ const bundle: LocaleBundle = {
           {
             title: "Entegrasyonlar etkinleştirilirse",
             body: [
-              "Bir izin platformu gerekli tercih depolamasını, analiz depolamasını ve reklam depolamasını denetleyecektir. Kalıcı bir gizlilik denetimi, ziyaretçilerin izinlerini incelemesine veya geri çekmesine olanak verecektir.",
+              "Google gizlilik mesajı kullanılabildiğinde izni yönetir. Avrupa izin ayarları kullanılabiliyorsa alt bilgideki Gizlilik tercihleri mesajı yeniden açar. Tarayıcı ayarlarınızdan çerezleri de kısıtlayabilirsiniz.",
             ],
           },
         ],

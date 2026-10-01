@@ -128,8 +128,9 @@ const csBundle = {
       },
     ],
     advertisement: "Reklama",
+    privacyChoices: "Volby ochrany soukromí",
     integrationState: {
-      enabled: "povoleno s ovládáním souhlasu",
+      enabled: "zapnuté",
       disabled: "zakázáno",
     },
     legalNav: {
@@ -179,7 +180,7 @@ const csBundle = {
           {
             title: "Analytika a reklama",
             body: [
-              "Google Analytics a Google AdSense jsou aktuálně {{integration_state}}. Po povolení budou zde zveřejněny a spravovány prostřednictvím voleb ochrany soukromí jejich údaje o zařízení, využívání, souborech cookie, souhlasu, uchovávání a mezinárodních přenosech. Vstupy a výsledky nástroje jsou z analytických a reklamních událostí záměrně vyloučeny.",
+              "Google Analytics a Google AdSense jsou aktuálně {{integration_state}}. Značky Google mohou zpracovávat údaje o zařízení, používání a souborech cookie. Pokud služba souhlasu Google oznámí udělený nebo nevyžadovaný souhlas s analytikou, počítají se vybrané akce (dokončení, kopírování, stažení a chyba) pouze s názvem nástroje a jazykem. Vstupy, výsledky, názvy souborů a podrobnosti chyb jsou vyloučeny.",
             ],
           },
           {
@@ -197,7 +198,7 @@ const csBundle = {
           {
             title: "Příjemci a mezinárodní převody",
             body: [
-              "Vybraný hostitel může zpracovávat údaje o požadavcích mimo vaši zemi na místech a za podmínek uvedených ve své zásadě. Před tím, než je povolena analytika, reklama, správce souhlasu nebo jiný příjemce, musí tato sekce identifikovat příjemce, země, účel, údaje, časování, metodu, dobu uchovávání a základ přenosu vyžadovaný platným právem.",
+              "Poskytovatel hostingu a Google mohou zpracovávat údaje webu mimo vaši zemi podle svých zásad ochrany soukromí. Zásady Google: https://policies.google.com/privacy. Vstupy a výsledky nástrojů se těmto službám neposílají. Dotazy ke zpracování údajů: {{email}}.",
             ],
           },
           {
@@ -227,7 +228,7 @@ const csBundle = {
           {
             title: "Pokud jsou integrace povoleny",
             body: [
-              "Platforma pro souhlas bude řídit nezbytné uchovávání preferencí, uchovávání analytických údajů a uchovávání reklamních údajů. Trvalá kontrola soukromí umožní návštěvníkům přezkoumat nebo odvolat souhlas.",
+              "Zpráva o ochraně soukromí Google spravuje souhlas, pokud je dostupná. Jsou-li dostupná evropská nastavení souhlasu, Volby ochrany soukromí v zápatí zprávu znovu otevřou. Soubory cookie můžete omezit také v nastavení prohlížeče.",
             ],
           },
         ],

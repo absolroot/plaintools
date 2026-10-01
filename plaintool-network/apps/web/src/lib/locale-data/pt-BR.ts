@@ -131,8 +131,9 @@ export const ptBRBundle: LocaleBundle = {
       },
     ],
     advertisement: "Publicidade",
+    privacyChoices: "Opções de privacidade",
     integrationState: {
-      enabled: "ativados com controles de consentimento",
+      enabled: "ativados",
       disabled: "desativados",
     },
     legalNav: {
@@ -182,7 +183,7 @@ export const ptBRBundle: LocaleBundle = {
           {
             title: "Análise e publicidade",
             body: [
-              "O Google Analytics e o Google AdSense estão atualmente {{integration_state}}. Quando ativados, os detalhes sobre dispositivo, uso, cookies, consentimento, retenção e transferências internacionais serão informados aqui e gerenciados nas opções de privacidade. Por definição, entradas e resultados das ferramentas ficam fora dos eventos de análise e publicidade.",
+              "Google Analytics e Google AdSense estão atualmente {{integration_state}}. As tags do Google podem tratar dados do dispositivo, uso e cookies. Quando o serviço de consentimento do Google informa que o consentimento para análise foi concedido ou não é necessário, algumas ações (conclusão, cópia, download e erro) são contadas apenas com o nome da ferramenta e o idioma. Entradas, resultados, nomes de arquivos e detalhes de erros são excluídos.",
             ],
           },
           {
@@ -200,7 +201,7 @@ export const ptBRBundle: LocaleBundle = {
           {
             title: "Destinatários e transferências internacionais",
             body: [
-              "O provedor de hospedagem escolhido pode processar dados de solicitação fora do seu país, nos locais e com as garantias descritas em sua política. Antes de ativar análise, publicidade, uma plataforma de consentimento ou outro destinatário, esta seção deverá identificar destinatário, países, finalidade, dados, momento, método, período de retenção e fundamento da transferência exigidos pela legislação aplicável.",
+              "O provedor de hospedagem e o Google podem tratar dados do site fora do seu país conforme suas políticas de privacidade. Política do Google: https://policies.google.com/privacy. Entradas e resultados das ferramentas não são enviados a esses serviços. Dúvidas sobre o tratamento de dados: {{email}}.",
             ],
           },
           {
@@ -231,7 +232,7 @@ export const ptBRBundle: LocaleBundle = {
           {
             title: "Se as integrações forem ativadas",
             body: [
-              "Uma plataforma de consentimento controlará o armazenamento necessário de preferências, análise e publicidade. Um controle de privacidade permanente permitirá revisar ou retirar o consentimento.",
+              "A mensagem de privacidade do Google gerencia o consentimento quando disponível. Se os controles europeus de consentimento estiverem disponíveis, Opções de privacidade no rodapé reabre essa mensagem. As configurações do navegador também permitem restringir cookies.",
             ],
           },
         ],

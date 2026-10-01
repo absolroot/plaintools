@@ -131,8 +131,9 @@ export const nlBundle: LocaleBundle = {
       },
     ],
     advertisement: "Advertentie",
+    privacyChoices: "Privacykeuzes",
     integrationState: {
-      enabled: "ingeschakeld met toestemmingsbeheer",
+      enabled: "ingeschakeld",
       disabled: "uitgeschakeld",
     },
     legalNav: {
@@ -182,7 +183,7 @@ export const nlBundle: LocaleBundle = {
           {
             title: "Analyse en advertenties",
             body: [
-              "Google Analytics en Google AdSense zijn momenteel {{integration_state}}. Als ze worden ingeschakeld, worden gegevens over apparaat, gebruik, cookies, toestemming, bewaring en internationale overdrachten hier beschreven en via de privacyinstellingen beheerd. Invoer en resultaten van tools zijn standaard uitgesloten van analyse- en advertentiegebeurtenissen.",
+              "Google Analytics en Google AdSense zijn momenteel {{integration_state}}. Google-tags kunnen apparaat-, gebruiks- en cookiegegevens verwerken. Als de toestemmingsdienst van Google meldt dat toestemming voor analyse is verleend of niet vereist is, worden bepaalde acties (voltooien, kopiëren, downloaden en fouten) alleen met de toolnaam en taal geteld. Invoer, resultaten, bestandsnamen en foutdetails worden uitgesloten.",
             ],
           },
           {
@@ -200,7 +201,7 @@ export const nlBundle: LocaleBundle = {
           {
             title: "Ontvangers en internationale overdrachten",
             body: [
-              "De gekozen host kan aanvraaggegevens buiten je land verwerken op de locaties en met de waarborgen die in het privacybeleid worden beschreven. Voordat analyse, advertenties, een toestemmingsplatform of een andere ontvanger wordt ingeschakeld, vermeldt dit onderdeel de ontvangers, landen, doeleinden, gegevens, momenten, methoden, bewaartermijnen en overdrachtsgrondslagen die het toepasselijke recht vereist.",
+              "De hostingprovider en Google kunnen websitegegevens buiten je land verwerken volgens hun privacybeleid. Google-beleid: https://policies.google.com/privacy. Invoer en resultaten van tools worden niet naar deze diensten gestuurd. Vragen over gegevensverwerking: {{email}}.",
             ],
           },
           {
@@ -230,7 +231,7 @@ export const nlBundle: LocaleBundle = {
           {
             title: "Als integraties worden ingeschakeld",
             body: [
-              "Een toestemmingsplatform beheert dan de noodzakelijke opslag voor voorkeuren, analyse en advertenties. Met een permanente privacyoptie kun je toestemming bekijken of intrekken.",
+              "Het privacybericht van Google beheert toestemming als het beschikbaar is. Als de Europese toestemmingsinstellingen beschikbaar zijn, opent Privacykeuzes onderaan de pagina dit bericht opnieuw. Ook via je browser kun je cookies beperken.",
             ],
           },
         ],

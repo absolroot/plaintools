@@ -129,8 +129,9 @@ const bundle: LocaleBundle = {
       },
     ],
     advertisement: "Advertisement",
+    privacyChoices: "Privacy choices",
     integrationState: {
-      enabled: "enabled with consent controls",
+      enabled: "enabled",
       disabled: "disabled",
     },
     legalNav: {
@@ -180,7 +181,7 @@ const bundle: LocaleBundle = {
           {
             title: "Analytics and advertising",
             body: [
-              "Google Analytics and Google AdSense are currently {{integration_state}}. When enabled, their device, usage, cookie, consent, retention, and international-transfer details will be disclosed here and managed through Privacy choices. Tool input and results are excluded from analytics and advertising events by design.",
+              "Google Analytics and Google AdSense are currently {{integration_state}}. Google tags may process device, usage and cookie information. When analytics consent is granted or not required according to Google’s consent service, selected tool actions (completion, copy, download and error) are counted using only the tool name and language. Tool input, results, filenames and error details are excluded from these events.",
             ],
           },
           {
@@ -198,7 +199,7 @@ const bundle: LocaleBundle = {
           {
             title: "Recipients and international transfers",
             body: [
-              "The selected host may process request data outside your country in the locations and under the safeguards described in its policy. Before analytics, advertising, a consent manager, or another recipient is enabled, this section must identify the recipient, countries, purpose, data, timing, method, retention period, and transfer basis required by applicable law.",
+              "The hosting provider and Google may process website data outside your country under their privacy policies. Google’s policy is available at https://policies.google.com/privacy. Tool input and results are not sent to these services. Contact {{email}} with questions about website data processing.",
             ],
           },
           {
@@ -228,7 +229,7 @@ const bundle: LocaleBundle = {
           {
             title: "If integrations are enabled",
             body: [
-              "A consent platform will control required preference storage, analytics storage, and advertising storage. A permanent privacy control will let visitors review or withdraw consent.",
+              "Google’s privacy message manages consent where available. When its European consent controls are available, Privacy choices in the footer reopens that message. Your browser settings can also restrict cookies.",
             ],
           },
         ],

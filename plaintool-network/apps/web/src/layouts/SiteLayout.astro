@@ -313,6 +313,18 @@ const contentSecurityPolicy = integrationActive
               </a>
             ))
           }
+          {
+            integrationActive && (
+              <button
+                type="button"
+                class="privacy-choices"
+                data-privacy-choices
+                hidden
+              >
+                {t.privacyChoices}
+              </button>
+            )
+          }
         </nav>
         <nav class="footer-languages" aria-label={t.languageNavLabel}>
           {
@@ -333,8 +345,10 @@ const contentSecurityPolicy = integrationActive
     </footer>
     <script>
       import { bindPersistedToolOptions } from "../scripts/shared/persisted-tool-options";
+      import { bindPrivacyChoices } from "../scripts/shared/privacy-choices";
 
       bindPersistedToolOptions();
+      bindPrivacyChoices();
       const themeToggle = document.querySelector<HTMLButtonElement>(
         "[data-theme-toggle]",
       );

@@ -131,8 +131,9 @@ export const frBundle: LocaleBundle = {
       },
     ],
     advertisement: "Publicité",
+    privacyChoices: "Choix de confidentialité",
     integrationState: {
-      enabled: "activés avec des contrôles de consentement",
+      enabled: "activés",
       disabled: "désactivés",
     },
     legalNav: {
@@ -182,7 +183,7 @@ export const frBundle: LocaleBundle = {
           {
             title: "Analyse et publicité",
             body: [
-              "Google Analytics et Google AdSense sont actuellement {{integration_state}}. S’ils sont activés, les informations relatives à l’appareil, à l’utilisation, aux cookies, au consentement, à la conservation et aux transferts internationaux seront décrites ici et gérées dans les paramètres de confidentialité. Par défaut, les saisies et résultats des outils sont exclus des événements d’analyse et de publicité.",
+              "Google Analytics et Google AdSense sont actuellement {{integration_state}}. Les balises Google peuvent traiter des données sur l’appareil, l’utilisation et les cookies. Lorsque le service de consentement Google indique que le consentement analytique est accordé ou non requis, certaines actions (réussite, copie, téléchargement et erreur) sont comptées avec uniquement le nom de l’outil et la langue. Les saisies, résultats, noms de fichiers et détails des erreurs sont exclus.",
             ],
           },
           {
@@ -200,7 +201,7 @@ export const frBundle: LocaleBundle = {
           {
             title: "Destinataires et transferts internationaux",
             body: [
-              "L’hébergeur choisi peut traiter des données de requête hors de votre pays, dans les lieux et avec les garanties décrits dans sa politique. Avant d’activer l’analyse, la publicité, une plateforme de consentement ou tout autre destinataire, cette section indiquera les destinataires, pays, finalités, données, moments, méthodes, durées de conservation et fondements de transfert exigés par le droit applicable.",
+              "L’hébergeur et Google peuvent traiter les données du site hors de votre pays conformément à leurs politiques de confidentialité. Politique de Google : https://policies.google.com/privacy. Les saisies et résultats des outils ne sont pas envoyés à ces services. Questions sur le traitement des données : {{email}}.",
             ],
           },
           {
@@ -231,7 +232,7 @@ export const frBundle: LocaleBundle = {
           {
             title: "Si des intégrations sont activées",
             body: [
-              "Une plateforme de consentement contrôlera le stockage nécessaire aux préférences, à l’analyse et à la publicité. Un réglage de confidentialité permanent permettra de revoir ou de retirer le consentement.",
+              "Le message de confidentialité de Google gère le consentement lorsqu’il est disponible. Si les paramètres de consentement européens sont disponibles, Choix de confidentialité dans le pied de page rouvre ce message. Votre navigateur permet également de limiter les cookies.",
             ],
           },
         ],
