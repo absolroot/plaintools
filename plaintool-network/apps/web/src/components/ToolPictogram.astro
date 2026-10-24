@@ -1,0 +1,97 @@
+---
+interface Props {
+  toolId: string;
+}
+
+const { toolId } = Astro.props;
+---
+
+<span class="tool-pictogram" aria-hidden="true">
+  <svg
+    viewBox="0 0 64 64"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    focusable="false"
+  >
+    {
+      toolId === "background-remover" && (
+        <>
+          <rect x="7" y="9" width="50" height="46" />
+          <path d="M32 10v44" stroke-dasharray="3 4" class="pictogram-accent" />
+          <circle cx="20" cy="22" r="4" />
+          <path d="m11 44 10-12 10 12" />
+          <path
+            d="M34 15h8v8h-8M50 15h6M42 23h8v8h-8M34 31h8v8h-8M50 39h6M42 39v8h8"
+            class="pictogram-accent"
+          />
+        </>
+      )
+    }
+    {
+      toolId === "compress-pdf" && (
+        <>
+          <path d="M18 6h24l8 8v43H18V6Z" />
+          <path d="M42 6v8h8M25 21h17M25 26h13M25 46h17M25 51h12" />
+          <path
+            d="M7 36h16m-6-6 6 6-6 6M57 36H41m6-6-6 6 6 6"
+            class="pictogram-accent"
+          />
+        </>
+      )
+    }
+    {
+      toolId === "merge-pdf" && (
+        <>
+          <path d="M6 7h17l5 5v19H6V7ZM23 7v5h5M36 7h17l5 5v19H36V7ZM53 7v5h5" />
+          <path d="M12 17h9M12 22h7M42 17h9M42 22h7" />
+          <path d="m17 33 12 8m18-8-12 8" class="pictogram-accent" />
+          <path
+            d="M22 39h20l5 5v14H22V39ZM42 39v5h5"
+            class="pictogram-accent"
+          />
+          <path d="M28 47h11M28 52h9" />
+        </>
+      )
+    }
+    {
+      toolId === "word-counter" && (
+        <>
+          <path d="M9 7h35l7 7v43H9V7ZM44 7v7h7" />
+          <path d="M16 21h26M16 27h21M16 33h25M16 39h15M16 45h18" />
+          <path d="M37 38h19v16H37z" fill="var(--base)" stroke="none" />
+          <path
+            d="M38 41v11m5-11v11m5-11v11m5-11v11M36 45h19M36 49h19"
+            class="pictogram-accent"
+          />
+        </>
+      )
+    }
+    {
+      toolId === "qr-code-generator" && (
+        <>
+          <path d="M7 7h16v16H7zM12 12h6v6h-6zM33 7h16v16H33zM38 12h6v6h-6zM7 33h16v16H7zM12 38h6v6h-6z" />
+          <path d="M29 8v6M29 20v7M33 33h6v6h-6zM45 33h5M33 45h6M45 45h5M28 39v7" />
+          <path
+            d="M54 14h7M57.5 10.5v7M49 54h12M55 48v12"
+            class="pictogram-accent"
+          />
+        </>
+      )
+    }
+    {
+      toolId === "json-formatter" && (
+        <>
+          <path d="M23 7h-7v13c0 5-2 8-7 8 5 0 7 3 7 8v13h7M41 7h7v13c0 5 2 8 7 8-5 0-7 3-7 8v13h-7" />
+          <path
+            d="M28 17h11M32 25h9M28 33h13M32 41h7"
+            class="pictogram-accent"
+          />
+          <path d="M27 52h15" />
+        </>
+      )
+    }
+  </svg>
+</span>

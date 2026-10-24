@@ -1136,10 +1136,10 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
 }
 .directory-featured-link {
   min-width: 0;
-  min-height: 108px;
+  min-height: 120px;
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
+  align-items: center;
+  gap: var(--space-4);
   padding: var(--space-5);
   color: var(--ink);
   background: var(--base);
@@ -1152,6 +1152,23 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
   position: relative;
   z-index: 1;
   outline-offset: -2px;
+}
+.tool-pictogram {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  color: var(--ink-strong);
+}
+.tool-pictogram svg {
+  width: 60px;
+  height: 60px;
+  overflow: visible;
+}
+.pictogram-accent {
+  color: var(--focus);
+  stroke: currentColor;
 }
 .directory-featured-copy {
   min-width: 0;
@@ -1934,8 +1951,18 @@ a.tool-directory-card:focus-visible {
 
 @media (max-width: 560px) {
   .directory-featured-link {
-    min-height: 88px;
+    min-height: 100px;
     padding: var(--space-4);
+    gap: var(--space-2);
+  }
+  .tool-pictogram {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+  }
+  .tool-pictogram svg {
+    width: 48px;
+    height: 48px;
   }
   .directory-featured-link .tool-mark {
     width: 32px;

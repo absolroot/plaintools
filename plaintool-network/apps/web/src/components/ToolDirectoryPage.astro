@@ -3,6 +3,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import ToolDirectorySearch from "./ToolDirectorySearch.astro";
 import ToolDirectorySection from "./ToolDirectorySection.astro";
 import ToolMark from "./ToolMark.astro";
+import ToolPictogram from "./ToolPictogram.astro";
 import { imageConverterLocales } from "../features/image-converter/i18n";
 import {
   homeDirectoryCategoryOrder,
@@ -27,6 +28,14 @@ interface Props {
 }
 const { locale, includeIntegrations = true } = Astro.props;
 const n = networkCopy[locale];
+const featuredPictogramIds = new Set([
+  "background-remover",
+  "compress-pdf",
+  "merge-pdf",
+  "word-counter",
+  "qr-code-generator",
+  "json-formatter",
+]);
 const directoryCategoriesId = "tool-directory-categories";
 const imageConverterEntryTool = homeDirectoryToolsForCategory("image").find(
   (tool) => tool.id === "png-to-webp",
@@ -75,7 +84,11 @@ const publicItems = homeDirectoryToolsInDisplayOrder
       {
         homeDirectoryFeaturedTools.map((tool) => (
           <a class="directory-featured-link" href={toolPath(locale, tool)}>
-            <ToolMark toolId={tool.id} mark={tool.mark} />
+            {featuredPictogramIds.has(tool.id) ? (
+              <ToolPictogram toolId={tool.id} />
+            ) : (
+              <ToolMark toolId={tool.id} mark={tool.mark} />
+            )}
             <span class="directory-featured-copy">
               <strong>{tool.name[locale]}</strong>
               <small>{tool.summary[locale]}</small>
