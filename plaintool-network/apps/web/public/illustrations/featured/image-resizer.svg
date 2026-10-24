@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BF96FA"/>
+      <stop offset="1" stop-color="#8673F3"/>
+    </linearGradient>
+    <mask id="large-photo" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128">
+      <rect width="128" height="128" fill="#fff"/>
+      <circle cx="32" cy="36" r="7" fill="#000"/>
+      <path d="M16 72 42 44l18 18 10-10 16 20v12H16V72Z" fill="#000"/>
+    </mask>
+    <mask id="small-photo" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128">
+      <rect width="128" height="128" fill="#fff"/>
+      <circle cx="88" cy="88" r="4" fill="#000"/>
+      <path d="M80 108 92 96l8 8 5-5 9 9v6H80v-6Z" fill="#000"/>
+    </mask>
+  </defs>
+  <rect x="8" y="12" width="80" height="80" rx="8" fill="url(#tone)" mask="url(#large-photo)"/>
+  <path d="M100 16h12v30h8l-14 18-14-18h8V16Z" fill="url(#tone)"/>
+  <rect x="72" y="72" width="48" height="48" rx="6" fill="#725BE8" mask="url(#small-photo)"/>
+</svg>

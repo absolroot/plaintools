@@ -37,13 +37,14 @@ const featuredPictogramIds = new Set([
   "word-counter",
   "qr-code-generator",
   "json-formatter",
+  "image-resizer",
 ]);
 const featuredCardName = (
   tool: (typeof homeDirectoryFeaturedTools)[number],
 ) => {
   const name = tool.name[locale];
   if (tool.id === "image-upscaler") {
-    return name.replace(/\s*[\(（][^\)）]*[\)）]\s*$/u, "");
+    return name.replace(/\s*[(（][^)）]*[)）]\s*$/u, "");
   }
   if (tool.id === "ai-watermark-remover") {
     return name.replace(/\s+-\s+.+$/u, "");

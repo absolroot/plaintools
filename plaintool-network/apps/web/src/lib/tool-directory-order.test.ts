@@ -11,7 +11,7 @@ import {
 import { toolRegistry } from "./tool-registry.js";
 
 describe("home tool directory order", () => {
-  it("keeps both newly featured tools within the first six of eight", () => {
+  it("keeps the featured tools in a complete three-by-three desktop grid", () => {
     expect(homeDirectoryFeaturedTools.map((tool) => tool.id)).toEqual([
       "background-remover",
       "compress-pdf",
@@ -21,6 +21,7 @@ describe("home tool directory order", () => {
       "word-counter",
       "qr-code-generator",
       "json-formatter",
+      "image-resizer",
     ]);
   });
 

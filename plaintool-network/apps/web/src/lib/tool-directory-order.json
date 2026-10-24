@@ -18,7 +18,8 @@
     "merge-pdf",
     "word-counter",
     "qr-code-generator",
-    "json-formatter"
+    "json-formatter",
+    "image-resizer"
   ],
   "featureCategoryOverrides": {
     "image-converter": "image",

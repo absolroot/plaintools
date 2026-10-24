@@ -7,6 +7,7 @@ const featuredIllustrations = new Set([
   "word-counter",
   "qr-code-generator",
   "json-formatter",
+  "image-resizer",
 ]);
 
 const imageFormats = new Set([
