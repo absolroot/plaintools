@@ -126,19 +126,9 @@ def add(name, body, holes=""):
     SPECS[name] = (body, holes)
 
 
-# Encoding and text operations use the same source-to-result grammar.
-add(
-    "base64-encode",
-    pair_body(),
-    label("A", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 49, 44)
-    + label("64", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 36),
-)
-add(
-    "base64-decode",
-    pair_body(),
-    label("64", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 49, 36)
-    + label("A", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 44),
-)
+# Base64's name is the subject; its direction is the only operation cue.
+add("base64-encode", label("B64", 64, 72, 54))
+add("base64-decode", label("B64", 64, 72, 54))
 add(
     "unix-timestamp-converter",
     c(64, 64, 52),
@@ -421,8 +411,8 @@ add(
 # The deeper tone marks the result or the operation, never an arbitrary
 # decoration. A one-piece symbol may remain a single flat tone.
 ACCENTS = {
-    "base64-encode": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6),
-    "base64-decode": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6),
+    "base64-encode": p("M20 88h64v-8l24 20-24 20v-8H20V88Z"),
+    "base64-decode": p("M108 88H44v-8l-24 20 24 20v-8h64V88Z"),
     "text-compare": r(72, 16, 48, 96, 6),
     "case-converter": c(98, 80, 18) + r(108, 62, 12, 46),
     "ai-watermark-remover": p("M22 104 100 18l8 8-78 86-8-8Z"),

@@ -1153,6 +1153,18 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
   z-index: 1;
   outline-offset: -2px;
 }
+@media (min-width: 1001px) {
+  .directory-featured {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .directory-featured-link {
+    grid-column: span 2;
+  }
+  .directory-featured-link:nth-child(7):nth-last-child(2),
+  .directory-featured-link:nth-child(8):last-child {
+    grid-column: span 3;
+  }
+}
 .tool-pictogram {
   flex: 0 0 64px;
   width: 64px;

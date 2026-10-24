@@ -1,6 +1,8 @@
 const featuredIllustrations = new Set([
   "background-remover",
   "compress-pdf",
+  "image-upscaler",
+  "ai-watermark-remover",
   "merge-pdf",
   "word-counter",
   "qr-code-generator",

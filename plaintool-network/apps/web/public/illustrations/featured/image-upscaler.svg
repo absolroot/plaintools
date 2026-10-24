@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BF96FA"/>
+      <stop offset="1" stop-color="#8673F3"/>
+    </linearGradient>
+    <mask id="photo-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128">
+      <rect width="128" height="128" fill="#fff"/>
+      <circle cx="44" cy="62" r="9" fill="#000"/>
+      <path d="M24 108 52 78l20 20 12-12 24 26v4H24v-8Z" fill="#000"/>
+    </mask>
+  </defs>
+  <rect x="16" y="36" width="80" height="80" rx="8" fill="url(#tone)" mask="url(#photo-cut)"/>
+  <path d="M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z" fill="url(#tone)"/>
+</svg>

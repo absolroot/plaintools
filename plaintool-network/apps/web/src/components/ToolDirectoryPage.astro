@@ -31,11 +31,25 @@ const n = networkCopy[locale];
 const featuredPictogramIds = new Set([
   "background-remover",
   "compress-pdf",
+  "image-upscaler",
+  "ai-watermark-remover",
   "merge-pdf",
   "word-counter",
   "qr-code-generator",
   "json-formatter",
 ]);
+const featuredCardName = (
+  tool: (typeof homeDirectoryFeaturedTools)[number],
+) => {
+  const name = tool.name[locale];
+  if (tool.id === "image-upscaler") {
+    return name.replace(/\s*[\(（][^\)）]*[\)）]\s*$/u, "");
+  }
+  if (tool.id === "ai-watermark-remover") {
+    return name.replace(/\s+-\s+.+$/u, "");
+  }
+  return name;
+};
 const directoryCategoriesId = "tool-directory-categories";
 const imageConverterEntryTool = homeDirectoryToolsForCategory("image").find(
   (tool) => tool.id === "png-to-webp",
@@ -90,7 +104,7 @@ const publicItems = homeDirectoryToolsInDisplayOrder
               <ToolMark toolId={tool.id} mark={tool.mark} />
             )}
             <span class="directory-featured-copy">
-              <strong>{tool.name[locale]}</strong>
+              <strong>{featuredCardName(tool)}</strong>
               <small>{tool.summary[locale]}</small>
             </span>
           </a>

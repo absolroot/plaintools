@@ -35,8 +35,6 @@ class ToolIllustrationGeometryTest(unittest.TestCase):
             "csv-to-json",
             "html-to-markdown",
             "markdown-to-html",
-            "base64-encode",
-            "base64-decode",
             "url-encode",
             "url-decode",
             "jwt-decoder",
@@ -65,6 +63,25 @@ class ToolIllustrationGeometryTest(unittest.TestCase):
         root = ElementTree.parse(ASSETS / "image-format-converter.svg").getroot()
         circles = [node for node in root.iter() if node.tag.endswith("circle")]
         self.assertEqual(len(circles), 1)
+
+    def test_base64_direction_marks_share_one_large_label(self):
+        for icon, arrow_start in (
+            ("base64-encode", "M20 88"),
+            ("base64-decode", "M108 88"),
+        ):
+            with self.subTest(icon=icon):
+                root = ElementTree.parse(ASSETS / f"{icon}.svg").getroot()
+                labels = [
+                    node.text for node in root.iter() if node.tag.endswith("text")
+                ]
+                arrows = [
+                    node.attrib.get("d", "")
+                    for node in root.iter()
+                    if node.tag.endswith("path")
+                ]
+                self.assertEqual(labels, ["B64"])
+                self.assertTrue(any(path.startswith(arrow_start) for path in arrows))
+                self.assertEqual(rectangles(icon), set())
 
 
 if __name__ == "__main__":

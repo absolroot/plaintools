@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import directoryOrder from "./tool-directory-order.json";
 import {
   homeDirectoryCategoryOrder,
+  homeDirectoryFeaturedTools,
   homeDirectoryInitiallyVisibleToolCount,
   homeDirectoryToolsForCategory,
   homeDirectoryToolsInDisplayOrder,
@@ -10,6 +11,19 @@ import {
 import { toolRegistry } from "./tool-registry.js";
 
 describe("home tool directory order", () => {
+  it("keeps both newly featured tools within the first six of eight", () => {
+    expect(homeDirectoryFeaturedTools.map((tool) => tool.id)).toEqual([
+      "background-remover",
+      "compress-pdf",
+      "image-upscaler",
+      "ai-watermark-remover",
+      "merge-pdf",
+      "word-counter",
+      "qr-code-generator",
+      "json-formatter",
+    ]);
+  });
+
   it("places the requested categories relative to one another", () => {
     const { categoryOrder } = directoryOrder;
 

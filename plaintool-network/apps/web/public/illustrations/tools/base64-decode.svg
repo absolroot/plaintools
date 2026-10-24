@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><text x="40" y="57" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800">64</text><text x="88" y="105" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800">A</text></g></mask></defs>
-  <g mask="url(#cut)"><g fill="#B692F5"><rect x="8" y="8" width="64" height="64" rx="6"/><rect x="56" y="56" width="64" height="64" rx="6"/></g><g fill="#725BE8"><rect x="56" y="56" width="64" height="64" rx="6"/></g></g>
+  <defs></defs>
+  <g><g fill="#B692F5"><text x="64" y="72" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="800">B64</text></g><g fill="#725BE8"><path d="M108 88H44v-8l-24 20 24 20v-8h64V88Z"/></g></g>
 </svg>
