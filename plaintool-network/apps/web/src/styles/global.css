@@ -1122,13 +1122,106 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
   font-size: 14px;
   line-height: 1.5;
 }
+.directory-featured[hidden],
+.directory-jump[hidden] {
+  display: none;
+}
+.directory-featured {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: var(--space-6);
+  background: var(--hairline);
+  box-shadow: 0 0 0 1px var(--hairline);
+}
+.directory-featured-link {
+  min-width: 0;
+  min-height: 108px;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  color: var(--ink);
+  background: var(--base);
+  text-decoration: none;
+}
+.directory-featured-link:hover {
+  background: var(--tint);
+}
+.directory-featured-link:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline-offset: -2px;
+}
+.directory-featured-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: grid;
+  gap: var(--space-2);
+}
+.directory-featured-copy strong {
+  color: var(--ink-strong);
+  font-size: 15px;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.directory-featured-copy small {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.directory-browse {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
+}
+.directory-jump {
+  min-width: 0;
+  align-self: start;
+  position: sticky;
+  top: 88px;
+  display: grid;
+  max-height: calc(100dvh - 104px);
+  overflow-y: auto;
+}
+.directory-jump-title {
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+.directory-jump a {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--ink);
+  font-size: 14px;
+  text-decoration: none;
+}
+.directory-jump a:hover,
+.directory-jump a:focus-visible {
+  color: var(--ink-strong);
+  background: var(--tint);
+}
+.directory-jump a span:last-child {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+}
 .directory-categories {
-  margin-top: 24px;
   display: grid;
   gap: var(--space-8);
 }
 .directory-category {
   min-width: 0;
+  scroll-margin-top: 88px;
 }
 .directory-category-heading {
   min-height: 36px;
@@ -1502,6 +1595,9 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 1000px) {
+  .directory-featured {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .tool-directory-grid,
   .related-tools-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1509,6 +1605,32 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 840px) {
+  .directory-browse {
+    display: block;
+    margin-top: var(--space-8);
+    padding-top: var(--space-4);
+  }
+  .directory-jump {
+    position: static;
+    display: flex;
+    gap: var(--space-2);
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: var(--space-2);
+  }
+  .directory-jump-title {
+    display: none;
+  }
+  .directory-jump a {
+    min-height: 44px;
+    flex: 0 0 auto;
+    gap: var(--space-2);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .directory-categories {
+    margin-top: var(--space-6);
+  }
   :root {
     --page: min(100% - 32px, 1180px);
   }
@@ -1811,6 +1933,18 @@ a.tool-directory-card:focus-visible {
 }
 
 @media (max-width: 560px) {
+  .directory-featured-link {
+    min-height: 88px;
+    padding: var(--space-4);
+  }
+  .directory-featured-link .tool-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+  }
+  .directory-featured-copy small {
+    display: none;
+  }
   .tool-directory-grid,
   .related-tools-grid {
     grid-template-columns: 1fr;

@@ -231,6 +231,7 @@ const registeredTools: ToolCatalogItem[] = toolRegistry.map((tool) => ({
 export const toolCatalog: ToolCatalogItem[] = [...registeredTools];
 
 const rawCategoryOrder = directoryOrder.categoryOrder as readonly string[];
+const rawFeaturedToolIds = directoryOrder.featuredToolIds as readonly string[];
 const rawFeatureCategoryOverrides =
   directoryOrder.featureCategoryOverrides as Readonly<Record<string, string>>;
 const rawInitiallyVisibleToolCounts =
@@ -240,11 +241,26 @@ const rawPinnedToolOrder = directoryOrder.pinnedToolOrder as Readonly<
 >;
 const registeredCategories = new Set(toolCatalog.map((tool) => tool.category));
 const registeredFeatures = new Set(toolCatalog.map((tool) => tool.featureId));
+const registeredToolById = new Map(toolCatalog.map((tool) => [tool.id, tool]));
 const configuredCategories = new Set(rawCategoryOrder);
 
 if (configuredCategories.size !== rawCategoryOrder.length) {
   throw new Error("Home directory category order contains duplicates.");
 }
+if (new Set(rawFeaturedToolIds).size !== rawFeaturedToolIds.length) {
+  throw new Error("Featured directory tools contain duplicates.");
+}
+for (const toolId of rawFeaturedToolIds) {
+  const tool = registeredToolById.get(toolId);
+  if (!tool?.slug) {
+    throw new Error(
+      `Unknown or unavailable featured directory tool: ${toolId}.`,
+    );
+  }
+}
+export const homeDirectoryFeaturedTools = rawFeaturedToolIds.map(
+  (toolId) => registeredToolById.get(toolId)!,
+);
 for (const category of registeredCategories) {
   if (!configuredCategories.has(category)) {
     throw new Error(`Home directory category order is missing ${category}.`);

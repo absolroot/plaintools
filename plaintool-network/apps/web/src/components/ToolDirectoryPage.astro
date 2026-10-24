@@ -2,13 +2,16 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import ToolDirectorySearch from "./ToolDirectorySearch.astro";
 import ToolDirectorySection from "./ToolDirectorySection.astro";
+import ToolMark from "./ToolMark.astro";
 import { imageConverterLocales } from "../features/image-converter/i18n";
 import {
   homeDirectoryCategoryOrder,
+  homeDirectoryFeaturedTools,
   homeDirectoryInitiallyVisibleToolCount,
   homeDirectoryToolsForCategory,
   homeDirectoryToolsInDisplayOrder,
   networkCopy,
+  toolPath,
 } from "../lib/tool-catalog";
 import {
   absoluteUrl,
@@ -64,30 +67,68 @@ const publicItems = homeDirectoryToolsInDisplayOrder
       targetId={directoryCategoriesId}
       totalCount={homeDirectoryToolsInDisplayOrder.length}
     />
-    <div
-      class="directory-categories"
-      id={directoryCategoriesId}
+    <nav
+      class="directory-featured"
       aria-label={n.catalogAria}
+      data-directory-search-intro
     >
       {
-        homeDirectoryCategoryOrder.map((category) => (
-          <ToolDirectorySection
-            category={category}
-            title={n.categories[category]}
-            tools={homeDirectoryToolsForCategory(category)}
-            locale={locale}
-            initiallyVisibleToolCount={homeDirectoryInitiallyVisibleToolCount(
-              category,
-            )}
-            collapsedLabel={n.allTools}
-            representativeCard={
-              category === "image"
-                ? imageConverterRepresentativeCard
-                : undefined
-            }
-          />
+        homeDirectoryFeaturedTools.map((tool) => (
+          <a class="directory-featured-link" href={toolPath(locale, tool)}>
+            <ToolMark toolId={tool.id} mark={tool.mark} />
+            <span class="directory-featured-copy">
+              <strong>{tool.name[locale]}</strong>
+              <small>{tool.summary[locale]}</small>
+            </span>
+          </a>
         ))
       }
+    </nav>
+    <div class="directory-browse">
+      <nav
+        class="directory-jump"
+        aria-label={n.allTools}
+        data-directory-search-intro
+      >
+        <span class="directory-jump-title">{n.allTools}</span>
+        {
+          homeDirectoryCategoryOrder.map((category) => (
+            <a href={`#directory-${category}`}>
+              <span>{n.categories[category]}</span>
+              <span aria-hidden="true">
+                {String(
+                  homeDirectoryToolsForCategory(category).length,
+                ).padStart(2, "0")}
+              </span>
+            </a>
+          ))
+        }
+      </nav>
+      <div
+        class="directory-categories"
+        id={directoryCategoriesId}
+        aria-label={n.catalogAria}
+      >
+        {
+          homeDirectoryCategoryOrder.map((category) => (
+            <ToolDirectorySection
+              category={category}
+              title={n.categories[category]}
+              tools={homeDirectoryToolsForCategory(category)}
+              locale={locale}
+              initiallyVisibleToolCount={homeDirectoryInitiallyVisibleToolCount(
+                category,
+              )}
+              collapsedLabel={n.allTools}
+              representativeCard={
+                category === "image"
+                  ? imageConverterRepresentativeCard
+                  : undefined
+              }
+            />
+          ))
+        }
+      </div>
     </div>
   </article>
 </SiteLayout>

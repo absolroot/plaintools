@@ -10,6 +10,14 @@
     "encoding",
     "data"
   ],
+  "featuredToolIds": [
+    "background-remover",
+    "compress-pdf",
+    "merge-pdf",
+    "word-counter",
+    "qr-code-generator",
+    "json-formatter"
+  ],
   "featureCategoryOverrides": {
     "image-converter": "image",
     "regex-tester": "data"

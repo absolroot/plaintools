@@ -58,6 +58,9 @@ def _search_geometry(page) -> dict:
             header: box('.directory-header'),
             search: box('.directory-search'),
             control: box('.directory-search-control'),
+            featured: box('.directory-featured'),
+            browse: box('.directory-browse'),
+            jump: box('.directory-jump'),
             categories: box('.directory-categories'),
             categoryGaps,
             radius: getComputedStyle(control).borderRadius,
@@ -97,13 +100,25 @@ def run_directory_desktop(
 
     report["directory_search_desktop_geometry"] = _search_geometry(desktop)
     geometry = report["directory_search_desktop_geometry"]
+    report["directory_discovery_links"] = {
+        "featured": desktop.locator(".directory-featured-link").count(),
+        "categories": desktop.locator(".directory-jump a").count(),
+    }
+    if report["directory_discovery_links"] != {"featured": 6, "categories": 9}:
+        report["ui_detail_failures"].append(
+            f"Directory discovery links are incomplete: {report['directory_discovery_links']}"
+        )
     if (
         abs(geometry["header"]["left"] - geometry["search"]["left"]) > 1
         or abs(geometry["header"]["right"] - geometry["search"]["right"]) > 1
-        or abs(geometry["categories"]["left"] - geometry["search"]["left"]) > 1
-        or abs(geometry["categories"]["right"] - geometry["search"]["right"]) > 1
+        or any(abs(geometry[section]["left"] - geometry["search"]["left"]) > 1
+               or abs(geometry[section]["right"] - geometry["search"]["right"]) > 1
+               for section in ("featured", "browse"))
+        or abs(geometry["categories"]["left"] - geometry["jump"]["right"] - 32) > 1
+        or abs(geometry["categories"]["right"] - geometry["browse"]["right"]) > 1
         or geometry["header"]["bottom"] > geometry["search"]["top"]
-        or geometry["search"]["bottom"] > geometry["categories"]["top"]
+        or geometry["search"]["bottom"] > geometry["featured"]["top"]
+        or geometry["featured"]["bottom"] > geometry["browse"]["top"]
         or abs(geometry["control"]["height"] - 36) > 0.5
         or any(abs(gap - 8) > 0.5 for gap in geometry["categoryGaps"])
         or geometry["radius"] != "0px"
@@ -275,6 +290,8 @@ def run_directory_desktop(
     search_input.fill("일치하지않는검색어")
     report["directory_search_no_results"] = _search_state(desktop)
     no_results = report["directory_search_no_results"]
+    if not desktop.locator(".directory-featured").is_hidden() or not desktop.locator(".directory-jump").is_hidden():
+        report["ui_detail_failures"].append("Discovery links remained visible during directory search.")
     if (
         no_results["visibleCards"]
         or no_results["visibleCategories"] != 0
@@ -298,6 +315,8 @@ def run_directory_desktop(
     search_clear.click()
     report["directory_search_clear"] = _search_state(desktop)
     cleared = report["directory_search_clear"]
+    if not desktop.locator(".directory-featured").is_visible() or not desktop.locator(".directory-jump").is_visible():
+        report["ui_detail_failures"].append("Discovery links did not return after clearing search.")
     if (
         cleared["query"] != ""
         or len(cleared["visibleCards"]) != expected_tool_count
@@ -393,10 +412,12 @@ def run_directory_mobile(
     if (
         abs(geometry["header"]["left"] - geometry["search"]["left"]) > 1
         or abs(geometry["header"]["right"] - geometry["search"]["right"]) > 1
-        or abs(geometry["categories"]["left"] - geometry["search"]["left"]) > 1
-        or abs(geometry["categories"]["right"] - geometry["search"]["right"]) > 1
+        or any(abs(geometry[section]["left"] - geometry["search"]["left"]) > 1
+               or abs(geometry[section]["right"] - geometry["search"]["right"]) > 1
+               for section in ("featured", "browse", "categories"))
         or geometry["header"]["bottom"] > geometry["search"]["top"]
-        or geometry["search"]["bottom"] > geometry["categories"]["top"]
+        or geometry["search"]["bottom"] > geometry["featured"]["top"]
+        or geometry["featured"]["bottom"] > geometry["browse"]["top"]
         or abs(geometry["control"]["height"] - 44) > 0.5
         or abs(clear_height - 44) > 0.5
         or any(abs(gap - 8) > 0.5 for gap in geometry["categoryGaps"])

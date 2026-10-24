@@ -117,11 +117,15 @@ const initialCount = copy.directorySearchCount.replace(
         "[data-directory-search-more]",
       ),
     );
+    const introductoryNavigation = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-directory-search-intro]"),
+    );
     let composing = false;
 
     const applyFilter = () => {
       const query = input.value;
       const hasQuery = normalizeToolDirectorySearch(query, locale).length > 0;
+      for (const section of introductoryNavigation) section.hidden = hasQuery;
       let visibleCount = 0;
 
       for (const card of cards) {
