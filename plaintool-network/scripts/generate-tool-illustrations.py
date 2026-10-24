@@ -71,23 +71,23 @@ def two_sheets():
 
 
 def file_pair(source, target):
-    body = r(8, 28, 40, 72, 4) + right_arrow(52, 56) + r(84, 28, 36, 72, 4)
-    holes = data_holes(source, 8) + data_holes(target, 84)
+    body = r(8, 40, 44, 44, 4) + right_arrow(52, 56) + r(76, 40, 44, 44, 4)
+    holes = data_holes(source, 8) + data_holes(target, 76)
     return body, holes
 
 
 def data_holes(kind, x):
     if kind == "csv":
         return (
-            r(x + 8, 42, 8, 8)
-            + r(x + 24, 42, 8, 8)
-            + r(x + 8, 58, 8, 8)
-            + r(x + 24, 58, 8, 8)
-            + r(x + 8, 74, 8, 8)
-            + r(x + 24, 74, 8, 8)
+            r(x + 8, 44, 8, 8)
+            + r(x + 24, 44, 8, 8)
+            + r(x + 8, 56, 8, 8)
+            + r(x + 24, 56, 8, 8)
+            + r(x + 8, 68, 8, 8)
+            + r(x + 24, 68, 8, 8)
         )
     if kind == "md":
-        return r(x + 8, 44, 24, 8) + r(x + 8, 60, 16, 8) + r(x + 8, 76, 24, 8)
+        return r(x + 8, 44, 24, 8) + r(x + 8, 56, 16, 8) + r(x + 8, 68, 24, 8)
     if kind == "json":
         return p(
             f"M{x+16} 42h-6v16h6v8h-6v16h6v-8h8v8h6V66h-6v-8h6V42h-6v8h-8v-8Z"
@@ -265,17 +265,17 @@ add(
 # Image operations keep a picture silhouette and change only the operation.
 add(
     "image-upscaler",
-    photo(16, 40, 80, 76)
+    photo(16, 36, 80, 80)
     + p("M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"),
-    photo_holes(16, 40),
+    photo_holes(16, 36),
 )
 add(
     "image-resizer",
-    r(56, 12, 60, 60, 8)
-    + photo(12, 64, 64, 52),
-    p("M102 24l10 10-28 28h12v10H64V40h10v12l28-28Z")
-    + c(28, 80, 6)
-    + p("M20 108 38 88l14 14 8-8 12 14v8H20v-8Z"),
+    r(52, 12, 64, 64, 8)
+    + photo(12, 60, 56, 56),
+    p("M104 24l8 8-20 20h12v8H80V36h8v12l16-24Z")
+    + c(28, 76, 5)
+    + p("M20 100 36 84l12 12 8-8 4 12v8H20v-8Z"),
 )
 add(
     "image-crop",
@@ -356,21 +356,21 @@ add(
 )
 add(
     "pdf-to-image",
-    r(8, 28, 40, 72, 4)
+    r(8, 40, 44, 44, 4)
     + right_arrow(52, 56)
-    + r(84, 28, 36, 72, 4),
-    label("P", 28, 76, 32)
-    + c(94, 48, 5)
-    + p("M88 86 100 66l16 20v6H88v-6Z"),
+    + r(76, 40, 44, 44, 4),
+    label("P", 30, 72, 28)
+    + c(90, 52, 5)
+    + p("M84 72 98 58l14 14v4H84v-4Z"),
 )
 add(
     "image-to-pdf",
-    r(8, 28, 40, 72, 4)
+    r(8, 40, 44, 44, 4)
     + right_arrow(52, 56)
-    + r(84, 28, 36, 72, 4),
-    c(20, 48, 5)
-    + p("M12 86 26 66l18 20v6H12v-6Z")
-    + label("P", 102, 76, 32),
+    + r(76, 40, 44, 44, 4),
+    c(22, 52, 5)
+    + p("M16 72 28 58l16 14v4H16v-4Z")
+    + label("P", 98, 72, 28),
 )
 
 # Generator and converter marks.
@@ -399,8 +399,8 @@ add(
 )
 add(
     "image-format-converter",
-    p("M12 12h68v32H48v36H12V12Z")
-    + r(48, 44, 68, 72, 8),
+    p("M12 12h68v36H48v32H12V12Z")
+    + r(48, 48, 68, 68, 8),
     r(24, 28, 36, 8)
     + right_arrow(64, 72),
 )
@@ -423,7 +423,7 @@ ACCENTS = {
     "javascript-formatter": r(28, 76, 72, 8),
     "ip-subnet-calculator": c(64, 24, 16) + c(24, 100, 16) + c(104, 100, 16),
     "image-upscaler": p("M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"),
-    "image-resizer": photo(12, 64, 64, 52),
+    "image-resizer": photo(12, 60, 56, 56),
     "image-crop": r(28, 8, 12, 104)
     + r(8, 28, 104, 12)
     + r(88, 28, 12, 92)
@@ -437,12 +437,12 @@ ACCENTS = {
     "age-calculator": r(36, 8, 12, 24) + r(80, 8, 12, 24),
     "time-zone-converter": c(92, 64, 25),
     "split-pdf": r(68, 12, 40, 104, 8),
-    "pdf-to-image": r(84, 28, 36, 72, 4) + right_arrow(52, 56),
-    "image-to-pdf": r(84, 28, 36, 72, 4) + right_arrow(52, 56),
+    "pdf-to-image": r(76, 40, 44, 44, 4) + right_arrow(52, 56),
+    "image-to-pdf": r(76, 40, 44, 44, 4) + right_arrow(52, 56),
     "barcode-generator": r(28, 24, 16, 80) + r(68, 24, 8, 80) + r(108, 24, 8, 80),
     "password-generator": r(64, 50, 52, 12) + r(88, 62, 12, 18) + r(104, 62, 12, 28),
     "unit-converter": p("M120 100H48v12L24 88l24-24v12h72v24Z"),
-    "image-format-converter": r(48, 44, 68, 72, 8),
+    "image-format-converter": r(48, 48, 68, 68, 8),
 }
 for conversion in (
     "csv-to-markdown",
@@ -452,7 +452,7 @@ for conversion in (
     "html-to-markdown",
     "markdown-to-html",
 ):
-    ACCENTS[conversion] = r(84, 28, 36, 72, 4) + right_arrow(52, 56)
+    ACCENTS[conversion] = r(76, 40, 44, 44, 4) + right_arrow(52, 56)
 
 
 def write_icon(name, body, holes):
