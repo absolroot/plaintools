@@ -89,8 +89,8 @@ def run_directory_desktop(
         or report["live_tool_links"] != expected_tool_count + 1
     ):
         report["ui_detail_failures"].append(f"Directory card/link inventory changed unexpectedly: {report['tool_directory_cards']}/{report['live_tool_links']}")
-    if any(item["columns"] != 4 for item in report["directory_desktop_columns"]):
-        report["ui_detail_failures"].append(f"Desktop directory groups must keep four fixed columns: {report['directory_desktop_columns']}")
+    if any(item["columns"] != 3 for item in report["directory_desktop_columns"]):
+        report["ui_detail_failures"].append(f"Desktop directory groups must keep three fixed columns: {report['directory_desktop_columns']}")
     if any(item["background"] != "rgba(0, 0, 0, 0)" for item in report["directory_desktop_columns"]):
         report["ui_detail_failures"].append(f"Empty directory tracks must remain transparent: {report['directory_desktop_columns']}")
     if report["directory_eyebrow_count"] != 0:
