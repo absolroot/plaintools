@@ -1354,20 +1354,15 @@ a.tool-directory-card:focus-visible {
 .tool-mark {
   display: grid;
   place-items: center;
+  flex: 0 0 40px;
   width: 40px;
   height: 40px;
-  border: 0;
-  border-radius: var(--radius-control);
-  color: var(--ink);
-  background: var(--recessed);
-  box-shadow: 0 0 0 1px var(--line);
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 600;
 }
-.tool-mark svg {
-  width: 22px;
-  height: 22px;
+.tool-mark img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 .tool-directory-card-heading h3 {
   min-width: 0;
