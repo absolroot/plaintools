@@ -1,14 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="code" x1="18" y1="11" x2="80" y2="86" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#9BB3FF"/>
-      <stop offset="1" stop-color="#6269E8"/>
+    <linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BF96FA"/>
+      <stop offset="1" stop-color="#8673F3"/>
     </linearGradient>
   </defs>
-  <path d="M23 9h37l18 18v54a6 6 0 0 1-6 6H23a6 6 0 0 1-6-6V15a6 6 0 0 1 6-6Z" fill="url(#code)"/>
-  <path d="M60 9v13a5 5 0 0 0 5 5h13L60 9Z" fill="#5159D2"/>
-  <path d="M34 35h-4v9l-4 4 4 4v9h4m28-26h4v9l4 4-4 4v9h-4" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="39" y="37" width="17" height="5" rx="2.5" fill="#FFFFFF"/>
-  <rect x="44" y="46" width="16" height="5" rx="2.5" fill="#FFFFFF"/>
-  <rect x="39" y="55" width="20" height="5" rx="2.5" fill="#FFFFFF"/>
+  <path fill="url(#tone)" d="M48 12H36c-8 0-12 4-12 12v24c0 7-4 11-12 12v8c8 1 12 5 12 12v24c0 8 4 12 12 12h12v-12H36V80c0-8-3-13-10-16 7-3 10-8 10-16V24h12V12Zm32 0h12c8 0 12 4 12 12v24c0 7 4 11 12 12v8c-8 1-12 5-12 12v24c0 8-4 12-12 12H80v-12h12V80c0-8 3-13 10-16-7-3-10-8-10-16V24H80V12Z"/>
+  <path fill="url(#tone)" d="M48 36h32v8H48zM48 60h32v8H48zM48 84h32v8H48z"/>
 </svg>

@@ -1,15 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="paper" x1="19" y1="9" x2="79" y2="85" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A7CDFF"/>
-      <stop offset="1" stop-color="#618FEB"/>
+    <linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BF96FA"/>
+      <stop offset="1" stop-color="#8673F3"/>
     </linearGradient>
+    <mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128">
+      <rect width="128" height="128" fill="#fff"/>
+      <path d="M36 32h56v8H36zM36 48h44v8H36zM36 64h52v8H36z" fill="#000"/>
+      <text x="64" y="105" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="800" fill="#000">123</text>
+    </mask>
   </defs>
-  <path d="M23 9h37l18 18v54a6 6 0 0 1-6 6H23a6 6 0 0 1-6-6V15a6 6 0 0 1 6-6Z" fill="url(#paper)"/>
-  <path d="M60 9v13a5 5 0 0 0 5 5h13L60 9Z" fill="#5277DC"/>
-  <rect x="28" y="36" width="35" height="5" rx="2.5" fill="#FFFFFF"/>
-  <rect x="28" y="47" width="29" height="5" rx="2.5" fill="#FFFFFF"/>
-  <rect x="28" y="58" width="21" height="5" rx="2.5" fill="#FFFFFF"/>
-  <rect x="51" y="58" width="25" height="22" rx="5" fill="#4165D3"/>
-  <path d="M59 63v12m7-12v12m-11-8h15m-15 5h15" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <rect x="20" y="12" width="88" height="104" rx="8" fill="url(#tone)" mask="url(#cut)"/>
 </svg>

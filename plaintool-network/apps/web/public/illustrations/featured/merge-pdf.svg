@@ -1,17 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="back" x1="13" y1="20" x2="61" y2="83" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFC0D3"/>
-      <stop offset="1" stop-color="#FD8FB0"/>
+    <linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BF96FA"/>
+      <stop offset="1" stop-color="#8673F3"/>
     </linearGradient>
-    <linearGradient id="front" x1="34" y1="9" x2="82" y2="84" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FF9BBB"/>
-      <stop offset="1" stop-color="#F35C8A"/>
-    </linearGradient>
+    <mask id="front-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128">
+      <rect width="128" height="128" fill="#fff"/>
+      <text x="78" y="86" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" fill="#000">PDF</text>
+    </mask>
   </defs>
-  <path d="M15 19h30l15 15v45a5 5 0 0 1-5 5H15a5 5 0 0 1-5-5V24a5 5 0 0 1 5-5Z" fill="url(#back)"/>
-  <path d="M45 19v10a5 5 0 0 0 5 5h10L45 19Z" fill="#F47B9F"/>
-  <path d="M39 9h31l16 16v54a6 6 0 0 1-6 6H39a6 6 0 0 1-6-6V15a6 6 0 0 1 6-6Z" fill="url(#front)"/>
-  <path d="M70 9v11a5 5 0 0 0 5 5h11L70 9Z" fill="#DD3E6B"/>
-  <path d="M57 40h7v12h12v7H64v12h-7V59H45v-7h12V40Z" fill="#FFFFFF"/>
+  <path fill="url(#tone)" d="M20 12h72v24H80V24H32v48h8v12H20V12Z"/>
+  <rect x="40" y="36" width="76" height="80" rx="8" fill="url(#tone)" mask="url(#front-cut)"/>
 </svg>

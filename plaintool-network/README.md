@@ -118,6 +118,11 @@ logic, and registries own cross-route inventory. Do not move tool behavior back
 into generic `components/`, rebuild route lists in scripts, or add a universal
 controller merely to reduce line count.
 
+Tool illustrations follow the [illustration grid](./ILLUSTRATION_GUIDE.md) and
+the [project icon skill](../.agents/skills/absoltools-icon-illustration/SKILL.md).
+Use both before generating or editing an icon, and review the result at its
+rendered desktop and mobile sizes.
+
 The build output is `apps/web/dist/`. Cloudflare Pages applies the committed `_headers` policy directly. Any other production host must be configured to send the same CSP, HSTS, frame, MIME, referrer, permissions, and cross-origin headers; GitHub Pages alone does not apply `_headers` and is not a complete production deployment target.
 
 ## Production gate
