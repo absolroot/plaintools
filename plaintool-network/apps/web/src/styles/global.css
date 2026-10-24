@@ -1154,21 +1154,17 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
   outline-offset: -2px;
 }
 .tool-pictogram {
-  flex: 0 0 60px;
-  width: 60px;
-  height: 60px;
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
   display: grid;
   place-items: center;
-  color: var(--ink-strong);
 }
-.tool-pictogram svg {
-  width: 60px;
-  height: 60px;
-  overflow: visible;
-}
-.pictogram-accent {
-  color: var(--focus);
-  stroke: currentColor;
+.tool-pictogram img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .directory-featured-copy {
   min-width: 0;
@@ -1956,13 +1952,9 @@ a.tool-directory-card:focus-visible {
     gap: var(--space-2);
   }
   .tool-pictogram {
-    flex-basis: 48px;
-    width: 48px;
-    height: 48px;
-  }
-  .tool-pictogram svg {
-    width: 48px;
-    height: 48px;
+    flex-basis: 56px;
+    width: 56px;
+    height: 56px;
   }
   .directory-featured-link .tool-mark {
     width: 32px;
