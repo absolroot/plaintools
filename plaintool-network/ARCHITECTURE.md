@@ -160,6 +160,14 @@ cannot prove that account-side state.
 The default build uses the preview target. Do not set the production origin to
 `https://absoltools.com` until ownership and host control are verified.
 
+Custom tool analytics use `scripts/shared/tool-analytics.ts`. Its API accepts
+only four fixed action names, validates routes against the public registry,
+requires a trusted interaction and an explicit current CMP permission, and caps
+each action per tool/locale/document. Add completion calls only at committed
+success boundaries, never generic status restores or initial examples. Keep
+raw tool data and errors out of telemetry. The shared DOM helpers cover copy,
+initiated download, and reported errors. See README for exact coverage and limits.
+
 ## Rendered UI contract
 
 At a 1440 px viewport, the header, breadcrumbs, page header, workspace,

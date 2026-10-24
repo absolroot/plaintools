@@ -201,13 +201,6 @@ expectDeclaration(".hero-subheading", "max-width", "none");
 expectDeclaration(".content-section", "padding", "32px 0");
 expectDeclaration(".directory-header", "padding", "24px 0");
 expectDeclaration(".converter-topbar", "justify-content", "flex-start");
-expectDeclaration(".ad-slot--rail", "display", "none");
-expectDeclaration(".tool-shell.has-rail", "width", "var(--page)");
-expectDeclaration(
-  ".tool-shell.has-rail > .ad-slot--rail",
-  "inset-inline-start",
-  "calc(100% + 24px)",
-);
 expectDeclaration(".editor-pane textarea", "min-height", "264px");
 expectDeclaration(":root", "--focus-ring", "var(--focus)");
 expectDeclaration(":root", "--canvas", "#fafafa");

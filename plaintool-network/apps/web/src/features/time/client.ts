@@ -1,3 +1,4 @@
+import { trackToolEvent } from "../../scripts/shared/tool-analytics";
 import {
   dateToTimestamp,
   TimeInputError,
@@ -104,6 +105,7 @@ function init(root: HTMLElement): void {
       badges.append(badge);
     }
     setStatus(copy.converted, "success");
+    trackToolEvent("tool_complete");
   };
   const run = () => {
     try {

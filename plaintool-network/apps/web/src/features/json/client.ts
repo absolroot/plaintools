@@ -11,6 +11,7 @@ import {
   utf8ByteLength,
 } from "../../scripts/shared/tool-dom";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
+import { trackToolEvent } from "../../scripts/shared/tool-analytics";
 import { jsonDownloadFilename, jsonOperationUsesIndent } from "./operation";
 import type {
   JsonClientCopy,
@@ -157,6 +158,7 @@ function init(root: HTMLElement): void {
                 output: reply.output,
               };
         setStatus(copy.valid, "success");
+        trackToolEvent("tool_complete");
         if (inspection.bomRemoved) badge(copy.bom, true);
         inspection.duplicateKeys.forEach((issue) =>
           badge(fill(copy.duplicate, issueValues(issue)), true),

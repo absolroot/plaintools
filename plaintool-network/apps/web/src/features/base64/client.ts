@@ -15,6 +15,7 @@ import {
   type ToolState,
 } from "../../scripts/shared/tool-dom";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
+import { trackToolEvent } from "../../scripts/shared/tool-analytics";
 import type {
   Base64ClientCopy,
   Base64WorkerReply,
@@ -389,6 +390,7 @@ function initConverter(root: HTMLElement): void {
       preview.hidden = false;
     }
     setStatus(modeDefinitions[mode].completeLabel, "success");
+    trackToolEvent("tool_complete");
   }
 
   const runner = createLatestWorkerRunner<

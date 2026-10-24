@@ -5,6 +5,7 @@ import {
   setToolStatus,
 } from "../../scripts/shared/tool-dom";
 import { createLatestWorkerRunner } from "../../scripts/shared/latest-worker-runner";
+import { trackToolEvent } from "../../scripts/shared/tool-analytics";
 import {
   metricKeys,
   type WordClientCopy,
@@ -67,6 +68,7 @@ function init(root: HTMLElement): void {
       });
       approximate.hidden = !reply.metrics.approximate;
       hasMetrics = true;
+      trackToolEvent("tool_complete");
       setStatus(
         copy.completed,
         "success",

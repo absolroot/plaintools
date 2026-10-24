@@ -130,8 +130,9 @@ const svBundle = {
       },
     ],
     advertisement: "Annons",
+    privacyChoices: "Integritetsval",
     integrationState: {
-      enabled: "aktiverad med samtyckeskontroller",
+      enabled: "aktiverade",
       disabled: "inaktiverad",
     },
     legalNav: {
@@ -181,7 +182,7 @@ const svBundle = {
           {
             title: "Analys och reklam",
             body: [
-              "Google Analytics och Google AdSense är för närvarande {{integration_state}}. När de är aktiverade kommer deras enhets-, användnings-, cookie-, samtycke-, lagrings- och internationella överföringsuppgifter att redovisas här och hanteras genom sekretessinställningar. Verktygets inmatning och resultat är uteslutna från analys- och annonseringsevenemang enligt design.",
+              "Google Analytics och Google AdSense är för närvarande {{integration_state}}. Googles taggar kan behandla uppgifter om enhet, användning och kakor. När Googles samtyckestjänst anger att analyssamtycke har lämnats eller inte krävs räknas vissa åtgärder (slutförande, kopiering, nedladdning och fel) endast med verktygsnamn och språk. Inmatning, resultat, filnamn och feldetaljer ingår inte.",
             ],
           },
           {
@@ -199,7 +200,7 @@ const svBundle = {
           {
             title: "Mottagare och internationella överföringar",
             body: [
-              "Den valda värden kan bearbeta förfrågningsdata utanför ditt land på de platser och under de skydd som beskrivs i dess policy. Innan analys, annonsering, en samtyckeshanterare eller en annan mottagare aktiveras måste denna sektion identifiera mottagaren, länderna, syftet, data, tidpunkt, metod, lagringsperiod och överföringsgrund som krävs enligt tillämplig lag.",
+              "Hostingleverantören och Google kan behandla webbplatsdata utanför ditt land enligt sina integritetspolicyer. Googles policy: https://policies.google.com/privacy. Verktygens inmatning och resultat skickas inte till dessa tjänster. Frågor om databehandling: {{email}}.",
             ],
           },
           {
@@ -229,7 +230,7 @@ const svBundle = {
           {
             title: "Om integrationer är aktiverade",
             body: [
-              "En samtyckesplattform kommer att kontrollera nödvändig lagring av preferenser, lagring av analysdata och lagring för annonsering. En permanent integritetskontroll kommer att låta besökare granska eller återkalla samtycke.",
+              "Googles integritetsmeddelande hanterar samtycke när det är tillgängligt. Om de europeiska samtyckesinställningarna är tillgängliga öppnar Integritetsval i sidfoten meddelandet igen. Du kan också begränsa kakor i webbläsarens inställningar.",
             ],
           },
         ],

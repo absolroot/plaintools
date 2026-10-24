@@ -130,8 +130,9 @@ const plBundle = {
       },
     ],
     advertisement: "Reklama",
+    privacyChoices: "Ustawienia prywatności",
     integrationState: {
-      enabled: "włączone z kontrolą zgody",
+      enabled: "włączone",
       disabled: "wyłączone",
     },
     legalNav: {
@@ -181,7 +182,7 @@ const plBundle = {
           {
             title: "Analiza i reklama",
             body: [
-              "Google Analytics i Google AdSense są obecnie {{integration_state}}. Po włączeniu ich szczegóły dotyczące urządzenia, użytkowania, plików cookie, zgody, przechowywania i transferu międzynarodowego będą tutaj ujawniane i zarządzane za pomocą ustawień prywatności. Dane wejściowe narzędzia i wyniki są domyślnie wyłączone z wydarzeń analitycznych i reklamowych.",
+              "Google Analytics i Google AdSense są obecnie {{integration_state}}. Tagi Google mogą przetwarzać dane urządzenia, użytkowania i plików cookie. Gdy usługa zgód Google potwierdzi zgodę na analitykę lub brak takiego wymogu, wybrane działania (ukończenie, kopiowanie, pobranie i błąd) są zliczane wyłącznie z nazwą narzędzia i językiem. Dane wejściowe, wyniki, nazwy plików i szczegóły błędów są wykluczone.",
             ],
           },
           {
@@ -199,7 +200,7 @@ const plBundle = {
           {
             title: "Odbiorcy i transfery międzynarodowe",
             body: [
-              "Wybrany host może przetwarzać dane żądań poza Twoim krajem w lokalizacjach i zgodnie z zabezpieczeniami opisanymi w jego polityce. Zanim włączone zostaną analityka, reklama, menedżer zgód lub inny odbiorca, ta sekcja musi określać odbiorcę, kraje, cel, dane, czas, metodę, okres przechowywania oraz podstawę przekazu wymaganą przez obowiązujące prawo.",
+              "Dostawca hostingu i Google mogą przetwarzać dane witryny poza Twoim krajem zgodnie ze swoimi politykami prywatności. Polityka Google: https://policies.google.com/privacy. Dane wejściowe i wyniki narzędzi nie są wysyłane do tych usług. Pytania o przetwarzanie danych: {{email}}.",
             ],
           },
           {
@@ -230,7 +231,7 @@ const plBundle = {
           {
             title: "Jeśli integracje są włączone",
             body: [
-              "Platforma zgody będzie kontrolować wymaganą pamięć preferencji, pamięć analityczną i pamięć reklamową. Stała kontrola prywatności pozwoli odwiedzającym przeglądać lub wycofywać zgodę.",
+              "Komunikat prywatności Google zarządza zgodą, gdy jest dostępny. Jeśli europejskie ustawienia zgody są dostępne, Ustawienia prywatności w stopce ponownie otwierają komunikat. Pliki cookie można też ograniczyć w ustawieniach przeglądarki.",
             ],
           },
         ],

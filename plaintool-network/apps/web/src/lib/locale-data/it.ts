@@ -131,8 +131,9 @@ export const itBundle: LocaleBundle = {
       },
     ],
     advertisement: "Pubblicità",
+    privacyChoices: "Scelte sulla privacy",
     integrationState: {
-      enabled: "attivi con controlli del consenso",
+      enabled: "attivati",
       disabled: "disattivati",
     },
     legalNav: {
@@ -182,7 +183,7 @@ export const itBundle: LocaleBundle = {
           {
             title: "Analisi e pubblicità",
             body: [
-              "Google Analytics e Google AdSense sono attualmente {{integration_state}}. Se attivati, i dettagli su dispositivo, utilizzo, cookie, consenso, conservazione e trasferimenti internazionali saranno descritti qui e gestiti nelle impostazioni sulla privacy. Per impostazione predefinita, input e risultati degli strumenti sono esclusi dagli eventi di analisi e pubblicità.",
+              "Google Analytics e Google AdSense sono attualmente {{integration_state}}. I tag Google possono trattare dati sul dispositivo, sull’utilizzo e sui cookie. Quando il servizio di consenso Google indica che il consenso per l’analisi è concesso o non necessario, alcune azioni (completamento, copia, download ed errore) vengono conteggiate solo con il nome dello strumento e la lingua. Input, risultati, nomi dei file e dettagli degli errori sono esclusi.",
             ],
           },
           {
@@ -200,7 +201,7 @@ export const itBundle: LocaleBundle = {
           {
             title: "Destinatari e trasferimenti internazionali",
             body: [
-              "Il fornitore di hosting scelto può trattare dati delle richieste fuori dal tuo paese, nei luoghi e con le garanzie descritti nella propria informativa. Prima di attivare analisi, pubblicità, una piattaforma di consenso o altri destinatari, questa sezione indicherà destinatari, paesi, finalità, dati, tempi, metodi, conservazione e basi del trasferimento richiesti dalla legge applicabile.",
+              "Il fornitore di hosting e Google possono trattare i dati del sito fuori dal tuo paese secondo le rispettive informative sulla privacy. Informativa Google: https://policies.google.com/privacy. Input e risultati degli strumenti non vengono inviati a questi servizi. Domande sul trattamento dei dati: {{email}}.",
             ],
           },
           {
@@ -230,7 +231,7 @@ export const itBundle: LocaleBundle = {
           {
             title: "Se le integrazioni vengono attivate",
             body: [
-              "Una piattaforma di consenso controllerà lo spazio necessario per preferenze, analisi e pubblicità. Un controllo permanente della privacy consentirà di rivedere o revocare il consenso.",
+              "Il messaggio sulla privacy di Google gestisce il consenso quando disponibile. Se sono disponibili i controlli europei del consenso, Scelte sulla privacy nel piè di pagina riapre il messaggio. Anche le impostazioni del browser consentono di limitare i cookie.",
             ],
           },
         ],

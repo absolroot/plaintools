@@ -74,6 +74,7 @@ export type Copy = {
   faqs: Array<{ q: string; a: string }>;
   encodeFaqs: Array<{ q: string; a: string }>;
   advertisement: string;
+  privacyChoices: string;
   integrationState: { enabled: string; disabled: string };
   legalNav: Record<LegalPage, string>;
   legal: Record<

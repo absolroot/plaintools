@@ -1,3 +1,5 @@
+import { trackToolEvent } from "./tool-analytics";
+
 export type ToolState = "idle" | "working" | "success" | "error";
 
 export interface DeferredIndicator {
@@ -32,6 +34,7 @@ export function setToolStatus(
     "aria-live",
     state === "error" ? "assertive" : "polite",
   );
+  if (state === "error") trackToolEvent("tool_error");
 }
 
 export function createDeferredIndicator(
@@ -66,8 +69,10 @@ export function createDeferredIndicator(
 export async function copyText(value: string): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(value);
+    trackToolEvent("tool_copy");
     return true;
   } catch {
+    trackToolEvent("tool_error");
     return false;
   }
 }
@@ -78,6 +83,7 @@ export function downloadBlob(blob: Blob, filename: string): void {
   link.href = url;
   link.download = filename;
   link.click();
+  trackToolEvent("tool_download");
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 

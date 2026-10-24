@@ -130,8 +130,9 @@ const daBundle = {
       },
     ],
     advertisement: "Reklame",
+    privacyChoices: "Privatlivsvalg",
     integrationState: {
-      enabled: "aktiveret med samtykkekontroller",
+      enabled: "aktiveret",
       disabled: "deaktiveret",
     },
     legalNav: {
@@ -181,7 +182,7 @@ const daBundle = {
           {
             title: "Analyse og reklame",
             body: [
-              "Google Analytics og Google AdSense er i øjeblikket {{integration_state}}. Når de er aktiveret, vil deres oplysninger om enhed, brug, cookies, samtykke, opbevaring og international overførsel blive offentliggjort her og styres gennem privatlivsvalg. Værktøjsinput og resultater er som standard udelukket fra analyse- og reklamebegivenheder.",
+              "Google Analytics og Google AdSense er i øjeblikket {{integration_state}}. Google-tags kan behandle oplysninger om enhed, brug og cookies. Når Googles samtykketjeneste angiver, at analysesamtykke er givet eller ikke påkrævet, tælles udvalgte handlinger (fuldførelse, kopiering, download og fejl) kun med værktøjets navn og sprog. Input, resultater, filnavne og fejldetaljer er udeladt.",
             ],
           },
           {
@@ -199,7 +200,7 @@ const daBundle = {
           {
             title: "Modtagere og internationale overførsler",
             body: [
-              "Den valgte vært kan behandle anmodningsdata uden for dit land på de steder og under de sikkerhedsforanstaltninger, der er beskrevet i dens politik. Før analytics, reklame, en samtykkeadministrator eller en anden modtager aktiveres, skal denne sektion identificere modtageren, lande, formål, data, tidspunkter, metode, opbevaringsperiode og overførselsgrundlag, som kræves af gældende lovgivning.",
+              "Hostingudbyderen og Google kan behandle webstedsdata uden for dit land i henhold til deres privatlivspolitikker. Googles politik: https://policies.google.com/privacy. Værktøjernes input og resultater sendes ikke til disse tjenester. Spørgsmål om databehandling: {{email}}.",
             ],
           },
           {
@@ -229,7 +230,7 @@ const daBundle = {
           {
             title: "Hvis integrationer er aktiveret",
             body: [
-              "En samtykkeplatform vil kontrollere påkrævet præferenceopbevaring, analyseopbevaring og reklameopbevaring. En permanent privatlivskontrol vil lade besøgende gennemgå eller trække samtykke tilbage.",
+              "Googles privatlivsmeddelelse håndterer samtykke, når den er tilgængelig. Hvis de europæiske samtykkeindstillinger er tilgængelige, åbner Privatlivsvalg i sidefoden meddelelsen igen. Du kan også begrænse cookies i browserens indstillinger.",
             ],
           },
         ],

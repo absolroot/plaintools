@@ -2,7 +2,7 @@
 
 A single Astro application for focused browser utilities. Locale roots are directories; every implemented tool has a dedicated route and workspace.
 
-This is fully static. There is no database, account system, application server, upload endpoint, persistence layer, telemetry, or server-side conversion. Text and file bytes stay in browser memory.
+This is fully static. There is no database, account system, application server, upload endpoint, tool-data persistence layer, or server-side conversion. Production includes the Google integrations described below. Text and file bytes stay in browser memory.
 
 The source ownership rules, runtime chronology, registry boundaries, and
 previously observed regression patterns are documented in
@@ -16,7 +16,7 @@ package metadata because Astro's current runtime dependencies require Node
 22.19 or newer.
 
 ```powershell
-npm install
+npm ci
 npm run dev
 npm test
 npm run check
@@ -80,6 +80,8 @@ explicit Cloudflare Pages 301 rules as well as static HTML fallbacks.
 
 ## What is implemented
 
+The current registry contains 97 tool routes in 30 feature families, all marked indexable for production. Besides the original tools detailed below, it includes text, source formatting, data conversion, image, PDF, generation, and calculator workflows. See `apps/web/src/lib/tool-registry.js` for the complete inventory.
+
 - Text and file Base64 decode/encode, Base64URL, Data URI stripping, padding and whitespace repair
 - Strict validation, line-by-line decode, legacy browser-supported character sets, and hex view under Options
 - File-signature detection, safe raster previews, binary download, and executable warnings
@@ -127,9 +129,48 @@ The build output is `apps/web/dist/`. Cloudflare Pages applies the committed `_h
 
 ## Production gate
 
-Copy `.env.example` to `.env` and complete the operator and canonical-origin fields. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. Production enables GA4 and the AdSense publisher code from reviewed public identifiers. In AdSense, publish the European regulations message and enable its Consent Mode integration; the repository cannot publish that account-side configuration.
+Copy `.env.example` to `.env` and verify the operator, hosting, legal, and canonical-origin fields. The production validator, build launcher, and built-output QA load the project-root `.env`; existing shell or host environment variables take precedence, including explicit empty values. A missing `.env` is allowed when the host supplies the required variables. These scripts do not load `.env.local` or mode-specific files: use `.env` or host variables for deployment facts so validation and build agree. Use `npm run build:production` for an indexable release. It fails while any feature remains in the `preview` publication state. Production enables GA4 and the AdSense publisher code from reviewed public identifiers. In AdSense, publish the European regulations message and enable its Consent Mode integration; the repository cannot publish that account-side configuration.
 
 Do not send input text, output text, file names, file bytes, error details, or hashes derived from them to analytics. Consent Mode v2 defaults analytics and advertising storage to denied in the EEA, UK, and Switzerland. Outside those regions GA4 analytics storage is granted, while advertising storage remains denied until a later reviewed policy change. Preview builds and invalid production configurations keep all optional integrations disabled.
+
+## Tool measurement
+
+The existing GA4 stream receives `tool_complete`, `tool_copy`,
+`tool_download`, and `tool_error` events only after a trusted page interaction
+and a current Google Privacy & messaging analytics status of granted or not
+applicable. Unknown, denied, unavailable, or unconfigured consent drops the
+custom event. Dropped events are not replayed. Existing page-view consent
+configuration is unchanged.
+
+Each event is capped at once per tool, locale, and document, so these counts are
+engaged page/action counts rather than a count of every keystroke or operation.
+Completion is explicitly instrumented for Base64 encode/decode, JSON formatting
+and validation, word counting, and Unix timestamp conversion. Copy, initiated
+download, and reported error coverage follows the shared `tool-dom` helpers;
+feature-specific clipboard/download paths are not automatically covered.
+Downloads measure initiation, not a confirmed saved file. Error counts include
+validation feedback during editing and must not be interpreted as an operational
+failure rate. No custom key events
+or custom dimensions are configured in the analytics account by this code.
+
+Only fixed event names, a registry-validated tool slug and locale, and static
+page metadata are sent. Input, output, filenames, byte counts, raw errors,
+query strings, fragments, and referrer contents are not custom event parameters.
+No new storage, tag, or service is introduced. The footer's Privacy choices
+button appears only when the Google TCF API reports applicable European consent
+controls and the revocation API is available. Its absence must not be treated
+as proof that consent is granted.
+
+For a local production build, run `python scripts/qa-analytics.py` against the
+server selected by `PLAINTOOL_QA_BASE_URL`. This browser check mocks Google’s
+consent and tag APIs, blocks every external request, checks all 17 policy locales
+at desktop/mobile sizes, and exercises completion, copy, download, validation,
+consent denial, and revocation. `PLAINTOOL_QA_BROWSER_PATH` optionally selects an
+installed Chromium executable. It does not verify the real account-side CMP.
+
+Manual advertising placeholders are not rendered: the publisher script alone
+is not evidence of a configured manual ad unit. Future placements require an
+actual reviewed unit and consent behavior before layout space is reserved.
 
 ## Localization and localized SEO
 
