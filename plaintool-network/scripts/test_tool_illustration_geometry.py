@@ -35,12 +35,20 @@ class ToolIllustrationGeometryTest(unittest.TestCase):
             "csv-to-json",
             "html-to-markdown",
             "markdown-to-html",
+            "base64-encode",
+            "base64-decode",
+            "url-encode",
+            "url-decode",
+            "jwt-decoder",
         )
         for tool in paired_tools:
             with self.subTest(tool=tool):
                 shapes = rectangles(tool)
-                self.assertIn((8, 40, 44, 44), shapes)
-                self.assertIn((76, 40, 44, 44), shapes)
+                tile_size = 44 if tool in {"pdf-to-image", "image-to-pdf"} else 64
+                left = (8, 40, 44, 44) if tile_size == 44 else (8, 8, 64, 64)
+                right = (76, 40, 44, 44) if tile_size == 44 else (56, 56, 64, 64)
+                self.assertIn(left, shapes)
+                self.assertIn(right, shapes)
 
     def test_shared_image_conversion_result_is_square(self):
         self.assertIn(

@@ -37,10 +37,6 @@ def right_arrow(x=54, y=56):
     return p(f"M{x} {y}h14v-10l18 18-18 18V{y+16}H{x}V{y}Z")
 
 
-def left_arrow(x=74, y=56):
-    return p(f"M{x} {y}H{x-14}V{y-10}L{x-32} {y+8}l18 18V{y+16}H{x}V{y}Z")
-
-
 def document(x=20, y=12, w=88, h=104):
     return r(x, y, w, h, 8)
 
@@ -70,32 +66,38 @@ def two_sheets():
     )
 
 
+PAIR_LEFT = (8, 8)
+PAIR_RIGHT = (56, 56)
+PAIR_SIZE = 64
+
+
+def pair_body():
+    return (
+        r(*PAIR_LEFT, PAIR_SIZE, PAIR_SIZE, 6)
+        + r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6)
+    )
+
+
 def file_pair(source, target):
-    body = r(8, 40, 44, 44, 4) + right_arrow(52, 56) + r(76, 40, 44, 44, 4)
-    holes = data_holes(source, 8) + data_holes(target, 76)
+    body = pair_body()
+    holes = data_holes(source, *PAIR_LEFT) + data_holes(target, *PAIR_RIGHT)
     return body, holes
 
 
-def data_holes(kind, x):
+def data_holes(kind, x, y):
     if kind == "csv":
         return (
-            r(x + 8, 44, 8, 8)
-            + r(x + 24, 44, 8, 8)
-            + r(x + 8, 56, 8, 8)
-            + r(x + 24, 56, 8, 8)
-            + r(x + 8, 68, 8, 8)
-            + r(x + 24, 68, 8, 8)
+            r(x + 12, y + 12, 12, 12)
+            + r(x + 36, y + 12, 12, 12)
+            + r(x + 12, y + 36, 12, 12)
+            + r(x + 36, y + 36, 12, 12)
         )
     if kind == "md":
-        return r(x + 8, 44, 24, 8) + r(x + 8, 56, 16, 8) + r(x + 8, 68, 24, 8)
+        return label("M", x + 32, y + 49, 40)
     if kind == "json":
-        return p(
-            f"M{x+16} 42h-6v16h6v8h-6v16h6v-8h8v8h6V66h-6v-8h6V42h-6v8h-8v-8Z"
-        )
+        return label("{}", x + 32, y + 49, 40)
     if kind == "html":
-        return p(f"M{x+18} 46l-10 16 10 16h8L{x+16} 62l10-16h-8Z") + r(
-            x + 26, 56, 6, 12
-        )
+        return label("&lt;&gt;", x + 32, y + 48, 36)
     raise ValueError(kind)
 
 
@@ -108,33 +110,18 @@ def add(name, body, holes=""):
     SPECS[name] = (body, holes)
 
 
-# Encoding and text operations. The source and result exchange a text-line
-# pattern for a regular six-cell code pattern; the action always reads right.
-text_left = r(16, 40, 26, 8) + r(16, 58, 22, 8) + r(16, 76, 26, 8)
-text_right = r(88, 40, 24, 8) + r(88, 58, 20, 8) + r(88, 76, 24, 8)
-
-
-def code64(x):
-    return (
-        r(x, 48, 12, 4)
-        + r(x, 48, 4, 32)
-        + r(x, 60, 12, 4)
-        + r(x + 8, 60, 4, 20)
-        + r(x, 76, 12, 4)
-        + r(x + 16, 48, 4, 18)
-        + r(x + 28, 48, 4, 32)
-        + r(x + 16, 62, 16, 4)
-    )
-
-
-code_left = code64(12)
-code_right = code64(84)
-base64_sheets = r(8, 20, 42, 88, 6) + r(80, 20, 40, 88, 6) + right_arrow(52, 56)
-add("base64-encode", base64_sheets, text_left + code_right)
+# Encoding and text operations use the same source-to-result grammar.
+add(
+    "base64-encode",
+    pair_body(),
+    label("A", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 49, 44)
+    + label("64", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 36),
+)
 add(
     "base64-decode",
-    base64_sheets,
-    code_left + text_right,
+    pair_body(),
+    label("64", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 49, 36)
+    + label("A", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 44),
 )
 add(
     "unix-timestamp-converter",
@@ -165,13 +152,18 @@ add(
     + r(36, 52, 44, 8)
     + label("AI", 64, 96, 30),
 )
-link = (
-    p("M36 28c-18 0-28 12-28 28s10 28 28 28h12V72H36c-10 0-16-6-16-16s6-16 16-16h20V28H36Z")
-    + p("M92 44H80v12h12c10 0 16 6 16 16s-6 16-16 16H72v12h20c18 0 28-12 28-28S110 44 92 44Z")
-    + r(40, 58, 48, 12)
+add(
+    "url-encode",
+    pair_body(),
+    label("URL", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 47, 28)
+    + label("%", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 44),
 )
-add("url-encode", link + right_arrow(60, 92))
-add("url-decode", link + left_arrow(68, 92))
+add(
+    "url-decode",
+    pair_body(),
+    label("%", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 49, 44)
+    + label("URL", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 47, 28),
+)
 add(
     "hash-generator",
     r(36, 12, 12, 104)
@@ -197,8 +189,11 @@ add(
 )
 add(
     "jwt-decoder",
-    r(8, 28, 112, 72, 8),
-    c(32, 64, 9) + c(64, 64, 9) + c(96, 64, 9),
+    pair_body(),
+    c(PAIR_LEFT[0] + 16, PAIR_LEFT[1] + 32, 6)
+    + c(PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 32, 6)
+    + c(PAIR_LEFT[0] + 48, PAIR_LEFT[1] + 32, 6)
+    + label("{}", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 40),
 )
 
 # The scanner frame is large enough to read at 32 px; the central finder
@@ -408,13 +403,14 @@ add(
 # The deeper tone marks the result or the operation, never an arbitrary
 # decoration. A one-piece symbol may remain a single flat tone.
 ACCENTS = {
-    "base64-encode": r(80, 20, 40, 88, 6) + right_arrow(52, 56),
-    "base64-decode": r(8, 20, 42, 88, 6) + right_arrow(52, 56),
+    "base64-encode": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6),
+    "base64-decode": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6),
     "text-compare": r(72, 16, 48, 96, 6),
     "case-converter": c(98, 80, 18) + r(108, 62, 12, 46),
     "ai-watermark-remover": p("M22 104 100 18l8 8-78 86-8-8Z"),
-    "url-encode": right_arrow(60, 92),
-    "url-decode": left_arrow(68, 92),
+    "url-encode": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6),
+    "url-decode": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6),
+    "jwt-decoder": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6),
     "hash-generator": r(12, 40, 104, 12) + r(12, 76, 104, 12),
     "regex-tester": p("M77 16h12v30l24-14 6 11-26 15 26 15-6 11-24-14v30H77V70L53 84l-6-11 26-15-26-15 6-11 24 14V16Z"),
     "qr-code-scanner": p("M8 8h36v12H20v24H8V8Zm112 0v36h-12V20H84V8h36ZM8 120V84h12v24h24v12H8Zm112 0H84v-12h24V84h12v36Z"),
@@ -452,7 +448,7 @@ for conversion in (
     "html-to-markdown",
     "markdown-to-html",
 ):
-    ACCENTS[conversion] = r(76, 40, 44, 44, 4) + right_arrow(52, 56)
+    ACCENTS[conversion] = r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6)
 
 
 def write_icon(name, body, holes):
