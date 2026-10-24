@@ -51,6 +51,22 @@ def photo_holes(x=12, y=20):
     )
 
 
+def compact_photo_holes(x, y):
+    return c(x + 20, y + 19, 5) + p(
+        f"M{x+10} {y+48}l15-18 11 11 7-7 10 12v2H{x+10}Z"
+    )
+
+
+def ring_hole(x, y, outer=14, inner=6):
+    return p(
+        f"M{x-outer} {y}a{outer} {outer} 0 1 0 {outer*2} 0"
+        f"a{outer} {outer} 0 1 0 {-outer*2} 0Z "
+        f"M{x-inner} {y}a{inner} {inner} 0 1 0 {inner*2} 0"
+        f"a{inner} {inner} 0 1 0 {-inner*2} 0Z",
+        "evenodd",
+    )
+
+
 def calendar():
     return r(12, 20, 104, 96, 8) + r(36, 8, 12, 24) + r(80, 8, 12, 24)
 
@@ -274,7 +290,11 @@ add(
 )
 add(
     "image-crop",
-    r(44, 44, 40, 40, 3),
+    r(12, 12, 104, 104, 8),
+    ring_hole(39, 42)
+    + ring_hole(39, 86)
+    + p("M48 76 99 22 108 31 55 86Z")
+    + p("M48 52 55 42 108 97 99 106Z"),
 )
 
 # Arithmetic signs use thick, measured geometry rather than tiny numbers.
@@ -394,10 +414,8 @@ add(
 )
 add(
     "image-format-converter",
-    p("M12 12h68v36H48v32H12V12Z")
-    + r(48, 48, 68, 68, 8),
-    r(24, 28, 36, 8)
-    + right_arrow(64, 72),
+    pair_body(),
+    compact_photo_holes(*PAIR_RIGHT),
 )
 
 # The deeper tone marks the result or the operation, never an arbitrary
@@ -420,10 +438,7 @@ ACCENTS = {
     "ip-subnet-calculator": c(64, 24, 16) + c(24, 100, 16) + c(104, 100, 16),
     "image-upscaler": p("M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"),
     "image-resizer": photo(12, 60, 56, 56),
-    "image-crop": r(28, 8, 12, 104)
-    + r(8, 28, 104, 12)
-    + r(88, 28, 12, 92)
-    + r(28, 88, 92, 12),
+    "image-crop": r(12, 12, 104, 104, 8),
     "fraction-calculator": r(12, 58, 104, 12),
     "lcm-calculator": r(56, 88, 16, 12),
     "percentage-calculator": p("M20 110 100 16l10 10-80 94-10-10Z"),
@@ -438,7 +453,8 @@ ACCENTS = {
     "barcode-generator": r(28, 24, 16, 80) + r(68, 24, 8, 80) + r(108, 24, 8, 80),
     "password-generator": r(64, 50, 52, 12) + r(88, 62, 12, 18) + r(104, 62, 12, 28),
     "unit-converter": p("M120 100H48v12L24 88l24-24v12h72v24Z"),
-    "image-format-converter": r(48, 48, 68, 68, 8),
+    "image-format-converter": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6)
+    + p("M20 28l8-8 24 24V32h12v32H32V52h12L20 28Z"),
 }
 for conversion in (
     "csv-to-markdown",

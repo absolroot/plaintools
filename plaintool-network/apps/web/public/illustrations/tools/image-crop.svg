@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs></defs>
-  <g><g fill="#B692F5"><rect x="44" y="44" width="40" height="40" rx="3"/></g><g fill="#725BE8"><rect x="28" y="8" width="12" height="104" rx="0"/><rect x="8" y="28" width="104" height="12" rx="0"/><rect x="88" y="28" width="12" height="92" rx="0"/><rect x="28" y="88" width="92" height="12" rx="0"/></g></g>
+  <defs><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><path d="M25 42a14 14 0 1 0 28 0a14 14 0 1 0 -28 0Z M33 42a6 6 0 1 0 12 0a6 6 0 1 0 -12 0Z" fill-rule="evenodd"/><path d="M25 86a14 14 0 1 0 28 0a14 14 0 1 0 -28 0Z M33 86a6 6 0 1 0 12 0a6 6 0 1 0 -12 0Z" fill-rule="evenodd"/><path d="M48 76 99 22 108 31 55 86Z"/><path d="M48 52 55 42 108 97 99 106Z"/></g></mask></defs>
+  <g mask="url(#cut)"><g fill="#B692F5"><rect x="12" y="12" width="104" height="104" rx="8"/></g><g fill="#725BE8"><rect x="12" y="12" width="104" height="104" rx="8"/></g></g>
 </svg>

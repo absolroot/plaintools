@@ -50,10 +50,21 @@ class ToolIllustrationGeometryTest(unittest.TestCase):
                 self.assertIn(left, shapes)
                 self.assertIn(right, shapes)
 
-    def test_shared_image_conversion_result_is_square(self):
-        self.assertIn(
-            (48, 48, 68, 68), rectangles("image-format-converter")
-        )
+    def test_crop_handles_and_image_conversion_tiles(self):
+        self.assertIn((12, 12, 104, 104), rectangles("image-crop"))
+        crop_root = ElementTree.parse(ASSETS / "image-crop.svg").getroot()
+        handle_rings = [
+            node
+            for node in crop_root.iter()
+            if node.tag.endswith("path") and node.attrib.get("fill-rule") == "evenodd"
+        ]
+        self.assertEqual(len(handle_rings), 2)
+        conversion_shapes = rectangles("image-format-converter")
+        self.assertIn((8, 8, 64, 64), conversion_shapes)
+        self.assertIn((56, 56, 64, 64), conversion_shapes)
+        root = ElementTree.parse(ASSETS / "image-format-converter.svg").getroot()
+        circles = [node for node in root.iter() if node.tag.endswith("circle")]
+        self.assertEqual(len(circles), 1)
 
 
 if __name__ == "__main__":
