@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs><linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#BF96FA"/><stop offset="1" stop-color="#8673F3"/></linearGradient></defs>
-  <g fill="url(#tone)"><path d="M8 8h36v12H20v24H8V8Zm112 0v36h-12V20H84V8h36ZM8 120V84h12v24h24v12H8Zm112 0H84v-12h24V84h12v36Z"/><path d="M44 44h40v40H44zM52 52v24h24V52z" fill-rule="evenodd"/><rect x="60" y="60" width="8" height="8" rx="0"/><rect x="28" y="60" width="8" height="8" rx="0"/><rect x="92" y="60" width="8" height="8" rx="0"/><rect x="60" y="28" width="8" height="8" rx="0"/><rect x="60" y="92" width="8" height="8" rx="0"/></g>
+  <defs></defs>
+  <g><g fill="#B692F5"><path d="M8 8h36v12H20v24H8V8Zm112 0v36h-12V20H84V8h36ZM8 120V84h12v24h24v12H8Zm112 0H84v-12h24V84h12v36Z"/><path d="M44 44h40v40H44zM52 52v24h24V52z" fill-rule="evenodd"/><rect x="60" y="60" width="8" height="8" rx="0"/><rect x="28" y="60" width="8" height="8" rx="0"/><rect x="92" y="60" width="8" height="8" rx="0"/><rect x="60" y="28" width="8" height="8" rx="0"/><rect x="60" y="92" width="8" height="8" rx="0"/></g><g fill="#725BE8"><path d="M8 8h36v12H20v24H8V8Zm112 0v36h-12V20H84V8h36ZM8 120V84h12v24h24v12H8Zm112 0H84v-12h24V84h12v36Z"/></g></g>
 </svg>

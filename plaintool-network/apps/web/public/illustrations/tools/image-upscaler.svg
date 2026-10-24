@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs><linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#BF96FA"/><stop offset="1" stop-color="#8673F3"/></linearGradient><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><circle cx="44" cy="66" r="9"/><path d="M24 113l28-30 20 20 12-12 28 28v9H24Z"/></g></mask></defs>
-  <g fill="url(#tone)" mask="url(#cut)"><rect x="16" y="40" width="80" height="76" rx="8"/><path d="M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"/></g>
+  <defs><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><circle cx="44" cy="66" r="9"/><path d="M24 113l28-30 20 20 12-12 28 28v9H24Z"/></g></mask></defs>
+  <g mask="url(#cut)"><g fill="#B692F5"><rect x="16" y="40" width="80" height="76" rx="8"/><path d="M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"/></g><g fill="#725BE8"><path d="M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"/></g></g>
 </svg>

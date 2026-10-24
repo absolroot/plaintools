@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs><linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#BF96FA"/><stop offset="1" stop-color="#8673F3"/></linearGradient></defs>
-  <g fill="url(#tone)"><circle cx="34" cy="64" r="11"/><path d="M77 16h12v30l24-14 6 11-26 15 26 15-6 11-24-14v30H77V70L53 84l-6-11 26-15-26-15 6-11 24 14V16Z"/></g>
+  <defs></defs>
+  <g><g fill="#B692F5"><circle cx="34" cy="64" r="11"/><path d="M77 16h12v30l24-14 6 11-26 15 26 15-6 11-24-14v30H77V70L53 84l-6-11 26-15-26-15 6-11 24 14V16Z"/></g><g fill="#725BE8"><path d="M77 16h12v30l24-14 6 11-26 15 26 15-6 11-24-14v30H77V70L53 84l-6-11 26-15-26-15 6-11 24 14V16Z"/></g></g>
 </svg>

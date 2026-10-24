@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs><linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#BF96FA"/><stop offset="1" stop-color="#8673F3"/></linearGradient><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><circle cx="32" cy="64" r="9"/><circle cx="64" cy="64" r="9"/><circle cx="96" cy="64" r="9"/></g></mask></defs>
-  <g fill="url(#tone)" mask="url(#cut)"><rect x="8" y="28" width="112" height="72" rx="8"/></g>
+  <defs><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><circle cx="32" cy="64" r="9"/><circle cx="64" cy="64" r="9"/><circle cx="96" cy="64" r="9"/></g></mask></defs>
+  <g mask="url(#cut)"><g fill="#B692F5"><rect x="8" y="28" width="112" height="72" rx="8"/></g></g>
 </svg>

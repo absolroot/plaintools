@@ -18,8 +18,20 @@ describe("tool illustrations", () => {
       const svg = readFileSync(file, "utf8");
       expect(svg, source).toContain('viewBox="0 0 128 128"');
       expect(svg, source).toContain('width="128" height="128"');
-      expect(svg, source).toContain("#BF96FA");
-      expect(svg, source).toContain("#8673F3");
+      if (source.startsWith("/illustrations/featured/")) {
+        expect(svg, source).toContain("#BF96FA");
+        expect(svg, source).toContain("#8673F3");
+      } else {
+        expect(svg, source).toContain("#B692F5");
+        expect(svg, source).not.toContain("<linearGradient");
+        if (
+          source.endsWith("/base64-encode.svg") ||
+          source.endsWith("/base64-decode.svg") ||
+          source.endsWith("/image-crop.svg")
+        ) {
+          expect(svg, source).toContain("#725BE8");
+        }
+      }
       expect(svg, source).not.toMatch(
         /<(?:image|use)\b[^>]+(?:href|src)="(?:https?:)?\/\//,
       );

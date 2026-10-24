@@ -1,13 +1,15 @@
-"""Build the compact, grid-aligned directory illustrations.
+"""Build compact directory illustrations with flat purple subject and action tones.
 
-The shapes are deliberately hand specified. Shared primitives keep dimensions,
-negative space, and gradient identical without making unrelated tools look alike.
+The shapes are deliberately hand specified. Shared primitives keep dimensions
+and negative space consistent without making unrelated tools look alike.
 """
 
 from pathlib import Path
 
 
 OUT = Path(__file__).resolve().parents[1] / "apps/web/public/illustrations/tools"
+SUBJECT = "#B692F5"
+ACTION = "#725BE8"
 
 
 def r(x, y, w, h, radius=0):
@@ -32,7 +34,7 @@ def label(value, x=64, y=76, size=32):
 
 
 def right_arrow(x=54, y=56):
-    return p(f"M{x} {y}h14v-10l18 18-18 18V72H{x}V{y}Z")
+    return p(f"M{x} {y}h14v-10l18 18-18 18V{y+16}H{x}V{y}Z")
 
 
 def left_arrow(x=74, y=56):
@@ -106,20 +108,33 @@ def add(name, body, holes=""):
     SPECS[name] = (body, holes)
 
 
-# Encoding and text operations.
-binary = r(12, 24, 16, 16) + r(36, 24, 16, 16) + r(12, 48, 16, 16) + r(36, 48, 16, 16)
-text_block = r(76, 28, 40, 8) + r(76, 48, 40, 8) + r(76, 68, 32, 8)
-add("base64-encode", binary + right_arrow(52, 76) + text_block)
+# Encoding and text operations. The source and result exchange a text-line
+# pattern for a regular six-cell code pattern; the action always reads right.
+text_left = r(16, 40, 26, 8) + r(16, 58, 22, 8) + r(16, 76, 26, 8)
+text_right = r(88, 40, 24, 8) + r(88, 58, 20, 8) + r(88, 76, 24, 8)
+
+
+def code64(x):
+    return (
+        r(x, 48, 12, 4)
+        + r(x, 48, 4, 32)
+        + r(x, 60, 12, 4)
+        + r(x + 8, 60, 4, 20)
+        + r(x, 76, 12, 4)
+        + r(x + 16, 48, 4, 18)
+        + r(x + 28, 48, 4, 32)
+        + r(x + 16, 62, 16, 4)
+    )
+
+
+code_left = code64(12)
+code_right = code64(84)
+base64_sheets = r(8, 20, 42, 88, 6) + r(80, 20, 40, 88, 6) + right_arrow(52, 56)
+add("base64-encode", base64_sheets, text_left + code_right)
 add(
     "base64-decode",
-    r(12, 28, 36, 8)
-    + r(12, 48, 36, 8)
-    + r(12, 68, 28, 8)
-    + left_arrow(76, 76)
-    + r(84, 24, 16, 16)
-    + r(108, 24, 12, 16)
-    + r(84, 48, 16, 16)
-    + r(108, 48, 12, 16),
+    base64_sheets,
+    code_left + text_right,
 )
 add(
     "unix-timestamp-converter",
@@ -148,8 +163,7 @@ add(
     document(),
     r(36, 36, 56, 8)
     + r(36, 52, 44, 8)
-    + label("AI", 64, 96, 30)
-    + p("M22 104 100 18l8 8-78 86-8-8Z"),
+    + label("AI", 64, 96, 30),
 )
 link = (
     p("M36 28c-18 0-28 12-28 28s10 28 28 28h12V72H36c-10 0-16-6-16-16s6-16 16-16h20V28H36Z")
@@ -265,8 +279,7 @@ add(
 )
 add(
     "image-crop",
-    p("M32 8h12v24h72v12H44v72H32V44H8V32h24V8Zm52 4 12 12-56 56-12-12 56-56Z")
-    + p("M84 52h12v32h32v12H96v32H84V96H52V84h32V52Z"),
+    r(44, 44, 40, 40, 3),
 )
 
 # Arithmetic signs use thick, measured geometry rather than tiny numbers.
@@ -392,6 +405,55 @@ add(
     + right_arrow(64, 72),
 )
 
+# The deeper tone marks the result or the operation, never an arbitrary
+# decoration. A one-piece symbol may remain a single flat tone.
+ACCENTS = {
+    "base64-encode": r(80, 20, 40, 88, 6) + right_arrow(52, 56),
+    "base64-decode": r(8, 20, 42, 88, 6) + right_arrow(52, 56),
+    "text-compare": r(72, 16, 48, 96, 6),
+    "case-converter": c(98, 80, 18) + r(108, 62, 12, 46),
+    "ai-watermark-remover": p("M22 104 100 18l8 8-78 86-8-8Z"),
+    "url-encode": right_arrow(60, 92),
+    "url-decode": left_arrow(68, 92),
+    "hash-generator": r(12, 40, 104, 12) + r(12, 76, 104, 12),
+    "regex-tester": p("M77 16h12v30l24-14 6 11-26 15 26 15-6 11-24-14v30H77V70L53 84l-6-11 26-15-26-15 6-11 24 14V16Z"),
+    "qr-code-scanner": p("M8 8h36v12H20v24H8V8Zm112 0v36h-12V20H84V8h36ZM8 120V84h12v24h24v12H8Zm112 0H84v-12h24V84h12v36Z"),
+    "html-formatter": r(12, 16, 104, 16, 8),
+    "css-formatter": r(44, 40, 40, 8) + r(44, 60, 28, 8) + r(44, 80, 40, 8),
+    "javascript-formatter": r(28, 76, 72, 8),
+    "ip-subnet-calculator": c(64, 24, 16) + c(24, 100, 16) + c(104, 100, 16),
+    "image-upscaler": p("M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"),
+    "image-resizer": photo(12, 64, 64, 52),
+    "image-crop": r(28, 8, 12, 104)
+    + r(8, 28, 104, 12)
+    + r(88, 28, 12, 92)
+    + r(28, 88, 92, 12),
+    "fraction-calculator": r(12, 58, 104, 12),
+    "lcm-calculator": r(56, 88, 16, 12),
+    "percentage-calculator": p("M20 110 100 16l10 10-80 94-10-10Z"),
+    "bmi-calculator": r(16, 108, 96, 8),
+    "date-calculator": r(36, 8, 12, 24) + r(80, 8, 12, 24),
+    "dday-calculator": r(36, 8, 12, 24) + r(80, 8, 12, 24),
+    "age-calculator": r(36, 8, 12, 24) + r(80, 8, 12, 24),
+    "time-zone-converter": c(92, 64, 25),
+    "split-pdf": r(68, 12, 40, 104, 8),
+    "pdf-to-image": r(84, 28, 36, 72, 4) + right_arrow(52, 56),
+    "image-to-pdf": r(84, 28, 36, 72, 4) + right_arrow(52, 56),
+    "barcode-generator": r(28, 24, 16, 80) + r(68, 24, 8, 80) + r(108, 24, 8, 80),
+    "password-generator": r(64, 50, 52, 12) + r(88, 62, 12, 18) + r(104, 62, 12, 28),
+    "unit-converter": p("M120 100H48v12L24 88l24-24v12h72v24Z"),
+    "image-format-converter": r(48, 44, 68, 72, 8),
+}
+for conversion in (
+    "csv-to-markdown",
+    "markdown-to-csv",
+    "json-to-csv",
+    "csv-to-json",
+    "html-to-markdown",
+    "markdown-to-html",
+):
+    ACCENTS[conversion] = r(84, 28, 36, 72, 4) + right_arrow(52, 56)
+
 
 def write_icon(name, body, holes):
     if holes:
@@ -405,14 +467,15 @@ def write_icon(name, body, holes):
     else:
         mask = ""
         mask_attribute = ""
+    foreground = (
+        f'<g fill="{SUBJECT}">{body}</g>'
+        + (f'<g fill="{ACTION}">{ACCENTS[name]}</g>' if name in ACCENTS else "")
+    )
     source = (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" '
         'width="128" height="128">\n'
-        '  <defs><linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" '
-        'gradientUnits="userSpaceOnUse">'
-        '<stop stop-color="#BF96FA"/><stop offset="1" stop-color="#8673F3"/>'
-        f'</linearGradient>{mask}</defs>\n'
-        f'  <g fill="url(#tone)"{mask_attribute}>{body}</g>\n'
+        f'  <defs>{mask}</defs>\n'
+        f'  <g{mask_attribute}>{foreground}</g>\n'
         '</svg>\n'
     )
     (OUT / f"{name}.svg").write_text(source, encoding="utf-8")
