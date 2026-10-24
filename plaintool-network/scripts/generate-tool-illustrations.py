@@ -251,15 +251,17 @@ add(
 # Image operations keep a picture silhouette and change only the operation.
 add(
     "image-upscaler",
-    photo(12, 36, 84, 80)
-    + p("M76 8h40v40h-12V29L80 53l-9-9 24-24H76V8Z"),
-    photo_holes(12, 36),
+    photo(16, 40, 80, 76)
+    + p("M68 8h52v52h-14V32L80 58 70 48l26-26H68V8Z"),
+    photo_holes(16, 40),
 )
 add(
     "image-resizer",
-    photo(28, 28, 72, 72)
-    + p("M12 12h32v12H24v20H12V12Zm104 0v32h-12V24H84V12h32ZM12 116V84h12v20h20v12H12Zm104 0H84v-12h20V84h12v32Z"),
-    photo_holes(28, 28),
+    r(56, 12, 60, 60, 8)
+    + photo(12, 64, 64, 52),
+    p("M102 24l10 10-28 28h12v10H64V40h10v12l28-28Z")
+    + c(28, 80, 6)
+    + p("M20 108 38 88l14 14 8-8 12 14v8H20v-8Z"),
 )
 add(
     "image-crop",
@@ -384,10 +386,10 @@ add(
 )
 add(
     "image-format-converter",
-    p("M12 20h64v72H12V20Zm10 10v52h44V30H22Z", "evenodd")
-    + r(48, 40, 72, 72, 8)
-    + right_arrow(60, 60),
-    c(68, 60, 7) + p("M56 96 76 72l20 24v8H56v-8Z"),
+    p("M12 12h68v32H48v36H12V12Z")
+    + r(48, 44, 68, 72, 8),
+    r(24, 28, 36, 8)
+    + right_arrow(64, 72),
 )
 
 

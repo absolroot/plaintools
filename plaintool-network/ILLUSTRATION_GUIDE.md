@@ -1,6 +1,6 @@
 # AbsolTools tool illustration system
 
-The user-provided 33-image reference archive on 2026-10-24 defines this system. The source PNGs and their checksums are kept locally at `research/design/icon-shape-references-2026-10-24/`; they are excluded from Git and the public site. Their repeated features are a single purple material, simple filled geometry, square negative-space details, and a subtle vertical gradient. The reference artwork is not copied into shipped icons.
+The user-provided 35-image reference archive on 2026-10-24 defines this system. The source PNGs and their checksums are kept locally at `research/design/icon-shape-references-2026-10-24/`; they are excluded from Git and the public site. Their repeated features are a single purple material, simple filled geometry, square negative-space details, and a subtle vertical gradient. The reference artwork is not copied into shipped icons.
 
 ## Visual grammar
 
@@ -19,7 +19,7 @@ The [official iLoveIMG Korean directory](https://www.iloveimg.com/ko) was inspec
 
 ## Compact directory marks
 
-The 40 px directory slot displays an illustration at 32 px. At that size, prefer a single silhouette and one 8-unit or larger negative-space cue. Avoid thin strokes, font-dependent abbreviations, detailed document text, and small badges. The 49 image-format conversion routes can share one conversion pictogram because the card label states each source and target format; the remaining tools need a recognizable subject or action. The six featured illustrations remain larger and more specific.
+The 40 px directory slot displays an illustration at 32 px. At that size, prefer a single silhouette and one 8-unit or larger negative-space cue. Avoid thin strokes, font-dependent abbreviations, detailed document text, and small badges. The 49 image-format conversion routes share one pair of overlapping sheets with a visible directional arrow; the card label states each source and target format. Image resizing uses a large image moving toward a smaller one, while upscaling uses an outward arrow from an image. Those two operations must remain distinguishable at 32 px. The remaining tools need a recognizable subject or action. The six featured illustrations remain larger and more specific.
 
 Edit `scripts/generate-tool-illustrations.py` and run `python scripts/generate-tool-illustrations.py` to regenerate the compact assets. The script contains the hand specified geometry and shared gradient; the SVG files under `apps/web/public/illustrations/tools/` are its outputs. Update `tool-illustrations.test.ts` only when the route-to-asset contract changes.
 

@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <defs><linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#BF96FA"/><stop offset="1" stop-color="#8673F3"/></linearGradient><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><circle cx="68" cy="60" r="7"/><path d="M56 96 76 72l20 24v8H56v-8Z"/></g></mask></defs>
-  <g fill="url(#tone)" mask="url(#cut)"><path d="M12 20h64v72H12V20Zm10 10v52h44V30H22Z" fill-rule="evenodd"/><rect x="48" y="40" width="72" height="72" rx="8"/><path d="M60 60h14v-10l18 18-18 18V72H60V60Z"/></g>
+  <defs><linearGradient id="tone" x1="0" y1="8" x2="0" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#BF96FA"/><stop offset="1" stop-color="#8673F3"/></linearGradient><mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="128"><rect width="128" height="128" fill="#fff"/><g fill="#000"><rect x="24" y="28" width="36" height="8" rx="0"/><path d="M64 72h14v-10l18 18-18 18V72H64V72Z"/></g></mask></defs>
+  <g fill="url(#tone)" mask="url(#cut)"><path d="M12 12h68v32H48v36H12V12Z"/><rect x="48" y="44" width="68" height="72" rx="8"/></g>
 </svg>
