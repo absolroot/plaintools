@@ -110,11 +110,11 @@ def data_holes(kind, x, y):
             + r(x + 38, y + 38, 12, 12)
         )
     if kind == "md":
-        return label("M", x + 32, y + 49, 40)
+        return label("M", x + 32, y + 47, 40)
     if kind == "json":
-        return label("{}", x + 32, y + 48, 40)
+        return label("{}", x + 32, y + 43, 40)
     if kind == "html":
-        return label("&lt;&gt;", x + 32, y + 48, 36)
+        return label("&lt;&gt;", x + 32, y + 45, 36)
     raise ValueError(kind)
 
 
@@ -162,14 +162,14 @@ add(
 add(
     "url-encode",
     pair_body(),
-    label("URL", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 47, 28)
-    + label("%", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 44),
+    label("URL", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 43, 28)
+    + label("%", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 48, 44),
 )
 add(
     "url-decode",
     pair_body(),
-    label("%", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 49, 44)
-    + label("URL", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 47, 28),
+    label("%", PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 48, 44)
+    + label("URL", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 43, 28),
 )
 add(
     "hash-generator",
@@ -200,7 +200,7 @@ add(
     c(PAIR_LEFT[0] + 16, PAIR_LEFT[1] + 32, 6)
     + c(PAIR_LEFT[0] + 32, PAIR_LEFT[1] + 32, 6)
     + c(PAIR_LEFT[0] + 48, PAIR_LEFT[1] + 32, 6)
-    + label("{}", PAIR_RIGHT[0] + 32, PAIR_RIGHT[1] + 49, 40),
+    + data_holes("json", *PAIR_RIGHT),
 )
 
 # The scanner frame is large enough to read at 32 px; the central finder
@@ -232,7 +232,7 @@ for name, source, target in [
 add(
     "html-formatter",
     r(12, 16, 104, 96, 8),
-    p("M52 40 28 64l24 24h12L40 64l24-24H52Zm24 0 24 24-24 24H64l24-24-24-24h12Z"),
+    p("M52 48 28 72l24 24h12L40 72l24-24H52Zm24 0 24 24-24 24H64l24-24-24-24h12Z"),
 )
 add(
     "css-formatter",
@@ -257,9 +257,9 @@ add(
 add(
     "ip-subnet-calculator",
     r(58, 24, 12, 56)
-    + r(24, 74, 80, 12)
-    + r(18, 80, 12, 20)
-    + r(98, 80, 12, 20)
+    + r(18, 74, 92, 12)
+    + r(18, 74, 12, 26)
+    + r(98, 74, 12, 26)
     + c(64, 24, 16)
     + c(24, 100, 16)
     + c(104, 100, 16),

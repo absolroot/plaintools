@@ -20,6 +20,41 @@ def rectangles(icon_name: str) -> set[tuple[int, int, int, int]]:
 
 
 class ToolIllustrationGeometryTest(unittest.TestCase):
+    def test_text_cutouts_share_optically_centered_baselines(self):
+        expected = {
+            "jwt-decoder": [("{}", 88, 99)],
+            "json-to-csv": [("{}", 40, 51)],
+            "csv-to-json": [("{}", 88, 99)],
+            "csv-to-markdown": [("M", 88, 103)],
+            "markdown-to-csv": [("M", 40, 55)],
+            "html-to-markdown": [("<>", 40, 53), ("M", 88, 103)],
+            "markdown-to-html": [("M", 40, 55), ("<>", 88, 101)],
+        }
+        for icon, expected_labels in expected.items():
+            with self.subTest(icon=icon):
+                root = ElementTree.parse(ASSETS / f"{icon}.svg").getroot()
+                labels = [
+                    (node.text, int(node.attrib["x"]), int(node.attrib["y"]))
+                    for node in root.iter()
+                    if node.tag.endswith("text")
+                ]
+                self.assertEqual(labels, expected_labels)
+
+    def test_header_content_and_network_branches_use_their_available_space(self):
+        html_root = ElementTree.parse(ASSETS / "html-formatter.svg").getroot()
+        html_cutout = next(
+            node.attrib["d"]
+            for node in html_root.iter()
+            if node.tag.endswith("path")
+        )
+        self.assertTrue(html_cutout.startswith("M52 48 28 72"))
+        self.assertIn((12, 16, 104, 16), rectangles("html-formatter"))
+
+        subnet = rectangles("ip-subnet-calculator")
+        self.assertIn((18, 74, 92, 12), subnet)
+        self.assertIn((18, 74, 12, 26), subnet)
+        self.assertIn((98, 74, 12, 26), subnet)
+
     def test_resize_and_upscale_images_have_square_boundaries(self):
         self.assertIn((52, 12, 64, 64), rectangles("image-resizer"))
         self.assertIn((12, 60, 56, 56), rectangles("image-resizer"))
