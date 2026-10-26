@@ -1148,6 +1148,7 @@ html[dir="rtl"] .faq-list details[open] .faq-chevron {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: grayscale(1);
 }
 .directory-featured-copy {
   min-width: 0;
@@ -1346,6 +1347,7 @@ a.tool-directory-card:focus-visible {
   width: 40px;
   height: 40px;
   object-fit: contain;
+  filter: grayscale(1);
 }
 .tool-directory-card-heading h3 {
   min-width: 0;

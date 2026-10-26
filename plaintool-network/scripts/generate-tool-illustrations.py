@@ -102,16 +102,17 @@ def file_pair(source, target):
 
 def data_holes(kind, x, y):
     if kind == "csv":
+        # The four cells form a 36 × 36 group centered in the 64 × 64 tile.
         return (
-            r(x + 12, y + 12, 12, 12)
-            + r(x + 36, y + 12, 12, 12)
-            + r(x + 12, y + 36, 12, 12)
-            + r(x + 36, y + 36, 12, 12)
+            r(x + 14, y + 14, 12, 12)
+            + r(x + 38, y + 14, 12, 12)
+            + r(x + 14, y + 38, 12, 12)
+            + r(x + 38, y + 38, 12, 12)
         )
     if kind == "md":
         return label("M", x + 32, y + 49, 40)
     if kind == "json":
-        return label("{}", x + 32, y + 49, 40)
+        return label("{}", x + 32, y + 48, 40)
     if kind == "html":
         return label("&lt;&gt;", x + 32, y + 48, 36)
     raise ValueError(kind)
@@ -255,8 +256,10 @@ add(
 )
 add(
     "ip-subnet-calculator",
-    r(58, 28, 12, 52)
+    r(58, 24, 12, 56)
     + r(24, 74, 80, 12)
+    + r(18, 80, 12, 20)
+    + r(98, 80, 12, 20)
     + c(64, 24, 16)
     + c(24, 100, 16)
     + c(104, 100, 16),
@@ -299,7 +302,7 @@ add(
     c(64, 24, 16)
     + c(28, 100, 16)
     + c(100, 100, 16)
-    + p("M58 36h12v20L36 88l-9-9 31-28V36Zm12 15 31 28-9 9-28-32 6-5Z"),
+    + p("M58 24h12v30L28 104l-9-9 39-44V24Zm12 27 39 44-9 9-38-46 8-7Z"),
     c(64, 24, 5) + c(28, 100, 5) + c(100, 100, 5),
 )
 add(
@@ -444,7 +447,7 @@ ACCENTS = {
     "password-generator": r(64, 50, 52, 12) + r(88, 62, 12, 18) + r(104, 62, 12, 28),
     "unit-converter": p("M120 100H48v12L24 88l24-24v12h72v24Z"),
     "image-format-converter": r(*PAIR_RIGHT, PAIR_SIZE, PAIR_SIZE, 6)
-    + p("M20 28l8-8 24 24V32h12v32H32V52h12L20 28Z"),
+    + p("M16 20l8-8 20 20V24h8v28H24v-8h8L16 20Z"),
 }
 for conversion in (
     "csv-to-markdown",

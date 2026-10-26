@@ -83,6 +83,29 @@ class ToolIllustrationGeometryTest(unittest.TestCase):
                 self.assertTrue(any(path.startswith(arrow_start) for path in arrows))
                 self.assertEqual(rectangles(icon), set())
 
+    def test_data_conversion_cutouts_are_centered_in_each_square(self):
+        for icon, csv_origin, json_origin in (
+            ("json-to-csv", (56, 56), (8, 8)),
+            ("csv-to-json", (8, 8), (56, 56)),
+        ):
+            with self.subTest(icon=icon):
+                root = ElementTree.parse(ASSETS / f"{icon}.svg").getroot()
+                cells = [
+                    node for node in root.iter()
+                    if node.tag.endswith("rect")
+                    and node.attrib.get("width") == "12"
+                    and node.attrib.get("height") == "12"
+                ]
+                self.assertEqual(len(cells), 4)
+                xs = [int(node.attrib["x"]) for node in cells]
+                ys = [int(node.attrib["y"]) for node in cells]
+                self.assertEqual((min(xs) + max(xs) + 12) / 2, csv_origin[0] + 32)
+                self.assertEqual((min(ys) + max(ys) + 12) / 2, csv_origin[1] + 32)
+                braces = [node for node in root.iter() if node.tag.endswith("text")]
+                self.assertEqual(len(braces), 1)
+                self.assertEqual(braces[0].text, "{}")
+                self.assertEqual(int(braces[0].attrib["x"]), json_origin[0] + 32)
+
 
 if __name__ == "__main__":
     unittest.main()
